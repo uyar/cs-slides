@@ -2,6 +2,12 @@ all: slides.pdf
 handout: slides.handout.pdf
 print: slides.print.pdf
 
+images:
+	for f in *.svg; do b=$${f%.svg}; make $$b.eps; done || true
+
+%.eps: %.svg
+	inkscape --export-eps=$@ --export-text-to-path $< && epstopdf $@
+
 %.pdf: %.tex
 	make images
 	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then pdflatex $<; fi
@@ -20,15 +26,6 @@ print: slides.print.pdf
 %.print.pdf: %.handout.pdf
 	pdfnup --nup 2x3 --frame true --paper a4paper --scale 0.91 \
 		--offset "0.1cm 0.1cm" --delta "0.3cm 0.3cm" --outfile $@ $<
-
-images:
-	for f in *.svg; do b=$${f%.svg}; make $$b.pdf; done || true
-
-%.pdf: %.eps
-	epstopdf $<
-
-%.eps: %.svg
-	inkscape --export-eps=$@ --export-text-to-path $<
 
 zip: slides.pdf slides.print.pdf
 	rm -f slides.zip
