@@ -1,0 +1,2124 @@
+% Copyright (c) 2001-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Ayrık Matematik}
+\subtitle{Bağıntılar ve Fonksiyonlar}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2010}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+\newtheorem{teorem}[theorem]{Teorem}
+
+\pgfdeclareimage{baginti}{baginti}
+\pgfdeclareimage{bileske1}{bileske1}
+\pgfdeclareimage{bileske2}{bileske2}
+\pgfdeclareimage{uyusma1}{uyusma1}
+\pgfdeclareimage{uyusma2}{uyusma2}
+\pgfdeclareimage{uyusma3}{uyusma3}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Bağıntılar}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Bağıntı}
+
+  \begin{tanim}
+    \alert{bağıntı}: $\alpha \subseteq A \times B \times C \dots \times N$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item bağıntının her bir elemanı bir \alert{çoklu}
+
+    \pause
+    \medskip
+    \item iki küme üzerindeyse: \emph{ikili bağıntı}\\
+      $\alpha \subseteq A \times B$
+
+    \pause
+    \medskip
+    \item gösterilim:
+    \begin{itemize}
+      \item çizerek
+      \item matrisle
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağıntı Örneği}
+
+  \begin{ornek}
+    $A=\{a_1,a_2,a_3,a_4\}, B=\{b_1,b_2,b_3\}$\\
+    $\alpha = \{(a_1,b_1),(a_1,b_3),(a_2,b_2),(a_2,b_3),
+                (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
+
+    \pause
+    \medskip
+    \begin{columns}
+      \column{.3\textwidth}
+      \begin{center}
+        \pgfuseimage{baginti}
+      \end{center}
+
+      \column{.3\textwidth}
+      \[ \begin{array}{c|ccc|}
+              & b_1 & b_2 & b_3\\\hline
+          a_1 &  1  &  0  &  1\\
+          a_2 &  0  &  1  &  1\\
+          a_3 &  1  &  0  &  1\\
+          a_4 &  1  &  0  &  0\\\hline
+        \end{array} \]
+
+      \column{.3\textwidth}
+      \[ M_\alpha =
+        \begin{array}{|ccc|}
+          1 & 0 & 1\\
+          0 & 1 & 1\\
+          1 & 0 & 1\\
+          1 & 0 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağıntı Bileşkesi}
+
+  \begin{tanim}
+    \alert{bağıntı bileşkesi}:\\
+      $\alpha \subseteq A \times B \wedge \beta \subseteq B \times C$\\
+      $\Rightarrow \alpha \beta = \{(a,c) | a \in A, c \in C,
+                \exists b \in B [a \alpha b \wedge b \beta c)]\}$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağıntı Bileşkesi Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{bileske1}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{bileske2}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Matrisi Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.28\textwidth}
+      \[ M_\alpha =
+         \begin{array}{|ccc|}
+           1 & 0 & 0\\
+           0 & 0 & 1\\
+           0 & 1 & 1\\
+           0 & 1 & 0\\
+           1 & 0 & 1
+         \end{array}
+      \]
+
+      \column{.28\textwidth}
+      \[ M_\beta =
+         \begin{array}{|cccc|}
+           1 & 1 & 0 & 0\\
+           0 & 0 & 1 & 1\\
+           0 & 1 & 1 & 0
+         \end{array}
+      \]
+
+      \column{.37\textwidth}
+      \[ M_{\alpha \beta} =
+         \begin{array}{|cccc|}
+           1 & 1 & 0 & 0\\
+           0 & 1 & 1 & 0\\
+           0 & 1 & 1 & 1\\
+           0 & 0 & 1 & 1\\
+           1 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Birleşme Özelliği}
+
+  \begin{teorem}
+      $(\alpha \beta) \gamma = \alpha (\beta \gamma) = \alpha \beta \gamma$
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Birleşme Özelliği}
+
+  \begin{proof}[Tanıt]
+    \begin{eqnarray*}
+      &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
+      & \Leftrightarrow & \exists c [(a,c) \in \alpha \beta
+                              \wedge (c,d) \in \gamma]\\\pause
+      & \Leftrightarrow & \exists c [\exists b [(a,b) \in \alpha
+                                         \wedge (b,c) \in \beta]
+                                         \wedge (c,d) \in \gamma]\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge \exists c [(b,c) \in \beta
+                              \wedge (c,d) \in \gamma]]\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge (b,d) \in \beta \gamma]\\\pause
+      & \Leftrightarrow & (a,d) \in \alpha (\beta \gamma)
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Özellikleri}
+
+  \begin{itemize}
+    \item $\alpha , \delta \subseteq A \times B \wedge
+           \beta , \gamma \subseteq B \times C$
+
+    \begin{itemize}
+      \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
+
+      \pause
+      \item $\alpha (\beta \cap \gamma)
+        \subseteq \alpha \beta \cap \alpha \gamma$
+
+      \pause
+      \item $(\alpha \cup \delta) \beta = \alpha \beta \cup \delta \beta$
+
+      \pause
+      \item $(\alpha \cap \delta) \beta
+        \subseteq \alpha \beta \cap \delta \beta$
+
+      \pause
+      \item $(\alpha \subseteq \delta \wedge \beta \subseteq \gamma)
+        \Rightarrow \alpha \beta \subseteq \delta \gamma$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Özellikleri}
+
+  \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in \alpha (\beta \cup \gamma)\\\pause
+      & \Leftrightarrow & \exists z [(x,z) \in \alpha
+                              \wedge (z,y) \in (\beta \cup \gamma)]\\\pause
+      & \Leftrightarrow & \exists z [(x,z) \in \alpha
+                             \wedge ((z,y) \in \beta
+                                \vee (z,y) \in \gamma)]\\\pause
+      & \Leftrightarrow & \exists z [((x,z) \in \alpha \wedge (z,y) \in \beta)\\
+      &                 &     ~~\vee ((x,z) \in \alpha \wedge (z,y) \in \gamma)]\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha \beta \vee (x,y) \in \alpha \gamma\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha \beta \cup \alpha \gamma
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntı}
+
+  \begin{tanim}
+    $\alpha^{-1}: \{(y,x) | (x,y) \in \alpha \}$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $M_{\alpha^{-1}} = M_{\alpha}^T$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntının Özellikleri}
+
+  \begin{itemize}
+    \item $(\alpha^{-1})^{-1} = \alpha$
+
+    \pause
+    \item $(\alpha \cup \beta)^{-1} = \alpha^{-1} \cup \beta^{-1}$
+
+    \pause
+    \item $(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$
+
+    \pause
+    \item $\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$
+
+    \pause
+    \item $(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$
+
+    \pause
+    \item $\alpha \subset \beta \Rightarrow \alpha^{-1} \subset \beta^{-1}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntı Teoremleri}
+
+  \begin{proof}[$\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in \overline{\alpha}^{-1}\\\pause
+      & \Leftrightarrow & (y,x) \in \overline{\alpha}\\\pause
+      & \Leftrightarrow & (y,x) \notin \alpha\\\pause
+      & \Leftrightarrow & (x,y) \notin \alpha^{-1}\\\pause
+      & \Leftrightarrow & (x,y) \in \overline{\alpha^{-1}}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntı Teoremleri}
+
+  \begin{proof}[$(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in (\alpha \cap \beta)^{-1}\\\pause
+      & \Leftrightarrow & (y,x) \in (\alpha \cap \beta)\\\pause
+      & \Leftrightarrow & (y,x) \in \alpha \wedge (y,x) \in \beta\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha^{-1}
+                   \wedge (x,y) \in \beta^{-1}\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha^{-1} \cap \beta^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntı Teoremleri}
+
+  \begin{proof}[$(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$]
+    \begin{eqnarray*}
+      (\alpha - \beta)^{-1} & = & (\alpha \cap \overline{\beta})^{-1}\\\pause
+                            & = & \alpha^{-1} \cap \overline{\beta}^{-1}\\\pause
+                            & = & \alpha^{-1} \cap \overline{\beta^{-1}}\\\pause
+                            & = & \alpha^{-1} - \beta^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Evriği}
+
+  \begin{teorem}
+    $(\alpha \beta)^{-1} = \beta^{-1} \alpha^{-1}$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{eqnarray*}
+      &                 & (c,a) \in (\alpha \beta)^{-1}\\\pause
+      & \Leftrightarrow & (a,c) \in \alpha \beta\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge (b,c) \in \beta]\\\pause
+      & \Leftrightarrow & \exists b [(c,b) \in \beta^{-1}
+                              \wedge (b,a) \in \alpha^{-1}]\\\pause
+      & \Leftrightarrow & (c,a) \in \beta^{-1}\alpha^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Evriğinin Matrisi}
+
+  \begin{itemize}
+    \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
+    \item $M_{\alpha \beta}^{T} = M_{\beta}^{T} \times M_{\alpha}^{T}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bileşke Evriğinin Matrisi Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.27\textwidth}
+      \[ M_\alpha =
+        \begin{array}{|ccc|}
+          1 & 0 & 0\\
+          0 & 0 & 1\\
+          0 & 1 & 1\\
+          0 & 1 & 0\\
+          1 & 0 & 1
+        \end{array}
+      \]
+
+      \column{.27\textwidth}
+      \[ M_\beta =
+        \begin{array}{|cccc|}
+          1 & 1 & 0 & 0\\
+          0 & 0 & 1 & 1\\
+          0 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+
+    \[ M_{\alpha \beta^{-1}} =
+      \begin{array}{|ccccc|}
+        1 & 0 & 0 & 0 & 1\\
+        1 & 1 & 1 & 0 & 1\\
+        0 & 1 & 1 & 1 & 1\\
+        0 & 0 & 1 & 1 & 0
+      \end{array}
+    \]
+  \end{ornek}
+\end{frame}
+
+\subsection{Küme İçi Bağıntılar}
+
+\begin{frame}
+  \frametitle{Kümeiçi Bağıntı}
+
+  \begin{itemize}
+    \item $\alpha \subseteq A \times A$
+
+    \pause
+    \medskip
+    \item \emph{birim bağıntı} $E = \{(x,x) | x \in A\}$
+
+    \pause
+    \medskip
+    \item bileşke: $\alpha \alpha = \alpha^2$
+    \begin{itemize}
+      \item $\alpha \alpha \dots \alpha = \alpha^n$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kümeiçi Bağıntı Özellikleri}
+
+  \begin{itemize}
+    \item yansıma
+    \item bakışlılık
+    \item geçişlilik
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yansıma}
+
+  \begin{block}{yansımalı}
+    $\alpha \subseteq A \times A$\\
+    $\forall a~[a \alpha a]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $E \subseteq \alpha$
+%     \item bağıntı matrisinde ana köşegen bütünüyle 1
+    \item yansımasız:\\
+      $\exists a~[\neg (a \alpha a)]$
+
+    \pause
+    \item ters yansımalı:\\
+      $\forall a~[\neg (a \alpha a)]$
+  \end{itemize}
+\end{frame}
+%
+% \begin{frame}
+%   \frametitle{Yansımasızlık}
+%
+%   \begin{itemize}
+%     \item $\exists a \in A~[\neg (a \alpha a)]$
+%
+%     \pause
+%     \medskip
+%     \item $\neg (E \subseteq \alpha)$
+%     \item bağıntı matrisinde ana köşegende en az bir tane 0
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Ters Yansıma}
+%
+%   \begin{itemize}
+%     \item $\forall a \in A~[\neg (a \alpha a)]$
+%
+%     \pause
+%     \medskip
+%     \item $E \subseteq \overline{\alpha}$
+%     \item bağıntı matrisinde ana köşegen bütünüyle 0
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Yansıma Örnekleri}
+
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{ornek}
+      $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
+      $\mathcal{R}_1 = \{(1,1), (2,2)\}$
+
+      \medskip
+      \begin{itemize}
+        \item $\mathcal{R}_1$ yansımalı
+      \end{itemize}
+    \end{ornek}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{ornek}
+      $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+      $\mathcal{R}_2 = \{(1,1), (2,2)\}$
+
+      \medskip
+      \begin{itemize}
+        \item $\mathcal{R}_2$ yansımasız
+      \end{itemize}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yansıma Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ ters yansımalı
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yansıma Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ yansımalı
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bakışlılık}
+
+  \begin{block}{bakışlı}
+    $\alpha \subseteq A \times A$\\
+    $\forall a,b [(a=b) \vee (a \alpha b \wedge b \alpha a)
+                        \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
+
+    \pause
+    \medskip
+    $\forall a,b [(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $\alpha = \alpha^{-1}$
+%     \item bağıntı matrisi ana köşegene göre simetrik:
+%       $M_{\alpha} = M_{\alpha}^T$
+
+    \item bakışsız:\\
+      $\exists a,b [(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
+                               \vee (\neg (a \alpha b) \wedge b \alpha a))]$
+
+    \pause
+    \item ters bakışlı:
+    \begin{eqnarray*}
+                      & \forall a,b~
+                    [(a=b) \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
+      \Leftrightarrow & \forall a,b~
+                    [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
+      \Leftrightarrow & \forall a,b~
+                    [(a \alpha b \wedge b \alpha a) \rightarrow (a=b)]
+    \end{eqnarray*}
+  \end{itemize}
+\end{frame}
+%
+% \begin{frame}
+%   \frametitle{Bakışsızlık}
+%
+%   \begin{itemize}
+%     \item $\exists a,b \in A$\\
+%       $[a \neq b \wedge ((a \alpha b \wedge \neg(b \alpha a))
+%                     \vee (\neg(a \alpha b) \wedge b \alpha a))]$
+%
+%     \pause
+%     \medskip
+%     \item $\exists a,b \in A$\\
+%       $[a \neq b \wedge ((a \alpha b \vee b \alpha a)
+%                  \wedge (\neg(a \alpha b) \vee \neg(b \alpha a)))]$
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Ters Bakışlılık}
+%
+%   \begin{eqnarray*}
+%                     & \forall a,b \in A~
+%                   [a = b \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
+%     \Leftrightarrow & \forall a,b \in A~
+%                   [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
+%     \Leftrightarrow & \forall a,b \in A~
+%                   [(a \alpha b \wedge b \alpha a) \Rightarrow (a=b)]
+%   \end{eqnarray*}
+%
+%   \pause
+%   \medskip
+%   \begin{itemize}
+%     \item  $\alpha \alpha^{-1} \subseteq E$
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Bakışlılık Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ bakışsız
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bakışlılık Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ bakışlı
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bakışlılık Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,1), (2,2)\}$
+
+    \begin{itemize}
+      \item $\mathcal{R}$ bakışlı ve ters bakışlı
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Geçişlilik}
+
+  \begin{block}{geçişli}
+    $\alpha \subseteq A \times A$\\
+    $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow (a \alpha c)]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $\alpha^2 \subseteq \alpha$
+    \item geçişsiz:\\
+      $\exists a,b,c~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
+
+    \pause
+    \item ters geçişli:\\
+      $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
+  \end{itemize}
+\end{frame}
+%
+% \begin{frame}
+%   \frametitle{Geçişsizlik}
+%
+%   \begin{itemize}
+%      \item $\exists a,b,c \in A$\\
+%       $a \alpha b \wedge b \alpha c \wedge \neg(a \alpha c)$
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Ters Geçişlilik}
+%
+%   \begin{itemize}
+%      \item $\forall a,b,c \in A$\\
+%       $(a \alpha b \wedge b \alpha c) \Rightarrow \neg(a \alpha c)$
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Geçişlilik Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ ters geçişli
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Geçişlilik Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ geçişsiz
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Bağıntı}
+
+  \begin{teorem}
+    Yansıma, bakışlılık ve geçişlilik özellikleri evrik bağıntıda korunur.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örtüler}
+
+  \begin{itemize}
+    \item yansımalı örtü:\\
+      $r_{\alpha} = \alpha \cup E$
+
+    \pause
+    \medskip
+    \item bakışlı örtü:\\
+      $s_{\alpha} = \alpha \cup \alpha^{-1}$
+
+    \pause
+    \medskip
+    \item geçişli örtü:\\
+      $t_{\alpha} = \bigcup_{i=1 \dots n}~\alpha^i
+        = \alpha \cup \alpha^2 \cup \alpha^3 \cup \cdots \cup \alpha^n$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{önce gelen - sonra gelen}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a-b=1$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ ters yansımalı
+      \item $\mathcal{R}$ ters bakışlı
+      \item $\mathcal{R}$ ters geçişli
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{bitişiklik}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a-b|=1$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ ters yansımalı
+      \item $\mathcal{R}$ bakışlı
+      \item $\mathcal{R}$ ters geçişli
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{dar sıra}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a<b$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ ters yansımalı
+      \item $\mathcal{R}$ ters bakışlı
+      \item $\mathcal{R}$ geçişli
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{kısmi sıra}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a \leq b$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ yansımalı
+      \item $\mathcal{R}$ ters bakışlı
+      \item $\mathcal{R}$ geçişli
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{önsıra}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a| \leq |b|$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ yansımalı
+      \item $\mathcal{R}$ bakışsız
+      \item $\mathcal{R}$ geçişli
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{sınırlı fark}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a-b| \leq m$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ yansımalı
+      \item $\mathcal{R}$ bakışlı
+      \item $\mathcal{R}$ geçişsiz
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{karşılaştırılabilirlik}
+    $\mathcal{R} \subseteq \mathbb{U} \times \mathbb{U}$\\
+    $(a,b) \in \mathcal{R} \equiv (a \subseteq b) \vee (b \subseteq a)$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ yansımalı
+      \item $\mathcal{R}$ bakışlı
+      \item $\mathcal{R}$ geçişsiz
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Bağıntılar}
+
+  \begin{block}{kardeşlik}
+    \begin{itemize}
+      \item ters yansımalı
+      \item bakışlı
+      \item geçişli
+    \end{itemize}
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item bir bağıntı bakışlı, geçişli ve ters yansımalı olabilir mi?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Eşdeğerlilik}
+
+\begin{frame}
+  \frametitle{Uyuşma}
+
+  \begin{tanim}
+    \alert{uyuşma bağıntısı}: $\gamma$
+    \begin{itemize}
+      \item yansımalı
+      \item bakışlı
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item çizerek gösterilim yönsüz
+    \item matris gösterilimi merdiven şeklinde
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item $\alpha \alpha^{-1}$ bir uyuşma bağıntısıdır
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uyuşma Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{eqnarray*}
+        A           & = & \{a_1,a_2,a_3,a_4\}\\
+        \mathcal{R} & = & \{\\
+                    &   & (a_1,a_1),(a_2,a_2),\\
+                    &   & (a_3,a_3),(a_4,a_4),\\
+                    &   & (a_1,a_2),(a_2,a_1),\\
+                    &   & (a_2,a_4),(a_4,a_2),\\
+                    &   & (a_3,a_4),(a_4,a_3)\\
+                    &   & \}
+      \end{eqnarray*}
+
+      \column{.2\textwidth}
+      \begin{center}
+        \pgfuseimage{uyusma1}
+
+        \bigskip
+        \pgfuseimage{uyusma2}
+      \end{center}
+
+      \pause
+      \column{.3\textwidth}
+      \begin{center}
+        \[ \begin{array}{|cccc|}
+            1  &  1  &  0  &  0\\
+            1  &  1  &  0  &  1\\
+            0  &  0  &  1  &  1\\
+            0  &  1  &  1  &  1
+          \end{array} \]
+
+        \[ \begin{array}{|ccc|}
+            1  &     & \\
+            0  &  0  & \\
+            0  &  1  &  1
+          \end{array} \]
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uyuşma Örnekleri}
+
+  \begin{ornek}[$\alpha \alpha^{-1}$]
+    $A$: kişiler, $B$: diller
+
+    \medskip
+    $A=\{a_1,a_2,a_3,a_4,a_5,a_6\}$\\
+    $B=\{b_1,b_2,b_3,b_4,b_5\}$\\
+    $\alpha \subseteq A \times B$
+
+    \pause
+    \begin{columns}
+      \column{.45\textwidth}
+      \[ M_\alpha = \begin{array}{|ccccc|}
+          1  &  1  &  0  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0\\
+          0  &  0  &  1  &  0  &  1\\
+          1  &  0  &  1  &  1  &  0\\
+          0  &  0  &  0  &  1  &  0\\
+          0  &  1  &  1  &  0  &  0
+        \end{array} \]
+
+      \column{.45\textwidth}
+      \[ M_{\alpha^{-1}} = \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          0  &  0  &  1  &  0  &  0  &  0
+        \end{array} \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uyuşma Örnekleri}
+
+  \begin{ornek}[$\alpha \alpha^{-1}$]
+    $\alpha \alpha^{-1} \subseteq A \times A$
+
+    \begin{columns}
+      \column{.45\textwidth}
+      \[ M_{\alpha \alpha^{-1}}= \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  1\\
+          1  &  1  &  0  &  1  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          1  &  1  &  1  &  1  &  1  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          1  &  1  &  1  &  1  &  0  &  1
+        \end{array} \]
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{uyusma3}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uyuşanlar Sınıfı}
+
+  \begin{tanim}
+    \alert{uyuşanlar sınıfı}: $C \subseteq A$\\
+      $\forall a,b~[a \in C \wedge b \in C \rightarrow a \gamma b]$
+  \end{tanim}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item \emph{en üst uyuşanlar sınıfı}:\\
+      başka bir uyuşanlar sınıfının altkümesi değil
+
+    \pause
+    \item bir eleman birden fazla EÜS'ye girebilir
+
+    \pause
+    \medskip
+    \item \alert{eksiksiz örtü}: $C_\gamma$\\
+      tüm EÜS'lerin oluşturduğu küme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uyuşanlar Sınıfı Örnekleri}
+
+  \begin{ornek}[$\alpha \alpha^{-1}$]
+    \begin{columns}
+      \column{.3\textwidth}
+      \begin{center}
+        \pgfuseimage{uyusma3}
+      \end{center}
+
+      \pause
+      \column{.65\textwidth}
+      \begin{itemize}
+        \item $C_1=\{a_4,a_6\}$
+        \item $C_2=\{a_2,a_4,a_6\}$
+        \item $C_3=\{a_1,a_2,a_4,a_6\}$ (EÜS)
+      \end{itemize}
+
+      \pause
+      \medskip
+      \begin{eqnarray*}
+        C_\gamma (A) & = & \{\\
+                      &   & \{a_1,a_2,a_4,a_6\},\\
+                      &   & \{a_3,a_4,a_6\},\\
+                      &   & \{a_4,a_5\}\\
+                      &   & \}
+      \end{eqnarray*}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eşdeğerlilik}
+
+  \begin{tanim}
+    \alert{eşdeğerlilik bağıntısı}: $\epsilon$
+    \begin{itemize}
+      \item yansımalı
+      \item bakışlı
+      \item geçişli
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item eşdeğerlilik sınıfları
+    \item her eleman tek bir eşdeğerlilik sınıfına girer
+
+    \pause
+    \medskip
+    \item eksiksiz örtü: $C_\epsilon$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bölmeleme}
+
+  \begin{itemize}
+    \item her eşdeğerlilik bağıntısı tanımlandığı kümeyi\\
+      ayrık eşdeğerlilik sınıflarına \emph{bölmeler}
+
+    \pause
+    \medskip
+    \item her \emph{bölmeleme} bir eşdeğerlilik bağıntısına karşı düşer
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eşdeğerlilik Örnekleri}
+
+  \begin{ornek}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv 5~|~|a - b|$
+
+    \pause
+    \bigskip
+    $x~mod~5$ işlemi $\mathbb{Z}$ kümesini yukarıdaki bağıntıya göre\\
+    5~eşdeğerlilik sınıfına bölmeler
+  \end{ornek}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.1. \alert{Cartesian Products and Relations}
+      \end{itemize}
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.1. \alert{Relations Revisited: Properties of Relations}
+        \item 7.4. \alert{Equivalence Relations and Partitions}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Yardımcı Kitap: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 10: Relations
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Fonksiyonlar}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Fonksiyon}
+
+  \begin{tanim}
+    \alert{fonksiyon}: $f: X \rightarrow Y$\\
+    $\forall x \in X~\forall y_1,y_2 \in Y~
+      (x,y_1),(x,y_2) \in f \Rightarrow y_1=y_2$
+  \end{tanim}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $X$: \emph{tanım kümesi}, $Y$: \emph{değer kümesi}
+
+    \pause
+    \medskip
+    \item $(x,y) \in f \equiv y = f(x)$
+    \item $y$, $x$'in $f$ altındaki \emph{görüntüsü}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altküme Görüntüsü}
+
+  \begin{tanim}
+    \alert{altküme görüntüsü}:\\
+    $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
+    $f(X_1) = \{ y | y \in Y, x \in X_1 \wedge y = f(x) \}$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altküme Görüntüsü Örnekleri}
+
+  \begin{ornek}
+    $\begin{array}{l}
+      f: \mathbb{R} \rightarrow \mathbb{R}\\
+      f(x) = x^2
+    \end{array}$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
+
+      \pause
+      \medskip
+      \item $A = \{-2,1\}$\\
+        $f(A) = \{1,4\}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Birebir Fonksiyon}
+
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{birebir}:\\
+      $\forall x_1,x_2 \in X~f(x_1)=f(x_2) \Rightarrow x_1=x_2$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Birebir Fonksiyon Örnekleri}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{ornek}
+      $\begin{array}{l}
+        f: \mathbb{R} \rightarrow \mathbb{R}\\
+        f(x) = 3x + 7
+      \end{array}$
+
+      \pause
+      \bigskip
+      $\begin{array}{llll}
+                    & f(x_1)    & = & f(x_2)\pause\\
+        \Rightarrow & 3 x_1 + 7 & = & 3 x_2 + 7\pause\\
+        \Rightarrow & 3 x_1     & = & 3 x_2\pause\\
+        \Rightarrow & x_1       & = & x_2
+      \end{array}$
+    \end{ornek}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Karşı Örnek}
+      $\begin{array}{l}
+        g: \mathbb{Z} \rightarrow \mathbb{Z}\\
+        g(x) = x^4 - x
+      \end{array}$
+
+      \pause
+      \bigskip
+      $\begin{array}{lllll}
+        g(0) & = & 0^4 - 0 & = & 0\pause\\
+        g(1) & = & 1^4 - 1 & = & 0
+      \end{array}$
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örten Fonksiyon}
+
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{örten}:\\
+    $\forall y \in Y~\exists x \in X~f(x)=y$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $f(X)=Y$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örten Fonksiyon Örnekleri}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{ornek}
+      $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+      $f(x) = x^3$
+    \end{ornek}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Karşı Örnek}
+      $f: \mathbb{Z} \rightarrow \mathbb{Z}$\\
+      $f(x) = 3x + 1$
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bijektif Fonksiyon}
+
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{bijektif}:\\
+    $f$ fonksiyonu birebir ve örten
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altküme Görüntüsü Özellikleri}
+
+  \begin{itemize}
+    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$:
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
+      \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
+
+      \pause
+      \medskip
+      \item $f$ birebir ise:\\
+        $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonksiyon Bileşkesi}
+
+  \begin{tanim}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$
+
+    \medskip
+    $g \circ f: X \rightarrow Z$\\
+    $(g \circ f)(x) = g(f(x))$
+  \end{tanim}
+
+  \begin{itemize}
+    \item değişme özelliği göstermez
+    \item birleşme özelliği gösterir:\\
+      $f \circ (g \circ h) = (f \circ g) \circ h$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonksiyon Bileşkesi Örnekleri}
+
+  \begin{ornek}[değişme özelliği]
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = x^2$
+
+    \medskip
+    $g: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $g(x) = x + 5$
+
+    \pause
+    \bigskip
+    $g \circ f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $(g \circ f)(x) = x^2 + 5$
+
+    \pause
+    \medskip
+    $f \circ g: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $(f \circ g)(x) = (x + 5)^2$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonksiyon Bileşkesi Teoremleri}
+
+  \begin{teorem}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
+    $f$ birebir $\wedge$ $g$ birebir $\Rightarrow$ $g \circ f$ birebir
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \[\begin{array}{crcl}
+                & (g \circ f) (a_1) & = & (g \circ f) (a_2)\\\pause
+    \Rightarrow & g(f(a_1))         & = & g(f(a_2))\\\pause
+    \Rightarrow & f(a_1)            & = & f(a_2)\\\pause
+    \Rightarrow & a_1               & = & a_2
+    \end{array}\]
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonksiyon Bileşkesi Teoremleri}
+
+  \begin{teorem}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
+    $f$ örten $\wedge$ $g$ örten $\Rightarrow$ $g \circ f$ örten
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $\forall z \in Z~\exists y \in Y~g(y) = z$\\\pause
+    $\forall y \in Y~\exists x \in X~f(x) = y$\\\pause
+      $\Rightarrow \forall z \in Z~\exists x \in X~g(f(x)) = z$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Birim Fonksiyon}
+
+  \begin{tanim}
+    \alert{birim fonksiyon}: $1_X$
+
+    \medskip
+    $1_X: X \rightarrow X$\\
+    $1_X(x) = x$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik Fonksiyon}
+
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{evrilebilir}:\\
+      $\exists f^{-1}: Y \rightarrow X~f^{-1} \circ f = 1_X \wedge f \circ f^{-1} = 1_Y$
+
+    \begin{itemize}
+      \item $f^{-1}$: f fonksiyonunun \alert{evriği}
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrilebilir Fonksiyon Örnekleri}
+
+  \begin{ornek}
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = 2x + 5$
+
+    \pause
+    \bigskip
+    $f^{-1}: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f^{-1}(x) = \frac{x - 5}{2}$
+
+    \pause
+    \bigskip
+    $(f^{-1} \circ f)(x) = f^{-1}(f(x))$
+    \pause
+    $ = f^{-1}(2x + 5)$
+    \pause
+    $ = \frac{(2x + 5) - 5}{2}$
+    \pause
+    $ = \frac{2x}{2} = x$
+    \medskip
+
+    \pause
+    $(f \circ f^{-1})(x) = f(f^{-1}(x))$
+    \pause
+    $ = f(\frac{x - 5}{2})$
+    \pause
+    $ = 2 \frac{x - 5}{2} + 5$
+    \pause
+    $ = (x - 5) + 5 = x$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fonksiyon Evriği}
+
+  \begin{teorem}
+    Bir fonksiyon evrilebilirse evriği tektir.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $f: X \rightarrow Y$
+
+    \pause
+    \medskip
+    $g,h: Y \rightarrow X$\\
+    $g \circ f = 1_X \wedge f \circ g = 1_Y$\\
+    $h \circ f = 1_X \wedge f \circ h = 1_Y$
+
+    \pause
+    \medskip
+    $h = h \circ 1_Y$
+    \pause
+    $ = h \circ (f \circ g)$
+    \pause
+    $ = (h \circ f) \circ g$
+    \pause
+    $ = 1_X \circ g$
+    \pause
+    $ = g$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrilebilir Fonksiyon}
+
+  \begin{teorem}
+    Bir fonksiyon yalnız ve ancak birebir ve örten ise evrilebilir.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrilebilir Fonksiyon}
+
+  \begin{columns}[t]
+    \column{.6\textwidth}
+    \begin{proof}[Evrilebilir ise birebirdir]
+      $f: A \rightarrow B$
+      \begin{eqnarray*}
+        &             & f(a_1) = f(a_2)\\\pause
+        & \Rightarrow & f^{-1}(f(a_1)) = f^{-1}(f(a_2))\\\pause
+        & \Rightarrow & (f^{-1} \circ f) (a_1) = (f^{-1} \circ f) (a_2)\\\pause
+        & \Rightarrow & 1_A (a_1) = 1_A (a_2)\\\pause
+        & \Rightarrow & a_1 = a_2
+      \end{eqnarray*}
+    \end{proof}
+
+    \pause
+    \column{.35\textwidth}
+    \begin{proof}[Evrilebilir ise örtendir]
+      $f: A \rightarrow B$
+      \begin{eqnarray*}
+        &   & b\\\pause
+        & = & 1_B (b)\\\pause
+        & = & (f \circ f^{-1}) (b)\\\pause
+        & = & f(f^{-1} (b))
+      \end{eqnarray*}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrilebilir Fonksiyon}
+
+  \begin{proof}[Birebir ve örten ise evrilebilir]
+    $f: A \rightarrow B$
+    \begin{itemize}
+      \item $f$ örten $\Rightarrow \forall b \in B~\exists a \in A~f(a)=b$
+      \item $g: B \rightarrow A$ fonksiyonu $a=g(b)$ ile belirlensin
+
+      \pause
+      \medskip
+      \item $g(b) = a_1 \neq a_2 = g(b)$ olabilir mi?
+
+      \pause
+      \item $f(a_1) = b = f(a_2)$ olması gerekir
+
+      \pause
+      \item olamaz: $f$ birebir
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutasyonlar}
+
+  \begin{itemize}
+    \item permutasyon: küme içi bijektif bir fonksiyon
+
+    \medskip
+    $\left(
+      \begin{array}{cccc}
+       a_1   &  a_2   & \dots &  a_n\\
+      p(a_1) & p(a_2) & \dots & p(a_n)
+      \end{array}
+    \right)$
+
+    \pause
+    \medskip
+    \item $n$ elemanlı bir kümede $n!$ permutasyon tanımlanabilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutasyon Örnekleri}
+
+  \begin{ornek}
+    $A = \{1,2,3\}$
+
+    \medskip
+    $\begin{array}{cc}
+      p_1 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          1 & 2 & 3
+        \end{array}
+      \right) &
+      p_2 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          1 & 3 & 2
+        \end{array}
+      \right)\medskip\\
+      p_3 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          2 & 1 & 3
+        \end{array}
+      \right) &
+      p_4 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          2 & 3 & 1
+        \end{array}
+      \right)\medskip\\
+      p_5 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          3 & 1 & 2
+        \end{array}
+      \right) &
+      p_6 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          3 & 2 & 1
+        \end{array}
+      \right)
+    \end{array}$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çevrimli Permutasyon}
+
+  \begin{itemize}
+    \item \emph{çevrimli permutasyon}:
+    \begin{itemize}
+      \item elemanların bir altkümesi bir çevrim oluşturuyor
+      \item diğerleri yer değiştirmiyor
+    \end{itemize}
+
+    \pause
+    \medskip
+    $(a_i, a_j, a_k) = \left(
+      \begin{array}{ccccccccc}
+      \dots & a_i & \dots & a_n & \dots & a_j & \dots & a_k & \dots\\
+      \dots & a_j & \dots & a_n & \dots & a_k & \dots & a_i & \dots
+      \end{array}
+    \right)$
+
+    \pause
+    \bigskip
+    \item \emph{transpozisyon}: 2~uzunluklu çevrimli permutasyon
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çevrimli Permutasyon Örnekleri}
+
+  \begin{ornek}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    $(1,3,5) = \left(
+      \begin{array}{ccccc}
+        1 & 2 & 3 & 4 & 5\\
+        3 & 2 & 5 & 4 & 1
+      \end{array}
+    \right)$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutasyon Bileşkesi}
+
+  \begin{itemize}
+    \item permutasyon bileşkesi değişme özelliği göstermez
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    \small{$\begin{array}{lll}
+      (4,1,3,5) \diamond (5,2,3) & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          3 & 2 & 5 & 1 & 4
+        \end{array}
+      \right) \diamond \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          1 & 3 & 5 & 4 & 2
+        \end{array}
+      \right)\smallskip\pause\\
+      & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          5 & 3 & 2 & 1 & 4
+        \end{array}
+      \right)\medskip\pause\\
+      (5,2,3) \diamond (4,1,3,5) & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          1 & 3 & 5 & 4 & 2
+        \end{array}
+      \right) \diamond \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          3 & 2 & 5 & 1 & 4
+      \end{array}
+    \right)\smallskip\pause\\
+    & = & \left(
+      \begin{array}{ccccc}
+        1 & 2 & 3 & 4 & 5\\
+        3 & 5 & 4 & 1 & 2
+      \end{array}
+    \right)
+    \end{array}$}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çevrimli Permutasyon Bileşkesi}
+
+  \begin{itemize}
+    \item çevrimli olmayan her permutasyon ayrık çevrimlerin bileşkesi olarak
+      yazılabilir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    $A = \{1,2,3,4,5,6,7,8\}$
+
+    \medskip
+    $\left(
+      \begin{array}{cccccccc}
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+        3 & 4 & 6 & 5 & 2 & 1 & 8 & 7
+      \end{array}
+    \right) = (1,3,6) \diamond (2,4,5) \diamond (7,8)$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transpozisyon Bileşkesi}
+
+  \begin{itemize}
+    \item çevrimli her permutasyon transpozisyon bileşkesi olarak yazılabilir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    $(1,2,3,4,5) = (1,2) \diamond (1,3) \diamond (1,4) \diamond (1,5)$
+  \end{ornek}
+\end{frame}
+
+\subsection{Güvercin Deliği İlkesi}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi}
+
+  \begin{tanim}
+    \alert{güvercin deliği ilkesi} (Dirichlet kutuları):\\
+    $m$ adet güvercin $n$ adet deliğe yerleşirse ve $m>n$ ise\\
+    en az bir delikte birden fazla güvercin vardır
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $f: X \rightarrow Y \wedge |X|>|Y|$ ise $f$ birebir bir fonksiyon
+      olamaz
+
+    \item $\exists x_1,x_2 \in X~x_1 \neq x_2 \wedge f(x_1)=f(x_2)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item 367~kişinin bulunduğu bir yerde en az iki kişinin doğum günü aynıdır
+
+      \pause
+      \item 0 ile 100 arasında notlar alınan bir sınavda en az iki öğrencinin
+        aynı notu alması için sınava kaç öğrenci girmiş olmalıdır?
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Genelleştirilmiş Güvercin Deliği İlkesi}
+
+  \begin{tanim}
+    \alert{genelleştirilmiş güvercin deliği ilkesi}:\\
+    $m$ adet nesne $n$ adet kutuya dağıtılırsa\\
+    en az bir kutuda en az $\lceil m / n \rceil$ adet nesne olur
+  \end{tanim}
+
+  \pause
+  \begin{ornek}
+    100 kişinin bulunduğu bir yerde en az $\lceil 100 / 12 \rceil = 9$ kişi
+    aynı ayda doğmuştur
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örneği}
+
+  \begin{teorem}
+    S = \{1,2,3,\dots,9\} kümesinin 6~elemanlı herhangi bir altkümesinde
+    toplamı 10~olan iki sayı vardır.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örneği}
+
+  \begin{teorem}
+    $S$ kümesi en büyüğü 14~olabilen 6~elemanlı bir pozitif tamsayılar kümesi
+    olsun. $S$'nin boş olmayan altkümelerinin elemanlarının toplamlarının hepsi
+    birbirinden farklı olamaz.
+  \end{teorem}
+
+  \pause
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{Tanıt Denemesi}
+      $A \subseteq S$\\
+      $s_A: A$'nın elemanlarının toplamı
+
+      \pause
+      \begin{itemize}
+        \item delik:\\
+          $1 \leq s_A \leq 9 + \dots + 14 = 69$
+        \item güvercin: $2^6 - 1 = 63$
+      \end{itemize}
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{proof}[Tanıt]
+      $|A| \leq 5$ olan altkümelere bakalım.
+
+      \pause
+      \begin{itemize}
+        \item delik:\\
+          $1 \leq s_A \leq 10 + \dots + 14 = 60$
+        \item güvercin: $2^6 - 2 = 62$
+      \end{itemize}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örneği}
+
+  \begin{teorem}
+    $S = \{1,2,3,\dots,200\}$ kümesinden seçilecek 101~elemanın içinde\\
+    en az bir çift vardır ki çiftin bir elemanı diğerini böler.
+  \end{teorem}
+
+  \pause
+  \begin{block}{Tanıt Yöntemi}
+    \begin{itemize}
+      \item $\forall n~\exists ! p~
+        (n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+      olduğu gösterilecek
+
+      \item bu teorem kullanılarak asıl teorem tanıtlanacak
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örneği}
+
+  \begin{teorem}
+    $\forall n~\exists ! p~
+      (n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+  \end{teorem}
+
+  \pause
+  \begin{columns}[t]
+    \column{.55\textwidth}
+    \begin{proof}[Varlık Tanıtı]
+      $n = 1$: $r = 0, p = 1$\\
+      $n = 2$: $r = 1, p = 1$
+
+      \pause
+      $n \leq k$: $n = 2^r p$
+
+      \pause
+      $n = k + 1:
+      \begin{array}{ll}
+         n~asal:        & r = 0, p = n\pause\\
+         \neg (n~asal): & n = n_1 n_2\pause\\
+                        & n = 2^{r_1} p_1 \cdot 2^{r_2} p_2\pause\\
+                        & n = 2^{r_1+r_2} \cdot p_1 p_2
+      \end{array}$
+    \end{proof}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{proof}[Teklik Tanıtı]
+      tek değilse:
+
+      \pause
+      $\begin{array}{lllll}
+        n & =           & 2^{r_1} p_1     & = & 2^{r_2} p_2\pause\\
+          & \Rightarrow & 2^{r_1-r_2} p_1 & = & p_2\pause\\
+          & \Rightarrow & 2 | p_2
+      \end{array}$
+      \alert{çelişki}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvercin Deliği İlkesi Örneği}
+
+  \begin{teorem}
+    $S = \{1,2,3,\dots,200\}$ kümesinden seçilecek 101~elemanın içinde\\
+    en az bir çift vardır ki çiftin bir elemanı diğerini böler.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{itemize}
+      \item $T \subseteq S$, $T$ kümesi $S$ kümesinin bütün tek elemanlarından
+        oluşan altkümesi olsun: $|T|=100$
+
+      \pause
+      \item $f: S \rightarrow T, (s, t) \in f \equiv s = 2^r t \wedge r \geq 0$
+      \begin{itemize}
+        \item $S$'den 101~eleman seçilirse en az ikisinin\\
+          $T$'deki görüntüsü aynı olur:
+          $f(s_1)=f(s_2) \Rightarrow 2^{m_1} t = 2^{m_2} t$
+
+        \pause
+        \[
+          \frac {s_1} {s_2} = \frac {2^{m_1} t} {2^{m_2} t} = 2^{m_1 - m_2}
+        \]
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\subsection{Rekürsiyon}
+
+\begin{frame}
+  \frametitle{Rekürsif Fonksiyonlar}
+
+  \begin{tanim}
+    \alert{rekürsif fonksiyon}:\\
+      kendisi cinsinden tanımlanan fonksiyon
+
+    \medskip
+    $f(n) = h(f(m))$
+  \end{tanim}
+
+  \begin{itemize}
+    \item \emph{tümevarımla tanımlanan fonksiyon}:\\
+      her rekürsiyonda boyut azalıyor
+
+    \medskip
+    $f(n) = \left\{
+      \begin{array}{ll}
+        k         & n = 0\\
+        h(f(n-1)) & n > 0
+      \end{array}
+    \right.$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rekürsif Fonksiyon Örnekleri}
+
+  \begin{ornek}
+    $f91(n) = \left\{
+      \begin{array}{ll}
+        n - 10         & n > 100\\
+        f91(f91(n+11)) & n \leq 100
+      \end{array}
+    \right.$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tümevarımla Tanımlanan Fonksiyon Örnekleri}
+
+  \begin{ornek}[faktöryel]
+    $f(n) = \left\{
+      \begin{array}{ll}
+        1              & n = 0\\
+        n \cdot f(n-1) & n > 0
+      \end{array}
+    \right.$
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[fonksiyon kuvveti]
+    $f^n = \left\{
+      \begin{array}{ll}
+        f               & n = 1\\
+        f \circ f^{n-1} & n > 1
+      \end{array}
+    \right.$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euclid Algoritması}
+
+  \begin{ornek}[ortak bölenlerin en büyüğü]
+    \begin{eqnarray*}
+      333 & = & 3 \cdot 84 + 81\\\pause
+       84 & = & 1 \cdot 81 + 3\\\pause
+       81 & = & 27 \cdot 3 + 0
+    \end{eqnarray*}
+
+    \pause
+    $obeb(333,84) = 3$
+
+    \pause
+    \medskip
+    $obeb(a,b) = \left\{
+      \begin{array}{ll}
+        b               & b | a\\
+        obeb(b,a~mod~b) & b \nmid a
+      \end{array}
+    \right.$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fibonacci Dizisi}
+
+  \begin{block}{Fibonacci dizisi}
+    $F_n = fib(n) = \left\{
+      \begin{array}{ll}
+        1                   & n = 1\\
+        1                   & n = 2\\
+        fib(n-1) + fib(n-2) & n > 2
+      \end{array}
+    \right.$
+  \end{block}
+
+  \pause
+  \bigskip
+  $\begin{array}{ccccccccc}
+     F_1 & F_2 & F_3 & F_4 & F_5 & F_6 & F_7 & F_8 & \dots\\
+     1   & 1   & 2   & 3   & 5   & 8   & 13  & 21  & \dots
+  \end{array}$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fibonacci Dizisi}
+
+  \begin{teorem}
+    $\sum_{i=1}^{n} {F_i}^2 = F_n \cdot F_{n+1}$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $\begin{array}{llcl}
+      n=2:   & \sum_{i=1}^{2} {F_i}^2   & = & {F_1}^2+{F_2}^2=1+1=1 \cdot 2=F_2 \cdot F_3
+      \pause
+      \medskip\\
+      n=k:   & \sum_{i=1}^{k} {F_i}^2   & = & F_k \cdot F_{k+1}
+      \pause
+      \medskip\\
+      n=k+1: & \sum_{i=1}^{k+1} {F_i}^2 & = & \sum_{i=1}^{k} {F_i}^2 + {F_{k+1}}^2
+      \pause
+      \smallskip\\
+             &                          & = & F_k \cdot F_{k+1} + {F_{k+1}}^2
+      \pause
+      \smallskip\\
+             &                          & = & F_{k+1} \cdot (F_k + F_{k+1})
+      \pause
+      \smallskip\\
+             &                          & = & F_{k+1} \cdot F_{k+2}
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ackermann Fonksiyonu}
+
+  \begin{block}{Ackermann fonksiyonu}
+    $ack(x,y) = \left\{
+      \begin{array}{ll}
+        y+1                 & x = 0\\
+        ack(x-1, 1)         & y = 0\\
+        ack(x-1,ack(x,y-1)) & x > 0 \wedge y > 0
+      \end{array}
+    \right.$
+  \end{block}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.2. \alert{Functions: Plain and One-to-One}
+        \item 5.3. \alert{Onto Functions: Stirling Numbers of the Second Kind}
+        \item 5.5. \alert{The Pigeonhole Principle}
+        \item 5.6. \alert{Function Composition and Inverse Functions}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Yardımcı Kitap: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 11: Functions
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
