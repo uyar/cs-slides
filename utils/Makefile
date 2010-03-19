@@ -1,0 +1,40 @@
+all: slides.pdf
+handout: slides.handout.pdf
+print: slides.print.pdf
+
+%.pdf: %.tex
+	make images
+	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then pdflatex $<; fi
+	pdflatex $<
+
+%.handout.pdf: %.handout.tex
+	make images
+	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then pdflatex $<; fi
+	pdflatex $<
+
+%.handout.tex: %.tex
+	sed "s/\\documentclass\[dvipsnames\]{beamer}/\documentclass[dvipsnames,handout]{beamer}/" $< \
+		| sed "s/usetheme{.*}/usetheme{default}\n  \\\setbeamertemplate{footline}\[page number\]/" \
+		| grep -v usecolortheme > $@
+
+%.print.pdf: %.handout.pdf
+	pdfnup --nup 2x3 --frame true --paper a4paper --scale 0.91 \
+		--offset "0.1cm 0.1cm" --delta "0.3cm 0.3cm" --outfile $@ $<
+
+images:
+	for f in *.svg; do b=$${f%.svg}; make $$b.pdf; done || true
+
+%.pdf: %.eps
+	epstopdf $<
+
+%.eps: %.svg
+	inkscape --export-eps=$@ --export-text-to-path $<
+
+zip: slides.pdf slides.print.pdf
+	rm -f slides.zip
+	zip -q slides.zip slides.tex *.pdf *.svg *.png *.jpg *.gif
+
+clean:
+	rm -f *~ *.bak *.backup *.log *.toc *.aux *.nav *.out *.snm *.vrb
+	rm -f *.handout.*
+	rm -f *~ *.dvi *.ps *.pdf *.eps
