@@ -1,0 +1,641 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{Introduction}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{records}{records}
+\pgfdeclareimage{dbms}{dbms}
+\pgfdeclareimage{sparc}{sparc}
+\pgfdeclareimage{architecture1}{architecture1}
+\pgfdeclareimage{architecture2}{architecture2}
+\pgfdeclareimage{architecture3}{architecture3}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Data Processing}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Processing Data}
+
+  \begin{itemize}
+    \item \emph{problem}:\\
+      effectively storing and processing large amounts of data
+
+    \pause
+    \medskip
+    \item processing data
+    \begin{itemize}
+      \item adding new data
+      \item changing existing data
+      \item deleting data
+      \item querying: planned - ad hoc
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Types}
+
+  \begin{itemize}
+    \item \emph{persistent data}:\\
+      data that must be stored due to the nature of the information
+
+    \pause
+    \bigskip
+    \item \emph{temporary data}
+    \begin{itemize}
+      \item \emph{output data}: data that can be derived from persistent data\\
+        (query results, reports, etc.)
+
+      \pause
+      \medskip
+      \item \emph{input data}: data which just entered the system
+      \begin{itemize}
+        \item can be added to persistent data
+        \item can cause changes in the persistent data
+        \item can be deleted without processing
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Roles}
+
+  \begin{itemize}
+    \item \emph{end users}:\\
+      people who work on the data
+    \begin{itemize}
+      \item assumed not to have any technical knowledge
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item \emph{application programmers}:\\
+      people who develop the programs that the end users use
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Application Example}
+
+  \begin{example}[Student data]
+    \begin{columns}[t]
+      \begin{column}<1->{5.1cm}
+      \begin{itemize}
+        \item Student Affairs:\\
+          name, number, department, courses taken, internships, etc.
+      \end{itemize}
+      \end{column}
+
+      \begin{column}<2->{5.1cm}
+      \begin{itemize}
+        \item common data:\\
+          name, number, department, etc.
+      \end{itemize}
+      \end{column}
+    \end{columns}
+
+    \begin{columns}[t]
+      \begin{column}<1->{5.1cm}
+      \begin{itemize}
+        \item Library:\\
+          name, number, department, books taken, etc.
+      \end{itemize}
+      \end{column}
+
+      \begin{column}<2->{5.1cm}
+      \begin{itemize}
+        \item application specific data:\\
+          courses taken, internships, books, etc.
+      \end{itemize}
+      \end{column}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\subsection{Record Files}
+
+\begin{frame}
+  \frametitle{Record Files}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{records}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item each application has its own data
+      \item the application keeps its data in the files that it manages itself
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Redundancy}
+
+  \begin{itemize}
+    \item the same data is kept in multiple places
+    \begin{itemize}
+      \item waste of disk space
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item the name, number and department of the student is kept both in the
+        Student Affairs and in the Library
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inconsistency}
+
+  \begin{itemize}
+    \item if there are multiple copies of the same data, they can become
+      different
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item the name of the student can be recorded as "Victoria Adams" in
+        Student Affairs and "Victoria Beckham" in the Library
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Integrity}
+
+  \begin{itemize}
+    \item records can refer to invalid data
+    \begin{itemize}
+      \item especially in coded information
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item the department of the student can be recorded as "Control and
+        Computer Engineering" but there might not be such a department anymore
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{New Applications}
+
+  \begin{itemize}
+    \item same work has to be done for each new application
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item a new application will be developed for the Scholarship Office
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Policy Gaps}
+
+  \begin{itemize}
+    \item no standards in the applications of the institution
+    \begin{itemize}
+      \item differences in paradigms, methods, programming languages, etc.
+      \item data transfer between applications
+    \end{itemize}
+
+    \pause
+    \item each department considers only its own requirements
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Security}
+
+  \begin{itemize}
+    \item hard to define detailed security arrangements
+    \item security depends only on the operating system
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Dependence}
+
+  \begin{definition}
+    \alert{data dependence}:\\
+      the application code depends on the organization of the data and the
+      access method
+
+    \begin{itemize}
+      \item hard to make any changes in the code
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Dependence}
+
+  \begin{example}
+    \begin{itemize}
+      \item the student number is a string in Student Affairs but a number in
+        the Library
+
+      \pause
+      \item the Student Affairs application keeps a B-tree index on the student
+        number and uses B-tree search algorithms in queries
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\section{Database Management Systems}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Database Management Systems}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dbms}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item data is kept in a shared system
+      \item applications access data over a common interface
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ANSI/SPARC Architecture}
+
+  \begin{center}
+    \pgfuseimage{sparc}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{External Level}
+
+  \begin{itemize}
+    \item from the end user's perspective:
+    \begin{itemize}
+      \item the data needed by that end user
+      \item the interface of the application that she is using
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item from the application programmer's perspective:
+    \begin{itemize}
+      \item the programming language she uses
+      \item the extensions to this language for database operations:\\
+        \alert{data sublanguage}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Conceptual Level}
+
+  \begin{itemize}
+    \item the entire data
+    \item where the data independence is achieved
+
+    \pause
+    \bigskip
+    \item \alert{catalogue}:\\
+      definitions that describe the content of the data
+
+    \begin{itemize}
+      \item databases
+      \item data types, integrity constraints
+      \item users, privileges, security constraints
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Internal Level}
+
+  \begin{itemize}
+    \item the physical level
+
+    \pause
+    \item how the data is represented
+    \begin{itemize}
+      \item files, records
+    \end{itemize}
+
+    \pause
+    \item how the data is accessed
+    \begin{itemize}
+      \item pointers, indexes, B-trees
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conversions}
+
+  \begin{itemize}
+    \item conversions between levels for abstraction
+  \end{itemize}
+
+  \pause
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{example}[conceptual - external]
+      \begin{itemize}
+        \item give the student number as a string to the Student Affairs
+          application and as a number to the Library application
+      \end{itemize}
+    \end{example}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{example}[conceptual - internal]
+      \begin{itemize}
+        \item generate an index on the student number
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Administrator Roles}
+
+  \begin{itemize}
+    \item \emph{data administator}:\\
+      makes the decisions
+    \begin{itemize}
+      \item which data will be stored?
+      \item who can access which data?
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item \emph{database administrator}:\\
+      applies the decisions
+    \begin{itemize}
+      \item defines the conceptual-external/internal conversions
+      \item adjusts system performance
+      \item guarantees system availability
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DBMS Functions}
+
+  \begin{itemize}
+    \item data definition language
+
+    \pause
+    \item data manipulation language
+
+    \pause
+    \item checking whether data manipulation requests conform to integrity
+      and security constraints
+
+    \pause
+    \item processing simultaneous requests properly
+
+    \pause
+    \item performance
+  \end{itemize}
+\end{frame}
+
+\subsection{Client/Server}
+
+\begin{frame}
+  \frametitle{Client/Server Architecture}
+
+  \begin{itemize}
+    \item \alert{server}:\\
+      provides the DBMS functions
+
+    \pause
+    \bigskip
+    \item \alert{client}:\\
+      provides interaction between the user and the server
+    \begin{itemize}
+      \item vendor supplied tools (query processors, report generators, etc.)
+      \item applications developed by application programmers
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Architecture}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{architecture1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item the client and the server can be on the same computer
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Multiple Clients / Single Server}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{architecture2}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item many clients can connect to a single server
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \begin{example}[Bank]
+      \begin{itemize}
+        \item a server in the computer centre
+        \item clients in branches
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Multiple Clients / Multiple Servers}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{architecture3}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item the servers can also be distributed
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \begin{example}[Bank]
+      \begin{itemize}
+        \item each branch is the server (and client) for its own accounts
+        \item a client for other branches' accounts
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\subsection{SQL}
+
+\begin{frame}
+  \frametitle{SQL}
+
+  \begin{itemize}
+    \item \emph{Structured Query Language}
+    \begin{itemize}
+      \item data definition language
+      \item data manipulation language
+      \item interaction with general purpose programming languages
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item history
+    \begin{itemize}
+      \item started by IBM in the 1970s
+      \item standards: 1992, 1999, 2003
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SQL Products}
+
+  \begin{itemize}
+    \item Oracle
+    \item IBM DB2, Progress, MS-SQL, Sybase
+    \item open source: PostgreSQL, MySQL, Firebird
+    \item embedded: SQLite, MS Access
+  \end{itemize}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 1: An Overview of Database Management
+      \begin{itemize}
+        \item 1.4. \alert{Why Database?}
+        \item 1.5. \alert{Data Independence}
+      \end{itemize}
+
+      \item Chapter 2: \alert{Database System Architecture}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
