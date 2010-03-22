@@ -1,0 +1,1015 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{Database Design}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{norm1}{norm1}
+\pgfdeclareimage{norm2}{norm2}
+\pgfdeclareimage{norm3}{norm3}
+\pgfdeclareimage{imdb1}{imdb1}
+\pgfdeclareimage{imdb2}{imdb2}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Normalization}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Functional Dependency}
+
+  \begin{definition}
+    \begin{itemize}
+      \item let $Z$ be the set of all attributes of relation $R$, and\\
+        $A,B \subseteq Z$
+
+      \pause
+      \medskip
+      \item \alert{$A$ functionally determines $B$}: $A \rightarrow B$\\
+        for every $A$ value there is only one $B$ value
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item every functional dependency is an integrity constraint
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Functional Dependency Examples}
+
+  \begin{example}
+    \begin{tiny}
+    \begin{table}
+      \caption{R}
+      \begin{tabular}{|r|l|l|l|r|l|r|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\\hline\hline
+      6 & Usual Suspects       & UK  &   EN &     308 & Gabriel Byrne    &   2\\\hline
+    228 & Ed Wood              & US  &   EN &      26 & Johnny Depp      &   1\\\hline
+     70 & Being John Malkovich & US  &   EN &     282 & Cameron Diaz     &   2\\\hline
+   1512 & Suspiria             & IT  &   IT &     745 & Udo Kier         &   9\\\hline
+     70 & Being John Malkovich & US  &   EN &     503 & John Malkovich   &  14\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \pause
+    \begin{itemize}
+      \item assumption: the language of the movie is the language of the country
+        where it was made
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Functional Dependency Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item MOVIEID $\rightarrow$ COUNTRY
+
+      \pause
+      \item ACTORID $\rightarrow$ NAME
+
+      \pause
+      \item MOVIEID $\rightarrow$ \{TITLE, COUNTRY, LANGUAGE\}
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ MOVIEID
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ \{COUNTRY, ORD\}
+
+      \pause
+      \item COUNTRY $\rightarrow$ LANGUAGE
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irreducible Set}
+
+  \begin{itemize}
+    \item $S$: the set of all FDs of the relation
+
+    \item $T \subseteq S$, such that
+    \begin{itemize}
+      \item $T$ contains as few elements as possible
+      \item every FD in $S$ can be derived by the FDs in $T$
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item let there be only one attribute on the right hand side of FDs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irreducible Set Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item MOVIEID $\rightarrow$ TITLE
+      \item MOVIEID $\rightarrow$ COUNTRY
+      \item COUNTRY $\rightarrow$ LANGUAGE
+      \item ACTORID $\rightarrow$ NAME
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dependence Diagram}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{norm1}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\subsection{Normal Forms}
+
+\begin{frame}
+  \frametitle{Normal Forms}
+
+  \begin{itemize}
+    \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
+
+    \item every form narrows down the scope of the previous form
+    \begin{itemize}
+      \item every relation in 2NF is also in 1NF
+      \item every relation in 3NF is also in 2NF, ...
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item 1NF: attribute values are atomic
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Normalization}
+
+  \begin{definition}
+    \alert{normalization}:\\
+      transition from one form to the next, narrower form
+
+    \begin{itemize}
+      \item transition between normal forms must be lossless
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{theorem}[Heath]
+    \begin{itemize}
+      \item $Z$: $R$ the set of all attributes of the relation
+      \item $A,B,C \subseteq Z$
+
+      \pause
+      \item if $A \rightarrow B$, then $R$ can be obtained by joining
+        the relations $\{A,B\}$ and $\{A,C\}$
+    \end{itemize}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lossless Transition Example}
+
+  \begin{example}
+    \begin{columns}[c]
+      \column{.55\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|l|l|}\hline
+MOVIEID & TITLE                & COU & LANG\\\hline\hline
+      6 & Usual Suspects       & UK  & EN  \\\hline
+    228 & Ed Wood              & US  & EN  \\\hline
+     70 & Being John Malkovich & US  & EN  \\\hline
+   1512 & Suspiria             & IT  & IT  \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \vspace{-0.7cm}
+      \begin{tiny}
+      \begin{table}
+        \caption{R2}
+        \begin{tabular}{|r|r|l|r|}\hline
+MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
+      6 &     308 & Gabriel Byrne  &   2\\\hline
+    228 &      26 & Johnny Depp    &   1\\\hline
+     70 &     282 & Cameron Diaz   &   2\\\hline
+   1512 &     745 & Udo Kier       &   9\\\hline
+     70 &     503 & John Malkovich &  14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \pause
+      \column{.42\textwidth}
+      \begin{itemize}
+        \item $R = natjoin~(R1)~(R2)$
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lossy Transition Example}
+
+  \begin{example}
+    \begin{columns}[c]
+      \column{.55\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|l|l|}\hline
+MOVIEID & TITLE                & COU & LANG\\\hline\hline
+      6 & Usual Suspects       & UK  & EN  \\\hline
+    228 & Ed Wood              & US  & EN  \\\hline
+     70 & Being John Malkovich & US  & EN  \\\hline
+   1512 & Suspiria             & IT  & IT  \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \vspace{-0.7cm}
+      \begin{tiny}
+      \begin{table}
+        \caption{R2}
+        \begin{tabular}{|l|r|l|r|}\hline
+COU & ACTORID & NAME           & ORD\\\hline\hline
+UK  &     308 & Gabriel Byrne  &   2\\\hline
+US  &      26 & Johnny Depp    &   1\\\hline
+US  &     282 & Cameron Diaz   &   2\\\hline
+IT  &     745 & Udo Kier       &   9\\\hline
+US  &     503 & John Malkovich &  14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \pause
+      \column{.42\textwidth}
+      \begin{itemize}
+        \item $R \neq natjoin~(R1)~(R2)$
+
+        \pause
+        \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Anomalies}
+
+  \begin{itemize}
+    \item \emph{insert}
+    \begin{itemize}
+      \item data is known but can not be inserted due to constraints
+    \end{itemize}
+
+    \pause
+    \item \emph{delete}
+    \begin{itemize}
+        \item deleting some data causes some other data to be lost
+    \end{itemize}
+
+    \pause
+    \item \emph{update}
+    \begin{itemize}
+      \item updating some data requires modifications in multiple tuples
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Anomaly Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item The country of the movie Gattaca is US but this data can not be
+        added because no actor is known for the movie.
+
+      \pause
+      \item Deleting the data that Gabriel Byrne is in the movie Usual Suspects
+        causes the data that the country of the movie is UK to be deleted.
+
+      \pause
+      \item Changing the country of the movie Being John Malkovich as UK
+        requires two tuples to be modified.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2nd Normal Form}
+
+  \begin{definition}
+    \alert{2NF}: every non-key attribute depends on the primary key
+  \end{definition}
+
+  \begin{block}{transition from 1NF to 2NF}
+    \begin{itemize}
+      \item in an $R$ relation that conforms to 1NF:
+      \begin{itemize}
+        \item $R(A,B,C,D)$, primary key: $\{A,B\}$
+        \item $A \rightarrow D$
+      \end{itemize}
+
+      \pause
+      \item for it to be 2NF:
+      \begin{itemize}
+        \item $R1(A,D)$, primary key: $A$
+        \item $R2(A,B,C)$, primary key: $\{A,B\}$\\
+          $A$ is a foreign key referencing $R1$
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Transition Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item among the non-key attributes, only ORD depends on the primary key
+
+      \pause
+      \begin{itemize}
+        \item $A$: MOVIEID
+        \item $B$: ACTORID
+        \item $C$: \{NAME,ORD\}
+        \item $D$: \{TITLE,COUNTRY,LANGUAGE\}
+      \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Transition Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item R1(MOVIEID,TITLE,COUNTRY,LANGUAGE)\\
+        primary key: MOVIEID
+
+      \pause
+      \item R2(MOVIEID,ACTORID,NAME,ORD)\\
+        primary key: \{MOVIEID,ACTORID\}\\
+        MOVIEID is a foreign key referencing R1
+    \end{itemize}
+ \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Transition Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item R2 still not 2NF: ACTORID $\rightarrow$ NAME
+
+      \pause
+      \begin{itemize}
+        \item $A$: ACTORID
+        \item $B$: MOVIEID
+        \item $C$: ORD
+        \item $D$: NAME
+      \end{itemize}
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item R3(ACTORID,NAME)\\
+        primary key: ACTORID
+
+      \pause
+      \item R4(MOVIEID,ACTORID,ORD)\\
+        primary key: \{MOVIEID,ACTORID\}\\
+        ACTORID is a foreign key referencing R3
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Relation Examples}
+
+  \begin{example}
+    \begin{center}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|l|l|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG\\\hline\hline
+      6 & Usual Suspects       & UK  & EN  \\\hline
+    228 & Ed Wood              & US  & EN  \\\hline
+     70 & Being John Malkovich & US  & EN  \\\hline
+   1512 & Suspiria             & IT  & IT  \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{center}
+
+    \vspace{-0.7cm}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R3}
+        \begin{tabular}{|r|l|}\hline
+\underline{ACTORID} & NAME\\\hline\hline
+      308 & Gabriel Byrne \\\hline
+       26 & Johnny Depp   \\\hline
+      282 & Cameron Diaz  \\\hline
+      745 & Udo Kier      \\\hline
+      503 & John Malkovich\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R4}
+        \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+   6 & 308 &  2\\\hline
+ 228 &  26 &  1\\\hline
+  70 & 282 &  2\\\hline
+1512 & 745 &  9\\\hline
+  70 & 503 & 14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dependency Diagram Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{norm2}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Corrected Anomalies}
+
+  \begin{example}
+    \begin{itemize}
+      \item If the country of the movie Gattaca is US, this data can be inserted
+        to $R1$.
+
+      \pause
+      \item If Gabriel Byrne is deleted from the cast list of the movie Usual
+        Suspects, the fact that the country of the movie is UK is preserved in
+        $R1$.
+
+      \pause
+      \item Changing the country of the movie Being John Malkovich requires
+        updating only one tuple in $R1$.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Remaining Anomalies}
+
+  \begin{example}
+    \begin{itemize}
+      \item It is known that movies made Brasil are in Portuguese, but this data
+        can not be inserted because there is no known movie made in Brasil.
+
+      \pause
+      \item Deleting the movie Suspiria causes the data that movies made in
+        Italy are in Italian to be lost.
+
+      \pause
+      \item If the language of the movies made in the US is to be changed as
+        American English, two tuples need to be updated.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{3rd Normal Form}
+
+\begin{frame}
+  \frametitle{3rd Normal Form}
+
+  \begin{definition}
+    \alert{3NF}: non-key attributes are not dependent on any attribute or
+      attribute group other than the primary key
+  \end{definition}
+
+  \pause
+  \begin{block}{transition from 2NF to 3NF}
+    \begin{itemize}
+      \item in an $R$ relation that conforms to 2NF:
+      \begin{itemize}
+        \item $R(A,B,C,D)$, primary key: $A$
+        \item $C \rightarrow D$
+      \end{itemize}
+
+      \pause
+      \item for it to be 3NF:
+      \begin{itemize}
+        \item $R1(C,D)$, primary key: $C$
+        \item $R2(A,B,C)$, primary key: $A$\\
+          $C$ is a foreign key referencing $R1$
+      \end{itemize}
+    \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF-3NF Transition Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item R1: COUNTRY $\rightarrow$ LANGUAGE
+
+      \pause
+      \begin{itemize}
+        \item $A$: MOVIEID
+        \item $B$: TITLE
+        \item $C$: COUNTRY
+        \item $D$: LANGUAGE
+      \end{itemize}
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item R5(COUNTRY, LANGUAGE)\\
+        primary key: COUNTRY
+
+      \pause
+      \item R6(MOVIEID, TITLE, COUNTRY)\\
+        primary key: MOVIEID\\
+        COUNTRY is a foreign key referencing R5
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3NF Relation Examples}
+
+  \begin{example}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R6}
+        \begin{tabular}{|r|l|l|}\hline
+\underline{MOVIEID} & TITLE    & COU\\\hline\hline
+      6 & Usual Suspects       & UK \\\hline
+    228 & Ed Wood              & US \\\hline
+     70 & Being John Malkovich & US \\\hline
+   1512 & Suspiria             & IT \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R5}
+        \begin{tabular}{|l|l|}\hline
+\underline{COU} & LANG\\\hline\hline
+UK & EN\\\hline
+US & EN\\\hline
+IT & IT\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+
+    \vspace{-0.7cm}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R3}
+        \begin{tabular}{|r|l|}\hline
+\underline{ACTORID} & NAME\\\hline\hline
+      308 & Gabriel Byrne \\\hline
+       26 & Johnny Depp   \\\hline
+      282 & Cameron Diaz  \\\hline
+      745 & Udo Kier      \\\hline
+      503 & John Malkovich\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R4}
+        \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+   6 & 308 &  2\\\hline
+ 228 &  26 &  1\\\hline
+  70 & 282 &  2\\\hline
+1512 & 745 &  9\\\hline
+  70 & 503 & 14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dependency Diagram Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{norm3}
+    \end{center}
+  \end{example}
+ \end{frame}
+
+\begin{frame}
+  \frametitle{3NF Corrected Anomalies}
+
+  \begin{example}
+    \begin{itemize}
+      \item If it is known that movies made in Brasil are in Portuguese, this
+        data can be added to $R5$.
+
+      \pause
+      \item If the movie Suspiria is deleted, the data that movies made in Italy
+        are in Italian is preserved in $R5$.
+
+      \pause
+      \item If the language of the movies made in the US has to be updated as
+        American English, only one tuple in $R5$ has to be modified.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boyce-Codd Normal Form}
+
+  \begin{definition}
+    \alert{BCNF}: all functional dependencies must be on candidate keys
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BCNF Example}
+
+  \begin{example}[let movie titles be unique]
+    \begin{itemize}
+      \item candidate keys:
+      \begin{itemize}
+        \item \{MOVIEID,ACTORID\}
+        \item \{TITLE,ACTORID\}
+      \end{itemize}
+
+      \pause
+      \item non-conforming functional dependencies:
+      \begin{itemize}
+        \item MOVIEID $\rightarrow$ TITLE
+        \item TITLE $\rightarrow$ MOVIEID
+      \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 11: \alert{Functional Dependencies}
+      \item Chapter 12: \alert{Further Normalization I: 1NF, 2NF, 3NF, BCNF}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Entity/Relationship Model}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Entity/Relationship Model}
+
+  \begin{itemize}
+    \item modelling approach
+    \begin{itemize}
+      \item Chen 1976
+    \end{itemize}
+
+    \pause
+    \item components
+    \begin{itemize}
+      \item entities
+      \item properties
+      \item relationships
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Entities}
+
+  \begin{definition}
+    \alert{entity}:\\
+      set of "things" with the same attributes
+
+    \pause
+    \begin{itemize}
+      \item elements of the set are \emph{instances} of the entity
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item \emph{strong}: can exist by itself
+      \item \emph{weak}: existence depends on another entity
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Entity Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item entity: movie, director, actor
+
+      \pause
+      \item instance: Johnny Depp
+
+      \pause
+      \medskip
+      \item strong entity: director
+      \item weak entity: movie
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Properties}
+
+  \begin{definition}
+    \alert{property}:\\
+      data describing entities or relationships
+
+    \pause
+    \begin{itemize}
+      \item simple / composite
+      \item key
+      \item single / multiple valued
+      \item empty
+      \item base / derived
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Property Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item property: title, country, language
+
+      \pause
+      \medskip
+      \item simple: first name, last name
+      \item composite: full name
+
+      \pause
+      \medskip
+      \item base: date of birth
+      \item derived: age
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relationships}
+
+  \begin{definition}
+    \alert{relationship}:\\
+      connections between entities
+
+    \pause
+    \begin{itemize}
+      \item \emph{participant}: entities in the relationship
+      \item \emph{degree}: number of participants
+      \item \emph{total / partial}: all instances of the entity
+        do / don't participate in the relationship
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relationship Types}
+
+  \begin{itemize}
+    \item \emph{one-to-one}
+    \item \emph{one-to-many} or \emph{many-to-one}
+    \item \emph{many-to-many}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relationship Examples}
+
+  \begin{example}[one-to-one]
+    \begin{itemize}
+      \item marriage
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}[one-to-many]
+    \begin{itemize}
+      \item director-movie
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}[many-to-many]
+    \begin{itemize}
+      \item actor-movie
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{E/R Diagrams}
+
+\begin{frame}
+  \frametitle{Entity/Relationship Diagrams}
+
+  \begin{itemize}
+    \item entity: rectangle
+    \begin{itemize}
+      \item weak: double lines
+    \end{itemize}
+
+    \pause
+    \item property: ellipsis
+    \begin{itemize}
+      \item derived: dashed lines
+      \item multi-valued: double lines
+      \item composite: sub-ellipses
+    \end{itemize}
+
+    \pause
+    \item relationship: diamond
+    \begin{itemize}
+      \item between weak and strong: double lines
+      \item total: connection double lines
+      \item 1 or n depending on the type of the relationship
+    \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Entity/Relationship Diagram Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{imdb1}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Entity/Relationship Diagram Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{imdb2}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Applying to Design}
+
+  \begin{itemize}
+    \item every entity a relation
+
+    \pause
+    \item every property an attribute
+
+    \pause
+    \item every many-to-many relationship a relation
+    \begin{itemize}
+      \item foreign keys to participating entities
+    \end{itemize}
+
+    \pause
+    \item for every many-to-one relationship a foreign from the
+      "many" side to the "one" side
+ \end{itemize}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 14: \alert{Semantic Modeling}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
