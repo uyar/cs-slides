@@ -1,0 +1,2195 @@
+% Copyright (c) 2001-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Ayrık Matematik}
+\subtitle{Çizgeler}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2010}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+\newtheorem{teorem}[theorem]{Teorem}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[width=6cm]{yalin}{yalin}
+\pgfdeclareimage[width=6cm]{coklu}{coklu}
+\pgfdeclareimage[width=4cm]{yonlu}{yonlu}
+\pgfdeclareimage[width=4cm]{matris}{matris}
+\pgfdeclareimage[width=6cm]{bagsiz}{bagsiz}
+\pgfdeclareimage[width=5cm]{uzaklik}{uzaklik}
+\pgfdeclareimage[width=5cm]{kesitleme}{kesitleme}
+\pgfdeclareimage[width=4cm]{zayif}{zayif}
+\pgfdeclareimage[width=4cm]{tekyonlu}{tekyonlu}
+\pgfdeclareimage[width=4cm]{guclu}{guclu}
+\pgfdeclareimage[width=5cm]{warshall}{warshall}
+\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
+\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
+\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
+\pgfdeclareimage{konigsberg}{konigsberg}
+\pgfdeclareimage[width=3cm]{zarf}{zarf}
+\pgfdeclareimage{konigcizge}{konigcizge}
+\pgfdeclareimage[width=3.5cm]{euler}{euler}
+\pgfdeclareimage[width=3.5cm]{hamilton}{hamilton}
+\pgfdeclareimage[height=4cm]{izomorff}{izomorff}
+\pgfdeclareimage[height=4cm]{izomorft}{izomorft}
+\pgfdeclareimage[height=3.5cm]{petersen1}{petersen1}
+\pgfdeclareimage[height=3.5cm]{petersen2}{petersen2}
+\pgfdeclareimage[height=4cm]{homeomorft}{homeomorft}
+\pgfdeclareimage[height=4.5cm]{duzenli}{duzenli}
+\pgfdeclareimage[width=4cm]{k4}{k4}
+\pgfdeclareimage[width=4cm]{k5}{k5}
+\pgfdeclareimage[width=4cm]{k23}{k23}
+\pgfdeclareimage[width=4cm]{k33}{k33}
+\pgfdeclareimage[width=4.5cm]{k4duzlemsel}{k4duzlemsel}
+\pgfdeclareimage[width=6cm]{bolge}{bolge}
+\pgfdeclareimage[width=3cm]{eulertanit1}{eulertanit1}
+\pgfdeclareimage[width=3cm]{eulertanit2}{eulertanit2}
+\pgfdeclareimage[width=5cm]{kup}{hexahedron}
+\pgfdeclareimage{tetrahedron}{tetrahedron}
+\pgfdeclareimage{octahedron}{octahedron}
+\pgfdeclareimage{hexahedron}{hexahedron}
+\pgfdeclareimage{dodecahedron}{dodecahedron}
+\pgfdeclareimage{icosahedron}{icosahedron}
+\pgfdeclareimage{planartetra}{planartetra}
+\pgfdeclareimage{planarhexa}{planarhexa}
+\pgfdeclareimage{planarocta}{planarocta}
+\pgfdeclareimage{planardodeca}{planardodeca}
+\pgfdeclareimage[width=6cm]{dijkstra}{dijkstra}
+\pgfdeclareimage[width=4cm]{besmadde}{besmadde}
+\pgfdeclareimage[height=4cm]{boyama1}{boyama1}
+\pgfdeclareimage[height=4cm]{boyama2}{boyama2}
+\pgfdeclareimage[height=4cm]{boyama3}{boyama3}
+\pgfdeclareimage[height=4cm]{boyama4}{boyama4}
+\pgfdeclareimage[height=4cm]{boyama5}{boyama5}
+\pgfdeclareimage[height=4cm]{boyama6}{boyama6}
+\pgfdeclareimage[height=4cm]{boyama7}{boyama7}
+\pgfdeclareimage[height=4cm]{herschel}{herschel}
+\pgfdeclareimage[width=4cm]{sudoku}{sudoku}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Çizgeler}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Çizge}
+
+  \begin{tanim}
+    \alert{çizge}: $G=(V,E)$
+
+    \begin{itemize}
+      \item $V$: düğümler kümesi
+      \item $E \subseteq V \times V$: ayrıtlar kümesi
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $e=(v_1,v_2) \in E$ ise:
+    \begin{itemize}
+      \item $v_1$ ve $v_2$ düğümleri $e$ ayrıtının \emph{uçdüğümleri}
+      \item $e$ ayrıtı $v_1$ ve $v_2$ düğümlerine  \emph{çakışık}
+      \item $v_1$ ve $v_2$ düğümleri  \emph{bitişik}
+    \end{itemize}
+
+    \pause
+    \item hiçbir ayrıtın çakışmadığı düğüm: \emph{yalıtılmış düğüm}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \pause
+      \column{.4\textwidth}
+      $\begin{array}{lcl}
+        V & = & \{a,b,c,d,e,f\}\\
+        E & = & \{(a,b),(a,c),\\
+          &   & ~(a,d),(a,e),\\
+          &   & ~(a,f),(b,c),\\
+          &   & ~(d,e),(e,f)\}
+      \end{array}$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yalın Çizge}
+
+  \begin{tanim}
+    \alert{koşut bağlı ayrıtlar}:\\
+    aynı iki düğüm arasındaki ayrıtlar
+
+    \pause
+    \bigskip
+    \alert{tek-çevre}:\\
+    iki ucu aynı düğüm olan ayrıt
+
+    \pause
+    \bigskip
+    \alert{yalın çizge}:\\
+    koşut bağlı ayrıtlar ya da tek-çevre içermeyen çizge
+
+    \pause
+    \bigskip
+    \alert{çoklu çizge}:\\
+    yalın olmayan çizge
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çoklu Çizge Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{coklu}
+      \end{center}
+
+      \column{.4\textwidth}
+      \begin{itemize}
+        \item koşut bağlı ayrıtlar:\\
+          $(a,b)$
+        \item tek-çevre:\\
+          $(e,e)$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Çizgeler}
+
+  \begin{tanim}
+    \alert{yönlü çizge}:\\
+    düğümler arasındaki bağlantılar yönlü
+
+    \pause
+    \begin{itemize}
+      \item ayrıt yerine \alert{yay}: $D=(V,A)$
+      \item \alert{başlangıç} ve \alert{bitiş} düğümleri
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Çizge Örneği}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{yonlu}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altçizge}
+
+  \begin{tanim}
+    \alert{altçizge}:\\
+      $G'=(V',E')$ çizgesi $G=(V,E)$ çizgesinin altçizgesi ise
+
+    \begin{itemize}
+      \item $V' \subseteq V$
+      \item $E' \subseteq E$
+      \item $E'$ kümesindeki ayrıtların uçdüğümleri $V'$ kümesinin elemanları
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gösterilim}
+
+  \begin{itemize}
+    \item \emph{çakışıklık matrisi}:
+    \begin{itemize}
+      \item satırlara düğümler, sütunlara ayrıtlar
+      \item ayrıt düğüme çakışıksa 1, değilse 0
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \emph{bitişiklik matrisi}:
+    \begin{itemize}
+      \item satırlara ve sütunlara düğümler
+      \item hücrelere düğümler arasındaki ayrıt sayısı
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çakışıklık Matrisi Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.38\textwidth}
+      \begin{center}
+        \pgfuseimage{matris}
+      \end{center}
+
+      \column{.58\textwidth}
+      \[
+        \begin{array}{c|cccccccc}
+              & e_1 & e_2 & e_3 & e_4 & e_5 & e_6 & e_7 & e_8\\\hline
+          v_1 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0\\
+          v_2 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+          v_3 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1\\
+          v_4 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
+          v_5 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bitişiklik Matrisi Örneği}
+
+  \begin{ornek}[yönsüz]
+    \begin{columns}
+      \column{.38\textwidth}
+      \begin{center}
+        \pgfuseimage{matris}
+      \end{center}
+
+      \column{.58\textwidth}
+      \[
+        \begin{array}{c|ccccc}
+                & v_1 & v_2 & v_3 & v_4 & v_5\\\hline
+            v_1 & 0 & 1 & 1 & 1 & 1\\
+            v_2 & 1 & 0 & 1 & 0 & 0\\
+            v_3 & 1 & 1 & 0 & 1 & 1\\
+            v_4 & 1 & 0 & 1 & 0 & 1\\
+            v_5 & 1 & 0 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bitişiklik Matrisi Örneği}
+
+  \begin{ornek}[yönlü]
+    \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{yonlu}
+    \end{center}
+
+    \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & 0 & 0 & 1\\
+            b & 2 & 1 & 1 & 0\\
+            c & 0 & 0 & 0 & 0\\
+            d & 0 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{Bağlılık}
+
+\begin{frame}
+  \frametitle{Dolaşı}
+
+  \begin{tanim}
+    \alert{dolaşı}:\\
+    bir başlangıç düğümünden ($v_0$) bir varış düğümüne ($v_n$) doğru
+
+    \[
+      v_0,e_1,v_1,e_2,v_2,e_3,v_3,\dots,e_{n-1},v_{n-1},e_n,v_n
+    \]
+
+    şeklinde yineleyen düğüm-ayrıt dizisi
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item $e_i=(v_{i-1},v_i)$ olduğundan ayrıtları yazmaya gerek yok
+
+    \pause
+    \medskip
+    \item \alert{uzunluk}: ayrıt sayısı
+    \item $v_0 \neq v_n$ ise \alert{açık}, $v_0 = v_n$ ise \alert{kapalı}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dolaşı Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \column{.4\textwidth}
+      $(c,b),(b,a),(a,d),(d,e),$\\
+      $(e,f),(f,a),(a,b)$
+
+      \medskip
+      $c,b,a,d,e,f,a,b$
+
+      \bigskip
+      uzunluk: 7
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gezi}
+
+  \begin{tanim}
+    \alert{gezi}: ayrıtların yinelenmediği dolaşı
+
+    \pause
+    \begin{itemize}
+      \item kapalı gezi: \alert{devre}
+      \item \alert{kapsayan gezi}: bütün ayrıtlardan geçilen gezi
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gezi Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \column{.4\textwidth}
+      $(c,b),(b,a),(a,e),(e,d),$\\
+      $(d,a),(a,f)$
+
+      \medskip
+      $c,b,a,e,d,a,f$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yol}
+
+  \begin{tanim}
+    \alert{yol}: düğümlerin yinelenmediği dolaşı
+
+    \pause
+    \begin{itemize}
+      \item kapalı yol: \alert{çevre}
+      \item \alert{kapsayan yol}: bütün düğümlere uğranan yol
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yol Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \column{.4\textwidth}
+      $(c,b),(b,a),(a,d),(d,e),$\\
+      $(e,f)$
+
+      \medskip
+      $c,b,a,d,e,f$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gezi - Yol İlişkisi}
+
+  \begin{teorem}
+    $a$ düğümünden $b$ düğümüne bir gezi varsa\\
+    $a$ düğümünden $b$ düğümüne bir yol da vardır.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağlılık}
+
+  \begin{tanim}
+    \alert{bağlı çizge}:\\
+    seçilebilecek her düğüm çifti arasında bir yol var
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item bağlı olmayan bir çizge bağlı bileşenlere ayrılabilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağlı Bileşen Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.55\textwidth}
+      \begin{center}
+        \pgfuseimage{bagsiz}
+      \end{center}
+
+      \column{.43\textwidth}
+      \pause
+      \begin{itemize}
+        \item çizge bağlı değil:\\
+          $a$ ile $c$ arasında yol yok
+        \item bağlı bileşenler:\\
+          $a,d,e$\\
+          $b,c$\\
+          $f$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uzaklık}
+
+  \begin{tanim}
+    \alert{uzaklık}:\\
+    iki düğüm arasındaki en kısa yolun uzunluğu
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    \alert{çap}:\\
+    çizgede birbirine en uzak iki düğüm arasındaki uzaklık
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uzaklık Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{uzaklik}
+      \end{center}
+
+      \column{.5\textwidth}
+      \pause
+      \begin{itemize}
+        \item $a$ ile $e$ düğümlerinin\\
+          uzaklığı: 2
+        \item çap: 3
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kesitleme Noktası}
+
+  \begin{tanim}
+    \alert{$G - v$ çizgesi}:\\
+    $G$ çizgesinden $v$ düğümü ve ona çakışık bütün ayrıtların çıkarılmasıyla
+    elde edilen çizge
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    \alert{kesitleme noktası}:\\
+    $G$ çizgesi bağlı ama $G - v$ çizgesi bağlı değilse $v$ bir kesitleme
+    noktasıdır
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kesitleme Noktası Örneği}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{block}{$G$ çizgesi}
+      \begin{center}
+        \pgfuseimage{uzaklik}
+      \end{center}
+    \end{block}
+
+    \column{.5\textwidth}
+    \begin{block}{$G - d$ çizgesi}
+      \begin{center}
+        \pgfuseimage{kesitleme}
+      \end{center}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Dolaşılar}
+
+  \begin{itemize}
+    \item yönsüz çizgelere benzer şekilde
+
+    \pause
+    \item yaylar yönsüz varsayarak tanımlanırsa:\\
+      \emph{yarı-dolaşı}, \emph{yarı-gezi}, \emph{yarı-yol}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Zayıf Bağlı Çizge}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{tanim}
+      \emph{zayıf bağlı çizge}:\\
+      her düğüm çifti arasında bir yarı-yol var
+    \end{tanim}
+
+    \column{.5\textwidth}
+    \begin{ornek}
+      \begin{center}
+        \pgfuseimage{zayif}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tek-Yönlü Bağlı Çizge}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{tanim}
+      \emph{tek-yönlü bağlı çizge}:\\
+      her düğüm çifti arasında birinden diğerine yol var
+    \end{tanim}
+
+    \column{.5\textwidth}
+    \begin{ornek}
+      \begin{center}
+        \pgfuseimage{tekyonlu}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güçlü Bağlı Çizge}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{tanim}
+      \emph{güçlü bağlı çizge}:\\
+      her düğüm çifti arasında bir yol var
+    \end{tanim}
+
+    \column{.5\textwidth}
+    \begin{ornek}
+      \begin{center}
+        \pgfuseimage{guclu}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Bağlılık}
+
+  \begin{teorem}
+    sonlu, yönlü bir $D$ çizgesinin
+
+    \begin{itemize}
+      \item zayıf bağlı olması için kapsayan bir yarı-dolaşı içermesi
+      \item<2-> tek-yönlü bağlı olması için kapsayan bir açık dolaşı içermesi
+      \item<3-> güçlü bağlı olması için kapsayan bir kapalı dolaşı içermesi
+    \end{itemize}
+
+    gerek ve yeter koşuldur
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bağlantı Matrisi}
+
+  \begin{itemize}
+    \item çizgenin bitişiklik matrisi $A$ ise\\
+      $A^k$ matrisinin $(i,j)$ elemanı $i$. düğüm ile $j$. düğüm arasındaki\\
+      $k$ uzunluklu dolaşıların sayısını gösterir
+
+    \pause
+    \item $n$ düğümlü yönsüz bir çizgede iki düğüm arasındaki uzaklık\\
+      en fazla $n-1$ olabilir
+
+    \pause
+    \medskip
+    \item \alert{bağlantı matrisi}:\\
+      $C = A^1 + A^2 + A^3 + \dots + A^{n-1}$
+    \begin{itemize}
+      \item bütün elemanlar sıfırdan farklı ise çizge bağlıdır
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması}
+
+  \begin{itemize}
+    \item düğümler arasındaki yolların sayısı yerine\\
+      yol olup olmadığını belirlemek daha kolay
+
+    \pause
+    \medskip
+    \item sırayla her düğüm için:
+    \begin{itemize}
+      \item o düğüme gelinebilen düğümlerden\\
+        (matriste o sütunda 1 olan satırlardan)
+
+      \item o düğümden gidilebilen düğümlere\\
+        (matriste o satırda 1 olan sütunlara)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{warshall}
+      \end{center}
+
+      \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & \alert{1} & 0 & 0\\
+            b & 0 & 1 & 0 & 0\\
+            c & 0 & 0 & 0 & 1\\
+            d & \alert{1} & 0 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{warshall1}
+      \end{center}
+
+      \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & \alert{1} & 0 & 0\\
+            b & 0 & 1 & 0 & 0\\
+            c & 0 & 0 & 0 & 1\\
+            d & 1 & \alert{1} & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{warshall1}
+      \end{center}
+
+      \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & 1 & 0 & 0\\
+            b & 0 & 1 & 0 & 0\\
+            c & 0 & 0 & 0 & \alert{1}\\
+            d & 1 & 1 & \alert{1} & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{warshall2}
+      \end{center}
+
+      \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & 1 & 0 & 0\\
+            b & 0 & 1 & 0 & 0\\
+            c & 0 & 0 & 0 & \alert{1}\\
+            d & \alert{1} & \alert{1} & \alert{1} & \alert{1}
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall Algoritması Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{warshall3}
+      \end{center}
+
+      \column{.5\textwidth}
+      \[
+        \begin{array}{c|cccc}
+              & a & b & c & d\\\hline
+            a & 0 & 1 & 0 & 0\\
+            b & 0 & 1 & 0 & 0\\
+            c & 1 & 1 & 1 & 1\\
+            d & 1 & 1 & 1 & 1
+        \end{array}
+      \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{Kerte}
+
+\begin{frame}
+  \frametitle{Kerte}
+
+  \begin{tanim}
+    \alert{kerte}:\\
+    düğüme çakışan ayrıtların sayısı
+  \end{tanim}
+
+  \pause
+  \begin{teorem}
+    $v_i$ düğümünün kertesi $d_i$ ise:
+
+    \[|E| = \frac{\sum_i d_i}{2}\]
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte Örneği}
+
+  \begin{ornek}[yalın]
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \column{.4\textwidth}
+        $\begin{array}{ccc}
+        d_a & = & 5\\
+        d_b & = & 2\\
+        d_c & = & 2\\
+        d_d & = & 2\\
+        d_e & = & 3\\
+        d_f & = & 2\\
+        \medskip
+        Toplam & = & 16\\
+        \medskip
+        |E| & = & 8
+        \end{array}$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte Örneği}
+
+  \begin{ornek}[çoklu]
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{coklu}
+      \end{center}
+
+      \column{.4\textwidth}
+        $\begin{array}{ccc}
+        d_a & = & 6\\
+        d_b & = & 3\\
+        d_c & = & 2\\
+        d_d & = & 2\\
+        d_e & = & 5\\
+        d_f & = & 2\\
+        \medskip
+        Toplam & = & 20\\
+        \medskip
+        |E| & = & 10
+        \end{array}$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte Teoremleri}
+
+  \begin{teorem}
+    Bir çizgede kertesi tek olan düğümlerin sayısı çifttir.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{itemize}
+      \item $t_i$: kertesi $i$ olan düğümlerin sayısı
+
+      \pause
+$2|E| = \sum_i d_i = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
+
+\pause
+$2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + \dots + 2t_3 + 4t_5 + \dots$
+
+\pause
+$2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
+
+      \pause
+      \item sol yan çift olduğuna göre sağ yan da çifttir
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Çizgelerde Kerte}
+
+  \begin{itemize}
+    \item kerte ikiye ayrılıyor
+    \begin{itemize}
+      \item \emph{giriş kertesi}: ${d_v}^i$
+      \item \emph{çıkış kertesi}: ${d_v}^o$
+    \end{itemize}
+
+    \pause
+    \item $\sum_{v \in V} {d_v}^i = \sum_{v \in V} {d_v}^o = |A|$
+
+    \pause
+    \medskip
+    \item giriş kertesi 0 olan düğüm: \emph{kaynak}
+    \item çıkış kertesi 0 olan düğüm: \emph{kuyu}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Königsberg Köprüleri}
+
+  \begin{center}
+    \pgfuseimage{konigsberg}
+  \end{center}
+
+  \begin{itemize}
+    \item herhangi bir kara parçasından başlayarak\\
+      bütün köprülerden bir kere geçerek\\
+      başlangıç noktasına dönülebilir mi?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Geçit Veren Çizge}
+
+  \begin{tanim}
+    \alert{geçit veren çizge}:\\
+    üzerinde kapsayan bir gezi düzenlenebilen çizge
+  \end{tanim}
+
+  \begin{itemize}
+    \pause
+    \item kertesi tek olan bir düğümün geçit veren bir çizgede yer alabilmesi
+      için gezinin ya başlangıç ya da varış düğümü olması gerekir
+
+    \pause
+    \item başlangıç ve varış dışındaki bütün düğümlerin kerteleri çift olmalı
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Geçit Veren Çizge Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{zarf}
+      \end{center}
+
+      \pause
+      \column{.6\textwidth}
+      \begin{itemize}
+        \item $a$, $b$ ve $c$ düğümlerinin\\
+          kerteleri çift
+        \item $d$ ve $e$ düğümlerinin\\
+          kerteleri tek
+        \pause
+        \item $d$ düğümünden başlayıp\\
+          $e$ düğümünde biten (ya da tersi)\\
+          bir kapsayan gezi oluşturulabilir: $d,b,a,c,e,d,c,b,e$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Königsberg Köprüleri}
+
+  \begin{center}
+    \pgfuseimage{konigcizge}
+  \end{center}
+
+  \pause
+  \begin{itemize}
+    \item bütün düğümlerin kerteleri tek: geçit vermez
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Çizgeleri}
+
+  \begin{tanim}
+    \alert{Euler çizgesi}:\\
+      üzerinde kapalı bir kapsayan gezi düzenlenebilen çizge
+
+    \pause
+    \begin{itemize}
+      \item Euler çizgesi $\Leftrightarrow$ bütün düğümlerin kerteleri çift
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Çizgesi Örnekleri}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{ornek}[Euler çizgesi]
+      \begin{center}
+        \pgfuseimage{euler}
+      \end{center}
+    \end{ornek}
+
+    \column{.5\textwidth}
+    \begin{ornek}[Euler çizgesi değil]
+      \begin{center}
+        \pgfuseimage{hamilton}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamilton Çizgeleri}
+
+  \begin{tanim}
+    \alert{Hamilton çizgesi}:\\
+      üzerinde kapalı bir kapsayan yol düzenlenebilen çizge
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamilton Çizgesi Örnekleri}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{ornek}[Hamilton çizgesi]
+      \begin{center}
+        \pgfuseimage{hamilton}
+      \end{center}
+    \end{ornek}
+
+    \column{.5\textwidth}
+    \begin{ornek}[Hamilton çizgesi değil]
+      \begin{center}
+        \pgfuseimage{euler}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\subsection{İzomorfizm}
+
+\begin{frame}
+  \frametitle{İzomorfizm}
+
+  \begin{tanim}
+    \alert{izomorfik çizgeler}:\\
+    $G=(V,E)$ ve $G^\star=(V^\star,E^\star)$ çizgeleri izomorfik ise\\
+    $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
+
+    \begin{itemize}
+      \item $f$ birebir ve örten
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item aynı şekilde çizilebilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İzomorfizm Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorff}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorft}
+      \end{center}
+    \end{columns}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $f = \{(a,d),(b,e),(c,b),(d,c),(e,a)\}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İzomorfizm Örneği}
+
+  \begin{ornek}[Petersen çizgesi]
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen1}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen2}
+      \end{center}
+    \end{columns}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
+        $~~~~~~~(f,w),(g,x),(h,t),(i,z),(j,s)\}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorfizm}
+
+  \begin{tanim}
+    \alert{homeomorfik çizgeler}:\\
+    izomorfik çizgelere ayrıtları bölen düğümler ekleyerek\\
+    elde edilen çizgeler
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorfizm Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorft}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{homeomorft}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\section{Özel Çizgeler}
+
+\subsection{Düzenli Çizgeler}
+
+\begin{frame}
+  \frametitle{Düzenli Çizgeler}
+
+  \begin{tanim}
+    \alert{düzenli çizge}:\\
+    bütün düğümlerin kertelerinin aynı olduğu çizge
+
+    \begin{itemize}
+      \item $n$-düzenli: bütün düğümlerin kerteleri $n$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzenli Çizge Örnekleri}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{duzenli}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tam Bağlı Çizgeler}
+
+  \begin{tanim}
+    \alert{tam bağlı çizge}:\\
+    her düğüm çifti arasında ayrıt olan çizge
+
+    \begin{itemize}
+      \item $K_n$: $n$ düğümlü tam bağlı çizge
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tam Bağlı Çizge Örnekleri}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{ornek}[$K_4$]
+      \begin{center}
+        \pgfuseimage{k4}
+      \end{center}
+    \end{ornek}
+
+    \column{.5\textwidth}
+    \begin{ornek}[$K_5$]
+      \begin{center}
+        \pgfuseimage{k5}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İki Parçalı Çizgeler}
+
+  \begin{tanim}
+    \alert{iki parçalı çizge}:\\
+    $V = V_1 \cup V_2 \wedge V_1 \cap V_2 = \emptyset$\\
+    $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
+
+    \pause
+    \begin{itemize}
+      \item \emph{tam bağlı iki parçalı çizge}:\\
+      $\forall v_1 \in V_1 \forall v_2 \in V_2~(v_1,v_2) \in E$
+      \begin{itemize}
+        \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
+      \end{itemize}
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İki Parçalı Çizge Örnekleri}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{ornek}[$K_{2,3}$]
+      \begin{center}
+        \pgfuseimage{k23}
+      \end{center}
+    \end{ornek}
+
+    \column{.5\textwidth}
+    \begin{ornek}[$K_{3,3}$]
+      \begin{center}
+        \pgfuseimage{k33}
+      \end{center}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\subsection{Düzlemsel Çizgeler}
+
+\begin{frame}
+  \frametitle{Düzlemsel Çizgeler}
+
+  \begin{tanim}
+    \alert{düzlemsel çizge}:\\
+      ayrıtları kesişmeden bir düzleme çizilebilen çizge
+
+    \begin{itemize}
+      \item \alert{harita}: çizgenin düzlemsel bir çizimi
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzlemsel Çizge Örneği}
+
+  \begin{ornek}[$K_4$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{k4}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{k4duzlemsel}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bölgeler}
+
+  \begin{itemize}
+    \item bir harita düzlemi \emph{bölgelere} ayırır
+    \item \emph{bölge kertesi}:\\
+      bölgenin sınırı oluşturan dolaşının uzunluğu
+  \end{itemize}
+
+  \pause
+  \begin{teorem}
+    Bölge kertelerinin toplamı ayrıt sayısının iki katıdır.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bölge Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{bolge}
+      \end{center}
+
+      \pause
+      \column{.4\textwidth}
+      $d_{r_1} = 3$ (abda)\\
+      $d_{r_2} = 3$ (bcdb)\\
+      $d_{r_3} = 5$ (cdefec)\\
+      $d_{r_4} = 4$ (abcea)\\
+      $d_{r_5} = 3$ (adea)
+
+      \medskip
+      $\sum_r d_r = 18$\\
+      $|E| = 9$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Formülü}
+
+  \begin{teorem}[Euler Formülü]
+    Bağlı, düzlemsel çizgelerde $|V| - |E| + |R| = 2$.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Formülü Örneği}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{bolge}
+    \end{center}
+
+    \begin{itemize}
+     \item $|V| = 6$, $|E| = 9$, $|R| = 5$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Formülünün Tanıtı}
+
+  \begin{block}{Tanıt}
+    yöntem: $|E|$ üzerinden tümevarım
+
+    \pause
+    \begin{itemize}
+      \item taban adımı: tek düğüm, ayrıt yok\\
+        $|V| = 1$, $|E| = 0$, $|R| = 1$
+
+      \pause
+      \item herhangi bir düzlemsel çizge için doğruluğunu varsayalım
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Formülünün Tanıtı}
+
+  \begin{proof}[Tümevarım Adımı]
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item yeni bir düğümü var olanlardan birine bağla:
+
+        \medskip
+        \pgfuseimage{eulertanit1}
+      \end{itemize}
+
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item var olan iki düğüm arasına bir ayrıt ekle:
+
+        \medskip
+        \pgfuseimage{eulertanit2}
+      \end{itemize}
+    \end{columns}
+
+    \pause
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item $|V|$ 1 artar, $|E|$ 1 artar,\\
+          $|R|$ aynı kalır
+      \end{itemize}
+
+      \pause
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item $|V|$ aynı kalır, $|E|$ 1 artar,\\
+          $|R|$ 1 artar
+      \end{itemize}
+    \end{columns}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzlemsel Çizge Teoremleri}
+
+  \begin{teorem}
+    yalın, düzlemsel bir çizgede:\\
+    $|V| \geq 3 \Rightarrow |E| \leq 3 |V| - 6$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{itemize}
+      \item bölge kertelerinin toplamı: $2 |E|$
+
+      \pause
+      \item bir bölgenin kertesi en az $3$\\
+        \pause
+        $\Rightarrow 2 |E| \geq 3 |R|$
+        \pause
+        $\Rightarrow |R| \leq \frac{2}{3} |E|$
+
+      \pause
+      \item $|V| - |E| + |R| = 2$\\
+        \pause
+        $\Rightarrow |V| - |E| + \frac{2}{3} |E| \geq 2$
+        \pause
+        $\Rightarrow |V| - \frac{1}{3} |E| \geq 2$\\
+        \pause
+        $\Rightarrow 3 |V| - |E| \geq 6$
+        \pause
+        $\Rightarrow |E| \leq 3 |V| - 6$\\
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzlemsel Çizge Teoremleri}
+
+  \begin{teorem}
+    Bağlı, yalın, düzlemsel bir çizgede\\
+    $|V| \geq 3 \Rightarrow \exists v \in V~d_v \leq 5$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{itemize}
+      \item $\forall v \in V~d_v \geq 6$ olsun\\
+        \pause
+        $\Rightarrow 2 |E| \geq 6 |V|$\\
+        \pause
+        $\Rightarrow |E| \geq 3 |V|$\\
+        \pause
+        $\Rightarrow |E| > 3 |V| - 6$: \alert{çelişki}
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzlemsel Olmayan Çizgeler}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{teorem}
+      \begin{center}
+        \pgfuseimage{k5}
+      \end{center}
+
+      $K_5$ çizgesi düzlemsel değildir.
+    \end{teorem}
+
+    \pause
+    \column{.55\textwidth}
+    \begin{proof}[Tanıt]
+      \begin{itemize}
+        \item $|V| = 5$
+
+        \pause
+        \item $3 |V| - 6 = 3 \cdot 5 - 6 = 9$
+
+        \pause
+        \item $|E| \leq 9$ olmalı\\
+
+        \pause
+        \item ama $|E| = 10$: \alert{çelişki}
+      \end{itemize}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzlemsel Olmayan Çizgeler}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{teorem}
+      \begin{center}
+        \pgfuseimage{k33}
+      \end{center}
+
+      $K_{3,3}$ çizgesi düzlemsel değildir.
+    \end{teorem}
+
+    \pause
+    \column{.55\textwidth}
+    \begin{proof}[Tanıt]
+      \begin{itemize}
+        \item $|V| = 6, |E| = 9$
+
+        \pause
+        \item düzlemsel ise $|R| = 5$ olmalı
+
+        \pause
+        \item bir bölgenin kertesi en az $4$\\
+          $\Rightarrow \sum_{r \in R} d_r \geq 20$
+
+        \pause
+        \item $|E| \geq 10$ olmalı\\
+
+        \pause
+        \item ama $|E| = 9$: \alert{çelişki}
+      \end{itemize}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kuratowski Teoremi}
+
+  \begin{teorem}
+    çizgenin $K_5$ ya da $K_{3,3}$ çizgelerine homeomorf bir altçizgesi var\\
+    $\Leftrightarrow$ çizge düzlemsel değil
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Platon Cisimleri}
+
+  \begin{tanim}
+    \alert{düzgün çokyüzlü}:\\
+    yüzeyi aynı eşkenar çokgenlerden oluşan üç boyutlu cisim
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item bir düzgün çokyüzlünün iki boyutlu düzleme izdüşümü düzlemsel bir
+      çizgedir
+    \begin{itemize}
+      \item her köşe: düğüm
+      \item her kenar: ayrıt
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Platon Cisimleri}
+
+  \begin{ornek}[küp: düzgün 6-yüzlü]
+    \begin{center}
+      \pgfuseimage{kup}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Platon Cisimlerinin Sayısı}
+
+  \begin{itemize}
+    \item $v$: düğüm (köşe) sayısı
+    \item $e$: ayrıt (kenar) sayısı
+    \item $r$: bölge (yüzey) sayısı
+    \item $n$: bir köşede birleşen yüzey sayısı = düğüm kertesi
+    \item $m$: bir yüzeyi çevreleyen ayrıt sayısı = bölge kertesi
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item $m,n \geq 3$
+    \item $2e = m \cdot r$
+    \item $2e = n \cdot v$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Platon Cisimlerinin Sayısı}
+
+    \begin{itemize}
+      \item Euler formülünden:
+      \[
+        0 < 2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
+        = e \Big( \frac{2m-mn+2n}{mn} \Big)
+      \]
+
+      \pause
+      \item $e,m,n > 0$ olduğuna göre:
+      \begin{eqnarray*}
+        2m - mn + 2n > 0 \Rightarrow mn - 2m -2n < 0 \\\pause
+        \Rightarrow mn - 2m - 2n + 4 < 4 \pause \Rightarrow (m - 2)(n - 2) < 4
+      \end{eqnarray*}
+
+      \pause
+      \item bu eşitsizliği sağlayan değerler:
+      \begin{enumerate}
+        \item $m=3, n=3$
+        \item $m=4, n=3$
+        \item $m=3, n=4$
+        \item $m=5, n=3$
+        \item $m=3, n=5$
+      \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tetrahedron - Düzgün 4 Yüzlü}
+
+  \begin{columns}
+    \column{.7\textwidth}
+    \begin{center}
+      \pgfuseimage{tetrahedron}
+    \end{center}
+
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{planartetra}
+
+      $m=3, n=3$
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hexahedron - Küp}
+
+  \begin{columns}
+    \column{.7\textwidth}
+    \begin{center}
+      \pgfuseimage{hexahedron}
+    \end{center}
+
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{planarhexa}
+
+      $m=4, n=3$
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Octahedron - Düzgün 8 Yüzlü}
+
+  \begin{columns}
+    \column{.7\textwidth}
+    \begin{center}
+      \pgfuseimage{octahedron}
+    \end{center}
+
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{planarocta}
+
+      $m=3, n=4$
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dodecahedron - Düzgün 12 Yüzlü}
+
+  \begin{columns}
+    \column{.7\textwidth}
+    \begin{center}
+      \pgfuseimage{dodecahedron}
+    \end{center}
+
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{planardodeca}
+
+      $m=5, n=3$
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Icosahedron - Düzgün 20 Yüzlü}
+
+  \begin{columns}
+    \column{.7\textwidth}
+    \begin{center}
+      \pgfuseimage{icosahedron}
+    \end{center}
+
+    \column{.3\textwidth}
+    $m=3, n=5$
+  \end{columns}
+\end{frame}
+
+\subsection{Etiketli Çizgeler}
+
+\begin{frame}
+  \frametitle{Etiketli Çizgeler}
+
+  \begin{itemize}
+    \item ayrıtlara etiket (ağırlık) atanabilir
+    \begin{itemize}
+      \item uzunluk, maliyet, olasılık, \dots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Çizge Problemleri}
+
+\subsection{En Kısa Yol}
+
+\begin{frame}
+  \frametitle{En Kısa Yol Bulma}
+
+  \begin{itemize}
+    \item bir düğümden diğerlerine en kısa yolların bulunması
+    \begin{itemize}
+      \item Dijkstra algoritması
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[başlangıç]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item başlangıç: $c$
+      \end{itemize}
+
+      \begin{table}
+        \begin{tabular}{r|l}
+          a & $(\infty,-)$ \\\hline
+          b & $(\infty,-)$ \\\hline
+          c & $(0,-)$      \\\hline
+          f & $(\infty,-)$ \\\hline
+          g & $(\infty,-)$ \\\hline
+          h & $(\infty,-)$
+        \end{tabular}
+      \end{table}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[$c$ düğümünden - taban uzaklık=$0$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item $c \rightarrow f: 6, 6 < \infty$
+        \item $c \rightarrow h: 11, 11 < \infty$
+      \end{itemize}
+
+      \pause
+      \begin{table}
+        \begin{tabular}{r|l|c}
+          a & $(\infty,-)$ & \\\hline
+          b & $(\infty,-)$ & \\\hline
+          c & $(0,-)$      & $\surd$ \\\hline
+          f & $(6,cf)$     & \\\hline
+          g & $(\infty,-)$ & \\\hline
+          h & $(11,ch)$    &
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \begin{itemize}
+        \item en yakın düğüm: $f$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[$f$ düğümünden - taban uzaklık=$6$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item $f \rightarrow a: 6+11, 17 < \infty$
+        \item $f \rightarrow g: 6+9, 15 < \infty$
+        \item $f \rightarrow h: 6+4, 10 < 11$
+      \end{itemize}
+
+      \pause
+      \begin{table}
+        \begin{tabular}{r|l|c}
+          a & $(17,cfa)$   & \\\hline
+          b & $(\infty,-)$ & \\\hline
+          c & $(0,-)$      & $\surd$ \\\hline
+          f & $(6,cf)$     & $\surd$ \\\hline
+          g & $(15,cfg)$   & \\\hline
+          h & $(10,cfh)$   &
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \begin{itemize}
+        \item en yakın düğüm: $h$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[$h$ düğümünden - taban uzaklık=$10$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item $h \rightarrow a: 10+11, 21 \nless 17$
+        \item $h \rightarrow g: 10+4, 14 < 15$
+      \end{itemize}
+
+      \pause
+      \begin{table}
+        \begin{tabular}{r|l|c}
+          a & $(17,cfa)$   & \\\hline
+          b & $(\infty,-)$ & \\\hline
+          c & $(0,-)$      & $\surd$ \\\hline
+          f & $(6,cf)$     & $\surd$ \\\hline
+          g & $(14,cfhg)$  & \\\hline
+          h & $(10,cfh)$   & $\surd$
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \begin{itemize}
+        \item en yakın düğüm: $g$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[$g$ düğümünden - taban uzaklık=$14$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item $g \rightarrow a: 14+17, 31 \nless 17$
+      \end{itemize}
+
+      \pause
+      \begin{table}
+        \begin{tabular}{r|l|c}
+          a & $(17,cfa)$   & \\\hline
+          b & $(\infty,-)$ & \\\hline
+          c & $(0,-)$      & $\surd$ \\\hline
+          f & $(6,cf)$     & $\surd$ \\\hline
+          g & $(14,cfhg)$  & $\surd$ \\\hline
+          h & $(10,cfh)$   & $\surd$
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \begin{itemize}
+        \item en yakın düğüm: $a$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dijkstra Algoritması Örneği}
+
+  \begin{ornek}[$a$ düğümünden - taban uzaklık=$17$]
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{dijkstra}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{itemize}
+        \item $a \rightarrow b: 17+5, 22 < \infty$
+      \end{itemize}
+
+      \pause
+      \begin{table}
+        \begin{tabular}{r|l|c}
+          a & $(17,cfa)$   & $\surd$ \\\hline
+          b & $(22,cfab)$  & \\\hline
+          c & $(0,-)$      & $\surd$ \\\hline
+          f & $(6,cf)$     & $\surd$ \\\hline
+          g & $(14,cfhg)$  & $\surd$ \\\hline
+          h & $(10,cfh)$   & $\surd$
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \begin{itemize}
+        \item son düğüm: $b$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{Çizge Boyama}
+
+\begin{frame}
+  \frametitle{Çizge Boyama}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item kimyasal maddeler üreten bir firma
+      \item bazı maddeler birlikte depolanamıyor
+      \item birbiriyle aynı ortamda olamayacak maddeler farklı depolara
+        yerleştirilmeli
+
+      \pause
+      \medskip
+      \item \alert{problem}: en az sayıda depo kullanılacak şekilde ürünleri
+        depola
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item 25 farklı kimyasal madde: $V = \{ c_1, c_2,\cdots, c_{25}\}$
+      \item her $1 \leq i, j \leq 25$ için:\\
+        $(c_i,c_j)$ bitişik: $c_i$ ve $c_j$ birbiriyle etkileşir
+    \end{itemize}
+
+%     \pause
+    \begin{center}
+      \pgfuseimage{besmadde}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzgün Boyama}
+
+  \begin{tanim}
+    \alert{düzgün boyama}:\\
+      $G=(V,E)$ çizgesinde her $(a,b) \in E$ için $a$ ve $b$ düğümlerinin
+      renkleri farklı olacak şekilde bütün düğümlere renk atama
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{boyama1}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama2}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama3}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama4}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama5}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama6}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama7}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kromatik Sayı}
+
+  \begin{tanim}
+    \alert{kromatik sayı}:\\
+      G çizgesini düzgün boyamak için gerekli en az renk sayısı: $\chi (G)$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+     \item $\chi (G)$'yi hesaplamak çok zor bir problem
+     \item $n \geq 1$ için $\chi (K_n) = n$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kromatik Sayı Örneği}
+
+  \begin{ornek}[Herschel çizgesi]
+    \begin{center}
+      \pgfuseimage{herschel}
+    \end{center}
+
+    \begin{itemize}
+      \item kromatik sayı: 2
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}[Sudoku]
+    \begin{columns}[t]
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{sudoku}
+      \end{center}
+
+      \column{.55\textwidth}
+      \begin{itemize}
+        \item her hücre bir düğüm
+        \item aynı satırdaki hücreler bitişik
+        \item aynı sütundaki hücreler bitişik
+        \item aynı $3 \times 3$ bloktaki hücreler bitişik
+        \item her rakam bir renk
+      \end{itemize}
+
+      \pause
+      \begin{itemize}
+        \item problem: kısmen boyalı bir çizgeyi tamamen boya
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Grimaldi}
+    \begin{itemize}
+      \item Chapter 11: \alert{An Introduction to Graph Theory}
+
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.2. \alert{Computer Recognition: Zero-One Matrices\\
+                          and Directed Graphs}
+      \end{itemize}
+
+      \item Chapter 13: Optimization and Matching
+      \begin{itemize}
+        \item 13.1. \alert{Dijkstra's Shortest Path Algorithm}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
