@@ -1,0 +1,1063 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+\lstdefinelanguage{ExtendedPHP}[]{PHP}{
+  morekeywords={odbc_exec}
+}
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
+                OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM}
+}
+\lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
+  morekeywords={AFTER,BEFORE,DO,EACH,FOR,FUNCTION,INSTEAD,LANGUAGE,OPTION,
+                PROCEDURE,RETURNS,ROW,RULE,SNAPSHOT,STATEMENT,WITH}
+}
+\lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
+  morekeywords={BEGIN,CLOSE,CONTINUE,CURSOR,DECLARE,FETCH,FOR,DO,END,EXEC,FOUND,
+                GOTO,INCLUDE,INTO,OPEN,SECTION,SQL,SQLERROR,SQLWARNING,
+                STATEMENT,STOP,WHENEVER,sqlca,sqlcode}
+}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{Application Development}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[height=6cm]{esql}{esql}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Application Development}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+  \begin{itemize}
+    \item using the database language in conjunction with a general-purpose
+      programming language
+    \item general-purpose language: \alert{host language}
+
+    \pause
+    \bigskip
+    \item mismatch between SQL and the host language:
+    \begin{itemize}
+      \item SQL operations on sets
+      \item iteration constructs in programming languages
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Program Structure}
+
+  \begin{itemize}
+    \item connect
+    \begin{itemize}
+      \item server, database, username, password
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item as necessary:
+    \begin{itemize}
+      \item execute a query
+      \item iterate over the result set
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item disconnect
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Approaches}
+
+  \begin{itemize}
+    \item application programming interface (API)
+    \item embedded SQL
+    \item ODBC
+    \item language standard interfaces
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Application Programming Interface}
+
+  \begin{itemize}
+    \item using the library functions of the SQL server
+
+    \pause
+    \bigskip
+    \item pros and cons:
+    \begin{itemize}
+      \item fast
+      \item not standard
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{API Example}
+
+  \begin{example}[PostgreSQL - C]
+    \begin{lstlisting}[language=C]
+#include <libpq-fe.h>
+
+int main(void)
+{
+    /* connect */
+    /* execute query */
+    /* disconnect */
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{API Example}
+
+  \begin{example}[connecting]
+    \begin{lstlisting}[language=C]
+/* PGconn *conn; */
+
+conn = PQconnectdb("host=localhost dbname=imdb"
+                " user=itucs password=itucs");
+if (PQstatus(conn) == CONNECTION_BAD) {
+    fprintf(stderr, "Connection failed.\n");
+    exit(1);
+}
+/* execute query */
+PQfinish(conn);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{API Example}
+
+  \begin{example}[executing a query]
+    \begin{lstlisting}[language=C]
+/* PGresult *result; */
+
+sprintf(query, "SELECT TITLE,SCORE"
+          " FROM MOVIE WHERE (YR = %d)", year);
+result = PQexec(conn, query);
+if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+    fprintf(stderr, "Query failed.\n");
+    PQclear(result);
+    PQfinish(conn);
+    exit(1);
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{API Example}
+
+  \begin{example}[processing the result set]
+    \begin{lstlisting}[language=C]
+for (i = 0; i < PQntuples(result); i++)
+    printf("%s %s\n",
+           PQgetvalue(result, i, 0),
+           PQgetvalue(result, i, 1));
+
+PQclear(result);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{Embedded SQL}
+
+\begin{frame}
+  \frametitle{Embedded SQL}
+
+  \begin{itemize}
+    \item stages:
+    \begin{enumerate}
+      \item mark SQL statements within host language code:\\
+        \lstinline!EXEC SQL!
+      \item embedded SQL preprocessor:\\
+        embedded SQL directives $\rightarrow$ API calls
+      \item host language compiler
+    \end{enumerate}
+
+    \pause
+    \bigskip
+    \item pros and cons:
+    \begin{itemize}
+      \item fast, standard
+      \item difficult, does not support most languages
+    \end{itemize}
+
+    \bigskip
+    \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Embedded SQL}
+
+  \begin{center}
+    \pgfuseimage{esql}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Embedded SQL Standard}
+
+  \begin{itemize}
+    \item sharing variables with the host language
+    \item error control
+    \item adapting query results
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Variable Sharing}
+
+  \begin{block}{Syntax}
+    \begin{lstlisting}[language=EmbeddedSQL]
+EXEC SQL BEGIN DECLARE SECTION;
+shared variables
+EXEC SQL END DECLARE SECTION;
+    \end{lstlisting}
+  \end{block}
+
+  \begin{itemize}
+    \item in SQL statements: '\lstinline!:!' in front of host language variables
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Error Control}
+
+%   \begin{block}{Communication Area}
+%     \begin{lstlisting}
+% EXEC SQL INCLUDE sqlca;
+%     \end{lstlisting}
+%
+%     \begin{itemize}
+%       \item \lstinline!sqlca.sqlcode!: status of last executed statement
+%     \end{itemize}
+%   \end{block}
+%
+%   \pause
+  \begin{block}{Error Processing}
+    \begin{lstlisting}[language=EmbeddedSQL]
+EXEC SQL WHENEVER
+  { SQLERROR | SQLWARNING | NOT FOUND }
+  { STOP | CONTINUE | DO command | GOTO label }
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Adapting Query Results}
+
+  \begin{block}{Cursors}
+    \begin{lstlisting}[language=EmbeddedSQL]
+EXEC SQL DECLARE cursor_name CURSOR FOR SELECT...
+EXEC SQL OPEN cursor_name;
+EXEC SQL FETCH IN cursor_name INTO variables;
+EXEC SQL CLOSE cursor_name;
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item query is not executed when cursor is defined
+    \item it is executed when cursor is opened
+    \begin{itemize}
+      \item cursor points to first element in the result set
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded SQL Example}
+
+  \begin{example}[connecting]
+    \begin{lstlisting}[language=C]
+EXEC SQL BEGIN DECLARE SECTION;
+int yr;
+char *title = NULL, *score = NULL;
+EXEC SQL END DECLARE SECTION;
+
+EXEC SQL CONNECT TO itucs
+    USER itucs IDENTIFIED BY itucs;
+
+/* process query */
+
+EXEC SQL DISCONNECT;
+    \end{lstlisting}
+ \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded SQL Example}
+
+  \begin{example}[processing query]
+    \begin{lstlisting}[language=C]
+scanf("%d", &yr);
+EXEC SQL DECLARE c_query CURSOR FOR
+    SELECT TITLE, SCORE FROM MOVIE
+      WHERE (YR = :yr);
+EXEC SQL OPEN c_query;
+
+/* execute query */
+
+EXEC SQL CLOSE c_query;
+EXEC SQL COMMIT;
+    \end{lstlisting}
+ \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded SQL Example}
+
+  \begin{example}[executing query]
+    \begin{lstlisting}[language=C]
+EXEC SQL WHENEVER NOT FOUND DO break;
+while (1) {
+    EXEC SQL FETCH c_query INTO :title, :score;
+    printf("%s %s\n", title, score);
+    title = score = NULL;
+}
+free(title);
+free(score);
+    \end{lstlisting}
+ \end{example}
+\end{frame}
+
+\subsection{ODBC}
+
+\begin{frame}[label=odbc]
+  \frametitle{ODBC}
+
+  \begin{itemize}
+    \item \alert{ODBC}: Open DataBase Connectivity:\\
+      a service layer between the application and the server
+
+    \pause
+    \bigskip
+    \item pros and cons:
+    \begin{itemize}
+      \item standard
+      \item very slow
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ODBC Architecture}
+
+  \begin{itemize}
+    \item application
+
+    \pause
+    \item driver manager
+    \begin{itemize}
+      \item registers the ODBC drivers
+      \item transfers requests from application to driver
+    \end{itemize}
+
+    \pause
+    \item driver
+    \begin{itemize}
+      \item translates and transfers requests to data source
+    \end{itemize}
+
+    \pause
+    \item data source
+    \begin{itemize}
+      \item processes instructions from the driver
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{ODBC Example}
+
+  \begin{example}[PHP]
+    \begin{lstlisting}[language=ExtendedPHP]
+$conn = odbc_connect("imdb", "itucs", "itucs");
+$query = "SELECT TITLE, SCORE"
+        " FROM MOVIE WHERE (YR = " . $year . ")";
+$result = odbc_exec($conn, $query);
+
+/* process the result set */
+
+odbc_close($conn);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{ODBC Example}
+
+  \begin{example}[processing the result set]
+    \begin{lstlisting}[language=ExtendedPHP]
+echo "<table>\n";
+while (odbc_fetch_row($result)) {
+  $title = odbc_result($result, "title");
+  $score = odbc_result($result, "score");
+  echo "<tr>\n";
+  echo "  <td>$title</td>\n";
+  echo "  <td>$score</td>\n";
+  echo "</tr>\n";
+}
+echo "</table>\n";
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{JDBC}
+
+\begin{frame}
+  \frametitle{JDBC}
+
+  \begin{itemize}
+    \item \alert{JDBC}: Java DataBase Connectivity
+
+    \pause
+    \item same architectural concepts as in ODBC
+    \begin{itemize}
+      \item different types of drivers
+    \end{itemize}
+
+    \pause
+    \item JDBC URL for connection
+    \begin{itemize}
+      \item \lstinline!jdbc:<subprotocol>:<otherParameters>!
+    \end{itemize}
+
+    \pause
+    \item matching Java and SQL data types
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JDBC Drivers}
+
+  \begin{itemize}
+    \item \emph{Type I}: bridges
+    \begin{itemize}
+      \item translate into non-native calls (for example ODBC)
+    \end{itemize}
+
+    \pause
+    \item \emph{Type II}: direct translation via non-Java driver
+    \begin{itemize}
+      \item translate into API of data source (for example C++)
+    \end{itemize}
+
+    \pause
+    \item \emph{Type III}: network bridges
+    \begin{itemize}
+      \item connect to middleware server for translating into API of data source
+    \end{itemize}
+
+    \pause
+    \item \emph{Type IV}: direct translation via Java driver
+    \begin{itemize}
+      \item communicate with DBMS through Java sockets
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JDBC Package}
+
+  \begin{itemize}
+    \item import the JDBC package:\\
+      \lstinline!import java.sql.*!
+
+    \pause
+    \medskip
+    \item exception about SQL operations:\\
+      \lstinline!SQLException!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JDBC Connection}
+
+  \begin{itemize}
+    \item \lstinline!DriverManager!: connection manager
+    \begin{itemize}
+      \item \lstinline!getConnection! (static)
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \lstinline!Connection!: database connection
+    \begin{itemize}
+      \item \lstinline!createStatement!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JDBC Queries}
+
+  \begin{itemize}
+    \item \lstinline!Statement!: SQL statement
+    \begin{itemize}
+      \item \lstinline!executeQuery!: for query operations
+      \item \lstinline!executeUpdate!: for insert/update/delete operations
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \lstinline!PreparedStatement!: precompiled SQL statement
+    \begin{itemize}
+      \item can be used multiple times
+      \item placeholder for parameters: \lstinline!?!
+      \item set value before invoking query
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \lstinline!ResultSet!: set of query results
+    \begin{itemize}
+      \item \lstinline!next!: next element in the result set
+      \item methods for getting the data in appropriate type
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Java and SQL Data Types}
+
+  \begin{table}
+    \begin{tabular}{|l|l|l|}\hline
+SQL type  & Java class         & ResultSet method\\\hline\hline
+BIT       & Boolean            & getBoolean()    \\\hline
+CHAR      & String             & getString()     \\\hline
+VARCHAR   & String             & getString()     \\\hline
+DOUBLE    & Double             & getDouble()     \\\hline
+FLOAT     & Float              & getDouble()     \\\hline
+INTEGER   & Integer            & getInt()        \\\hline
+REAL      & Double             & getFloat()      \\\hline
+DATE      & java.sql.Date      & getDate()       \\\hline
+TIME      & java.sql.Time      & getTime()       \\\hline
+TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[checking the database driver]
+    \begin{lstlisting}[language=Java]
+try {
+  Class.forName("org.postgresql.Driver");
+} catch (ClassNotFoundException e) {
+  // PostgreSQL driver not installed
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[connecting]
+    \begin{lstlisting}[language=Java]
+try {
+  Connection conn = DriverManager.getConnection(
+      "jdbc:postgresql:imdb", "itucs", "itucs"
+  );
+} catch (SQLException e) {
+  // connection error
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[executing query]
+    \begin{lstlisting}[language=Java]
+Statement stmt = conn.createStatement();
+String query = "SELECT TITLE, SCORE FROM MOVIE"
+    + " WHERE (YR = 1990)";
+ResultSet result = stmt.executeQuery(query);
+while (result.next())
+    System.out.println(result.getString(1)
+            + " " + result.getFloat(2));
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[prepared statement]
+    \begin{lstlisting}[language=Java]
+String query = "DELETE FROM MOVIE" +
+    " WHERE (SCORE < ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setFloat(1, score);
+stmt.executeUpdate();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Ramakrishnan, Gehrke}
+    \begin{itemize}
+      \item Chapter 6: Database Application Development
+      \begin{itemize}
+        \item 6.1. Accessing Databases from Applications
+        \item 6.2. \alert{An Introduction to JDBC}
+        \item 6.3. \alert{JDBC Classes and Interfaces}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary text: Date}
+    \begin{itemize}
+      \item Chapter 4: An Introduction to SQL
+      \begin{itemize}
+        \item 4.6. Embedded SQL
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{SQL Facilities}
+
+\subsection{Stored Procedures}
+
+\begin{frame}
+  \frametitle{Stored Procedures}
+
+  \begin{itemize}
+    \item implementing functionality in the database server
+    \begin{itemize}
+      \item languages: SQL, PL/SQL, C, ...
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item \alert{not really recommended}
+    \begin{itemize}
+      \item not portable
+      \item database servers are not optimized for business logic
+    \end{itemize}
+    $\rightarrow$ implement business logic on the application server
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Creating Functions}
+
+  \begin{block}{SQL Statement}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE FUNCTION function_name([type [, ...]])
+  RETURNS return_type
+  AS function_body
+  LANGUAGE language_name
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item first parameter \$1, second parameter \$2, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQL Function Example}
+
+  \begin{example}[calculating new score]
+    \$1: old score, \$2: old votes, \$3: new vote
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE FUNCTION NEW_SCORE(float, int, int)
+  RETURNS float
+  AS 'SELECT ($1*$2+$3) / ($2+1);'
+  LANGUAGE 'sql'
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triggers}
+
+  \begin{definition}
+    \alert{trigger}:\\
+      a function that will be automatically activated on an event
+  \end{definition}
+
+  \begin{itemize}
+    \item can be useful for maintaining integrity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Creating Triggers}
+
+  \begin{block}{SQL Statement}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE TRIGGER trigger_name
+  { BEFORE | AFTER } { event [ OR ... ] }
+  ON table_name
+  [ FOR [ EACH ] { ROW | STATEMENT } ]
+  EXECUTE PROCEDURE function_name(...)
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item PL/pgSQL:
+    \begin{itemize}
+      \item \lstinline!old!: tuple before the operation
+      \item \lstinline!new!: tuple after the operation
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Trigger Example}
+
+  \begin{example}[keep a "points" column]
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE FUNCTION UPDATE_MOVIE_POINTS()
+  RETURNS opaque
+  AS 'BEGIN
+      new.POINTS = new.SCORE * new.VOTES;
+      RETURN new;
+      END;'
+  LANGUAGE 'plpgsql'
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Trigger Example}
+
+  \begin{example}[keep a "points" column]
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE TRIGGER UPDATE_MOVIE
+  BEFORE INSERT OR UPDATE ON MOVIE
+  FOR EACH ROW
+  EXECUTE PROCEDURE UPDATE_MOVIE_POINTS()
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{Views}
+
+\begin{frame}
+  \frametitle{Views}
+
+  \begin{itemize}
+    \item presenting a derived table like a base table
+
+    \pause
+    \item isolating application programs from changes in database structure
+    \begin{itemize}
+      \item denormalizing after database refactoring
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Creating Views}
+
+  \begin{block}{SQL Statement}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE VIEW view_name AS
+  SELECT ...
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item the \lstinline!SELECT! query will be executed every time the view is
+      used
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{View Example}
+
+  \begin{example}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE VIEW NEW_MOVIE AS
+  SELECT ID, TITLE, YR FROM MOVIE
+    WHERE (YR > 1995)
+    \end{lstlisting}
+
+    \pause
+    \begin{lstlisting}[language=ExtendedSQL]
+SELECT * FROM NEW_MOVIE
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Updating Views}
+
+  \begin{itemize}
+    \item changes have to performed on the base tables
+    \begin{itemize}
+      \item rules are needed
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{block}{Creating Rules}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE RULE rule_name AS
+  ON event TO view_name
+  [ WHERE condition ]
+  DO [ INSTEAD ] sql_statement
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{View Rule Example}
+
+  \begin{example}
+    \begin{lstlisting}[language=ExtendedSQL]
+UPDATE NEW_MOVIE SET TITLE='..'
+  WHERE (ID = 1)
+    \end{lstlisting}
+
+    \pause
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE RULE UPDATE_TITLE AS
+  ON UPDATE TO NEW_MOVIE
+  DO INSTEAD
+    UPDATE MOVIE SET TITLE = new.TITLE
+      WHERE (ID = old.ID)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Snapshots}
+
+  \begin{itemize}
+    \item similar to view but creates a new base table
+    \begin{itemize}
+      \item the query is executed only once when snapshot is created
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item changes to base tables do not effect the snapshot
+    \item no updates on the snapshot
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Creating Snapshots}
+
+  \begin{block}{SQL Statement}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE SNAPSHOT snapshot_name AS
+  SELECT ...
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\subsection{Permissions}
+
+\begin{frame}
+  \frametitle{Permissions}
+
+  \begin{itemize}
+    \item \alert{subject}: active entities (user, group)
+    \item \alert{object}: passive entities (table, column, view, ...)
+
+    \pause
+    \item owner of object determines permissions of other subjects:\\
+      \emph{discretionary access control}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQL Permissions}
+
+  \begin{block}{Granting Permissions}
+    \begin{lstlisting}[language=ExtendedSQL]
+GRANT permission_name [, ...]
+  ON object_name TO subject_name
+  [ WITH GRANT OPTION ]
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{block}{Revoking Permissions}
+    \begin{lstlisting}[language=ExtendedSQL]
+REVOKE permission_name
+  ON object_name FROM subject_name
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Permission Examples}
+
+  \begin{example}[granting permissions on a table]
+    \begin{lstlisting}[language=ExtendedSQL]
+GRANT SELECT, INSERT, UPDATE ON MOVIE TO 'itucs'
+    \end{lstlisting}
+  \end{example}
+
+  \pause
+  \begin{example}[granting permissions on a view]
+    \begin{lstlisting}[language=ExtendedSQL]
+GRANT SELECT ON NEW_MOVIES TO 'itucs'
+    \end{lstlisting}
+  \end{example}
+
+  \pause
+  \begin{example}[revoking permissions on a table]
+    \begin{lstlisting}[language=ExtendedSQL]
+REVOKE INSERT ON MOVIE FROM 'itucs'
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{Performance}
+
+\begin{frame}
+  \frametitle{Indexes}
+
+  \begin{itemize}
+    \item some operations require sorting:\\
+      \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
+
+    \pause
+    \item creating indexes can speed up queries
+    \begin{itemize}
+      \item slows and insert and update operations
+      \item every key definition creates an index
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Indexes}
+
+  \begin{block}{SQL Statement}
+    \begin{lstlisting}[language=ExtendedSQL]
+CREATE [ UNIQUE ] INDEX index_name
+  ON table_name(column_name [, ...])
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 9: Integrity
+      \begin{itemize}
+        \item 9.11. \alert{Triggers (a Digression)}
+      \end{itemize}
+      \item Chapter 10: \alert{Views}
+      \item Chapter 17: Security
+      \begin{itemize}
+        \item 17.1. \alert{Introduction}
+        \item 17.6. \alert{SQL Facilities}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
