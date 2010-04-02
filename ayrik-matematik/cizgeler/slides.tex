@@ -151,9 +151,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Çizgeler}
+\section{Giriş}
 
-\subsection{Giriş}
+\subsection{Yönsüz Çizgeler}
 
 \begin{frame}
   \frametitle{Çizge}
@@ -250,31 +250,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yönlü Çizgeler}
-
-  \begin{tanim}
-    \alert{yönlü çizge}:\\
-    düğümler arasındaki bağlantılar yönlü
-
-    \pause
-    \begin{itemize}
-      \item ayrıt yerine \alert{yay}: $D=(V,A)$
-      \item \alert{başlangıç} ve \alert{bitiş} düğümleri
-    \end{itemize}
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Yönlü Çizge Örneği}
-
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{yonlu}
-    \end{center}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
   \frametitle{Altçizge}
 
   \begin{tanim}
@@ -287,6 +262,103 @@
       \item $E'$ kümesindeki ayrıtların uçdüğümleri $V'$ kümesinin elemanları
     \end{itemize}
   \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte}
+
+  \begin{tanim}
+    \alert{kerte}:\\
+    düğüme çakışan ayrıtların sayısı
+  \end{tanim}
+
+  \pause
+  \begin{teorem}
+    $v_i$ düğümünün kertesi $d_i$ ise:
+
+    \[ |E| = \frac{\sum_i d_i}{2} \]
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte Örneği}
+
+  \begin{ornek}[yalın]
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{yalin}
+      \end{center}
+
+      \column{.4\textwidth}
+      $\begin{array}{ccc}
+      d_a & = & 5\\
+      d_b & = & 2\\
+      d_c & = & 2\\
+      d_d & = & 2\\
+      d_e & = & 3\\
+      d_f & = & 2\\
+      \medskip
+      Toplam & = & 16\\
+      \medskip
+      |E| & = & 8
+      \end{array}$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte Örneği}
+
+  \begin{ornek}[çoklu]
+    \begin{columns}
+      \column{.58\textwidth}
+      \begin{center}
+        \pgfuseimage{coklu}
+      \end{center}
+
+      \column{.4\textwidth}
+      $\begin{array}{ccc}
+      d_a & = & 6\\
+      d_b & = & 3\\
+      d_c & = & 2\\
+      d_d & = & 2\\
+      d_e & = & 5\\
+      d_f & = & 2\\
+      \medskip
+      Toplam & = & 20\\
+      \medskip
+      |E| & = & 10
+      \end{array}$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kerte}
+
+  \begin{teorem}
+    Bir çizgede kertesi tek olan düğümlerin sayısı çifttir.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{itemize}
+      \item $t_i$: kertesi $i$ olan düğümlerin sayısı
+
+      \pause
+$2|E| = \sum_i d_i = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
+
+\pause
+$2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + \dots + 2t_3 + 4t_5 + \dots$
+
+\pause
+$2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
+
+      \pause
+      \item sol yan çift olduğuna göre sağ yan da çifttir
+    \end{itemize}
+  \end{proof}
 \end{frame}
 
 \begin{frame}
@@ -337,7 +409,7 @@
 \begin{frame}
   \frametitle{Bitişiklik Matrisi Örneği}
 
-  \begin{ornek}[yönsüz]
+  \begin{ornek}
     \begin{columns}
       \column{.38\textwidth}
       \begin{center}
@@ -359,10 +431,57 @@
   \end{ornek}
 \end{frame}
 
+\subsection{Yönlü Çizgeler}
+
+\begin{frame}
+  \frametitle{Yönlü Çizgeler}
+
+  \begin{tanim}
+    \alert{yönlü çizge}:\\
+    düğümler arasındaki bağlantılar yönlü
+
+    \pause
+    \begin{itemize}
+      \item ayrıt yerine \alert{yay}: $D=(V,A)$
+      \item \alert{başlangıç} ve \alert{bitiş} düğümleri
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Çizge Örneği}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{yonlu}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönlü Çizgelerde Kerte}
+
+  \begin{itemize}
+    \item kerte ikiye ayrılıyor
+    \begin{itemize}
+      \item \emph{giriş kertesi}: ${d_v}^i$
+      \item \emph{çıkış kertesi}: ${d_v}^o$
+    \end{itemize}
+
+    \pause
+    \item $\sum_{v \in V} {d_v}^i = \sum_{v \in V} {d_v}^o = |A|$
+
+    \pause
+    \medskip
+    \item giriş kertesi 0 olan düğüm: \emph{kaynak}
+    \item çıkış kertesi 0 olan düğüm: \emph{kuyu}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Bitişiklik Matrisi Örneği}
 
-  \begin{ornek}[yönlü]
+  \begin{ornek}
     \begin{columns}
     \column{.5\textwidth}
     \begin{center}
@@ -379,6 +498,104 @@
             d & 0 & 1 & 1 & 0
         \end{array}
       \]
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{İzomorfizm}
+
+\begin{frame}
+  \frametitle{İzomorfizm}
+
+  \begin{tanim}
+    \alert{izomorfik çizgeler}:\\
+    $G=(V,E)$ ve $G^\star=(V^\star,E^\star)$ çizgeleri izomorfik ise\\
+    $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
+
+    \begin{itemize}
+      \item $f$ birebir ve örten
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item aynı şekilde çizilebilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İzomorfizm Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorff}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorft}
+      \end{center}
+    \end{columns}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $f = \{(a,d),(b,e),(c,b),(d,c),(e,a)\}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İzomorfizm Örneği}
+
+  \begin{ornek}[Petersen çizgesi]
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen1}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen2}
+      \end{center}
+    \end{columns}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
+        $~~~~~~~(f,w),(g,x),(h,t),(i,z),(j,s)\}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorfizm}
+
+  \begin{tanim}
+    \alert{homeomorfik çizgeler}:\\
+    izomorfik çizgelere ayrıtları bölen düğümler ekleyerek\\
+    elde edilen çizgeler
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorfizm Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{izomorft}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{homeomorft}
+      \end{center}
     \end{columns}
   \end{ornek}
 \end{frame}
@@ -500,15 +717,15 @@
     \end{columns}
   \end{ornek}
 \end{frame}
-
-\begin{frame}
-  \frametitle{Gezi - Yol İlişkisi}
-
-  \begin{teorem}
-    $a$ düğümünden $b$ düğümüne bir gezi varsa\\
-    $a$ düğümünden $b$ düğümüne bir yol da vardır.
-  \end{teorem}
-\end{frame}
+%
+% \begin{frame}
+%   \frametitle{Gezi - Yol İlişkisi}
+%
+%   \begin{teorem}
+%     $a$ düğümünden $b$ düğümüne bir gezi varsa\\
+%     $a$ düğümünden $b$ düğümüne bir yol da vardır.
+%   \end{teorem}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Bağlılık}
@@ -868,124 +1085,9 @@
   \end{ornek}
 \end{frame}
 
-\subsection{Kerte}
+\section{Özel Çizgeler}
 
-\begin{frame}
-  \frametitle{Kerte}
-
-  \begin{tanim}
-    \alert{kerte}:\\
-    düğüme çakışan ayrıtların sayısı
-  \end{tanim}
-
-  \pause
-  \begin{teorem}
-    $v_i$ düğümünün kertesi $d_i$ ise:
-
-    \[|E| = \frac{\sum_i d_i}{2}\]
-  \end{teorem}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kerte Örneği}
-
-  \begin{ornek}[yalın]
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{yalin}
-      \end{center}
-
-      \column{.4\textwidth}
-        $\begin{array}{ccc}
-        d_a & = & 5\\
-        d_b & = & 2\\
-        d_c & = & 2\\
-        d_d & = & 2\\
-        d_e & = & 3\\
-        d_f & = & 2\\
-        \medskip
-        Toplam & = & 16\\
-        \medskip
-        |E| & = & 8
-        \end{array}$
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kerte Örneği}
-
-  \begin{ornek}[çoklu]
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{coklu}
-      \end{center}
-
-      \column{.4\textwidth}
-        $\begin{array}{ccc}
-        d_a & = & 6\\
-        d_b & = & 3\\
-        d_c & = & 2\\
-        d_d & = & 2\\
-        d_e & = & 5\\
-        d_f & = & 2\\
-        \medskip
-        Toplam & = & 20\\
-        \medskip
-        |E| & = & 10
-        \end{array}$
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kerte Teoremleri}
-
-  \begin{teorem}
-    Bir çizgede kertesi tek olan düğümlerin sayısı çifttir.
-  \end{teorem}
-
-  \pause
-  \begin{proof}[Tanıt]
-    \begin{itemize}
-      \item $t_i$: kertesi $i$ olan düğümlerin sayısı
-
-      \pause
-$2|E| = \sum_i d_i = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
-
-\pause
-$2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + \dots + 2t_3 + 4t_5 + \dots$
-
-\pause
-$2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
-
-      \pause
-      \item sol yan çift olduğuna göre sağ yan da çifttir
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Yönlü Çizgelerde Kerte}
-
-  \begin{itemize}
-    \item kerte ikiye ayrılıyor
-    \begin{itemize}
-      \item \emph{giriş kertesi}: ${d_v}^i$
-      \item \emph{çıkış kertesi}: ${d_v}^o$
-    \end{itemize}
-
-    \pause
-    \item $\sum_{v \in V} {d_v}^i = \sum_{v \in V} {d_v}^o = |A|$
-
-    \pause
-    \medskip
-    \item giriş kertesi 0 olan düğüm: \emph{kaynak}
-    \item çıkış kertesi 0 olan düğüm: \emph{kuyu}
-  \end{itemize}
-\end{frame}
+\subsection{Geçit Veren Çizgeler}
 
 \begin{frame}
   \frametitle{Königsberg Köprüleri}
@@ -995,7 +1097,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{center}
 
   \begin{itemize}
-    \item herhangi bir kara parçasından başlayarak\\
+    \item herhangi bir kara parçasından başlayarak,\\
       bütün köprülerden bir kere geçerek\\
       başlangıç noktasına dönülebilir mi?
   \end{itemize}
@@ -1120,106 +1222,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{ornek}
   \end{columns}
 \end{frame}
-
-\subsection{İzomorfizm}
-
-\begin{frame}
-  \frametitle{İzomorfizm}
-
-  \begin{tanim}
-    \alert{izomorfik çizgeler}:\\
-    $G=(V,E)$ ve $G^\star=(V^\star,E^\star)$ çizgeleri izomorfik ise\\
-    $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
-
-    \begin{itemize}
-      \item $f$ birebir ve örten
-    \end{itemize}
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-    \item aynı şekilde çizilebilir
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{İzomorfizm Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{izomorff}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{izomorft}
-      \end{center}
-    \end{columns}
-
-    \pause
-    \bigskip
-    \begin{itemize}
-      \item $f = \{(a,d),(b,e),(c,b),(d,c),(e,a)\}$
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{İzomorfizm Örneği}
-
-  \begin{ornek}[Petersen çizgesi]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen1}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen2}
-      \end{center}
-    \end{columns}
-
-    \pause
-    \bigskip
-    \begin{itemize}
-      \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
-        $~~~~~~~(f,w),(g,x),(h,t),(i,z),(j,s)\}$
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Homeomorfizm}
-
-  \begin{tanim}
-    \alert{homeomorfik çizgeler}:\\
-    izomorfik çizgelere ayrıtları bölen düğümler ekleyerek\\
-    elde edilen çizgeler
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Homeomorfizm Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{izomorft}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{homeomorft}
-      \end{center}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\section{Özel Çizgeler}
 
 \subsection{Düzenli Çizgeler}
 
@@ -1362,7 +1364,9 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \pause
   \begin{teorem}
-    Bölge kertelerinin toplamı ayrıt sayısının iki katıdır.
+    $r_i$ bölgesinin kertesi $d_{r_i}$ ise:
+
+    \[ |E| = \frac{\sum_i d_{r_i}}{2} \]
   \end{teorem}
 \end{frame}
 
@@ -1766,7 +1770,178 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
-\subsection{Etiketli Çizgeler}
+\subsection{Çizge Boyama}
+
+% TODO: bölge boyama ile ilgili bilgi ekle
+
+\begin{frame}
+  \frametitle{Çizge Boyama}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item kimyasal maddeler üreten bir firma
+      \item bazı maddeler birlikte depolanamıyor
+      \item birbiriyle aynı ortamda olamayacak maddeler farklı depolara
+        yerleştirilmeli
+
+      \pause
+      \medskip
+      \item \alert{problem}: en az sayıda depo kullanılacak şekilde ürünleri
+        depola
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item 25 farklı kimyasal madde: $V = \{ c_1, c_2,\cdots, c_{25}\}$
+      \item her $1 \leq i, j \leq 25$ için:\\
+        $(c_i,c_j)$ bitişik: $c_i$ ve $c_j$ birbiriyle etkileşir
+    \end{itemize}
+
+%     \pause
+    \begin{center}
+      \pgfuseimage{besmadde}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düzgün Boyama}
+
+  \begin{tanim}
+    \alert{düzgün boyama}:\\
+      $G=(V,E)$ çizgesinde her $(a,b) \in E$ için $a$ ve $b$ düğümlerinin
+      renkleri farklı olacak şekilde bütün düğümlere renk atama
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{boyama1}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama2}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama3}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama4}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama5}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama6}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{boyama7}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kromatik Sayı}
+
+  \begin{tanim}
+    \alert{kromatik sayı}:\\
+      G çizgesini düzgün boyamak için gerekli en az renk sayısı: $\chi (G)$
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+     \item $\chi (G)$'yi hesaplamak çok zor bir problem
+     \item $n \geq 1$ için $\chi (K_n) = n$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kromatik Sayı Örneği}
+
+  \begin{ornek}[Herschel çizgesi]
+    \begin{center}
+      \pgfuseimage{herschel}
+    \end{center}
+
+    \begin{itemize}
+      \item kromatik sayı: 2
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çizge Boyama Örneği}
+
+  \begin{ornek}[Sudoku]
+    \begin{columns}[t]
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{sudoku}
+      \end{center}
+
+      \column{.55\textwidth}
+      \begin{itemize}
+        \item her hücre bir düğüm
+        \item aynı satırdaki hücreler bitişik
+        \item aynı sütundaki hücreler bitişik
+        \item aynı $3 \times 3$ bloktaki hücreler bitişik
+        \item her rakam bir renk
+      \end{itemize}
+
+      \pause
+      \begin{itemize}
+        \item problem: kısmen boyalı bir çizgeyi tamamen boya
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\section{Etiketli Çizgeler}
+
+\subsection{Giriş}
 
 \begin{frame}
   \frametitle{Etiketli Çizgeler}
@@ -1778,8 +1953,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{itemize}
   \end{itemize}
 \end{frame}
-
-\section{Çizge Problemleri}
 
 \subsection{En Kısa Yol}
 
@@ -1997,173 +2170,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \pause
       \begin{itemize}
         \item son düğüm: $b$
-      \end{itemize}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\subsection{Çizge Boyama}
-
-\begin{frame}
-  \frametitle{Çizge Boyama}
-
-  \begin{ornek}
-    \begin{itemize}
-      \item kimyasal maddeler üreten bir firma
-      \item bazı maddeler birlikte depolanamıyor
-      \item birbiriyle aynı ortamda olamayacak maddeler farklı depolara
-        yerleştirilmeli
-
-      \pause
-      \medskip
-      \item \alert{problem}: en az sayıda depo kullanılacak şekilde ürünleri
-        depola
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama}
-
-  \begin{ornek}
-    \begin{itemize}
-      \item 25 farklı kimyasal madde: $V = \{ c_1, c_2,\cdots, c_{25}\}$
-      \item her $1 \leq i, j \leq 25$ için:\\
-        $(c_i,c_j)$ bitişik: $c_i$ ve $c_j$ birbiriyle etkileşir
-    \end{itemize}
-
-%     \pause
-    \begin{center}
-      \pgfuseimage{besmadde}
-    \end{center}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Düzgün Boyama}
-
-  \begin{tanim}
-    \alert{düzgün boyama}:\\
-      $G=(V,E)$ çizgesinde her $(a,b) \in E$ için $a$ ve $b$ düğümlerinin
-      renkleri farklı olacak şekilde bütün düğümlere renk atama
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama Örneği}
-
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{boyama1}
-    \end{center}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama2}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama3}
-      \end{center}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama4}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama5}
-      \end{center}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama6}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{boyama7}
-      \end{center}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kromatik Sayı}
-
-  \begin{tanim}
-    \alert{kromatik sayı}:\\
-      G çizgesini düzgün boyamak için gerekli en az renk sayısı: $\chi (G)$
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-     \item $\chi (G)$'yi hesaplamak çok zor bir problem
-     \item $n \geq 1$ için $\chi (K_n) = n$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kromatik Sayı Örneği}
-
-  \begin{ornek}[Herschel çizgesi]
-    \begin{center}
-      \pgfuseimage{herschel}
-    \end{center}
-
-    \begin{itemize}
-      \item kromatik sayı: 2
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çizge Boyama Örneği}
-
-  \begin{ornek}[Sudoku]
-    \begin{columns}[t]
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{sudoku}
-      \end{center}
-
-      \column{.55\textwidth}
-      \begin{itemize}
-        \item her hücre bir düğüm
-        \item aynı satırdaki hücreler bitişik
-        \item aynı sütundaki hücreler bitişik
-        \item aynı $3 \times 3$ bloktaki hücreler bitişik
-        \item her rakam bir renk
-      \end{itemize}
-
-      \pause
-      \begin{itemize}
-        \item problem: kısmen boyalı bir çizgeyi tamamen boya
       \end{itemize}
     \end{columns}
   \end{ornek}
