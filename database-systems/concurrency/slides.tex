@@ -1,0 +1,979 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+\lstdefinelanguage{ExtendedSQL}[]{SQL}{
+  morekeywords={ACCESS,BEGIN,COMMITTED,ERROR,EXCLUSIVE,FOR,GOTO,LOCK,MODE,ON,
+                REPEATABLE,ROW,SERIALIZABLE,SHARE,UNCOMMITTED,WORK}
+}
+\lstset{language=ExtendedSQL}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{Transaction Management}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[height=4.5cm]{recovery}{recovery}
+\pgfdeclareimage{wait}{wait}
+\pgfdeclareimage[height=4.5cm]{precedence}{precedence}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Transactions}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Transactions}
+
+  \begin{itemize}
+    \item a group of operations to be carried out together
+    \begin{itemize}
+      \item doing one operation while omitting the other might cause
+        inconsistency
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{definition}
+    \alert{transaction}:\\
+      a logical unit of work
+  \end{definition}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Transaction Example}
+
+  \begin{example}[transferring money from one bank account to another]
+    \begin{lstlisting}
+UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
+  WHERE ACCOUNTID = 123
+
+UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
+  WHERE ACCOUNTID = 456
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transaction Management}
+
+  \begin{itemize}
+    \item no guarantee that a group of operations will be carried out together
+    \begin{itemize}
+      \item we should at least be able to return to the state before the
+        changes
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transaction Properties}
+
+  \begin{itemize}
+    \item atomicity
+    \begin{itemize}
+      \item all or nothing
+    \end{itemize}
+
+    \pause
+    \item consistency
+    \begin{itemize}
+      \item from one consistent state to another
+    \end{itemize}
+
+    \pause
+    \item isolation
+    \begin{itemize}
+      \item operations of an unfinished transaction do not affect other
+        transactions
+    \end{itemize}
+
+    \pause
+    \item durability
+    \begin{itemize}
+      \item when a transaction is finished, its changes are permament even if
+        there is a system failure
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Transaction Start/End}
+
+  \begin{block}{starting a transaction}
+    \begin{lstlisting}
+BEGIN [ WORK | TRANSACTION ]
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{block}{successfully ending a transaction}
+    \begin{lstlisting}
+COMMIT [ WORK | TRANSACTION ]
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{block}{unsuccessfully ending a transaction}
+    \begin{lstlisting}
+ROLLBACK [ WORK | TRANSACTION ]
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Transaction Example}
+
+  \begin{example}
+    \begin{lstlisting}
+  BEGIN TRANSACTION
+  ON ERROR GOTO UNDO
+  UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
+    WHERE ACCOUNTID = 123
+  UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
+    WHERE ACCOUNTID = 456
+  COMMIT
+  ...
+UNDO: ROLLBACK
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{Recovery}
+
+\begin{frame}
+  \frametitle{Recovery}
+
+  \begin{itemize}
+    \item system failure during a transaction
+    \begin{itemize}
+      \item buffer cache has not been flushed to the disk
+    \end{itemize}
+
+    \pause
+    \item how to guarantee durability?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transaction Log}
+
+  \begin{itemize}
+    \item data can be derived from some other source in the system
+    \begin{itemize}
+      \item internal level
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item the values of every tuple before and after the operation is noted
+      in the \alert{log}
+      \begin{itemize}
+        \item \emph{write-ahead rule}:\\
+          the log must be flushed to the physical medium before the transaction
+          is finished
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Checkpoints}
+
+  \begin{itemize}
+    \item create \alert{checkpoints} in the log at certain intervals
+    \begin{itemize}
+      \item flush buffer cache to the physical medium
+      \item note the checkpoint:\\
+        continuing transactions
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recovery Lists}
+
+  \begin{itemize}
+    \item after the failure, which transactions will be undone, which
+      transactions will be made permanent?
+    \begin{itemize}
+      \item two lists: \emph{undo} (U), \emph{redo} (R)
+    \end{itemize}
+
+    \pause
+    \item $t_C$: last checkpoint in the log
+    \begin{itemize}
+      \item add the transactions which are active at $t_C$ to the undo list
+    \end{itemize}
+
+    \pause
+    \item scan records from $t_C$ to end of log
+    \begin{itemize}
+      \item add any starting transaction to the undo list
+      \item add any finishing transaction to the redo list
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recovery Example}
+
+  \begin{example}
+    \begin{columns}[t]
+      \column{.4\textwidth}
+      \begin{center}\pgfuseimage{recovery}\end{center}
+
+      \pause
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item $t_C$:\\
+          $U=\{T_2$,$T_3\}$
+          $R=\emptyset$
+
+        \pause
+        \item $T_4$ started:\\
+          $U=\{T_2,T_3,T_4\}$
+          $R=\emptyset$
+
+        \pause
+        \item $T_2$ finished:\\
+          $U=\{T_3,T_4\}$
+          $R=\{T_2\}$
+
+        \pause
+        \item $T_5$ started:\\
+          $U=\{T_3,T_4,T_5\}$
+          $R=\{T_2\}$
+
+        \pause
+        \item $T_4$ finished:\\
+          $U=\{T_3,T_5\}$
+          $R=\{T_2,T_4\}$
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recovery Process}
+
+  \begin{itemize}
+    \item scan records from end of log backwards
+    \begin{itemize}
+      \item undo the operations of the transactions in the undo list
+    \end{itemize}
+
+    \pause
+    \item scan records forwards
+    \begin{itemize}
+      \item redo the operations of the transactions in the redo list
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Two-Phase Commit}
+
+\begin{frame}
+  \frametitle{Two-Phase Commit}
+
+  \begin{itemize}
+    \item different source managers
+    \begin{itemize}
+      \item different undo / redo mechanisms
+    \end{itemize}
+
+    \pause
+    \item modifications on data that reside on different source managers
+    \begin{itemize}
+      \item either commit in all sources\\
+        or rollback in all sources
+    \end{itemize}
+
+    \pause
+    \item \alert{coordinator}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Protocol}
+
+  \begin{itemize}
+    \item coordinator tells all participants to flush the data regarding
+      the transaction to the physical medium
+
+    \pause
+    \item coordinator tells all participants to start the transaction and
+      report back the result
+    \begin{itemize}
+      \item if all participants report success, coordinator decides to
+        commit
+      \item if one or more participants report failure, coordinator decides
+        to rollback
+    \end{itemize}
+
+    \pause
+    \item coordinator informs the participants about the decision
+  \end{itemize}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 15: \alert{Recovery}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Concurrency}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Concurrency}
+
+  \begin{itemize}
+    \item lost update
+    \item uncommitted dependency
+    \item inconsistent analysis
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lost Update}
+
+  \begin{example}
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A & Transaction B\\\hline
+...           & ...          \\\pause
+RETRIEVE p    & ...          \\\pause
+...           & ...          \\
+...           & RETRIEVE p   \\\pause
+...           & ...          \\
+UPDATE p      & ...          \\\pause
+...           & ...          \\
+...           & UPDATE p     \\
+...           & ...
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uncommitted Dependency}
+
+  \begin{example}
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A & Transaction B\\\hline
+...           & ...          \\\pause
+...           & UPDATE p     \\\pause
+...           & ...          \\
+RETRIEVE p    & ...          \\\pause
+...           & ...          \\
+...           & ROLLBACK     \\
+...           &
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Inconsistent Analysis}
+
+  \begin{example}[sum of accounts: acc1=40, acc2=50, acc3=30]
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A         & Transaction B                    \\\hline
+...                   & ...                              \\\pause
+RETRIEVE acc1 ($40$)  & ...                              \\\pause
+RETRIEVE acc2 ($90$)  & ...                              \\\pause
+...                   & ...                              \\
+...                   & UPDATE acc3 ($30 \rightarrow 20$)\\
+...                   & UPDATE acc1 ($40 \rightarrow 50$)\\
+...                   & COMMIT                           \\\pause
+...                   & ...                              \\
+RETRIEVE acc3 ($110$) &                                  \\
+...                   &
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conflicts}
+
+  \begin{itemize}
+    \item A reads, B reads
+    \begin{itemize}
+      \item no problem
+    \end{itemize}
+
+    \pause
+    \item A reads, B writes
+    \begin{itemize}
+      \item non-repeatable read (inconsistent analysis)
+    \end{itemize}
+
+    \pause
+    \item A writes, B reads
+    \begin{itemize}
+      \item dirty read (uncommitted dependency)
+    \end{itemize}
+
+    \pause
+    \item A writes, B writes
+    \begin{itemize}
+      \item dirty write (lost update)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Locking}
+
+\begin{frame}
+  \frametitle{Locking}
+
+  \begin{itemize}
+    \item transactions lock the tuples they work on
+    \begin{itemize}
+      \item shared lock (S)
+      \item exclusive lock (X)
+    \end{itemize}
+
+    \item they release the locks when they are done
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lock Requests}
+
+  \begin{block}{lock type compatibility matrix}
+    \begin{table}
+      \begin{tabular}{|c||c|c|c|}\hline
+  & - & S & X\\\hline\hline
+S & Y & Y & N\\\hline
+X & N & N & N\\\hline
+      \end{tabular}
+    \end{table}
+  \end{block}
+
+  \begin{itemize}
+    \item if shared lock
+    \begin{itemize}
+      \item shared lock requests are granted
+      \item exclusive lock requests are denied
+    \end{itemize}
+
+    \item if exclusive lock, all lock requests are denied
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Locking Protocol}
+
+  \begin{itemize}
+    \item the transaction requests a lock depending on the operation it wants
+      to perform
+    \begin{itemize}
+      \item promote a shared lock to an exclusive lock
+    \end{itemize}
+
+    \pause
+    \item if the request cannot be granted, it starts waiting
+    \begin{itemize}
+      \item it continues when the transaction that holds the lock releases it
+      \item \alert{starvation}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Two-Phase Locking}
+
+  \begin{itemize}
+    \item \alert{two-phase locking}:\\
+      after any lock is released there will be no more new lock requests
+    \begin{itemize}
+      \item expansion phase: gather locks
+      \item contraction phase: release locks
+    \end{itemize}
+
+    \pause
+    \item \alert{two-phase strict locking}:\\
+      all locks are released at the end of the transaction
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lost Update}
+
+  \begin{example}
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A   & Transaction B  \\\hline
+...             & ...            \\\pause
+RETRIEVE p (S+) & ...            \\\pause
+...             & ...            \\
+...             & RETRIEVE p (S+)\\\pause
+...             & ...            \\
+UPDATE p (X-)   & ...            \\
+wait            & ...            \\\pause
+wait            & UPDATE p (X-)  \\
+wait            & wait
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uncommitted Dependency}
+
+  \begin{example}
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A   & Transaction B\\\hline
+...             & ...          \\\pause
+...             & UPDATE p (X+)\\\pause
+...             & ...          \\
+RETRIEVE p (S-) & ...          \\
+wait            & ...          \\\pause
+wait            & ROLLBACK     \\
+RETRIEVE p (S+) &              \\
+...             &
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Inconsistent Analysis}
+
+  \begin{example}[sum of accounts: acc1=40, acc2=50, acc3=30]
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A        & Transaction B   \\\hline
+...                  & ...             \\\pause
+RETRIEVE acc1 (S+)   & ...             \\\pause
+RETRIEVE acc2 (S+)   & ...             \\\pause
+...                  & ...             \\
+...                  & UPDATE acc3 (X+)\\\pause
+...                  & UPDATE acc1 (X-)\\
+...                  & wait            \\\pause
+RETRIEVE acc3 (S-)   & wait            \\
+wait                 & wait
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Deadlock}
+
+  \begin{definition}
+    \alert{deadlock}:\\
+      transactions are waiting for each other to release the locks
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item almost always between two transactions
+    \item countermeasures:
+    \begin{itemize}
+      \item detecting and solving
+      \item preventing
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Solving Deadlocks}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{example}
+      \begin{center}
+        \pgfuseimage{wait}
+      \end{center}
+    \end{example}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item wait graph
+
+      \pause
+      \item choose a \alert{victim} and kill it
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Preventing Deadlocks}
+
+  \begin{itemize}
+    \item every transaction has a starting timestamp
+
+    \pause
+    \item if the lock request of transaction A conflicts with a lock held by
+      transaction B:
+    \begin{itemize}
+      \item \alert{wait-die}: A waits if it is older than B, otherwise it dies\\
+        A is rolled back and restarted
+
+      \item \alert{wound-wait}: A waits if it is younger than B, otherwise it
+        wounds B\\
+        B is rolled back and restarted
+    \end{itemize}
+
+    \pause
+    \item the timestamp of a restarted transaction is not changed
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lock Statements}
+
+  \begin{block}{shared Lock}
+    \begin{lstlisting}
+SELECT query FOR SHARE
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{block}{exclusive Lock}
+    \begin{lstlisting}
+SELECT query FOR UPDATE
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\subsection{Isolation Levels}
+
+\begin{frame}
+  \frametitle{Isolation Levels}
+
+  \begin{itemize}
+    \item if isolation is decreased, concurrency can be increased:
+    \begin{itemize}
+      \item serializable
+      \item repeatable read
+      \item read committed
+      \item read uncommitted
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Serializable}
+
+  \begin{itemize}
+    \item \emph{serial execution}: one transaction starts after the other is
+      finished
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item $x=10$
+      \item transaction A: $x=x+1$
+      \item transaction B: $x=2*x$
+
+      \pause
+      \medskip
+      \item first A, then B: $x=22$
+      \item first B, then A: $x=21$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Serializability}
+
+  \begin{itemize}
+    \item \alert{serializable}:\\
+      the result of concurrent execution is always the same as one of the
+      serial executions
+
+    \pause
+    \item \emph{if all transactions obey the two-phase locking protocol,\\
+      all concurrent executions are serializable}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Read Committed}
+
+  \begin{itemize}
+    \item only exclusive locks are held until end of transaction
+  \end{itemize}
+
+  \begin{example}
+    \begin{table}
+      \begin{tabular}{ll}
+Transaction A   & Transaction B\\\hline
+...             & ...          \\\pause
+RETRIEVE p (S+) & ...          \\\pause
+...             & ...          \\
+release lock    & ...          \\\pause
+...             & ...          \\
+...             & UPDATE p (X+)\\
+...             & COMMIT       \\\pause
+RETRIEVE p (S+) &
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Phantoms}
+
+  \begin{definition}
+    \alert{phantom}:\\
+      when query is executed again, new tuples appear in the result
+  \end{definition}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item transaction A computes the average of a customer's account
+        balances:\\
+        $\frac{100+100+100}{3}=100$
+
+      \pause
+      \item transaction B creates a new account with balance $200$ for the same
+        customer
+      \item transaction A computes again:\\
+        $\frac{100+100+100+200}{4}=125$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Setting Isolation Levels}
+
+  \begin{block}{statement}
+    \begin{lstlisting}
+SET TRANSACTION ISOLATION LEVEL
+  [ SERIALIZABLE | REPEATABLE READ |
+    READ COMMITTED | READ UNCOMMITTED ]
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Isolation Level Problems}
+
+  \begin{table}
+    \begin{tabular}{|l||c|c|c|}\hline
+Isolation level  & Dirty & Non-repeatable & Phantom\\
+                 & read  & read           &        \\\hline\hline
+READ UNCOMMITTED & Y     & Y              & Y      \\\hline
+READ COMMITTED   & N     & Y              & Y      \\\hline
+REPEATABLE READ  & N     & N              & Y      \\\hline
+SERIALIZABLE     & N     & N              & N      \\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\subsection{Intent Locks}
+
+\begin{frame}
+  \frametitle{Locking Granularity}
+
+  \begin{itemize}
+    \item locking relations instead of tuples
+    \begin{itemize}
+      \item even the entire database
+    \end{itemize}
+
+    \item if granularity is increased, concurrency is decreased
+
+    \pause
+    \item hard to find locks on tuples\\
+      $\rightarrow$ first, get \alert{intent locks} on relation variables
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Intent Locks}
+
+  \begin{itemize}
+    \item Intent Shared (IS):\\
+      the transaction intends to read some tuples
+
+    \pause
+    \item Intent Exclusive (IX):\\
+      IS + the transaction intends to write some tuples
+
+    \pause
+    \item Shared (S):\\
+      concurrent readers are allowed but no concurrent writers
+
+    \pause
+    \item Shared + Intent Exclusive (SIX):\\
+      S + IX
+
+    \pause
+    \item Exclusive (X):\\
+      no concurrency allowed on this relation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lock Requests}
+
+  \begin{block}{lock compatibility matrix}
+    \begin{table}
+      \begin{tabular}{|c||c|c|c|c|c|c|}\hline
+    & - & IS & S & IX & SIX & X\\\hline\hline
+ IS & Y & Y  & Y & Y  &  Y  & N\\\hline
+  S & Y & Y  & Y & N  &  N  & N\\\hline
+ IX & Y & Y  & N & Y  &  N  & N\\\hline
+SIX & Y & Y  & N & N  &  N  & N\\\hline
+  X & Y & N  & N & N  &  N  & N\\\hline
+      \end{tabular}
+    \end{table}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lock Precedence}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{precedence}
+    \end{center}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item for a shared lock on a tuple, at least an IS lock on the relation
+      \item for an exclusive lock on a tuple, at least an IX lock on the
+        relation
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Locking Statements}
+
+  \begin{block}{statement}
+    \begin{lstlisting}
+LOCK [ TABLE ] table_name
+     [ IN lock_mode MODE ]
+    \end{lstlisting}
+
+    \pause
+    \begin{itemize}
+      \item lock modes:
+      \begin{itemize}
+        \item \lstinline!ACCESS SHARE!
+        \item \lstinline!ROW SHARE!
+        \item \lstinline!ROW EXCLUSIVE!
+        \item \lstinline!SHARE UPDATE EXCLUSIVE!
+        \item \lstinline!SHARE!
+        \item \lstinline!SHARE ROW EXCLUSIVE!
+        \item \lstinline!EXCLUSIVE!
+        \item \lstinline!ACCESS EXCLUSIVE!
+      \end{itemize}
+    \end{itemize}
+
+  \end{block}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 16: \alert{Concurrency}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
