@@ -1,0 +1,752 @@
+% Copyright (c) 2005-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{XML}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2005-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2005-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{XML}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{XML}
+
+  \begin{itemize}
+    \item not a language itself
+    \begin{itemize}
+      \item framework for defining languages
+    \end{itemize}
+
+    \pause
+    \item XML-based languages
+    \begin{itemize}
+      \item XHTML, DocBook, SVG, MathML, WML, XMI, ...
+    \end{itemize}
+
+    \pause
+    \item XML-related languages
+    \begin{itemize}
+      \item XPath, XQuery, XSL Transforms, SOAP, XLink, ...
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XML Structure}
+
+  \begin{itemize}
+    \item an XML document forms a \emph{tree}
+
+    \item nodes: elements, attributes, character data
+    \begin{itemize}
+      \item root: \emph{document element}
+      \item leaves: character data, self-closing elements
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[XHTML]
+    \begin{lstlisting}[language=XML]
+<html>
+<head><title>ITU-SUNY ISE</title></head>
+<body>
+  <h1>Information Systems Engineering</h1>
+  <p>You can get more information from the
+    <a href="http://www.uolp.itu.edu.tr/">
+      program page</a>.</p>
+  <img src="logo.jpg" alt="ITU-SUNY ISE logo" />
+</body>
+</html>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+<book lang="en">
+  <title>Database Systems Project</title>
+  <bookinfo>...</bookinfo>
+  <chapter>...</chapter>
+  <chapter>...</chapter>
+  ...
+</book>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <bookinfo>
+    <author>
+      <firstname>Mehmet</firstname>
+      <surname>Ascii</surname>
+    </author>
+    <date>2007</date>
+  </bookinfo>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <chapter>
+    <title>Introduction</title>
+    <section>
+      <title>Project Description</title>
+      <para>This project ...</para>
+    </section>
+    ...
+  </chapter>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[Movies]
+    \begin{lstlisting}[language=XML]
+<movies>
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    ...
+  </movie>
+  <movie color="Color">
+    <title>Being John Malkovich</title>
+    ...
+  </movie>
+  ...
+</movies>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[Movies]
+    \begin{lstlisting}[language=XML]
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    <year>1995</year>
+    <score>8.7</score>
+    <votes>35027</votes>
+    <director>Bryan Singer</director>
+    <cast>
+      <actor>Gabriel Byrne</actor>
+      <actor>Benicio Del Toro</actor>
+    </cast>
+  </movie>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Advantages of XML}
+
+  \begin{itemize}
+    \item text-based
+    \begin{itemize}
+      \item independent from platform and application
+    \end{itemize}
+
+    \pause
+    \item easy to process
+    \begin{itemize}
+      \item ready-to-use parsers
+    \end{itemize}
+
+    \pause
+    \item separate data from metadata
+    \begin{itemize}
+      \item content and presentation
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Validity}
+
+\begin{frame}
+  \frametitle{XML Compliance}
+
+  \begin{itemize}
+    \item \alert{well-formed}: forms a regular tree
+
+    \medskip
+    \item \alert{valid}: conforms to a certain document structure
+    \begin{itemize}
+      \item DTD, XML Schema
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Document Type Definition Example}
+
+  \begin{example}[Movie DTD]
+    \begin{lstlisting}
+<!DOCTYPE movies SYSTEM "movies1.dtd">
+<movies>
+  <movie color="Color">...</movie>
+  <movie color="Color">...</movie>
+  ...
+</movies>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DTD Example}
+
+  \begin{example}[Movie DTD]
+    \begin{lstlisting}
+<!ELEMENT movies (movie*)>
+<!ELEMENT movie (title,year,score,votes,
+                 director?,cast?)>
+<!ATTLIST movie color (Color | BW) "Color">
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT score (#PCDATA)>
+<!ELEMENT votes (#PCDATA)>
+<!ELEMENT director (#PCDATA)>
+<!ELEMENT cast (actor)+>
+<!ELEMENT actor (#PCDATA)>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{Parsing}
+
+\begin{frame}
+  \frametitle{Parsing}
+
+  \begin{itemize}
+    \item \alert{SAX}: Simple API for XML
+    \begin{itemize}
+      \item event-based
+      \item fast and less memory consuming
+      \item hard to program
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{DOM}: Document Object Model
+    \begin{itemize}
+      \item keeps document in its entirety
+      \item easy to use in object oriented systems
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Document Object Model}
+
+  \begin{itemize}
+    \item traversing the tree:
+    \begin{itemize}
+      \item \lstinline!getDocumentElement!
+      \item \lstinline!getParentNode!
+      \item \lstinline!getChildNodes!
+      \item \lstinline!getNextSibling!
+      \item \lstinline!getElementsByTagName!
+    \end{itemize}
+
+    \pause
+    \item getting attributes and values:
+    \begin{itemize}
+      \item \lstinline!getAttribute!
+      \item \lstinline!getTextContent!
+    \end{itemize}
+
+    \pause
+    \item modifying the tree:
+    \begin{itemize}
+      \item \lstinline!appendChild removeChild!
+      \item \lstinline!setAttribute!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DOM Programming Example}
+
+  \begin{example}[Movie class]
+    \begin{lstlisting}[language=Java]
+public class Movie {
+  private String title;
+  private boolean color;
+  private int year;
+  private float score;
+  private int votes;
+  private String director;
+  private List cast;
+
+  ...
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DOM Programming Example}
+
+  \begin{example}[constructor from an XML element]
+    \begin{lstlisting}[language=Java]
+public Movie(Element me) {
+  NodeList children = me.getChildNodes();
+  this.title =
+    children.item(0).getTextContent();
+  this.year = Integer.parseInt(
+    children.item(1).getTextContent());
+  this.score = ...;
+  this.votes = ...;
+  this.director = ...;
+  ...
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DOM Programming Example}
+
+  \begin{example}[constructor from an XML element]
+    \begin{lstlisting}[language=Java]
+public Movie(Element me) {
+  ...
+  String me_color = me.getAttribute("color");
+  if (me_color.compareTo("BW") == 0)
+    this.color = false;
+  else
+    this.color = true;
+  ...
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DOM Programming Example}
+
+  \begin{example}[Constructor from an XML element]
+    \begin{lstlisting}[language=Java]
+public Movie(Element me) {
+  ...
+  this.cast = new ArrayList();
+  Element ce = (Element) me.getLastChild();
+  NodeList nodes =
+    ce.getElementsByTagName("actor");
+  for (int i = 0; i < nodes.getLength(); i++) {
+    Element ae = (Element) nodes.item(i);
+    this.cast.add(ae.getTextContent());
+  }
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Validating Parser Example}
+
+  \begin{example}[parse from file and validate]
+    \begin{lstlisting}[language=Java]
+try {
+  DocumentBuilderFactory xmlFactory =
+    DocumentBuilderFactory.newInstance();
+  xmlFactory.setValidating(true);
+  DocumentBuilder xmlBuilder =
+    xmlFactory.newDocumentBuilder();
+  Document xmlDocument =
+    xmlBuilder.parse("imdb1.xml");
+} catch (SAXException e) {
+  System.err.println("Invalid document.");
+  e.printStackTrace();
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DOM Programming Example}
+
+  \begin{example}[Search movie by title]
+    \begin{lstlisting}[language=Java]
+/* get title of movie into movieTitle */
+/* construct the documentElement */
+NodeList nodes =
+  documentElement.getElementsByTagName("title");
+for (int i = 0; i < nodes.getLength(); i++) {
+  Element te = (Element) nodes.item(i);
+  String title = te.getTextContent();
+  if (movieTitle.compareTo(title) == 0) {
+    Element me = (Element) te.getParentNode();
+    Movie m = new Movie(me);
+  }
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\section{Querying}
+
+\subsection{XPath}
+
+\begin{frame}
+  \frametitle{XPath Expressions}
+
+  \begin{itemize}
+    \item path of nodes to find: chain of location steps
+    \begin{itemize}
+      \item starting from the root (absolute)
+      \item starting from the current node (relative)
+
+      \medskip
+      \item location steps are separated by \lstinline!/! symbols
+    \end{itemize}
+
+    \pause
+    \begin{example}
+      \begin{itemize}
+       \item \lstinline!/movies/movie!
+       \item \lstinline!cast/actor! or \lstinline!./cast/actor!
+       \item \lstinline!../../year!
+      \end{itemize}
+    \end{example}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Location Steps}
+
+  \begin{itemize}
+    \item location step structure:\\
+      \lstinline!axis::node_selector[predicate]!
+
+    \pause
+    \medskip
+    \item axis: where to search
+    \item selector: what to search
+    \item predicate: under which conditions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Axes}
+
+  \begin{itemize}
+    \item \lstinline!child!:
+      all children, one level (default axis)
+    \item \lstinline!descendant!:
+      all children, recursively (shorthand: \lstinline!//!)
+    \item \lstinline!parent!:
+      parent node, one level
+    \item \lstinline!ancestor!:
+      parent nodes, up to document element
+    \item \lstinline!attribute!:
+      attributes (shorthand: \lstinline!@!)
+    \item \lstinline!following-sibling!:
+      siblings that come later
+    \item \lstinline!preceding-sibling!:
+      siblings that come earlier
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Node Selectors}
+
+  \begin{itemize}
+    \item node tag
+    \item node attribute
+    \item node text: \lstinline!text()!
+    \item all children: \lstinline!*!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Expression Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item names of all directors:\\
+        \lstinline!/child::movies/movie/director/text()!
+
+      \pause
+      \item all actors:\\
+        \lstinline!movie/descendant::actor! or \lstinline!./movie//actor!
+
+      \pause
+      \item color info of all movies:\\
+        \lstinline!//movie/attribute::color! or \lstinline!//movie/@color!
+
+      \pause
+      \item scores of movies after this one:\\
+        \lstinline!./following-sibling::movie/score!
+
+      \pause
+      \item \lstinline!//actor/ancestor::movie/title!\\
+        \lstinline!//actor/../preceding-sibling::title!
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Predicates}
+
+  \begin{itemize}
+    \item at a certain position: \lstinline![index]!
+
+    \pause
+    \item existence of a child: \lstinline![element]!
+    \item value of a child: \lstinline![element="value"]!
+
+    \pause
+    \item existence of an attribute: \lstinline![@attribute]!
+    \item value of an attribute: \lstinline![@attribute="value"]!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item the title of the first movie:\\
+        \lstinline!/movies/movie[1]/title!
+
+      \pause
+      \item all movies in the year 1997:\\
+        \lstinline!movie[year="1997"]!
+
+      \pause
+      \item black-and-white movies:\\
+        \lstinline!movie[@color="BW"]!
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{XML Databases}
+
+\begin{frame}
+  \frametitle{XML Databases}
+
+  \begin{itemize}
+    \item storing XML documents in columns (XMLDOC type)
+    \begin{itemize}
+      \item make use of existing XML documents
+      \item operators for this type of columns
+      \item process documents in their entirety
+      \item if updates are not frequent, searches are simple
+    \end{itemize}
+
+    \pause
+    \item distributing XML documents into different tables and columns
+
+    \pause
+    \item native XML databases
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special DTD Attributes}
+
+  \begin{itemize}
+    \item ID attributes
+    \begin{itemize}
+      \item similar to primary keys
+    \end{itemize}
+
+    \pause
+    \item IDREF attributes
+    \begin{itemize}
+      \item similar to foreign keys
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DTD Key Constraints}
+
+  \begin{itemize}
+    \item key values always string
+
+    \pause
+    \item keys always single-attribute
+
+    \pause
+    \item key values unique in all of document
+    \begin{itemize}
+      \item not just elements of the same type
+    \end{itemize}
+
+    \pause
+    \item foreign keys refer only within the document
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML ID Attribute Example}
+
+  \begin{example}[Movies]
+    \begin{lstlisting}[language=XML]
+<!DOCTYPE movies SYSTEM "movies2.dtd">
+<movies>
+  <movie color="Color">...  </movie>
+  ...
+  <person id="p302">Benicio Del Toro</person>
+  <person id="p308">Gabriel Byrne</person>
+  <person id="p639">Bryan Singer</person>
+  ...
+</movies>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML ID Attribute Example}
+
+  \begin{example}[Movies]
+    \begin{lstlisting}[language=XML]
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    ...
+    <directorref id="p639" />
+    <cast>
+      <actorref id="p308" />
+      <actorref id="p302" />
+    </cast>
+  </movie>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DTD ID Attribute Example}
+
+  \begin{example}
+    \begin{lstlisting}[language=XML]
+<!ELEMENT movies (movie*,person*)>
+<!ELEMENT movie (title,...,directorref?,cast?)>
+<!ATTLIST movie color (Color | BW) #IMPLIED>
+<!ELEMENT title (#PCDATA)>
+...
+<!ELEMENT directorref EMPTY>
+<!ATTLIST directorref id IDREF #REQUIRED>
+<!ELEMENT cast (actorref)+>
+<!ELEMENT actorref EMPTY>
+<!ATTLIST actorref id IDREF #REQUIRED>
+<!ELEMENT person (#PCDATA)>
+<!ATTLIST person id ID #REQUIRED>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 27: \alert{The World Wide Web and XML}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
