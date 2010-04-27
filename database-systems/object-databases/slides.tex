@@ -1,0 +1,506 @@
+% Copyright (c) 2005-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+\lstset{language=Java}
+
+\mode<presentation> {
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Database Systems}
+\subtitle{Object Databases}
+
+\author{H. Turgut Uyar \and Şule Öğüdücü}
+\date{2005-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{object}{object}
+\pgfdeclareimage{oid}{oid}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Object Databases}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Object-Orientation}
+
+  \begin{itemize}
+    \item object oriented techniques are successful in programming
+    \begin{itemize}
+      \item could they be applied to data modelling?
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item mismatch between data modelling and software modelling
+    \begin{itemize}
+      \item data: relation, tuple, foreign key, \ldots
+      \item software: object, method, \ldots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{example}[adding an actor to a movie]
+    \begin{lstlisting}[language=SQL]
+INSERT INTO MOVIE(ID,TITLE)
+  VALUES(110,'Sleepy Hollow')
+
+INSERT INTO PERSON(ID,NAME)
+  VALUES(26,'Johnny Depp')
+
+INSERT INTO CASTING(MOVIEID, ACTORID)
+  VALUES(110,26)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{example}[adding an actor to a movie]
+    \begin{lstlisting}
+public class Movie {
+  ...
+  private Person director;
+  private ArrayList<Person> cast;
+
+  public void castActor(Person p) {
+    this.cast.add(p);
+  }
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{example}[adding an actor to a movie]
+    \begin{lstlisting}
+Movie m = new Movie("Sleepy Hollow", ...);
+Person p = new Person("Johnny Depp", ...);
+m.castActor(p);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Persistence}
+
+  \begin{itemize}
+    \item \alert{persistence}:\\
+      saving object state between different runs of the application
+
+    \pause
+    \medskip
+    \item SQL is not the only way to achive persistence
+    \begin{itemize}
+      \item might even damage the software model
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nesneye Dayalı Veritabanları}
+
+  \begin{itemize}
+    \item persistent objects are stored in an object database
+    \item use the host language to access these objects
+
+    \pause
+    \item single language for both application and data operations
+    \begin{itemize}
+      \item no need for data conversion
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Object Ids}
+
+  \begin{itemize}
+    \item every object has an identifier
+    \begin{itemize}
+      \item identifiers don't change even if attributes change
+    \end{itemize}
+
+    \pause
+    \item different from primary key
+    \begin{itemize}
+      \item primary key is visible (user-defined)
+      \item value of primary key can change
+    \end{itemize}
+
+    \pause
+    \item corresponds to references (pointers) in programming languages
+    \begin{itemize}
+      \item \emph{containment hierarchy}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Object Database Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{object}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Object Database Example}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{oid}
+    \end{center}
+  \end{example}
+\end{frame}
+
+\subsection{Sample System}
+
+\begin{frame}
+  \frametitle{DB4O}
+
+  \begin{itemize}
+    \item Java
+    \item .NET
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Database Connection}
+
+  \begin{example}
+    \begin{lstlisting}
+ObjectContainer db = Db4o.openFile("dbfile");
+try {
+    // database operations
+} catch (Exception e) {
+    e.printStackTrace();
+} finally {
+    db.close();
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}
+    \begin{lstlisting}
+public class Movie {
+  private String title;
+  private float points;
+
+  public Movie(String title, float points) {
+    this.title = title;
+    this.points = points;
+  }
+
+  // methods
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}
+    \begin{lstlisting}
+  public String getTitle() {
+    return title;
+  }
+
+  public float getPoints() {
+    return points;
+  }
+
+  public void addPoints(float points) {
+    this.points += points;
+  }
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}
+    \begin{lstlisting}
+Movie movie1 = new Movie("Casablanca", 5.2f);
+db.set(movie1);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Queries}
+
+  \begin{itemize}
+    \item query by example
+    \begin{itemize}
+      \item create an example object of the same class
+      \item select all objects with the same attribute values as the example
+    \end{itemize}
+
+    \medskip
+    \item natural query
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Query by Example}
+
+  \begin{example}[all movies]
+    \begin{lstlisting}
+Movie proto = new Movie(null, 0f);
+ObjectSet result = db.get(proto);
+
+System.out.println(result.size());
+while (result.hasNext()) {
+  System.out.println(result.next());
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Update Example}
+
+  \begin{example}[Casablanca filminin puanını güncelle]
+    \begin{lstlisting}
+Movie casablanca = new Movie("Casablanca", 0f);
+ObjectSet result = db.get(casablanca);
+Movie found = (Movie) result.next();
+found.addPoints(1.1f);
+db.set(found);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Delete Example}
+
+  \begin{example}[delete "Casablanca"]
+    \begin{lstlisting}
+Movie casablanca = new Movie("Casablanca", 0f);
+ObjectSet result = db.get(casablanca);
+Movie found = (Movie) result.next();
+db.delete(found);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problems}
+
+  \begin{itemize}
+    \item ad-hoc queries
+    \item integrity
+    \item referential integrity
+    \item performance
+  \end{itemize}
+\end{frame}
+
+\section{O/R Mapping}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Object/Relational Mapping}
+
+  \begin{itemize}
+    \item database employs relational model
+    \item application is written in an object-oriented language
+
+    \pause
+    \item relation = class?
+    \item domain = class?
+  \end{itemize}
+\end{frame}
+
+\subsection{Sample System}
+
+\begin{frame}
+  \frametitle{BeanKeeper}
+
+  \begin{itemize}
+    \item transparent persistence
+    \item connection to databases via JDBC
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Manipulation}
+
+  \begin{itemize}
+    \item database operations: \lstinline!Store! objects
+    \item parameters: driver and JDBC URL
+    \begin{itemize}
+      \item \lstinline!save()!
+      \item \lstinline!remove()!
+      \item \lstinline!find()!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}
+    \begin{lstlisting}
+public class Person {
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String newName) {
+    this.name = newName;
+  }
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}
+    \begin{lstlisting}
+Store myStore = new Store("org.postgres.Driver",
+                          "jdbc:postgres:mydb");
+
+Public person = new Person();
+person.setName(name);
+myStore.save(person);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{example}[all persons]
+    \begin{lstlisting}
+List persons = myStore.find("find person");
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQL Queries}
+
+  \begin{example}
+    \begin{lstlisting}
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(
+    "select name from person"
+    );
+while (rs.next()) {
+    name = rs.getString(1);
+    System.out.println(name);
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+% TODO: JPA
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required text: Date}
+    \begin{itemize}
+      \item Chapter 25: \alert{Object Databases}
+      \item Chapter 26: \alert{Object/Relational Databases}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
