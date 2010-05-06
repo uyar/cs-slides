@@ -1,0 +1,1298 @@
+% Copyright (c) 2001-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Ayrık Matematik}
+\subtitle{Cebirsel Yapılar}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2010}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+\newtheorem{teorem}[theorem]{Teorem}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{hasse2418}{hasse2418}
+\pgfdeclareimage{sayilama}{sayilama}
+\pgfdeclareimage{hasse36}{hasse36}
+\pgfdeclareimage{kafes}{kafes}
+\pgfdeclareimage{dagilma1}{dagilma1}
+\pgfdeclareimage{dagilma2}{dagilma2}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Cebir Aileleri}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Cebirsel Yapı}
+
+  \begin{tanim}
+    \alert{cebirsel yapı}:
+    \begin{itemize}
+      \item taşıyıcı küme
+      \item işlemler
+      \item sabitler
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item \emph{imza}: $<$küme, işlemler, sabitler $>$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İşlem}
+
+  \begin{itemize}
+    \item ikili işlem:\\
+      $\circ: S \times S \rightarrow T$
+
+    \item tekli işlem:\\
+      $\Delta: S \rightarrow T$
+
+    \pause
+    \medskip
+    \item her işlem bir fonksiyon olarak görülebilir:\\
+      $a~\circ~b$ işlemi: $\circ~a~b$ fonksiyonu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kapalılık}
+
+  \begin{tanim}
+    \alert{kapalılık}: $T \subseteq S$\\
+    görüntü kümesi tanım kümesinin altkümesi
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kapalılık}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item $\mathbb{Z}$ kümesi çıkarma işlemine göre kapalı
+
+      \pause
+      \item $\mathbb{Z^+}$ kümesi çıkarma işlemine göre kapalı değil
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İkili İşlem Özellikleri}
+
+  \begin{tanim}
+    \alert{değişme}:\\
+    $\forall a,b \in S~a \circ b = b \circ a$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    \alert{birleşme}:\\
+    $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İkili İşlem Örneği}
+
+  \begin{ornek}
+    $\circ: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$\\
+    $a \circ b = a + b - 3ab$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item değişme:\\
+        $a \circ b = a + b - 3ab \pause
+                   = b + a - 3ba \pause
+                   = b \circ a$
+
+      \pause
+      \medskip
+      \item birleşme:\\
+        $\begin{array}{rcl}
+          (a \circ b) \circ c & = & (a + b - 3ab) + c - 3 (a + b - 3ab) c\\ \pause
+                              & = & a + b - 3ab + c - 3ac - 3bc + 9abc\\ \pause
+                              & = & a + b + c - 3ab - 3ac - 3bc + 9abc\\ \pause
+                              & = & a + (b + c - 3bc) - 3 a (b + c - 3bc)\\ \pause
+                              & = & a \circ (b \circ c)
+        \end{array}$
+     \end{itemize}
+ \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sabitler}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{tanim}
+      \alert{etkisiz eleman}:\\
+      $x \circ 1 = 1 \circ x = x$
+
+      \pause
+      \begin{itemize}
+        \item soldan etkisiz: $1_l \circ x = x$
+        \item sağdan etkisiz: $x \circ 1_r = x$
+      \end{itemize}
+    \end{tanim}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{tanim}
+      \alert{yutucu eleman}:\\
+      $x \circ 0 = 0 \circ x = 0$
+
+      \pause
+      \begin{itemize}
+        \item soldan yutucu: $0_l \circ x = 0$
+        \item sağdan yutucu: $x \circ 0_r = 0$
+      \end{itemize}
+    \end{tanim}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sabit Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item $<\mathbb{N}, max>$ için etkisiz eleman $0$
+      \item $<\mathbb{N}, min>$ için yutucu eleman $0$
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{tabular}{c||c|c|c}
+        $\circ$ & a & b & c \\ \hline\hline
+              a & a & b & b \\ \hline
+              b & a & b & c \\ \hline
+              c & a & b & a
+      \end{tabular}
+
+      \column{.4\textwidth}
+      \begin{itemize}
+        \item $b$ soldan etkisiz
+        \item $a$ ve $b$ sağdan yutucu
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sabitler}
+
+  \begin{columns}
+  \column{.5\textwidth}
+    \begin{teorem}
+      $\exists 1_l \wedge \exists 1_r \Rightarrow 1_l = 1_r$
+    \end{teorem}
+
+    \pause
+    \begin{proof}[Tanıt]
+      $1_l \circ 1_r \pause = 1_l \pause = 1_r$
+    \end{proof}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{teorem}
+      $\exists 0_l \wedge \exists 0_r \Rightarrow 0_l = 0_r$
+    \end{teorem}
+
+    \pause
+    \begin{proof}[Tanıt]
+      $0_l \circ 0_r \pause = 0_l \pause = 0_r$
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik}
+
+  \begin{tanim}
+    $x \circ y = 1$ ise:
+
+    \begin{itemize}
+      \item $x$ elemanı $y$ elemanının \emph{sol evriği}
+      \item $y$ elemanı $x$ elemanının \emph{sağ evriği}
+
+      \pause
+      \medskip
+      \item $x \circ y = y \circ x = 1$ ise
+        $x$ ile $y$ \alert{evrik}
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik}
+
+  \begin{teorem}
+    $\circ$ işlemi birleşme özelliği taşıyorsa:\\
+    $w \circ x = x \circ y = 1 \Rightarrow w = y$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $\begin{array}{ccl}
+      w & = & w \circ 1\\ \pause
+        & = & w \circ (x \circ y)\\ \pause
+        & = & (w \circ x) \circ y\\ \pause
+        & = & 1 \circ y\\ \pause
+        & = & y
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evrik}
+
+  \begin{teorem}
+    $\circ$ işlemi birleşme özelliği taşıyorsa evrik varsa tektir.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $a \circ x = x \circ a = 1 \wedge b \circ x = x \circ b = 1$ olsun
+
+    \pause
+    \medskip
+    $\begin{array}{ccl}
+      a & = & a \circ 1\\ \pause
+        & = & a \circ (x \circ b)\\ \pause
+        & = & (a \circ x) \circ b\\ \pause
+        & = & 1 \circ b\\ \pause
+        & = & b
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cebir Aileleri}
+
+  \begin{itemize}
+    \item \emph{cebir ailesi}: imza + aksiyomlar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cebir Ailesi Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item aksiyomlar:
+      \begin{itemize}
+        \item $x \circ y = y \circ x$
+        \item $(x \circ y) \circ z = x \circ (y \circ z)$
+        \item $x \circ 1 = x$
+      \end{itemize}
+
+      \pause
+      \item bu aksiyomları sağlayan yapılar:
+      \begin{itemize}
+       \item $<\mathbb{Z},+,0>$
+       \item $<\mathbb{Z},\cdot,1>$
+       \item $<\mathcal{P}(S),\cup,\emptyset>$
+      \end{itemize}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altcebir}
+
+  \begin{tanim}
+    \alert{altcebir}:\\
+    $A = <S,\circ,\Delta,k>~\wedge~A' = <S',\circ',\Delta',k'>$ olsun
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $A'$ cebrinin $A$ cebrinin bir altcebri olması için:
+      \begin{itemize}
+        \item $S' \subseteq S$
+        \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
+        \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
+        \item $k' = k$
+      \end{itemize}
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altcebir Örneği}
+
+  \begin{ornek}
+    $<\mathbb{Z},+,0>$ cebri
+    $<\mathbb{R},+,0>$ cebrinin bir altcebridir
+  \end{ornek}
+\end{frame}
+
+\subsection{Yarıgruplar}
+
+\begin{frame}
+  \frametitle{Yarıgruplar}
+
+  \begin{tanim}
+    \alert{yarıgrup}: $<S,\circ>$
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yarıgrup Örnekleri}
+
+  \begin{ornek}
+    $<\Sigma^+,\&>$
+
+    \begin{itemize}
+      \item $\Sigma$: alfabe, $\Sigma^+$: en az 1 uzunluklu katarlar
+      \item $\&$: katar bitiştirme işlemi
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Monoidler}
+
+  \begin{tanim}
+    \alert{monoid}: $<S,\circ,1>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+      \item $\forall a \in S~a \circ 1 = 1 \circ a = a$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Monoid Örnekleri}
+
+  \begin{ornek}
+    $<\Sigma^*,\&,\epsilon>$
+
+    \begin{itemize}
+      \item $\Sigma$: alfabe, $\Sigma^*$: herhangi uzunluklu katarlar
+      \item $\&$: katar bitiştirme işlemi
+      \item $\epsilon$: boş katar
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Gruplar}
+
+\begin{frame}
+  \frametitle{Grup}
+
+  \begin{tanim}
+    \alert{grup}: $<S,\circ,1>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+      \item $\forall a \in S~a \circ 1 = 1 \circ a = a$
+      \item $\forall a \in S~\exists a^{-1} \in S~$
+        $a \circ a^{-1} = a^{-1} \circ a = 1$
+
+      \pause
+      \medskip
+      \item \emph{Abel grubu}: $\forall a,b \in S~a \circ b = b \circ a$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grup Örnekleri}
+
+  \begin{ornek}
+    $<\mathbb{Z},+,0>$
+
+    \begin{itemize}
+      \item $x^{-1} = -x$
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}
+    $<\mathbb{Q}-\{0\},\cdot,1>$
+
+    \begin{itemize}
+      \item $x^{-1} = \frac{1}{x}$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grup Örnekleri}
+
+  \begin{ornek}[permutasyon bileşkesi]
+    \begin{tiny}
+    \[
+      \begin{array}{c|cccccccccccccccccccccccc}
+        A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
+          & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
+        1 &   1    &   1    &   1    &   1    &   1    &  1
+          &   2    &   2    &   2    &   2    &   2    &  2\\
+        2 &   2    &   2    &   3    &   3    &   4    &  4
+          &   1    &   1    &   3    &   3    &   4    &  4\\
+        3 &   3    &   4    &   2    &   4    &   2    &  3
+          &   3    &   4    &   1    &   4    &   1    &  3\\
+        4 &   4    &   3    &   4    &   2    &   3    &  2
+          &   4    &   3    &   4    &   1    &   3    &  1
+      \end{array}
+    \]
+
+    \[
+      \begin{array}{c|cccccccccccccccccccccccc}
+        A & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
+          & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
+        1 &   3    &   3    &   3    &   3    &   3    &  3
+          &   4    &   4    &   4    &   4    &   4    &  4\\
+        2 &   1    &   1    &   2    &   2    &   4    &  4
+          &   1    &   1    &   2    &   2    &   3    &  3\\
+        3 &   2    &   4    &   1    &   4    &   1    &  2
+          &   2    &   3    &   1    &   3    &   1    &  2\\
+        4 &   4    &   2    &   4    &   1    &   2    &  1
+          &   3    &   2    &   3    &   1    &   2    &  1
+      \end{array}
+    \]
+    \end{tiny}
+
+    \pause
+    \medskip
+    $p_8 \diamond p_{12}=1_A \Rightarrow p_{12} = p_8^{-1}$\\
+    $p_{14} \diamond p_{14}=1_A \Rightarrow p_{14} = p_{14}^{-1}$\\
+
+    \pause
+    \bigskip
+    $<\{1_A,p_1,\dots,p_{23}\},\diamond,\Delta^{-1},1_A>$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altgrup Örnekleri}
+
+  \begin{ornek}[permutasyon bileşkesi]
+    \[
+      \begin{array}{c||c|c|c|c|c|c}
+        \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
+        1_{A}    & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline
+        p_{2}    & p_{2}  & 1_{A}  & p_{8}  & p_{6}  & p_{14} & p_{12}\\\hline
+        p_{6}    & p_{6}  & p_{12} & 1_{A}  & p_{14} & p_{2}  & p_{8}\\\hline
+        p_{8}    & p_{8}  & p_{14} & p_{2}  & p_{12} & 1_{A}  & p_{6}\\\hline
+        p_{12}   & p_{12} & p_{6}  & p_{14} & 1_{A}  & p_{8}  & p_{2}\\\hline
+        p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
+      \end{array}
+    \]
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sağdan ve Soldan Kaldırma}
+
+  \begin{teorem}
+    $a \circ c = b \circ c \Rightarrow a = b$
+
+    $c \circ a = c \circ b \Rightarrow a = b$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $\begin{array}{crcl}
+                  & a \circ c                & = & b \circ c\\ \pause
+      \Rightarrow & (a \circ c) \circ c^{-1} & = & (b \circ c) \circ c^{-1}\\ \pause
+      \Rightarrow & a \circ (c \circ c^{-1}) & = & b \circ (c \circ c^{-1})\\ \pause
+      \Rightarrow & a \circ 1                & = & b \circ 1\\ \pause
+      \Rightarrow & a                        & = & b
+    \end{array}$
+
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grupların Temel Teoremi}
+
+  \begin{teorem}
+    $a \circ x = b$ denkleminin tek çözümü: $x = a^{-1} \circ b$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    \begin{enumerate}
+      \item $x = a^{-1} \circ b$ bir çözümdür:\\
+        \pause
+        $a \circ x
+        \pause = a \circ (a^{-1} \circ b)
+        \pause = (a \circ a^{-1}) \circ b
+        \pause = 1 \circ b
+        \pause = b$
+
+      \item diğer bir çözüm $c$ olsun:\\
+        $\begin{array}{crcl}
+                    & a \circ c                & = & b\\ \pause
+        \Rightarrow & a^{-1} \circ (a \circ c) & = & a^{-1} \circ b\\ \pause
+        \Rightarrow & 1 \circ c                & = & a^{-1} \circ b\\ \pause
+        \Rightarrow & c                        & = & a^{-1} \circ b
+        \end{array}$
+    \end{enumerate}
+  \end{proof}
+\end{frame}
+
+\subsection{Halkalar}
+
+\begin{frame}
+  \frametitle{Halka}
+
+  \begin{tanim}
+    \alert{halka}: $<S,+,\cdot,0>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a + b) + c = a + (b + c)$
+      \item $\forall a \in S~a + 0 = 0 + a = a$
+      \item $\forall a \in S~\exists (-a) \in S~a + (-a) = (-a) + a = 0$
+      \item $\forall a,b \in S~a + b = b + a$
+
+      \pause
+      \item $\forall a,b,c \in S~(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+
+      \pause
+      \item $\forall a,b,c \in S$
+      \begin{itemize}
+        \item $a \cdot (b + c) = a \cdot b + a \cdot c$
+        \item $(b + c) \cdot a = b \cdot a + c \cdot a$
+      \end{itemize}
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Alan}
+
+  \begin{tanim}
+    \alert{alan}: $<S,+,\cdot,0,1>$
+    \begin{itemize}
+      \item bütün halka özellikleri
+
+      \pause
+      \item $\forall a,b \in S~a \cdot b = b \cdot a$
+      \item $\forall a \in S~a \cdot 1 = 1 \cdot a = a$
+      \item $\forall a \in S~\exists a^{-1} \in S~a \cdot a^{-1} = a^{-1} \cdot a = 1$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.4. \alert{Special Functions}
+      \end{itemize}
+
+      \item Chapter 16: Groups, Coding Theory, and Polya's Method of Enumeration
+      \begin{itemize}
+        \item 16.1. \alert{Definitions, Examples, and Elementary Properties}
+      \end{itemize}
+
+      \item Chapter 14: Rings and Modular Arithmetic
+      \begin{itemize}
+        \item 14.1. \alert{The Ring Structure: Definition and Examples}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Kafesler}
+
+\subsection{Kısmi Sıralı Kümeler}
+
+\begin{frame}
+  \frametitle{Kısmi Sıralı Küme}
+
+  \begin{tanim}
+    \alert{kısmi sıra bağıntısı}:
+    \begin{itemize}
+      \item yansımalı
+      \item ters bakışlı
+      \item geçişli
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item \emph{kısmi sıralı küme}: elemanlar üzerinde kısmi sıra bağıntısı
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kısmi Sıralı Küme Örnekleri}
+
+  \begin{ornek}[kümeler kümesi, $\subseteq$]
+    \begin{itemize}
+      \item $A \subseteq A$
+      \item $A \subseteq B \wedge B \subseteq A \Rightarrow A = B$
+      \item $A \subseteq B \wedge B \subseteq C \Rightarrow A \subseteq C$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kısmi Sıralı Küme Örnekleri}
+
+  \begin{ornek}[$\mathbb{Z}$, $\leq$]
+    \begin{itemize}
+      \item $x \leq x$
+      \item $x \leq y \wedge y \leq x \Rightarrow x = y$
+      \item $x \leq y \wedge y \leq z \Rightarrow x \leq z$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kısmi Sıralı Küme Örnekleri}
+
+  \begin{ornek}[$\mathbb{Z}$, $|$]
+    \begin{itemize}
+      \item $x | x$
+      \item $x | y \wedge y | x \Rightarrow x = y$
+      \item $x | y \wedge y | z \Rightarrow x | z$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Karşılaştırılabilirlik}
+
+  \begin{itemize}
+    \item $a \preceq b$: \emph{a b'nin önündedir}
+
+    \medskip
+    \item $a \preceq b \vee b \preceq a$: \emph{a ile b karşılaştırılabilir}
+
+    \pause
+    \bigskip
+    \item \emph{çizgisel sıra}: her eleman çifti karşılaştırılabiliyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Karşılaştırılabilirlik Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item $\mathbb{Z},|$: $3$ ile $5$ karşılaştırılamaz
+
+      \pause
+      \medskip
+      \item $\mathbb{Z},\leq$: çizgisel sıra
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hasse Çizenekleri}
+
+  \begin{itemize}
+    \item $a \ll b$: \emph{a b'nin hemen önündedir}\\
+      $\neg \exists x~ a \preceq x \preceq b$
+
+    \pause
+    \medskip
+    \item Hasse çizeneği:
+    \begin{itemize}
+      \item $a \ll b$ ise $a$ ile $b$ arasına çizgi
+      \item önde olan eleman aşağıya
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hasse Çizeneği Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      $\{1,2,3,4,6,8,9,12,18,24\}$\\
+      $|$ bağıntısı
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse2418}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tutarlı Sayılama}
+
+  \begin{tanim}
+    \alert{tutarlı sayılama}:
+
+    $f: S \rightarrow \mathbb{N}$\\
+    $a \preceq b \Rightarrow f(a) \leq f(b)$
+  \end{tanim}
+
+  \begin{itemize}
+    \item birden fazla tutarlı sayılama olabilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tutarlı Sayılama Örnekleri}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{sayilama}
+    \end{center}
+
+    \begin{itemize}
+     \item $f(d)=1, f(e)=2, f(b)=3, f(c)=4, f(a)=5$
+
+     \pause
+     \item $f(e)=1, f(d)=2, f(c)=3, f(b)=4, f(a)=5$
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{En Büyük - En Küçük Eleman}
+
+  \begin{tanim}
+    \alert{en büyük eleman}: $max$\\
+    $\forall x \in S~max \preceq x \Rightarrow x = max$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    \alert{en küçük eleman}: $min$\\
+    $\forall x \in S~x \preceq min \Rightarrow x = min$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{En Büyük - En Küçük Eleman Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse2418}
+      \end{center}
+
+      \column{.45\textwidth}
+      $max:~18,24$\\
+      $min:~1$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{En Küçük Üstsınır}
+
+  \begin{tanim}
+    $A \subseteq S$
+
+    \medskip
+    $A$'nın \alert{üstsınırı} $M$:\\
+    $\forall x \in A~x \preceq M$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    $M(A)$: $A$'nın üstsınırları kümesi
+
+    \medskip
+    $A$'nın \alert{en küçük üstsınırı} $sup(A)$:\\
+    $\forall M \in M(A)~sup(A) \preceq M$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{En Büyük Altsınır}
+
+  \begin{tanim}
+    $A \subseteq S$
+
+    \medskip
+    $A$'nın \alert{altsınırı} $m$:\\
+    $\forall x \in S~m \preceq x$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    $m(A)$: $A$'nın altsınırları kümesi
+
+    \medskip
+    $A$'nın \alert{en büyük altsınırı} $inf(A)$:\\
+    $\forall m \in m(A)~m \preceq inf(A)$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sınır Örneği}
+
+  \begin{ornek}[36'nın bölenleri]
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse36}
+      \end{center}
+
+      \column{.45\textwidth}
+      inf = obeb\\
+      sup = okek
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{Kafesler}
+
+\begin{frame}
+  \frametitle{Kafes}
+
+  \begin{tanim}
+    \alert{kafes}: $<L,\wedge,\vee>$\\
+    $\wedge$: karşılaşma, $\vee$: bütünleşme
+
+    \pause
+    \begin{itemize}
+      \item $a \wedge b = b \wedge a$\\
+        $a \vee b = b \vee a$
+      \item$(a \wedge b) \wedge c = a \wedge (b \wedge c)$\\
+        $(a \vee b) \vee c = a \vee (b \vee c)$
+      \item $a \wedge (a \vee b) = a$\\
+        $a \vee (a \wedge b) = a$
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kısmi Sıralı Küme - Kafes İlişkisi}
+
+  \begin{itemize}
+    \item $P$ bir kısmi sıralı küme ise $<P,inf,sup>$ bir kafestir.
+    \begin{itemize}
+      \item $a \wedge b = inf(a,b)$
+      \item $a \vee b = sup(a,b)$
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item Her kafes bu tanımların geçerli olduğu bir kısmi sıralı kümedir.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dualite}
+
+  \begin{tanim}
+    \alert{dual}:\\
+    $\wedge$ yerine $\vee$, $\vee$ yerine $\wedge$
+  \end{tanim}
+
+  \pause
+  \begin{teorem}[Dualite Teoremi]
+    Kafeslerde her teoremin duali de teoremdir.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kafes Teoremleri}
+
+  \begin{teorem}
+    $a \wedge a = a$
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $a \wedge a = a \wedge (a \vee (a \wedge b))$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kafes Teoremleri}
+
+  \begin{teorem}
+    $a \preceq b \Leftrightarrow a \wedge b$
+    $ = a \Leftrightarrow a \vee b = b$
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kafes Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.3\textwidth}
+      $<\mathcal\{a,b,c\},\cap,\cup>$\\
+      $\subseteq$ bağıntısı
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{kafes}
+      \end{center}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sınırlı Kafesler}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{tanim}
+      $L$ kafesinin altsınırı: $0$\\
+      $\forall x \in L~0 \preceq x$
+    \end{tanim}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{tanim}
+      $L$ kafesinin üstsınırı: $I$\\
+      $\forall x \in L~x \preceq I$
+    \end{tanim}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sınırlı Kafesler}
+
+  \begin{teorem}
+    Sonlu her kafes sınırlıdır.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kafeslerde Dağılma}
+
+  \begin{itemize}
+    \item \emph{dağılma özellikli kafes}:
+    \begin{itemize}
+      \item $\forall a,b,c \in L~a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$
+      \item $\forall a,b,c \in L~a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Karşı Örnekler}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{dagilma1}
+      \end{center}
+
+      \pause
+      \column{.45\textwidth}
+      $a \vee (b \wedge c)$ \pause $= a \vee 0$ \pause $= a$
+
+      \pause
+      $(a \vee b) \wedge (a \vee c)$ \pause $= I \wedge c$ \pause $= c$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Karşı Örnekler}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{dagilma2}
+      \end{center}
+
+      \pause
+      \column{.45\textwidth}
+      $a \vee (b \wedge c)$ \pause $= a \vee 0$ \pause $= a$
+
+      \pause
+      $(a \vee b) \wedge (a \vee c)$ \pause $= I \wedge I$ \pause $= I$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kafeslerde Dağılma}
+
+  \begin{teorem}
+    Bir kafesin bu iki yapıdan birine izomorf bir altkafesi varsa dağılma
+    özelliği göstermez.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bütünleşmeyle İndirgeme}
+
+  \begin{tanim}
+    \alert{bütünleşmeyle indirgenemez eleman}:\\
+    $a = x \vee y \Rightarrow a = x ~veya~ a = y$
+  \end{tanim}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item \emph{atom}: altsınırın hemen ardından gelen, bütünleşmeyle
+      indirgenemez eleman
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bütünleşmeyle İndirgeme Örneği}
+
+  \begin{ornek}[Bölünebilirlik bağıntısı]
+    \begin{itemize}
+      \item asal sayılar ve 1 bütünleşmeyle indirgenemez:\\
+        $p = a \cdot b \Rightarrow p = a~\vee~p = b$
+
+      \pause
+      \medskip
+      \item 1 altsınır, asal sayılar atom
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bütünleşmeyle İndirgeme}
+
+  \begin{teorem}
+    Bütünleşmeyle indirgenebilir bütün elemanlar, bütünleşmeyle indirgenemez
+    elemanların bütünleşmesi şeklinde yazılabilir.
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tümleyen}
+
+  \begin{tanim}
+    $a$ ile $x$ \alert{tümleyen}:\\
+    $a \wedge x = 0$ ve $a \vee x = I$
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tümlemeli Kafesler}
+
+  \begin{teorem}
+    Sınırlı, dağılma özellikli bir kafeste tümleyen varsa tektir.
+  \end{teorem}
+
+  \pause
+  \begin{proof}[Tanıt]
+    $a \wedge x = 0 ~ve~ a \vee x = I$\\
+    $a \wedge y = 0 ~ve~ a \vee y = I$
+
+    \pause
+    \medskip
+    $x = x \vee 0$ \pause $ = x \vee (a \wedge y)$
+      \pause $ = (x \vee a) \wedge (x \vee y)$
+      \pause $ = I \wedge (x \vee y)$ \pause $ = x \vee y$
+
+    \pause
+    $y = y \vee 0$ \pause $ = y \vee (a \wedge x)$
+      \pause $ = (y \vee a) \wedge (y \vee x)$
+      \pause $ = I \wedge (y \vee x)$ \pause $ = y \vee x$\\
+  \end{proof}
+\end{frame}
+
+\subsection{Boole Cebirleri}
+
+\begin{frame}
+  \frametitle{Boole Cebri}
+
+  \begin{tanim}
+    \alert{Boole cebri}:\\
+    $<B,+,\cdot,\overline{x},1,0>$
+
+    \pause
+    \[\begin{array}{ll}
+      a + b = b + a &
+      a \cdot b = b \cdot a\\ \pause
+      (a + b) + c = a + (b + c) &
+      (a \cdot b) \cdot c = a \cdot (b \cdot c)\\ \pause
+      a + 0 = a &
+      a \cdot 1 = a\\ \pause
+      a + \overline{a} = 1 &
+      a \cdot \overline{a} = 0
+    \end{array}\]
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boole Cebri - Kafes İlişkisi}
+
+  \begin{tanim}
+    Bir Boole cebri sonlu, dağılma özellikli, her elemanın tümleyeninin olduğu
+    bir kafestir.
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dualite}
+
+  \begin{tanim}
+    \alert{dual}:\\
+    $+$ yerine $\cdot$, $\cdot$ yerine $+$\\
+    0 yerine 1, 1 yerine 0
+  \end{tanim}
+
+  \pause
+  \begin{ornek}
+    $(1 + a) \cdot (b + 0) = b$
+
+    teoreminin duali:
+
+    $(0 \cdot a) + (b \cdot 1) = b$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boole Cebri Örnekleri}
+
+  \begin{ornek}
+    $B = \{0,1\}, + = \vee, \cdot = \wedge$
+  \end{ornek}
+
+  \pause
+  \begin{ornek}
+    $B = 70$'in bölenleri, $+ = okek, \cdot = obeb$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boole Cebri Teoremleri}
+
+    \[\begin{array}{ll}
+      a + a = a &
+      a \cdot a = a\\ \pause
+      a + 1 = 1 &
+      a \cdot 0 = 0\\ \pause
+      a + (a \cdot b) = a &
+      a \cdot (a + b) = a\\ \pause
+      (a + b) + c = a + (b + c) &
+      (a \cdot b) \cdot c = a \cdot (b \cdot c)\bigskip\\ \pause
+      \overline{\overline{a}} = a & \\ \pause
+      \overline{a + b} = \overline{a} \cdot \overline{b} &
+      \overline{a \cdot b} = \overline{a} + \overline{b}
+    \end{array}\]
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Grimaldi}
+    \begin{itemize}
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.3. \alert{Partial Orders: Hasse Diagrams}
+      \end{itemize}
+
+      \item Chapter 15: Boolean Algebra and Switching Functions
+      \begin{itemize}
+        \item 15.4. \alert{The Structure of a Boolean Algebra}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
