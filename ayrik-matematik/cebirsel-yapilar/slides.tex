@@ -156,10 +156,10 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item $\mathbb{Z}$ kümesi çıkarma işlemine göre kapalı
+      \item çıkartma işlemi $\mathbb{Z}$ kümesine göre kapalı
 
       \pause
-      \item $\mathbb{Z^+}$ kümesi çıkarma işlemine göre kapalı değil
+      \item çıkartma işlemi $\mathbb{Z^+}$ kümesine göre kapalı değil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -330,29 +330,6 @@
         & = & (w \circ x) \circ y\\ \pause
         & = & 1 \circ y\\ \pause
         & = & y
-    \end{array}$
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Evrik}
-
-  \begin{teorem}
-    $\circ$ işlemi birleşme özelliği taşıyorsa evrik varsa tektir.
-  \end{teorem}
-
-  \pause
-  \begin{proof}[Tanıt]
-    $a \circ x = x \circ a = 1 \wedge b \circ x = x \circ b = 1$ olsun
-
-    \pause
-    \medskip
-    $\begin{array}{ccl}
-      a & = & a \circ 1\\ \pause
-        & = & a \circ (x \circ b)\\ \pause
-        & = & (a \circ x) \circ b\\ \pause
-        & = & 1 \circ b\\ \pause
-        & = & b
     \end{array}$
   \end{proof}
 \end{frame}
@@ -609,23 +586,12 @@
 
   \pause
   \begin{proof}[Tanıt]
-    \begin{enumerate}
-      \item $x = a^{-1} \circ b$ bir çözümdür:\\
-        \pause
-        $a \circ x
-        \pause = a \circ (a^{-1} \circ b)
-        \pause = (a \circ a^{-1}) \circ b
-        \pause = 1 \circ b
-        \pause = b$
-
-      \item diğer bir çözüm $c$ olsun:\\
-        $\begin{array}{crcl}
-                    & a \circ c                & = & b\\ \pause
-        \Rightarrow & a^{-1} \circ (a \circ c) & = & a^{-1} \circ b\\ \pause
-        \Rightarrow & 1 \circ c                & = & a^{-1} \circ b\\ \pause
-        \Rightarrow & c                        & = & a^{-1} \circ b
-        \end{array}$
-    \end{enumerate}
+    $\begin{array}{crcl}
+                & a \circ c                & = & b\\\pause
+    \Rightarrow & a^{-1} \circ (a \circ c) & = & a^{-1} \circ b\\\pause
+    \Rightarrow & 1 \circ c                & = & a^{-1} \circ b\\\pause
+    \Rightarrow & c                        & = & a^{-1} \circ b
+    \end{array}$
   \end{proof}
 \end{frame}
 
@@ -746,7 +712,7 @@
 \begin{frame}
   \frametitle{Kısmi Sıralı Küme Örnekleri}
 
-  \begin{ornek}[$\mathbb{Z}$, $|$]
+  \begin{ornek}[$\mathbb{Z}^+$, $|$]
     \begin{itemize}
       \item $x | x$
       \item $x | y \wedge y | x \Rightarrow x = y$
@@ -775,7 +741,7 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item $\mathbb{Z},|$: $3$ ile $5$ karşılaştırılamaz
+      \item $\mathbb{Z}^+,|$: $3$ ile $5$ karşılaştırılamaz
 
       \pause
       \medskip
