@@ -1,0 +1,645 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[latin5]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Veritabaný Yönetim Sistemleri}
+\subtitle{Giriþ}
+
+\author{H. Turgut Uyar \and Þule Öðüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Taným}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{kayit}{kayit}
+\pgfdeclareimage{vtys}{vtys}
+\pgfdeclareimage{sparc}{sparc}
+\pgfdeclareimage{mimari1}{mimari1}
+\pgfdeclareimage{mimari2}{mimari2}
+\pgfdeclareimage{mimari3}{mimari3}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Veri Ýþleme}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Veri Ýþleme}
+
+  \begin{itemize}
+    \item \emph{sorun}: büyük miktarda verinin etkin biçimde tutulmasý ve
+      iþlenmesi
+
+    \pause
+    \medskip
+    \item verinin iþlenmesi
+    \begin{itemize}
+      \item yeni veri ekleme
+      \item olan verilerde deðiþiklik
+      \item veri silme
+      \item sorgulama: planlý - plansýz
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Veri Türleri}
+
+  \begin{itemize}
+    \item \emph{kalýcý veriler}:\\
+      tutulacak bilginin doðasý gereði bulunmasý zorunlu olan veriler
+
+    \pause
+    \bigskip
+    \item \emph{geçici veriler}
+    \begin{itemize}
+      \item \emph{çýkýþ verileri}: kalýcý verilerden türetilebilen veriler\\
+        (sorgu sonuçlarý, raporlar v.b.)
+
+      \pause
+      \medskip
+      \item \emph{giriþ verileri}: sisteme ilk kez giren veriler
+      \begin{itemize}
+        \item kalýcý verilere eklenebilir
+        \item kalýcý verilerde deðiþikliklere yol açabilir
+        \item hiç kullanýlmadan silinebilir
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Roller}
+
+  \begin{itemize}
+    \item \emph{son kullanýcýlar}:\\
+      veri üzerinde iþlem yapanlar
+    \begin{itemize}
+      \item teknik konularda bilgileri olmadýðý varsayýlýr
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item \emph{uygulama programcýlarý}:\\
+      son kullanýcýlarýn kullandýklarý programlarý yazanlar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uygulama Örneði}
+
+  \begin{ornek}[Öðrenci verileri]
+    \begin{columns}[t]
+      \begin{column}<1->{5.1cm}
+      \begin{itemize}
+        \item Öðrenci Ýþleri:\\
+          öðrencinin adý, numarasý, bölümü, aldýðý dersler, stajlarý v.b.
+      \end{itemize}
+      \end{column}
+
+      \begin{column}<2->{5.1cm}
+      \begin{itemize}
+        \item ortak veriler:\\
+          öðrencinin adý, numarasý, bölümü v.b.
+      \end{itemize}
+      \end{column}
+    \end{columns}
+
+    \begin{columns}[t]
+      \begin{column}<1->{5.1cm}
+      \begin{itemize}
+        \item Kitaplýk:\\
+          öðrencinin adý, numarasý, bölümü, aldýðý kitaplar v.b.
+      \end{itemize}
+      \end{column}
+
+      \begin{column}<2->{5.1cm}
+      \begin{itemize}
+        \item uygulamaya özel veriler:\\
+          öðrencinin aldýðý dersler, stajlar, kitaplar v.b.
+      \end{itemize}
+      \end{column}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\subsection{Kayýt Dosyalarý}
+
+\begin{frame}
+  \frametitle{Kayýt Dosyalarý}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{kayit}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item her uygulamanýn kendi verileri var
+      \item uygulama verilerini kendi yönettiði dosyalarda tutuyor
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yinelemeler}
+
+  \begin{itemize}
+    \item ayný bilgi birden fazla yerde tutuluyor
+    \begin{itemize}
+      \item disk alaný israfý
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item öðrenci adý, numarasý ve bölümü Öðrenci Ýþleri'nde ayrý, Kitaplýk'ta
+        ayrý tutuluyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tutarsýzlýk}
+
+  \begin{itemize}
+    \item birden fazla yerde tutulan bilgi farklýlýk gösterebilir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item öðrencinin adý Öðrenci Ýþleri'nde "Victoria Adams", Kitaplýk'ta
+        "Victoria Beckham" görünebilir
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bütünlük}
+
+  \begin{itemize}
+    \item geçersiz bilgiye baþvuru yapýlabilir
+    \begin{itemize}
+      \item özellikle kodlama yapýldýðýnda
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item öðrencinin bölümü Kitaplýk'ta "Kontrol ve Bilgisayar Mühendisliði"
+        görünür ama böyle bir bölüm yoktur
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yeni Uygulamalar}
+
+  \begin{itemize}
+    \item her yeni uygulama için benzer iþlerin yeniden yapýlmasý gerekir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item Burs Ýþleri için de uygulama yazýlacak
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Politika Boþluklarý}
+
+  \begin{itemize}
+    \item kurum uygulamalarýnda standart eksikliði
+    \begin{itemize}
+      \item yaklaþým, yöntem, programlama dili farklýlýklarý
+      \item uygulamalar arasýnda veri alýþveriþi
+    \end{itemize}
+
+    \pause
+    \item her birim yalnýzca kendi gereksinimlerine göre karar verir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Güvenlik}
+
+  \begin{itemize}
+    \item ayrýntýlý güvenlik tanýmlamalarý yapmak zor
+    \item güvenlik yalnýzca iþletim sistemine baðlý
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Veriye Baðýmlýlýk}
+
+  \begin{tanim}
+    \alert{veriye baðýmlýlýk}:\\
+      uygulama kodunun veri düzeni ve eriþim yöntemine baðýmlý olmasý
+
+    \begin{itemize}
+      \item uygulamada deðiþiklik yapmak çok zor
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Veriye Baðýmlýlýk}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item öðrenci numarasý Öðrenci Ýþleri'nde katar, Kitaplýk'ta sayý
+
+      \pause
+      \item Öðrenci Ýþleri kayýtlarýnda öðrenci numarasýna göre bir B-aðacý
+        dizin tutuluyor, arama yapýlýrken B-aðacý algoritmalarý kullanýlýyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\section{Veritabaný Yönetim Sistemleri}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Veritabaný Yönetim Sistemleri}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{vtys}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item veriler ortak bir sistemde tutuluyor
+      \item uygulamalar verilere ortak bir arayüz üzerinden eriþiyor
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ANSI/SPARC Mimarisi}
+
+  \begin{center}
+    \pgfuseimage{sparc}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dýþ Düzey}
+
+  \begin{itemize}
+    \item son kullanýcý açýsýndan
+    \begin{itemize}
+      \item verinin kendine gereken altkümesi
+      \item kullandýðý uygulama programýnýn arayüzü
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item uygulama programcýsý açýsýndan
+    \begin{itemize}
+      \item kullandýðý programlama dili
+      \item bu dile veritabaný iþlemleri için yapýlan ekler:\\
+        \alert{veri altdili}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kavramsal Düzey}
+
+  \begin{itemize}
+    \item verinin bütünü
+    \item veriden baðýmsýzlýðýn saðlandýðý düzey
+
+    \pause
+    \bigskip
+    \item \alert{katalog}:\\
+      verinin içeriðini betimleyen tanýmlar
+
+    \begin{itemize}
+      \item veritabanlarý
+      \item veri tipleri, bütünlük kýsýtlamalarý
+      \item kullanýcýlar, yetkiler, güvenlik kýsýtlamalarý
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýç Düzey}
+
+  \begin{itemize}
+    \item fiziksel düzey
+
+    \pause
+    \item verinin nasýl temsil edildiði:
+    \begin{itemize}
+      \item dosyalar, kayýtlar
+    \end{itemize}
+
+    \pause
+    \item veriye nasýl eriþileceði
+    \begin{itemize}
+      \item iþaretçiler, dizinler, B-aðaçlarý
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dönüþümler}
+
+  \begin{itemize}
+    \item soyutlama için düzeyler arasýnda dönüþümler
+  \end{itemize}
+
+  \pause
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{ornek}[kavramsal - dýþ]
+      \begin{itemize}
+        \item öðrenci numarasýný Öðrenci Ýþleri uygulamasýna katar, Kitaplýk
+          uygulamasýna sayý olarak göster
+      \end{itemize}
+    \end{ornek}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{ornek}[kavramsal - iç]
+      \begin{itemize}
+        \item öðrenci numarasýna göre bir dizin oluþtur
+      \end{itemize}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yönetici Rolleri}
+
+  \begin{itemize}
+    \item \emph{veri yöneticisi}:\\
+      kararlarý verir
+    \begin{itemize}
+      \item hangi veriler tutulacak?
+      \item hangi veriye kim eriþebilir?
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item \emph{veritabaný yöneticisi}:\\
+      kararlarý uygular
+    \begin{itemize}
+      \item kavramsal-dýþ/iç düzey dönüþümlerini tanýmlar
+      \item sistem baþarýmýný ayarlar
+      \item sistemin sürekliliðini saðlar
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{VTYS Ýþlevleri}
+
+  \begin{itemize}
+    \item veri tanýmlama dili
+
+    \pause
+    \item veri iþleme dili
+
+    \pause
+    \item veri iþleme isteklerinin bütünlük ve güvenlik açýsýndan
+      deðerlendirilmesi
+
+    \pause
+    \item eþzamanlý isteklerin uygun biçimde yürütülmeleri
+
+    \pause
+    \item baþarým
+  \end{itemize}
+\end{frame}
+
+\subsection{Ýstemci/Sunucu}
+
+\begin{frame}
+  \frametitle{Ýstemci/Sunucu Yapýsý}
+
+  \begin{itemize}
+    \item \alert{sunucu}:\\
+      VTYS iþlevlerini yerine getirir
+
+    \pause
+    \bigskip
+    \item \alert{istemci}:\\
+      kullanýcý ile sunucu arasýnda etkileþimi saðlar
+    \begin{itemize}
+      \item hazýr paketler (sorgu dili iþleyiciler, rapor üreteçleri vs.)
+      \item uygulama programcýlarýnýn yazdýklarý
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yapý}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{mimari1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item istemci ile sunucu ayný makinada ya da farklý makinada olabilirler
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çok Ýstemci/Tek Sunucu}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{mimari2}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item birden çok istemci bir sunucuya baðlanarak çalýþabilir
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \begin{ornek}[Banka]
+      \begin{itemize}
+        \item merkezde bir sunucu
+        \item þubelerde istemciler
+      \end{itemize}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Çok Ýstemci/Çok Sunucu}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{mimari3}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item sunucular da daðýtýk olabilir
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \begin{ornek}[Banka]
+      \begin{itemize}
+        \item þubeler kendi hesaplarýnýn sunucusu (ve istemcisi)
+        \item diðer þube hesaplarýnýn istemcisi
+      \end{itemize}
+    \end{ornek}
+  \end{columns}
+\end{frame}
+
+\subsection{SQL}
+
+\begin{frame}
+  \frametitle{SQL}
+
+  \begin{itemize}
+    \item \emph{Structured Query Language}
+    \begin{itemize}
+      \item veri tanýmlama dili
+      \item veri iþleme dili
+      \item genel amaçlý programlama dilleriyle etkileþim
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item tarihçe
+    \begin{itemize}
+      \item 1970'lerde IBM baþlatýyor
+      \item standartlar: 1992, 1999, 2003
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SQL Ürünleri}
+
+  \begin{itemize}
+    \item Oracle
+    \item IBM DB2, Progress, MS-SQL, Sybase
+    \item açýk: PostgreSQL, MySQL, Firebird
+    \item gömülü: SQLite, MS Access
+  \end{itemize}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 1: An Overview of Database Management
+      \begin{itemize}
+        \item 1.4. \alert{Why Database?}
+        \item 1.5. \alert{Data Independence}
+      \end{itemize}
+
+      \item Chapter 2: \alert{Database System Architecture}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
