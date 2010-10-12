@@ -353,13 +353,13 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Deðer Kümesi}
+  \frametitle{Taným Kümesi}
 
   \begin{itemize}
-    \item ayný niteliðe iliþkin bütün deðerler ayný deðer kümesinden seçilmeli
+    \item ayný niteliðe iliþkin bütün deðerler ayný taným kümesinden seçilmeli
 
     \begin{itemize}
-      \item karþýlaþtýrma iþlemi ancak ayný deðer kümesinden seçilmiþ deðerler
+      \item karþýlaþtýrma iþlemi ancak ayný taným kümesinden seçilmiþ deðerler
         arasýnda anlamlý
     \end{itemize}
 
@@ -369,7 +369,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Deðer Kümesi Örneði}
+  \frametitle{Taným Kümesi Örneði}
 
   \begin{ornek}
     \begin{itemize}
@@ -1005,11 +1005,11 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Deðer Kümesi Yaratma}
+  \frametitle{Taným Kümesi Yaratma}
 
   \begin{block}{Komut Yazýmý}
     \begin{lstlisting}
-CREATE DOMAIN deðer_kümesi_adý [ AS ] taban_tip
+CREATE DOMAIN taným_kümesi_adý [ AS ] taban_tip
   [ DEFAULT varsayýlan_deðer ]
   [ kýsýtlama_tanýmlarý ]
     \end{lstlisting}
@@ -1017,21 +1017,21 @@ CREATE DOMAIN deðer_kümesi_adý [ AS ] taban_tip
 
   \pause
   \begin{itemize}
-    \item yaratýlan deðer kümesi sütun tipi olarak kullanýlabilir
+    \item yaratýlan taným kümesi sütun tipi olarak kullanýlabilir
   \end{itemize}
 
   \pause
-  \begin{block}{Deðer Kümesi Silme}
+  \begin{block}{Taným Kümesi Silme}
     \begin{lstlisting}
-DROP DOMAIN deðer_kümesi_adý [, ...]
+DROP DOMAIN taným_kümesi_adý [, ...]
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Deðer Kümesi Örneði}
+  \frametitle{Taným Kümesi Örneði}
 
-  \begin{ornek}[yýllarýn tanýmlandýðý deðer kümesi]
+  \begin{ornek}[yýllarýn için taným kümesi]
     \begin{lstlisting}
 CREATE DOMAIN YEARS AS NUMERIC(4)
   DEFAULT 2005
