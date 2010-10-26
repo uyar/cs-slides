@@ -166,11 +166,8 @@
 
     \pause
     \bigskip
-    \item pros and cons:
-    \begin{itemize}
-      \item fast
-      \item not standard
-    \end{itemize}
+    \item pros: fast
+    \item cons: not standard
   \end{itemize}
 \end{frame}
 
@@ -262,11 +259,8 @@ PQclear(result);
 
     \pause
     \bigskip
-    \item pros and cons:
-    \begin{itemize}
-      \item fast, standard
-      \item difficult, does not support most languages
-    \end{itemize}
+    \item pros: fast, standard
+    \item cons: difficult, does not support most languages
 
     \bigskip
     \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
@@ -310,17 +304,6 @@ EXEC SQL END DECLARE SECTION;
 \begin{frame}[fragile]
   \frametitle{Error Control}
 
-%   \begin{block}{Communication Area}
-%     \begin{lstlisting}
-% EXEC SQL INCLUDE sqlca;
-%     \end{lstlisting}
-%
-%     \begin{itemize}
-%       \item \lstinline!sqlca.sqlcode!: status of last executed statement
-%     \end{itemize}
-%   \end{block}
-%
-%   \pause
   \begin{block}{Error Processing}
     \begin{lstlisting}[language=EmbeddedSQL]
 EXEC SQL WHENEVER
@@ -422,7 +405,7 @@ free(score);
     \item pros and cons:
     \begin{itemize}
       \item standard
-      \item very slow
+      \item slow
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -572,6 +555,7 @@ echo "</table>\n";
     \item \lstinline!Connection!: database connection
     \begin{itemize}
       \item \lstinline!createStatement!
+      \item \lstinline!prepareStatement!
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -580,7 +564,7 @@ echo "</table>\n";
   \frametitle{JDBC Queries}
 
   \begin{itemize}
-    \item \lstinline!Statement!: SQL statement
+    \item \lstinline!Statement!
     \begin{itemize}
       \item \lstinline!executeQuery!: for query operations
       \item \lstinline!executeUpdate!: for insert/update/delete operations
@@ -588,9 +572,9 @@ echo "</table>\n";
 
     \pause
     \medskip
-    \item \lstinline!PreparedStatement!: precompiled SQL statement
+    \item \lstinline!PreparedStatement!
     \begin{itemize}
-      \item can be used multiple times
+      \item can be used with different parameter values
       \item placeholder for parameters: \lstinline!?!
       \item set value before invoking query
     \end{itemize}
@@ -686,32 +670,6 @@ stmt.executeUpdate();
   \end{example}
 \end{frame}
 
-\subsection*{References}
-
-\begin{frame}
-  \frametitle{References}
-
-  \begin{block}{Required text: Ramakrishnan, Gehrke}
-    \begin{itemize}
-      \item Chapter 6: Database Application Development
-      \begin{itemize}
-        \item 6.1. Accessing Databases from Applications
-        \item 6.2. \alert{An Introduction to JDBC}
-        \item 6.3. \alert{JDBC Classes and Interfaces}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Supplementary text: Date}
-    \begin{itemize}
-      \item Chapter 4: An Introduction to SQL
-      \begin{itemize}
-        \item 4.6. Embedded SQL
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
 \section{SQL Facilities}
 
 \subsection{Stored Procedures}
@@ -727,7 +685,7 @@ stmt.executeUpdate();
 
     \pause
     \bigskip
-    \item \alert{not really recommended}
+    \item \alert{not recommended}
     \begin{itemize}
       \item not portable
       \item database servers are not optimized for business logic
@@ -843,9 +801,9 @@ CREATE TRIGGER UPDATE_MOVIE
 
     \pause
     \item isolating application programs from changes in database structure
-    \begin{itemize}
-      \item denormalizing after database refactoring
-    \end{itemize}
+%     \begin{itemize}
+%       \item denormalizing after database refactoring
+%     \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -924,32 +882,32 @@ CREATE RULE UPDATE_TITLE AS
   \end{example}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Snapshots}
-
-  \begin{itemize}
-    \item similar to view but creates a new base table
-    \begin{itemize}
-      \item the query is executed only once when snapshot is created
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item changes to base tables do not effect the snapshot
-    \item no updates on the snapshot
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Creating Snapshots}
-
-  \begin{block}{SQL Statement}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE SNAPSHOT snapshot_name AS
-  SELECT ...
-    \end{lstlisting}
-  \end{block}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Snapshots}
+%
+%   \begin{itemize}
+%     \item similar to view but creates a new base table
+%     \begin{itemize}
+%       \item the query is executed only once when snapshot is created
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item changes to base tables do not effect the snapshot
+%     \item no updates on the snapshot
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Creating Snapshots}
+%
+%   \begin{block}{SQL Statement}
+%     \begin{lstlisting}[language=ExtendedSQL]
+% CREATE SNAPSHOT snapshot_name AS
+%   SELECT ...
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
 
 \subsection{Permissions}
 
@@ -1039,23 +997,30 @@ CREATE [ UNIQUE ] INDEX index_name
   \end{block}
 \end{frame}
 
-\subsection*{References}
+\section*{References}
 
 \begin{frame}
   \frametitle{References}
 
   \begin{block}{Required text: Date}
     \begin{itemize}
+      \item Chapter 4: An Introduction to SQL
+      \begin{itemize}
+        \item 4.6. Embedded SQL
+      \end{itemize}
+
       \item Chapter 9: Integrity
       \begin{itemize}
         \item 9.11. \alert{Triggers (a Digression)}
       \end{itemize}
+
       \item Chapter 10: \alert{Views}
-      \item Chapter 17: Security
-      \begin{itemize}
-        \item 17.1. \alert{Introduction}
-        \item 17.6. \alert{SQL Facilities}
-      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary text: Ramakrishnan, Gehrke}
+    \begin{itemize}
+      \item Chapter 6: Database Application Development
     \end{itemize}
   \end{block}
 \end{frame}
