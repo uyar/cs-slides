@@ -135,10 +135,11 @@
 
     \pause
     \medskip
-    \item as necessary:
+    \item run statements as necessary:
     \begin{itemize}
-      \item execute a query
-      \item iterate over the result set
+      \item update operations return number of affected rows
+      \item query operations return result sets\\
+        $\rightarrow$ iterate over rows
     \end{itemize}
 
     \pause
@@ -232,10 +233,11 @@ if (PQresultStatus(result) != PGRES_TUPLES_OK) {
 
   \begin{example}[processing the result set]
     \begin{lstlisting}[language=C]
-for (i = 0; i < PQntuples(result); i++)
-    printf("%s %s\n",
-           PQgetvalue(result, i, 0),
-           PQgetvalue(result, i, 1));
+for (i = 0; i < PQntuples(result); i++) {
+    title = PQgetvalue(result, i, 0);
+    score = PQgetvalue(result, i, 1);
+    ...
+}
 
 PQclear(result);
     \end{lstlisting}
@@ -341,7 +343,7 @@ EXEC SQL CLOSE cursor_name;
   \begin{example}[connecting]
     \begin{lstlisting}[language=C]
 EXEC SQL BEGIN DECLARE SECTION;
-int yr;
+int year;
 char *title = NULL, *score = NULL;
 EXEC SQL END DECLARE SECTION;
 
@@ -363,7 +365,7 @@ EXEC SQL DISCONNECT;
 scanf("%d", &yr);
 EXEC SQL DECLARE c_query CURSOR FOR
     SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YR = :yr);
+      WHERE (YR = :year);
 EXEC SQL OPEN c_query;
 
 /* execute query */
@@ -382,11 +384,8 @@ EXEC SQL COMMIT;
 EXEC SQL WHENEVER NOT FOUND DO break;
 while (1) {
     EXEC SQL FETCH c_query INTO :title, :score;
-    printf("%s %s\n", title, score);
-    title = score = NULL;
+    ...
 }
-free(title);
-free(score);
     \end{lstlisting}
  \end{example}
 \end{frame}
@@ -583,8 +582,9 @@ echo "</table>\n";
     \medskip
     \item \lstinline!ResultSet!: set of query results
     \begin{itemize}
-      \item \lstinline!next!: next element in the result set
-      \item methods for getting the data in appropriate type
+      \item \lstinline!next()!: next item in the result set
+      \item \lstinline!close()!: when done
+      \item convert data to appropriate type
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -612,7 +612,7 @@ TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
 \begin{frame}[fragile]
   \frametitle{JDBC Example}
 
-  \begin{example}[checking the database driver]
+  \begin{example}[loading the database driver]
     \begin{lstlisting}[language=Java]
 try {
   Class.forName("org.postgresql.Driver");
@@ -644,13 +644,10 @@ try {
 
   \begin{example}[executing query]
     \begin{lstlisting}[language=Java]
+String query = "DELETE FROM MOVIE" +
+    " WHERE (SCORE < 3)";
 Statement stmt = conn.createStatement();
-String query = "SELECT TITLE, SCORE FROM MOVIE"
-    + " WHERE (YR = 1990)";
-ResultSet result = stmt.executeQuery(query);
-while (result.next())
-    System.out.println(result.getString(1)
-            + " " + result.getFloat(2));
+stmt.executeUpdate(query);
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -660,12 +657,29 @@ while (result.next())
 
   \begin{example}[prepared statement]
     \begin{lstlisting}[language=Java]
-String query = "DELETE FROM MOVIE" +
-    " WHERE (SCORE < ?)";
+String query = "SELECT TITLE, SCORE FROM MOVIE"
+    + " WHERE (YR = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
-stmt.setFloat(1, score);
-stmt.executeUpdate();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[result set]
+    \begin{lstlisting}[language=Java]
+for (int year : years) {
+    stmt.setInt(1, year);
+    ResultSet results = stmt.executeQuery();
+    while (results.next()) {
+        String title = results.getString(1);
+        float score = results.getFloat(2);
+        ...
+    }
+    results.close();
+}
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -765,7 +779,7 @@ CREATE TRIGGER trigger_name
 \begin{frame}[fragile]
   \frametitle{Trigger Example}
 
-  \begin{example}[keep a "points" column]
+  \begin{example}[keep a POINTS column]
     \begin{lstlisting}[language=ExtendedSQL]
 CREATE FUNCTION UPDATE_MOVIE_POINTS()
   RETURNS opaque
