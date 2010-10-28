@@ -146,10 +146,11 @@
 
     \pause
     \medskip
-    \item gerektikçe:
+    \item gerektikçe komut çalýþtýr:
     \begin{itemize}
-      \item sorgu çalýþtýrýp sonucu al
-      \item sorgu sonucu üzerinde döngüyle satýr satýr gez
+      \item güncelleme iþlemleri iþlemden etkilenen satýr sayýsýný döndürür
+      \item sorgulama iþlemleri sonuç kümeleri döndürür\\
+        $\rightarrow$ döngüyle satýr satýr gez
     \end{itemize}
 
     \pause
@@ -243,10 +244,11 @@ if (PQresultStatus(result) != PGRES_TUPLES_OK) {
 
   \begin{ornek}[sonuç kümesinin iþleniþi]
     \begin{lstlisting}[language=C]
-for (i = 0; i < PQntuples(result); i++)
-    printf("%s %s\n",
-           PQgetvalue(result, i, 0),
-           PQgetvalue(result, i, 1));
+for (i = 0; i < PQntuples(result); i++) {
+    title = PQgetvalue(result, i, 0);
+    score = PQgetvalue(result, i, 1);
+    ...
+}
 
 PQclear(result);
     \end{lstlisting}
@@ -274,7 +276,7 @@ PQclear(result);
     \item dezavantajlarý: kullanýþsýz, farklý diller için desteði yok
 
     \bigskip
-    \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
+    \hyperlink{odbc}{\beamergotobutton{Gömülü SQL bölümünü atla}}
   \end{itemize}
 \end{frame}
 
@@ -329,7 +331,7 @@ EXEC SQL WHENEVER
 
   \begin{block}{Ýmleçler}
     \begin{lstlisting}[language=EmbeddedSQL]
-EXEC SQL DECLARE imleç CURSOR FOR SELECT...
+EXEC SQL DECLARE imleç_adý CURSOR FOR SELECT...
 EXEC SQL OPEN imleç_adý;
 EXEC SQL FETCH IN imleç_adý INTO deðiþkenler;
 EXEC SQL CLOSE imleç_adý;
@@ -352,7 +354,7 @@ EXEC SQL CLOSE imleç_adý;
   \begin{ornek}[veritabanýna baðlanma]
     \begin{lstlisting}[language=C]
 EXEC SQL BEGIN DECLARE SECTION;
-int yr;
+int year;
 char *title = NULL, *score = NULL;
 EXEC SQL END DECLARE SECTION;
 
@@ -374,7 +376,7 @@ EXEC SQL DISCONNECT;
 scanf("%d", &yr);
 EXEC SQL DECLARE c_query CURSOR FOR
     SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YR = :yr);
+      WHERE (YR = :year);
 EXEC SQL OPEN c_query;
 
 /* sorguyu çalýþtýr */
@@ -393,11 +395,8 @@ EXEC SQL COMMIT;
 EXEC SQL WHENEVER NOT FOUND DO break;
 while (1) {
     EXEC SQL FETCH c_query INTO :title, :score;
-    printf("%s %s\n", title, score);
-    title = score = NULL;
+    ...
 }
-free(title);
-free(score);
     \end{lstlisting}
  \end{ornek}
 \end{frame}
@@ -590,7 +589,7 @@ echo "</table>\n";
     \item \lstinline!PreparedStatement!: önceden hazýrlanmýþ SQL komutu
     \begin{itemize}
       \item deðiþik parametre deðerleriyle kullanýlabilir
-      \item parametreler için yer tutucu: '\lstinline!?!'
+      \item parametre için yer tutucu: '\lstinline!?!'
       \item sorguyu çalýþtýrmadan önce deðeri ayarlanmalý
     \end{itemize}
 
@@ -598,8 +597,9 @@ echo "</table>\n";
     \medskip
     \item \lstinline!ResultSet!: sorgu sonuçlarý kümesi
     \begin{itemize}
-      \item \lstinline!next!: sýradaki sonuç
-      \item veriyi uygun tipte okuma metodlarý
+      \item \lstinline!next()!: sýradaki sonuç
+      \item \lstinline!close()!: iþlem bitince
+      \item veriyi uygun tipte dönüþtürme
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -627,7 +627,7 @@ TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[veritabaný sürücüsünün yoklanmasý]
+  \begin{ornek}[veritabaný sürücüsünün yüklenmesi]
     \begin{lstlisting}[language=Java]
 try {
   Class.forName("org.postgresql.Driver");
@@ -657,15 +657,12 @@ try {
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[sorgu çalýþtýrma]
+  \begin{ornek}[komut]
     \begin{lstlisting}[language=Java]
+String query = "DELETE FROM MOVIE" +
+    " WHERE (SCORE < 3)";
 Statement stmt = conn.createStatement();
-String query = "SELECT TITLE, SCORE FROM MOVIE"
-    + " WHERE (YR = 1990)";
-ResultSet result = stmt.executeQuery(query);
-while (result.next())
-    System.out.println(result.getString(1)
-            + " " + result.getFloat(2));
+stmt.executeUpdate(query);
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -673,14 +670,31 @@ while (result.next())
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[önceden derlenmiþ komut]
+  \begin{ornek}[hazýr komut]
     \begin{lstlisting}[language=Java]
-String query = "DELETE FROM MOVIE" +
-    " WHERE (SCORE < ?)";
+String query = "SELECT TITLE, SCORE FROM MOVIE"
+    + " WHERE (YR = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
-stmt.setFloat(1, score);
-stmt.executeUpdate();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Örneði}
+
+  \begin{ornek}[sonuç kümesi]
+    \begin{lstlisting}[language=Java]
+for (int year : years) {
+    stmt.setInt(1, year);
+    ResultSet results = stmt.executeQuery();
+    while (results.next()) {
+        String title = results.getString(1);
+        float score = results.getFloat(2);
+        ...
+    }
+    results.close();
+}
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -796,7 +810,7 @@ CREATE FUNCTION UPDATE_MOVIE_POINTS()
 \begin{frame}[fragile]
   \frametitle{Tetik Örneði}
 
-  \begin{ornek}[puan ile oy sayýsý çarpýmý points sütununda tutulsun]
+  \begin{ornek}[puan ile oy sayýsý çarpýmý POINTS sütununda tutulsun]
     \begin{lstlisting}[language=ExtendedSQL]
 CREATE TRIGGER UPDATE_MOVIE
   BEFORE INSERT OR UPDATE ON MOVIE
@@ -927,10 +941,10 @@ CREATE RULE UPDATE_TITLE AS
 %   \end{block}
 % \end{frame}
 
-\subsection{Yetkiler}
+\subsection{Ýzinler}
 
 \begin{frame}
-  \frametitle{Yetkiler}
+  \frametitle{Ýzinler}
 
   \begin{itemize}
     \item \alert{özne}: kullanýcý, kullanýcý grubu
@@ -944,39 +958,39 @@ CREATE RULE UPDATE_TITLE AS
 \begin{frame}[fragile]
   \frametitle{SQL Komutlarý}
 
-  \begin{block}{Yetki Verme}
+  \begin{block}{Ýzin Verme}
     \begin{lstlisting}[language=ExtendedSQL]
-GRANT yetki_adý ON nesne_adý TO özne_adý
+GRANT izin_adý ON nesne_adý TO özne_adý
   [ WITH GRANT OPTION ]
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{Yetki Kaldýrma}
+  \begin{block}{Ýzin Kaldýrma}
     \begin{lstlisting}[language=ExtendedSQL]
-REVOKE yetki_adý ON nesne_adý FROM özne_adý
+REVOKE izin_adý ON nesne_adý FROM özne_adý
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Yetki Örnekleri}
+  \frametitle{Ýzin Örnekleri}
 
-  \begin{ornek}[tablo için yetki verme]
+  \begin{ornek}[tablo için izin verme]
     \begin{lstlisting}[language=ExtendedSQL]
 GRANT SELECT, INSERT, UPDATE ON MOVIE TO 'itucs'
     \end{lstlisting}
   \end{ornek}
 
   \pause
-  \begin{ornek}[görüntü için yetki verme]
+  \begin{ornek}[görüntü için izin verme]
     \begin{lstlisting}[language=ExtendedSQL]
 GRANT SELECT ON NEW_MOVIE TO 'itucs'
     \end{lstlisting}
   \end{ornek}
 
   \pause
-  \begin{ornek}[tablo için yetki kaldirma]
+  \begin{ornek}[tablo için izin kaldýrma]
     \begin{lstlisting}[language=ExtendedSQL]
 REVOKE INSERT ON MOVIE FROM 'itucs'
     \end{lstlisting}
