@@ -1,0 +1,1023 @@
+% Copyright (c) 2002-2010
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[latin5]{inputenc}
+\usepackage[turkish]{babel}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Veritabaný Yönetim Sistemleri}
+\subtitle{Veritabaný Tasarýmý}
+
+\author{H. Turgut Uyar \and Þule Öðüdücü}
+\date{2002-2010}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Taným}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+\newtheorem{teorem}[theorem]{Teorem}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{norm1}{norm1}
+\pgfdeclareimage{norm2}{norm2}
+\pgfdeclareimage{norm3}{norm3}
+\pgfdeclareimage{imdb1}{imdb1}
+\pgfdeclareimage{imdb2}{imdb2}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Normalizasyon}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Ýþlevsel Baðýmlýlýk}
+
+  \begin{tanim}
+    \begin{itemize}
+      \item $Z$: $R$ baðýntýsýnýn bütün nitelikleri kümesi,
+      \item $A,B \subseteq Z$
+
+      \pause
+      \item \alert{$A$, $B$'yi iþlevsel olarak belirliyor}: $A \rightarrow B$\\
+        her $A$ deðerine karþýlýk tek bir $B$ deðeri var
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item her iþlevsel baðýmlýlýk bir bütünlük kýsýtlamasý
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýþlevsel Baðýmlýlýk Örnekleri}
+
+  \begin{ornek}
+    \begin{tiny}
+    \begin{table}
+      \caption{R}
+      \begin{tabular}{|r|l|l|l|r|l|r|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\\hline\hline
+      6 & Usual Suspects       & UK  & EN   &     308 & Gabriel Byrne    &   2\\\hline
+    228 & Ed Wood              & US  & EN   &      26 & Johnny Depp      &   1\\\hline
+     70 & Being John Malkovich & US  & EN   &     282 & Cameron Diaz     &   2\\\hline
+   1512 & Suspiria             & IT  & IT   &     745 & Udo Kier         &   9\\\hline
+     70 & Being John Malkovich & US  & EN   &     503 & John Malkovich   &  14\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \pause
+    \begin{itemize}
+      \item varsayým: film hangi ülkede çekildiyse o ülkenin dilinde
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýþlevsel Baðýmlýlýk Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item MOVIEID $\rightarrow$ COUNTRY
+
+      \pause
+      \item ACTORID $\rightarrow$ NAME
+
+      \pause
+      \item MOVIEID $\rightarrow$ \{TITLE, COUNTRY, LANGUAGE\}
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ MOVIEID
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
+
+      \pause
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ \{COUNTRY, ORD\}
+
+      \pause
+      \item COUNTRY $\rightarrow$ LANGUAGE
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýndirgenemez Küme}
+
+  \begin{itemize}
+    \item $S$: baðýntýnýn bütün iþlevsel baðýmlýlýklarý kümesi
+
+    \item $T \subseteq S$, öyle ki
+    \begin{itemize}
+      \item $T$ olabildiðince az eleman içerir
+      \item $S$'deki her iþlevsel baðýmlýlýk $T$'dekilerden türetilebilir
+    \end{itemize}
+
+    \pause
+    \item iþlevsel baðýmlýlýklarýn sað yanlarýnda tek nitelik yer alsýn
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýndirgenemez Küme Örneði}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item MOVIEID $\rightarrow$ TITLE
+      \item MOVIEID $\rightarrow$ COUNTRY
+      \item COUNTRY $\rightarrow$ LANGUAGE
+      \item ACTORID $\rightarrow$ NAME
+      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baðýmlýlýk Çizeneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{norm1}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\subsection{Normal Formlar}
+
+\begin{frame}
+  \frametitle{Normal Formlar}
+
+  \begin{itemize}
+    \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
+
+    \item her form bir önceki formun kapsamýný daraltýr
+    \begin{itemize}
+      \item bütün 2NF baðýntýlar ayný zamanda 1NF
+      \item bütün 3NF baðýntýlar ayný zamanda 2NF, ...
+    \end{itemize}
+
+    \pause
+    \item 1NF: nitelik deðerleri bölünmezdir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Normalizasyon}
+
+  \begin{tanim}
+    \alert{normalizasyon}:\\
+      bir formdan daha dar kapsamlý diðer forma geçiþ
+
+    \begin{itemize}
+      \item normal formlar arasý geçiþler kayýpsýz olmalý
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{teorem}[Heath Kuramý]
+    \begin{itemize}
+      \item $Z$: $R$ baðýntýsýnýn bütün nitelikleri kümesi
+      \item $A, B, C \subseteq Z$
+
+      \pause
+      \item $A \rightarrow B$ ise $R$ baðýntýsý $\{A, B\}$ ile $\{A, C\}$
+        baðýntýlarýnýn birleþtirilmesiyle elde edilebilir
+    \end{itemize}
+  \end{teorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kayýpsýz Geçiþ Örneði}
+
+  \begin{ornek}
+    \begin{columns}[c]
+      \column{.55\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|l|l|}\hline
+MOVIEID & TITLE                & COU & LANG\\\hline\hline
+      6 & Usual Suspects       & UK  & EN  \\\hline
+    228 & Ed Wood              & US  & EN  \\\hline
+     70 & Being John Malkovich & US  & EN  \\\hline
+   1512 & Suspiria             & IT  & IT  \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \vspace{-0.7cm}
+      \begin{tiny}
+      \begin{table}
+        \caption{R2}
+        \begin{tabular}{|r|r|l|r|}\hline
+MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
+      6 &     308 & Gabriel Byrne  &   2\\\hline
+    228 &      26 & Johnny Depp    &   1\\\hline
+     70 &     282 & Cameron Diaz   &   2\\\hline
+   1512 &     745 & Udo Kier       &   9\\\hline
+     70 &     503 & John Malkovich &  14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \pause
+      \column{.42\textwidth}
+      \begin{itemize}
+        \item $R = natjoin~(R1)~(R2)$
+      \end{itemize}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kayýplý Geçiþ Örneði}
+
+  \begin{ornek}
+  \begin{columns}[c]
+    \column{.55\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{R1}
+      \begin{tabular}{|r|l|l|l|}\hline
+MOVIEID & TITLE                & COU & LANG\\\hline\hline
+      6 & Usual Suspects       & UK  & EN  \\\hline
+    228 & Ed Wood              & US  & EN  \\\hline
+     70 & Being John Malkovich & US  & EN  \\\hline
+   1512 & Suspiria             & IT  & IT  \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \vspace{-0.7cm}
+    \begin{tiny}
+    \begin{table}
+      \caption{R2}
+      \begin{tabular}{|l|r|l|r|}\hline
+COU & ACTORID & NAME           & ORD\\\hline\hline
+UK  &     308 & Gabriel Byrne  &   2\\\hline
+US  &      26 & Johnny Depp    &   1\\\hline
+US  &     282 & Cameron Diaz   &   2\\\hline
+IT  &     745 & Udo Kier       &   9\\\hline
+US  &     503 & John Malkovich &  14\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \pause
+    \column{.42\textwidth}
+    \begin{itemize}
+      \item $R \neq natjoin~(R1)~(R2)$
+
+      \pause
+      \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
+    \end{itemize}
+  \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aykýrýlýklar}
+
+  \begin{itemize}
+    \item \emph{ekleme}
+    \begin{itemize}
+      \item bilinen bir verinin kýsýtlamalar nedeniyle tutulamamasý
+    \end{itemize}
+
+    \pause
+    \item \emph{silme}
+    \begin{itemize}
+        \item bir veri silinmek istendiðinde baþka bir verinin de yitirilmesi
+    \end{itemize}
+
+    \pause
+    \item \emph{güncelleme}
+    \begin{itemize}
+      \item bir veriyi güncellemek için birden fazla çokluda deðiþiklik
+        gerekmesi
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aykýrýlýk Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Gattaca filminin ülkesinin US olduðu biliniyor ama filmde oynayan
+        bir oyuncu bilinmediði için bu bilgi tutulamýyor
+
+      \pause
+      \item Gabriel Byrne'in Usual Suspects filminde oynadýðý bilgisi silinirse
+        filmin ülkesinin UK olduðu bilgisi de yitiriliyor
+
+      \pause
+      \item Being John Malkovich filminin ülkesi UK olarak güncellenmek
+        istenirse iki çokluda deðiþiklik yapmak gerek
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2. Normal Form}
+
+  \begin{tanim}
+    \alert{2NF}: anahtar olmayan her nitelik birincil anahtara baðýmlý
+  \end{tanim}
+
+  \begin{block}{1NF'den 2NF'ye geçiþ}
+    \begin{itemize}
+      \item 1NF'ye uyan $R$ baðýntýsýnda:
+      \begin{itemize}
+        \item $R(A, B, C, D)$, birincil anahtar: $\{A, B\}$
+        \item $A \rightarrow D$
+      \end{itemize}
+
+      \pause
+      \item 2NF olmasý için:
+      \begin{itemize}
+        \item $R1(A, D)$, birincil anahtar: $A$
+        \item $R2(A, B, C)$, birincil anahtar: $\{A, B\}$\\
+          $A$, $R1$'e baþvuran dýþ anahtar
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Geçiþi Örneði}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item anahtar olmayan niteliklerden yalnýzca ORD birincil anahtara baðýmlý
+
+      \pause
+      \begin{itemize}
+        \item $A$: MOVIEID
+        \item $B$: ACTORID
+        \item $C$: \{NAME,ORD\}
+        \item $D$: \{TITLE, COUNTRY, LANGUAGE\}
+      \end{itemize}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Geçiþi Örneði}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item R1(MOVIEID, TITLE, COUNTRY, LANGUAGE)\\
+        birincil anahtar: MOVIEID
+
+      \pause
+      \item R2(MOVIEID, ACTORID, NAME, ORD)\\
+        birincil anahtar: \{MOVIEID, ACTORID\}\\
+        MOVIEID, R1'e baþvuran dýþ anahtar
+    \end{itemize}
+ \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1NF-2NF Geçiþi Örneði}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item R2 hala 2NF deðil: ACTORID $\rightarrow$ NAME
+
+      \pause
+      \begin{itemize}
+        \item $A$: ACTORID
+        \item $B$: MOVIEID
+        \item $C$: ORD
+        \item $D$: NAME
+      \end{itemize}
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item R3(ACTORID, NAME)\\
+        birincil anahtar: ACTORID
+
+      \pause
+      \item R4(MOVIEID, ACTORID, ORD)\\
+        birincil anahtar: \{MOVIEID, ACTORID\}\\
+        ACTORID, R3'e baþvuran dýþ anahtar
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Baðýntý Örnekleri}
+
+  \begin{ornek}
+    \begin{center}
+    \begin{tiny}
+    \begin{table}
+      \caption{R1}
+      \begin{tabular}{|r|l|l|l|}\hline
+\underline{MOVIEID} & TITLE                & COU & LANG\\\hline\hline
+                  6 & Usual Suspects       & UK  & EN  \\\hline
+                228 & Ed Wood              & US  & EN  \\\hline
+                 70 & Being John Malkovich & US  & EN  \\\hline
+               1512 & Suspiria             & IT  & IT  \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+    \end{center}
+
+    \vspace{-0.7cm}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R3}
+        \begin{tabular}{|r|l|}\hline
+\underline{ACTORID} & NAME          \\\hline\hline
+                308 & Gabriel Byrne \\\hline
+                 26 & Johnny Depp   \\\hline
+                282 & Cameron Diaz  \\\hline
+                745 & Udo Kier      \\\hline
+                503 & John Malkovich\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R4}
+        \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+                  6 &                 308 &   2\\\hline
+                228 &                  26 &   1\\\hline
+                 70 &                 282 &   2\\\hline
+               1512 &                 745 &   9\\\hline
+                 70 &                 503 &  14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baðýmlýlýk Çizeneði Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{norm2}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Düzelen Aykýrýlýklar}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Gattaca filminin ülkesinin US olduðu biliniyorsa bu bilgi
+        R1~baðýntýsýna eklenebilir
+
+      \pause
+      \item Gabriel Byrne'in Usual Suspects filminde oynadýðý bilgisi silinirse
+        filmin ülkesinin UK olduðu bilgisi R1~baðýntýsýnda korunur
+
+      \pause
+      \item Being John Malkovich filminin ülkesi UK olarak güncellenmek
+        istenirse R1~baðýntýsýnda tek çokluda deðiþiklik yapmak yeterli olur
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF Düzelmeyen Aykýrýlýklar}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Brezilya'da çekilen filmlerin Portekizce olduðu biliniyor ama
+        Brezilya'da çekilen bir film bilinmediði için bu bilgi tutulamýyor
+
+      \pause
+      \item Suspiria filmi silinirse Ýtalya'da çekilen filmlerin Ýtalyanca
+        olduðu bilgisi de yitiriliyor
+
+      \pause
+      \item Amerika'da çekilen filmlerin dili Amerikan Ýngilizcesi olarak
+        deðiþtirilmek istenirse iki çokluda deðiþiklik yapmak gerek
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{3. Normal Form}
+
+\begin{frame}
+  \frametitle{3. Normal Form}
+
+  \begin{tanim}
+    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dýþýnda bir nitelik
+      ya da nitelik grubuna baðýmlý deðil
+  \end{tanim}
+
+  \pause
+  \begin{block}{2NF'den 3NF'ye geçiþ}
+    \begin{itemize}
+      \item 2NF'ye uyan $R$ baðýntýsýnda:
+      \begin{itemize}
+        \item $R(A, B, C, D)$, birincil anahtar: $A$
+        \item $C \rightarrow D$
+      \end{itemize}
+
+      \pause
+      \item 3NF olmasý için:
+      \begin{itemize}
+        \item $R1(C, D)$, birincil anahtar: $C$
+        \item $R2(A, B, C)$, birincil anahtar: $A$\\
+          $C$, $R1$'e baþvuran dýþ anahtar
+      \end{itemize}
+    \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2NF-3NF Geçiþi Örneði}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item R1: LANGUAGE niteliði COUNTRY niteliðine baðýmlý
+
+      \pause
+      \begin{itemize}
+        \item $A$: MOVIEID
+        \item $B$: TITLE
+        \item $C$: COUNTRY
+        \item $D$: LANGUAGE
+      \end{itemize}
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item R5(COUNTRY, LANGUAGE)\\
+        birincil anahtar: COUNTRY
+
+      \pause
+      \item R6(MOVIEID, TITLE, COUNTRY)\\
+        birincil anahtar: MOVIEID\\
+        COUNTRY, R5'e baþvuran dýþ anahtar
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3NF Baðýntý Örnekleri}
+
+  \begin{ornek}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R6}
+        \begin{tabular}{|r|l|l|}\hline
+\underline{MOVIEID} & TITLE                & COU\\\hline\hline
+                  6 & Usual Suspects       & UK \\\hline
+                228 & Ed Wood              & US \\\hline
+                 70 & Being John Malkovich & US \\\hline
+               1512 & Suspiria             & IT \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R5}
+        \begin{tabular}{|l|l|}\hline
+\underline{COU} & LANG\\\hline\hline
+             UK & EN  \\\hline
+             US & EN  \\\hline
+             IT & IT  \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+
+    \vspace{-0.7cm}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R3}
+        \begin{tabular}{|r|l|}\hline
+\underline{ACTORID} & NAME          \\\hline\hline
+                308 & Gabriel Byrne \\\hline
+                 26 & Johnny Depp   \\\hline
+                282 & Cameron Diaz  \\\hline
+                745 & Udo Kier      \\\hline
+                503 & John Malkovich\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.5\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R4}
+        \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+                  6 &                 308 &   2\\\hline
+                228 &                  26 &   1\\\hline
+                 70 &                 282 &   2\\\hline
+               1512 &                 745 &   9\\\hline
+                 70 &                 503 &  14\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baðýmlýlýk Çizeneði Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{norm3}
+    \end{center}
+  \end{ornek}
+ \end{frame}
+
+\begin{frame}
+  \frametitle{3NF Düzelen Aykýrýlýklar}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Brezilya'da çekilen filmlerin Portekizce olduðu biliniyorsa bu bilgi
+        R5~baðýntýsýna eklenebilir
+
+      \pause
+      \item Suspiria filmi silinirse Ýtalya'da çekilen filmlerin Ýtalyanca
+        olduðu bilgisi R5~baðýntýsýnda korunur
+
+      \pause
+      \item Amerika'da çekilen filmlerin dili Amerikan Ýngilizcesi olarak
+        güncellenmek istenirse R5~baðýntýsýnda tek çokluda deðiþiklik yapmak
+        yeterli olur
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boyce-Codd Normal Formu}
+
+  \begin{tanim}
+    \alert{BCNF}: bütün iþlevsel baðýmlýlýklar anahtar adaylarýna
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BCNF Örneði}
+
+  \begin{ornek}[filmlerin baþlýk nitelikleri eþsiz]
+    \begin{itemize}
+      \item anahtar adaylarý:
+      \begin{itemize}
+        \item \{MOVIEID, ACTORID\}
+        \item \{TITLE, ACTORID\}
+      \end{itemize}
+
+      \pause
+      \item aykýrý iþlevsel baðýmlýlýklar:
+      \begin{itemize}
+        \item MOVIEID $\rightarrow$ TITLE
+        \item TITLE $\rightarrow$ MOVIEID
+      \end{itemize}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 11: \alert{Functional Dependencies}
+      \item Chapter 12: \alert{Further Normalization I: 1NF, 2NF, 3NF, BCNF}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Varlýk/Ýliþki Modeli}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Varlýk/Ýliþki Modeli}
+
+  \begin{itemize}
+    \item modelleme yaklaþýmý
+    \begin{itemize}
+      \item Chen 1976
+    \end{itemize}
+
+    \pause
+    \item bileþenleri
+    \begin{itemize}
+      \item varlýklar
+      \item özellikler
+      \item iliþkiler
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Varlýklar}
+
+  \begin{tanim}
+    \alert{varlýk}:\\
+      ayný özellikleri taþýyan "þeyler" kümesi
+
+    \pause
+    \begin{itemize}
+      \item küme elemanlarý varlýk tipinin birer \emph{örneði}
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item \emph{güçlü}: tek baþýna var olabilir
+      \item \emph{zayýf}: varlýðý baþka bir varlýða baðlý
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Varlýk Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item varlýk: film, yönetmen, oyuncu
+
+      \pause
+      \item varlýk örneði: Johnny Depp
+
+      \pause
+      \medskip
+      \item güçlü varlýk: yönetmen
+      \item zayýf varlýk: film
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özellikler}
+
+  \begin{tanim}
+    \alert{özellik}:\\
+      varlýklarý ya da iliþkileri betimleyen veriler
+
+    \pause
+    \begin{itemize}
+      \item basit / bileþke
+      \item anahtar
+      \item tekli / çoklu deðerli
+      \item boþ
+      \item taban / türetilmiþ
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özellik Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item özellik: baþlýk, ülke, dil
+
+      \pause
+      \medskip
+      \item basit: önad, soyad
+      \item bileþke: tam ad
+
+      \pause
+      \medskip
+      \item taban: doðum tarihi
+      \item türetilmiþ: yaþ
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýliþkiler}
+
+  \begin{tanim}
+    \alert{iliþki}:\\
+      varlýklar arasýndaki baðlantýlar
+
+    \pause
+    \begin{itemize}
+      \item \emph{katýlýmcý}: iliþkideki varlýklar
+      \item \emph{derece}: katýlýmcý sayýsý
+      \item \emph{total / kýsmi}: varlýðýn bütün örnekleri iliþkiye
+        katýlýyor / katýlmýyor
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýliþki Türleri}
+
+  \begin{itemize}
+    \item \emph{birden-bire}
+    \item \emph{birden-çoka} ya da \emph{çoktan-bire}
+    \item \emph{çoktan-çoka}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýliþki Örnekleri}
+
+  \begin{ornek}[birden-bire]
+    \begin{itemize}
+      \item evlilik
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[birden-çoka]
+    \begin{itemize}
+      \item yönetmen-film
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[çoktan-çoka]
+    \begin{itemize}
+      \item oyuncu-film
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{V/Ý Çizenekleri}
+
+\begin{frame}
+  \frametitle{Varlýk/Ýliþki Çizenekleri}
+
+  \begin{itemize}
+    \item varlýk: dikdörtgen
+    \begin{itemize}
+      \item zayýf: çift çizgi
+    \end{itemize}
+
+    \pause
+    \item özellik: elips
+    \begin{itemize}
+      \item türetilmiþ: kesikli çizgi
+      \item çoklu deðerli: çift çizgi
+      \item bileþke: alt-elipsler
+    \end{itemize}
+
+    \pause
+    \item iliþki: eþkenar dörtgen
+    \begin{itemize}
+      \item zayýf-güçlü arasýnda: çift çizgi
+      \item total: baðlantý çift çizgi
+      \item iliþkinin türüne göre 1 ya da n
+    \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Varlýk/Ýliþki Çizeneði Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{imdb1}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Varlýk/Ýliþki Çizeneði Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{imdb2}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\subsection{Uygulama}
+
+\begin{frame}
+  \frametitle{Tasarýma Geçiþ}
+
+  \begin{itemize}
+    \item her varlýk bir baðýntý
+
+    \pause
+    \item her özellik bir nitelik
+
+    \pause
+    \item her çoktan-çoka iliþki bir baðýntý
+    \begin{itemize}
+      \item katýlýmcý varlýklara dýþ anahtarlar
+    \end{itemize}
+
+    \pause
+    \item her çoktan-bire iliþki için iliþkinin "çok" tarafýndan\\
+      "bir" tarafýna bir dýþ anahtar
+ \end{itemize}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 14: \alert{Semantic Modeling}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
