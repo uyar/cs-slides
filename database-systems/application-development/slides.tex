@@ -527,20 +527,6 @@ echo "</table>\n";
 \end{frame}
 
 \begin{frame}
-  \frametitle{JDBC Package}
-
-  \begin{itemize}
-    \item import the JDBC package:\\
-      \lstinline!import java.sql.*!
-
-    \pause
-    \medskip
-    \item exception about SQL operations:\\
-      \lstinline!SQLException!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{JDBC Connection}
 
   \begin{itemize}
@@ -567,6 +553,7 @@ echo "</table>\n";
     \begin{itemize}
       \item \lstinline!executeQuery!: for query operations
       \item \lstinline!executeUpdate!: for insert/update/delete operations
+      \item \lstinline!close!: when done
     \end{itemize}
 
     \pause
@@ -582,8 +569,8 @@ echo "</table>\n";
     \medskip
     \item \lstinline!ResultSet!: set of query results
     \begin{itemize}
-      \item \lstinline!next()!: next item in the result set
-      \item \lstinline!close()!: when done
+      \item \lstinline!next!: next item in the result set
+      \item \lstinline!close!: when done
       \item convert data to appropriate type
     \end{itemize}
   \end{itemize}
@@ -642,12 +629,13 @@ try {
 \begin{frame}[fragile]
   \frametitle{JDBC Example}
 
-  \begin{example}[executing query]
+  \begin{example}[adding - using statement]
     \begin{lstlisting}[language=Java]
-String query = "DELETE FROM MOVIE" +
-    " WHERE (SCORE < 3)";
+String query = "INSERT INTO MOVIE (TITLE, YR)"
+    + " VALUES ('Casablanca', 1942)";
 Statement stmt = conn.createStatement();
 stmt.executeUpdate(query);
+stmt.close();
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -655,12 +643,53 @@ stmt.executeUpdate(query);
 \begin{frame}[fragile]
   \frametitle{JDBC Example}
 
-  \begin{example}[prepared statement]
+  \begin{example}[adding - using prepared statement]
     \begin{lstlisting}[language=Java]
-String query = "SELECT TITLE, SCORE FROM MOVIE"
+String query = "INSERT INTO MOVIE (TITLE, YR)"
+    + " VALUES (?, ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setString(1, movie.getTitle());
+stmt.setInt(2, movie.getYear());
+stmt.executeUpdate(query);
+stmt.close();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[listing]
+    \begin{lstlisting}[language=Java]
+String query = "SELECT TITLE, YR FROM MOVIE";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+ResultSet results = stmt.executeQuery();
+while (results.next()) {
+    String title = results.getString("TITLE");
+    Integer year = results.getInt("YR");
+    ...
+}
+results.close();
+stmt.close();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[reusing a prepared statement]
+    \begin{lstlisting}[language=Java]
+String query = "SELECT TITLE FROM MOVIE"
     + " WHERE (YR = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
+for (int year : years) {
+    // on the next slide
+}
+stmt.close();
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -668,18 +697,50 @@ PreparedStatement stmt =
 \begin{frame}[fragile]
   \frametitle{JDBC Example}
 
-  \begin{example}[result set]
+  \begin{example}[reusing a prepared statement - cont'd]
     \begin{lstlisting}[language=Java]
 for (int year : years) {
-    stmt.setInt(1, year);
-    ResultSet results = stmt.executeQuery();
-    while (results.next()) {
-        String title = results.getString(1);
-        float score = results.getFloat(2);
-        ...
-    }
-    results.close();
+  stmt.setInt(1, year);
+  ResultSet results = stmt.executeQuery();
+  while (results.next()) {
+    String title = results.getString("TITLE");
+    ...
+  }
+  results.close();
 }
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[deleting]
+    \begin{lstlisting}[language=Java]
+String query = "DELETE FROM MOVIE" +
+    " WHERE (ID = ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setInt(1, movie.getId());
+stmt.executeUpdate();
+stmt.close();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Example}
+
+  \begin{example}[updating]
+    \begin{lstlisting}[language=Java]
+String query = "UPDATE MOVIE SET YR = ?" +
+    " WHERE (ID = ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setInt(1, movie.getYear());
+stmt.setInt(2, movie.getId());
+stmt.executeUpdate();
+stmt.close();
     \end{lstlisting}
   \end{example}
 \end{frame}
