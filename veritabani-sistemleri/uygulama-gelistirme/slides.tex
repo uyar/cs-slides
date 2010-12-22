@@ -542,20 +542,6 @@ echo "</table>\n";
 \end{frame}
 
 \begin{frame}
-  \frametitle{JDBC Paketi}
-
-  \begin{itemize}
-    \item kullanmak için JDBC paketi projeye eklenmeli:\\
-      \lstinline!import java.sql.*!
-
-    \pause
-    \medskip
-    \item SQL ile ilgili hatalar için aykýrý durum:\\
-      \lstinline!SQLException!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{JDBC Baðlantýsý}
 
   \begin{itemize}
@@ -582,6 +568,7 @@ echo "</table>\n";
     \begin{itemize}
       \item \lstinline!executeQuery!: sorgulama iþlemleri
       \item \lstinline!executeUpdate!: ekleme, güncelleme, silme iþlemleri
+      \item \lstinline!close!: iþlem bitince
     \end{itemize}
 
     \pause
@@ -597,9 +584,9 @@ echo "</table>\n";
     \medskip
     \item \lstinline!ResultSet!: sorgu sonuçlarý kümesi
     \begin{itemize}
-      \item \lstinline!next()!: sýradaki sonuç
-      \item \lstinline!close()!: iþlem bitince
-      \item veriyi uygun tipte dönüþtürme
+      \item \lstinline!next!: sýradaki sonuç
+      \item \lstinline!close!: iþlem bitince
+      \item veri için tip dönüþümleri
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -657,12 +644,13 @@ try {
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[komut]
+  \begin{ornek}[ekleme - komutla]
     \begin{lstlisting}[language=Java]
-String query = "DELETE FROM MOVIE" +
-    " WHERE (SCORE < 3)";
+String query = "INSERT INTO MOVIE (TITLE, YR)"
+    + " VALUES ('Casablanca', 1942)";
 Statement stmt = conn.createStatement();
 stmt.executeUpdate(query);
+stmt.close();
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -670,12 +658,53 @@ stmt.executeUpdate(query);
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[hazýr komut]
+  \begin{ornek}[ekleme - hazýr komutla]
     \begin{lstlisting}[language=Java]
-String query = "SELECT TITLE, SCORE FROM MOVIE"
+String query = "INSERT INTO MOVIE (TITLE, YR)"
+    + " VALUES (?, ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setString(1, movie.getTitle());
+stmt.setInt(2, movie.getYear());
+stmt.executeUpdate(query);
+stmt.close();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Örneði}
+
+  \begin{ornek}[listeleme]
+    \begin{lstlisting}[language=Java]
+String query = "SELECT TITLE, YR FROM MOVIE";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+ResultSet results = stmt.executeQuery();
+while (results.next()) {
+    String title = results.getString("TITLE");
+    Integer year = results.getInt("YR");
+    ...
+}
+results.close();
+stmt.close();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Örneði}
+
+  \begin{ornek}[hazýr komutun tekrarlý kullanýmý]
+    \begin{lstlisting}[language=Java]
+String query = "SELECT TITLE FROM MOVIE"
     + " WHERE (YR = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
+for (int year : years) {
+    // sonraki yansýda
+}
+stmt.close();
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -683,18 +712,50 @@ PreparedStatement stmt =
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[sonuç kümesi]
+  \begin{ornek}[hazýr komutun tekrarlý kullanýmý - devam]
     \begin{lstlisting}[language=Java]
 for (int year : years) {
-    stmt.setInt(1, year);
-    ResultSet results = stmt.executeQuery();
-    while (results.next()) {
-        String title = results.getString(1);
-        float score = results.getFloat(2);
-        ...
-    }
-    results.close();
+  stmt.setInt(1, year);
+  ResultSet results = stmt.executeQuery();
+  while (results.next()) {
+    String title = results.getString("TITLE");
+    ...
+  }
+  results.close();
 }
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Örneði}
+
+  \begin{ornek}[silme]
+    \begin{lstlisting}[language=Java]
+String query = "DELETE FROM MOVIE" +
+    " WHERE (ID = ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setInt(1, movie.getId());
+stmt.executeUpdate();
+stmt.close();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JDBC Örneði}
+
+  \begin{ornek}[güncelleme]
+    \begin{lstlisting}[language=Java]
+String query = "UPDATE MOVIE SET YR = ?" +
+    " WHERE (ID = ?)";
+PreparedStatement stmt =
+    conn.prepareStatement(query);
+stmt.setInt(1, movie.getYear());
+stmt.setInt(2, movie.getId());
+stmt.executeUpdate();
+stmt.close();
     \end{lstlisting}
   \end{ornek}
 \end{frame}
