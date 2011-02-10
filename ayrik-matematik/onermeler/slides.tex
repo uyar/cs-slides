@@ -104,7 +104,7 @@
   \frametitle{Önerme}
 
   \begin{tanim}
-    \alert{önerme}: bir dilde yapılan bildirim
+    \alert{önerme}: doğru ya da yanlış denebilecek bir bildirim cümlesi
   \end{tanim}
 
   \pause
@@ -149,10 +149,11 @@
   \frametitle{Önerme Değişkeni}
 
   \begin{tanim}
-    \alert{önerme değişkeni}: önermeyi simgeleyen isim
+    \alert{önerme değişkeni} (ya da \alert{yalın önerme}):\\
+      önermeyi simgeleyen isim
 
     \begin{itemize}
-      \item \emph{Doğru} ($D$) ya da \emph{Yanlış} ($Y$) değerini alır
+      \item \emph{Doğru} ($D$) ya da \emph{Yanlış} ($Y$) değerlerini alabilir
     \end{itemize}
   \end{tanim}
 
@@ -640,7 +641,7 @@
     \alert{tutarlı}: bütün $P$ ve $Q$ sağlıklı formülleri için\\
       $P \vdash Q$ ise $P \vDash Q$
     \begin{itemize}
-      \item tanıtlanabilen her şey doğrudur
+      \item tanıtlanabilen bütün önermeler doğrudur
     \end{itemize}
   \end{tanim}
 
@@ -649,7 +650,7 @@
     \alert{eksiksiz}: bütün $P$ ve $Q$ sağlıklı formülleri için\\
       $P \vDash Q$ ise $P \vdash Q$
     \begin{itemize}
-      \item doğru olan her şey tanıtlanabilir
+      \item doğru olan bütün önermeler tanıtlanabilir
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -658,18 +659,15 @@
   \frametitle{Gödel Kuramı}
 
   \begin{itemize}
-    \item önermeler mantığı tutarlı ve eksiksizdir
-    \item yüklemler mantığı tutarlı ve eksiksizdir
-
-    \pause
-    \item matematik tutarlı ama eksiktir
+    \item Önermeler mantığı tutarlı ve eksiksizdir.
+    \item Yüklemler mantığı tutarlı ve eksiksizdir.
   \end{itemize}
 
   \pause
   \begin{block}{Gödel Kuramı}
     \begin{itemize}
-      \item Matematiğin bütününü ifade edecek bir sistem hem tutarlı hem
-        eksiksiz olamaz!
+      \item Sıradan aritmetiği ifade edecek kadar güçlü hiçbir mantıksal sistem
+        hem tutarlı hem eksiksiz olamaz!
     \end{itemize}
   \end{block}
 \end{frame}
