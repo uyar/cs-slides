@@ -1,0 +1,1741 @@
+% Copyright (c) 2001-2011
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Discrete Mathematics}
+\subtitle{Propositions}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2011}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Licence}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Propositions}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Proposition}
+
+  \begin{definition}
+    \alert{proposition} (or \alert{statement}):\\
+      a declarative sentence that is either true or false
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \alert{law of the excluded middle}:\\
+      a proposition cannot be partially true or partially false
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item \alert{law of contradiction}:\\
+      a proposition cannot be both true and false
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proposition Examples}
+
+  \begin{columns}[t]
+    \column{.55\textwidth}
+    \begin{example}[proposition]
+      \begin{itemize}
+        \item The Moon revolves around the Earth.
+        \item Elephants can fly.
+        \item $3+8=11$
+      \end{itemize}
+    \end{example}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{example}[not a proposition]
+      \begin{itemize}
+        \item What time is it?
+        \item Ali, throw the ball!
+        \item $x<43$
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proposition Variable}
+
+  \begin{definition}
+    \alert{proposition variable}:\\
+      a name that represents the proposition
+
+    \begin{itemize}
+      \item can take on the values \emph {True} ($T$) or \emph{False} ($F$)
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item $p_1$: The Moon revolves around the Earth. ($T$)
+      \item $p_2$: Elephants can fly. ($F$)
+      \item $p_3$: $3+8=11$ ($T$)
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Operations}
+
+\begin{frame}
+  \frametitle{Operations}
+
+  \begin{itemize}
+    \item new propositions can be formed by:
+    \begin{itemize}
+      \item negating a proposition
+      \item combining two or more propositions into\\
+        \alert{compound propositions} using \alert{logical connectives}
+    \end{itemize}
+    \item \alert{primitive propositions} can not be decomposed into smaller
+      units
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item \alert{truth table}:\\
+      a table that gives the truth value of the compound proposition for all
+      possible values of its primitive propositions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Negation (NOT)}
+
+  \begin{columns}
+    \column{.3\textwidth}
+    \begin{table}
+      \caption{$\neg p$}
+      \begin{tabular}{|c||c|}\hline
+        $p$ & $\neg p$\\\hline\hline
+        $T$ & $F$     \\\hline
+        $F$ & $T$     \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.7\textwidth}
+    \begin{example}
+      \begin{itemize}
+        \item $\neg p_1$: The Moon does not revolve around the Earth.\\
+          $\neg T$: \emph{False}
+        \item $\neg p_2$: Elephants cannot fly.\\
+          $\neg F$: \emph{True}
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conjunction (AND)}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{table}
+      \caption{$p \wedge q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \wedge q$\\\hline\hline
+        $T$ & $T$ & $T$         \\\hline
+        $T$ & $F$ & $F$         \\\hline
+        $F$ & $T$ & $F$         \\\hline
+        $F$ & $F$ & $F$         \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{example}
+      \begin{itemize}
+        \item $p_1 \wedge p_2$: The Moon revolves around the Earth and elephants
+          can fly.\\
+          $T \wedge F$: \emph{False}
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Disjunction (OR)}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{table}
+      \caption{$p \vee q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \vee q$\\\hline\hline
+        $T$ & $T$ & $T$       \\\hline
+        $T$ & $F$ & $T$       \\\hline
+        $F$ & $T$ & $T$       \\\hline
+        $F$ & $F$ & $F$       \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{example}
+      \begin{itemize}
+        \item $p_1 \vee p_2$: The Moon revolves around the Earth or elephants
+          can fly.\\
+          $T \vee F$: \emph{True}
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exclusive OR}
+
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{table}
+      \caption{$p \veebar q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \veebar q$\\\hline\hline
+        $T$ & $T$ & $F$          \\\hline
+        $T$ & $F$ & $T$          \\\hline
+        $F$ & $T$ & $T$          \\\hline
+        $F$ & $F$ & $F$          \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.65\textwidth}
+    \begin{example}
+      \begin{itemize}
+        \item $p_1 \veebar p_2$: Either the Moon revolves around the Earth or
+          elephants can fly.\\
+          $T \veebar F$: \emph{True}
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implication}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{table}
+      \caption{$p \rightarrow q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \rightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$              \\\hline
+        $T$ & $F$ & $F$              \\\hline
+        $F$ & $T$ & $T$              \\\hline
+        $F$ & $F$ & $T$              \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $p$: \alert{hypothesis}
+      \item $q$: \alert{conclusion}
+
+      \item we say:
+      \begin{itemize}
+        \item if $p$ then $q$
+        \item $p$ is sufficient for $q$
+        \item $q$ is necessary for $p$
+      \end{itemize}
+
+      \pause
+      \item $\neg p \vee q$
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implication Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$
+      \item $p_7$: The Sun revolves around the Earth.
+    \end{itemize}
+
+    \pause
+    \begin{columns}[t]
+      \column{.48\textwidth}
+        \begin{itemize}
+          \item $p_4 \rightarrow p_5$: If 3 is less than 8,\\
+            then 3 is less than 14.\\
+            $T \rightarrow T$: \emph{True}
+          \pause
+          \item $p_4 \rightarrow p_6$: If 3 is less than 8,\\
+            then 3 is less than 2.\\
+            $T \rightarrow F$: \emph{False}
+        \end{itemize}
+
+      \pause
+      \column{.5\textwidth}
+        \begin{itemize}
+          \item $p_2 \rightarrow p_1$: If elephants can fly then the Moon
+            revolves around the Earth.\\
+            $F \rightarrow T$: \emph{True}
+          \pause
+          \item $p_2 \rightarrow p_7$: If elephants can fly then the Sun
+            revolves around the Earth.
+            \\
+            $F \rightarrow T$: \emph{True}
+        \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implication Examples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.6\textwidth}
+      \begin{itemize}
+        \item "If I weigh over 70 kg, then I will exercise."
+        \begin{itemize}
+          \item $p$: I weigh over 70 kg.
+          \item $q$: I exercise.
+        \end{itemize}
+
+        \pause
+        \item How to interpret $p \rightarrow q$ ?
+      \end{itemize}
+
+      \column{.4\textwidth}
+      \begin{table}
+        \caption{$p \rightarrow q$}
+        \begin{tabular}{|c|c||c|}\hline
+          $p$ & $q$ & $p \rightarrow q$\\\hline\hline
+          $T$ & $T$ & $T$              \\\hline
+          $T$ & $F$ & $F$              \\\hline
+          $F$ & $T$ & $T$              \\\hline
+          $F$ & $F$ & $T$              \\\hline
+        \end{tabular}
+      \end{table}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Biconditional}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{table}
+      \caption{$p \leftrightarrow q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \leftrightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$                  \\\hline
+        $T$ & $F$ & $F$                  \\\hline
+        $F$ & $T$ & $F$                  \\\hline
+        $F$ & $F$ & $T$                  \\\hline
+      \end{tabular}
+    \end{table}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item we say:
+      \begin{itemize}
+        \item $p$ if and only if $q$
+        \item $p$ is necessary and sufficient for $q$
+      \end{itemize}
+
+      \pause
+      \item $(p \rightarrow q) \wedge (q \rightarrow p)$
+      \item $\neg (p \veebar q)$
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Daily Language Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item $s$: The child does her homework.
+      \item $t$: The child plays a computer game.
+
+      \pause
+      \medskip
+      \item $s \rightarrow t$\\
+        "If you do your homework then you get to play a computer game."
+      \item $t \rightarrow s$\\
+        "You get to play a computer game only if you do your homework."
+
+      \pause
+      \medskip
+      \item what the parent really meant: $s \leftrightarrow t$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Well-Formed Formulas}
+
+\begin{frame}
+  \frametitle{Well-Formed Formula}
+
+  \begin{block}{syntax}
+    \begin{itemize}
+      \item which rules will be used to form compound propositions?
+      \item formula that obeys these rules: \alert{well-formed formula} (WFF)
+    \end{itemize}
+  \end{block}
+
+  \pause
+  \begin{block}{semantics}
+    \begin{itemize}
+      \item \emph{interpretation}: calculating the value of a compound
+        proposition by assigning values to its primitive propositions
+      \item truth table: all interpretations of a proposition
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Well-Formed Formula Examples}
+
+  \begin{example}[not a well-formed formula]
+    \begin{itemize}
+      \item $\vee p$
+      \item $p \wedge \neg$
+      \item $p \neg \wedge q$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Precedence}
+
+  \begin{enumerate}
+    \item $\neg$
+    \item $\wedge$
+    \item $\vee$
+    \item $\rightarrow$
+    \item $\leftrightarrow$
+  \end{enumerate}
+
+  \begin{itemize}
+    \item parentheses are used to change precedence
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Precedence Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item $s$: Phyllis goes out for a walk.
+      \item $t$: The Moon is out.
+      \item $u$: It is snowing.
+    \end{itemize}
+
+    \medskip
+    what is the meaning of the following WFFs?
+
+    \pause
+    \begin{itemize}
+      \item $t \wedge \neg u \rightarrow s$
+      \pause
+      \item $t \rightarrow (\neg u \rightarrow s)$
+      \pause
+      \item $\neg (s \leftrightarrow (u \vee t))$
+      \pause
+      \item $\neg s \leftrightarrow u \vee t$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Formula Types}
+
+  \begin{enumerate}
+    \item \emph{tautology}: True for all interpretations
+    \item \emph{contradiction}: False for all interpretations
+    \item \emph{valid}: True for some interpretations
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tautology Example}
+
+  \begin{example}
+    \begin{table}
+      \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
+      \begin{tabular}{|c|c|c|c||c|}\hline
+        $p$ & $q$ & $p \rightarrow q$ & $p \wedge (p \rightarrow q)$
+            & $p \wedge (p \rightarrow q) \rightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$ & $T$ & $T$                     \\\hline
+        $T$ & $F$ & $F$ & $F$ & $T$                     \\\hline
+        $F$ & $T$ & $T$ & $F$ & $T$                     \\\hline
+        $F$ & $F$ & $T$ & $F$ & $T$                     \\\hline
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contradiction Example}
+
+  \begin{example}
+    \begin{table}
+      \caption{$p \wedge (\neg p \wedge q)$}
+      \begin{tabular}{|c|c|c|c||c|}\hline
+        $p$ & $q$ & $\neg p$ & $\neg p \wedge q$
+            & $p \wedge (\neg p \wedge q)$\\\hline\hline
+        $T$ & $T$ & $F$ & $F$ & $F$       \\\hline
+        $T$ & $F$ & $F$ & $F$ & $F$       \\\hline
+        $F$ & $T$ & $T$ & $T$ & $F$       \\\hline
+        $F$ & $F$ & $T$ & $F$ & $F$       \\\hline
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\subsection{Metalanguage}
+
+\begin{frame}
+  \frametitle{Metalanguage}
+
+  \begin{definition}
+    \alert{target language}: language being worked on
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    \alert{metalanguage}: language used when talking about the properties of
+      the target language
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item validity, contradiction and tautology are defined in the metalanguage
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metalanguage Examples}
+
+  \begin{example}[somebody who is learning English]
+    \begin{itemize}
+      \item target language: English
+      \item metalanguage: Turkish
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}[Intro. to Sci. and Eng. Comp.]
+    \begin{itemize}
+      \item target language: C
+      \item metalanguage: English
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metalogic}
+
+  \begin{itemize}
+    \item $P_1,P_2,\dots,P_n \vdash Q$\\
+      There is a proof which infers the conclusion $Q$ from the assumptions
+      $P_1,P_2,\dots,P_n$.
+
+    \pause
+    \medskip
+    \item $P_1,P_2,\dots,P_n \vDash Q$\\
+      $Q$ must be true if $P_1,P_2,\dots,P_n$ are all true.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Formal Systems}
+
+  \begin{definition}
+    \alert{consistent}: for all well-formed formulas $P$ and $Q$\\
+      If $P \vdash Q$ then $P \vDash Q$
+
+    \begin{itemize}
+      \item each provable proposition is actually true
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    \alert{complete}: for all well-formed formulas $P$ and $Q$\\
+      If $P \vDash Q$ then $P \vdash Q$
+    \begin{itemize}
+      \item every true proposition can be proven
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gödel's Theorem}
+
+  \begin{itemize}
+    \item Propositional logic is consistent and complete.
+    \item Predicate logic is both consistent and complete.
+  \end{itemize}
+
+  \pause
+  \begin{block}{Gödel's Theorem}
+    \begin{itemize}
+      \item Any logical system that is powerful enough to express ordinary
+        arithmetic must be either inconsistent or incomplete!
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Propositional Calculus}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Approaches in Propositional Calculus}
+
+  \begin{enumerate}
+    \item semantic approach: \emph{truth tables}
+    \begin{itemize}
+      \item gets too complicated when the number of primitive statements grow
+    \end{itemize}
+
+    \pause
+    \item syntactic approach: \emph{rules of inference}
+    \begin{itemize}
+      \item obtaining new propositions from existing propositions using logical
+        implications
+    \end{itemize}
+
+    \pause
+    \item axiomatic approach: \emph{Boolean algebra}
+    \begin{itemize}
+      \item substituting equivalent formulas in equations
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Truth Table Example}
+
+  \begin{example}[$p \rightarrow q$]
+    \begin{center}
+      \begin{tabular}{|c|c||c|c|c|c|}\hline
+        $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$ &
+                    $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
+        $T$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+        $T$ & $F$ & $F$ & $F$ & $T$ & $T$\\\hline
+        $F$ & $T$ & $T$ & $T$ & $F$ & $F$\\\hline
+        $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
+      \end{tabular}
+    \end{center}
+
+    \pause
+    \begin{itemize}
+      \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
+
+      \pause
+      \item \emph{converse}: $q \rightarrow p$
+
+      \pause
+      \item \emph{inverse}: $\neg p \rightarrow \neg q$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Laws of Logic}
+
+\begin{frame}
+  \frametitle{Logical Equivalence}
+
+  \begin{definition}
+    if $P \leftrightarrow Q$ is a tautology, then $P$ and $Q$ are
+    \alert{logically equivalent}:\\
+    $P \Leftrightarrow Q$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Equivalence Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item $\neg p \Leftrightarrow p \rightarrow F$
+    \end{itemize}
+
+    \begin{table}
+      \caption{$\neg p \leftrightarrow p \rightarrow F$}
+      \begin{tabular}{|c|c|c||c|}\hline
+        $p$ & $\neg p$ & $p \rightarrow F$
+            & $\neg p \leftrightarrow p \rightarrow F$\\\hline\hline
+        $T$ & $F$ & $F$ & $T$\\\hline
+        $F$ & $T$ & $T$ & $T$\\\hline
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Equivalence Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item $p \rightarrow q \Leftrightarrow \neg p \vee q$
+    \end{itemize}
+
+    \begin{table}
+      \caption{$(p \rightarrow q) \leftrightarrow (\neg p \vee q)$}
+      \begin{tabular}{|c|c|c|c|c||c|}\hline
+        $p$ & $q$ & $p \rightarrow q$ & $\neg p$ & $\neg p \vee q$
+            & $(p \rightarrow q) \leftrightarrow (\neg p \vee q)$\\\hline\hline
+        $T$ & $T$ & $T$ & $F$ & $T$ & $T$\\\hline
+        $T$ & $F$ & $F$ & $F$ & $F$ & $T$\\\hline
+        $F$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+        $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Laws of Logic}
+
+  \begin{tabular}{ll}
+  \alert{Law of Double Negation (DN)} &\\
+    $\neg (\neg p) \Leftrightarrow p$ &\\\\
+  \pause
+  \alert{Commutative Laws (Co)} &\\
+    $p \wedge q \Leftrightarrow q \wedge p$ &
+    $p \vee q \Leftrightarrow q \vee p$\\\\
+  \pause
+  \alert{Associative Laws (As)} &\\
+    $(p \wedge q) \wedge r \Leftrightarrow p \wedge (q \wedge r)$ &
+    $(p \vee q) \vee r \Leftrightarrow p \vee (q \vee r)$\\\\
+  \pause
+  \alert{Idempotent Laws (Ip)} &\\
+    $p \wedge p \Leftrightarrow p$ &
+    $p \vee p \Leftrightarrow p$\\\\
+  \pause
+  \alert{Inverse Laws (In)} &\\
+    $p \wedge \neg p \Leftrightarrow F$ &
+    $p \vee \neg p \Leftrightarrow T$
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Laws of Logic}
+
+  \begin{tabular}{ll}
+  \alert{Identity Laws (Id)} &\\
+    $p \wedge T \Leftrightarrow p$ &
+    $p \vee F \Leftrightarrow p$\\\\
+  \pause
+  \alert{Domination Laws (Do)} &\\
+    $p \wedge F \Leftrightarrow F$ &
+    $p \vee T \Leftrightarrow T$\\\\
+  \pause
+  \alert{Distributive Laws (Di)} &\\
+    $p \wedge (q \vee r) \Leftrightarrow (p \wedge q) \vee (p \wedge r)$ &
+    $p \vee (q \wedge r) \Leftrightarrow (p \vee q) \wedge (p \vee r)$\\\\
+  \pause
+  \alert{Absorption Laws (Ab)} &\\
+    $p \wedge (p \vee q) \Leftrightarrow p$ &
+    $p \vee (p \wedge q) \Leftrightarrow p$\\\\
+  \pause
+  \alert{DeMorgan's Laws (DM)} &\\
+    $\neg (p \wedge q) \Leftrightarrow \neg p \vee \neg q$ &
+    $\neg (p \vee q) \Leftrightarrow \neg p \wedge \neg q$
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Duality}
+
+  \begin{definition}
+    If $s$ contains no logical connectives other than $\wedge$ and $\vee$, then\\
+    the \alert{dual} of $s$, denoted $s^d$, is the statement obtained from $s$\\
+    by replacing each occurrence of $\wedge$ by $\vee$, and $\vee$ by $\wedge$,\\
+    and each occurrence of $T$ by $F$, and $F$ by $T$.
+  \end{definition}
+
+  \pause
+  \begin{example}[dual proposition]
+    \begin{eqnarray*}
+      s:   & (p \wedge \neg q) \vee (r \wedge T)\\
+      s^d: & (p \vee \neg q) \wedge (r \vee F)
+    \end{eqnarray*}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Principle of Duality}
+
+  \begin{block}{principle of duality}
+    Let $s$ and $t$ be statements that contain no logical connectives\\
+    other than $\wedge$ and $\vee$.\\
+    If $s \Leftrightarrow t$ then $s^d \Leftrightarrow t^d$.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Example}
+
+  \begin{example}
+    \begin{eqnarray*}
+                      & p \rightarrow q           &\\
+      \pause
+      \Leftrightarrow & \neg p \vee q             &\\
+      \pause
+      \Leftrightarrow & q \vee \neg p             & Co\\
+      \pause
+      \Leftrightarrow & \neg \neg q \vee \neg p   & DN\\
+      \pause
+      \Leftrightarrow & \neg q \rightarrow \neg p &
+    \end{eqnarray*}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Example}
+
+  \begin{example}
+    \begin{eqnarray*}
+                      & \neg (\neg ((p \vee q) \wedge r) \vee \neg q)      &\\
+      \pause
+      \Leftrightarrow & \neg \neg ((p \vee q) \wedge r) \wedge \neg \neg q & DM\\
+      \pause
+      \Leftrightarrow & ((p \vee q) \wedge r) \wedge q                     & DN\\
+      \pause
+      \Leftrightarrow & (p \vee q) \wedge (r \wedge q)                     & As\\
+      \pause
+      \Leftrightarrow & (p \vee q) \wedge (q \wedge r)                     & Co\\
+      \pause
+      \Leftrightarrow & ((p \vee q) \wedge q) \wedge r                     & As\\
+      \pause
+      \Leftrightarrow & q \wedge r                                         & Ab
+    \end{eqnarray*}
+  \end{example}
+\end{frame}
+
+\subsection{Rules of Inference}
+
+\begin{frame}
+  \frametitle{Rules of Inference}
+
+  \begin{definition}
+    if $P \rightarrow Q$ is a tautology, then $P$ \alert{logically implies} $Q$:\\
+    $P \Rightarrow Q$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Implication Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item $p \wedge (p \rightarrow q) \Rightarrow q$
+    \end{itemize}
+
+    \begin{table}
+      \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
+      \begin{tabular}{|c|c|c|c||c|}\hline
+        $p$ & $q$ & $p \rightarrow q$ & $p \wedge (p \rightarrow q)$
+            & $p \wedge (p \rightarrow q) \rightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+        $T$ & $F$ & $F$ & $F$ & $T$\\\hline
+        $F$ & $T$ & $T$ & $F$ & $T$\\\hline
+        $F$ & $F$ & $T$ & $F$ & $T$\\\hline
+      \end{tabular}
+    \end{table}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inference}
+
+  \begin{itemize}
+    \item establishing the validity of an argument, considering a set of premises
+    which have been proven or assumed to be true
+  \end{itemize}
+
+  \pause
+  \begin{block}{notation}
+    \begin{columns}
+      \column{.5\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p_1\\
+            p_2\\
+            \dots\\
+            p_n
+          \end{array}
+        }
+        {
+          \therefore q
+        }
+      \]
+
+      \column{.5\textwidth}
+      $p_1 \wedge p_2 \wedge \cdots \wedge p_n \Rightarrow q$
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{block}{Identity (ID)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p
+          \end{array}
+        }
+        {
+          \therefore p
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Contradiction (CTR)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          F
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{block}{Implication Introduction (ImpI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \vdash q
+          \end{array}
+        }
+        {
+          \therefore p \rightarrow q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item if it can be shown that $q$ is true assuming $p$ is true,\\
+        then $p \rightarrow q$ is true\\
+        \alert{without assuming $p$ is true}\\
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{AND Introduction (AndI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p\\
+            q
+          \end{array}
+        }
+        {
+          \therefore p \wedge q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{AND Elimination (AndE)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \wedge q
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{OR Introduction (OrI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p
+          \end{array}
+        }
+        {
+          \therefore p \vee q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{OR Elimination (OrE)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vee q\\
+          p \vdash r\\
+          q \vdash r
+        \end{array}
+      }
+      {
+        \therefore r
+      }
+    \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{Modus Ponens (ImpE)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            p
+          \end{array}
+        }
+        {
+          \therefore q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Modus Tollens (MT)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            \neg q
+          \end{array}
+        }
+        {
+          \therefore \neg p
+        }
+      \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Modus Tollens}
+
+  \begin{example}
+    \begin{columns}
+      \column{.3\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            \neg q
+          \end{array}
+        }
+        {
+          \therefore \neg p
+        }
+      \]
+
+      \pause
+      \column{.65\textwidth}
+      \begin{eqnarray*}
+        1. & p \rightarrow q           & Pre\\
+        \pause
+        2. & \neg q \rightarrow \neg p & 1\\
+        \pause
+        3. & \neg q                    & Pre\\
+        \pause
+        4. & \neg p                    & ImpE:2,3\\
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Modus Ponens Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item Ali will buy a car if he wins the lottery.
+      \item Ali has won the lottery.
+
+      \pause
+      \medskip
+      \item Therefore, Ali will buy a car.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Modus Tollens Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item Ali will buy a car if he wins the lottery.
+      \item Ali did not buy a car.
+
+      \pause
+      \medskip
+      \item Therefore, Ali did not win the lottery.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fallacies}
+
+  \begin{block}{affirming the conclusion}
+    \[
+    \frac
+      {
+      \begin{array}{c}
+        p \rightarrow q\\
+        q
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item $(p \rightarrow q) \wedge q \rightarrow p$ is not a tautology:\\
+      if $p=F,q=T$: $(F \rightarrow T) \wedge T \rightarrow F$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Affirming the Conclusion}
+
+  \begin{example}
+    \begin{itemize}
+      \item If Madonna is the president of the United States,\\
+        she is over 35 years old.
+      \item Madonna is over 35 years old.
+
+      \pause
+      \medskip
+      \item Therefore, Madonna is the president of the United States.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fallacies}
+
+  \begin{block}{denying the hypothesis}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          \neg p
+        \end{array}
+      }
+      {
+        \therefore \neg q
+      }
+    \]
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item $(p \rightarrow q) \wedge \neg p \rightarrow \neg q$ is not a tautology:\\
+      if $p=F,q=T$: $(F \rightarrow T) \wedge T \rightarrow F$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Denying the Hyphothesis}
+
+  \begin{example}
+    \begin{itemize}
+      \item if $2+3=8$ then $2+4=6$
+      \item $2+3 \neq 8$
+
+      \pause
+      \medskip
+      \item Therefore, $2+4 \neq 6$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Disjunctive Syllogism}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{block}{Disjunctive Syllogism (DS)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \vee q\\
+            \neg p
+          \end{array}
+        }
+        {
+          \therefore q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{eqnarray*}
+      1.   & p \vee q        & Pre\\
+      \pause
+      2.   & \neg p          & Pre\\
+      \pause
+      3.   & p \rightarrow F & 2\\
+      \pause
+      4a1. & p               & Pre!\\
+      \pause
+      4a2. & F               & ImpE:3,4a1\\
+      \pause
+      4a.  & q               & CTR:4a2\\
+      \pause
+      4b1. & q               & Pre!\\
+      \pause
+      4b.  & q               & ID:4b1\\
+      \pause
+      5.   & q               & OrE:1,4a,4b
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Disjunctive Syllogism Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item Ali's wallet is either in his pocket or on his desk.
+      \item Ali's wallet is not in his pocket.
+
+      \pause
+      \medskip
+      \item Therefore, Ali's wallet is on his desk.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hypothetical Syllogism}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{block}{Hypothetical Syllogism (HS)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            q \rightarrow r
+          \end{array}}
+        {
+          \therefore p \rightarrow r
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{eqnarray*}
+      1. & p               & Pre!\\
+      \pause
+      2. & p \rightarrow q & Pre\\
+      \pause
+      3. & q               & ImpE:2,1\\
+      \pause
+      4. & q \rightarrow r & Pre\\
+      \pause
+      5. & r               & ImpE:4,3\\
+      \pause
+      6. & p \rightarrow r & ImpI:1,5\\
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hypotetical Syllogism Example}
+
+  \begin{example}[Star Trek]
+    Spock - to Lieutenant Decker:
+    \begin{quote}
+      It would be a suicide to attack the enemy ship now. Someone who attempts
+      suicide is not psycologically fit to command Enterprise. Therefore, I am
+      obliged to relieve you from duty.
+    \end{quote}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hypotetical Syllogism Example}
+
+  \begin{example}[Star Trek]
+    \begin{itemize}
+      \item $p$: Decker attacks the enemy ship.
+      \item $q$: Decker attempts suicide.
+      \item $r$: Decker is not psycologically fit to command Enterprise.
+      \item $s$: Spock relieves Decker from duty.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hypotetical Syllogism Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.3\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p\\
+            p \rightarrow q\\
+            q \rightarrow r\\
+            r \rightarrow s
+          \end{array}
+        }
+        {
+          \therefore s
+        }
+      \]
+
+      \pause
+      \column{.65\textwidth}
+      \begin{eqnarray*}
+        1. & p \rightarrow q & Pre\\
+        \pause
+        2. & q \rightarrow r & Pre\\
+        \pause
+        3. & p \rightarrow r & HS:1,2\\
+        \pause
+        4. & r \rightarrow s & Pre\\
+        \pause
+        5. & p \rightarrow s & HS:3,4\\
+        \pause
+        6. & p               & Pre\\
+        \pause
+        7. & s               & ImpE:5,6
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dilemma}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{Constructive Dilemma}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            r \rightarrow s\\
+            p \vee r
+          \end{array}}
+        {
+          \therefore q \vee s
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Destructive Dilemma}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            r \rightarrow s\\
+            \neg q \vee \neg s
+          \end{array}
+          }
+          {
+            \therefore \neg p \vee \neg r
+          }
+      \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \begin{columns}[t]
+      \column{.25\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow r\\
+            r \rightarrow s\\
+            x \vee \neg s\\
+            u \vee \neg x\\
+            \neg u
+          \end{array}
+        }
+        {
+          \therefore \neg p
+        }
+      \]
+
+      \pause
+      \column{.3\textwidth}
+      \begin{eqnarray*}
+        1. & u \vee \neg x   & Pre\\
+        \pause
+        2. & \neg u          & Pre\\
+        \pause
+        3. & \neg x          & DS:1,2\\
+        \pause
+        4. & x \vee \neg s   & Pre\\
+        \pause
+        5. & \neg s          & DS:4,3\\
+      \end{eqnarray*}
+
+      \pause
+      \column{.45\textwidth}
+      \begin{eqnarray*}
+        6. & r \rightarrow s & Pre\\
+        \pause
+        7. & \neg r          & MT:6,5\\
+        \pause
+        8. & p \rightarrow r & Pre\\
+        \pause
+        9. & \neg p          & MT:8,7\\
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          (\neg p \vee \neg q) \rightarrow (r \wedge s)\\
+          r \rightarrow x\\
+          \neg x
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+
+    \pause
+    \begin{columns}[t]
+      \column{.3\textwidth}
+      \begin{eqnarray*}
+        1. & r \rightarrow x                               & Pre\\
+        \pause
+        2. & \neg x                                        & Pre\\
+        \pause
+        3. & \neg r                                        & MT:1,2\\
+        \pause
+        4. & \neg r \vee \neg s                            & OrI:3\\
+        \pause
+        5. & \neg (r \wedge s)                             & DM:4
+      \end{eqnarray*}
+
+      \pause
+      \column{.6\textwidth}
+      \begin{eqnarray*}
+        6. & (\neg p \vee \neg q) \rightarrow (r \wedge s) & Pre\\
+        \pause
+        7. & \neg (\neg p \vee \neg q)                     & MT:6,5\\
+        \pause
+        8. & p \wedge q                                    & DM:7\\
+        \pause
+        9. & p                                             & AndE:8
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \begin{columns}
+      \column{.3\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow (q \vee r)\\
+            s \rightarrow \neg r\\
+            q \rightarrow \neg p\\
+            p\\
+            s
+          \end{array}
+        }
+        {
+          \therefore q \wedge \neg q
+        }
+      \]
+
+      \pause
+      \column{.6\textwidth}
+      \begin{eqnarray*}
+        1. & q \rightarrow \neg p     & Pre\\
+       \pause
+        2. & p                        & Pre\\
+       \pause
+        3. & \neg q                   & MT:1,2\\
+       \pause
+        4. & s                        & Pre\\
+       \pause
+        5. & s \rightarrow \neg r     & Pre\\
+       \pause
+        6. & \neg r                   & ImpE:5,4\\
+       \pause
+        7. & p \rightarrow (q \vee r) & Pre\\
+       \pause
+        8. & q \vee r                 & ImpE:7,2\\
+       \pause
+        9. & q                        & DS:8,6\\
+       \pause
+       10. & q \wedge \neg q          & AndI:9,3
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \begin{quote}
+      If there is a chance of rain or her red headband is missing, then Lois
+      will not mow her lawn. Whenever the temperature is over 20, there is no
+      chance for rain. Today the temperature is 22 degrees and Lois is wearing
+      her red headband. Therefore, Lois will mow her lawn.
+    \end{quote}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \begin{itemize}
+      \item $p$: There is a chance of rain.
+      \item $q$: Lois' red headband is lost.
+      \item $r$: Lois mows her lawn.
+      \item $s$: The temperature is over 20.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of Inference}
+
+  \begin{example}
+    \begin{columns}
+      \column{.3\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            (p \vee q) \rightarrow \neg r\\
+            s \rightarrow \neg p\\
+            s \wedge \neg q
+          \end{array}
+        }
+        {
+          \therefore r
+        }
+      \]
+
+      \pause
+      \column{.65\textwidth}
+      \begin{eqnarray*}
+        1. & s \wedge \neg q                & Pre\\
+        \pause
+        2. & s                              & AndE:1\\
+        \pause
+        3. & s \rightarrow \neg p           & Pre\\
+        \pause
+        4. & \neg p                         & ImpE:3,2\\
+        \pause
+        5. & \neg q                         & AndE:1\\
+        \pause
+        6. & \neg p \wedge \neg q           & AndI:4,5\\
+        \pause
+        7. & \neg (p \vee q)                & DM:6\\
+        \pause
+        8. & (p \vee q) \rightarrow \neg r  & Pre\\
+        \pause
+        9. & ?                              & 7,8
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Text: Grimaldi}
+    \begin{itemize}
+      \item Chapter 2: Fundamentals of Logic
+      \begin{itemize}
+        \item 2.1. \alert{Basic Connectives and Truth Tables}
+        \item 2.2. \alert{Logical Equivalence: The Laws of Logic}\\
+        \item 2.3. \alert{Logical Implication: Rules of Inference}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary Text: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 6: Propositional Logic
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
