@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2010
+% Copyright (c) 2001-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Önermeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2010}
+\date{2001-2011}
 
 \AtBeginSubsection[]
 {
@@ -149,7 +149,7 @@
   \frametitle{Önerme Değişkeni}
 
   \begin{tanim}
-    \alert{önerme değişkeni} (ya da \alert{yalın önerme}):\\
+    \alert{önerme değişkeni}:\\
       önermeyi simgeleyen isim
 
     \begin{itemize}
@@ -167,31 +167,31 @@
   \end{ornek}
 \end{frame}
 
-\subsection{Bağlaçlar}
+\subsection{İşlemler}
 
 \begin{frame}
-  \frametitle{Birleşik Önerme}
+  \frametitle{İşlemler}
 
   \begin{itemize}
-    \item yalın önermelerin \alert{bağlaçlar} ile bağlanmasıyla
-      \alert{birleşik önermeler} elde edilir
+    \item yeni önermeler elde etmek için:
     \begin{itemize}
-      \item değil
-      \item ve, veya
-      \item koşullu bağlaç, karşılıklı koşullu bağlaç
+      \item bir önerme değillenebilir
+      \item bir veya birden fazla önerme \alert{mantıksal bağlaçlar} ile
+        birleştirilerek \alert{birleşik önermeler} elde edilebilir
     \end{itemize}
+    \item \alert{yalın önermeler} daha küçük birimlere bölünemez
   \end{itemize}
 
   \pause
   \begin{itemize}
     \item \alert{doğruluk tablosu}:\\
-      önerme değişkenlerinin olası bütün değerleri için bağlaç sonucunu veren
-      çizelge
+      içerdiği yalın önermelerin olası bütün değerleri için birleşik önermenin
+      sonucunu veren tablo
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{DEĞİL Bağlacı}
+  \frametitle{Değilleme}
 
   \begin{columns}
     \column{.3\textwidth}
@@ -218,7 +218,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{VE Bağlacı}
+  \frametitle{Ve Bağlacı}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -246,7 +246,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{VEYA Bağlacı}
+  \frametitle{Veya Bağlacı}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -274,7 +274,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{DAR VEYA Bağlacı}
+  \frametitle{Dar Veya Bağlacı}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -892,13 +892,9 @@
   \frametitle{Mantıksal Eşdeğerlilik}
 
   \begin{tanim}
-    $P$ ve $Q$ formüllerinin doğruluk tabloları aynıysa\\
-      $P$ ve $Q$ \alert{mantıksal eşdeğerli}: $P \Leftrightarrow Q$
+    $P \leftrightarrow Q$ totoloji ise $P$ ve $Q$ \alert{mantıksal eşdeğerli}:\\
+    $P \Leftrightarrow Q$
   \end{tanim}
-
-  \begin{itemize}
-    \item $P \leftrightarrow Q$ totoloji
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -944,25 +940,25 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilikler}
+  \frametitle{Mantık Yasaları}
 
   \begin{tabular}{ll}
-  \alert{çifte değilleme (DN)} &\\
+  \alert{Çifte Değilleme Yasası (DN)} &\\
     $\neg (\neg p) \Leftrightarrow p$ &\\\\
   \pause
-  \alert{değişme (Co)} &\\
+  \alert{Değişme Yasaları (Co)} &\\
     $p \wedge q \Leftrightarrow q \wedge p$ &
     $p \vee q \Leftrightarrow q \vee p$\\\\
   \pause
-  \alert{birleşme (As)} &\\
+  \alert{Birleşme Yasaları (As)} &\\
     $(p \wedge q) \wedge r \Leftrightarrow p \wedge (q \wedge r)$ &
     $(p \vee q) \vee r \Leftrightarrow p \vee (q \vee r)$\\\\
   \pause
-  \alert{sabit kuvvetlilik (Ip)} &\\
+  \alert{Sabit Kuvvetlilik Yasaları (Ip)} &\\
     $p \wedge p \Leftrightarrow p$ &
     $p \vee p \Leftrightarrow p$\\\\
   \pause
-  \alert{terslik (In)} &\\
+  \alert{Terslik Yasaları (In)} &\\
     $p \wedge \neg p \Leftrightarrow Y$ &
     $p \vee \neg p \Leftrightarrow D$
   \end{tabular}
@@ -972,23 +968,23 @@
   \frametitle{Eşdeğerlilikler}
 
   \begin{tabular}{ll}
-  \alert{etkisizlik (Id)} &\\
+  \alert{Etkisizlik Yasaları (Id)} &\\
     $p \wedge D \Leftrightarrow p$ &
     $p \vee Y \Leftrightarrow p$\\\\
   \pause
-  \alert{baskınlık (Do)} &\\
+  \alert{Baskınlık Yasaları (Do)} &\\
     $p \wedge Y \Leftrightarrow Y$ &
     $p \vee D \Leftrightarrow D$\\\\
   \pause
-  \alert{dağılma (Di)} &\\
+  \alert{Dağılma Yasaları (Di)} &\\
     $p \wedge (q \vee r) \Leftrightarrow (p \wedge q) \vee (p \wedge r)$ &
     $p \vee (q \wedge r) \Leftrightarrow (p \vee q) \wedge (p \vee r)$\\\\
   \pause
-  \alert{yutma (Ab)} &\\
+  \alert{Yutma Yasaları (Ab)} &\\
     $p \wedge (p \vee q) \Leftrightarrow p$ &
     $p \vee (p \wedge q) \Leftrightarrow p$\\\\
   \pause
-  \alert{De Morgan (DM)} &\\
+  \alert{DeMorgan Yasaları (DM)} &\\
     $\neg (p \wedge q) \Leftrightarrow \neg p \vee \neg q$ &
     $\neg (p \vee q) \Leftrightarrow \neg p \wedge \neg q$
   \end{tabular}
@@ -998,10 +994,9 @@
   \frametitle{Dualite}
 
   \begin{tanim}
-    \alert{dual}:\\
-      $\wedge$ ve $\vee$ dışında bir bağlaç içermeyen bir $s$
-      önermesinin duali $s^d$ önermesi, $\wedge$ yerine $\vee$, $\vee$
-      yerine $\wedge$, $D$ yerine $Y$, $Y$ yerine $D$ konarak elde edilir.
+    $\wedge$ ve $\vee$ dışında bir bağlaç içermeyen bir $s$ önermesinin\\
+    \alert{dual} önermesi $s^d$, $\wedge$ yerine $\vee$, $\vee$ yerine $\wedge$,\\
+    $D$ yerine $Y$, $Y$ yerine $D$ konarak elde edilir.
   \end{tanim}
 
   \pause
@@ -1016,10 +1011,10 @@
 \begin{frame}
   \frametitle{Dualite İlkesi}
 
-  \begin{block}{dualite ilkesi}
-      $s$ ve $t$, $\wedge$ ve $\vee$ dışında bir bağlaç içermeyen önermeler
-      olsun.\\
-      $s \Leftrightarrow t$ ise $s^d \Leftrightarrow t^d$.
+  \begin{block}{Dualite İlkesi}
+    $s$ ve $t$, $\wedge$ ve $\vee$ dışında bir bağlaç içermeyen önermeler
+    olsun.\\
+    $s \Leftrightarrow t$ ise $s^d \Leftrightarrow t^d$.
   \end{block}
 \end{frame}
 
@@ -1069,12 +1064,13 @@
   \frametitle{Mantıksal Gerektirme}
 
   \begin{tanim}
-    $P$ doğru olduğunda $Q$ her zaman doğruysa\\
-    $P$ formülü $Q$ formülünü \alert{mantıksal gerektirir}: $P \Rightarrow Q$
+    $P \rightarrow Q$ bir totoloji ise $P$ formülü $Q$ formülünü
+    \alert{mantıksal gerektirir}:\\
+    $P \Rightarrow Q$
   \end{tanim}
 
   \begin{itemize}
-    \item $P \rightarrow Q$ totoloji
+    \item
   \end{itemize}
 \end{frame}
 
@@ -1109,7 +1105,7 @@
   \end{itemize}
 
   \pause
-  \begin{block}{çıkarsama kuralları}
+  \begin{block}{gösterilim}
     \begin{columns}
       \column{.5\textwidth}
       \[
@@ -1360,7 +1356,7 @@
 
       \pause
       \medskip
-      \item o halde, Ali araba alacak.
+      \item O halde, Ali araba alacak.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1415,7 +1411,7 @@
 
       \pause
       \medskip
-      \item o halde, Madonna A.B.D. başkanıdır.
+      \item O halde, Madonna A.B.D. başkanıdır.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1515,7 +1511,7 @@
 
       \pause
       \medskip
-      \item o halde, Ali'nin cüzdanı masasında.
+      \item O halde, Ali'nin cüzdanı masasında.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1565,7 +1561,7 @@
     \begin{quote}
       Şu anda düşman gemisine saldırmak intihar olur. İntihara teşebbüs eden
       biri Atılgan'ın komutanlığını yapmaya psikolojik olarak yetkin degildir.
-      Bu yüzden, sizi görevden almak zorundayım.
+      O halde, sizi görevden almak zorundayım.
     \end{quote}
   \end{ornek}
 \end{frame}
@@ -1822,7 +1818,7 @@
       Eğer yağmur yağma olasılığı varsa veya saç bandını bulamazsa, Filiz
       çimleri biçmez. Hava sıcaklığı 20 derecenin üzerindeyse yağmur yağma
       olasılığı yoktur. Bugün hava sıcaklığı 22 derece ve Filiz saç bandını
-      takmış. Demek ki Filiz çimleri biçecek.
+      takmış. O halde, Filiz çimleri biçecek.
     \end{quote}
   \end{ornek}
 \end{frame}
