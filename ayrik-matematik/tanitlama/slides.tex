@@ -151,17 +151,17 @@
 
   \begin{ornek}
     \begin{quote}
-      Bütün insanlar ölümlüdür. Sokrates bir insandır. O halde Sokrates
-      ölümlüdür.
+      Bütün insanlar ölümlüdür. Sokrates bir insandır.\\
+      O halde Sokrates ölümlüdür.
     \end{quote}
 
     \pause
     \begin{itemize}
       \item $\mathcal{U}$: bütün insanlar
       \item $p(x)$: $x$ ölümlüdür
-      \item $\forall x~p(x)$: bütün insanlar ölümlüdür
-      \item $a$: Sokrates, $a \in \mathcal{U}$: Sokrates bir insandır
-      \item o halde, $p(a)$: Sokrates ölümlüdür
+      \item $\forall x~p(x)$: Bütün insanlar ölümlüdür.
+      \item $a$: Sokrates, $a \in \mathcal{U}$: Sokrates bir insandır.
+      \item o halde, $p(a)$: Sokrates ölümlüdür.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -282,8 +282,7 @@
   \frametitle{Doğrudan Tanıt}
 
   \begin{block}{doğrudan tanıt}
-    $P \Rightarrow Q$ tanıtı için $P$ doğru olduğunda $Q$'nun doğru olduğunu
-    göstermek
+    $P \Rightarrow Q$ tanıtı için $P \vdash Q$ olduğunu göstermek
   \end{block}
 \end{frame}
 
@@ -308,13 +307,12 @@
   \frametitle{Dolaylı Tanıt}
 
   \begin{block}{dolaylı tanıt}
-    $P \Rightarrow Q$ tanıtı için $Q$ yanlış olduğunda $P$'nin yanlış olduğunu
-    göstermek
+    $P \Rightarrow Q$ tanıtı için $\neg Q \vdash \neg P$ olduğunu göstermek
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dolaylı Tanıt Örnekleri}
+  \frametitle{Dolaylı Tanıt Örneği}
 
   \begin{teorem}
     $\forall x,y \in \mathbb{N}~[x \cdot y > 25
@@ -333,7 +331,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dolaylı Tanıt Örnekleri}
+  \frametitle{Dolaylı Tanıt Örneği}
 
   \begin{teorem}
     $(\exists k~a,b,k \in \mathbb{N}~[ab=2k]) \Rightarrow
@@ -365,12 +363,12 @@
   \frametitle{Çelişkiyle Tanıt}
 
   \begin{block}{çelişkiyle tanıt}
-    $P$ tanıtı için $\neg P \Rightarrow Q \wedge \neg Q$ olduğunu göstermek
+    $P$ tanıtı için $\neg P \vdash Q \wedge \neg Q$ olduğunu göstermek
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çelişkiyle Tanıt Örnekleri}
+  \frametitle{Çelişkiyle Tanıt Örneği}
 
   \begin{teorem}
     En büyük asal sayı yoktur.
@@ -382,7 +380,7 @@
       \item $\neg P$: En büyük asal sayı vardır.
 
       \pause
-      \item $Q$: en büyük asal sayı $S$
+      \item $Q$: En büyük asal sayı $S$.
 
       \pause
       \item asal sayılar: $2,3,5,7,11,\dots,S$
@@ -393,7 +391,7 @@
 
       \pause
       \begin{enumerate}
-        \item ya asaldır: $\neg Q$
+        \item ya kendisi asaldır: $\neg Q$
 
         \pause
         \item ya da $S$'den büyük bir asal sayıya bölünür: $\neg Q$
@@ -403,7 +401,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çelişkiyle Tanıt Örnekleri}
+  \frametitle{Çelişkiyle Tanıt Örneği}
 
   \begin{teorem}
     $\neg \exists a,b \in \mathbb{Z}^+~[\sqrt{2}=\frac{a}{b}]$
@@ -440,10 +438,10 @@
   \end{proof}
 \end{frame}
 
-\subsection{Eşdeğerlilik Tanıtı}
+\subsection{Eşdeğerlilik Tanıtları}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı}
+  \frametitle{Eşdeğerlilik Tanıtları}
 
   \begin{itemize}
     \item $P \Leftrightarrow Q$ tanıtı için hem $P \Rightarrow Q$, hem de
@@ -452,13 +450,13 @@
     \pause
     \medskip
     \item $P_1 \Leftrightarrow P_2 \Leftrightarrow \cdots \Leftrightarrow P_n$
-      tanıtı $P_1 \Rightarrow P_2 \Rightarrow \cdots \Rightarrow P_n
-      \Rightarrow P_1$ şeklinde yapılabilir
+      tanıtı için bir yöntem:\\
+      $P_1 \Rightarrow P_2 \Rightarrow \cdots \Rightarrow P_n \Rightarrow P_1$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{teorem}
     $a,b,n,q_1,r_1,q_2,r_2 \in \mathbb{Z}^+$\\
@@ -471,7 +469,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{columns}[t]
     \column{.55\textwidth}
@@ -502,7 +500,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{teorem}
     \begin{eqnarray*}
@@ -515,7 +513,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{proof}[$A \subseteq B \Rightarrow A \cup B = B$]
     $A \cup B = B \Leftrightarrow
@@ -540,7 +538,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{proof}[$A \cup B = B \Rightarrow A \cap B = A$]
     $A \cap B = A \Leftrightarrow
@@ -566,7 +564,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{proof}[$A \cap B = A \Rightarrow \overline{B} \subseteq \overline{A}$]
     \begin{eqnarray*}
@@ -580,7 +578,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Tanıtı Örnekleri}
+  \frametitle{Eşdeğerlilik Tanıtı Örneği}
 
   \begin{proof}[$\overline{B} \subseteq \overline{A} \Rightarrow A \subseteq B$]
     \begin{eqnarray*}
@@ -629,7 +627,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tümevarım Örnekleri}
+  \frametitle{Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+~[1+3+5+\cdots+(2n-1)=n^2]$
@@ -655,7 +653,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tümevarım Örnekleri}
+  \frametitle{Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+, n \geq 4~[2^n < n!]$
@@ -677,7 +675,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tümevarım Örnekleri}
+  \frametitle{Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+, n \geq 14~\exists i,j \in \mathbb{N}~[n=3i+8j]$
@@ -716,7 +714,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Güçlü Tümevarım Örnekleri}
+  \frametitle{Güçlü Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+, n \geq 2$\\
@@ -737,7 +735,7 @@
         \item asalsa: $n=n$
 
         \pause
-        \item asal değilse: $n=u \cdot v$:\\
+        \item asal değilse: $n=u \cdot v$\\
           $u < k \wedge v < k \Rightarrow$ $u$ ve $v$ asal sayıların çarpımı
           şeklinde yazılabilir
       \end{enumerate}
@@ -746,7 +744,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Güçlü Tümevarım Örnekleri}
+  \frametitle{Güçlü Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+, n \geq 14~\exists i,j \in \mathbb{N}~[n=3i+8j]$
@@ -769,14 +767,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Hatalı Tümevarım Örnekleri}
+  \frametitle{Hatalı Tümevarım Örneği}
 
   \begin{teorem}
     $\forall n \in \mathbb{Z}^+~[1+2+3+\cdots+n=\frac{n^2+n+2}{2}]$
   \end{teorem}
 
   \pause
-  \begin{block}{Taban adıma dikkat}
+  \begin{block}{taban adıma dikkat}
     \begin{itemize}
       \item $n=k$: $1+2+3+\cdots+k=\frac{k^2+k+2}{2}$ kabul edelim
 
@@ -869,12 +867,12 @@
         \item 4.1. \alert{The Well-Ordering Principle: Mathematical Induction}
       \end{itemize}
     \end{itemize}
+  \end{block}
 
   \begin{block}{Yardımcı Kitap: O'Donnell, Hall, Page}
     \begin{itemize}
       \item Chapter 4: Induction
     \end{itemize}
-  \end{block}
   \end{block}
 \end{frame}
 
