@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2010
+% Copyright (c) 2001-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Bağıntılar ve Fonksiyonlar}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2010}
+\date{2001-2011}
 
 \AtBeginSubsection[]
 {
@@ -69,7 +69,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -116,12 +116,12 @@
 
   \pause
   \begin{itemize}
-    \item bağıntının her bir elemanı bir \alert{çoklu}
+    \item \alert{çoklu}: bağıntının her bir elemanı
 
     \pause
     \medskip
-    \item iki küme üzerindeyse: \emph{ikili bağıntı}\\
-      $\alpha \subseteq A \times B$
+    \item $\alpha \subseteq A \times B$: \emph{ikili bağıntı}
+    \item $\alpha \subseteq A \times A$: \emph{A kümesinde ikili bağıntı}
 
     \pause
     \medskip
@@ -206,7 +206,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Matrisi Örneği}
+  \frametitle{Bağıntı Bileşkesi Matrisi Örneği}
 
   \begin{ornek}
     \begin{columns}
@@ -245,7 +245,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Birleşme Özelliği}
+  \frametitle{Bağıntı Bileşkesinde Birleşme}
 
   \begin{teorem}
       $(\alpha \beta) \gamma = \alpha (\beta \gamma) = \alpha \beta \gamma$
@@ -253,7 +253,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Birleşme Özelliği}
+  \frametitle{Bağıntı Bileşkesinde Birleşme}
 
   \begin{proof}[Tanıt]
     \begin{eqnarray*}
@@ -274,7 +274,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Özellikleri}
+  \frametitle{Bağıntı Bileşkesi Teoremleri}
 
   \begin{itemize}
     \item $\alpha , \delta \subseteq A \times B \wedge
@@ -302,7 +302,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Özellikleri}
+  \frametitle{Bağıntı Bileşkesi Teoremleri}
 
   \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
     \begin{eqnarray*}
@@ -334,7 +334,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Evrik Bağıntının Özellikleri}
+  \frametitle{Evrik Bağıntı Teoremleri}
 
   \begin{itemize}
     \item $(\alpha^{-1})^{-1} = \alpha$
@@ -399,7 +399,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Evriği}
+  \frametitle{Bağıntı Bileşkesi Evriği}
 
   \begin{teorem}
     $(\alpha \beta)^{-1} = \beta^{-1} \alpha^{-1}$
@@ -420,7 +420,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Evriğinin Matrisi}
+  \frametitle{Bileşke Evriği Matrisi}
 
   \begin{itemize}
     \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
@@ -429,7 +429,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bileşke Evriğinin Matrisi Örnekleri}
+  \frametitle{Bileşke Evriği Matrisi Örneği}
 
   \begin{ornek}
     \begin{columns}
@@ -465,34 +465,28 @@
   \end{ornek}
 \end{frame}
 
-\subsection{Küme İçi Bağıntılar}
+\subsection{Bağıntı Nitelikleri}
 
 \begin{frame}
-  \frametitle{Kümeiçi Bağıntı}
+  \frametitle{Bağıntı Nitelikleri}
 
   \begin{itemize}
     \item $\alpha \subseteq A \times A$
 
     \pause
     \medskip
-    \item \emph{birim bağıntı} $E = \{(x,x) | x \in A\}$
+    \item $\alpha \alpha: \alpha^2$
+    \begin{itemize}
+      \item $\alpha \alpha \dots \alpha: \alpha^n$
+    \end{itemize}
 
     \pause
     \medskip
-    \item bileşke: $\alpha \alpha = \alpha^2$
-    \begin{itemize}
-      \item $\alpha \alpha \dots \alpha = \alpha^n$
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+    \item \emph{birim bağıntı}: $E = \{(x,x) | x \in A\}$
 
-\begin{frame}
-  \frametitle{Kümeiçi Bağıntı Özellikleri}
-
-  \begin{itemize}
-    \item yansıma
-    \item bakışlılık
-    \item geçişlilik
+    \pause
+    \medskip
+    \item nitelikler: yansıma, bakışlılık, geçişlilik
   \end{itemize}
 \end{frame}
 
@@ -516,32 +510,6 @@
       $\forall a~[\neg (a \alpha a)]$
   \end{itemize}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Yansımasızlık}
-%
-%   \begin{itemize}
-%     \item $\exists a \in A~[\neg (a \alpha a)]$
-%
-%     \pause
-%     \medskip
-%     \item $\neg (E \subseteq \alpha)$
-%     \item bağıntı matrisinde ana köşegende en az bir tane 0
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ters Yansıma}
-%
-%   \begin{itemize}
-%     \item $\forall a \in A~[\neg (a \alpha a)]$
-%
-%     \pause
-%     \medskip
-%     \item $E \subseteq \overline{\alpha}$
-%     \item bağıntı matrisinde ana köşegen bütünüyle 0
-%   \end{itemize}
-% \end{frame}
 
 \begin{frame}
   \frametitle{Yansıma Örnekleri}
@@ -554,7 +522,7 @@
 
       \medskip
       \begin{itemize}
-        \item $\mathcal{R}_1$ yansımalı
+        \item $\mathcal{R}_1$ yansımalıdır
       \end{itemize}
     \end{ornek}
 
@@ -566,7 +534,7 @@
 
       \medskip
       \begin{itemize}
-        \item $\mathcal{R}_2$ yansımasız
+        \item $\mathcal{R}_2$ yansımasızdır
       \end{itemize}
     \end{ornek}
   \end{columns}
@@ -581,7 +549,7 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ ters yansımalı
+      \item $\mathcal{R}$ ters yansımalıdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -595,7 +563,7 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ yansımalı
+      \item $\mathcal{R}$ yansımalıdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -635,41 +603,6 @@
     \end{eqnarray*}
   \end{itemize}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Bakışsızlık}
-%
-%   \begin{itemize}
-%     \item $\exists a,b \in A$\\
-%       $[a \neq b \wedge ((a \alpha b \wedge \neg(b \alpha a))
-%                     \vee (\neg(a \alpha b) \wedge b \alpha a))]$
-%
-%     \pause
-%     \medskip
-%     \item $\exists a,b \in A$\\
-%       $[a \neq b \wedge ((a \alpha b \vee b \alpha a)
-%                  \wedge (\neg(a \alpha b) \vee \neg(b \alpha a)))]$
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ters Bakışlılık}
-%
-%   \begin{eqnarray*}
-%                     & \forall a,b \in A~
-%                   [a = b \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
-%     \Leftrightarrow & \forall a,b \in A~
-%                   [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
-%     \Leftrightarrow & \forall a,b \in A~
-%                   [(a \alpha b \wedge b \alpha a) \Rightarrow (a=b)]
-%   \end{eqnarray*}
-%
-%   \pause
-%   \medskip
-%   \begin{itemize}
-%     \item  $\alpha \alpha^{-1} \subseteq E$
-%   \end{itemize}
-% \end{frame}
 
 \begin{frame}
   \frametitle{Bakışlılık Örnekleri}
@@ -681,7 +614,7 @@
     \pause
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ bakışsız
+      \item $\mathcal{R}$ bakışsızdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -695,7 +628,7 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ bakışlı
+      \item $\mathcal{R}$ bakışlıdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -708,7 +641,7 @@
     $\mathcal{R} = \{(1,1), (2,2)\}$
 
     \begin{itemize}
-      \item $\mathcal{R}$ bakışlı ve ters bakışlı
+      \item $\mathcal{R}$ hem bakışlı hem de ters bakışlıdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -732,24 +665,6 @@
       $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
   \end{itemize}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Geçişsizlik}
-%
-%   \begin{itemize}
-%      \item $\exists a,b,c \in A$\\
-%       $a \alpha b \wedge b \alpha c \wedge \neg(a \alpha c)$
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ters Geçişlilik}
-%
-%   \begin{itemize}
-%      \item $\forall a,b,c \in A$\\
-%       $(a \alpha b \wedge b \alpha c) \Rightarrow \neg(a \alpha c)$
-%   \end{itemize}
-% \end{frame}
 
 \begin{frame}
   \frametitle{Geçişlilik Örnekleri}
@@ -760,7 +675,7 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ ters geçişli
+      \item $\mathcal{R}$ ters geçişlidir
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -774,16 +689,16 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ geçişsiz
+      \item $\mathcal{R}$ geçişsizdir
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Evrik Bağıntı}
+  \frametitle{Evrik Bağıntı Nitelikleri}
 
   \begin{teorem}
-    Yansıma, bakışlılık ve geçişlilik özellikleri evrik bağıntıda korunur.
+    Yansıma, bakışlılık ve geçişlilik nitelikleri evrik bağıntıda korunur.
   \end{teorem}
 \end{frame}
 
@@ -816,9 +731,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ ters yansımalı
-      \item $\mathcal{R}$ ters bakışlı
-      \item $\mathcal{R}$ ters geçişli
+      \item ters yansımalı
+      \item ters bakışlı
+      \item ters geçişli
     \end{itemize}
   \end{block}
 \end{frame}
@@ -832,9 +747,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ ters yansımalı
-      \item $\mathcal{R}$ bakışlı
-      \item $\mathcal{R}$ ters geçişli
+      \item ters yansımalı
+      \item bakışlı
+      \item ters geçişli
     \end{itemize}
   \end{block}
 \end{frame}
@@ -848,9 +763,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ ters yansımalı
-      \item $\mathcal{R}$ ters bakışlı
-      \item $\mathcal{R}$ geçişli
+      \item ters yansımalı
+      \item ters bakışlı
+      \item geçişli
     \end{itemize}
   \end{block}
 \end{frame}
@@ -864,9 +779,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ yansımalı
-      \item $\mathcal{R}$ ters bakışlı
-      \item $\mathcal{R}$ geçişli
+      \item yansımalı
+      \item ters bakışlı
+      \item geçişli
     \end{itemize}
   \end{block}
 \end{frame}
@@ -880,9 +795,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ yansımalı
-      \item $\mathcal{R}$ bakışsız
-      \item $\mathcal{R}$ geçişli
+      \item yansımalı
+      \item bakışsız
+      \item geçişli
     \end{itemize}
   \end{block}
 \end{frame}
@@ -896,9 +811,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ yansımalı
-      \item $\mathcal{R}$ bakışlı
-      \item $\mathcal{R}$ geçişsiz
+      \item yansımalı
+      \item bakışlı
+      \item geçişsiz
     \end{itemize}
   \end{block}
 \end{frame}
@@ -912,9 +827,9 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}$ yansımalı
-      \item $\mathcal{R}$ bakışlı
-      \item $\mathcal{R}$ geçişsiz
+      \item yansımalı
+      \item bakışlı
+      \item geçişsiz
     \end{itemize}
   \end{block}
 \end{frame}
@@ -1159,7 +1074,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilik Örnekleri}
+  \frametitle{Eşdeğerlilik Örneği}
 
   \begin{ornek}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
@@ -1167,8 +1082,10 @@
 
     \pause
     \bigskip
-    $x~mod~5$ işlemi $\mathbb{Z}$ kümesini yukarıdaki bağıntıya göre\\
-    5~eşdeğerlilik sınıfına bölmeler
+    \begin{itemize}
+      \item $x~mod~5$ işlemi $\mathbb{Z}$ kümesini 5~eşdeğerlilik sınıfına
+        bölmeler
+    \end{itemize}
   \end{ornek}
 \end{frame}
 
