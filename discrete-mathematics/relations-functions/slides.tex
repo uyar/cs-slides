@@ -1,0 +1,2069 @@
+% Copyright (c) 2001-2011
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Discrete Mathematics}
+\subtitle{Relations and Functions}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2011}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{relation}{relation}
+\pgfdeclareimage{composite1}{composite1}
+\pgfdeclareimage{composite2}{composite2}
+\pgfdeclareimage{compatible1}{compatible1}
+\pgfdeclareimage{compatible2}{compatible2}
+\pgfdeclareimage{compatible3}{compatible3}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Relations}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Relation}
+
+  \begin{definition}
+    \alert{relation}: $\alpha \subseteq A \times B \times C \dots \times N$
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \alert{tuple}: an element of a relation
+
+    \pause
+    \medskip
+    \item $\alpha \subseteq A \times B$: \emph{binary relation}
+    \item  $\alpha \subseteq A \times A$: \emph{binary relation on A}
+
+    \pause
+    \medskip
+    \item representations:
+    \begin{itemize}
+      \item by drawing
+      \item with a matrix
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relation Example}
+
+  \begin{example}
+    $A=\{a_1,a_2,a_3,a_4\}, B=\{b_1,b_2,b_3\}$\\
+    $\alpha = \{(a_1,b_1),(a_1,b_3),(a_2,b_2),(a_2,b_3),
+                (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
+
+    \pause
+    \medskip
+    \begin{columns}
+      \column{.3\textwidth}
+      \begin{center}
+        \pgfuseimage{relation}
+      \end{center}
+
+      \column{.3\textwidth}
+      \[ \begin{array}{c|ccc|}
+              & b_1 & b_2 & b_3\\\hline
+          a_1 &  1  &  0  &  1\\
+          a_2 &  0  &  1  &  1\\
+          a_3 &  1  &  0  &  1\\
+          a_4 &  1  &  0  &  0\\\hline
+        \end{array} \]
+
+      \column{.3\textwidth}
+      \[ M_\alpha =
+        \begin{array}{|ccc|}
+          1 & 0 & 1\\
+          0 & 1 & 1\\
+          1 & 0 & 1\\
+          1 & 0 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation}
+
+  \begin{definition}
+    \alert{composite relation}:\\
+      $\alpha \subseteq A \times B \wedge \beta \subseteq B \times C$\\
+      $\Rightarrow \alpha \beta = \{(a,c) | a \in A, c \in C,
+                \exists b \in B [a \alpha b \wedge b \beta c)]\}$
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{composite1}
+      \end{center}
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{composite2}
+      \end{center}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Matrix Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.28\textwidth}
+      \[ M_\alpha =
+         \begin{array}{|ccc|}
+           1 & 0 & 0\\
+           0 & 0 & 1\\
+           0 & 1 & 1\\
+           0 & 1 & 0\\
+           1 & 0 & 1
+         \end{array}
+      \]
+
+      \column{.28\textwidth}
+      \[ M_\beta =
+         \begin{array}{|cccc|}
+           1 & 1 & 0 & 0\\
+           0 & 0 & 1 & 1\\
+           0 & 1 & 1 & 0
+         \end{array}
+      \]
+
+      \column{.37\textwidth}
+      \[ M_{\alpha \beta} =
+         \begin{array}{|cccc|}
+           1 & 1 & 0 & 0\\
+           0 & 1 & 1 & 0\\
+           0 & 1 & 1 & 1\\
+           0 & 0 & 1 & 1\\
+           1 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Associativity}
+
+  \begin{theorem}
+      $(\alpha \beta) \gamma = \alpha (\beta \gamma) = \alpha \beta \gamma$
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Associativity}
+
+  \begin{proof}
+    \begin{eqnarray*}
+      &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
+      & \Leftrightarrow & \exists c [(a,c) \in \alpha \beta
+                              \wedge (c,d) \in \gamma]\\\pause
+      & \Leftrightarrow & \exists c [\exists b [(a,b) \in \alpha
+                                         \wedge (b,c) \in \beta]
+                                         \wedge (c,d) \in \gamma]\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge \exists c [(b,c) \in \beta
+                              \wedge (c,d) \in \gamma]]\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge (b,d) \in \beta \gamma]\\\pause
+      & \Leftrightarrow & (a,d) \in \alpha (\beta \gamma)
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Theorems}
+
+  \begin{itemize}
+    \item $\alpha , \delta \subseteq A \times B \wedge
+           \beta , \gamma \subseteq B \times C$
+
+    \begin{itemize}
+      \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
+
+      \pause
+      \item $\alpha (\beta \cap \gamma)
+        \subseteq \alpha \beta \cap \alpha \gamma$
+
+      \pause
+      \item $(\alpha \cup \delta) \beta = \alpha \beta \cup \delta \beta$
+
+      \pause
+      \item $(\alpha \cap \delta) \beta
+        \subseteq \alpha \beta \cap \delta \beta$
+
+      \pause
+      \item $(\alpha \subseteq \delta \wedge \beta \subseteq \gamma)
+        \Rightarrow \alpha \beta \subseteq \delta \gamma$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Relation Theorems}
+
+  \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in \alpha (\beta \cup \gamma)\\\pause
+      & \Leftrightarrow & \exists z [(x,z) \in \alpha
+                              \wedge (z,y) \in (\beta \cup \gamma)]\\\pause
+      & \Leftrightarrow & \exists z [(x,z) \in \alpha
+                             \wedge ((z,y) \in \beta
+                                \vee (z,y) \in \gamma)]\\\pause
+      & \Leftrightarrow & \exists z [((x,z) \in \alpha \wedge (z,y) \in \beta)\\
+      &                 &     ~~\vee ((x,z) \in \alpha \wedge (z,y) \in \gamma)]\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha \beta \vee (x,y) \in \alpha \gamma\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha \beta \cup \alpha \gamma
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation}
+
+  \begin{definition}
+    $\alpha^{-1}: \{(y,x) | (x,y) \in \alpha \}$
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item $M_{\alpha^{-1}} = M_{\alpha}^T$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation Theorems}
+
+  \begin{itemize}
+    \item $(\alpha^{-1})^{-1} = \alpha$
+
+    \pause
+    \item $(\alpha \cup \beta)^{-1} = \alpha^{-1} \cup \beta^{-1}$
+
+    \pause
+    \item $(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$
+
+    \pause
+    \item $\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$
+
+    \pause
+    \item $(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$
+
+    \pause
+    \item $\alpha \subset \beta \Rightarrow \alpha^{-1} \subset \beta^{-1}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation Theorems}
+
+  \begin{proof}[$\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in \overline{\alpha}^{-1}\\\pause
+      & \Leftrightarrow & (y,x) \in \overline{\alpha}\\\pause
+      & \Leftrightarrow & (y,x) \notin \alpha\\\pause
+      & \Leftrightarrow & (x,y) \notin \alpha^{-1}\\\pause
+      & \Leftrightarrow & (x,y) \in \overline{\alpha^{-1}}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation Theorems}
+
+  \begin{proof}[$(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$]
+    \begin{eqnarray*}
+      &                 & (x,y) \in (\alpha \cap \beta)^{-1}\\\pause
+      & \Leftrightarrow & (y,x) \in (\alpha \cap \beta)\\\pause
+      & \Leftrightarrow & (y,x) \in \alpha \wedge (y,x) \in \beta\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha^{-1}
+                   \wedge (x,y) \in \beta^{-1}\\\pause
+      & \Leftrightarrow & (x,y) \in \alpha^{-1} \cap \beta^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation Theorems}
+
+  \begin{proof}[$(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$]
+    \begin{eqnarray*}
+      (\alpha - \beta)^{-1} & = & (\alpha \cap \overline{\beta})^{-1}\\\pause
+                            & = & \alpha^{-1} \cap \overline{\beta}^{-1}\\\pause
+                            & = & \alpha^{-1} \cap \overline{\beta^{-1}}\\\pause
+                            & = & \alpha^{-1} - \beta^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Composite Relation}
+
+  \begin{theorem}
+    $(\alpha \beta)^{-1} = \beta^{-1} \alpha^{-1}$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{eqnarray*}
+      &                 & (c,a) \in (\alpha \beta)^{-1}\\\pause
+      & \Leftrightarrow & (a,c) \in \alpha \beta\\\pause
+      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+                              \wedge (b,c) \in \beta]\\\pause
+      & \Leftrightarrow & \exists b [(c,b) \in \beta^{-1}
+                              \wedge (b,a) \in \alpha^{-1}]\\\pause
+      & \Leftrightarrow & (c,a) \in \beta^{-1}\alpha^{-1}
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Composite Relation Matrix}
+
+  \begin{itemize}
+    \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
+    \item $M_{\alpha \beta}^{T} = M_{\beta}^{T} \times M_{\alpha}^{T}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Composite Relation Matrix Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.27\textwidth}
+      \[ M_\alpha =
+        \begin{array}{|ccc|}
+          1 & 0 & 0\\
+          0 & 0 & 1\\
+          0 & 1 & 1\\
+          0 & 1 & 0\\
+          1 & 0 & 1
+        \end{array}
+      \]
+
+      \column{.27\textwidth}
+      \[ M_\beta =
+        \begin{array}{|cccc|}
+          1 & 1 & 0 & 0\\
+          0 & 0 & 1 & 1\\
+          0 & 1 & 1 & 0
+        \end{array}
+      \]
+    \end{columns}
+
+    \[ M_{\alpha \beta^{-1}} =
+      \begin{array}{|ccccc|}
+        1 & 0 & 0 & 0 & 1\\
+        1 & 1 & 1 & 0 & 1\\
+        0 & 1 & 1 & 1 & 1\\
+        0 & 0 & 1 & 1 & 0
+      \end{array}
+    \]
+  \end{example}
+\end{frame}
+
+\subsection{Relation Properties}
+
+\begin{frame}
+  \frametitle{Binary Relation Properties}
+
+  \begin{itemize}
+    \item $\alpha \subseteq A \times A$
+
+    \pause
+    \medskip
+    \item $\alpha \alpha: \alpha^2$
+    \begin{itemize}
+      \item $\alpha \alpha \dots \alpha: \alpha^n$
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \emph{identity relation}: $E = \{(x,x) | x \in A\}$
+
+    \pause
+    \medskip
+    \item properties: reflexivity, symmetry, transitivity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reflexivity}
+
+  \begin{block}{reflexive}
+    $\alpha \subseteq A \times A$\\
+    $\forall a~[a \alpha a]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $E \subseteq \alpha$
+%     \item bağıntı matrisinde ana köşegen bütünüyle 1
+    \item nonreflexive:\\
+      $\exists a~[\neg (a \alpha a)]$
+
+    \pause
+    \item irreflexive:\\
+      $\forall a~[\neg (a \alpha a)]$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reflexivity Examples}
+
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{example}
+      $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
+      $\mathcal{R}_1 = \{(1,1), (2,2)\}$
+
+      \medskip
+      \begin{itemize}
+        \item $\mathcal{R}_1$ is reflexive
+      \end{itemize}
+    \end{example}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{example}
+      $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+      $\mathcal{R}_2 = \{(1,1), (2,2)\}$
+
+      \medskip
+      \begin{itemize}
+        \item $\mathcal{R}_2$ is nonreflexive
+      \end{itemize}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reflexivity Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is irreflexive
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reflexivity Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is reflexive
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Symmetry}
+
+  \begin{block}{symmetric}
+    $\alpha \subseteq A \times A$\\
+    $\forall a,b [(a=b) \vee (a \alpha b \wedge b \alpha a)
+                        \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
+
+    \pause
+    \medskip
+    $\forall a,b [(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $\alpha = \alpha^{-1}$
+%     \item bağıntı matrisi ana köşegene göre simetrik:
+%       $M_{\alpha} = M_{\alpha}^T$
+
+    \item asymmetric:\\
+      $\exists a,b [(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
+                               \vee (\neg (a \alpha b) \wedge b \alpha a))]$
+
+    \pause
+    \item antisymmetric:
+    \begin{eqnarray*}
+                      & \forall a,b~
+                    [(a=b) \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
+      \Leftrightarrow & \forall a,b~
+                    [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
+      \Leftrightarrow & \forall a,b~
+                    [(a \alpha b \wedge b \alpha a) \rightarrow (a=b)]
+    \end{eqnarray*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Symmetry Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is asymmetric
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Symmetry Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is symmetric
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Symmetry Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,1), (2,2)\}$
+
+    \begin{itemize}
+      \item $\mathcal{R}$ is both symmetric and antisymmetric
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transitivity}
+
+  \begin{block}{transitive}
+    $\alpha \subseteq A \times A$\\
+    $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow (a \alpha c)]$
+  \end{block}
+
+  \pause
+  \begin{itemize}
+%     \item $\alpha^2 \subseteq \alpha$
+    \item nontransitive:\\
+      $\exists a,b,c~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
+
+    \pause
+    \item antitransitive:\\
+      $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transitivity Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is antitransitive
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transitivity Examples}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}$ is nontransitive
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Converse Relation Properties}
+
+  \begin{theorem}
+    The reflexivity, symmetry and transitivity properties\\
+    are preserved in the converse relation.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closure}
+
+  \begin{itemize}
+    \item reflexive closure:\\
+      $r_{\alpha} = \alpha \cup E$
+
+    \pause
+    \medskip
+    \item symmetric closure:\\
+      $s_{\alpha} = \alpha \cup \alpha^{-1}$
+
+    \pause
+    \medskip
+    \item transitive closure:\\
+      $t_{\alpha} = \bigcup_{i=1 \dots n}~\alpha^i
+        = \alpha \cup \alpha^2 \cup \alpha^3 \cup \cdots \cup \alpha^n$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{predecessor - successor}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a-b=1$
+
+    \medskip
+    \begin{itemize}
+      \item irreflexive
+      \item antisymmetric
+      \item antitransitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{adjacency}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a-b|=1$
+
+    \medskip
+    \begin{itemize}
+      \item irreflexive
+      \item symmetric
+      \item antitransitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{strict order}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a<b$
+
+    \medskip
+    \begin{itemize}
+      \item irreflexive
+      \item antisymmetric
+      \item transitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{partial order}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv a \leq b$
+
+    \medskip
+    \begin{itemize}
+      \item reflexive
+      \item antisymmetric
+      \item transitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{preorder}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a| \leq |b|$
+
+    \medskip
+    \begin{itemize}
+      \item reflexive
+      \item asymmetric
+      \item transitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{limited difference}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv |a-b| \leq m$
+
+    \medskip
+    \begin{itemize}
+      \item reflexive
+      \item symmetric
+      \item nontransitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{comparability}
+    $\mathcal{R} \subseteq \mathbb{U} \times \mathbb{U}$\\
+    $(a,b) \in \mathcal{R} \equiv (a \subseteq b) \vee (b \subseteq a)$
+
+    \medskip
+    \begin{itemize}
+      \item reflexive
+      \item symmetric
+      \item nontransitive
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Special Relations}
+
+  \begin{block}{brotherhood}
+    \begin{itemize}
+      \item irreflexive
+      \item symmetric
+      \item transitive
+    \end{itemize}
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item can a relation be symmetric, transitive and irreflexive?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Equivalence Relations}
+
+\begin{frame}
+  \frametitle{Compatible Relations}
+
+  \begin{definition}
+    \alert{compatible relation}: $\gamma$
+    \begin{itemize}
+      \item reflexive
+      \item symmetric
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item undirected graph
+    \item matrix representation as a triangle matrix
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item $\alpha \alpha^{-1}$ is a compatible relation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatible Relation Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{eqnarray*}
+        A           & = & \{a_1,a_2,a_3,a_4\}\\
+        \mathcal{R} & = & \{\\
+                    &   & (a_1,a_1),(a_2,a_2),\\
+                    &   & (a_3,a_3),(a_4,a_4),\\
+                    &   & (a_1,a_2),(a_2,a_1),\\
+                    &   & (a_2,a_4),(a_4,a_2),\\
+                    &   & (a_3,a_4),(a_4,a_3)\\
+                    &   & \}
+      \end{eqnarray*}
+
+      \column{.2\textwidth}
+      \begin{center}
+        \pgfuseimage{compatible1}
+
+        \bigskip
+        \pgfuseimage{compatible2}
+      \end{center}
+
+      \pause
+      \column{.3\textwidth}
+      \begin{center}
+        \[ \begin{array}{|cccc|}
+            1  &  1  &  0  &  0\\
+            1  &  1  &  0  &  1\\
+            0  &  0  &  1  &  1\\
+            0  &  1  &  1  &  1
+          \end{array} \]
+
+        \[ \begin{array}{|ccc|}
+            1  &     & \\
+            0  &  0  & \\
+            0  &  1  &  1
+          \end{array} \]
+      \end{center}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatible Relation Example}
+
+  \begin{example}[$\alpha \alpha^{-1}$]
+    $A$: persons, $B$: languages
+
+    \medskip
+    $A=\{a_1,a_2,a_3,a_4,a_5,a_6\}$\\
+    $B=\{b_1,b_2,b_3,b_4,b_5\}$\\
+    $\alpha \subseteq A \times B$
+
+    \pause
+    \begin{columns}
+      \column{.45\textwidth}
+      \[ M_\alpha = \begin{array}{|ccccc|}
+          1  &  1  &  0  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0\\
+          0  &  0  &  1  &  0  &  1\\
+          1  &  0  &  1  &  1  &  0\\
+          0  &  0  &  0  &  1  &  0\\
+          0  &  1  &  1  &  0  &  0
+        \end{array} \]
+
+      \column{.45\textwidth}
+      \[ M_{\alpha^{-1}} = \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          0  &  0  &  1  &  0  &  0  &  0
+        \end{array} \]
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatible Relation Example}
+
+  \begin{example}[$\alpha \alpha^{-1}$]
+    $\alpha \alpha^{-1} \subseteq A \times A$
+
+    \begin{columns}
+      \column{.45\textwidth}
+      \[ M_{\alpha \alpha^{-1}}= \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  1\\
+          1  &  1  &  0  &  1  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          1  &  1  &  1  &  1  &  1  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          1  &  1  &  1  &  1  &  0  &  1
+        \end{array} \]
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{compatible3}
+      \end{center}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatible Class}
+
+  \begin{definition}
+    \alert{compatibility block}: $C \subseteq A$\\
+      $\forall a,b~[a \in C \wedge b \in C \rightarrow a \gamma b]$
+  \end{definition}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item \emph{maximal compatibility block}:\\
+      not a subset of another compatibility block
+
+    \pause
+    \item an element can be a member of more than one MCB
+
+    \pause
+    \medskip
+    \item \alert{complete cover}: $C_\gamma$\\
+      set of all MCBs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatible Block Examples}
+
+  \begin{example}[$\alpha \alpha^{-1}$]
+    \begin{columns}
+      \column{.3\textwidth}
+      \begin{center}
+        \pgfuseimage{compatible3}
+      \end{center}
+
+      \pause
+      \column{.65\textwidth}
+      \begin{itemize}
+        \item $C_1=\{a_4,a_6\}$
+        \item $C_2=\{a_2,a_4,a_6\}$
+        \item $C_3=\{a_1,a_2,a_4,a_6\}$ (MCC)
+      \end{itemize}
+
+      \pause
+      \medskip
+      \begin{eqnarray*}
+        C_\gamma (A) & = & \{\\
+                      &   & \{a_1,a_2,a_4,a_6\},\\
+                      &   & \{a_3,a_4,a_6\},\\
+                      &   & \{a_4,a_5\}\\
+                      &   & \}
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Relations}
+
+  \begin{definition}
+    \alert{equivalence relation}: $\epsilon$
+    \begin{itemize}
+      \item reflexive
+      \item symmetric
+      \item transitive
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item equivalence classes
+    \item every element is a member of exactly one equivalence class
+
+    \pause
+    \medskip
+    \item complete cover: $C_\epsilon$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Partitioning}
+
+  \begin{itemize}
+    \item every equivalence relation \emph{partitions} a set\\
+      into equivalence classes
+
+    \pause
+    \medskip
+    \item every \emph{partitioning} corresponds to an equivalence relation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Relation Example}
+
+  \begin{example}
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+    $(a,b) \in \mathcal{R} \equiv 5~|~|a - b|$
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $x~mod~5$ partitions $\mathbb{Z}$ into 5~equivalence classes
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Text: Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.1. \alert{Cartesian Products and Relations}
+      \end{itemize}
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.1. \alert{Relations Revisited: Properties of Relations}
+        \item 7.4. \alert{Equivalence Relations and Partitions}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary Text: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 10: Relations
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Functions}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Function}
+
+  \begin{definition}
+    \alert{function}: $f: X \rightarrow Y$\\
+    $\forall x \in X~\forall y_1,y_2 \in Y~
+      (x,y_1),(x,y_2) \in f \Rightarrow y_1=y_2$
+  \end{definition}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $X$: \emph{domain}, $Y$: \emph{codomain} (or \emph{range})
+
+    \pause
+    \medskip
+    \item $(x,y) \in f \equiv y = f(x)$
+    \item $y$ is \emph{image} of $x$ under $f$
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subset Image}
+
+  \begin{definition}
+    \alert{subset image}:\\
+    $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
+    $f(X_1) = \{ y | y \in Y, x \in X_1 \wedge y = f(x) \}$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subset Image Example}
+
+  \begin{example}
+    $\begin{array}{l}
+      f: \mathbb{R} \rightarrow \mathbb{R}\\
+      f(x) = x^2
+    \end{array}$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
+
+      \pause
+      \medskip
+      \item $A = \{-2,1\}$\\
+        $f(A) = \{1,4\}$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{One-to-one Function}
+
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{one-to-one}:\\
+      $\forall x_1,x_2 \in X~f(x_1)=f(x_2) \Rightarrow x_1=x_2$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{One-to-one Function Examples}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{example}
+      $\begin{array}{l}
+        f: \mathbb{R} \rightarrow \mathbb{R}\\
+        f(x) = 3x + 7
+      \end{array}$
+
+      \pause
+      \bigskip
+      $\begin{array}{llll}
+                    & f(x_1)    & = & f(x_2)\pause\\
+        \Rightarrow & 3 x_1 + 7 & = & 3 x_2 + 7\pause\\
+        \Rightarrow & 3 x_1     & = & 3 x_2\pause\\
+        \Rightarrow & x_1       & = & x_2
+      \end{array}$
+    \end{example}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Counterexample}
+      $\begin{array}{l}
+        g: \mathbb{Z} \rightarrow \mathbb{Z}\\
+        g(x) = x^4 - x
+      \end{array}$
+
+      \pause
+      \bigskip
+      $\begin{array}{lllll}
+        g(0) & = & 0^4 - 0 & = & 0\pause\\
+        g(1) & = & 1^4 - 1 & = & 0
+      \end{array}$
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Onto Function}
+
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{onto}:\\
+    $\forall y \in Y~\exists x \in X~f(x)=y$
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item $f(X)=Y$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Onto Function Examples}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{example}
+      $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+      $f(x) = x^3$
+    \end{example}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Counterexample}
+      $f: \mathbb{Z} \rightarrow \mathbb{Z}$\\
+      $f(x) = 3x + 1$
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bijective Function}
+
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{bijective}:\\
+    $f$ is both one-to-one and onto
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subset Image Properties}
+
+  \begin{itemize}
+    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$:
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
+      \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
+
+      \pause
+      \medskip
+      \item if $f$ is one-to-one:\\
+        $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Function}
+
+  \begin{definition}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$
+
+    \medskip
+    $g \circ f: X \rightarrow Z$\\
+    $(g \circ f)(x) = g(f(x))$
+  \end{definition}
+
+  \begin{itemize}
+    \item is not commutative
+    \item is associative:\\
+      $f \circ (g \circ h) = (f \circ g) \circ h$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Function Examples}
+
+  \begin{example}[commutativity]
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = x^2$
+
+    \medskip
+    $g: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $g(x) = x + 5$
+
+    \pause
+    \bigskip
+    $g \circ f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $(g \circ f)(x) = x^2 + 5$
+
+    \pause
+    \medskip
+    $f \circ g: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $(f \circ g)(x) = (x + 5)^2$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Function Theorems}
+
+  \begin{theorem}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
+    $f$ is one-to-one $\wedge$ $g$ is one-to-one $\Rightarrow$ $g \circ f$ is one-to-one
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \[\begin{array}{crcl}
+                & (g \circ f) (a_1) & = & (g \circ f) (a_2)\\\pause
+    \Rightarrow & g(f(a_1))         & = & g(f(a_2))\\\pause
+    \Rightarrow & f(a_1)            & = & f(a_2)\\\pause
+    \Rightarrow & a_1               & = & a_2
+    \end{array}\]
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Function Theorems}
+
+  \begin{theorem}
+    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
+    $f$ is onto $\wedge$ $g$ is onto $\Rightarrow$ $g \circ f$ is onto
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\forall z \in Z~\exists y \in Y~g(y) = z$\\\pause
+    $\forall y \in Y~\exists x \in X~f(x) = y$\\\pause
+      $\Rightarrow \forall z \in Z~\exists x \in X~g(f(x)) = z$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Identity Function}
+
+  \begin{definition}
+    \alert{identity function}: $1_X$
+
+    \medskip
+    $1_X: X \rightarrow X$\\
+    $1_X(x) = x$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inverse Function}
+
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{invertible}:\\
+      $\exists f^{-1}: Y \rightarrow X~f^{-1} \circ f = 1_X \wedge f \circ f^{-1} = 1_Y$
+
+    \begin{itemize}
+      \item $f^{-1}$: \alert{inverse} of function f
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inverse Function Examples}
+
+  \begin{example}
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = 2x + 5$
+
+    \pause
+    \bigskip
+    $f^{-1}: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f^{-1}(x) = \frac{x - 5}{2}$
+
+    \pause
+    \bigskip
+    $(f^{-1} \circ f)(x) = f^{-1}(f(x))$
+    \pause
+    $ = f^{-1}(2x + 5)$
+    \pause
+    $ = \frac{(2x + 5) - 5}{2}$
+    \pause
+    $ = \frac{2x}{2} = x$
+    \medskip
+
+    \pause
+    $(f \circ f^{-1})(x) = f(f^{-1}(x))$
+    \pause
+    $ = f(\frac{x - 5}{2})$
+    \pause
+    $ = 2 \frac{x - 5}{2} + 5$
+    \pause
+    $ = (x - 5) + 5 = x$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inverse Function}
+
+  \begin{theorem}
+    If a function is invertable, its inverse is unique.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $f: X \rightarrow Y$
+
+    \pause
+    \medskip
+    $g,h: Y \rightarrow X$\\
+    $g \circ f = 1_X \wedge f \circ g = 1_Y$\\
+    $h \circ f = 1_X \wedge f \circ h = 1_Y$
+
+    \pause
+    \medskip
+    $h = h \circ 1_Y$
+    \pause
+    $ = h \circ (f \circ g)$
+    \pause
+    $ = (h \circ f) \circ g$
+    \pause
+    $ = 1_X \circ g$
+    \pause
+    $ = g$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Invertible Function}
+
+  \begin{theorem}
+    A function is invertible if and only if it is one-to-one and onto.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Invertible Function}
+
+  \begin{columns}[t]
+    \column{.6\textwidth}
+    \begin{proof}[If invertible then one-to-one.]
+      $f: A \rightarrow B$
+      \begin{eqnarray*}
+        &             & f(a_1) = f(a_2)\\\pause
+        & \Rightarrow & f^{-1}(f(a_1)) = f^{-1}(f(a_2))\\\pause
+        & \Rightarrow & (f^{-1} \circ f) (a_1) = (f^{-1} \circ f) (a_2)\\\pause
+        & \Rightarrow & 1_A (a_1) = 1_A (a_2)\\\pause
+        & \Rightarrow & a_1 = a_2
+      \end{eqnarray*}
+    \end{proof}
+
+    \pause
+    \column{.35\textwidth}
+    \begin{proof}[If invertible then onto.]
+      $f: A \rightarrow B$
+      \begin{eqnarray*}
+        &   & b\\\pause
+        & = & 1_B (b)\\\pause
+        & = & (f \circ f^{-1}) (b)\\\pause
+        & = & f(f^{-1} (b))
+      \end{eqnarray*}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Invertible Function}
+
+  \begin{proof}[If bijective then invertible.]
+    $f: A \rightarrow B$
+    \begin{itemize}
+      \item $f$ is onto $\Rightarrow \forall b \in B~\exists a \in A~f(a)=b$
+      \item let $g: B \rightarrow A$ be defined by $a=g(b)$
+
+      \pause
+      \medskip
+      \item is it possible that $g(b) = a_1 \neq a_2 = g(b)$ ?
+
+      \pause
+      \item this would mean: $f(a_1) = b = f(a_2)$
+
+      \pause
+      \item but: $f$ is one-to-one
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutations}
+
+  \begin{itemize}
+    \item permutation: a bijective function on a set
+
+    \medskip
+    $\left(
+      \begin{array}{cccc}
+       a_1   &  a_2   & \dots &  a_n\\
+      p(a_1) & p(a_2) & \dots & p(a_n)
+      \end{array}
+    \right)$
+
+    \pause
+    \medskip
+    \item $n!$ permutations can be defined in a set of $n$ elements
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutation Examples}
+
+  \begin{example}
+    $A = \{1,2,3\}$
+
+    \medskip
+    $\begin{array}{cc}
+      p_1 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          1 & 2 & 3
+        \end{array}
+      \right) &
+      p_2 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          1 & 3 & 2
+        \end{array}
+      \right)\medskip\\
+      p_3 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          2 & 1 & 3
+        \end{array}
+      \right) &
+      p_4 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          2 & 3 & 1
+        \end{array}
+      \right)\medskip\\
+      p_5 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          3 & 1 & 2
+        \end{array}
+      \right) &
+      p_6 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          3 & 2 & 1
+        \end{array}
+      \right)
+    \end{array}$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cyclic Permutation}
+
+  \begin{itemize}
+    \item \emph{cyclic permutation}:
+    \begin{itemize}
+      \item a subset of elements form a cycle
+      \item the remaining elements do not change
+    \end{itemize}
+
+    \pause
+    \medskip
+    $(a_i, a_j, a_k) = \left(
+      \begin{array}{ccccccccc}
+      \dots & a_i & \dots & a_n & \dots & a_j & \dots & a_k & \dots\\
+      \dots & a_j & \dots & a_n & \dots & a_k & \dots & a_i & \dots
+      \end{array}
+    \right)$
+
+    \pause
+    \bigskip
+    \item \emph{transposition}: a cyclic permutation of length 2
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cyclic Permutation Examples}
+
+  \begin{example}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    $(1,3,5) = \left(
+      \begin{array}{ccccc}
+        1 & 2 & 3 & 4 & 5\\
+        3 & 2 & 5 & 4 & 1
+      \end{array}
+    \right)$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutation Composition}
+
+  \begin{itemize}
+    \item permutation composition is not commutative
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    \small{$\begin{array}{lll}
+      (4,1,3,5) \diamond (5,2,3) & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          3 & 2 & 5 & 1 & 4
+        \end{array}
+      \right) \diamond \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          1 & 3 & 5 & 4 & 2
+        \end{array}
+      \right)\smallskip\pause\\
+      & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          5 & 3 & 2 & 1 & 4
+        \end{array}
+      \right)\medskip\pause\\
+      (5,2,3) \diamond (4,1,3,5) & = & \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          1 & 3 & 5 & 4 & 2
+        \end{array}
+      \right) \diamond \left(
+        \begin{array}{ccccc}
+          1 & 2 & 3 & 4 & 5\\
+          3 & 2 & 5 & 1 & 4
+      \end{array}
+    \right)\smallskip\pause\\
+    & = & \left(
+      \begin{array}{ccccc}
+        1 & 2 & 3 & 4 & 5\\
+        3 & 5 & 4 & 1 & 2
+      \end{array}
+    \right)
+    \end{array}$}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cyclic Permutation Composition}
+
+  \begin{itemize}
+    \item all permutations that are not cyclic can be written\\
+      as a composition of disjoint cyclic permutations
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    $A = \{1,2,3,4,5,6,7,8\}$
+
+    \medskip
+    $\left(
+      \begin{array}{cccccccc}
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+        3 & 4 & 6 & 5 & 2 & 1 & 8 & 7
+      \end{array}
+    \right) = (1,3,6) \diamond (2,4,5) \diamond (7,8)$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transposition Composition}
+
+  \begin{itemize}
+    \item all cyclic permutations can be written\\
+      as a composition of transpositions
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    $A = \{1,2,3,4,5\}$
+
+    \medskip
+    $(1,2,3,4,5) = (1,2) \diamond (1,3) \diamond (1,4) \diamond (1,5)$
+  \end{example}
+\end{frame}
+
+\subsection{Pigeonhole Principle}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle}
+
+  \begin{definition}
+    \alert{pigeonhole principle} (Dirichlet drawers):\\
+    if $m$ pigeons go into $n$ holes and $m>n$ \\
+    at least one hole contains more than one pigeon
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item if $f: X \rightarrow Y \wedge |X|>|Y|$ then $f$ cannot be one-to-one
+
+    \item $\exists x_1,x_2 \in X~x_1 \neq x_2 \wedge f(x_1)=f(x_2)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item In a room where there are 367 people, at least two persons have the
+        same birthday.
+
+      \pause
+      \item How many students should take an exam where the grades are between
+        0 and 100 so that two students have the same grade?
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Generalized Pigeonhole Principle}
+
+  \begin{definition}
+    \alert{generalized pigeonhole principle}:\\
+    if $m$ objects are distributed to $n$ drawers\\
+    at least one of the drawers contains $\lceil m / n \rceil$ objects
+  \end{definition}
+
+  \pause
+  \begin{example}
+    In a room where there are 100 people at least $\lceil 100 / 12 \rceil = 9$
+    persons were born in the same month.
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Example}
+
+  \begin{theorem}
+    There are two elements which total 10\\
+    in any subset of cardinality 6 of the set S = \{1,2,3,\dots,9\}.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Example}
+
+  \begin{theorem}
+    Let $S$ be a set of positive integers smaller than or equal to 14,\\
+    with cardinality 6. The sums of the elements\\
+    in all nonempty subsets of $S$ cannot be all different.
+  \end{theorem}
+
+  \pause
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{Proof Trial}
+      $A \subseteq S$\\
+      $s_A:$ sum of the elements of $A$
+
+      \pause
+      \begin{itemize}
+        \item holes:\\
+          $1 \leq s_A \leq 9 + \dots + 14 = 69$
+        \item pigeons: $2^6 - 1 = 63$
+      \end{itemize}
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{proof}
+      look at the subsets for which $|A| \leq 5$
+
+      \pause
+      \begin{itemize}
+        \item holes:\\
+          $1 \leq s_A \leq 10 + \dots + 14 = 60$
+        \item pigeons: $2^6 - 2 = 62$
+      \end{itemize}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Example}
+
+  \begin{theorem}
+    There is at least one pair of elements among 101 elements\\
+    chosen from set $S = \{1,2,3,\dots,200\}$\\
+    so that one of the elements of the pair divides the other.
+  \end{theorem}
+
+  \pause
+  \begin{block}{Proof Method}
+    \begin{itemize}
+      \item we first show that
+         $\forall n~\exists ! p~(n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+
+      \item then, by using this theorem we prove the main theorem
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Example}
+
+  \begin{theorem}
+    $\forall n~\exists ! p~
+      (n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+  \end{theorem}
+
+  \pause
+  \begin{columns}[t]
+    \column{.55\textwidth}
+    \begin{proof}[Proof of Existence]
+      $n = 1$: $r = 0, p = 1$\\
+      $n = 2$: $r = 1, p = 1$
+
+      \pause
+      $n \leq k$: $n = 2^r p$
+
+      \pause
+      $n = k + 1:
+      \begin{array}{ll}
+         n~prime:        & r = 0, p = n\pause\\
+         \neg (n~prime): & n = n_1 n_2\pause\\
+                        & n = 2^{r_1} p_1 \cdot 2^{r_2} p_2\pause\\
+                        & n = 2^{r_1+r_2} \cdot p_1 p_2
+      \end{array}$
+    \end{proof}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{proof}[Proof of Uniqueness]
+      if not unique:
+
+      \pause
+      $\begin{array}{lllll}
+        n & =           & 2^{r_1} p_1     & = & 2^{r_2} p_2\pause\\
+          & \Rightarrow & 2^{r_1-r_2} p_1 & = & p_2\pause\\
+          & \Rightarrow & 2 | p_2
+      \end{array}$
+      \alert{contradiction}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pigeonhole Principle Example}
+
+  \begin{theorem}
+    There is at least one pair of elements among 101 elements\\
+    chosen from set $S = \{1,2,3,\dots,200\}$\\
+    so that one of the elements of the pair divides the other.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{itemize}
+      \item $T \subseteq S$, Assume that $T$ is a subset of $S$\\
+        that contains all odd elements of $S$: $|T|=100$
+
+      \pause
+      \item $f: S \rightarrow T, (s, t) \in f \equiv s = 2^r t \wedge r \geq 0$
+      \begin{itemize}
+        \item if 101 elements are chosen from $S$, at least two of them\\
+          will have the same image in $T$:
+          $f(s_1)=f(s_2) \Rightarrow 2^{m_1} t = 2^{m_2} t$
+
+        \pause
+        \[
+          \frac {s_1} {s_2} = \frac {2^{m_1} t} {2^{m_2} t} = 2^{m_1 - m_2}
+        \]
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\subsection{Recursion}
+
+\begin{frame}
+  \frametitle{Recursive Functions}
+
+  \begin{definition}
+    \alert{recursive function}:\\
+      a function defined in terms of itself
+
+    \medskip
+    $f(n) = h(f(m))$
+  \end{definition}
+
+  \begin{itemize}
+    \item \emph{inductively defined function}:\\
+      the size reduced at every step of the recursion
+
+    \medskip
+    $f(n) = \left\{
+      \begin{array}{ll}
+        k         & n = 0\\
+        h(f(n-1)) & n > 0
+      \end{array}
+    \right.$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recursive Function Examples}
+
+  \begin{example}
+    $f91(n) = \left\{
+      \begin{array}{ll}
+        n - 10         & n > 100\\
+        f91(f91(n+11)) & n \leq 100
+      \end{array}
+    \right.$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inductively Defined Function Examples}
+
+  \begin{example}[factorial]
+    $f(n) = \left\{
+      \begin{array}{ll}
+        1              & n = 0\\
+        n \cdot f(n-1) & n > 0
+      \end{array}
+    \right.$
+  \end{example}
+
+  \pause
+  \begin{example}[function power]
+    $f^n = \left\{
+      \begin{array}{ll}
+        f               & n = 1\\
+        f \circ f^{n-1} & n > 1
+      \end{array}
+    \right.$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euclid Algorithm}
+
+  \begin{example}[greatest common divisor]
+    \begin{eqnarray*}
+      333 & = & 3 \cdot 84 + 81\\\pause
+       84 & = & 1 \cdot 81 + 3\\\pause
+       81 & = & 27 \cdot 3 + 0
+    \end{eqnarray*}
+
+    \pause
+    $gcd(333,84) = 3$
+
+    \pause
+    \medskip
+    $gcd(a,b) = \left\{
+      \begin{array}{ll}
+        b               & b | a\\
+        gcd(b,a~mod~b) & b \nmid a
+      \end{array}
+    \right.$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fibonacci Series}
+
+  \begin{block}{Fibonacci series}
+    $F_n = fib(n) = \left\{
+      \begin{array}{ll}
+        1                   & n = 1\\
+        1                   & n = 2\\
+        fib(n-1) + fib(n-2) & n > 2
+      \end{array}
+    \right.$
+  \end{block}
+
+  \pause
+  \bigskip
+  $\begin{array}{ccccccccc}
+     F_1 & F_2 & F_3 & F_4 & F_5 & F_6 & F_7 & F_8 & \dots\\
+     1   & 1   & 2   & 3   & 5   & 8   & 13  & 21  & \dots
+  \end{array}$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fibonacci Series}
+
+  \begin{theorem}
+    $\sum_{i=1}^{n} {F_i}^2 = F_n \cdot F_{n+1}$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\begin{array}{llcl}
+      n=2:   & \sum_{i=1}^{2} {F_i}^2   & = & {F_1}^2+{F_2}^2=1+1=1 \cdot 2=F_2 \cdot F_3
+      \pause
+      \medskip\\
+      n=k:   & \sum_{i=1}^{k} {F_i}^2   & = & F_k \cdot F_{k+1}
+      \pause
+      \medskip\\
+      n=k+1: & \sum_{i=1}^{k+1} {F_i}^2 & = & \sum_{i=1}^{k} {F_i}^2 + {F_{k+1}}^2
+      \pause
+      \smallskip\\
+             &                          & = & F_k \cdot F_{k+1} + {F_{k+1}}^2
+      \pause
+      \smallskip\\
+             &                          & = & F_{k+1} \cdot (F_k + F_{k+1})
+      \pause
+      \smallskip\\
+             &                          & = & F_{k+1} \cdot F_{k+2}
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ackermann Function}
+
+  \begin{block}{Ackermann function}
+    $ack(x,y) = \left\{
+      \begin{array}{ll}
+        y+1                 & x = 0\\
+        ack(x-1, 1)         & y = 0\\
+        ack(x-1,ack(x,y-1)) & x > 0 \wedge y > 0
+      \end{array}
+    \right.$
+  \end{block}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Text: Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.2. \alert{Functions: Plain and One-to-One}
+        \item 5.3. \alert{Onto Functions: Stirling Numbers of the Second Kind}
+        \item 5.5. \alert{The Pigeonhole Principle}
+        \item 5.6. \alert{Function Composition and Inverse Functions}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary Text: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 11: Functions
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
