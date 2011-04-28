@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg1500"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docbase="/home/uyar/ders/ayrik/sunumlar/10.Cizgeler2"
+   sodipodi:docname="dijkstra.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs1502">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective75" />
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path2442"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(-5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.9345456"
+     inkscape:cx="378.20836"
+     inkscape:cy="582.02856"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1270"
+     inkscape:window-height="951"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:grid-points="true">
+    <inkscape:grid
+       id="GridFromPre046Settings"
+       type="xygrid"
+       originx="0px"
+       originy="0px"
+       spacingx="1px"
+       spacingy="1px"
+       color="#0000ff"
+       empcolor="#0000ff"
+       opacity="0.2"
+       empopacity="0.4"
+       empspacing="5" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata1505">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1416">
+      <text
+         sodipodi:linespacing="125%"
+         id="text36"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="486.4072"
+         x="290.58142">a</text>
+      <path
+         transform="matrix(1.261797,0,0,1.358801,243.4337,-30.30033)"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         sodipodi:ry="2.7870593"
+         sodipodi:rx="2.7092807"
+         sodipodi:cy="378.14923"
+         sodipodi:cx="45.290718"
+         id="path1417"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g1420">
+      <text
+         sodipodi:linespacing="125%"
+         id="text32"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="494.4072"
+         x="367.58142">b</text>
+      <path
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         id="path1419"
+         sodipodi:cx="45.290718"
+         sodipodi:cy="378.14923"
+         sodipodi:rx="2.7092807"
+         sodipodi:ry="2.7870593"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         transform="matrix(1.261797,0,0,1.358801,308.4337,-30.51323)" />
+    </g>
+    <g
+       id="g2488">
+      <text
+         sodipodi:linespacing="125%"
+         id="text42"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005000000010;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="480.52927"
+         x="331.44373">3</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path1421"
+         d="M 365.58144,483.52925 L 335.696,483.52925 L 300.1383,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2494">
+      <text
+         sodipodi:linespacing="125%"
+         id="text48"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="503.53912"
+         x="336.85193">5</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path2476"
+         d="M 300.1383,483.52925 C 300.1383,483.52925 319.22065,495.93136 335.58144,495.93136 C 351.94222,495.93136 365.58144,483.52925 365.58144,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g1424">
+      <text
+         sodipodi:linespacing="125%"
+         id="text34"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="435.94919"
+         x="325.58142">c</text>
+      <path
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         id="path3351"
+         sodipodi:cx="45.290718"
+         sodipodi:cy="378.14923"
+         sodipodi:rx="2.7092807"
+         sodipodi:ry="2.7870593"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         transform="matrix(1.261797,0,0,1.358801,278.4337,-80.51323)" />
+    </g>
+    <g
+       id="g2466">
+      <text
+         sodipodi:linespacing="125%"
+         id="text54"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="453.81677"
+         x="316.02029">6</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path3353"
+         d="M 300.58144,483.52925 L 318.68704,457.66411 L 335.58144,433.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2478">
+      <text
+         sodipodi:linespacing="125%"
+         id="text60"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005000000010;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="454.52927"
+         x="349.58142">4</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path4228"
+         d="M 365.58144,483.52925 L 349.77892,457.19172 L 335.58144,433.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g1436">
+      <text
+         sodipodi:linespacing="125%"
+         id="text30"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="496.23923"
+         x="418.28357">h</text>
+      <path
+         transform="matrix(1.261797,0,0,1.358801,363.4337,-30.30033)"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         sodipodi:ry="2.7870593"
+         sodipodi:rx="2.7092807"
+         sodipodi:cy="378.14923"
+         sodipodi:cx="45.290718"
+         id="path5103"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g2500">
+      <text
+         sodipodi:linespacing="125%"
+         id="text96"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="491.64752"
+         x="393.13226">7</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path5105"
+         d="M 365.58144,483.52925 L 392.76391,483.52925 L 420.58144,483.52925"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial" />
+    </g>
+    <g
+       id="g2506">
+      <text
+         sodipodi:linespacing="125%"
+         id="text120"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="508.20978"
+         x="351.71436">11</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path5980"
+         d="M 420.58144,483.52925 C 420.58144,483.52925 387.58144,511.52925 357.58144,511.52925 C 327.58144,511.52925 300.58144,483.52925 300.58144,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2546">
+      <text
+         sodipodi:linespacing="125%"
+         id="text90"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="464.16827"
+         x="436.90714">4</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path7732"
+         d="M 421.16569,482.945 L 442.58144,466.9484 L 455.30031,457.945"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.16849673px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2482">
+      <text
+         sodipodi:linespacing="125%"
+         id="text114"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="458.13336"
+         x="380.24826">11</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path6855"
+         d="M 335.58144,433.52925 L 378.36164,458.69408 L 420.58144,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g1432">
+      <text
+         sodipodi:linespacing="125%"
+         id="text28"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="456.52927"
+         x="460.58139">g</text>
+      <path
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         id="path7730"
+         sodipodi:cx="45.290718"
+         sodipodi:cy="378.14923"
+         sodipodi:rx="2.7092807"
+         sodipodi:ry="2.7870593"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         transform="matrix(1.261797,0,0,1.358801,398.4337,-55.25443)" />
+    </g>
+    <g
+       id="g2552">
+      <text
+         sodipodi:linespacing="125%"
+         id="text132"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="488.62247"
+         x="432.73367">5</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path8609"
+         d="M 455.58144,459.14706 C 455.58144,459.14706 446.27776,472.88254 437.58144,478.98233 C 428.88512,485.08212 420.79616,483.54623 420.79616,483.54623"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.1653204px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2558">
+      <text
+         sodipodi:linespacing="125%"
+         id="text126"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="526.01526"
+         x="380.30978">17</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path10359"
+         d="M 456.58144,458.52925 C 456.58144,458.52925 428.14142,527.5995 388.58144,529.52925 C 347.58144,531.52926 300.1383,483.52925 300.1383,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g1428">
+      <text
+         sodipodi:linespacing="125%"
+         id="text26"
+         xml:space="preserve"
+         style="font-size:10;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial"
+         y="428.95715"
+         x="402.58142">f</text>
+      <path
+         transform="matrix(1.261797,0,0,1.358801,343.4337,-80.51323)"
+         d="M 47.999999 378.14923 A 2.7092807 2.7870593 0 1 1  42.581437,378.14923 A 2.7092807 2.7870593 0 1 1  47.999999 378.14923 z"
+         sodipodi:ry="2.7870593"
+         sodipodi:rx="2.7092807"
+         sodipodi:cy="378.14923"
+         sodipodi:cx="45.290718"
+         id="path11234"
+         style="fill:#000000;fill-opacity:1;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:7.63707975;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g2474">
+      <text
+         sodipodi:linespacing="125%"
+         id="text66"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="442.05331"
+         x="370.62292">6</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path11236"
+         d="M 335.58144,434.03463 L 370.37192,433.76413 L 400.58144,433.52925"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial" />
+    </g>
+    <g
+       id="g2470">
+      <text
+         sodipodi:linespacing="125%"
+         id="text72"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="429.30298"
+         x="360.93103">7</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path12111"
+         d="M 400.58144,433.52925 C 400.58144,433.52925 382.83144,421.52925 366.58144,421.52925 C 350.33144,421.52925 335.58144,433.52925 335.58144,433.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2462">
+      <text
+         sodipodi:linespacing="125%"
+         id="text78"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="420.96823"
+         x="333.00598">11</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path12986"
+         d="M 400.58144,433.52925 C 400.58144,433.52925 363.10404,405.1847 339.04497,411.73197 C 311.25982,419.29324 300.58144,483.52925 300.58144,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2512">
+      <text
+         sodipodi:linespacing="125%"
+         id="text108"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="456.48776"
+         x="393.56155">4</text>
+      <path
+         sodipodi:nodetypes="csc"
+         id="path13861"
+         d="M 400.58144,433.52925 C 400.58144,433.52925 396.45721,447.02925 401.58144,459.52925 C 406.70567,472.02925 421.07837,483.52925 421.07837,483.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2526">
+      <text
+         sodipodi:linespacing="125%"
+         id="text102"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005000000010;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="454.52927"
+         x="411.17712">9</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path14736"
+         d="M 421.58144,483.52925 L 410.94135,458.19571 L 400.58144,433.52925"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+    <g
+       id="g2540">
+      <text
+         sodipodi:linespacing="125%"
+         id="text84"
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.45000005000000010;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+         y="444.9736"
+         x="431.58142">9</text>
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path15611"
+         d="M 400.58144,433.52925 L 428.27876,446.38457 L 455.58144,459.05672"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);stroke-opacity:1;font-family:Arial" />
+    </g>
+  </g>
+</svg>
