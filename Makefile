@@ -6,7 +6,7 @@ images:
 	for f in *.svg; do b=$${f%.svg}; make $$b.eps; done || true
 
 %.eps: %.svg
-	inkscape --export-eps=$@ --export-text-to-path $< && epstopdf $@
+	inkscape --export-eps=$@ --export-text-to-path $< 2> /dev/null && epstopdf $@
 
 %.pdf: %.tex
 	make images
