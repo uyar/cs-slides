@@ -1,0 +1,1242 @@
+% Copyright (c) 2001-2011
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Discrete Mathematics}
+\subtitle{Algebraic Structures}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2011}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{hasse2418}{hasse2418}
+\pgfdeclareimage{enumeration}{enumeration}
+\pgfdeclareimage{hasse36}{hasse36}
+\pgfdeclareimage{lattice}{lattice}
+\pgfdeclareimage{distributive1}{distributive1}
+\pgfdeclareimage{distributive2}{distributive2}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Algebraic Structures}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Algebraic Structure}
+
+  \begin{definition}
+    \alert{algebraic structure}:
+    \begin{itemize}
+      \item carrier
+      \item operations
+      \item constants
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \emph{signature}: $<$carrier, operations, constants$>$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Operation}
+
+  \begin{itemize}
+    \item binary operation:\\
+      $\circ: S \times S \rightarrow T$
+
+    \item unary operation:\\
+      $\Delta: S \rightarrow T$
+
+    \pause
+    \medskip
+    \item every operation is a function
+
+    \pause
+    \medskip
+    \item \alert{closed}: $T \subseteq S$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closed Operation Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item subtraction is closed on $\mathbb{Z}$
+
+      \pause
+      \item subtraction is not closed on $\mathbb{Z^+}$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Binary Operation Properties}
+
+  \begin{definition}
+    \alert{commutativity}:\\
+    $\forall a,b \in S~a \circ b = b \circ a$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    \alert{associativity}:\\
+    $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Binary Operation Example}
+
+  \begin{example}
+    $\circ: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$\\
+    $a \circ b = a + b - 3ab$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item commutative:\\
+        $a \circ b = a + b - 3ab \pause
+                   = b + a - 3ba \pause
+                   = b \circ a$
+
+      \pause
+      \medskip
+      \item associative:\\
+        $\begin{array}{rcl}
+          (a \circ b) \circ c & = & (a + b - 3ab) + c - 3 (a + b - 3ab) c\\ \pause
+                              & = & a + b - 3ab + c - 3ac - 3bc + 9abc\\ \pause
+                              & = & a + b + c - 3ab - 3ac - 3bc + 9abc\\ \pause
+                              & = & a + (b + c - 3bc) - 3 a (b + c - 3bc)\\ \pause
+                              & = & a \circ (b \circ c)
+        \end{array}$
+     \end{itemize}
+ \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Constants}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{definition}
+      \alert{identity}:\\
+      $x \circ 1 = 1 \circ x = x$
+
+      \pause
+      \begin{itemize}
+        \item left identity: $1_l \circ x = x$
+        \item right identity: $x \circ 1_r = x$
+      \end{itemize}
+    \end{definition}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{definition}
+      \alert{zero}:\\
+      $x \circ 0 = 0 \circ x = 0$
+
+      \pause
+      \begin{itemize}
+        \item left zero: $0_l \circ x = 0$
+        \item right zero: $x \circ 0_r = 0$
+      \end{itemize}
+    \end{definition}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples of Constants}
+
+  \begin{example}
+    \begin{itemize}
+      \item identity for $<\mathbb{N}, max>$ is $0$
+      \item zero for $<\mathbb{N}, min>$ is $0$
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{tabular}{c||c|c|c}
+        $\circ$ & a & b & c\\\hline\hline
+              a & a & b & b\\\hline
+              b & a & b & c\\\hline
+              c & a & b & a
+      \end{tabular}
+
+      \column{.5\textwidth}
+      \begin{itemize}
+        \item $b$ is a left identity
+        \item $a$ and $b$ are right zeros
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Constants}
+
+  \begin{columns}
+  \column{.5\textwidth}
+    \begin{theorem}
+      $\exists 1_l \wedge \exists 1_r \Rightarrow 1_l = 1_r$
+    \end{theorem}
+
+    \pause
+    \begin{proof}
+      $1_l \circ 1_r \pause = 1_l \pause = 1_r$
+    \end{proof}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{theorem}
+      $\exists 0_l \wedge \exists 0_r \Rightarrow 0_l = 0_r$
+    \end{theorem}
+
+    \pause
+    \begin{proof}
+      $0_l \circ 0_r \pause = 0_l \pause = 0_r$
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inverse}
+
+  \begin{definition}
+    if $x \circ y = 1$:
+
+    \begin{itemize}
+      \item $x$ is a \emph{left inverse} of $y$
+      \item $y$ is a \emph{right inverse} of $x$
+
+      \pause
+      \medskip
+      \item if $x \circ y = y \circ x = 1$
+        $x$ and $y$ are \alert{inverse}
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inverse}
+
+  \begin{theorem}
+    if the operation $\circ$ is associative:\\
+    $w \circ x = x \circ y = 1 \Rightarrow w = y$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\begin{array}{ccl}
+      w & = & w \circ 1\\ \pause
+        & = & w \circ (x \circ y)\\ \pause
+        & = & (w \circ x) \circ y\\ \pause
+        & = & 1 \circ y\\ \pause
+        & = & y
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algebraic Families}
+
+  \begin{itemize}
+    \item \emph{algebraic family}: signature + axioms
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algebraic Family Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item axioms:
+      \begin{itemize}
+        \item $x \circ y = y \circ x$
+        \item $(x \circ y) \circ z = x \circ (y \circ z)$
+        \item $x \circ 1 = x$
+      \end{itemize}
+
+      \pause
+      \item structures obeying these axioms:
+      \begin{itemize}
+       \item $<\mathbb{Z},+,0>$
+       \item $<\mathbb{Z},\cdot,1>$
+       \item $<\mathcal{P}(S),\cup,\emptyset>$
+      \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subalgebra}
+
+  \begin{definition}
+    \alert{subalgebra}:\\
+    let $A = <S,\circ,\Delta,k>~\wedge~A' = <S',\circ',\Delta',k'>$
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item $A'$ is a subalgebra of $A$ if:
+      \begin{itemize}
+        \item $S' \subseteq S$
+        \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
+        \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
+        \item $k' = k$
+      \end{itemize}
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subalgebra Example}
+
+  \begin{example}
+    $<\mathbb{Z},+,0>$
+    is a subalgebra of $<\mathbb{R},+,0>$
+  \end{example}
+\end{frame}
+
+\subsection{Groups}
+
+\begin{frame}
+  \frametitle{Semigroups}
+
+  \begin{definition}
+    \alert{semigroup}: $<S,\circ>$
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Semigroup Examples}
+
+  \begin{example}
+    $<\Sigma^+,\&>$
+
+    \begin{itemize}
+      \item $\Sigma$: alphabet, $\Sigma^+$: strings of length at least 1
+      \item $\&$: string concatenation
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Monoids}
+
+  \begin{definition}
+    \alert{monoid}: $<S,\circ,1>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+      \item $\forall a \in S~a \circ 1 = 1 \circ a = a$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Monoid Examples}
+
+  \begin{example}
+    $<\Sigma^*,\&,\epsilon>$
+
+    \begin{itemize}
+      \item $\Sigma$: alphabet, $\Sigma^*$: strings of any length
+      \item $\&$: string concatenation
+      \item $\epsilon$: empty string
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Groups}
+
+  \begin{definition}
+    \alert{group}: $<S,\circ,1>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
+      \item $\forall a \in S~a \circ 1 = 1 \circ a = a$
+      \item $\forall a \in S~\exists a^{-1} \in S~$
+        $a \circ a^{-1} = a^{-1} \circ a = 1$
+
+      \pause
+      \medskip
+      \item \emph{Abelian group}: $\forall a,b \in S~a \circ b = b \circ a$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Group Examples}
+
+  \begin{example}
+    $<\mathbb{Z},+,0>$
+
+    \begin{itemize}
+      \item $x^{-1} = -x$
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}
+    $<\mathbb{Q}-\{0\},\cdot,1>$
+
+    \begin{itemize}
+      \item $x^{-1} = \frac{1}{x}$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Group Examples}
+
+  \begin{example}[composition of permutations]
+    \begin{tiny}
+    \[
+      \begin{array}{c|cccccccccccccccccccccccc}
+        A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
+          & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
+        1 &   1    &   1    &   1    &   1    &   1    &  1
+          &   2    &   2    &   2    &   2    &   2    &  2\\
+        2 &   2    &   2    &   3    &   3    &   4    &  4
+          &   1    &   1    &   3    &   3    &   4    &  4\\
+        3 &   3    &   4    &   2    &   4    &   2    &  3
+          &   3    &   4    &   1    &   4    &   1    &  3\\
+        4 &   4    &   3    &   4    &   2    &   3    &  2
+          &   4    &   3    &   4    &   1    &   3    &  1
+      \end{array}
+    \]
+
+    \[
+      \begin{array}{c|cccccccccccccccccccccccc}
+        A & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
+          & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
+        1 &   3    &   3    &   3    &   3    &   3    &  3
+          &   4    &   4    &   4    &   4    &   4    &  4\\
+        2 &   1    &   1    &   2    &   2    &   4    &  4
+          &   1    &   1    &   2    &   2    &   3    &  3\\
+        3 &   2    &   4    &   1    &   4    &   1    &  2
+          &   2    &   3    &   1    &   3    &   1    &  2\\
+        4 &   4    &   2    &   4    &   1    &   2    &  1
+          &   3    &   2    &   3    &   1    &   2    &  1
+      \end{array}
+    \]
+    \end{tiny}
+
+    \pause
+    \medskip
+    $p_8 \diamond p_{12}=1_A \Rightarrow p_{12} = p_8^{-1}$\\
+    $p_{14} \diamond p_{14}=1_A \Rightarrow p_{14} = p_{14}^{-1}$\\
+
+    \pause
+    \bigskip
+    $<\{1_A,p_1,\dots,p_{23}\},\diamond,\Delta^{-1},1_A>$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subgroup Example}
+
+  \begin{example}[composition of permutations]
+    \[
+      \begin{array}{c||c|c|c|c|c|c}
+        \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
+        1_{A}    & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline
+        p_{2}    & p_{2}  & 1_{A}  & p_{8}  & p_{6}  & p_{14} & p_{12}\\\hline
+        p_{6}    & p_{6}  & p_{12} & 1_{A}  & p_{14} & p_{2}  & p_{8}\\\hline
+        p_{8}    & p_{8}  & p_{14} & p_{2}  & p_{12} & 1_{A}  & p_{6}\\\hline
+        p_{12}   & p_{12} & p_{6}  & p_{14} & 1_{A}  & p_{8}  & p_{2}\\\hline
+        p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
+      \end{array}
+    \]
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Left and Right Cancellation}
+
+  \begin{theorem}
+    $a \circ c = b \circ c \Rightarrow a = b$
+
+    $c \circ a = c \circ b \Rightarrow a = b$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\begin{array}{crcl}
+                  & a \circ c                & = & b \circ c\\ \pause
+      \Rightarrow & (a \circ c) \circ c^{-1} & = & (b \circ c) \circ c^{-1}\\ \pause
+      \Rightarrow & a \circ (c \circ c^{-1}) & = & b \circ (c \circ c^{-1})\\ \pause
+      \Rightarrow & a \circ 1                & = & b \circ 1\\ \pause
+      \Rightarrow & a                        & = & b
+    \end{array}$
+
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Theorem of Groups}
+
+  \begin{theorem}
+    The unique solution of the equation $a \circ x = b$ is: $x = a^{-1} \circ b$.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\begin{array}{crcl}
+                & a \circ c                & = & b\\\pause
+    \Rightarrow & a^{-1} \circ (a \circ c) & = & a^{-1} \circ b\\\pause
+    \Rightarrow & 1 \circ c                & = & a^{-1} \circ b\\\pause
+    \Rightarrow & c                        & = & a^{-1} \circ b
+    \end{array}$
+  \end{proof}
+\end{frame}
+
+\subsection{Rings}
+
+\begin{frame}
+  \frametitle{Ring}
+
+  \begin{definition}
+    \alert{ring}: $<S,+,\cdot,0>$
+
+    \begin{itemize}
+      \item $\forall a,b,c \in S~(a + b) + c = a + (b + c)$
+      \item $\forall a \in S~a + 0 = 0 + a = a$
+      \item $\forall a \in S~\exists (-a) \in S~a + (-a) = (-a) + a = 0$
+      \item $\forall a,b \in S~a + b = b + a$
+
+      \pause
+      \item $\forall a,b,c \in S~(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+
+      \pause
+      \item $\forall a,b,c \in S$
+      \begin{itemize}
+        \item $a \cdot (b + c) = a \cdot b + a \cdot c$
+        \item $(b + c) \cdot a = b \cdot a + c \cdot a$
+      \end{itemize}
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Field}
+
+  \begin{definition}
+    \alert{field}: $<S,+,\cdot,0,1>$
+    \begin{itemize}
+      \item all properties of a ring
+
+      \pause
+      \item $\forall a,b \in S~a \cdot b = b \cdot a$
+      \item $\forall a \in S~a \cdot 1 = 1 \cdot a = a$
+      \item $\forall a \in S~\exists a^{-1} \in S~a \cdot a^{-1} = a^{-1} \cdot a = 1$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Grimaldi}
+    \begin{itemize}
+      \item Chapter 5: Relations and Functions
+      \begin{itemize}
+        \item 5.4. \alert{Special Functions}
+      \end{itemize}
+
+      \item Chapter 16: Groups, Coding Theory,\\
+        and Polya's Method of Enumeration
+      \begin{itemize}
+        \item 16.1. \alert{Definitions, Examples, and Elementary Properties}
+      \end{itemize}
+
+      \item Chapter 14: Rings and Modular Arithmetic
+      \begin{itemize}
+        \item 14.1. \alert{The Ring Structure: Definition and Examples}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Lattices}
+
+\subsection{Partially Ordered Sets}
+
+\begin{frame}
+  \frametitle{Partially Ordered Set}
+
+  \begin{definition}
+    \alert{partial order relation}:
+    \begin{itemize}
+      \item reflexive
+      \item anti-symmetric
+      \item transitive
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \emph{partially ordered set (poset)}:\\
+      a set with a partial order relation defined on its elements
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Poset Examples}
+
+  \begin{example}[set of sets, $\subseteq$]
+    \begin{itemize}
+      \item $A \subseteq A$
+      \item $A \subseteq B \wedge B \subseteq A \Rightarrow A = B$
+      \item $A \subseteq B \wedge B \subseteq C \Rightarrow A \subseteq C$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Poset Examples}
+
+  \begin{example}[$\mathbb{Z}$, $\leq$]
+    \begin{itemize}
+      \item $x \leq x$
+      \item $x \leq y \wedge y \leq x \Rightarrow x = y$
+      \item $x \leq y \wedge y \leq z \Rightarrow x \leq z$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Poset Examples}
+
+  \begin{example}[$\mathbb{Z}^+$, $|$]
+    \begin{itemize}
+      \item $x | x$
+      \item $x | y \wedge y | x \Rightarrow x = y$
+      \item $x | y \wedge y | z \Rightarrow x | z$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparability}
+
+  \begin{itemize}
+    \item $a \preceq b$: \emph{a precedes b}
+
+    \medskip
+    \item $a \preceq b \vee b \preceq a$: \emph{a and b are comparable}
+
+    \pause
+    \bigskip
+    \item \alert{total order} (linear order, chain):\\
+      all elements are comparable with each other
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparability Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item $\mathbb{Z}^+,|$: $3$ and $5$ are not comparable
+
+      \pause
+      \medskip
+      \item $\mathbb{Z},\leq$: total order
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hasse Diagrams}
+
+  \begin{itemize}
+    \item $a \ll b$: \emph{a immediately precedes b}\\
+      $\neg \exists x~ a \preceq x \preceq b$
+
+    \pause
+    \medskip
+    \item Hasse diagram:
+    \begin{itemize}
+      \item draw a line between $a$ and $b$ if $a \ll b$
+      \item preceding element is below
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hasse Diagram Examples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      $\{1,2,3,4,6,8,9,12,18,24\}$\\
+      relation $|$
+
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse2418}
+      \end{center}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Consistent Enumeration}
+
+  \begin{definition}
+    \alert{consistent enumeration}:
+
+    $f: S \rightarrow \mathbb{N}$\\
+    $a \preceq b \Rightarrow f(a) \leq f(b)$
+  \end{definition}
+
+  \begin{itemize}
+    \item there can be more than one consistent enumeration
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Consistent Enumeration}
+
+  \begin{example}
+    \begin{center}
+      \pgfuseimage{enumeration}
+    \end{center}
+
+    \begin{itemize}
+     \item $f(d)=1, f(e)=2, f(b)=3, f(c)=4, f(a)=5$
+
+     \pause
+     \item $f(e)=1, f(d)=2, f(c)=3, f(b)=4, f(a)=5$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Upper Bound - Lower Bound}
+
+  \begin{definition}
+    \alert{upper bound}: $max$\\
+    $\forall x \in S~max \preceq x \Rightarrow x = max$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    \alert{lower bound}: $min$\\
+    $\forall x \in S~x \preceq min \Rightarrow x = min$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Upper Bound - Lower Bound Examples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse2418}
+      \end{center}
+
+      \column{.45\textwidth}
+      $max:~18,24$\\
+      $min:~1$
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Supremum}
+
+  \begin{definition}
+    $A \subseteq S$
+
+    \medskip
+    $M$ is an \alert{upper bound} of $A$:\\
+    $\forall x \in A~x \preceq M$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    $M(A)$: set of upper bounds of $A$
+
+    \medskip
+    $sup(A)$ is the \alert{supremum} of $A$:\\
+    $\forall M \in M(A)~sup(A) \preceq M$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Infimum}
+
+  \begin{definition}
+    $A \subseteq S$
+
+    \medskip
+    $m$ is a \alert{lower bound} of $A$:\\
+    $\forall x \in S~m \preceq x$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    $m(A)$: set of lower bound of $A$
+
+    \medskip
+    $inf(A)$ is the \alert{infimum} of $A$:\\
+    $\forall m \in m(A)~m \preceq inf(A)$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bound Example}
+
+  \begin{example}[factors of 36]
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{hasse36}
+      \end{center}
+
+      \column{.45\textwidth}
+      inf = gcd\\
+      sup = lcm
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\subsection{Lattices}
+
+\begin{frame}
+  \frametitle{Lattice}
+
+  \begin{definition}
+    \alert{lattice}: $<L,\wedge,\vee>$\\
+    $\wedge$: meet, $\vee$: join
+
+    \pause
+    \begin{itemize}
+      \item $a \wedge b = b \wedge a$\\
+        $a \vee b = b \vee a$
+      \item$(a \wedge b) \wedge c = a \wedge (b \wedge c)$\\
+        $(a \vee b) \vee c = a \vee (b \vee c)$
+      \item $a \wedge (a \vee b) = a$\\
+        $a \vee (a \wedge b) = a$
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Poset - Lattice Relationship}
+
+  \begin{itemize}
+    \item If $P$ is a poset, then $<P,inf,sup>$ is a lattice.
+    \begin{itemize}
+      \item $a \wedge b = inf(a,b)$
+      \item $a \vee b = sup(a,b)$
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item Every lattice is a poset where these definitions hold.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Duality}
+
+  \begin{definition}
+    \alert{dual}:\\
+    $\wedge$ instead of $\vee$, $\vee$ instead of $\wedge$
+  \end{definition}
+
+  \pause
+  \begin{theorem}[Duality Theorem]
+    Every theorem has a dual theorem in lattices.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lattice Theorems}
+
+  \begin{theorem}
+    $a \wedge a = a$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $a \wedge a = a \wedge (a \vee (a \wedge b))$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lattice Theorems}
+
+  \begin{theorem}
+    $a \preceq b \Leftrightarrow a \wedge b$
+    $ = a \Leftrightarrow a \vee b = b$
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lattice Examples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.3\textwidth}
+      \[
+	<\mathcal{P}\{a,b,c\},\cap,\cup>
+      \]
+      relation $\subseteq$
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{lattice}
+      \end{center}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bounded Lattice}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{definition}
+      lower bound of lattice $L$: $0$\\
+      $\forall x \in L~0 \preceq x$
+    \end{definition}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{definition}
+      upper bound of lattice $L$: $I$\\
+      $\forall x \in L~x \preceq I$
+    \end{definition}
+  \end{columns}
+
+  \pause
+  \bigskip
+  \begin{theorem}
+    Every finite lattice is bounded.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distributive Lattice}
+
+  \begin{itemize}
+    \item \emph{distributive lattice}:
+    \begin{itemize}
+      \item $\forall a,b,c \in L~a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$
+      \item $\forall a,b,c \in L~a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Counterexamples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{distributive1}
+      \end{center}
+
+      \pause
+      \column{.45\textwidth}
+      $a \vee (b \wedge c)$ \pause $= a \vee 0$ \pause $= a$
+
+      \pause
+      $(a \vee b) \wedge (a \vee c)$ \pause $= I \wedge c$ \pause $= c$
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Counterexamples}
+
+  \begin{example}
+    \begin{columns}
+      \column{.45\textwidth}
+      \begin{center}
+        \pgfuseimage{distributive2}
+      \end{center}
+
+      \pause
+      \column{.45\textwidth}
+      $a \vee (b \wedge c)$ \pause $= a \vee 0$ \pause $= a$
+
+      \pause
+      $(a \vee b) \wedge (a \vee c)$ \pause $= I \wedge I$ \pause $= I$
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distributive Lattice}
+
+  \begin{theorem}
+    A lattice is nondistributive if and only if it has a sublattice\\
+    isomorphic to any of these two structures.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Join Irreducible}
+
+  \begin{definition}
+    \alert{join irreducible element}:\\
+    $a = x \vee y \Rightarrow a = x \vee a = y$
+  \end{definition}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item \emph{atom}: a join irreducible element\\
+      which immediately succeeds the minimum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Join Irreducible Example}
+
+  \begin{example}[Divisibility Relation]
+    \begin{itemize}
+      \item prime numbers and 1 are join irreducible
+
+      \pause
+      \medskip
+      \item 1 is the minimum, the prime numbers are the atoms
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Join Irreducible}
+
+  \begin{theorem}
+    Every element in a lattice can be written\\
+    as the join of join irreducible elements.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Complement}
+
+  \begin{definition}
+    $a$ and $x$ are \alert{complements}:\\
+    $a \wedge x = 0$ and $a \vee x = I$
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Complemented Lattice}
+
+  \begin{theorem}
+    In a bounded, distributive lattice\\
+    the complement is unique, if it exists.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $a \wedge x = 0, a \vee x = I$, $a \wedge y = 0, a \vee y = I$
+
+    \pause
+    \medskip
+    \begin{eqnarray*}
+  & x & = x \vee 0 \pause = x \vee (a \wedge y) \pause = (x \vee a) \wedge (x \vee y) \pause = I \wedge (x \vee y)\\
+  &   & \pause = x \vee y \pause = y \vee x \pause = I \wedge (y \vee x)\\
+  &   & \pause = (y \vee a) \wedge (y \vee x) \pause = y \vee (a \wedge x) \pause = y \vee 0 \pause = y\\
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\subsection{Boolean Algebra}
+
+\begin{frame}
+  \frametitle{Boolean Algebra}
+
+  \begin{definition}
+    \alert{Boolean algebra}:\\
+    $<B,+,\cdot,\overline{x},1,0>$
+
+    \pause
+    \[\begin{array}{ll}
+      a + b = b + a &
+      a \cdot b = b \cdot a\\ \pause
+      (a + b) + c = a + (b + c) &
+      (a \cdot b) \cdot c = a \cdot (b \cdot c)\\ \pause
+      a + 0 = a &
+      a \cdot 1 = a\\ \pause
+      a + \overline{a} = 1 &
+      a \cdot \overline{a} = 0
+    \end{array}\]
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boolean Algebra - Lattice Relationship}
+
+  \begin{definition}
+    A Boolean algebra is a finite, distributive, complemented lattice.
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Duality}
+
+  \begin{definition}
+    \alert{dual}:\\
+    $+$ instead of $\cdot$, $\cdot$ instead of $+$\\
+    0 instead of 1, 1 instead of 0
+  \end{definition}
+
+  \pause
+  \begin{example}
+    $(1 + a) \cdot (b + 0) = b$
+
+    dual of the theorem:
+
+    $(0 \cdot a) + (b \cdot 1) = b$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boolean Algebra Examples}
+
+  \begin{example}
+    $B = \{0,1\}, + = \vee, \cdot = \wedge$
+  \end{example}
+
+  \pause
+  \begin{example}
+    $B = $ factors of $70$, $+ = lcm, \cdot = gcd$
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boolean Algebra Theorems}
+
+    \[\begin{array}{ll}
+      a + a = a &
+      a \cdot a = a\\ \pause
+      a + 1 = 1 &
+      a \cdot 0 = 0\\ \pause
+      a + (a \cdot b) = a &
+      a \cdot (a + b) = a\\ \pause
+      (a + b) + c = a + (b + c) &
+      (a \cdot b) \cdot c = a \cdot (b \cdot c)\bigskip\\ \pause
+      \overline{\overline{a}} = a & \\ \pause
+      \overline{a + b} = \overline{a} \cdot \overline{b} &
+      \overline{a \cdot b} = \overline{a} + \overline{b}
+    \end{array}\]
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{To read: Grimaldi}
+    \begin{itemize}
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.3. \alert{Partial Orders: Hasse Diagrams}
+      \end{itemize}
+
+      \item Chapter 15: Boolean Algebra and Switching Functions
+      \begin{itemize}
+        \item 15.4. \alert{The Structure of a Boolean Algebra}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
