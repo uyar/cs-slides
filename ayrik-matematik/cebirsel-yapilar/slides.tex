@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2010
+% Copyright (c) 2001-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Cebirsel Yapılar}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2010}
+\date{2001-2011}
 
 \AtBeginSubsection[]
 {
@@ -69,7 +69,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -103,7 +103,7 @@
   \tableofcontents
 \end{frame}
 
-\section{Cebir Aileleri}
+\section{Cebirsel Yapılar}
 
 \subsection{Giriş}
 
@@ -121,7 +121,7 @@
 
   \pause
   \begin{itemize}
-    \item \emph{imza}: $<$küme, işlemler, sabitler $>$
+    \item \emph{imza}: $<$küme, işlemler, sabitler$>$
   \end{itemize}
 \end{frame}
 
@@ -137,29 +137,23 @@
 
     \pause
     \medskip
-    \item her işlem bir fonksiyon olarak görülebilir:\\
-      $a~\circ~b$ işlemi: $\circ~a~b$ fonksiyonu
+    \item her işlem bir fonksiyon olarak görülebilir
+
+    \pause
+    \medskip
+    \item \alert{kapalı}: $T \subseteq S$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kapalılık}
-
-  \begin{tanim}
-    \alert{kapalılık}: $T \subseteq S$\\
-    görüntü kümesi tanım kümesinin altkümesi
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kapalılık}
+  \frametitle{Kapalı İşlem Örnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item çıkartma işlemi $\mathbb{Z}$ kümesine göre kapalı
+      \item çıkartma işlemi $\mathbb{Z}$ kümesinde kapalı
 
       \pause
-      \item çıkartma işlemi $\mathbb{Z^+}$ kümesine göre kapalı değil
+      \item çıkartma işlemi $\mathbb{Z^+}$ kümesinde kapalı değil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -252,15 +246,15 @@
   \pause
   \begin{ornek}
     \begin{columns}
-      \column{.5\textwidth}
+      \column{.4\textwidth}
       \begin{tabular}{c||c|c|c}
-        $\circ$ & a & b & c \\ \hline\hline
-              a & a & b & b \\ \hline
-              b & a & b & c \\ \hline
+        $\circ$ & a & b & c\\\hline\hline
+              a & a & b & b\\\hline
+              b & a & b & c\\\hline
               c & a & b & a
       \end{tabular}
 
-      \column{.4\textwidth}
+      \column{.5\textwidth}
       \begin{itemize}
         \item $b$ soldan etkisiz
         \item $a$ ve $b$ sağdan yutucu
@@ -395,7 +389,7 @@
   \end{ornek}
 \end{frame}
 
-\subsection{Yarıgruplar}
+\subsection{Gruplar}
 
 \begin{frame}
   \frametitle{Yarıgruplar}
@@ -447,8 +441,6 @@
     \end{itemize}
   \end{ornek}
 \end{frame}
-
-\subsection{Gruplar}
 
 \begin{frame}
   \frametitle{Grup}
@@ -538,7 +530,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Altgrup Örnekleri}
+  \frametitle{Altgrup Örneği}
 
   \begin{ornek}[permutasyon bileşkesi]
     \[
@@ -581,7 +573,7 @@
   \frametitle{Grupların Temel Teoremi}
 
   \begin{teorem}
-    $a \circ x = b$ denkleminin tek çözümü: $x = a^{-1} \circ b$
+    $a \circ x = b$ denkleminin tek çözümü: $x = a^{-1} \circ b$.
   \end{teorem}
 
   \pause
@@ -650,7 +642,8 @@
         \item 5.4. \alert{Special Functions}
       \end{itemize}
 
-      \item Chapter 16: Groups, Coding Theory, and Polya's Method of Enumeration
+      \item Chapter 16: Groups, Coding Theory,\\
+        and Polya's Method of Enumeration
       \begin{itemize}
         \item 16.1. \alert{Definitions, Examples, and Elementary Properties}
       \end{itemize}
@@ -681,7 +674,8 @@
 
   \pause
   \begin{itemize}
-    \item \emph{kısmi sıralı küme}: elemanlar üzerinde kısmi sıra bağıntısı
+    \item \emph{kısmi sıralı küme}:\\
+      elemanları üzerinde kısmi sıra bağıntısı tanımlanmış küme
   \end{itemize}
 \end{frame}
 
@@ -732,7 +726,8 @@
 
     \pause
     \bigskip
-    \item \emph{çizgisel sıra}: her eleman çifti karşılaştırılabiliyor
+    \item \alert{çizgisel sıra}:\\
+      her eleman çifti karşılaştırılabiliyor
   \end{itemize}
 \end{frame}
 
@@ -986,7 +981,9 @@
   \begin{ornek}
     \begin{columns}
       \column{.3\textwidth}
-      $<\mathcal\{a,b,c\},\cap,\cup>$\\
+      \[
+	<\mathcal{P}\{a,b,c\},\cap,\cup>
+      \]
       $\subseteq$ bağıntısı
 
       \column{.6\textwidth}
@@ -1014,11 +1011,9 @@
       $\forall x \in L~x \preceq I$
     \end{tanim}
   \end{columns}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Sınırlı Kafesler}
-
+  \pause
+  \bigskip
   \begin{teorem}
     Sonlu her kafes sınırlıdır.
   \end{teorem}
@@ -1080,7 +1075,7 @@
   \frametitle{Kafeslerde Dağılma}
 
   \begin{teorem}
-    Bir kafesin bu iki yapıdan birine izomorf bir altkafesi varsa dağılma
+    Bir kafes yalnız ve ancak bu iki yapıdan birine izomorfik bir altkafes içeriyorsa dağılma
     özelliği göstermez.
   \end{teorem}
 \end{frame}
@@ -1096,8 +1091,8 @@
   \pause
   \medskip
   \begin{itemize}
-    \item \emph{atom}: altsınırın hemen ardından gelen, bütünleşmeyle
-      indirgenemez eleman
+    \item \emph{atom}: altsınırın hemen ardından gelen,\\
+      bütünleşmeyle indirgenemez eleman
   \end{itemize}
 \end{frame}
 
@@ -1106,8 +1101,7 @@
 
   \begin{ornek}[Bölünebilirlik bağıntısı]
     \begin{itemize}
-      \item asal sayılar ve 1 bütünleşmeyle indirgenemez:\\
-        $p = a \cdot b \Rightarrow p = a~\vee~p = b$
+      \item asal sayılar ve 1 bütünleşmeyle indirgenemez
 
       \pause
       \medskip
@@ -1143,19 +1137,15 @@
 
   \pause
   \begin{proof}[Tanıt]
-    $a \wedge x = 0 ~ve~ a \vee x = I$\\
-    $a \wedge y = 0 ~ve~ a \vee y = I$
+    $a \wedge x = 0, a \vee x = I$, $a \wedge y = 0, a \vee y = I$
 
     \pause
     \medskip
-    $x = x \vee 0$ \pause $ = x \vee (a \wedge y)$
-      \pause $ = (x \vee a) \wedge (x \vee y)$
-      \pause $ = I \wedge (x \vee y)$ \pause $ = x \vee y$
-
-    \pause
-    $y = y \vee 0$ \pause $ = y \vee (a \wedge x)$
-      \pause $ = (y \vee a) \wedge (y \vee x)$
-      \pause $ = I \wedge (y \vee x)$ \pause $ = y \vee x$\\
+    \begin{eqnarray*}
+  & x & = x \vee 0 \pause = x \vee (a \wedge y) \pause = (x \vee a) \wedge (x \vee y) \pause = I \wedge (x \vee y)\\
+  &   & \pause = x \vee y \pause = y \vee x \pause = I \wedge (y \vee x)\\
+  &   & \pause = (y \vee a) \wedge (y \vee x) \pause = y \vee (a \wedge x) \pause = y \vee 0 \pause = y\\
+    \end{eqnarray*}
   \end{proof}
 \end{frame}
 
@@ -1186,8 +1176,8 @@
   \frametitle{Boole Cebri - Kafes İlişkisi}
 
   \begin{tanim}
-    Bir Boole cebri sonlu, dağılma özellikli, her elemanın tümleyeninin olduğu
-    bir kafestir.
+    Bir Boole cebri sonlu, dağılma özellikli,\\
+    her elemanın tümleyeninin olduğu bir kafestir.
   \end{tanim}
 \end{frame}
 
@@ -1219,7 +1209,7 @@
 
   \pause
   \begin{ornek}
-    $B = 70$'in bölenleri, $+ = okek, \cdot = obeb$
+    $B = \{$ $70$'in bölenleri $\}$, $+ = okek, \cdot = obeb$
   \end{ornek}
 \end{frame}
 
