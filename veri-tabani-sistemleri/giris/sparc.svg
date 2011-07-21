@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
    xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docbase="/home/uyar/ders/vtys/sunumlar/01.Giris"
    sodipodi:docname="sparc.svg"
    height="297mm"
    width="210mm"
-   inkscape:version="0.45.1"
+   inkscape:version="0.48.1 r9760"
    sodipodi:version="0.32"
    id="svg1"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs3">
     <marker
@@ -3694,8 +3695,6 @@
   </defs>
   <sodipodi:namedview
      inkscape:current-layer="svg1"
-     gridspacingy="3.0000000mm"
-     gridspacingx="3.0000000mm"
      gridtolerance="2.0000000px"
      inkscape:grid-points="true"
      inkscape:grid-bbox="true"
@@ -3703,18 +3702,32 @@
      inkscape:guide-bbox="true"
      showguides="true"
      inkscape:window-y="0"
-     inkscape:window-x="246"
+     inkscape:window-x="409"
      inkscape:window-height="951"
-     inkscape:window-width="1026"
+     inkscape:window-width="1376"
      inkscape:cy="805.59368"
-     inkscape:cx="253.41928"
+     inkscape:cx="205.91302"
      inkscape:zoom="2.6628068"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base" />
+     id="base"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       id="GridFromPre046Settings"
+       type="xygrid"
+       originx="0px"
+       originy="0px"
+       spacingx="3.0000000mm"
+       spacingy="3.0000000mm"
+       color="#0000ff"
+       empcolor="#0000ff"
+       opacity="0.2"
+       empopacity="0.4"
+       empspacing="5" />
+  </sodipodi:namedview>
   <metadata
      id="metadata4">
     <rdf:RDF>
@@ -3897,25 +3910,25 @@
        d="M 288.91400,191.49800 C 289.45800,184.42500 298.70800,180.61700 306.32500,182.24900 C 316.66200,182.24900 322.10400,192.04300 319.38300,201.83600 C 315.57400,218.16000 319.38300,231.21700 309.04600,231.76100 C 297.62000,238.29000 291.63500,227.40900 291.09000,226.86500" />
   </g>
   <rect
-     style="opacity:1.0000000;fill:#00f200;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#000000;stroke-width:0.87609607;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+     style="fill:#00f200;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.91704971;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
      id="rect5570"
-     width="176.00490"
+     width="192.84441"
      height="28.203892"
-     x="106.81686"
+     x="89.977348"
      y="224.25368"
-     rx="30.230900"
+     rx="33.123283"
      ry="17.274803" />
   <text
      xml:space="preserve"
-     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Sans"
-     x="114.75528"
-     y="243.17896"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="104.34193"
+     y="242.82925"
      id="text7822"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan7824"
-       x="114.75528"
-       y="243.17896">Veritabanı Yönetim Sistemi</tspan></text>
+       x="104.34193"
+       y="242.82925">Veri Tabanı Yönetim Sistemi</tspan></text>
   <path
      id="path7826"
      d="M 189.23895,253.83786 L 189.18033,265.59621"

@@ -26,7 +26,7 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
+\title{Veri Tabaný Yönetim Sistemleri}
 \subtitle{Giriþ}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
@@ -108,8 +108,8 @@
   \frametitle{Veri Ýþleme}
 
   \begin{itemize}
-    \item \emph{sorun}: büyük miktarda verinin etkin biçimde tutulmasý ve
-      iþlenmesi
+    \item \emph{sorun}: büyük miktarda verinin etkin biçimde tutulmasý\\
+      ve iþlenmesi
 
     \pause
     \medskip
@@ -236,8 +236,8 @@
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrenci adý, numarasý ve bölümü Öðrenci Ýþleri'nde ayrý, Kitaplýk'ta
-        ayrý tutuluyor
+      \item öðrenci adý, numarasý ve bölümü Öðrenci Ýþleri'nde ayrý,\\
+	Kitaplýk'ta ayrý tutuluyor
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -252,8 +252,8 @@
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrencinin adý Öðrenci Ýþleri'nde "Victoria Adams", Kitaplýk'ta
-        "Victoria Beckham" görünebilir
+      \item öðrencinin adý Öðrenci Ýþleri'nde "Victoria Adams",\\
+	Kitaplýk'ta "Victoria Beckham" görünebilir
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -271,8 +271,8 @@
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrencinin bölümü Kitaplýk'ta "Kontrol ve Bilgisayar Mühendisliði"
-        görünür ama böyle bir bölüm yoktur
+      \item öðrencinin bölümü "Kontrol ve Bilgisayar Mühendisliði"
+        görünüyordur ama böyle bir bölüm yoktur
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -337,18 +337,22 @@
       \item öðrenci numarasý Öðrenci Ýþleri'nde katar, Kitaplýk'ta sayý
 
       \pause
-      \item Öðrenci Ýþleri kayýtlarýnda öðrenci numarasýna göre bir B-aðacý
-        dizin tutuluyor, arama yapýlýrken B-aðacý algoritmalarý kullanýlýyor
+      \medskip
+      \item Öðrenci Ýþleri kayýtlarýnda öðrenci numarasý için\\
+	B-aðacý dizin tutuluyor
+      \begin{itemize}
+	\item arama yapýlýrken B-aðacý algoritmalarý kullanýlýyor
+      \end{itemize}
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\section{Veritabaný Yönetim Sistemleri}
+\section{Veri Tabaný Yönetim Sistemleri}
 
 \subsection{Giriþ}
 
 \begin{frame}
-  \frametitle{Veritabaný Yönetim Sistemleri}
+  \frametitle{Veri Tabaný Yönetim Sistemleri}
 
   \begin{columns}
     \column{.5\textwidth}
@@ -387,7 +391,7 @@
     \item uygulama programcýsý açýsýndan
     \begin{itemize}
       \item kullandýðý programlama dili
-      \item bu dile veritabaný iþlemleri için yapýlan ekler:\\
+      \item bu dile veri tabaný iþlemleri için yapýlan ekler:\\
         \alert{veri altdili}
     \end{itemize}
   \end{itemize}
@@ -406,7 +410,7 @@
       verinin içeriðini betimleyen tanýmlar
 
     \begin{itemize}
-      \item veritabanlarý
+      \item veri tabanlarý
       \item veri tipleri, bütünlük kýsýtlamalarý
       \item kullanýcýlar, yetkiler, güvenlik kýsýtlamalarý
     \end{itemize}
@@ -445,8 +449,8 @@
     \column{.5\textwidth}
     \begin{ornek}[kavramsal - dýþ]
       \begin{itemize}
-        \item öðrenci numarasýný Öðrenci Ýþleri uygulamasýna katar, Kitaplýk
-          uygulamasýna sayý olarak göster
+        \item öðrenci numarasýný Öðrenci Ýþleri uygulamasýna katar,\\
+	  Kitaplýk uygulamasýna sayý olarak göster
       \end{itemize}
     \end{ornek}
 
@@ -454,7 +458,8 @@
     \column{.5\textwidth}
     \begin{ornek}[kavramsal - iç]
       \begin{itemize}
-        \item öðrenci numarasýna göre bir dizin oluþtur
+        \item öðrenci numarasý için\\
+	  dizin oluþtur
       \end{itemize}
     \end{ornek}
   \end{columns}
@@ -464,8 +469,7 @@
   \frametitle{Yönetici Rolleri}
 
   \begin{itemize}
-    \item \emph{veri yöneticisi}:\\
-      kararlarý verir
+    \item \emph{veri yöneticisi}: kararlarý verir
     \begin{itemize}
       \item hangi veriler tutulacak?
       \item hangi veriye kim eriþebilir?
@@ -473,8 +477,7 @@
 
     \pause
     \bigskip
-    \item \emph{veritabaný yöneticisi}:\\
-      kararlarý uygular
+    \item \emph{veri tabaný yöneticisi}: kararlarý uygular
     \begin{itemize}
       \item kavramsal-dýþ/iç düzey dönüþümlerini tanýmlar
       \item sistem baþarýmýný ayarlar
@@ -528,14 +531,15 @@
   \frametitle{Yapý}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{mimari1}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item istemci ile sunucu ayný makinada ya da farklý makinada olabilirler
+      \item istemci ile sunucu ayný makinada\\
+	ya da farklý makinada olabilirler
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -551,7 +555,9 @@
 
     \column{.5\textwidth}
     \begin{itemize}
-      \item birden çok istemci bir sunucuya baðlanarak çalýþabilir
+      \item birden çok istemci\\
+	bir sunucuya baðlanarak\\
+	çalýþabilir
     \end{itemize}
 
     \pause
@@ -583,8 +589,10 @@
     \bigskip
     \begin{ornek}[Banka]
       \begin{itemize}
-        \item þubeler kendi hesaplarýnýn sunucusu (ve istemcisi)
-        \item diðer þube hesaplarýnýn istemcisi
+        \item þubeler kendi hesaplarýnýn\\
+	  sunucusu (ve istemcisi)
+        \item diðer þube hesaplarýnýn\\
+	  istemcisi
       \end{itemize}
     \end{ornek}
   \end{columns}
