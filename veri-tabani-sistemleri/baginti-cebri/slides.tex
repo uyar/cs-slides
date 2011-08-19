@@ -36,7 +36,7 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
+\title{Veri Tabaný Yönetim Sistemleri}
 \subtitle{Baðýntý Cebri}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
@@ -130,6 +130,11 @@
   \frametitle{Leap}
 
   \begin{itemize}
+    \item eðitim amaçlý bir veri tabaný sistemi:\\
+      \url{http://leap.sourceforge.net/}
+
+    \pause
+    \medskip
     \item önce iþlem, sonra iþlenenler:\\
       iþlem (iþlenen$_1$) (iþlenen$_2$) ...
 
@@ -141,7 +146,8 @@
     \end{itemize}
 
     \pause
-    \item eþ isimli nitelikleri ayýrt etmek için noktalý gösterilim
+    \item deðer yazarken týrnak iþareti yok
+    \item koþul yazarken bütün deðerler týrnak içerisinde
   \end{itemize}
 \end{frame}
 
@@ -192,7 +198,6 @@ add (baðýntý_adý) (deðer [, ...])
 
     \begin{itemize}
       \item deðerler niteliklerin tanýmlandýklarý sýrayla verilmeli
-      \item deðer yazýmýnda týrnak iþareti yok
     \end{itemize}
   \end{block}
 
@@ -201,10 +206,6 @@ add (baðýntý_adý) (deðer [, ...])
     \begin{lstlisting}
 delete (baðýntý_adý) (koþul)
     \end{lstlisting}
-
-    \begin{itemize}
-      \item koþul yazýmýnda bütün deðerler týrnak iþaretleri arasýnda
-    \end{itemize}
   \end{block}
 \end{frame}
 
@@ -402,7 +403,7 @@ MOVIEID & ACTORID & ORD\\\hline\hline
 
   \begin{tanim}
     \alert{seçme}:\\
-      bir koþula uyan çoklulardan yeni bir baðýntý oluþturma
+      baðýntýdan bir koþula uyan çoklularý seçme
   \end{tanim}
 
   \pause
@@ -472,7 +473,7 @@ s2 = select (movie)
 
   \begin{tanim}
     \alert{izdüþüm}:\\
-      belirtilen niteliklerden yeni bir baðýntý oluþturma
+      baðýntýdan istenen nitelikleri seçme
   \end{tanim}
 
   \pause
@@ -620,11 +621,10 @@ p3 = project (movie) (yr)
                 baþlýklarý]
     \pause
     \begin{enumerate}
-      \item 5000'den fazla oy almýþ, puaný 70'in üzerinde olan filmler
+      \item 5000'den fazla oy almýþ, puaný 70'in üzerinde olan filmleri seç
 
       \pause
-      \item 5000'den fazla oy almýþ, puaný 70'in üzerinde olan filmlerin
-        baþlýklarý
+      \item seçilen filmlerin baþlýklarýný al
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -706,7 +706,7 @@ p4 = project
 
   \begin{tanim}
     \alert{çarpma}: baðýntý$_1$ $\times$ baðýntý$_2$\\
-      iki baðýntýnýn kartezyen çarpýmýndan yeni bir baðýntý oluþturma
+      iki baðýntýnýn kartezyen çarpýmý
   \end{tanim}
 
   \pause
@@ -761,8 +761,8 @@ x1 = product (s2) (p4)
 
   \begin{tanim}
     \alert{birleþtirme}:\\
-      iki baðýntýnýn çoklularýný bir niteliðin ya da nitelik grubunun ortak
-      deðerleri üzerinden eþleþtirerek yeni bir baðýntý oluþturma
+      iki baðýntýnýn çoklularýný bir niteliðin ya da nitelik grubunun\\
+      ortak deðerleri üzerinden eþleþtirme
   \end{tanim}
 
   \pause
@@ -785,10 +785,10 @@ join (baðýntý1_adý) (baðýntý2_adý) (koþul)
   \begin{ornek}[bütün filmlerin baþlýklarý ve yönetmenlerinin isimleri]
     \pause
     \begin{enumerate}
-      \item bütün filmler ve yönetmenleri
+      \item bütün film verilerini yönetmen verileriyle eþleþtir
 
       \pause
-      \item bütün filmlerin baþlýklarý ve yönetmenlerinin isimleri
+      \item elde edilen verilerden film baþlýklarý ve yönetmen isimlerini al
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -862,13 +862,14 @@ Cry-Baby             & John Waters     \\\hline
   \begin{ornek}[bütün filmlerin baþlýklarý, oyuncularýnýn isimleri ve sýralarý]
     \pause
     \begin{enumerate}
-      \item bütün filmler ve oyuncularýnýn kimlikleri
+      \item bütün film verilerini oyuncularýnýn kimlikleriyle eþleþtir
 
       \pause
-      \item bütün filmler ve oyuncularý
+      \item elde edilen verileri oyuncularýn isimleriyle eþleþtir
 
       \pause
-      \item bütün filmlerin baþlýklarý, oyuncularýnýn isimleri ve sýralarý
+      \item elde edilen verilerden film baþlýklarý, oyuncu isimleri\\
+	ve sýralarýný al
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -968,16 +969,16 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \begin{ornek}[Johnny Depp ile oynamýþ oyuncularýn isimleri]
     \pause
     \begin{enumerate}
-      \item Johnny Depp'in kimliði
+      \item Johnny Depp'in kimliðini seç
 
       \pause
-      \item Johnny Depp'in oynadýðý filmlerin kimlikleri
+      \item bu kimliði film verileriyle eþleþtir
 
       \pause
-      \item Johnny Depp'in oynadýðý filmlerde oynamýþ oyuncularýn kimlikleri
+      \item elde edilen film verilerini oyuncu kimlikleriyle eþleþtir
 
       \pause
-      \item Johnny Depp'in oynadýðý filmlerde oynamýþ oyuncularýn isimleri
+      \item elde edilen oyuncu kimliklerini oyuncu isimleriyle eþleþtir
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1178,8 +1179,9 @@ n1 = natjoin (movie) (person)
 
   \begin{tanim}
     \alert{bölme}: baðýntý$_1$ / baðýntý$_2$\\
-      birinci baðýntýnýn, ikinci baðýntýdaki bütün çoklularla eþleþen
-      çoklularýndan yeni bir baðýntý oluþturma
+      birinci baðýntýdaki çoklular arasýndan\\
+      ikinci baðýntýdaki bütün çoklularla eþleþenlerin\\
+      ortak olmayan niteliklerini seç
   \end{tanim}
 
   \pause
@@ -1206,18 +1208,17 @@ divide (baðýntý1_adý) (baðýntý2_adý)
                 filmlerin baþlýklarý]
     \pause
     \begin{enumerate}
-      \item Johnny Depp ve Christina Ricci'nin kimlikleri
+      \item Johnny Depp ve Christina Ricci'nin kimliklerini bul
 
       \pause
-      \item bütün film ve oyuncu kimlikleri
+      \item bütün filmlerin ve oyuncularýnýn kimliklerini bul
 
       \pause
-      \item Johnny Depp ve Christina Ricci'nin birlikte oynadýklarý filmlerin
-        kimlikleri
+      \item Johnny Depp ve Christina Ricci'nin birlikte oynadýklarý\\
+	filmlerin kimliklerini bul
 
       \pause
-      \item Johnny Depp ile Christina Ricci'nin birlikte oynadýklarý filmlerin
-        baþlýklarý
+      \item elde edilen kimlikleri filmlerle eþleþtirerek baþlýklarýný al
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1376,7 +1377,7 @@ MOVIEID &  ACTORID\\\hline\hline
 
   \begin{tanim}
     \alert{kesiþim}: baðýntý$_1$ $\cap$ baðýntý$_2$\\
-      iki baðýntýda da bulunan çoklulardan yeni bir baðýntý oluþturma
+      iki baðýntýda da bulunan çoklularý seçme
   \end{tanim}
 
   \pause
@@ -1398,16 +1399,16 @@ intersect (baðýntý1_adý) (baðýntý2_adý)
   \begin{ornek}[oyunculuk yapmýþ yönetmenlerin isimleri]
     \pause
     \begin{enumerate}
-      \item bütün yönetmenlerin kimlikleri
+      \item bütün yönetmenlerin kimliklerini bul
 
       \pause
-      \item bütün oyuncularýn kimlikleri
+      \item bütün oyuncularýn kimlikleri bul
 
       \pause
-      \item oyunculuk yapmýþ yönetmenlerin kimlikleri
+      \item oyunculuk yapmýþ yönetmenlerin kimliklerini bul
 
       \pause
-      \item oyunculuk yapmýþ yönetmenlerin isimleri
+      \item bu kimlikleri kiþilerle eþleþtirerek isimlerini al
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1543,8 +1544,7 @@ Spike Jonze\\\hline
 
   \begin{tanim}
     \alert{birleþim}: baðýntý$_1$ $\cup$ baðýntý$_2$\\
-      iki baðýntýnýn en az birinde bulunan çoklulardan yeni bir baðýntý
-      oluþturma
+      iki baðýntýnýn en az birinde bulunan çoklularý seçme
   \end{tanim}
 
   \pause
@@ -1567,24 +1567,22 @@ union (baðýntý1_adý) (baðýntý2_adý)
                 oyuncularýnýn isimleri]
     \pause
     \begin{enumerate}
-      \item 1997'den sonra çekilen filmler
+      \item 1997'den sonra çekilen filmleri seç
 
       \pause
-      \item 1997'den sonra çekilen filmler ve oyuncularý
+      \item bu filmlerin verilerini oyuncularýnýn kimlikleriyle eþleþtir
 
       \pause
-      \item 1997'den sonra çekilen filmlerin yönetmenlerinin kimlikleri
+      \item elde edilen verilerden yönetmen kimliklerini al
 
       \pause
-      \item 1997'den sonra çekilen filmlerin oyuncularýnýn kimlikleri
+      \item elde edilen verilerden oyuncu kimliklerini al
 
       \pause
-      \item 1997'den sonra çekilen filmlerin yönetmenlerinin ve oyuncularýnýn
-        kimlikleri
+      \item elde edilen yönetmen ve oyuncu kimliklerinin birleþimini bul
 
       \pause
-      \item 1997'den sonra çekilen filmlerin yönetmenlerinin ve oyuncularýnýn
-        isimleri
+      \item elde edilen kimlikleri kiþilerin isimleriyle eþleþtir
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1817,8 +1815,7 @@ Jude Law             \\\hline
 
   \begin{tanim}
     \alert{fark}: baðýntý$_1$ - baðýntý$_2$\\
-      birinci baðýntýda bulunup ikincide bulunmayan çoklulardan yeni bir baðýntý
-      oluþturma
+      birinci baðýntýda bulunup ikincide bulunmayan çoklularý seçme
   \end{tanim}
 
   \pause
@@ -1840,16 +1837,16 @@ difference (baðýntý1_adý) (baðýntý2_adý)
   \begin{ornek}[Johnny Depp ile oynamamýþ oyuncularýn isimleri]
     \pause
     \begin{enumerate}
-      \item Johnny Depp ile oynamýþ oyuncularýn kimlikleri
+      \item Johnny Depp ile oynamýþ oyuncularýn kimliklerini bul
 
       \pause
-      \item bütün oyuncularýn kimlikleri
+      \item bütün oyuncularýn kimliklerini bul
 
       \pause
-      \item Johnny Depp ile oynamamýþ oyuncularýn kimlikleri
+      \item Johnny Depp ile oynamamýþ oyuncularýn kimliklerini bul
 
       \pause
-      \item Johnny Depp ile oynamamýþ oyuncularýn isimleri
+      \item elde edilen kimlikleri oyuncu isimleriyle eþleþtir
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -2310,7 +2307,6 @@ SELECT SUM(VOTES) FROM MOVIE
     \item birleþtirme iþlemi \lstinline!WHERE! koþullarý yardýmýyla yapýlabilir
     \begin{itemize}
       \item tablo listesinde birleþtirilecek tablolar belirtilir
-      \item eþ isimli sütunlar için noktalý gösterilim kullanýlýr
     \end{itemize}
 
     \pause
@@ -2472,7 +2468,7 @@ tablo1_adý NATURAL JOIN tablo2_adý
   \frametitle{Dýþ Birleþtirme}
 
   \begin{itemize}
-    \item normal birleþtirmede diðer tablonun hiçbir satýrýyla eþleþmeyen
+    \item normal birleþtirmede diðer tablonun hiçbir satýrýyla eþleþmeyen\\
       satýrlar sonuç kümesine girmez
 
     \item dýþ birleþtirmede eþleþmeyen her satýr için diðer tablodan gelen
@@ -2865,7 +2861,7 @@ SELECT ...
 \lstinline!)!\\
 }
 \uncover<3->{
-\lstinline!) AS DIRECTORACTOR!
+\lstinline!) AS DIRECTOR_ACTOR!
 }
   \end{ornek}
 \end{frame}
@@ -2891,7 +2887,7 @@ SELECT ...
 \lstinline!)!\\
 }
 \uncover<3->{
-\lstinline!) AS DIRECTORONLY!
+\lstinline!) AS DIRECTOR_ONLY!
 }
   \end{ornek}
 \end{frame}
@@ -2921,7 +2917,7 @@ SELECT ...
 \lstinline!)!\\
 }
 \uncover<3->{
-\lstinline!) AS OLDMOVIES!
+\lstinline!) AS OLD_MOVIES!
 }
   \end{ornek}
 \end{frame}
@@ -3053,7 +3049,8 @@ SELECT ...
 
   \begin{block}{SQLzoo}
     \begin{itemize}
-      \item A Gentle Introduction to SQL: \url{http://sqlzoo.net/}
+      \item A Gentle Introduction to SQL:\\
+	\url{http://sqlzoo.net/}
     \end{itemize}
   \end{block}
 \end{frame}
