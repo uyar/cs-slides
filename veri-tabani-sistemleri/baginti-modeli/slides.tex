@@ -33,7 +33,7 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
+\title{Veri Tabaný Yönetim Sistemleri}
 \subtitle{Baðýntý Modeli}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
@@ -186,9 +186,11 @@ Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
     \column{.5\textwidth}
     \begin{block}{baðýntý baþlýðý}
       \begin{itemize}
-        \item baðýntýyý oluþturan nitelikler kümesi
+        \item baðýntýyý oluþturan\\
+	  nitelikler kümesi
         \item baðýntý yaratýlýrken belirtilir
-        \item veri tanýmlama dili komutlarýndan etkilenir
+        \item veri tanýmlama dili\\
+	  komutlarýndan etkilenir
       \end{itemize}
     \end{block}
 
@@ -197,7 +199,8 @@ Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
     \begin{block}{baðýntý gövdesi}
       \begin{itemize}
         \item baðýntýdaki çoklular kümesi
-        \item veri iþleme dili komutlarýndan etkilenir
+        \item veri iþleme dili\\
+	  komutlarýndan etkilenir
       \end{itemize}
     \end{block}
   \end{columns}
@@ -222,9 +225,10 @@ Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
 
   \begin{ornek}[film baðýntýsýnýn yüklemi]
     \begin{itemize}
-      \item \texttt{TITLE} baþlýklý film \texttt{YR} yýlýnda \texttt{DIRECTOR}
-        tarafýndan \texttt{COUNTRY} ülkesinde çekilmiþtir; kullanýlan
-        \texttt{VOTES} oyun ortalamasý \texttt{SCORE}'dur.
+      \item \texttt{TITLE} baþlýklý film \texttt{YR} yýlýnda, \texttt{DIRECTOR}
+        tarafýndan,\\
+        \texttt{COUNTRY} ülkesinde çekilmiþtir;\\
+        kullanýlan \texttt{VOTES} oyun ortalamasý \texttt{SCORE}'dur.
 
       \pause
       \medskip
@@ -382,11 +386,11 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
         \texttt{TITLE} katar, \texttt{YR} tamsayý, \texttt{COUNTRY} katar, ...
 
       \begin{itemize}
-        \item \texttt{COUNTRY} niteliðine \texttt{Woody Allen} deðerini vermek
+        \item \texttt{COUNTRY} niteliðine \texttt{Woody Allen} deðerini vermek\\
           veri tipi açýsýndan doðru, yüklem açýsýndan yanlýþ
 
-        \item \texttt{YR} ve \texttt{VOTES} deðerleri birer tamsayý ancak
-          bunlarý karþýlaþtýrmak anlamlý deðil
+        \item \texttt{YR} ve \texttt{VOTES} deðerleri birer tamsayý\\
+	  ancak bunlarý karþýlaþtýrmak anlamlý deðil
       \end{itemize}
     \end{itemize}
   \end{ornek}
@@ -398,7 +402,8 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \begin{columns}[t]
     \column{.5\textwidth}
     \begin{itemize}
-      \item çoklu için o niteliðin deðeri bilinmiyor
+      \item çoklu için o niteliðin\\
+	deðeri bilinmiyor
     \end{itemize}
 
     \begin{ornek}
@@ -410,12 +415,14 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
     \pause
     \column{.5\textwidth}
     \begin{itemize}
-      \item çoklu o nitelik için bir deðer taþýmýyor
+      \item çoklu o nitelik için\\
+	bir deðer taþýmýyor
     \end{itemize}
 
     \begin{ornek}
       \begin{itemize}
-        \item \texttt{Star Wars} filmi için henüz kimse oy kullanmamýþ,\\
+        \item \texttt{Star Wars} filmi için\\
+	  kimse oy kullanmamýþ,\\
           \texttt{SCORE} niteliði anlamlý deðil
       \end{itemize}
     \end{ornek}
@@ -426,19 +433,18 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \frametitle{Varsayýlan Deðer}
 
   \begin{itemize}
-    \item bilinmeyen nitelik deðerleri için boþ deðer yerine varsayýlan bir
-      deðer kullanýlabilir
+    \item bilinmeyen nitelik deðerleri için boþ deðer yerine\\
+      varsayýlan bir deðer kullanýlabilir
 
     \begin{itemize}
-      \item varsayýlan deðer, niteliðin geçerli deðerleri arasýnda yer almamalý
+      \item niteliðin geçerli deðerlerinden biri olmamalý
     \end{itemize}
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{SCORE} niteliði için varsayýlan deðer olarak \texttt{-1}
-        seçilebilir
+      \item \texttt{SCORE} niteliði için varsayýlan deðer \texttt{-1} seçilebilir
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -510,7 +516,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \begin{itemize}
     \item \lstinline!CHARACTER [VARYING] (n)!
     \begin{itemize}
-      \item \lstinline!CHARACTER (n)! tipinde katar \texttt{n} simgeden kýsaysa
+      \item \lstinline!CHARACTER (n)! tipinde katar \texttt{n} simgeden kýsaysa\\
         sona boþluk eklenir
     \end{itemize}
 
@@ -769,8 +775,8 @@ INSERT INTO tablo_adý
   \begin{itemize}
     \item deðer sýrasý sütun adý sýrasýna uymalýdýr
     \item belirtilmeyen sütunlara varsayýlan deðer atanýr
-    \item sütun adlarý belirtilmezse sütun deðerleri tablonun yaratýlmasý
-      sýrasýnda belirtilen sýrayla verilmelidir
+    \item sütun adlarý belirtilmezse sütun deðerleri\\
+      tablo yaratýlýrken verilen sýrayla yazýlmalýdýr
   \end{itemize}
 \end{frame}
 
@@ -1113,16 +1119,17 @@ ALTER TABLE MOVIE
   \begin{itemize}
     \item $B$ baðýntýnýn nitelikleri kümesi ve $A \subseteq B$ olsun
 
-    \item $A$'nýn bir anahtar adayý olabilmesi için þu koþullar saðlanmalýdýr:
+    \item $A$'nýn bir anahtar adayý olabilmesi için\\
+      þu koþullar saðlanmalýdýr:
 
     \pause
     \begin{itemize}
-      \item \alert{eþsizlik}: herhangi iki çoklu $A$'da yer alan bütün
-        nitelikler için ayný deðeri taþýyamazlar
+      \item \alert{eþsizlik}: herhangi iki çoklu $A$'da yer alan\\
+	bütün nitelikler için ayný deðeri taþýyamazlar
 
       \pause
-      \item \alert{indirgenemezlik}: $A$'nýn hiçbir altkümesi eþsizlik
-        özelliðini saðlamaz
+      \item \alert{indirgenemezlik}: $A$'nýn hiçbir altkümesi\\
+	eþsizlik özelliðini saðlamaz
     \end{itemize}
 
     \pause
@@ -1306,11 +1313,11 @@ CREATE TABLE MOVIE (
     \item her baðýntýnýn bir birincil anahtarý bulunmasý zorunludur
 
     \pause
-    \item birincil anahtarýn parçasý olan hiçbir niteliðin deðeri hiçbir
-      çokluda boþ olamaz
+    \item birincil anahtarýn parçasý olan hiçbir niteliðin deðeri\\
+      hiçbir çokluda boþ olamaz
 
     \pause
-    \item birincil anahtarý oluþturan nitelikler altýçizili gösterilir
+    \item birincil anahtarý oluþturan nitelikler altý çizili gösterilir
   \end{itemize}
 \end{frame}
 
@@ -1653,7 +1660,7 @@ CREATE TABLE CASTING (
 \begin{frame}
   \frametitle{Dýþ Anahtar Örnekleri}
 
-  \begin{ornek}[film veritabanýndaki dýþ anahtarlar]
+  \begin{ornek}[film veri tabanýndaki dýþ anahtarlar]
     \begin{columns}
       \column{.6\textwidth}
       \begin{tiny}
@@ -1720,13 +1727,13 @@ CREATE TABLE CASTING (
 
   \begin{tanim}
     \alert{baþvuru bütünlüðü}:\\
-      dýþ anahtar niteliðinin aldýðý bütün deðerler baþvurulan baðýntýnýn
-      ilgili niteliðinde bulunmalý
+      dýþ anahtar niteliðinin aldýðý bütün deðerler\\
+      baþvurulan baðýntýnýn ilgili niteliðinde bulunmalý
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item yapýlmasý istenen iþlem baþvuru bütünlüðünü bozacaksa ne olacak?
+    \item yapýlacak iþlem baþvuru bütünlüðünü bozacaksa ne olacak?
   \end{itemize}
 \end{frame}
 
@@ -1796,19 +1803,20 @@ CREATE TABLE CASTING (
 
   \begin{ornek}[silerken kýsýtla]
     \begin{itemize}
-      \item \texttt{PERSON} baðýntýsýndan silinmek istenen yönetmenin
-        \texttt{ID} niteliði deðeri \texttt{MOVIE} baðýntýsýnýn
-        \texttt{DIRECTORID} niteliði deðerleri arasýnda geçiyorsa silmeye izin
-        verme
+      \item \texttt{PERSON} baðýntýsýndan silinmek istenen\\
+	yönetmenin \texttt{ID} niteliði deðeri\\
+	\texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliði deðerleri\\
+	arasýnda geçiyorsa silmeye izin verme
     \end{itemize}
   \end{ornek}
 
   \pause
   \begin{ornek}[güncellerken yansýt]
     \begin{itemize}
-      \item bir yönetmenin \texttt{ID} niteliði deðeri \texttt{PERSON}
-        baðýntýsýnda güncellendiðinde \texttt{MOVIE} baðýntýsýnýn
-        \texttt{DIRECTORID} niteliði deðerlerinde geçtiði çoklularda da güncelle
+      \item bir yönetmenin \texttt{ID} niteliði deðeri\\
+	\texttt{PERSON} baðýntýsýnda güncellendiðinde\\
+	\texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliði deðerlerinde\\
+	geçtiði çoklularda da güncelle
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1821,14 +1829,14 @@ CREATE TABLE CASTING (
       \item yönetmeni \texttt{PERSON} baðýntýsýndan sil
 
       \pause
-      \item yönetmenin \texttt{ID} niteliði deðerinin \texttt{MOVIE}
-        baðýntýsýnýn \texttt{DIRECTORID} niteliðinde geçtiði bütün çoklularý
-        \texttt{MOVIE} baðýntýsýndan sil
+      \item yönetmenin \texttt{ID} niteliði deðerinin\\
+	\texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliðinde\\
+	geçtiði bütün çoklularý \texttt{MOVIE} baðýntýsýndan sil
 
       \pause
-      \item silinen her bir \texttt{MOVIE} baðýntýsý çoklusunun \texttt{ID}
-        niteliði deðerinin \texttt{CASTING} baðýntýsýnýn \texttt{MOVIEID}
-        niteliðinde geçtiði bütün çoklularý \texttt{CASTING} baðýntýsýndan sil
+      \item silinen her bir \texttt{MOVIE} çoklusunun \texttt{ID} niteliði deðerinin\\
+        \texttt{CASTING} baðýntýsýnýn \texttt{MOVIEID} niteliðinde\\
+        geçtiði bütün çoklularý \texttt{CASTING} baðýntýsýndan sil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1873,7 +1881,7 @@ CREATE TABLE MOVIE (
   \frametitle{Dýþ Anahtar Tanýmlama}
 
   \begin{itemize}
-    \item dýþ anahtar baþvurulan tabloda birincil anahtarsa
+    \item dýþ anahtar baþvurulan tabloda birincil anahtarsa\\
       \lstinline!REFERENCES! kýsmýnda belirtilmesi zorunlu deðildir
 
     \pause
