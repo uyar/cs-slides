@@ -45,7 +45,7 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
+\title{Veri Tabaný Yönetim Sistemleri}
 \subtitle{Uygulama Geliþtirme}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
@@ -122,7 +122,7 @@
   \frametitle{Giriþ}
 
   \begin{itemize}
-    \item veritabaný dili ile programlama dilinin birlikte kullanýmý
+    \item veri tabaný dili ile programlama dilinin birlikte kullanýmý
     \item uygulamanýn yazýldýðý genel amaçlý dil: \alert{taban dil}
 
     \pause
@@ -141,7 +141,7 @@
   \begin{itemize}
     \item baðlantý kur
     \begin{itemize}
-      \item sunucu, veritabaný, kullanýcý adý, parola
+      \item sunucu, veri tabaný, kullanýcý adý, parola
     \end{itemize}
 
     \pause
@@ -192,7 +192,7 @@
 
 int main(void)
 {
-    /* veritabanýna baðlan */
+    /* veri tabanýna baðlan */
     /* sorguyu iþle */
     /* baðlantýyý kopar */
 }
@@ -203,7 +203,7 @@ int main(void)
 \begin{frame}[fragile]
   \frametitle{Uygulama Programý Arayüzü Örneði}
 
-  \begin{ornek}[veritabaný baðlantýsý]
+  \begin{ornek}[veri tabaný baðlantýsý]
     \begin{lstlisting}[language=C]
 /* PGconn *conn; */
 
@@ -276,7 +276,7 @@ PQclear(result);
     \item dezavantajlarý: kullanýþsýz, farklý diller için desteði yok
 
     \bigskip
-    \hyperlink{odbc}{\beamergotobutton{Gömülü SQL bölümünü atla}}
+    \hyperlink{odbc}{\beamergotobutton{"Gömülü SQL" bölümünü atla}}
   \end{itemize}
 \end{frame}
 
@@ -351,7 +351,7 @@ EXEC SQL CLOSE imleç_adý;
 \begin{frame}[fragile]
   \frametitle{Gömülü SQL Örneði}
 
-  \begin{ornek}[veritabanýna baðlanma]
+  \begin{ornek}[veri tabanýna baðlanma]
     \begin{lstlisting}[language=C]
 EXEC SQL BEGIN DECLARE SECTION;
 int year;
@@ -529,8 +529,8 @@ echo "</table>\n";
     \pause
     \item \emph{Tip III}: að köprüleri
     \begin{itemize}
-      \item veri kaynaðýnýn uygulama arayüzüne çevirmesi için orta katman
-        yazýlýmýna baðlan
+      \item veri kaynaðýnýn uygulama arayüzüne çevirmesi için\\
+	orta katman yazýlýmýna baðlan
     \end{itemize}
 
     \pause
@@ -614,7 +614,7 @@ TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[veritabaný sürücüsünün yüklenmesi]
+  \begin{ornek}[veri tabaný sürücüsünün yüklenmesi]
     \begin{lstlisting}[language=Java]
 try {
   Class.forName("org.postgresql.Driver");
@@ -628,7 +628,7 @@ try {
 \begin{frame}[fragile]
   \frametitle{JDBC Örneði}
 
-  \begin{ornek}[veritabanýna baðlantý]
+  \begin{ornek}[veri tabanýna baðlantý]
     \begin{lstlisting}[language=Java]
 try {
   Connection conn = DriverManager.getConnection(
@@ -768,7 +768,7 @@ stmt.close();
   \frametitle{Fonksiyonlar}
 
   \begin{itemize}
-    \item uygulamanýn bazý iþlevleri veritabaný sunucusunda gerçeklenebilir
+    \item uygulamanýn bazý iþlevleri veri tabaný sunucusunda gerçeklenebilir
     \begin{itemize}
       \item diller: SQL, PL/SQL, C, ...
     \end{itemize}
@@ -778,7 +778,7 @@ stmt.close();
     \item \alert{pek tavsiye edilmez}
     \begin{itemize}
       \item taþýnabilir deðil
-      \item veritabaný sunucularý iþ mantýðýna göre optimize edilmiyor
+      \item veri tabaný sunucularý iþ mantýðýna göre optimize edilmiyor
     \end{itemize}
     $\rightarrow$ iþ mantýðý uygulama sunucusunda gerçeklenmeli
   \end{itemize}
@@ -890,8 +890,8 @@ CREATE TRIGGER UPDATE_MOVIE
     \item türetilmiþ tabloyu taban tablo gibi göstermek
 
     \pause
-    \item veritabaný yapýsýndaki deðiþikliklerden kullanýcýlarýn ve uygulama
-      programlarýnýn etkilenmemesi
+    \item veri tabaný yapýsýndaki deðiþikliklerden\\
+      kullanýcýlarýn ve uygulama programlarýnýn etkilenmemesi
 %       \begin{itemize}
 %         \item normalizasyon ile bölünen tablonun var olan uygulamalara eskisi
 %           gibi gösterilmesi
@@ -911,8 +911,8 @@ CREATE VIEW görüntü_adý AS
 
   \pause
   \begin{itemize}
-    \item görüntü üzerindeki her iþlemde \lstinline!SELECT! komutu yeniden
-      çalýþtýrýlýr
+    \item görüntü üzerindeki her iþlemde\\
+      \lstinline!SELECT! komutu yeniden çalýþtýrýlýr
   \end{itemize}
 \end{frame}
 
@@ -1009,10 +1009,11 @@ CREATE RULE UPDATE_TITLE AS
 
   \begin{itemize}
     \item \alert{özne}: kullanýcý, kullanýcý grubu
-    \item \alert{nesne}: tablo, sütun, görüntü, veritabaný, ...
+    \item \alert{nesne}: tablo, sütun, görüntü, veri tabaný, ...
 
     \pause
-    \item nesnenin sahibi olan özne diðer öznelerin eriþim yetkilerini belirler
+    \item nesnenin sahibi olan özne\\
+      diðer öznelerin eriþim yetkilerini belirler
   \end{itemize}
 \end{frame}
 

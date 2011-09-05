@@ -33,7 +33,7 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
+\title{Veri Tabaný Yönetim Sistemleri}
 \subtitle{Eþzamanlý Çalýþma}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
@@ -182,21 +182,21 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
 \begin{frame}[fragile]
   \frametitle{Hareket Ýþlemleri}
 
-  \begin{block}{hareket baþlatma}
+  \begin{block}{baþlatma}
     \begin{lstlisting}
 BEGIN [ WORK | TRANSACTION ]
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{baþarýlý sonlanma}
+  \begin{block}{sonlandýrma}
     \begin{lstlisting}
 COMMIT [ WORK | TRANSACTION ]
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{baþarýsýz sonlanma}
+  \begin{block}{geri alma}
     \begin{lstlisting}
 ROLLBACK [ WORK | TRANSACTION ]
     \end{lstlisting}
@@ -250,8 +250,8 @@ UNDO:
 
     \pause
     \medskip
-    \item her iþlemden etkilenen her çoklunun iþlemden önceki ve sonraki
-      deðerleri \alert{günlük}te kaydedilir
+    \item her iþlemden etkilenen her çoklunun\\
+      iþlemden önceki ve sonraki deðerleri \alert{günlük}te kaydedilir
       \begin{itemize}
         \item \emph{günlüðe önceden yazma kuralý}:\\
           hareket sonlanmadan önce günlük fiziksel ortama yazýlmalý
@@ -277,7 +277,7 @@ UNDO:
 
   \begin{itemize}
     \item aksaklýktan sonra hangi hareketler geri alýnacak,\\
-      hangileri kalýcý hale getirilecek?
+      hangileri sonlandýrýlacak?
     \begin{itemize}
       \item iki liste oluþturulur: \emph{geri alýnacaklar} (G),
         \emph{yinelenecekler} (Y)
@@ -357,10 +357,10 @@ UNDO:
   \end{itemize}
 \end{frame}
 
-\subsection{Ýki Aþamalý Tamamlama}
+\subsection{Ýki Aþamalý Sonlandýrma}
 
 \begin{frame}
-  \frametitle{Ýki Aþamalý Tamamlama}
+  \frametitle{Ýki Aþamalý Sonlandýrma}
 
   \begin{itemize}
     \item farklý kaynak yöneticileri var
@@ -369,9 +369,9 @@ UNDO:
     \end{itemize}
 
     \pause
-    \item farklý kaynak yöneticilerinde bulunan verilerde deðiþiklik yapýlacak
+    \item etkilenecek veriler farklý kaynak yöneticilerinde
     \begin{itemize}
-      \item ya hepsinde birden tamamlanacak\\
+      \item ya hepsinde birden sonlandýrýlacak\\
         ya da hepsinde birden geri alýnacak
     \end{itemize}
 
@@ -384,17 +384,17 @@ UNDO:
   \frametitle{Protokol}
 
   \begin{itemize}
-    \item eþgüdüm saðlayýcý, bütün katýlýmcýlara hareketle ilgili bütün
-      verilerin kayýtlarýný kalýcý ortama yazmalarýný söyler
+    \item eþgüdüm saðlayýcý, bütün katýlýmcýlara hareketle ilgili\\
+      bütün verilerin kayýtlarýný kalýcý ortama yazmalarýný söyler
 
     \pause
-    \item eþgüdüm saðlayýcý, bütün katýlýmcýlardan hareketi baþlatmalarýn ve
-      sonucu kendine bildirmelerini ister
+    \item eþgüdüm saðlayýcý, bütün katýlýmcýlardan\\
+      hareketi baþlatmalarýný ve sonucu kendisine bildirmelerini ister
     \begin{itemize}
-      \item bütün katýlýmcýlardan "baþarýlý" yanýtý alýrsa hareketin
-        tamamlanmasýna karar verir
-      \item bir tane bile "baþarýsýz" yanýtý gelirse hareketin geri alýnmasýna
-        karar verir
+      \item bütün katýlýmcýlardan "baþarýlý" yanýtý alýrsa\\
+	hareketin sonlandýrýlmasýna karar verir
+      \item bir tane bile "baþarýsýz" yanýtý gelirse\\
+	hareketin geri alýnmasýna karar verir
     \end{itemize}
 
     \pause
@@ -582,7 +582,8 @@ X & E & H & H\\\hline
 
   \begin{itemize}
     \item \alert{iki aþamalý kilitleme}:\\
-      herhangi bir kilit býrakýldýktan sonra yeni kilit isteðinde bulunulmaz
+      herhangi bir kilit býrakýldýktan sonra\\
+      yeni kilit isteðinde bulunulmaz
     \begin{itemize}
       \item geniþleme aþamasý: alýnan kilit sayýsý artýyor
       \item daralma aþamasý: alýnan kilit sayýsý azalýyor
@@ -778,13 +779,13 @@ SELECT sorgu FOR UPDATE
   \frametitle{Serileþtirilebilme}
 
   \begin{itemize}
-    \item \alert{serileþtirilebilir}:\\
-      eþzamanlý çalýþmanýn sonucu seri çalýþtýrmalardan birinin sonucu ile
-      her zaman ayný
+    \item \alert{serileþtirilebilir}: eþzamanlý çalýþmanýn sonucu\\
+      seri çalýþtýrmalardan birinin sonucu ile her zaman ayný
 
     \pause
-    \item \emph{bütün hareketler iki aþamalý kilitleme protokolüne uyarsa bütün
-      eþzamanlý çalýþtýrmalar serileþtirilebilir}
+    \bigskip
+    \item \emph{bütün hareketler iki aþamalý kilitleme protokolüne uyarsa\\
+      bütün eþzamanlý çalýþtýrmalar serileþtirilebilir}
   \end{itemize}
 \end{frame}
 
@@ -816,8 +817,8 @@ RETRIEVE p (S+) &
   \frametitle{Hayaletler}
 
   \begin{tanim}
-    \alert{hayalet}:\\
-      sorgu yeniden çalýþtýrdýðýnda koþulu saðlayan yeni çoklular ortaya çýkýyor
+    \alert{hayalet}: sorgu yeniden çalýþtýrdýðýnda\\
+      koþulu saðlayan yeni çoklular ortaya çýkýyor
   \end{tanim}
 
   \pause
@@ -851,7 +852,7 @@ SET TRANSACTION ISOLATION LEVEL
 
   \begin{table}
     \begin{tabular}{|l||c|c|c|}\hline
-Yalýtým düzeyi   & Kirli & Yinelemeyen & Hayalet\\
+yalýtým düzeyi   & kirli & yinelemeyen & hayalet\\
                  & okuma & okuma       &        \\\hline\hline
 READ UNCOMMITTED & E     & E           & E      \\\hline
 READ COMMITTED   & H     & E           & E      \\\hline
@@ -869,7 +870,7 @@ SERIALIZABLE     & H     & H           & H      \\\hline
   \begin{itemize}
     \item kilitleme çoklu deðil baðýntý deðiþkeni biriminde yapýlabilir
     \begin{itemize}
-      \item hatta veritabaný biriminde
+      \item hatta veri tabaný biriminde
     \end{itemize}
 
     \item birim geniþledikçe eþzamanlýlýk azalýr
@@ -927,16 +928,18 @@ SIX & E & E  & H & H  &  H  & H\\\hline
   \frametitle{Kilit Öncelikleri}
 
   \begin{columns}[t]
-    \column{.5\textwidth}
+    \column{.46\textwidth}
     \begin{center}
       \pgfuseimage{oncelik}
     \end{center}
 
     \pause
-    \column{.5\textwidth}
+    \column{.54\textwidth}
     \begin{itemize}
-      \item çoklu üzerinde okuma kilidi için baðýntý üzerinde en az IS
-      \item çoklu üzerinde yazma kilidi için baðýntý üzerinde en az IX
+      \item çoklu üzerinde okuma kilidi için\\
+	baðýntý üzerinde en az IS
+      \item çoklu üzerinde yazma kilidi için\\
+	baðýntý üzerinde en az IX
     \end{itemize}
   \end{columns}
 \end{frame}
