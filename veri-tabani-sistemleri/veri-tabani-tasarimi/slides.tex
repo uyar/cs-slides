@@ -25,8 +25,8 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veritabaný Yönetim Sistemleri}
-\subtitle{Veritabaný Tasarýmý}
+\title{Veri Tabaný Yönetim Sistemleri}
+\subtitle{Veri Tabaný Tasarýmý}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
 \date{2002-2010}
@@ -124,7 +124,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Ýþlevsel Baðýmlýlýk Örnekleri}
+  \frametitle{Örnek Veri Tabaný}
 
   \begin{ornek}
     \begin{tiny}
@@ -259,7 +259,8 @@
 
       \pause
       \item $A \rightarrow B$ ise $R$ baðýntýsý $\{A, B\}$ ile $\{A, C\}$
-        baðýntýlarýnýn birleþtirilmesiyle elde edilebilir
+        baðýntýlarýnýn\\
+        birleþtirilmesiyle elde edilebilir
     \end{itemize}
   \end{teorem}
 \end{frame}
@@ -371,8 +372,8 @@ US  &     503 & John Malkovich &  14\\\hline
     \pause
     \item \emph{güncelleme}
     \begin{itemize}
-      \item bir veriyi güncellemek için birden fazla çokluda deðiþiklik
-        gerekmesi
+      \item bir veriyi güncellemek için birden fazla çokluda\\
+	deðiþiklik gerekmesi
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -427,7 +428,8 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{ornek}
     \begin{itemize}
-      \item anahtar olmayan niteliklerden yalnýzca ORD birincil anahtara baðýmlý
+      \item anahtar olmayan niteliklerden ORD dýþýndakiler\\
+	birincil anahtara baðýmlý deðil
 
       \pause
       \begin{itemize}
@@ -563,7 +565,7 @@ US  &     503 & John Malkovich &  14\\\hline
 
       \pause
       \item Being John Malkovich filminin ülkesi UK olarak güncellenmek
-        istenirse R1~baðýntýsýnda tek çokluda deðiþiklik yapmak yeterli olur
+        istenirse R1~baðýntýsýnda tek çokluda deðiþiklik yapmak yeterli
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -593,8 +595,8 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{3. Normal Form}
 
   \begin{tanim}
-    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dýþýnda bir nitelik
-      ya da nitelik grubuna baðýmlý deðil
+    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dýþýnda\\
+      bir nitelik ya da nitelik grubuna baðýmlý deðil
   \end{tanim}
 
   \pause
@@ -729,8 +731,8 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{ornek}
     \begin{itemize}
-      \item Brezilya'da çekilen filmlerin Portekizce olduðu biliniyorsa bu bilgi
-        R5~baðýntýsýna eklenebilir
+      \item Brezilya'da çekilen filmlerin Portekizce olduðu biliniyorsa\\
+	bu bilgi R5~baðýntýsýna eklenebilir
 
       \pause
       \item Suspiria filmi silinirse Ýtalya'da çekilen filmlerin Ýtalyanca
@@ -739,7 +741,7 @@ US  &     503 & John Malkovich &  14\\\hline
       \pause
       \item Amerika'da çekilen filmlerin dili Amerikan Ýngilizcesi olarak
         güncellenmek istenirse R5~baðýntýsýnda tek çokluda deðiþiklik yapmak
-        yeterli olur
+        yeterli
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -856,11 +858,11 @@ US  &     503 & John Malkovich &  14\\\hline
 
     \pause
     \begin{itemize}
-      \item basit / bileþke
+      \item basit - bileþke
       \item anahtar
-      \item tekli / çoklu deðerli
+      \item tekli - çoklu deðerli
       \item boþ
-      \item taban / türetilmiþ
+      \item taban - türetilmiþ
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -889,15 +891,13 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{Ýliþkiler}
 
   \begin{tanim}
-    \alert{iliþki}:\\
-      varlýklar arasýndaki baðlantýlar
+    \alert{iliþki}: varlýklar arasýndaki baðlantýlar
 
     \pause
     \begin{itemize}
       \item \emph{katýlýmcý}: iliþkideki varlýklar
       \item \emph{derece}: katýlýmcý sayýsý
-      \item \emph{total / kýsmi}: varlýðýn bütün örnekleri iliþkiye
-        katýlýyor / katýlmýyor
+      \item \emph{total - kýsmi}: bütün örnekler iliþkiye katýlýyor - katýlmýyor
     \end{itemize}
   \end{tanim}
 \end{frame}
