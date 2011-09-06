@@ -174,7 +174,7 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
     \pause
     \item kalýcýlýk
     \begin{itemize}
-      \item tamamlandýktan sonra sistem çökse de veriler bir zarar görmez
+      \item sonlandýrýldýktan sonra sistem çökse de veriler bir zarar görmez
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -365,7 +365,7 @@ UNDO:
   \begin{itemize}
     \item farklý kaynak yöneticileri var
     \begin{itemize}
-      \item geri alma / tamamlama sistemleri ayrý
+      \item geri alma / sonlandýrma sistemleri ayrý
     \end{itemize}
 
     \pause
@@ -747,8 +747,8 @@ SELECT sorgu FOR UPDATE
     \begin{itemize}
       \item serileþtirilebilir
       \item yinelenebilir okuma
-      \item tamamlananlarý okuyabilme
-      \item tamamlanmayanlarý okuyabilme
+      \item sonlandýrýlanlarý okuyabilme
+      \item sonlandýrýlmayanlarý okuyabilme
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -790,7 +790,7 @@ SELECT sorgu FOR UPDATE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tamamlananlarý Okuyabilme}
+  \frametitle{Sonlandýrýlanlarý Okuyabilme}
 
   \begin{itemize}
     \item yalnýzca yazma kilitleri hareket sonuna kadar tutulur
