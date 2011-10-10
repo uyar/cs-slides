@@ -386,7 +386,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
         \texttt{TITLE} katar, \texttt{YR} tamsayý, \texttt{COUNTRY} katar, ...
 
       \begin{itemize}
-        \item \texttt{COUNTRY} niteliðine \texttt{Woody Allen} deðerini vermek\\
+        \item \texttt{COUNTRY} niteliðine \texttt{"Woody Allen"} deðerini vermek\\
           veri tipi açýsýndan doðru, yüklem açýsýndan yanlýþ
 
         \item \texttt{YR} ve \texttt{VOTES} deðerleri birer tamsayý\\
@@ -408,7 +408,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
     \begin{ornek}
       \begin{itemize}
-        \item \texttt{Blade} filminin yönetmeni bilinmiyor
+        \item \texttt{"Blade"} filminin yönetmeni bilinmiyor
       \end{itemize}
     \end{ornek}
 
@@ -421,7 +421,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
     \begin{ornek}
       \begin{itemize}
-        \item \texttt{Star Wars} filmi için\\
+        \item \texttt{"Star Wars"} filmi için\\
 	  kimse oy kullanmamýþ,\\
           \texttt{SCORE} niteliði anlamlý deðil
       \end{itemize}
@@ -444,7 +444,8 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{SCORE} niteliði için varsayýlan deðer \texttt{-1} seçilebilir
+      \item \texttt{SCORE} niteliði 1 ile 10 arasýnda deðer alýyorsa\\
+	varsayýlan deðeri \texttt{0} seçilebilir
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -715,7 +716,7 @@ ALTER TABLE tablo_adý
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ALTER COLUMN SCORE
-    SET DEFAULT -1
+    SET DEFAULT 0
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -921,8 +922,8 @@ UPDATE MOVIE
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{YR} deðerleri \texttt{1880}'den küçük olamaz
-      \item \texttt{SCORE} deðerleri \texttt{0} ile \texttt{10} arasýnda
+      \item \texttt{YR} deðerleri \texttt{1888}'den küçük olamaz
+      \item \texttt{SCORE} deðerleri \texttt{1} ile \texttt{10} arasýnda
         olmalýdýr
       \item \texttt{TITLE} deðerleri boþ býrakýlamaz
     \end{itemize}
@@ -946,14 +947,14 @@ CREATE TABLE tablo_adý (
 \begin{frame}[fragile]
   \frametitle{Deðer Kýsýtlamasý Örneði}
 
-  \begin{ornek}[YR deðerleri 1880'den küçük olamaz]
+  \begin{ornek}[YR deðerleri 1888'den küçük olamaz]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   YR NUMERIC(4),
   ...,
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880)
+  CHECK (YR >= 1888)
 )
     \end{lstlisting}
   \end{ornek}
@@ -1040,8 +1041,8 @@ DROP DOMAIN taným_kümesi_adý [, ...]
   \begin{ornek}[yýllarýn için taným kümesi]
     \begin{lstlisting}
 CREATE DOMAIN YEARS AS NUMERIC(4)
-  DEFAULT 2005
-  CHECK (VALUE >= 1880)
+  DEFAULT 2010
+  CHECK (VALUE >= 1888)
     \end{lstlisting}
 
     \pause
@@ -1094,19 +1095,19 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Kýsýtlama Yönetimi Örnekleri}
 
-  \begin{ornek}[SCORE niteliði 0'dan küçük olamasýn]
+  \begin{ornek}[SCORE niteliði 1 ile 10 arasýnda olsun]
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  ADD CONSTRAINT SCORE_POSITIVE
-      CHECK (SCORE >= 0)
+  ADD CONSTRAINT SCORE_RANGE
+      CHECK ((SCORE >= 1) AND (SCORE <= 10))
     \end{lstlisting}
   \end{ornek}
 
   \pause
-  \begin{ornek}[SCORE niteliði 0'dan küçük olabilsin]
+  \begin{ornek}[SCORE niteliði deðer aralýðý kontrol edilmesin]
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  DROP CONSTRAINT SCORE_POSITIVE
+  DROP CONSTRAINT SCORE_RANGE
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -1230,7 +1231,6 @@ CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
   UNIQUE (ID),
   UNIQUE (TITLE, DIRECTOR)
 )
@@ -1248,7 +1248,6 @@ CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
   UNIQUE (TITLE, DIRECTOR)
 )
    \end{lstlisting}
@@ -1370,7 +1369,6 @@ CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
   UNIQUE (TITLE, DIRECTOR),
   PRIMARY KEY (ID)
 )
@@ -1388,7 +1386,6 @@ CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
   UNIQUE (TITLE, DIRECTOR)
 )
     \end{lstlisting}
