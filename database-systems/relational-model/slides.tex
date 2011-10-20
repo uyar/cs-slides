@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -21,7 +21,8 @@
 \usepackage{listings}
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM}
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
 }
 \lstset{language=FullSQL}
 
@@ -36,7 +37,7 @@
 \subtitle{Relational Model}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -59,7 +60,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -132,8 +133,8 @@
 
     \pause
     \medskip
-    \item each element of the relation is a \alert{tuple}
-    \item each data of the element is an \alert{attributes}
+    \item each element of a relation is a \alert{tuple}
+    \item each data of an element is an \alert{attribute}
 
     \pause
     \medskip
@@ -152,9 +153,8 @@
   \begin{example}[movie relation]
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
-TITLE                &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
+TITLE                & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  & UK      &   8.7 &  3502\\\hline
 Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004\\\hline
 Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809\\\hline
@@ -166,8 +166,8 @@ Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809\\\hline
     \pause
     \begin{itemize}
       \item \texttt{(Usual Suspects,1995,Bryan Singer,UK,8.7,3502)}\\
-        is a tuple of the MOVIE relation
-      \item \texttt{COUNTRY} is an attribute of the MOVIE relation
+        is a tuple of the movie relation
+      \item \texttt{COUNTRY} is an attribute of the movie relation
     \end{itemize}
   \end{example}
 \end{frame}
@@ -175,25 +175,21 @@ Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809\\\hline
 \begin{frame}
   \frametitle{Relation Structure}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{relation header}
-      \begin{itemize}
-        \item the set of attributes making up the relation
-        \item specified when the relation is created
-        \item affected by the data definition language statements
-      \end{itemize}
-    \end{block}
+  \begin{block}{relation header}
+    \begin{itemize}
+      \item the set of attributes making up the relation
+      \item specified when the relation is created
+      \item affected by data definition language statements
+    \end{itemize}
+  \end{block}
 
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{relation body}
-      \begin{itemize}
-        \item the set of tuples in the relation
-        \item affected by the data manipulation language statements
-      \end{itemize}
-    \end{block}
-  \end{columns}
+  \pause
+  \begin{block}{relation body}
+    \begin{itemize}
+      \item the set of tuples in the relation
+      \item affected by data manipulation language statements
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -204,8 +200,8 @@ Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809\\\hline
       the sentence expressing the meaning of the relation
 
     \begin{itemize}
-      \item each tuple takes the value \emph{True} or \emph{False} according to
-        this predicate
+      \item each tuple takes on the values \emph{True} or \emph{False}\\
+	according to the predicate
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -215,9 +211,10 @@ Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809\\\hline
 
   \begin{example}[movie relation predicate]
     \begin{itemize}
-      \item the movie titled as \texttt{TITLE} was filmed in the year \texttt{YR},
-        by the director \texttt{DIRECTOR}, in the country \texttt{COUNTRY}; the
-        average of \texttt{VOTES} votes is \texttt{SCORE}.
+      \item the movie with the title \texttt{TITLE} was filmed in the year
+	\texttt{YEAR},\\
+        by the director \texttt{DIRECTOR}, in the country \texttt{COUNTRY};\\
+        the average of \texttt{VOTES} votes is \texttt{SCORE}.
 
       \pause
       \medskip
@@ -288,7 +285,7 @@ Usual Suspects       & ... \\\hline
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|l|r|l|}\hline
-TITLE                &   YR & ... \\\hline\hline
+TITLE                & YEAR & ... \\\hline\hline
 Usual Suspects       & 1995 & ... \\\hline
 Suspiria             & 1977 & ... \\\hline
 Being John Malkovich & 1999 & ... \\\hline
@@ -300,7 +297,7 @@ Being John Malkovich & 1999 & ... \\\hline
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|r|l|l|}\hline
-  YR & TITLE                & ... \\\hline\hline
+YEAR & TITLE                & ... \\\hline\hline
 1995 & Usual Suspects       & ... \\\hline
 1977 & Suspiria             & ... \\\hline
 1999 & Being John Malkovich & ... \\\hline
@@ -317,7 +314,7 @@ Being John Malkovich & 1999 & ... \\\hline
   \begin{itemize}
     \item there can not be identical tuples in a relation
     \begin{itemize}
-      \item each tuple has to be uniquely identifiable
+      \item each tuple must be uniquely identifiable
     \end{itemize}
   \end{itemize}
 
@@ -326,7 +323,7 @@ Being John Malkovich & 1999 & ... \\\hline
     \begin{tiny}
     \begin{table}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
-TITLE                &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES \\\hline\hline
+TITLE                & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES \\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  & UK      &   8.7 &  3502 \\\hline
 Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
 Being John Malkovich & 1999 & Spike Jonze   & US      &   8.3 & 13809 \\\hline
@@ -349,15 +346,16 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
   \frametitle{Domain}
 
   \begin{itemize}
-    \item all values for the same attribute have to be selected from the same
-      domain
-
+    \item all values for the same attribute have to be selected\\
+      from the same domain
     \begin{itemize}
-      \item comparison only makes sense between values from the same domain
+      \item comparison only makes sense between values\\
+	from the same domain
     \end{itemize}
 
     \pause
-    \item in practice, mostly data types are used
+    \medskip
+    \item in practice, mostly data types are used instead
   \end{itemize}
 \end{frame}
 
@@ -366,19 +364,21 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
 
   \begin{example}
     \begin{itemize}
-      \item \texttt{TITLE} from the titles domain, \texttt{YR} from the years
-        domain, \texttt{COUNTRY} from the countries domain, ...
+      \item \texttt{TITLE} from the titles domain, \texttt{YEAR} from the years
+        domain,\\
+       \texttt{COUNTRY} from the countries domain, ...
 
       \pause
       \item if data types are used:\\
-        \texttt{TITLE} string, \texttt{YR} integer, \texttt{COUNTRY} string, ...
+        \texttt{TITLE} string, \texttt{YEAR} integer, \texttt{COUNTRY} string, ...
 
       \begin{itemize}
-        \item assigning the value \texttt{Woody Allen} to the attribute \texttt{COUNTRY}
-          is correct in terms of data types, but wrong according to predicate
+        \item assigning the value \texttt{"Woody Allen"} to the attribute
+	  \texttt{COUNTRY} is correct in terms of data types\\
+	  but incorrect according to predicate
 
-        \item \texttt{YR} and \texttt{VOTES} are integers but it does not make sense
-          to compare them
+        \item \texttt{YEAR} and \texttt{VOTES} are integers\\
+	  but it does not make sense to compare them
       \end{itemize}
     \end{itemize}
   \end{example}
@@ -390,25 +390,28 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
   \begin{columns}[t]
     \column{.5\textwidth}
     \begin{itemize}
-      \item the value of the attribute is not known for this tuple
+      \item the value of the attribute\\
+	is not known for this tuple
     \end{itemize}
 
     \begin{example}
       \begin{itemize}
-        \item the director of the movie \texttt{Blade} is not known
+        \item the director of the movie\\
+	  is not known
       \end{itemize}
     \end{example}
 
     \pause
     \column{.5\textwidth}
     \begin{itemize}
-      \item this tuple does not have a value for the attribute
+      \item the attribute can not be\\
+	applied to this tuple
     \end{itemize}
 
     \begin{example}
       \begin{itemize}
-        \item no votes for the movie \texttt{Star Wars} yet, therefore
-          \texttt{SCORE} is empty
+        \item nobody voted for the movie,\\
+	  therefore there is no \texttt{SCORE}
       \end{itemize}
     \end{example}
   \end{columns}
@@ -418,19 +421,17 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
   \frametitle{Default Value}
 
   \begin{itemize}
-    \item default values can be used instead of null values for unknown attribute
-      values
-
+    \item default values can be used instead of null values
     \begin{itemize}
-      \item the default value may not be one of the valid values of the attribute
+      \item default value may not be one of the valid values
     \end{itemize}
   \end{itemize}
 
   \pause
   \begin{example}
     \begin{itemize}
-      \item the default value for the \texttt{SCORE} attribute can be chosen
-        as \texttt{-1}
+      \item if \texttt{SCORE} values are between 1 and 10,\\
+	the default value can be chosen as \texttt{0}
     \end{itemize}
   \end{example}
 \end{frame}
@@ -502,8 +503,9 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
   \begin{itemize}
     \item \lstinline!CHARACTER [ VARYING ] (n)!
     \begin{itemize}
-      \item in the type \lstinline!CHARACTER (n)!, the string will be padded
-        with spaces if it is shorter than \texttt{n} characters
+      \item in \lstinline!CHARACTER (n)!, if the string is shorter than
+	\texttt{n} characters\\
+	it will be padded with spaces
     \end{itemize}
 
     \pause
@@ -556,16 +558,16 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
 
     \pause
     \bigskip
+    \item text: \lstinline!CHARACTER LARGE OBJECT (n)!
+    \begin{itemize}
+      \item \lstinline!CLOB!
+    \end{itemize}
+
+    \pause
     \item binary: \lstinline!BINARY LARGE OBJECT (n)!
     \begin{itemize}
       \item \lstinline!BLOB!
       \item picture, audio, etc.
-    \end{itemize}
-
-    \pause
-    \item text: \lstinline!CHARACTER LARGE OBJECT (n)!
-    \begin{itemize}
-      \item \lstinline!CLOB!
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -577,6 +579,7 @@ Suspiria             & 1977 & Dario Argento & IT      &   7.1 &  1004 \\\hline
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type
+              [ NULL | NOT NULL ]
               [ DEFAULT default_value ] }
   [, ... ]
 )
@@ -584,7 +587,16 @@ CREATE TABLE table_name (
   \end{block}
 
   \pause
-  \begin{block}{Deleting Tables}
+  \begin{itemize}
+    \item \lstinline!NULL!: the attribute is allowed to be NULL (default)
+    \item \lstinline!NOT NULL!: the attribute is not allowed to be NULL
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Deleting Tables}
+
+  \begin{block}{Statement}
     \begin{lstlisting}
 DROP TABLE table_name [, ... ]
     \end{lstlisting}
@@ -597,8 +609,8 @@ DROP TABLE table_name [, ... ]
   \begin{example}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
+  TITLE VARCHAR(80) NOT NULL,
+  YEAR NUMERIC(4),
   DIRECTOR VARCHAR(40),
   COUNTRY CHAR(2),
   SCORE FLOAT,
@@ -634,6 +646,7 @@ ALTER TABLE MOVIE
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ COLUMN ] column_name data_type
+                 [ NULL | NOT NULL ]
                  [ DEFAULT default_value ]
     \end{lstlisting}
   \end{block}
@@ -701,7 +714,7 @@ ALTER TABLE table_name
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ALTER COLUMN SCORE
-  SET DEFAULT -1
+  SET DEFAULT 0
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -739,7 +752,7 @@ ALTER TABLE MOVIE
 
     \pause
     \bigskip
-    \item operations are carried out on tuple sets
+    \item operations are carried out on sets of tuples
     \begin{itemize}
       \item all tuples satisfying a condition
     \end{itemize}
@@ -759,10 +772,10 @@ INSERT INTO table_name
 
   \pause
   \begin{itemize}
-    \item the order of values has to match the order of columns
-    \item unspecified attributes will take default value
-    \item if the column names are not specified, the column values have to given
-      in the order used when creating the table
+    \item the order of values must match the order of columns
+    \item if the column names are not specified,\\
+      values must be written in the order used at table creation
+    \item unspecified attributes will take their default values
   \end{itemize}
 \end{frame}
 
@@ -788,7 +801,7 @@ INSERT INTO MOVIE VALUES (
 
   \begin{example}
     \begin{lstlisting}
-INSERT INTO MOVIE (YR, TITLE) VALUES (
+INSERT INTO MOVIE (YEAR, TITLE) VALUES (
   1995,
   'Usual Suspects'
 )
@@ -855,12 +868,11 @@ UPDATE table_name
 \begin{frame}[fragile]
   \frametitle{Row Updating Example}
 
-  \begin{example}[reset the scores and votes of all movies filmed before 1997
-                  to zero]
+  \begin{example}[reset the scores and votes of all movies before 1997 to zero]
     \begin{lstlisting}
 UPDATE MOVIE
   SET SCORE = 0, VOTES = 0
-  WHERE (YR < 1997)
+  WHERE (YEAR < 1997)
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -872,7 +884,7 @@ UPDATE MOVIE
     \begin{lstlisting}
 UPDATE MOVIE
   SET SCORE = (SCORE * VOTES + 9) / (VOTES + 1),
-      VOTES = VOTES+1
+      VOTES = VOTES + 1
   WHERE (TITLE = 'Suspiria')
     \end{lstlisting}
   \end{example}
@@ -886,8 +898,7 @@ UPDATE MOVIE
   \frametitle{Integrity}
 
   \begin{itemize}
-    \item \emph{problem}: preventing tuples that contradict the relation
-      predicate
+    \item prevent tuples that contradict the relation predicate
 
     \pause
     \bigskip
@@ -910,9 +921,8 @@ UPDATE MOVIE
   \pause
   \begin{example}
     \begin{itemize}
-      \item \texttt{YR} value can not be smaller than \texttt{1880}
-      \item \texttt{SCORE} values must be between \texttt{0} and \texttt{10}
-      \item \texttt{TITLE} values can not be empty
+      \item \texttt{YEAR} values can not be smaller than \texttt{1888}
+      \item \texttt{SCORE} values must be between \texttt{1} and \texttt{10}
     \end{itemize}
   \end{example}
 \end{frame}
@@ -934,65 +944,14 @@ CREATE TABLE table_name (
 \begin{frame}[fragile]
   \frametitle{Value Constraint Example}
 
-  \begin{example}[YR values can not be smaller than 1880]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
-  ...,
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880)
-)
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Null Value Constraint}
-
-  \begin{block}{Expressing NULL condition}
-    \begin{lstlisting}
-CREATE TABLE table_name (
-  ...
-  CHECK ( column_name IS { NULL | NOT NULL } )
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item can be specified at column definition:\\
-      \lstinline!column_name data_type [ { NULL | NOT NULL } ]!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Null Value Constraint Example}
-
-  \begin{example}[TITLE attributes can not be empty]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
-  ..,
-  VOTES INTEGER DEFAULT 0,
-  CHECK (TITLE IS NOT NULL)
-)
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Null Value Constraint Example}
-
-  \begin{example}[TITLE attributes can not be empty]
+  \begin{example}[YEAR values can not be smaller than 1888]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   ...,
-  VOTES INTEGER DEFAULT 0
+  VOTES INTEGER DEFAULT 0,
+  CHECK (YEAR >= 1888)
 )
     \end{lstlisting}
   \end{example}
@@ -1028,15 +987,15 @@ DROP DOMAIN domain_name [, ...]
   \begin{example}[domain for year values]
     \begin{lstlisting}
 CREATE DOMAIN YEARS AS NUMERIC(4)
-  DEFAULT 2005
-  CHECK (VALUE >= 1880)
+  DEFAULT 2011
+  CHECK (VALUE >= 1888)
     \end{lstlisting}
 
     \pause
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR YEARS,
+  TITLE VARCHAR(80) NOT NULL,
+  YEAR YEARS,
   ...
 )
     \end{lstlisting}
@@ -1082,19 +1041,19 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Constraint Management Examples}
 
-  \begin{example}[SCORE values can not be smaller than 0]
+  \begin{example}[SCORE values must be between 1 and 10]
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  ADD CONSTRAINT SCORE_POSITIVE
-      CHECK (SCORE >= 0)
+  ADD CONSTRAINT SCORE_RANGE
+      CHECK ((SCORE >= 1) AND (SCORE <= 10))
     \end{lstlisting}
   \end{example}
 
   \pause
-  \begin{example}[SCORE values can be smaller than 0]
+  \begin{example}[SCORE values should not be checked for range]
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  DROP CONSTRAINT SCORE_POSITIVE
+  DROP CONSTRAINT SCORE_RANGE
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -1107,13 +1066,12 @@ ALTER TABLE MOVIE
   \begin{itemize}
     \item let $B$ be the attributes of the relation and let $A \subseteq B$
 
-    \item in order for $A$ to be a candidate key, the following conditions
-      must hold:
+    \item in order for $A$ to be a candidate key, the following must hold:
 
     \pause
     \begin{itemize}
-      \item \alert{uniqueness}: no two tuples have the same values for all
-        the attributes in $A$
+      \item \alert{uniqueness}: no two tuples have the same values\\
+	for all attributes in $A$
 
       \pause
       \item \alert{irreducibility}: no subset of $A$ satisfies the uniqueness
@@ -1136,13 +1094,13 @@ ALTER TABLE MOVIE
       \item \texttt{\{TITLE\}}
 
       \pause
-      \item \texttt{\{TITLE,YR\}}
+      \item \texttt{\{TITLE,YEAR\}}
 
       \pause
       \item \texttt{\{TITLE,DIRECTOR\}}
 
       \pause
-      \item \texttt{\{TITLE,YR,DIRECTOR\}}
+      \item \texttt{\{TITLE,YEAR,DIRECTOR\}}
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1151,14 +1109,16 @@ ALTER TABLE MOVIE
   \frametitle{Surrogate Keys}
 
   \begin{itemize}
-    \item if a \emph{natural key} can not be selected a \emph{surrogate key}
-      can be defined
+    \item if a \alert{natural key} can not be selected\\
+      a \alert{surrogate key} can be defined
 
     \pause
     \medskip
     \item identity attributes
     \begin{itemize}
-      \item can be generated by the system
+      \item their values do not matter
+      \item they do not need to be visible
+      \item they can be generated by the system
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -1171,7 +1131,7 @@ ALTER TABLE MOVIE
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
-  ID & TITLE                &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
+  ID & TITLE                & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
  ... & ...                  &  ... & ...           & ...     & ...   &   ...\\\hline
    6 & Usual Suspects       & 1995 & Bryan Singer  & ...     & ...   &   ...\\\hline
 1512 & Suspiria             & 1977 & Dario Argento & ...     & ...   &   ...\\\hline
@@ -1184,7 +1144,7 @@ ALTER TABLE MOVIE
     \pause
     \begin{itemize}
       \item \texttt{\{ID\}} is a candidate key
-      \item \texttt{\{ID,TITLE\}} is not a candidate key
+      \item \texttt{\{ID, TITLE\}} is not a candidate key
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1204,8 +1164,8 @@ CREATE TABLE table_name (
   \end{block}
 
   \begin{itemize}
-    \item if a candidate key consists of only one column, it can be specified
-      when the column is defined:\\
+    \item if a candidate key consists of only one column,\\
+      it can be specified at column definition:\\
       \lstinline!column_name data_type UNIQUE!
   \end{itemize}
 \end{frame}
@@ -1213,14 +1173,14 @@ CREATE TABLE table_name (
 \begin{frame}[fragile]
   \frametitle{Candidate Key Definition Example}
 
-  \begin{example}[\texttt{{ID}} and \texttt{\{TITLE,DIRECTOR\}} are unique]
+  \begin{example}[\texttt{{ID}} and \texttt{\{TITLE, DIRECTOR\}} are unique]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
+  CHECK (YEAR >= 1888),
   UNIQUE (ID),
   UNIQUE (TITLE, DIRECTOR)
 )
@@ -1235,11 +1195,11 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER UNIQUE NOT NULL,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
-  UNIQUE (TITLE , DIRECTOR)
+  CHECK (YEAR >= 1888),
+  UNIQUE (TITLE, DIRECTOR)
 )
    \end{lstlisting}
   \end{example}
@@ -1268,7 +1228,7 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID SERIAL UNIQUE NOT NULL,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
 )
     \end{lstlisting}
@@ -1282,7 +1242,7 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
 )
     \end{lstlisting}
@@ -1303,8 +1263,8 @@ CREATE TABLE MOVIE (
     \item every relation must have a primary key
 
     \pause
-    \item any attribute that is part of the primary key can not be empty
-      in any tuple
+    \item any attribute that is part of the primary key\\
+      can not be empty in any tuple
 
     \pause
     \item the names of the attributes in the primary key are underlined
@@ -1319,7 +1279,7 @@ CREATE TABLE MOVIE (
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
-\underline{ID} & TITLE      &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
+\underline{ID} & TITLE      & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
  ... & ...                  &  ... & ...           & ...     &   ... &   ...\\\hline
    6 & Usual Suspects       & 1995 & Bryan Singer  & ...     &   ... &   ...\\\hline
 1512 & Suspiria             & 1977 & Dario Argento & ...     &   ... &   ...\\\hline
@@ -1345,8 +1305,8 @@ CREATE TABLE table_name (
   \end{block}
 
   \begin{itemize}
-    \item if the primary key consists of only one column, it can be specified
-      when the column is defined:\\
+    \item if the primary key consists of only one column,\\
+      it can be specified at column definition:\\
       \lstinline!column_name data_type PRIMARY KEY!
   \end{itemize}
 \end{frame}
@@ -1358,10 +1318,10 @@ CREATE TABLE table_name (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
+  CHECK (YEAR >= 1888),
   UNIQUE (TITLE, DIRECTOR),
   PRIMARY KEY (ID)
 )
@@ -1376,10 +1336,10 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1880),
+  CHECK (YEAR >= 1888),
   UNIQUE (TITLE, DIRECTOR)
 )
     \end{lstlisting}
@@ -1394,7 +1354,7 @@ CREATE TABLE MOVIE (
   \begin{itemize}
     \item attribute values must be scalar
     \begin{itemize}
-      \item no arrays, lists, records etc. are allowed
+      \item arrays, lists, records etc. are not allowed
     \end{itemize}
 
     \pause
@@ -1547,7 +1507,7 @@ CREATE TABLE MOVIE (
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   COUNTRY CHAR(2),
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
@@ -1590,7 +1550,7 @@ CREATE TABLE CASTING (
 
   \begin{definition}
     \alert{foreign key}:\\
-      the attribute of a relation is the candidate key of another relation
+      an attribute of a relation is the candidate key of another relation
   \end{definition}
 \end{frame}
 
@@ -1718,14 +1678,13 @@ CREATE TABLE CASTING (
 
   \begin{definition}
     \alert{referential integrity}:\\
-      all values of a foreign key attribute must be present in the
-      corresponding attribute of the referenced relation
+      all values of a foreign key attribute must be present\\
+      in the corresponding attribute of the referenced relation
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item what if a data manipulation request conflicts with referential
-      integrity?
+    \item what if a request conflicts with referential integrity?
   \end{itemize}
 \end{frame}
 
@@ -1796,10 +1755,10 @@ CREATE TABLE CASTING (
 
   \begin{example}[restrict when deleting]
     \begin{itemize}
-      \item do not allow deleting if the \texttt{ID} attribute of the director
-        to be deleted from the \texttt{PERSON} relation is present among the
-        current values in the \texttt{DIRECTORID} attribute of the
-        \texttt{MOVIE} relation
+      \item if the \texttt{ID} attribute of the director to be deleted\\
+	from the \texttt{PERSON} relation is present among the current values\\
+	of the \texttt{DIRECTORID} attribute of the \texttt{MOVIE} relation,\\
+	do not allow deleting
     \end{itemize}
   \end{example}
 
@@ -1807,9 +1766,10 @@ CREATE TABLE CASTING (
   \begin{example}[cascade when updating]
     \begin{itemize}
       \item when the \texttt{ID} attribute value of a director has been
-        updated in the \texttt{PERSON} relation, also update the
-        \texttt{DIRECTORID} attribute of corresponding tuples in the
-        \texttt{MOVIE} relation
+        updated\\
+        in the \texttt{PERSON} relation, also update the \texttt{DIRECTORID}
+        attribute\\
+        of the corresponding tuples in the \texttt{MOVIE} relation
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1819,18 +1779,24 @@ CREATE TABLE CASTING (
 
   \begin{example}[cascade when deleting]
     \begin{itemize}
-      \item delete a director from the \texttt{PERSON} relation
+      \item delete a person from the \texttt{PERSON} relation
 
       \pause
-      \item delete all tuples from the \texttt{MOVIE} relation
-        where the \texttt{ID} attribute of the deleted director
-        has the same value as the \texttt{DIRECTORID} attribute
+      \item delete all tuples from the \texttt{CASTING} relation\\
+	where the \texttt{ACTORID} attribute has the same value\\
+	as the \texttt{ID} attribute of the deleted person
 
       \pause
-      \item for each deleted \texttt{MOVIE} tuple, delete all tuples
-        from the \texttt{CASTING} relation where the \texttt{ID}
-        attribute of the deleted movie has the same value as the
-        \texttt{MOVIEID} attribute
+      \item delete all tuples from the \texttt{MOVIE} relation\\
+        where the \texttt{DIRECTORID} attribute has the same value\\
+        as the \texttt{ID} attribute of the deleted person
+
+      \pause
+      \item for each deleted \texttt{MOVIE} tuple in the previous step,\\
+	delete all tuples from the \texttt{CASTING} relation\\
+	where the \texttt{MOVIEID} attribute has the same value\\
+	as the \texttt{ID} attribute of the deleted movie
+
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1875,13 +1841,14 @@ CREATE TABLE MOVIE (
   \frametitle{Defining Foreign Keys}
 
   \begin{itemize}
-    \item if the foreign key is the primary key in the referenced table
+    \item if the foreign key is the primary key in the referenced table\\
       it does not have to be specified in the \lstinline!REFERENCES! part
 
     \pause
-    \item if the foreign key consists of only one attribute, it can be
-      specified in the column definition:\\
-      \lstinline!column_name data_type REFERENCES table_name [ ( column_name ) ]!
+    \item if the foreign key consists of only one attribute,\\
+      it can be specified at column definition:\\
+      \lstinline!column_name data_type!\\
+      ~~~~\lstinline!REFERENCES table_name [ ( column_name ) ]!
   \end{itemize}
 \end{frame}
 
@@ -1893,7 +1860,7 @@ CREATE TABLE MOVIE (
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   COUNTRY CHAR(2),
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
