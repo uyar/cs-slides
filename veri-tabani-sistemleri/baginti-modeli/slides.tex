@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
 %
@@ -22,7 +22,8 @@
 \usepackage{listings}
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM}
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
 }
 \lstset{language=FullSQL,extendedchars=true}
 
@@ -37,7 +38,7 @@
 \subtitle{Baðýntý Modeli}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -66,7 +67,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
 
   \vfill
   \begin{tiny}
@@ -159,9 +160,8 @@
   \begin{ornek}[film baðýntýsý]
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
-TITLE                &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
+TITLE                & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   UK    &   8.7 &  3502\\\hline
 Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
@@ -182,28 +182,21 @@ Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
 \begin{frame}
   \frametitle{Baðýntý Yapýsý}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{baðýntý baþlýðý}
-      \begin{itemize}
-        \item baðýntýyý oluþturan\\
-	  nitelikler kümesi
-        \item baðýntý yaratýlýrken belirtilir
-        \item veri tanýmlama dili\\
-	  komutlarýndan etkilenir
-      \end{itemize}
-    \end{block}
+  \begin{block}{baðýntý baþlýðý}
+    \begin{itemize}
+      \item baðýntýyý oluþturan nitelikler kümesi
+      \item baðýntý yaratýlýrken belirtilir
+      \item veri tanýmlama dili komutlarýndan etkilenir
+    \end{itemize}
+  \end{block}
 
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{baðýntý gövdesi}
-      \begin{itemize}
-        \item baðýntýdaki çoklular kümesi
-        \item veri iþleme dili\\
-	  komutlarýndan etkilenir
-      \end{itemize}
-    \end{block}
-  \end{columns}
+  \pause
+  \begin{block}{baðýntý gövdesi}
+    \begin{itemize}
+      \item baðýntýdaki çoklular kümesi
+      \item veri iþleme dili komutlarýndan etkilenir
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -225,7 +218,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
 
   \begin{ornek}[film baðýntýsýnýn yüklemi]
     \begin{itemize}
-      \item \texttt{TITLE} baþlýklý film \texttt{YR} yýlýnda, \texttt{DIRECTOR}
+      \item \texttt{TITLE} baþlýklý film \texttt{YEAR} yýlýnda, \texttt{DIRECTOR}
         tarafýndan,\\
         \texttt{COUNTRY} ülkesinde çekilmiþtir;\\
         kullanýlan \texttt{VOTES} oyun ortalamasý \texttt{SCORE}'dur.
@@ -299,7 +292,7 @@ Usual Suspects       & ...\\\hline
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|l|r|l|}\hline
-TITLE                &   YR & ...\\\hline\hline
+TITLE                & YEAR & ...\\\hline\hline
 Usual Suspects       & 1995 & ...\\\hline
 Suspiria             & 1977 & ...\\\hline
 Being John Malkovich & 1999 & ...\\\hline
@@ -311,7 +304,7 @@ Being John Malkovich & 1999 & ...\\\hline
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|r|l|l|}\hline
-  YR & TITLE                & ...\\\hline\hline
+YEAR & TITLE                & ...\\\hline\hline
 1995 & Usual Suspects       & ...\\\hline
 1977 & Suspiria             & ...\\\hline
 1999 & Being John Malkovich & ...\\\hline
@@ -328,7 +321,7 @@ Being John Malkovich & 1999 & ...\\\hline
   \begin{itemize}
     \item bir baðýntýda birbirinin eþi çoklular bulunamaz
     \begin{itemize}
-      \item her çoklunun diðerlerinden ayýrt edilebilmesi gerekir
+      \item her çoklu diðerlerinden ayýrt edilebilmelidir
     \end{itemize}
   \end{itemize}
 
@@ -337,7 +330,7 @@ Being John Malkovich & 1999 & ...\\\hline
     \begin{tiny}
     \begin{table}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
-TITLE                &   YR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
+TITLE                & YEAR & DIRECTOR      & COUNTRY & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   UK    &   8.7 &  3502\\\hline
 Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 Being John Malkovich & 1999 & Spike Jonze   &   US    &   8.3 & 13809\\\hline
@@ -360,15 +353,17 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \frametitle{Taným Kümesi}
 
   \begin{itemize}
-    \item ayný niteliðe iliþkin bütün deðerler ayný taným kümesinden seçilmeli
+    \item ayný niteliðe iliþkin bütün deðerler\\
+      ayný taným kümesinden seçilmeli
 
     \begin{itemize}
-      \item karþýlaþtýrma iþlemi ancak ayný taným kümesinden seçilmiþ deðerler
-        arasýnda anlamlý
+      \item karþýlaþtýrma iþlemi ancak ayný taným kümesinden seçilmiþ\\
+	deðerler arasýnda anlamlýdýr
     \end{itemize}
 
     \pause
-    \item pratikte çoðunlukla yalnýzca veri tipleri kullanýlýyor
+    \medskip
+    \item pratikte çoðunlukla veri tipleri kullanýlýr
   \end{itemize}
 \end{frame}
 
@@ -377,19 +372,19 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{TITLE} baþlýklar kümesinden, \texttt{YR} yýllar
+      \item \texttt{TITLE} baþlýklar kümesinden, \texttt{YEAR} yýllar
         kümesinden,\\
         \texttt{COUNTRY} ülkeler kümesinden, ...
 
       \pause
       \item veri tipi kullanýlýrsa:\\
-        \texttt{TITLE} katar, \texttt{YR} tamsayý, \texttt{COUNTRY} katar, ...
+        \texttt{TITLE} katar, \texttt{YEAR} tamsayý, \texttt{COUNTRY} katar, ...
 
       \begin{itemize}
         \item \texttt{COUNTRY} niteliðine \texttt{"Woody Allen"} deðerini vermek\\
           veri tipi açýsýndan doðru, yüklem açýsýndan yanlýþ
 
-        \item \texttt{YR} ve \texttt{VOTES} deðerleri birer tamsayý\\
+        \item \texttt{YEAR} ve \texttt{VOTES} deðerleri birer tamsayý\\
 	  ancak bunlarý karþýlaþtýrmak anlamlý deðil
       \end{itemize}
     \end{itemize}
@@ -408,7 +403,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
     \begin{ornek}
       \begin{itemize}
-        \item \texttt{"Blade"} filminin yönetmeni bilinmiyor
+        \item filmin yönetmeni bilinmiyor
       \end{itemize}
     \end{ornek}
 
@@ -421,9 +416,8 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
     \begin{ornek}
       \begin{itemize}
-        \item \texttt{"Star Wars"} filmi için\\
-	  kimse oy kullanmamýþ,\\
-          \texttt{SCORE} niteliði anlamlý deðil
+        \item film için oy kullanýlmamýþ,\\
+          \texttt{SCORE} hesaplanamýyor
       \end{itemize}
     \end{ornek}
   \end{columns}
@@ -433,11 +427,9 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
   \frametitle{Varsayýlan Deðer}
 
   \begin{itemize}
-    \item bilinmeyen nitelik deðerleri için boþ deðer yerine\\
-      varsayýlan bir deðer kullanýlabilir
-
+    \item boþ deðer yerine varsayýlan bir deðer kullanýlabilir
     \begin{itemize}
-      \item niteliðin geçerli deðerlerinden biri olmamalý
+      \item geçerli deðerlerden biri olmamalý
     \end{itemize}
   \end{itemize}
 
@@ -571,16 +563,16 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
 
     \pause
     \bigskip
+    \item metin: \lstinline!CHARACTER LARGE OBJECT (n)!
+    \begin{itemize}
+      \item \lstinline!CLOB!
+    \end{itemize}
+
+    \pause
     \item ikili: \lstinline!BINARY LARGE OBJECT (n)!
     \begin{itemize}
       \item \lstinline!BLOB!
       \item resim, ses v.b.
-    \end{itemize}
-
-    \pause
-    \item metin: \lstinline!CHARACTER LARGE OBJECT (n)!
-    \begin{itemize}
-      \item \lstinline!CLOB!
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -592,6 +584,7 @@ Suspiria             & 1977 & Dario Argento &   IT    &   7.1 &  1004\\\hline
     \begin{lstlisting}
 CREATE TABLE tablo_adý (
   { sütun_adý veri_tipi
+              [ NULL | NOT NULL ]
               [ DEFAULT varsayýlan_deðer ] }
   [, ... ]
 )
@@ -599,7 +592,16 @@ CREATE TABLE tablo_adý (
   \end{block}
 
   \pause
-  \begin{block}{Tablo Silme}
+  \begin{itemize}
+    \item \lstinline!NULL!: niteliðin boþ býrakýlmasýna izin var (varsayýlan)
+    \item \lstinline!NOT NULL!: niteliðin boþ býrakýlmasýna izin yok
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tablo Silme}
+
+  \begin{block}{Komut}
     \begin{lstlisting}
 DROP TABLE tablo_adý [, ... ]
     \end{lstlisting}
@@ -612,8 +614,8 @@ DROP TABLE tablo_adý [, ... ]
   \begin{ornek}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
+  TITLE VARCHAR(80) NOT NULL,
+  YEAR NUMERIC(4),
   DIRECTOR VARCHAR(40),
   COUNTRY CHAR(2),
   SCORE FLOAT,
@@ -649,6 +651,7 @@ ALTER TABLE MOVIE
     \begin{lstlisting}
 ALTER TABLE tablo_adý
   ADD [ COLUMN ] sütun_adý veri_tipi
+                 [ NULL | NOT NULL ]
                  [ DEFAULT varsayýlan_deðer ]
     \end{lstlisting}
   \end{block}
@@ -756,7 +759,7 @@ ALTER TABLE MOVIE
     \bigskip
     \item iþlemler çoklu kümesi üzerinde yapýlýr
     \begin{itemize}
-      \item bir koþulu saðlayan bütün çoklular
+      \item bir koþula uyan bütün çoklular
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -775,9 +778,9 @@ INSERT INTO tablo_adý
   \pause
   \begin{itemize}
     \item deðer sýrasý sütun adý sýrasýna uymalýdýr
-    \item belirtilmeyen sütunlara varsayýlan deðer atanýr
     \item sütun adlarý belirtilmezse sütun deðerleri\\
       tablo yaratýlýrken verilen sýrayla yazýlmalýdýr
+    \item belirtilmeyen sütunlara varsayýlan deðerleri atanýr
   \end{itemize}
 \end{frame}
 
@@ -803,7 +806,7 @@ INSERT INTO MOVIE VALUES (
 
   \begin{ornek}
     \begin{lstlisting}
-INSERT INTO MOVIE (YR, TITLE) VALUES (
+INSERT INTO MOVIE (YEAR, TITLE) VALUES (
   1995,
   'Usual Suspects'
 )
@@ -873,7 +876,7 @@ UPDATE tablo_adý
     \begin{lstlisting}
 UPDATE MOVIE
   SET SCORE = 0, VOTES = 0
-  WHERE (YR < 1997)
+  WHERE (YEAR < 1997)
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -899,7 +902,7 @@ UPDATE MOVIE
   \frametitle{Bütünlük}
 
   \begin{itemize}
-    \item \emph{sorun}: baðýntý yüklemine uymayan çoklularýn engellenmesi
+    \item baðýntý yüklemine uymayan çoklularýn engellenmesi
 
     \pause
     \bigskip
@@ -922,10 +925,9 @@ UPDATE MOVIE
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{YR} deðerleri \texttt{1888}'den küçük olamaz
+      \item \texttt{YEAR} deðerleri \texttt{1888}'den küçük olamaz
       \item \texttt{SCORE} deðerleri \texttt{1} ile \texttt{10} arasýnda
         olmalýdýr
-      \item \texttt{TITLE} deðerleri boþ býrakýlamaz
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -947,65 +949,14 @@ CREATE TABLE tablo_adý (
 \begin{frame}[fragile]
   \frametitle{Deðer Kýsýtlamasý Örneði}
 
-  \begin{ornek}[YR deðerleri 1888'den küçük olamaz]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
-  ...,
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YR >= 1888)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Boþ Deðer Kýsýtlamasý}
-
-  \begin{block}{Deyim Yazýmý}
-    \begin{lstlisting}
-CREATE TABLE tablo_adý (
-  ...
-  CHECK ( sütun_adý IS { NULL | NOT NULL } )
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item sütun tanýmýnda da belirtilebilir:\\
-      \lstinline!sütun_adý veri_tipi [ { NULL | NOT NULL } ]!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Boþ Deðer Kýsýtlamasý Örnekleri}
-
-  \begin{ornek}[TITLE deðerleri boþ býrakýlamaz]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR NUMERIC(4),
-  ..,
-  VOTES INTEGER DEFAULT 0,
-  CHECK (TITLE IS NOT NULL)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Boþ Deðer Kýsýtlamasý Örnekleri}
-
-  \begin{ornek}[TITLE deðerleri boþ býrakýlamaz]
+  \begin{ornek}[YEAR deðerleri 1888'den küçük olamaz]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   ...,
-  VOTES INTEGER DEFAULT 0
+  VOTES INTEGER DEFAULT 0,
+  CHECK (YEAR >= 1888)
 )
     \end{lstlisting}
   \end{ornek}
@@ -1038,18 +989,18 @@ DROP DOMAIN taným_kümesi_adý [, ...]
 \begin{frame}[fragile]
   \frametitle{Taným Kümesi Örneði}
 
-  \begin{ornek}[yýllarýn için taným kümesi]
+  \begin{ornek}[yýllar için taným kümesi]
     \begin{lstlisting}
 CREATE DOMAIN YEARS AS NUMERIC(4)
-  DEFAULT 2010
+  DEFAULT 2011
   CHECK (VALUE >= 1888)
     \end{lstlisting}
 
     \pause
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  TITLE VARCHAR(80),
-  YR YEARS,
+  TITLE VARCHAR(80) NOT NULL,
+  YEAR YEARS,
   ...
 )
     \end{lstlisting}
@@ -1126,7 +1077,7 @@ ALTER TABLE MOVIE
     \pause
     \begin{itemize}
       \item \alert{eþsizlik}: herhangi iki çoklu $A$'da yer alan\\
-	bütün nitelikler için ayný deðeri taþýyamazlar
+	bütün nitelikler için ayný deðeri taþýmazlar
 
       \pause
       \item \alert{indirgenemezlik}: $A$'nýn hiçbir altkümesi\\
@@ -1149,13 +1100,13 @@ ALTER TABLE MOVIE
       \item \texttt{\{TITLE\}}
 
       \pause
-      \item \texttt{\{TITLE, YR\}}
+      \item \texttt{\{TITLE, YEAR\}}
 
       \pause
       \item \texttt{\{TITLE, DIRECTOR\}}
 
       \pause
-      \item \texttt{\{TITLE, YR, DIRECTOR\}}
+      \item \texttt{\{TITLE, YEAR, DIRECTOR\}}
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1164,13 +1115,15 @@ ALTER TABLE MOVIE
   \frametitle{Anahtar Eþdeðeri}
 
   \begin{itemize}
-    \item \emph{doðal anahtar} seçilemiyorsa \emph{anahtar eþdeðeri}
+    \item \alert{doðal anahtar} seçilemiyorsa \alert{anahtar eþdeðeri}
       tanýmlanabilir
 
     \pause
     \medskip
     \item kimlik nitelikleri
     \begin{itemize}
+      \item deðerlerinin ne olduðunun önemi yok
+      \item görünür olmalarý gerekmiyor
       \item sistem tarafýndan üretilebilir
     \end{itemize}
   \end{itemize}
@@ -1184,7 +1137,7 @@ ALTER TABLE MOVIE
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|}\hline
-  ID & TITLE                &   YR & DIRECTOR      & ...\\\hline\hline
+  ID & TITLE                & YEAR & DIRECTOR      & ...\\\hline\hline
  ... & ...                  &  ... & ...           & ...\\\hline
    6 & Usual Suspects       & 1995 & Bryan Singer  & ...\\\hline
 1512 & Suspiria             & 1977 & Dario Argento & ...\\\hline
@@ -1228,9 +1181,10 @@ CREATE TABLE tablo_adý (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
+  CHECK (YEAR >= 1888),
   UNIQUE (ID),
   UNIQUE (TITLE, DIRECTOR)
 )
@@ -1245,9 +1199,10 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER UNIQUE NOT NULL,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
+  CHECK (YEAR >= 1888),
   UNIQUE (TITLE, DIRECTOR)
 )
    \end{lstlisting}
@@ -1277,7 +1232,7 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID SERIAL UNIQUE NOT NULL,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
 )
     \end{lstlisting}
@@ -1291,7 +1246,7 @@ CREATE TABLE MOVIE (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
 )
     \end{lstlisting}
@@ -1328,7 +1283,7 @@ CREATE TABLE MOVIE (
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|}\hline
-\underline{ID} & TITLE                &   YR & DIRECTOR      & ...\\\hline\hline
+\underline{ID} & TITLE                & YEAR & DIRECTOR      & ...\\\hline\hline
            ... & ...                  &  ... & ...           & ...\\\hline
              6 & Usual Suspects       & 1995 & Bryan Singer  & ...\\\hline
           1512 & Suspiria             & 1977 & Dario Argento & ...\\\hline
@@ -1366,10 +1321,11 @@ CREATE TABLE tablo_adý (
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
-  TITLE VARCHAR(80),
+  TITLE VARCHAR(80) NOT NULL,
   ...
   VOTES INTEGER DEFAULT 0,
   UNIQUE (TITLE, DIRECTOR),
+  CHECK (YEAR >= 1888),
   PRIMARY KEY (ID)
 )
     \end{lstlisting}
@@ -1386,6 +1342,7 @@ CREATE TABLE MOVIE (
   TITLE VARCHAR(80),
   ...
   VOTES INTEGER DEFAULT 0,
+  CHECK (YEAR >= 1888),
   UNIQUE (TITLE, DIRECTOR)
 )
     \end{lstlisting}
@@ -1553,7 +1510,7 @@ CREATE TABLE MOVIE (
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   COUNTRY CHAR(2),
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
@@ -1823,17 +1780,22 @@ CREATE TABLE CASTING (
 
   \begin{ornek}[silerken yansýt]
     \begin{itemize}
-      \item yönetmeni \texttt{PERSON} baðýntýsýndan sil
+      \item kiþiyi \texttt{PERSON} baðýntýsýndan sil
 
       \pause
-      \item yönetmenin \texttt{ID} niteliði deðerinin\\
-	\texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliðinde\\
-	geçtiði bütün çoklularý \texttt{MOVIE} baðýntýsýndan sil
+      \item \texttt{CASTING} baðýntýsýnýn \texttt{ACTORID} niteliðinde\\
+	silinen kiþinin \texttt{ID} niteliði deðerinin geçtiði bütün çoklularý
+	sil
 
       \pause
-      \item silinen her bir \texttt{MOVIE} çoklusunun \texttt{ID} niteliði deðerinin\\
+      \item kiþinin \texttt{ID} niteliði deðerinin\\
+	\texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliðinde geçtiði\\
+	bütün çoklularý \texttt{MOVIE} baðýntýsýndan sil
+
+      \pause
+      \item önceki adýmda silinen her bir \texttt{MOVIE} çoklusu için\\
         \texttt{CASTING} baðýntýsýnýn \texttt{MOVIEID} niteliðinde\\
-        geçtiði bütün çoklularý \texttt{CASTING} baðýntýsýndan sil
+	silinen filmin \texttt{ID} niteliði deðerinin geçtiði bütün çoklularý sil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1879,11 +1841,12 @@ CREATE TABLE MOVIE (
 
   \begin{itemize}
     \item dýþ anahtar baþvurulan tabloda birincil anahtarsa\\
-      \lstinline!REFERENCES! kýsmýnda belirtilmesi zorunlu deðildir
+      \lstinline!REFERENCES! kýsmýnda belirtilmesi zorunlu deðil
 
     \pause
     \item dýþ anahtar tek sütunsa sütun tanýmýnda belirtilebilir:\\
-      \lstinline!sütun_adý veri_tipi  REFERENCES tablo_adý [ ( sütun_adý ) ]!
+      \lstinline!sütun_adý veri_tipi!\\
+      ~~~~\lstinline!REFERENCES tablo_adý [ ( sütun_adý ) ]!
   \end{itemize}
 \end{frame}
 
@@ -1895,7 +1858,7 @@ CREATE TABLE MOVIE (
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
-  YR NUMERIC(4),
+  YEAR NUMERIC(4),
   COUNTRY CHAR(2),
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
