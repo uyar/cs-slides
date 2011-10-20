@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
 %
@@ -30,7 +30,7 @@
 \subtitle{Giriþ}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -66,7 +66,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
 
   \vfill
   \begin{tiny}
@@ -108,18 +108,18 @@
   \frametitle{Veri Ýþleme}
 
   \begin{itemize}
-    \item \emph{sorun}: büyük miktarda verinin etkin biçimde tutulmasý\\
-      ve iþlenmesi
+    \item büyük miktarda verinin etkin biçimde tutulmasý ve iþlenmesi
 
     \pause
     \medskip
-    \item verinin iþlenmesi
+    \item temel iþlemler:
     \begin{itemize}
       \item yeni veri ekleme
       \item olan verilerde deðiþiklik
       \item veri silme
       \item sorgulama: planlý - plansýz
     \end{itemize}
+    \item \alert{CRUD}: create - read - update - delete
   \end{itemize}
 \end{frame}
 
@@ -139,11 +139,11 @@
 
       \pause
       \medskip
-      \item \emph{giriþ verileri}: sisteme ilk kez giren veriler
+      \item \emph{giriþ verileri}: sisteme yeni giren, henüz iþlenmemiþ veriler
       \begin{itemize}
         \item kalýcý verilere eklenebilir
         \item kalýcý verilerde deðiþikliklere yol açabilir
-        \item hiç kullanýlmadan silinebilir
+        \item hiç kullanýlmayabilir
       \end{itemize}
     \end{itemize}
   \end{itemize}
@@ -169,19 +169,22 @@
 \begin{frame}
   \frametitle{Uygulama Örneði}
 
-  \begin{ornek}[Öðrenci verileri]
+  \begin{ornek}[öðrenci verileri]
     \begin{columns}[t]
       \begin{column}<1->{5.1cm}
       \begin{itemize}
         \item Öðrenci Ýþleri:\\
-          öðrencinin adý, numarasý, bölümü, aldýðý dersler, stajlarý v.b.
+          öðrencinin adý, numarasý,\\
+          bölümü, aldýðý dersler,\\
+          stajlarý v.b.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
         \item ortak veriler:\\
-          öðrencinin adý, numarasý, bölümü v.b.
+          öðrencinin adý, numarasý,\\
+          bölümü v.b.
       \end{itemize}
       \end{column}
     \end{columns}
@@ -190,14 +193,16 @@
       \begin{column}<1->{5.1cm}
       \begin{itemize}
         \item Kitaplýk:\\
-          öðrencinin adý, numarasý, bölümü, aldýðý kitaplar v.b.
+          öðrencinin adý, numarasý,\\
+          bölümü, aldýðý kitaplar v.b.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
         \item uygulamaya özel veriler:\\
-          öðrencinin aldýðý dersler, stajlar, kitaplar v.b.
+          öðrencinin aldýðý dersler,\\
+          stajlar, kitaplar v.b.
       \end{itemize}
       \end{column}
     \end{columns}
@@ -210,24 +215,25 @@
   \frametitle{Kayýt Dosyalarý}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{kayit}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
       \item her uygulamanýn kendi verileri var
-      \item uygulama verilerini kendi yönettiði dosyalarda tutuyor
+      \item her uygulama verilerini\\
+	kendi yönettiði dosyalarda tutuyor
     \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yinelemeler}
+  \frametitle{Tekrarlýlýk}
 
   \begin{itemize}
-    \item ayný bilgi birden fazla yerde tutuluyor
+    \item ayný veri birden fazla yerde tutuluyor
     \begin{itemize}
       \item disk alaný israfý
     \end{itemize}
@@ -246,13 +252,13 @@
   \frametitle{Tutarsýzlýk}
 
   \begin{itemize}
-    \item birden fazla yerde tutulan bilgi farklýlýk gösterebilir
+    \item birden fazla yerde tutulan veriler farklýlýk gösterebilir
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrencinin adý Öðrenci Ýþleri'nde "Victoria Adams",\\
+      \item ayný öðrencinin adý Öðrenci Ýþleri'nde "Victoria Adams",\\
 	Kitaplýk'ta "Victoria Beckham" görünebilir
     \end{itemize}
   \end{ornek}
@@ -262,17 +268,15 @@
   \frametitle{Bütünlük}
 
   \begin{itemize}
-    \item geçersiz bilgiye baþvuru yapýlabilir
-    \begin{itemize}
-      \item özellikle kodlama yapýldýðýnda
-    \end{itemize}
+    \item bilginin doðruluðunu saðlamak zordur
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrencinin bölümü "Kontrol ve Bilgisayar Mühendisliði"
-        görünüyordur ama böyle bir bölüm yoktur
+      \item öðrencinin "Ýnþaat Mühendisliði" bölümünden\\
+	"Bilgisayar Mühendisliði" bölümüne yatay geçiþ yapar
+      \item  Öðrenci Ýþleri'nde güncellenir, Kitaplýk'ta güncellenmez
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -311,7 +315,7 @@
   \frametitle{Güvenlik}
 
   \begin{itemize}
-    \item ayrýntýlý güvenlik tanýmlamalarý yapmak zor
+    \item ayrýntýlý güvenlik izinleri tanýmlamak zor
     \item güvenlik yalnýzca iþletim sistemine baðlý
   \end{itemize}
 \end{frame}
@@ -354,13 +358,13 @@
 \begin{frame}
   \frametitle{Veri Tabaný Yönetim Sistemleri}
 
-  \begin{columns}
-    \column{.5\textwidth}
+  \begin{columns}[b]
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{vtys}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
       \item veriler ortak bir sistemde tutuluyor
       \item uygulamalar verilere ortak bir arayüz üzerinden eriþiyor
@@ -408,7 +412,6 @@
     \bigskip
     \item \alert{katalog}:\\
       verinin içeriðini betimleyen tanýmlar
-
     \begin{itemize}
       \item veri tabanlarý
       \item veri tipleri, bütünlük kýsýtlamalarý
@@ -450,7 +453,7 @@
     \begin{ornek}[kavramsal - dýþ]
       \begin{itemize}
         \item öðrenci numarasýný Öðrenci Ýþleri uygulamasýna katar,\\
-	  Kitaplýk uygulamasýna sayý olarak göster
+	  Kitaplýk uygulamasýna sayý olarak sun
       \end{itemize}
     \end{ornek}
 
@@ -479,7 +482,7 @@
     \bigskip
     \item \emph{veri tabaný yöneticisi}: kararlarý uygular
     \begin{itemize}
-      \item kavramsal-dýþ/iç düzey dönüþümlerini tanýmlar
+      \item kavramsal - dýþ/iç düzey dönüþümlerini tanýmlar
       \item sistem baþarýmýný ayarlar
       \item sistemin sürekliliðini saðlar
     \end{itemize}
@@ -496,8 +499,8 @@
     \item veri iþleme dili
 
     \pause
-    \item veri iþleme isteklerinin bütünlük ve güvenlik açýsýndan
-      deðerlendirilmesi
+    \item veri iþleme isteklerinin bütünlük ve güvenlik\\
+      açýsýndan deðerlendirilmesi
 
     \pause
     \item eþzamanlý isteklerin uygun biçimde yürütülmeleri
@@ -548,16 +551,15 @@
   \frametitle{Çok Ýstemci/Tek Sunucu}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{mimari2}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
-      \item birden çok istemci\\
-	bir sunucuya baðlanarak\\
-	çalýþabilir
+      \item birden çok istemci bir sunucuya\\
+	baðlanarak çalýþabilir
     \end{itemize}
 
     \pause
@@ -575,12 +577,12 @@
   \frametitle{Çok Ýstemci/Çok Sunucu}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{mimari3}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
       \item sunucular da daðýtýk olabilir
     \end{itemize}
@@ -589,9 +591,9 @@
     \bigskip
     \begin{ornek}[Banka]
       \begin{itemize}
-        \item þubeler kendi hesaplarýnýn\\
+        \item her þube kendi hesaplarýnýn\\
 	  sunucusu (ve istemcisi)
-        \item diðer þube hesaplarýnýn\\
+        \item her þube diðer þube hesaplarýnýn\\
 	  istemcisi
       \end{itemize}
     \end{ornek}
