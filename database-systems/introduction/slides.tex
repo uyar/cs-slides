@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -29,7 +29,7 @@
 \subtitle{Introduction}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -59,7 +59,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -98,21 +98,21 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Processing Data}
+  \frametitle{Data Processing}
 
   \begin{itemize}
-    \item \emph{problem}:\\
-      effectively storing and processing large amounts of data
+    \item storing and processing large amounts of data effectively
 
     \pause
     \medskip
-    \item processing data
+    \item basic functions
     \begin{itemize}
       \item adding new data
       \item changing existing data
       \item deleting data
       \item querying: planned - ad hoc
     \end{itemize}
+    \item \alert{CRUD}: create - read - update - delete
   \end{itemize}
 \end{frame}
 
@@ -132,11 +132,11 @@
 
       \pause
       \medskip
-      \item \emph{input data}: data which just entered the system
+      \item \emph{input data}: unprocessed data that just entered the system
       \begin{itemize}
         \item can be added to persistent data
         \item can cause changes in the persistent data
-        \item can be deleted without processing
+        \item can be ignored completely
       \end{itemize}
     \end{itemize}
   \end{itemize}
@@ -162,19 +162,22 @@
 \begin{frame}
   \frametitle{Application Example}
 
-  \begin{example}[Student data]
+  \begin{example}[student data]
     \begin{columns}[t]
       \begin{column}<1->{5.1cm}
       \begin{itemize}
         \item Student Affairs:\\
-          name, number, department, courses taken, internships, etc.
+          student name, number,
+          department, courses taken,\\
+          internships, etc.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
         \item common data:\\
-          name, number, department, etc.
+          student name, number,\\
+          department, etc.
       \end{itemize}
       \end{column}
     \end{columns}
@@ -183,14 +186,15 @@
       \begin{column}<1->{5.1cm}
       \begin{itemize}
         \item Library:\\
-          name, number, department, books taken, etc.
+          student name, number,\\
+          department, books lent, etc.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
         \item application specific data:\\
-          courses taken, internships, books, etc.
+          courses, internships, books, etc.
       \end{itemize}
       \end{column}
     \end{columns}
@@ -203,15 +207,16 @@
   \frametitle{Record Files}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{records}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item each application has its own data
-      \item the application keeps its data in the files that it manages itself
+      \item every application has its own data
+      \item every application keeps its data\\
+	in the files that it manages itself
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -229,8 +234,8 @@
   \pause
   \begin{example}
     \begin{itemize}
-      \item the name, number and department of the student is kept both in the
-        Student Affairs and in the Library
+      \item the name, number and department of the student is kept\\
+	both in Student Affairs and in the Library
     \end{itemize}
   \end{example}
 \end{frame}
@@ -239,15 +244,15 @@
   \frametitle{Inconsistency}
 
   \begin{itemize}
-    \item if there are multiple copies of the same data, they can become
-      different
+    \item multiple copies of the same data can become different
   \end{itemize}
 
   \pause
   \begin{example}
     \begin{itemize}
-      \item the name of the student can be recorded as "Victoria Adams" in
-        Student Affairs and "Victoria Beckham" in the Library
+      \item the name of the same student can be recorded\\
+	as "Victoria Adams" in Student Affairs and\\
+	as "Victoria Beckham" in the Library
     \end{itemize}
   \end{example}
 \end{frame}
@@ -256,17 +261,15 @@
   \frametitle{Integrity}
 
   \begin{itemize}
-    \item records can refer to invalid data
-    \begin{itemize}
-      \item especially in coded information
-    \end{itemize}
+    \item the correctness of data is difficult to achieve
   \end{itemize}
 
   \pause
   \begin{example}
     \begin{itemize}
-      \item the department of the student can be recorded as "Control and
-        Computer Engineering" but there might not be such a department anymore
+      \item student transfers from "Civil Engineering"\\
+	to "Computer Engineering"
+      \item Student Affairs data is updated, Library data is not
     \end{itemize}
   \end{example}
 \end{frame}
@@ -275,7 +278,7 @@
   \frametitle{New Applications}
 
   \begin{itemize}
-    \item same work has to be done for each new application
+    \item same work has to be done for every new application
   \end{itemize}
 
   \pause
@@ -292,7 +295,7 @@
   \begin{itemize}
     \item no standards in the applications of the institution
     \begin{itemize}
-      \item differences in paradigms, methods, programming languages, etc.
+      \item different paradigms, methods, programming languages, etc.
       \item data transfer between applications
     \end{itemize}
 
@@ -305,7 +308,7 @@
   \frametitle{Security}
 
   \begin{itemize}
-    \item hard to define detailed security arrangements
+    \item hard to define detailed security permissions
     \item security depends only on the operating system
   \end{itemize}
 \end{frame}
@@ -315,11 +318,11 @@
 
   \begin{definition}
     \alert{data dependence}:\\
-      the application code depends on the organization of the data and the
-      access method
+      application code depends on the organization of the data\\
+      and the access method
 
     \begin{itemize}
-      \item hard to make any changes in the code
+      \item hard to make changes in the code
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -329,12 +332,15 @@
 
   \begin{example}
     \begin{itemize}
-      \item the student number is a string in Student Affairs but a number in
-        the Library
+      \item the student number is a string in Student Affairs\\
+	but a number in the Library
 
       \pause
-      \item the Student Affairs application keeps a B-tree index on the student
-        number and uses B-tree search algorithms in queries
+      \item the Student Affairs application keeps a B-tree index\\
+	on the student number
+      \begin{itemize}
+	\item B-tree search algorithms are used in queries
+      \end{itemize}
     \end{itemize}
   \end{example}
 \end{frame}
@@ -346,16 +352,17 @@
 \begin{frame}
   \frametitle{Database Management Systems}
 
-  \begin{columns}
-    \column{.5\textwidth}
+  \begin{columns}[b]
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{dbms}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
       \item data is kept in a shared system
-      \item applications access data over a common interface
+      \item applications access data\\
+	over a common interface
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -400,7 +407,6 @@
     \bigskip
     \item \alert{catalogue}:\\
       definitions that describe the content of the data
-
     \begin{itemize}
       \item databases
       \item data types, integrity constraints
@@ -441,8 +447,11 @@
     \column{.5\textwidth}
     \begin{example}[conceptual - external]
       \begin{itemize}
-        \item give the student number as a string to the Student Affairs
-          application and as a number to the Library application
+        \item present the student number\\
+	  as a string to the\\
+	  Student Affairs application\\
+	  and as a number\\
+	  to the Library application
       \end{itemize}
     \end{example}
 
@@ -450,7 +459,8 @@
     \column{.5\textwidth}
     \begin{example}[conceptual - internal]
       \begin{itemize}
-        \item generate an index on the student number
+        \item generate an index\\
+	  on the student number
       \end{itemize}
     \end{example}
   \end{columns}
@@ -460,8 +470,7 @@
   \frametitle{Administrator Roles}
 
   \begin{itemize}
-    \item \emph{data administator}:\\
-      makes the decisions
+    \item \emph{data administator}: makes the decisions
     \begin{itemize}
       \item which data will be stored?
       \item who can access which data?
@@ -469,10 +478,9 @@
 
     \pause
     \bigskip
-    \item \emph{database administrator}:\\
-      applies the decisions
+    \item \emph{database administrator}: applies the decisions
     \begin{itemize}
-      \item defines the conceptual-external/internal conversions
+      \item defines the conceptual - external/internal conversions
       \item adjusts system performance
       \item guarantees system availability
     \end{itemize}
@@ -489,8 +497,8 @@
     \item data manipulation language
 
     \pause
-    \item checking whether data manipulation requests conform to integrity
-      and security constraints
+    \item checking whether data manipulation requests\\
+      conform to integrity and security constraints
 
     \pause
     \item processing simultaneous requests properly
@@ -512,7 +520,7 @@
     \pause
     \bigskip
     \item \alert{client}:\\
-      provides interaction between the user and the server
+      provides the interaction between the user and the server
     \begin{itemize}
       \item vendor supplied tools (query processors, report generators, etc.)
       \item applications developed by application programmers
@@ -524,14 +532,16 @@
   \frametitle{Architecture}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{architecture1}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item the client and the server can be on the same computer
+      \item the client and the server can be\\
+	on the same computer\\
+	or on different computers
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -540,21 +550,22 @@
   \frametitle{Multiple Clients / Single Server}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{architecture2}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
-      \item many clients can connect to a single server
+      \item many clients can connect\\
+	to a single server
     \end{itemize}
 
     \pause
     \bigskip
     \begin{example}[Bank]
       \begin{itemize}
-        \item a server in the computer centre
+        \item server in the computer centre
         \item clients in branches
       \end{itemize}
     \end{example}
@@ -565,22 +576,24 @@
   \frametitle{Multiple Clients / Multiple Servers}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{architecture3}
     \end{center}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
-      \item the servers can also be distributed
+      \item servers can be distributed too
     \end{itemize}
 
     \pause
     \bigskip
     \begin{example}[Bank]
       \begin{itemize}
-        \item each branch is the server (and client) for its own accounts
-        \item a client for other branches' accounts
+        \item each branch is the server\\
+	  (and client) for its own accounts
+        \item each branch is a client\\
+	  for other branches' accounts
       \end{itemize}
     \end{example}
   \end{columns}
