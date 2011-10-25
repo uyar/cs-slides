@@ -767,10 +767,9 @@ stmt.close();
 
   \begin{block}{}
     \begin{lstlisting}[language=Java]
-Statement stmt = null;
+Statement stmt = conn.createStatement();
 ResultSet results = null;
 try {
-    stmt = conn.createStatement();
     results = stmt.executeQuery(query);
     ...
 } catch (SQLException e) {
@@ -799,12 +798,12 @@ try {
 
   \begin{block}{}
     \begin{lstlisting}[language=Java]
-Statement stmt =
+String query = "INSERT INTO ... ";
+PreparedStatement stmt =
     connection.prepareStatement(query,
         Statement.RETURN_GENERATED_KEYS);
 
-ResultSet results = stmt.executeQuery(query);
-// process results
+stmt.executeUpdate();
 
 ResultSet ids = statement.getGeneratedKeys();
 // assuming there is one and only one result
@@ -835,11 +834,11 @@ int id = ids.getInt(1);
 
   \begin{block}{}
     \begin{lstlisting}[language=Java]
+stmt = conn.createStatement( ... );
 conn.setAutoCommit(false);
 int queryCount = 0;
 int batchSize = 100;
 for ( ... ) {
-    stmt = conn.createStatement( ... );
     stmt.addBatch(query);
     queryCount++;
     if (queryCount % batchSize == 0) {
