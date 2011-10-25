@@ -1214,33 +1214,10 @@ CREATE [ UNIQUE ] INDEX dizin_adý
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sayaçlar}
-
-  \begin{itemize}
-    \item bazý iþlemler sýralama gerektirir:\\
-      \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
-
-    \pause
-    \item dizinler aramalarý hýzlandýrýr
-    \begin{itemize}
-      \item ekleme ve güncellemeleri yavaþlatýr
-    \end{itemize}
-  \end{itemize}
-
-  \pause
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE [ UNIQUE ] INDEX dizin_adý
-  ON tablo_adý(sütun_adý [, ...])
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
   \frametitle{Toplu Veri Aktarýmý}
 
   \begin{itemize}
-    \item satýrlarý tek tek eklemek yerine\\
+    \item satýrlarý tek tek eklemek ya da silmek yerine\\
       ürüne özel toplu veri aktarýmý komutlarý kullanýlmalý
 
     \item tab ile ayrýlmýþ deðer dosyalarýna yazma / okuma
