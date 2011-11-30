@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -29,7 +29,7 @@
 \subtitle{Database Design}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -56,7 +56,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -99,8 +99,8 @@
 
   \begin{definition}
     \begin{itemize}
-      \item let $Z$ be the set of all attributes of relation $R$, and\\
-        $A,B \subseteq Z$
+      \item $Z$: the set of all attributes of relation $R$
+      \item $A,B \subseteq Z$
 
       \pause
       \medskip
@@ -135,8 +135,8 @@
 
     \pause
     \begin{itemize}
-      \item assumption: the language of the movie is the language of the country
-        where it was made
+      \item assumption: the language of the movie\\
+	is the language of the country where it was made
     \end{itemize}
   \end{example}
 \end{frame}
@@ -253,8 +253,8 @@
       \item $A,B,C \subseteq Z$
 
       \pause
-      \item if $A \rightarrow B$, then $R$ can be obtained by joining
-        the relations $\{A,B\}$ and $\{A,C\}$
+      \item if $A \rightarrow B$, then $R$ can be obtained\\
+	by joining the relations $\{A,B\}$ and $\{A,C\}$
     \end{itemize}
   \end{theorem}
 \end{frame}
@@ -376,16 +376,16 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item The country of the movie Gattaca is US but this data can not be
-        added because no actor is known for the movie.
+      \item it is known that the country of the movie Gattaca is US\\
+	but it cannot be inserted if there is no actor in the movie
 
       \pause
-      \item Deleting the data that Gabriel Byrne is in the movie Usual Suspects
-        causes the data that the country of the movie is UK to be deleted.
+      \item deleting that Gabriel Byrne is in the movie Usual Suspects\\
+        also deletes that the movie was made in the UK
 
       \pause
-      \item Changing the country of the movie Being John Malkovich as UK
-        requires two tuples to be modified.
+      \item changing the country of the movie Being John Malkovich\\
+        requires modifications in two tuples
     \end{itemize}
   \end{example}
 \end{frame}
@@ -421,7 +421,8 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item among the non-key attributes, only ORD depends on the primary key
+      \item among the non-key attributes,\\
+	only ORD depends on the primary key
 
       \pause
       \begin{itemize}
@@ -548,17 +549,16 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item If the country of the movie Gattaca is US, this data can be inserted
-        to $R1$.
+      \item if the country of the movie Gattaca is US,\\
+	it can be inserted to $R1$
 
       \pause
-      \item If Gabriel Byrne is deleted from the cast list of the movie Usual
-        Suspects, the fact that the country of the movie is UK is preserved in
-        $R1$.
+      \item if Gabriel Byrne is deleted from the movie Usual Suspects,\\
+	the country of the movie is retained in $R1$
 
       \pause
-      \item Changing the country of the movie Being John Malkovich requires
-        updating only one tuple in $R1$.
+      \item changing the country of the movie Being John Malkovich\\
+	requires updating only one tuple in $R1$
     \end{itemize}
   \end{example}
 \end{frame}
@@ -568,16 +568,16 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item It is known that movies made Brasil are in Portuguese, but this data
-        can not be inserted because there is no known movie made in Brasil.
+      \item it is known that movies made in Brasil are in Portuguese\\
+	but it can not be inserted if there is no movie made in Brasil
 
       \pause
-      \item Deleting the movie Suspiria causes the data that movies made in
-        Italy are in Italian to be lost.
+      \item deleting the movie Suspiria\\
+	also deletes that movies made in Italy are in Italian
 
       \pause
-      \item If the language of the movies made in the US is to be changed as
-        American English, two tuples need to be updated.
+      \item changing the language of the movies made in the US\\
+	requires two tuples to be updated
     \end{itemize}
   \end{example}
 \end{frame}
@@ -588,8 +588,8 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{3rd Normal Form}
 
   \begin{definition}
-    \alert{3NF}: non-key attributes are not dependent on any attribute or
-      attribute group other than the primary key
+    \alert{3NF}: non-key attributes do not depend\\
+      on any attribute or attribute group other than the primary key
   \end{definition}
 
   \pause
@@ -724,16 +724,16 @@ IT & IT\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item If it is known that movies made in Brasil are in Portuguese, this
-        data can be added to $R5$.
+      \item if movies made in Brasil are in Portuguese,\\
+	it can be inserted into $R5$.
 
       \pause
-      \item If the movie Suspiria is deleted, the data that movies made in Italy
-        are in Italian is preserved in $R5$.
+      \item if the movie Suspiria is deleted, $R5$ retains the data\\
+        that movies made in Italy are in Italian
 
       \pause
-      \item If the language of the movies made in the US has to be updated as
-        American English, only one tuple in $R5$ has to be modified.
+      \item changing the language of the movies made in the US\\
+	requires modifying only one tuple in $R5$
     \end{itemize}
   \end{example}
 \end{frame}
@@ -744,6 +744,12 @@ IT & IT\\\hline
   \begin{definition}
     \alert{BCNF}: all functional dependencies must be on candidate keys
   \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item dependencies between attributes that are part of the keys\\
+      have to be considered
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -788,7 +794,7 @@ IT & IT\\\hline
   \frametitle{Entity/Relationship Model}
 
   \begin{itemize}
-    \item modelling approach
+    \item modeling approach
     \begin{itemize}
       \item Chen 1976
     \end{itemize}
@@ -890,7 +896,7 @@ IT & IT\\\hline
     \begin{itemize}
       \item \emph{participant}: entities in the relationship
       \item \emph{degree}: number of participants
-      \item \emph{total / partial}: all instances of the entity
+      \item \emph{total / partial}: all instances of the entity\\
         do / don't participate in the relationship
     \end{itemize}
   \end{definition}
@@ -901,7 +907,7 @@ IT & IT\\\hline
 
   \begin{itemize}
     \item \emph{one-to-one}
-    \item \emph{one-to-many} or \emph{many-to-one}
+    \item \emph{one-to-many}
     \item \emph{many-to-many}
   \end{itemize}
 \end{frame}
@@ -911,21 +917,21 @@ IT & IT\\\hline
 
   \begin{example}[one-to-one]
     \begin{itemize}
-      \item marriage
+      \item the capital relationship between countries and cities
     \end{itemize}
   \end{example}
 
   \pause
   \begin{example}[one-to-many]
     \begin{itemize}
-      \item director-movie
+      \item the management relationship between employees and projects
     \end{itemize}
   \end{example}
 
   \pause
   \begin{example}[many-to-many]
     \begin{itemize}
-      \item actor-movie
+      \item the enrollment relationship between students and courses
     \end{itemize}
   \end{example}
 \end{frame}
@@ -995,7 +1001,7 @@ IT & IT\\\hline
     \end{itemize}
 
     \pause
-    \item for every many-to-one relationship a foreign from the
+    \item for every one-to-many relationship a foreign from the
       "many" side to the "one" side
  \end{itemize}
 \end{frame}
