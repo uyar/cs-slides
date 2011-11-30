@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -19,6 +19,11 @@
 \setbeamertemplate{navigation symbols}{}
 
 \usepackage{listings}
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
+}
 \lstdefinelanguage{ExtendedSQL}[]{SQL}{
   morekeywords={ACCESS,BEGIN,COMMITTED,ERROR,EXCLUSIVE,FOR,GOTO,LOCK,MODE,ON,
                 REPEATABLE,ROW,SERIALIZABLE,SHARE,UNCOMMITTED,WORK}
@@ -36,7 +41,7 @@
 \subtitle{Concurrency}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -63,7 +68,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -107,15 +112,14 @@
   \begin{itemize}
     \item a group of operations to be carried out together
     \begin{itemize}
-      \item doing one operation while omitting the other might cause
-        inconsistency
+      \item finishing some operations while failing on others\\
+	might cause inconsistency
     \end{itemize}
   \end{itemize}
 
   \pause
   \begin{definition}
-    \alert{transaction}:\\
-      a logical unit of work
+    \alert{transaction}: a logical unit of work
   \end{definition}
 \end{frame}
 
@@ -137,10 +141,9 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
   \frametitle{Transaction Management}
 
   \begin{itemize}
-    \item no guarantee that a group of operations will be carried out together
+    \item no guarantee that multiple operations will all be completed
     \begin{itemize}
-      \item we should at least be able to return to the state before the
-        changes
+      \item at least return to the state before the changes
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -163,15 +166,15 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
     \pause
     \item isolation
     \begin{itemize}
-      \item operations of an unfinished transaction do not affect other
-        transactions
+      \item operations of an unfinished transaction\\
+	do not affect other transactions
     \end{itemize}
 
     \pause
     \item durability
     \begin{itemize}
-      \item when a transaction is finished, its changes are permament even if
-        there is a system failure
+      \item when a transaction is finished, its changes are permanent\\
+	even if there is a system failure
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -186,14 +189,14 @@ BEGIN [ WORK | TRANSACTION ]
   \end{block}
 
   \pause
-  \begin{block}{successfully ending a transaction}
+  \begin{block}{finishing a transaction}
     \begin{lstlisting}
 COMMIT [ WORK | TRANSACTION ]
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{unsuccessfully ending a transaction}
+  \begin{block}{cancelling a transaction}
     \begin{lstlisting}
 ROLLBACK [ WORK | TRANSACTION ]
     \end{lstlisting}
@@ -231,6 +234,11 @@ UNDO: ROLLBACK
 
     \pause
     \item how to guarantee durability?
+    \begin{itemize}
+      \item it should be possible to derive the data\\
+	from other sources in the system
+      \item internal level
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -238,20 +246,18 @@ UNDO: ROLLBACK
   \frametitle{Transaction Log}
 
   \begin{itemize}
-    \item data can be derived from some other source in the system
-    \begin{itemize}
-      \item internal level
-    \end{itemize}
+    \item the \alert{log} keeps the values of every affected tuple\\
+      before and after every operation
 
     \pause
     \medskip
-    \item the values of every tuple before and after the operation is noted
-      in the \alert{log}
-      \begin{itemize}
-        \item \emph{write-ahead rule}:\\
-          the log must be flushed to the physical medium before the transaction
-          is finished
-      \end{itemize}
+    \item \alert{write-ahead log rule}:\\
+      the log must be flushed to the physical medium\\
+      before the transaction is committed
+
+    \pause
+    \medskip
+    \item accessing records in the log is sequential by nature
   \end{itemize}
 \end{frame}
 
@@ -262,7 +268,7 @@ UNDO: ROLLBACK
     \item create \alert{checkpoints} in the log at certain intervals
     \begin{itemize}
       \item flush buffer cache to the physical medium
-      \item note the checkpoint:\\
+      \item the checkpoint is noted:\\
         continuing transactions
     \end{itemize}
   \end{itemize}
@@ -272,8 +278,8 @@ UNDO: ROLLBACK
   \frametitle{Recovery Lists}
 
   \begin{itemize}
-    \item after the failure, which transactions will be undone, which
-      transactions will be made permanent?
+    \item after the failure, which transactions will be undone,\\
+      which transactions will be made permanent?
     \begin{itemize}
       \item two lists: \emph{undo} (U), \emph{redo} (R)
     \end{itemize}
@@ -299,7 +305,9 @@ UNDO: ROLLBACK
   \begin{example}
     \begin{columns}[t]
       \column{.4\textwidth}
-      \begin{center}\pgfuseimage{recovery}\end{center}
+      \begin{center}
+	\pgfuseimage{recovery}
+      \end{center}
 
       \pause
       \column{.5\textwidth}
@@ -376,17 +384,17 @@ UNDO: ROLLBACK
   \frametitle{Protocol}
 
   \begin{itemize}
-    \item coordinator tells all participants to flush the data regarding
-      the transaction to the physical medium
+    \item coordinator tells all participants to flush\\
+      all data regarding the transaction to the physical medium
 
     \pause
-    \item coordinator tells all participants to start the transaction and
-      report back the result
+    \item coordinator tells all participants to start the transaction\\
+      and report back the result
     \begin{itemize}
       \item if all participants report success, coordinator decides to
         commit
-      \item if one or more participants report failure, coordinator decides
-        to rollback
+      \item if one or more participants report failure,\\
+	coordinator decides to rollback
     \end{itemize}
 
     \pause
@@ -533,21 +541,20 @@ RETRIEVE acc3 ($110$) &                                  \\
   \begin{block}{lock type compatibility matrix}
     \begin{table}
       \begin{tabular}{|c||c|c|c|}\hline
-  & - & S & X\\\hline\hline
-S & Y & Y & N\\\hline
-X & N & N & N\\\hline
+  & X & S & -\\\hline\hline
+X & N & N & Y\\\hline
+S & N & Y & Y\\\hline
       \end{tabular}
     \end{table}
   \end{block}
 
   \begin{itemize}
+    \item if exclusive lock, all lock requests are denied
     \item if shared lock
     \begin{itemize}
-      \item shared lock requests are granted
       \item exclusive lock requests are denied
+      \item shared lock requests are granted
     \end{itemize}
-
-    \item if exclusive lock, all lock requests are denied
   \end{itemize}
 \end{frame}
 
@@ -555,8 +562,8 @@ X & N & N & N\\\hline
   \frametitle{Locking Protocol}
 
   \begin{itemize}
-    \item the transaction requests a lock depending on the operation it wants
-      to perform
+    \item the transaction requests a lock\\
+      depending on the operation it wants to perform
     \begin{itemize}
       \item promote a shared lock to an exclusive lock
     \end{itemize}
@@ -567,23 +574,6 @@ X & N & N & N\\\hline
       \item it continues when the transaction that holds the lock releases it
       \item \alert{starvation}
     \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Two-Phase Locking}
-
-  \begin{itemize}
-    \item \alert{two-phase locking}:\\
-      after any lock is released there will be no more new lock requests
-    \begin{itemize}
-      \item expansion phase: gather locks
-      \item contraction phase: release locks
-    \end{itemize}
-
-    \pause
-    \item \alert{two-phase strict locking}:\\
-      all locks are released at the end of the transaction
   \end{itemize}
 \end{frame}
 
@@ -654,7 +644,7 @@ wait                 & wait
 
   \begin{definition}
     \alert{deadlock}:\\
-      transactions are waiting for each other to release the locks
+      transactions are waiting for each other to release their locks
   \end{definition}
 
   \pause
@@ -696,14 +686,15 @@ wait                 & wait
     \item every transaction has a starting timestamp
 
     \pause
-    \item if the lock request of transaction A conflicts with a lock held by
-      transaction B:
+    \item if the lock request of transaction A\\
+      conflicts with a lock held by transaction B:
     \begin{itemize}
-      \item \alert{wait-die}: A waits if it is older than B, otherwise it dies\\
+      \item \alert{wait-die}: A waits if it is older than B,\\
+	otherwise it dies\\
         A is rolled back and restarted
 
-      \item \alert{wound-wait}: A waits if it is younger than B, otherwise it
-        wounds B\\
+      \item \alert{wound-wait}: A waits if it is younger than B,\\
+	otherwise it wounds B\\
         B is rolled back and restarted
     \end{itemize}
 
@@ -715,14 +706,14 @@ wait                 & wait
 \begin{frame}[fragile]
   \frametitle{Lock Statements}
 
-  \begin{block}{shared Lock}
+  \begin{block}{shared lock}
     \begin{lstlisting}
 SELECT query FOR SHARE
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{exclusive Lock}
+  \begin{block}{exclusive lock}
     \begin{lstlisting}
 SELECT query FOR UPDATE
     \end{lstlisting}
@@ -749,8 +740,13 @@ SELECT query FOR UPDATE
   \frametitle{Serializable}
 
   \begin{itemize}
-    \item \emph{serial execution}: one transaction starts after the other is
-      finished
+    \item \emph{serial execution}:\\
+      a transaction starts only after another one is finished
+
+    \pause
+    \item \alert{serializable}:\\
+      the result of concurrent execution is always the same\\
+      as one of the serial executions
   \end{itemize}
 
   \pause
@@ -769,16 +765,25 @@ SELECT query FOR UPDATE
 \end{frame}
 
 \begin{frame}
-  \frametitle{Serializability}
+  \frametitle{Two-Phase Locking}
 
   \begin{itemize}
-    \item \alert{serializable}:\\
-      the result of concurrent execution is always the same as one of the
-      serial executions
+    \item \alert{two-phase locking}:\\
+      after any lock is released\\
+      there will be no more new lock requests
+    \begin{itemize}
+      \item expansion phase: gather locks
+      \item contraction phase: release locks
+    \end{itemize}
 
     \pause
-    \item \emph{if all transactions obey the two-phase locking protocol,\\
-      all concurrent executions are serializable}
+    \item \alert{two-phase strict locking}:\\
+      all locks are released at the end of the transaction
+
+    \pause
+    \medskip
+    \item \emph{If all transactions obey the two-phase locking protocol,\\
+      all concurrent executions are serializable.}
   \end{itemize}
 \end{frame}
 
@@ -817,13 +822,13 @@ RETRIEVE p (S+) &
   \pause
   \begin{example}
     \begin{itemize}
-      \item transaction A computes the average of a customer's account
-        balances:\\
+      \item transaction A computes the average\\
+	of a customer's account balances:\\
         $\frac{100+100+100}{3}=100$
 
       \pause
-      \item transaction B creates a new account with balance $200$ for the same
-        customer
+      \item transaction B creates new account with balance $200$\\
+	for the same customer
       \item transaction A computes again:\\
         $\frac{100+100+100+200}{4}=125$
     \end{itemize}
@@ -907,12 +912,12 @@ SERIALIZABLE     & N     & N              & N      \\\hline
   \begin{block}{lock compatibility matrix}
     \begin{table}
       \begin{tabular}{|c||c|c|c|c|c|c|}\hline
-    & - & IS & S & IX & SIX & X\\\hline\hline
- IS & Y & Y  & Y & Y  &  Y  & N\\\hline
-  S & Y & Y  & Y & N  &  N  & N\\\hline
- IX & Y & Y  & N & Y  &  N  & N\\\hline
-SIX & Y & Y  & N & N  &  N  & N\\\hline
-  X & Y & N  & N & N  &  N  & N\\\hline
+    & X & SIX & IX & S & IS & -\\\hline\hline
+  X & N &  N  & N  & N & N  & Y\\\hline
+SIX & N &  N  & N  & N & Y  & Y\\\hline
+ IX & N &  N  & Y  & N & Y  & Y\\\hline
+  S & N &  N  & N  & Y & Y  & Y\\\hline
+ IS & N &  Y  & Y  & Y & Y  & Y\\\hline
       \end{tabular}
     \end{table}
   \end{block}
@@ -922,17 +927,18 @@ SIX & Y & Y  & N & N  &  N  & N\\\hline
   \frametitle{Lock Precedence}
 
   \begin{columns}[t]
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{precedence}
     \end{center}
 
     \pause
-    \column{.5\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item for a shared lock on a tuple, at least an IS lock on the relation
-      \item for an exclusive lock on a tuple, at least an IX lock on the
-        relation
+      \item for a shared lock on a tuple,\\
+	at least an IS lock on the relation
+      \item for an exclusive lock on a tuple,\\
+	at least an IX lock on the relation
     \end{itemize}
   \end{columns}
 \end{frame}
