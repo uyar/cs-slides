@@ -470,12 +470,12 @@ odbc_close($conn);
     \begin{lstlisting}[language=ExtendedPHP]
 echo "<table>\n";
 while (odbc_fetch_row($result)) {
-  $title = odbc_result($result, "title");
-  $score = odbc_result($result, "score");
-  echo "<tr>\n";
-  echo "  <td>$title</td>\n";
-  echo "  <td>$score</td>\n";
-  echo "</tr>\n";
+    $title = odbc_result($result, "title");
+    $score = odbc_result($result, "score");
+    echo "<tr>\n";
+    echo "  <td>$title</td>\n";
+    echo "  <td>$score</td>\n";
+    echo "</tr>\n";
 }
 echo "</table>\n";
     \end{lstlisting}
@@ -700,9 +700,9 @@ String query = "INSERT INTO MOVIE (TITLE, YEAR)"
 PreparedStatement stmt =
     conn.prepareStatement(query);
 for (Movie movie : getMovies()) {
-  stmt.setString(1, movie.getTitle());
-  stmt.setInt(2, movie.getYear());
-  stmt.executeUpdate(query);
+    stmt.setString(1, movie.getTitle());
+    stmt.setInt(2, movie.getYear());
+    stmt.executeUpdate();
 }
 stmt.close();
     \end{lstlisting}
@@ -720,8 +720,8 @@ String query = String.format(
 Statement stmt = conn.createStatement();
 ResultSet results = stmt.executeQuery(query);
 while (results.next()) {
-  String title = results.getString("TITLE");
-  System.out.println("Title: " + title),
+    String title = results.getString("TITLE");
+    System.out.println("Title: " + title),
 }
 results.close();
 stmt.close();
