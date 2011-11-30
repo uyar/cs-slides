@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
 %
@@ -20,6 +20,11 @@
 \setbeamertemplate{navigation symbols}{}
 
 \usepackage{listings}
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
+}
 \lstdefinelanguage{ExtendedSQL}[]{SQL}{
   morekeywords={ACCESS,BEGIN,COMMITTED,ERROR,EXCLUSIVE,FOR,GOTO,LOCK,MODE,ON,
                 REPEATABLE,ROW,SERIALIZABLE,SHARE,UNCOMMITTED,WORK}
@@ -37,7 +42,7 @@
 \subtitle{Eþzamanlý Çalýþma}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -70,7 +75,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
 
   \vfill
   \begin{tiny}
@@ -120,8 +125,7 @@
 
   \pause
   \begin{tanim}
-    \alert{hareket}:\\
-      bir iþin mantýksal bir birimi
+    \alert{hareket}: bir iþin mantýksal bir birimi
   \end{tanim}
 \end{frame}
 
@@ -236,6 +240,10 @@ UNDO:
 
     \pause
     \item kalýcýlýk nasýl saðlanacak?
+    \begin{itemize}
+      \item veri, sistemde baþka yerde yazýlý verilerden türetilebilmeli
+      \item iç düzeyde
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -243,19 +251,17 @@ UNDO:
   \frametitle{Günlük}
 
   \begin{itemize}
-    \item bilgi, sistemde baþka bir yerde yazýlý bilgilerden türetilebilsin
-    \begin{itemize}
-      \item iç düzeyde
-    \end{itemize}
+    \item \alert{günlük} her iþlemden etkilenen her çoklunun\\
+      iþlemden önceki ve sonraki deðerlerini tutar
 
     \pause
     \medskip
-    \item her iþlemden etkilenen her çoklunun\\
-      iþlemden önceki ve sonraki deðerleri \alert{günlük}te kaydedilir
-      \begin{itemize}
-        \item \emph{günlüðe önceden yazma kuralý}:\\
-          hareket sonlanmadan önce günlük fiziksel ortama yazýlmalý
-      \end{itemize}
+    \item \alert{günlüðe önceden yazma kuralý}:\\
+      hareket sonlanmadan önce günlük fiziksel ortama yazýlmalý
+
+    \pause
+    \medskip
+    \item günlük kayýtlarýna eriþim iþlemin doðasý gereði ardýþýl
   \end{itemize}
 \end{frame}
 
@@ -365,7 +371,7 @@ UNDO:
   \begin{itemize}
     \item farklý kaynak yöneticileri var
     \begin{itemize}
-      \item geri alma / sonlandýrma sistemleri ayrý
+      \item geri alma - sonlandýrma sistemleri ayrý
     \end{itemize}
 
     \pause
@@ -541,21 +547,20 @@ RETRIEVE acc3 ($110$) &                                  \\
   \begin{block}{kilit tipi uyumluluk matrisi}
     \begin{table}
       \begin{tabular}{|c||c|c|c|}\hline
-  & - & S & X\\\hline\hline
-S & E & E & H\\\hline
-X & E & H & H\\\hline
+  & X & S & -\\\hline\hline
+X & H & H & E\\\hline
+S & H & E & E\\\hline
       \end{tabular}
     \end{table}
   \end{block}
 
   \begin{itemize}
+    \item yazma kilidi varsa baþka hareketlerin her türlü isteði reddedilir
     \item okuma kilidi varsa
     \begin{itemize}
-      \item baþka hareketlerin okuma kilidi istekleri kabul edilir
       \item baþka hareketlerin yazma kilidi istekleri reddedilir
+      \item baþka hareketlerin okuma kilidi istekleri kabul edilir
     \end{itemize}
-
-    \item yazma kilidi varsa baþka hareketlerin her türlü isteði reddedilir
   \end{itemize}
 \end{frame}
 
@@ -574,24 +579,6 @@ X & E & H & H\\\hline
       \item diðer hareket kilidi býrakýnca devam eder
       \item \alert{sonsuz bekleme}
     \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ýki Aþamalý Kilitleme}
-
-  \begin{itemize}
-    \item \alert{iki aþamalý kilitleme}:\\
-      herhangi bir kilit býrakýldýktan sonra\\
-      yeni kilit isteðinde bulunulmaz
-    \begin{itemize}
-      \item geniþleme aþamasý: alýnan kilit sayýsý artýyor
-      \item daralma aþamasý: alýnan kilit sayýsý azalýyor
-    \end{itemize}
-
-    \pause
-    \item \alert{iki aþamalý sýký kilitleme}:\\
-      bütün kilitler hareketin sonunda býrakýlýr
   \end{itemize}
 \end{frame}
 
@@ -704,8 +691,8 @@ bekle                & bekle
     \item her hareketin baþlama zamaný mührü var
 
     \pause
-    \item A hareketinin kilit isteði B hareketinin tuttuðu bir kilitle
-      çeliþiyorsa:
+    \item A hareketinin kilit isteði\\
+      B hareketinin tuttuðu bir kilitle çeliþiyorsa:
     \begin{itemize}
       \item \alert{bekle-öl}: A, B'den yaþlýysa bekler, gençse ölür\\
         A geri alýnýp yeniden baþlatýlýr
@@ -758,6 +745,10 @@ SELECT sorgu FOR UPDATE
 
   \begin{itemize}
     \item \emph{seri çalýþtýrma}: hareketlerin biri bitince diðeri baþlýyor
+
+    \pause
+    \item \alert{serileþtirilebilir}: eþzamanlý çalýþmanýn sonucu\\
+      her zaman seri çalýþtýrmalardan birinin sonucu ile ayný
   \end{itemize}
 
   \pause
@@ -776,16 +767,25 @@ SELECT sorgu FOR UPDATE
 \end{frame}
 
 \begin{frame}
-  \frametitle{Serileþtirilebilme}
+  \frametitle{Ýki Aþamalý Kilitleme}
 
   \begin{itemize}
-    \item \alert{serileþtirilebilir}: eþzamanlý çalýþmanýn sonucu\\
-      seri çalýþtýrmalardan birinin sonucu ile her zaman ayný
+    \item \alert{iki aþamalý kilitleme}:\\
+      herhangi bir kilit býrakýldýktan sonra\\
+      yeni kilit isteðinde bulunulmaz
+    \begin{itemize}
+      \item geniþleme aþamasý: alýnan kilit sayýsý artýyor
+      \item daralma aþamasý: alýnan kilit sayýsý azalýyor
+    \end{itemize}
 
     \pause
-    \bigskip
-    \item \emph{bütün hareketler iki aþamalý kilitleme protokolüne uyarsa\\
-      bütün eþzamanlý çalýþtýrmalar serileþtirilebilir}
+    \item \alert{iki aþamalý sýký kilitleme}:\\
+      bütün kilitler hareketin sonunda býrakýlýr
+
+    \pause
+    \medskip
+    \item \emph{Bütün hareketler iki aþamalý kilitleme protokolüne uyarsa\\
+      bütün eþzamanlý çalýþtýrmalar serileþtirilebilir.}
   \end{itemize}
 \end{frame}
 
@@ -913,12 +913,12 @@ SERIALIZABLE     & H     & H           & H      \\\hline
   \begin{block}{kilit uyumluluk matrisi}
     \begin{table}
       \begin{tabular}{|c||c|c|c|c|c|c|}\hline
-    & - & IS & S & IX & SIX & X\\\hline\hline
- IS & E & E  & E & E  &  E  & H\\\hline
-  S & E & E  & E & H  &  H  & H\\\hline
- IX & E & E  & H & E  &  H  & H\\\hline
-SIX & E & E  & H & H  &  H  & H\\\hline
-  X & E & H  & H & H  &  H  & H\\\hline
+    & X & SIX & IX & S & IS & -\\\hline\hline
+  X & H &  H  & H  & H & H  & E\\\hline
+SIX & H &  H  & H  & H & E  & E\\\hline
+ IX & H &  H  & E  & H & E  & E\\\hline
+  S & H &  H  & H  & E & E  & E\\\hline
+ IS & H &  E  & E  & E & E  & E\\\hline
       \end{tabular}
     \end{table}
   \end{block}
