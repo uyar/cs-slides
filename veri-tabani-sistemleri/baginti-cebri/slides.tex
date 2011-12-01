@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2010
+% Copyright (c) 2002-2011
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
 %
@@ -26,7 +26,8 @@
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM}
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
 }
 
 \mode<presentation>
@@ -40,7 +41,7 @@
 \subtitle{Baðýntý Cebri}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2010}
+\date{2002-2011}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -69,7 +70,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2010 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
 
   \vfill
   \begin{tiny}
@@ -124,8 +125,6 @@
   \end{itemize}
 \end{frame}
 
-\subsection*{Leap}
-
 \begin{frame}
   \frametitle{Leap}
 
@@ -146,107 +145,109 @@
     \end{itemize}
 
     \pause
-    \item deðer yazarken týrnak iþareti yok
-    \item koþul yazarken bütün deðerler týrnak içerisinde
+    \medskip
+%     \item çoklu ekleme komutunda\\
+%       hiçbir tipten deðer için týrnak iþareti yok
+    \item koþul yazarken her tipten deðer týrnak içerisinde
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Veri Tanýmlama}
-
-  \begin{block}{Baðýntý Yaratma}
-    \begin{lstlisting}
-relation (baðýntý_adý) (
-  (nitelik_adý, tip, uzunluk)
-  [, ...]
-)
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{block}{Baðýntý Silme}
-    \begin{lstlisting}
-delrel (baðýntý_adý)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Baðýntý Yaratma Örneði}
-
-  \begin{ornek}[film baðýntýsýnýn yaratýlmasý]
-    \begin{lstlisting}
-relation (movie) (
-  (id, integer, 4),
-  (title, string, 80),
-  (yr, integer, 4),
-  (score, integer, 3),
-  (votes, integer, 5),
-  (directorid, integer, 4)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Veri Ýþleme}
-
-  \begin{block}{Çoklu Ekleme}
-    \begin{lstlisting}
-add (baðýntý_adý) (deðer [, ...])
-    \end{lstlisting}
-
-    \begin{itemize}
-      \item deðerler niteliklerin tanýmlandýklarý sýrayla verilmeli
-    \end{itemize}
-  \end{block}
-
-  \pause
-  \begin{block}{Çoklu Silme}
-    \begin{lstlisting}
-delete (baðýntý_adý) (koþul)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Veri Ýþleme Örnekleri}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{ornek}[film ekleme]
-      \begin{lstlisting}
-add (movie) (
-  6,
-  Usual Suspects,
-  1995,
-  87,
-  35027,
-  639
-)
-      \end{lstlisting}
-    \end{ornek}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{ornek}[film silme]
-      \begin{lstlisting}
-delete (movie)
-       (score < '30')
-      \end{lstlisting}
-    \end{ornek}
-  \end{columns}
-\end{frame}
+% \begin{frame}[fragile]
+%   \frametitle{Veri Tanýmlama}
+%
+%   \begin{block}{Baðýntý Yaratma}
+%     \begin{lstlisting}
+% relation (baðýntý_adý) (
+%   (nitelik_adý, tip, uzunluk)
+%   [, ...]
+% )
+%     \end{lstlisting}
+%   \end{block}
+%
+%   \pause
+%   \begin{block}{Baðýntý Silme}
+%     \begin{lstlisting}
+% delrel (baðýntý_adý)
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Baðýntý Yaratma Örneði}
+%
+%   \begin{ornek}[film baðýntýsýnýn yaratýlmasý]
+%     \begin{lstlisting}
+% relation (movie) (
+%   (id, integer, 4),
+%   (title, string, 80),
+%   (year, integer, 4),
+%   (score, integer, 3),
+%   (votes, integer, 5),
+%   (directorid, integer, 4)
+% )
+%     \end{lstlisting}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Veri Ýþleme}
+%
+%   \begin{block}{Çoklu Ekleme}
+%     \begin{lstlisting}
+% add (baðýntý_adý) (deðer [, ...])
+%     \end{lstlisting}
+%
+%     \begin{itemize}
+%       \item deðerler niteliklerin tanýmlandýklarý sýrayla verilmeli
+%     \end{itemize}
+%   \end{block}
+%
+%   \pause
+%   \begin{block}{Çoklu Silme}
+%     \begin{lstlisting}
+% delete (baðýntý_adý) (koþul)
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Veri Ýþleme Örnekleri}
+%
+%   \begin{columns}[t]
+%     \column{.5\textwidth}
+%     \begin{ornek}[film ekleme]
+%       \begin{lstlisting}
+% add (movie) (
+%   6,
+%   Usual Suspects,
+%   1995,
+%   87,
+%   35027,
+%   639
+% )
+%       \end{lstlisting}
+%     \end{ornek}
+%
+%     \pause
+%     \column{.5\textwidth}
+%     \begin{ornek}[film silme]
+%       \begin{lstlisting}
+% delete (movie)
+%        (score < '30')
+%       \end{lstlisting}
+%     \end{ornek}
+%   \end{columns}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Örnek Baðýntýlar}
 
-  \begin{ornek}[MOVIE Baðýntýsý]
+  \begin{ornek}[MOVIE baðýntýsý]
     \begin{tiny}
     \begin{table}
       %\caption{MOVIE}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
-  ID & TITLE                          &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
+  ID & TITLE                          & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
    6 & Usual Suspects                 & 1995 &    87 & 35027 &        639\\\hline
   70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
  107 & Batman \& Robin                & 1997 &    35 & 10577 &        105\\\hline
@@ -273,7 +274,7 @@ delete (movie)
 \begin{frame}
   \frametitle{Örnek Baðýntýlar}
 
-  \begin{ornek}[PERSON Baðýntýsý]
+  \begin{ornek}[PERSON baðýntýsý]
     \begin{columns}[b]
       \column{.5\textwidth}
       \begin{tiny}
@@ -327,7 +328,7 @@ delete (movie)
 \begin{frame}
   \frametitle{Örnek Baðýntýlar}
 
-  \begin{ornek}[CASTING Baðýntýsý]
+  \begin{ornek}[CASTING baðýntýsý]
     \begin{columns}[b]
       \column{.3\textwidth}
       \begin{tiny}
@@ -433,7 +434,7 @@ s1 = select (movie) (votes > '10000')
     \begin{table}
       %\caption{s1}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
- ID & TITLE                &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
+ ID & TITLE                & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
   6 & Usual Suspects       & 1995 &    87 & 35027 &        639\\\hline
  70 & Being John Malkovich & 1999 &    83 & 13809 &       1485\\\hline
 107 & Batman \& Robin      & 1997 &    35 & 10577 &        105\\\hline
@@ -451,7 +452,7 @@ s1 = select (movie) (votes > '10000')
   \begin{ornek}[1992'den önce çekilmiþ, puaný 75'in üzerinde olan filmler]
     \begin{lstlisting}
 s2 = select (movie)
-            ((yr < '1992') and (score > '75'))
+            ((year < '1992') and (score > '75'))
     \end{lstlisting}
 
     \pause
@@ -459,7 +460,7 @@ s2 = select (movie)
     \begin{table}
       %\caption{s2}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
-  ID & TITLE              &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
+  ID & TITLE              & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
  281 & Dangerous Liaisons & 1988 &    77 &  5651 &        292\\\hline
 1468 & Europa             & 1991 &    76 &  1042 &        615\\\hline
       \end{tabular}
@@ -542,7 +543,7 @@ Cry-Baby                      \\\hline
 
   \begin{ornek}[bütün filmlerin baþlýklarý ve yýllarý]
     \begin{lstlisting}
-p2 = project (movie) (title, yr)
+p2 = project (movie) (title, year)
     \end{lstlisting}
 
     \pause
@@ -552,7 +553,7 @@ p2 = project (movie) (title, yr)
       \begin{table}
         %\caption{p2}
         \begin{tabular}{|l|r|}\hline
-TITLE                          &   YR\\\hline\hline
+TITLE                          & YEAR\\\hline\hline
 Usual Suspects                 & 1995\\\hline
 Being John Malkovich           & 1999\\\hline
 Batman \& Robin                & 1997\\\hline
@@ -590,7 +591,7 @@ Cry-Baby                       & 1990\\\hline
 
   \begin{ornek}[bütün filmlerin yýllarý]
     \begin{lstlisting}
-p3 = project (movie) (yr)
+p3 = project (movie) (year)
     \end{lstlisting}
 
     \pause
@@ -598,7 +599,7 @@ p3 = project (movie) (yr)
     \begin{table}
       %\caption{p3}
       \begin{tabular}{|r|}\hline
-  YR\\\hline\hline
+YEAR\\\hline\hline
 1995\\\hline
 1999\\\hline
 1997\\\hline
@@ -643,7 +644,7 @@ p4a = select (movie)
       \begin{table}
         %\caption{p4a}
         \begin{tabular}{|r|l|r|r|r|r|}\hline
- ID & TITLE                &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
+ ID & TITLE                & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
   6 & Usual Suspects       & 1995 &    87 & 35027 &        639\\\hline
  70 & Being John Malkovich & 1999 &    83 & 13809 &       1485\\\hline
 110 & Sleepy Hollow        & 1999 &    75 & 10514 &        148\\\hline
@@ -706,7 +707,7 @@ p4 = project
 
   \begin{tanim}
     \alert{çarpma}: baðýntý$_1$ $\times$ baðýntý$_2$\\
-      iki baðýntýnýn kartezyen çarpýmý
+      iki baðýntýnýn Kartezyen çarpýmý
   \end{tanim}
 
   \pause
@@ -735,7 +736,7 @@ x1 = product (s2) (p4)
     \begin{table}
       %\caption{x1}
       \begin{tabular}{|r|l|r|r|r|r|l|}\hline
-  ID & TITLE              &   YR & SCORE & VOTES & DIRECTORID & p4.TITLE            \\\hline\hline
+  ID & TITLE              & YEAR & SCORE & VOTES & DIRECTORID & p4.TITLE            \\\hline\hline
  281 & Dangerous Liaisons & 1988 &    77 &  5651 &        292 & Usual Suspects      \\\hline
  281 & Dangerous Liaisons & 1988 &    77 &  5651 &        292 & Being John Malkovich\\\hline
  281 & Dangerous Liaisons & 1988 &    77 &  5651 &        292 & Sleepy Hollow       \\\hline
@@ -862,7 +863,7 @@ Cry-Baby             & John Waters     \\\hline
   \begin{ornek}[bütün filmlerin baþlýklarý, oyuncularýnýn isimleri ve sýralarý]
     \pause
     \begin{enumerate}
-      \item bütün film verilerini oyuncularýnýn kimlikleriyle eþleþtir
+      \item bütün film verilerini oyunculuk verileriyle eþleþtir
 
       \pause
       \item elde edilen verileri oyuncularýn isimleriyle eþleþtir
@@ -972,10 +973,10 @@ Cry-Baby             & Traci Lords      &   7\\\hline
       \item Johnny Depp'in kimliðini seç
 
       \pause
-      \item bu kimliði film verileriyle eþleþtir
+      \item bu kimliði oyunculuk verileriyle eþleþtir
 
       \pause
-      \item elde edilen film verilerini oyuncu kimlikleriyle eþleþtir
+      \item elde edilen oyunculuk verilerini oyuncu kimlikleriyle eþleþtir
 
       \pause
       \item elde edilen oyuncu kimliklerini oyuncu isimleriyle eþleþtir
@@ -1116,58 +1117,64 @@ natjoin (baðýntý1_adý) (baðýntý2_adý)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Doðal Birleþtirme}
-
-  \begin{itemize}
-    \item Leap'de doðal birleþtirme için koþul belirtilmeli:
-  \end{itemize}
-
-  \begin{lstlisting}
-add (relship) (frelation, prelation,
-               fkey1, fkey2, fkey3,
-               pkey1, pkey2, pkey3)
-  \end{lstlisting}
-
-  \pause
-  \begin{ornek}[movie.directorid $\rightarrow$ person.id]
-    \begin{lstlisting}
-add (relship) (movie, person,
-               directorid, -, -,
-               id, -, -)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
+% \begin{frame}[fragile]
+%   \frametitle{Doðal Birleþtirme}
+%
+%   \begin{itemize}
+%     \item Leap'de doðal birleþtirme için koþul belirtilmeli:
+%   \end{itemize}
+%
+%   \begin{lstlisting}
+% add (relship) (frelation, prelation,
+%                fkey1, fkey2, fkey3,
+%                pkey1, pkey2, pkey3)
+%   \end{lstlisting}
+%
+%   \pause
+%   \begin{ornek}[movie.directorid $\rightarrow$ person.id]
+%     \begin{lstlisting}
+% add (relship) (movie, person,
+%                directorid, -, -,
+%                id, -, -)
+%     \end{lstlisting}
+%   \end{ornek}
+% \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Doðal Birleþtirme Örneði}
 
   \begin{ornek}[bütün filmler ve yönetmenleri]
+    \begin{itemize}
+      \item \texttt{MOVIE.DIRECTORID} ve \texttt{PERSON.ID} adlarý
+	\texttt{PERSONID} olsun
+    \end{itemize}
+
+    \vspace{-0.2cm}
     \begin{lstlisting}
 n1 = natjoin (movie) (person)
     \end{lstlisting}
 
+    \vspace{-0.5cm}
     \pause
     \begin{tiny}
     \begin{table}
       %\caption{n1}
       \begin{tabular}{|r|l|c|r|l|}\hline
-  ID & TITLE                          & ... & DIRECTORID & NAME            \\
-     &                                &     &  PERSON.ID &                 \\\hline\hline
-   6 & Usual Suspects                 & ... &        639 & Bryan Singer    \\\hline
-  70 & Being John Malkovich           & ... &       1485 & Spike Jonze     \\\hline
- 107 & Batman \& Robin                & ... &        105 & Joel Schumacher \\\hline
- 110 & Sleepy Hollow                  & ... &        148 & Tim Burton      \\\hline
- 151 & Gattaca                        & ... &       2020 & Andrew Niccol   \\\hline
- 228 & Ed Wood                        & ... &        148 & Tim Burton      \\\hline
- 251 & End of Days                    & ... &        103 & Peter Hyams     \\\hline
- 281 & Dangerous Liaisons             & ... &        292 & Stephen Frears  \\\hline
- 373 & Fear and Loathing in Las Vegas & ... &         59 & Terry Gilliam   \\\hline
- 433 & eXistenZ                       & ... &         97 & David Cronenberg\\\hline
- 573 & Dead Man                       & ... &        175 & Jim Jarmusch    \\\hline
-1468 & Europa                         & ... &        615 & Lars von Trier  \\\hline
-1512 & Suspiria                       & ... &       2259 & Dario Argento   \\\hline
-1539 & Cry-Baby                       & ... &        364 & John Waters     \\\hline
+  ID & TITLE                          & ... & PERSONID & NAME            \\\hline\hline
+   6 & Usual Suspects                 & ... &      639 & Bryan Singer    \\\hline
+  70 & Being John Malkovich           & ... &     1485 & Spike Jonze     \\\hline
+ 107 & Batman \& Robin                & ... &      105 & Joel Schumacher \\\hline
+ 110 & Sleepy Hollow                  & ... &      148 & Tim Burton      \\\hline
+ 151 & Gattaca                        & ... &     2020 & Andrew Niccol   \\\hline
+ 228 & Ed Wood                        & ... &      148 & Tim Burton      \\\hline
+ 251 & End of Days                    & ... &      103 & Peter Hyams     \\\hline
+ 281 & Dangerous Liaisons             & ... &      292 & Stephen Frears  \\\hline
+ 373 & Fear and Loathing in Las Vegas & ... &       59 & Terry Gilliam   \\\hline
+ 433 & eXistenZ                       & ... &       97 & David Cronenberg\\\hline
+ 573 & Dead Man                       & ... &      175 & Jim Jarmusch    \\\hline
+1468 & Europa                         & ... &      615 & Lars von Trier  \\\hline
+1512 & Suspiria                       & ... &     2259 & Dario Argento   \\\hline
+1539 & Cry-Baby                       & ... &      364 & John Waters     \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1214,8 +1221,8 @@ divide (baðýntý1_adý) (baðýntý2_adý)
       \item bütün filmlerin ve oyuncularýnýn kimliklerini bul
 
       \pause
-      \item Johnny Depp ve Christina Ricci'nin birlikte oynadýklarý\\
-	filmlerin kimliklerini bul
+      \item Johnny Depp ve Christina Ricci'nin\\
+	birlikte oynadýklarý filmlerin kimliklerini bul
 
       \pause
       \item elde edilen kimlikleri filmlerle eþleþtirerek baþlýklarýný al
@@ -1600,7 +1607,7 @@ u1a = select (movie) (yr > '1997')
     \begin{table}
       %\caption{u1a}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
- ID & TITLE                          &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
+ ID & TITLE                          & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
  70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
 110 & Sleepy Hollow                  & 1999 &    75 & 10514 &        148\\\hline
 112 & Three Kings                    & 1999 &    77 & 10319 &          0\\\hline
@@ -1967,14 +1974,14 @@ SELECT * FROM MOVIE
   \pause
   \begin{ornek}[bütün filmlerin baþlýklarý ve yýllarý]
     \begin{lstlisting}
-SELECT TITLE, YR FROM MOVIE
+SELECT TITLE, YEAR FROM MOVIE
     \end{lstlisting}
   \end{ornek}
 
   \pause
   \begin{ornek}[hangi yýllarda film çekildiði]
     \begin{lstlisting}
-SELECT DISTINCT YR FROM MOVIE
+SELECT DISTINCT YEAR FROM MOVIE
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -2006,16 +2013,16 @@ SELECT [ ALL | DISTINCT ] sütun_adý [, ...]
 
   \begin{ornek}[hangi yýllarda film çekildiði, yýla göre artan sýrada]
     \begin{lstlisting}
-SELECT DISTINCT YR FROM MOVIE
-  ORDER BY YR
+SELECT DISTINCT YEAR FROM MOVIE
+  ORDER BY YEAR
     \end{lstlisting}
   \end{ornek}
 
   \pause
   \begin{ornek}[hangi yýllarda film çekildiði, yýla göre azalan sýrada]
     \begin{lstlisting}
-SELECT DISTINCT YR FROM MOVIE
-  ORDER BY YR DESC
+SELECT DISTINCT YEAR FROM MOVIE
+  ORDER BY YEAR DESC
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -2132,7 +2139,7 @@ sütun_adý LIKE desen
 
   \begin{ornek}["Citizen Kane" filminin yýlý]
     \begin{lstlisting}
-SELECT YR FROM MOVIE
+SELECT YEAR FROM MOVIE
   WHERE (TITLE = 'Citizen Kane')
     \end{lstlisting}
   \end{ornek}
@@ -2152,7 +2159,7 @@ SELECT TITLE FROM MOVIE
   \begin{ornek}[yýlý belli olmayan filmlerin baþlýklarý]
     \begin{lstlisting}
 SELECT TITLE FROM MOVIE
-  WHERE (YR IS NULL)
+  WHERE (YEAR IS NULL)
     \end{lstlisting}
   \end{ornek}
 
@@ -2160,8 +2167,8 @@ SELECT TITLE FROM MOVIE
   \begin{ornek}[1967, 1954 ve 1988 yýllarýnda çekilmiþ filmlerin baþlýklarý ve
                 yýllarý]
     \begin{lstlisting}
-SELECT TITLE, YR FROM MOVIE
-  WHERE (YR IN (1967, 1954, 1988))
+SELECT TITLE, YEAR FROM MOVIE
+  WHERE (YEAR IN (1967, 1954, 1988))
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -2249,9 +2256,9 @@ SELECT [ ALL | DISTINCT ]
   \begin{ornek}[puaný 8.5'den büyük filmlerin hangi yýllarda kaçar tane
                 çekildiði]
     \begin{lstlisting}
-SELECT YR, COUNT(*) FROM MOVIE
+SELECT YEAR, COUNT(*) FROM MOVIE
   WHERE (SCORE > 8.5)
-  GROUP BY YR
+  GROUP BY YEAR
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -2262,9 +2269,9 @@ SELECT YR, COUNT(*) FROM MOVIE
   \begin{ornek}[her yýlýn en beðenilen filminin puaný, yýllara göre artan
                 sýrada]
     \begin{lstlisting}
-SELECT YR, MAX(SCORE) FROM MOVIE
-  GROUP BY YR
-  ORDER BY YR
+SELECT YEAR, MAX(SCORE) FROM MOVIE
+  GROUP BY YEAR
+  ORDER BY YEAR
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -2285,16 +2292,16 @@ SELECT SUM(VOTES) FROM MOVIE
   \begin{ornek}[40'dan fazla kiþinin oy kullandýðý en az 25 filmin olduðu
                 yýllardaki filmlerin puanlarýnýn ortalamalarý, yýllara göre
                 artan sýrada]
-\lstinline!SELECT! \uncover<5->{\lstinline!YR, AVG(SCORE)!\\}
+\lstinline!SELECT! \uncover<5->{\lstinline!YEAR, AVG(SCORE)!\\}
 ~~~~\lstinline!FROM MOVIE!\\
 \pause
 ~~~~\lstinline!WHERE (VOTES > 40)!\\
 \pause
-~~~~\lstinline!GROUP BY YR!\\
+~~~~\lstinline!GROUP BY YEAR!\\
 \pause
 ~~~~\lstinline!HAVING (COUNT(ID) >= 25)!\\
 \pause\pause
-~~~~\lstinline!ORDER BY YR!
+~~~~\lstinline!ORDER BY YEAR!
   \end{ornek}
 \end{frame}
 
@@ -2383,7 +2390,7 @@ SELECT TITLE
     \begin{lstlisting}
 SELECT TITLE, NAME
   FROM MOVIE, PERSON, CASTING
-  WHERE ((YR = 1962)
+  WHERE ((YEAR = 1962)
     AND  (MOVIEID = MOVIE.ID)
     AND  (ACTORID = PERSON.ID)
     AND  (ORD = 1))
@@ -2672,7 +2679,7 @@ tablo1_adý CROSS JOIN tablo2_adý
     \lstinline!  FROM MOVIE AS M1, MOVIE AS M2!\\
     \lstinline!  WHERE (M1.VOTES = M2.VOTES)!\\
     \pause
-    \lstinline!    AND (M1.ID < M2.ID)!
+    \lstinline!     AND (M1.ID < M2.ID)!
   \end{ornek}
 \end{frame}
 
@@ -2803,14 +2810,14 @@ SELECT ...
                 almýþ filmlerin baþlýklarý]
 \uncover<3->{
 \lstinline!SELECT TITLE FROM MOVIE!\\
-~~~~\lstinline!WHERE ((YR >= 1930) AND (!
+~~~~\lstinline!WHERE ((YEAR >= 1930) AND (!
 }
 \uncover<2->{
 \lstinline!VOTES < ANY (!\\
 ~~~~~~~~\lstinline!(!
 }
 \lstinline!SELECT VOTES FROM MOVIE!\\
-~~~~~~~~~~~~\lstinline!WHERE (YR < 1930)!
+~~~~~~~~~~~~\lstinline!WHERE (YEAR < 1930)!
 \uncover<2->{
 \lstinline!)!\\
 }
@@ -2903,7 +2910,7 @@ SELECT ...
 ~~~~\lstinline!(!
 }
 \lstinline!SELECT DISTINCT DIRECTORID FROM MOVIE!\\
-~~~~~~~~~~~~\lstinline!WHERE (YR < 1930)!
+~~~~~~~~~~~~\lstinline!WHERE (YEAR < 1930)!
 \uncover<2->{
 \lstinline!)!\\
 ~~~~\lstinline!UNION!\\
@@ -2912,7 +2919,7 @@ SELECT ...
 \lstinline!SELECT DISTINCT ACTORID FROM CASTING!\\
 ~~~~~~~~~~~~\lstinline!WHERE (MOVIEID IN!\\
 ~~~~~~~~~~~~~~~~~~~~\lstinline!( SELECT ID FROM MOVIE!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE (YR < 1930) ))!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE (YEAR < 1930) ))!
 \uncover<2->{
 \lstinline!)!\\
 }
@@ -2942,14 +2949,14 @@ SELECT ...
   \frametitle{Ek Sorgulama Örnekleri}
 
   \begin{ornek}[John Travolta'nýn hangi yýl kaç filmde oynadýðý]
-\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
+\lstinline!SELECT! \uncover<4->{\lstinline!YEAR, COUNT(MOVIEID)!\\}
 ~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
 \pause
 ~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
 ~~~~~~~~\lstinline!AND  (MOVIEID = MOVIE.ID)!\\
 ~~~~~~~~\lstinline!AND  (ACTORID = PERSON.ID))!\\
 \pause
-~~~~\lstinline!GROUP BY YR!
+~~~~\lstinline!GROUP BY YEAR!
   \end{ornek}
 \end{frame}
 
@@ -2961,7 +2968,7 @@ SELECT ...
 \lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
 ~~~~\lstinline!FROM MOVIE, CASTING!\\
 \pause
-~~~~\lstinline!WHERE ((YR = 1978)!\\
+~~~~\lstinline!WHERE ((YEAR = 1978)!\\
 ~~~~~~~~\lstinline!AND  (MOVIE.ID = CASTING.MOVIEID))!\\
 \pause
 ~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
