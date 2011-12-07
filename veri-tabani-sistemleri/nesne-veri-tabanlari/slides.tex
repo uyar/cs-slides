@@ -1,0 +1,1010 @@
+% Copyright (c) 2002-2011
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[latin5]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+\lstset{extendedchars=true,language=Java}
+
+\mode<presentation> {
+  \usetheme{Warsaw}
+  \usecolortheme[named=ForestGreen]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{Veri Tabaný Yönetim Sistemleri}
+\subtitle{Nesne Veri Tabanlarý}
+
+\author{H. Turgut Uyar \and Þule Öðüdücü}
+\date{2005-2011}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Taným}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage{nesne}{nesne}
+\pgfdeclareimage{oid}{oid}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Nesne Veri Tabanlarý}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Nesne Modeli}
+
+  \begin{itemize}
+    \item yazýlým modeli ile veri modeli arasýnda uyumsuzluk
+    \begin{itemize}
+      \item baðýntýlarda: baðýntý, çoklu, dýþ anahtar, \ldots
+      \item yazýlýmda: nesne, iþlem, \ldots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Düzey Farký Örneði}
+
+  \begin{ornek}[filme oyuncu ekleme - SQL]
+    \begin{lstlisting}[language=SQL]
+INSERT INTO MOVIE (ID, TITLE)
+  VALUES (110, 'Sleepy Hollow')
+
+INSERT INTO PERSON (ID, NAME)
+  VALUES (26, 'Johnny Depp')
+
+INSERT INTO CASTING (MOVIEID, ACTORID)
+  VALUES (110, 26)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Düzey Farký Örneði}
+
+  \begin{ornek}[filme oyuncu ekleme - Java]
+    \begin{lstlisting}
+public class Movie {
+    ...
+    private Person director;
+    private List<Person> cast;
+
+    ...
+    public void addActor(Person p) {
+        this.cast.add(p);
+    }
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Düzey Farký Örneði}
+
+  \begin{ornek}[filme oyuncu ekleme - Java]
+    \begin{lstlisting}
+Movie m = new Movie("Sleepy Hollow", ...);
+Person p = new Person("Johnny Depp", ...);
+m.addActor(p);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\subsection{Nesne Kimliði}
+
+\begin{frame}
+  \frametitle{Nesne Kimliði}
+
+  \begin{itemize}
+    \item her nesnenin bir nesne kimliði var
+    \begin{itemize}
+      \item özellikler deðiþse bile kimlik ayný kalýr
+    \end{itemize}
+
+    \pause
+    \item birincil anahtardan farklý
+    \begin{itemize}
+      \item birincil anahtar görünür (kullanýcý tanýmlar)
+      \item birincil anahtardaki deðerler deðiþebilir
+    \end{itemize}
+
+    \pause
+    \item programlama dillerindeki referanslara (iþaretçilere) karþý düþer
+    \begin{itemize}
+      \item nesne kimliði ile baþka nesnelere iþaret edilebilir:\\
+        \emph{içerme hiyerarþisi}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýçerme Hiyerarþisi Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{nesne}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ýçerme Hiyerarþisi Örneði}
+
+  \begin{ornek}
+    \begin{center}
+      \pgfuseimage{oid}
+    \end{center}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nesne Veri Tabanlarý}
+
+  \begin{itemize}
+    \item uygulamanýn kalýcý nesneleri veri tabanýnda\\
+      baðýntýlar deðil nesne halinde saklanýr
+    \item yazma: nesne $\rightarrow$ iç format
+    \item okuma: iç format $\rightarrow$ nesne
+  \end{itemize}
+\end{frame}
+
+\subsection{Örnek: db4o}
+
+\begin{frame}[fragile]
+  \frametitle{db4o}
+
+  \begin{itemize}
+    \item gömülü çalýþabilen bir nesne veri tabaný yazýlýmý
+
+    \pause
+    \medskip
+    \item koþulla sorgulama
+    \item örneðe göre sorgulama
+    \begin{itemize}
+      \item sorgulanacak sýnýftan bir nesne yaratýlýr
+      \item istenen nitelikler ayarlanýr, diðerleri boþ býrakýlýr
+      \item bu nesneye benzer nesneler aratýlýr
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item güncellenecek ya da silinecek nesnelerin\\
+      veri tabanýndan çekilmiþ olmasý gerek (nesne kimliði)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Arayüzü}
+
+  \begin{itemize}
+    \item veri tabanýna baðlantý:\\
+      \lstinline!Db4oEmbedded.openFile(filePath)!
+        $\rightarrow$ \lstinline!ObjectContainer!
+
+    \pause
+    \medskip
+    \item ekleme ve güncelleme:\\
+      \lstinline!ObjectContainer.store(object)!
+    \item silme:\\
+      \lstinline!ObjectContainer.delete(object)!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Arayüzü}
+
+  \begin{itemize}
+    \item bir sýnýftan bütün nesneler:\\
+      \lstinline!ObjectContainer.query(Class.class)!
+       $\rightarrow$ \lstinline!ObjectSet<Class>!
+
+    \pause
+    \medskip
+    \item örneðe göre sorgulama: \lstinline!Class prototype!\\
+      \lstinline!ObjectContainer.queryByExample(prototype)!\\
+       $\rightarrow$ \lstinline!ObjectSet<Class>!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Arayüzü}
+
+  \begin{itemize}
+    \item sorgulama koþulu: \lstinline!Predicate<Class>!
+    \item bu nesnenin \lstinline!match! yöntemi gerçeklenir:\\
+      \lstinline!public boolean match(Class object)!
+
+    \pause
+    \medskip
+    \item sorgulama:\\
+      \lstinline!ObjectContainer.query(predicate)!\\
+      $\rightarrow$ \lstinline!List<Class>!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[veri tabanýna baðlantý]
+    \begin{lstlisting}
+ObjectContainer db = Db4oEmbedded.openFile(
+    "imdb.db4o"
+);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[sorgulama: bütün filmler]
+    \begin{lstlisting}
+List<Movie> movies = db.query(Movie.class);
+while (movies.hasNext()) {
+    Movie m = movies.next();
+    ...
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[örneðe göre sorgulama: 1977'de çekilmiþ filmler]
+    \begin{lstlisting}
+Movie prototype = new Movie(null);
+prototype.setYear(1977);
+ObjectSet<Movie> movies =
+    db.queryByExample(prototype);
+while (movies.hasNext()) {
+    Movie m = movies.next();
+    ...
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[koþulla sorgulama: 1977'den sonra çekilmiþ filmler]
+    \begin{lstlisting}
+List<Movie> movies = db.query(
+    new Predicate<Movie>() {
+        public boolean match(Movie movie) {
+            return movie.getYear() > 1977;
+        }
+});
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[ekleme]
+    \begin{lstlisting}
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+db.store(m);
+db.commit();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[güncelleme]
+    \begin{lstlisting}
+Movie prototype = new Movie("Casablanca");
+ObjectSet<Movie> result =
+    db.queryByExample(prototype);
+Movie found = result.next();
+found.setYear(1943);
+db.store(found);
+db.commit();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Örnekleri}
+
+  \begin{ornek}[silme]
+    \begin{lstlisting}
+Movie prototype = new Movie("Casablanca");
+ObjectSet<Movie> result =
+    db.queryByExample(prototype);
+Movie found = result.next();
+db.delete(found);
+db.commit();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\section{Nesne - Baðýntý Eþleþtirmesi}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{Nesne - Baðýntý Eþleþtirmesi}
+
+  \begin{itemize}
+    \item yazýlým nesneye dayalý
+    \item veri tabaný baðýntýlar þeklinde
+    \item uygulamadaki nesneler ile veri tabanýndaki baðýntýlar eþleþtirilir
+
+    \pause
+    \medskip
+    \item deðer alaný = sýnýf
+  \end{itemize}
+\end{frame}
+
+\subsection{Örnek: Persist}
+
+\begin{frame}
+  \frametitle{Örnek: Persist}
+
+  \begin{itemize}
+    \item bir JDBC baðlantýsýný sarmalýyor
+    \item nesne veri tabaný arayüzünü JDBC komutlarýna dönüþtürüyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist Arayüzü}
+
+  \begin{itemize}
+    \item veri tabanýna baðlantý: \lstinline!Connection connection!\\
+      \lstinline!Persist(connection)! $\rightarrow$ \lstinline!Persist!
+
+    \pause
+    \medskip
+    \item ekleme:\\
+      \lstinline!Persist.insert(object)!
+    \item güncelleme:\\
+      \lstinline!Persist.update(object)!
+    \item silme:\\
+      \lstinline!Persist.delete(object)!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist Arayüzü}
+
+  \begin{itemize}
+    \item sorgulama: bir sýnýftan bütün nesneler\\
+      \lstinline!Persist.readList(Class.class)!
+       $\rightarrow$ \lstinline!List<Class>!
+    \item SQL ile sorgulama:\\
+      \lstinline!Persist.readList(Class.class, query, parameters)!\\
+       $\rightarrow$ \lstinline!List<Class>!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist Örnekleri}
+
+  \begin{ornek}[veri tabanýna baðlantý]
+    \begin{lstlisting}
+Connection connection =
+    DriverManager.getConnection(jdbcURL);
+Persist db = new Persist(connection);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist Örnekleri}
+
+  \begin{ornek}[sorgulama: bütün filmler]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist}
+
+  \begin{ornek}[SQL ile sorgulama: 1977'de çekilmiþ filmler]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class,
+    "select * from movie where (year = ?)",
+    1977);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist Örnekleri}
+
+  \begin{ornek}[ekleme]
+    \begin{lstlisting}
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+db.insert(m);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist}
+
+  \begin{ornek}[güncelleme]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class,
+    "select * from movie where (title = ?)",
+    "Casablanca");
+Movie found = movies.get(0);
+found.setYear(1943);
+db.update(found);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Persist}
+
+  \begin{ornek}[silme]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class,
+    "select * from movie where (title = ?)",
+    "Casablanca");
+Movie found = movies.get(0);
+db.delete(found);
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\section{XML Veri Tabanlarý}
+
+\subsection{Giriþ}
+
+\begin{frame}
+  \frametitle{XML}
+
+  \begin{itemize}
+    \item XML kendisi bir dil deðil
+    \begin{itemize}
+      \item dil tanýmlama kurallarý
+    \end{itemize}
+
+    \pause
+    \item XML ile tanýmlanmýþ diller
+    \begin{itemize}
+      \item XHTML, DocBook, SVG, MathML, ...
+    \end{itemize}
+
+    \pause
+    \item XML ile baðlantýlý diller
+    \begin{itemize}
+      \item XPath, XQuery, XSL Transforms, SOAP, XLink, ...
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XML Yapýsý}
+
+  \begin{itemize}
+    \item aðaç yapýsý
+
+    \item düðümler: \emph{eleman}
+    \begin{itemize}
+      \item kök düðümü: \emph{belge elemaný}
+      \item yapraklar: \emph{karakter verileri}
+      \item boþ elemanlar
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item açýlýþ - kapanýþ takýlarý
+    \item nitelikler
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[XHTML]
+    \begin{lstlisting}[language=XML]
+<html>
+<head><title>ÝTÜ Bilgisayar</title></head>
+<body>
+  <h1>ÝTÜ Bilgisayar Mühendisliði Bölümü</h1>
+  <p>Üniversiteyle ilgili genel bilgileri
+    <a href="http://www.itu.edu.tr/">ÝTÜ
+      ana sayfasýnda</a> bulabilirsiniz.</p>
+  <img src="logo.jpg" alt="ÝTÜ Logosu" />
+</body>
+</html>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[DocBook]
+    \begin{lstlisting}[language=XML]
+<book lang="tr">
+  <title>VTYS Dersi Projesi</title>
+  <bookinfo>...</bookinfo>
+  <chapter>...</chapter>
+  <chapter>...</chapter>
+  ...
+</book>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <bookinfo>
+    <author>
+      <firstname>Ali</firstname>
+      <surname>Özer</surname>
+    </author>
+    <date>2007</date>
+  </bookinfo>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <chapter>
+    <title>Giriþ</title>
+    <section>
+      <title>Proje Tanýmý</title>
+      <para>Bu proje, ...</para>
+    </section>
+    ...
+  </chapter>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[Filmler]
+    \begin{lstlisting}[language=XML]
+<movies>
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    ...
+  </movie>
+  <movie color="Color">
+    <title>Being John Malkovich</title>
+    ...
+  </movie>
+  ...
+</movies>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Örneði}
+
+  \begin{ornek}[filmler]
+    \begin{lstlisting}[language=XML]
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    <year>1995</year>
+    <score>8.7</score>
+    <votes>35027</votes>
+    <director>Bryan Singer</director>
+    <cast>
+      <actor>Gabriel Byrne</actor>
+      <actor>Benicio Del Toro</actor>
+    </cast>
+  </movie>
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\subsection{XQuery}
+
+\begin{frame}
+  \frametitle{XQuery}
+
+  \begin{itemize}
+    \item XPath: XML belgelerinden düðüm ve veri çekme
+    \item XQuery: XPath + güncelleme iþlemleri
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath}
+
+  \begin{itemize}
+    \item aranýlan düðümlerin yolu: yol adýmlarý zinciri
+    \begin{itemize}
+      \item kök düðümünden baþlanarak (mutlak)
+      \item bulunulan düðümden baþlanarak (baðýl)
+
+      \medskip
+      \item yol adýmlarý \texttt{/} iþaretleriyle ayrýlýr
+    \end{itemize}
+
+    \pause
+    \begin{ornek}
+      \begin{itemize}
+       \item \texttt{/movies/movie}
+       \item \texttt{./cast/actor}
+       \item \texttt{../../year}
+      \end{itemize}
+    \end{ornek}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yol Adýmlarý}
+
+  \begin{itemize}
+    \item yol adýmý yapýsý:\\
+      \texttt{eksen::düðüm\_seçici[yüklem]}
+
+    \pause
+    \medskip
+    \item eksen: nerede aranacak?
+    \item seçici: ne aranacak?
+    \item yüklem: hangi koþula uyanlar aranacak?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eksenler}
+
+  \begin{itemize}
+    \item \texttt{child}:
+      bütün çocuklarda, bir düzey (varsayýlan eksen)
+    \item \texttt{descendant}:
+      bütün çocuklarda, bütün altdüzeylerde\\
+      (kýsa gösterilim: \texttt{//})
+    \item \texttt{parent}:
+      anne düðümde, bir düzey
+    \item \texttt{ancestor}:
+      bütün anne düðümlerde, köke kadar
+    \item \texttt{attribute}: niteliklerde (kýsa gösterilim: \texttt{@})
+    \item \texttt{following-sibling}:
+      sonra gelen kardeþlerde
+    \item \texttt{preceding-sibling}:
+      önce gelen kardeþlerde
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Düðüm Seçiciler}
+
+  \begin{itemize}
+    \item düðümün takýsý
+    \item düðümün bir niteliði
+    \item düðümün altýndaki metin: \texttt{text()}
+    \item düðümün bütün çocuklarý: \texttt{*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item bütün yönetmenlerin isimleri:\\
+        \texttt{/movies/movie/director/text()}\\
+        \texttt{//director/text()}
+
+      \pause
+      \item bu filmdeki bütün oyuncular:\\
+        \texttt{./cast/actor}\\
+        \texttt{.//actor}
+
+      \pause
+      \item bütün filmlerin renkleri:\\
+        \texttt{//movie/@color}
+
+      \pause
+      \item bundan sonraki filmlerin puanlarý:\\
+        \texttt{./following-sibling::movie/score}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Yüklemleri}
+
+  \begin{itemize}
+    \item belli bir sýradaki düðümün seçilmesi: \lstinline![sýra]!
+
+    \pause
+    \item çocuðun varlýðýna göre seçme: \lstinline![çocuk]!
+    \item çocuðun deðerine göre seçme: \lstinline![çocuk="deðer"]!
+
+    \pause
+    \item niteliðin varlýðýna göre seçme: \lstinline![@nitelik]!
+    \item niteliðe göre seçme: \lstinline![@nitelik="deðer"]!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Örnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item birinci filmin baþlýðý:\\
+        \texttt{/movies/movie[1]/title/text()}
+
+      \pause
+      \item 1997 yýlýnda çekilmiþ filmler:\\
+        \texttt{//movie[year="1997"]}
+
+      \pause
+      \item siyah-beyaz filmler:\\
+        \texttt{//movie[@color="BW"]}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Örnek: DBXML}
+
+\begin{frame}
+  \frametitle{Örnek: Oracle Berkeley DBXML}
+
+  \begin{itemize}
+    \item gömülü XML veri tabaný
+    \item XML belgeleri tutuyor
+    \item XQuery ile üzerinde iþlem yapýlabiliyor
+    \item kendi istemcisi ile kullanýlabiliyor
+    \item çeþitli programlama dilleri için arayüzleri var
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Arayüzü}
+
+  \begin{itemize}
+    \item veri tabaný yaratma:\\
+    \begin{itemize}
+      \item \lstinline!XmlManager! nesnesi yaratýlýr
+      \item \lstinline!XmlManager.createContainer(name)!
+        $\rightarrow$ \lstinline!XmlContainer!
+      \item belge elemaný (kök) yerleþtirilir:\\
+        \lstinline!XmlContainer.putDocument(namespace, xml_string, configuration)!
+    \end{itemize}
+
+    \pause
+    \item var olan veri tabanýna baðlanma:\\
+    \begin{itemize}
+      \item \lstinline!XmlManager! nesnesi yaratýlýr
+      \item \lstinline?XmlManager.existsContainer(name) != 0? ise
+      \item \lstinline!XmlManager.openContainer(name)!
+        $\rightarrow$ \lstinline!XmlContainer!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Sorgu Arayüzü}
+
+  \begin{itemize}
+    \item \lstinline!XmlManager.createQueryContext()!
+      $\rightarrow$ \lstinline!XmlQueryContext!
+    \item \lstinline!XmlQueryContext.setNamespace(namespace, URL)!
+
+    \pause
+    \item sorgu katarý: \lstinline!collection(name)/xpath_expression!
+    \item sorgunun çalýþtýrýlmasý:\\
+      \lstinline!XmlManager.query(query, context)!
+      $\rightarrow$ \lstinline!XmlResults!
+
+    \pause
+    \item \lstinline!XmlResults! iteratörünün her bir elemaný bir
+      \lstinline!XmlValue!
+      \begin{itemize}
+        \item \lstinline!getFirstChild()!, \lstinline!getLastChild()!,
+          \lstinline!getNextSibling()!, ...
+        \item karakter verisi deðeri: \lstinline!getNodeValue()!
+          $\rightarrow$ \lstinline!String!
+        \item nitelikler:
+          \lstinline!XmlValue.getAttributes()! $\rightarrow$ \lstinline!XmlResults!
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML}
+
+  \begin{ornek}[veri tabanýna baðlantý]
+    \begin{lstlisting}
+db = new XmlManager();
+XmlContainer container = null;
+if (db.existsContainer("imdb.dbxml") != 0)
+    container = db.openContainer("imdb.dbxml");
+else {
+    container = db.createContainer("imdb.dbxml");
+    container.putDocument("movies",
+        "<movies />",
+        (XmlDocumentConfig) null);
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML}
+
+  \begin{ornek}[film nesnesini XML katarýna çevirme]
+    \begin{lstlisting}
+public static String toXml(Movie movie) {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("<movie>");
+    buffer.append("<title>"
+      + movie.getTitle() + "</title>");
+    buffer.append("<year>"
+      + movie.getYear().toString() + "</year>");
+    buffer.append("</movie>");
+    return buffer.toString();
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML}
+
+  \begin{ornek}[XML düðümünü film nesnesine çevirme]
+    \begin{lstlisting}
+private static Movie fromNode(XmlValue node)
+        throws XmlException {
+    XmlValue tn = node.getFirstChild();
+    String title =
+        tn.getFirstChild().getNodeValue();
+    XmlValue yn = tn.getNextSibling();
+    String yearValue =
+        yn.getFirstChild().getNodeValue();
+    Integer year = Integer.parseInt(yearValue);
+    Movie movie = new Movie(title);
+    movie.setYear(year);
+    return movie;
+}
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML}
+
+  \begin{ornek}[sorgulama: bütün filmler]
+    \begin{lstlisting}
+XmlQueryContext context = ...;
+context.setNamespace(...);
+String query =
+    "collection(\"imdb.dbxml\")/movies/movie";
+XmlResults results = db.query(query, context);
+if (results.hasNext()) {
+    XmlValue node = results.next();
+    Movie movie = fromNode(node);
+    ...
+}
+results.delete();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML}
+
+  \begin{ornek}[ekleme]
+    \begin{lstlisting}
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+
+XmlQueryContext context = ...;
+context.setNamespace(...);
+String query = "insert nodes " + toXml(m)
+    + " into collection(\"imdb.dbxml\")/movies";
+XmlResults results = db.query(query, context);
+results.delete();
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 25: \alert{Object Databases}
+      \item Chapter 26: \alert{Object/Relational Databases}
+      \item Chapter 27: \alert{The World Wide Web and XML}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
