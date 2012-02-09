@@ -20,6 +20,11 @@
 \setbeamertemplate{navigation symbols}{}
 
 \usepackage{listings}
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
+                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
+  deletekeywords={YEAR}
+}
 \lstset{extendedchars=true,language=Java}
 
 \mode<presentation> {
@@ -109,7 +114,7 @@
     \item yazýlým modeli ile veri modeli arasýnda uyumsuzluk
     \begin{itemize}
       \item baðýntýlarda: baðýntý, çoklu, dýþ anahtar, \ldots
-      \item yazýlýmda: nesne, iþlem, \ldots
+      \item yazýlýmda: nesne, yöntem, \ldots
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -117,8 +122,28 @@
 \begin{frame}[fragile]
   \frametitle{Düzey Farký Örneði}
 
-  \begin{ornek}[filme oyuncu ekleme - SQL]
-    \begin{lstlisting}[language=SQL]
+  \begin{ornek}[filme oyuncu ekleme - SQL tanýmlarý]
+    \begin{lstlisting}[language=FullSQL]
+CREATE TABLE MOVIE (ID INTEGER PRIMARY KEY,
+    TITLE VARCHAR(80) NOT NULL)
+
+CREATE TABLE PERSON (ID INTEGER PRIMARY KEY,
+    NAME VARCHAR(40) NOT NULL)
+
+CREATE TABLE CASTING(
+    MOVIEID INTEGER REFERENCES MOVIE,
+    ACTORID INTEGER REFERENCES PERSON,
+    PRIMARY KEY (MOVIEID, ACTORID)
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Düzey Farký Örneði}
+
+  \begin{ornek}[filme oyuncu ekleme - SQL iþlemleri]
+    \begin{lstlisting}[language=FullSQL]
 INSERT INTO MOVIE (ID, TITLE)
   VALUES (110, 'Sleepy Hollow')
 
@@ -134,11 +159,10 @@ INSERT INTO CASTING (MOVIEID, ACTORID)
 \begin{frame}[fragile]
   \frametitle{Düzey Farký Örneði}
 
-  \begin{ornek}[filme oyuncu ekleme - Java]
+  \begin{ornek}[filme oyuncu ekleme - Java tanýmlarý]
     \begin{lstlisting}
 public class Movie {
     ...
-    private Person director;
     private List<Person> cast;
 
     ...
@@ -153,7 +177,7 @@ public class Movie {
 \begin{frame}[fragile]
   \frametitle{Düzey Farký Örneði}
 
-  \begin{ornek}[filme oyuncu ekleme - Java]
+  \begin{ornek}[filme oyuncu ekleme - Java iþlemleri]
     \begin{lstlisting}
 Movie m = new Movie("Sleepy Hollow", ...);
 Person p = new Person("Johnny Depp", ...);
@@ -249,7 +273,7 @@ m.addActor(p);
   \frametitle{db4o Arayüzü}
 
   \begin{itemize}
-    \item veri tabanýna baðlantý:\\
+    \item veri tabanýna baðlantý (gömülü kip):\\
       \lstinline!Db4oEmbedded.openFile(filePath)!
         $\rightarrow$ \lstinline!ObjectContainer!
 
@@ -268,12 +292,12 @@ m.addActor(p);
   \begin{itemize}
     \item bir sýnýftan bütün nesneler:\\
       \lstinline!ObjectContainer.query(Class.class)!
-       $\rightarrow$ \lstinline!ObjectSet<Class>!
+       $\rightarrow$ \lstinline!List<Class>!
 
     \pause
     \medskip
-    \item örneðe göre sorgulama: \lstinline!Class prototype!\\
-      \lstinline!ObjectContainer.queryByExample(prototype)!\\
+    \item örneðe göre sorgulama:\\
+      \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
        $\rightarrow$ \lstinline!ObjectSet<Class>!
   \end{itemize}
 \end{frame}
@@ -283,13 +307,13 @@ m.addActor(p);
 
   \begin{itemize}
     \item sorgulama koþulu: \lstinline!Predicate<Class>!
-    \item bu nesnenin \lstinline!match! yöntemi gerçeklenir:\\
+    \item bu sýnýfýn \lstinline!match! yöntemi gerçeklenir:\\
       \lstinline!public boolean match(Class object)!
 
     \pause
     \medskip
     \item sorgulama:\\
-      \lstinline!ObjectContainer.query(predicate)!\\
+      \lstinline!ObjectContainer.query(Predicate<Class> predicate)!\\
       $\rightarrow$ \lstinline!List<Class>!
   \end{itemize}
 \end{frame}
@@ -312,8 +336,7 @@ ObjectContainer db = Db4oEmbedded.openFile(
   \begin{ornek}[sorgulama: bütün filmler]
     \begin{lstlisting}
 List<Movie> movies = db.query(Movie.class);
-while (movies.hasNext()) {
-    Movie m = movies.next();
+for (Movie movie : movies) {
     ...
 }
     \end{lstlisting}
@@ -407,10 +430,6 @@ db.commit();
     \item yazýlým nesneye dayalý
     \item veri tabaný baðýntýlar þeklinde
     \item uygulamadaki nesneler ile veri tabanýndaki baðýntýlar eþleþtirilir
-
-    \pause
-    \medskip
-    \item deðer alaný = sýnýf
   \end{itemize}
 \end{frame}
 
@@ -450,8 +469,8 @@ db.commit();
     \item sorgulama: bir sýnýftan bütün nesneler\\
       \lstinline!Persist.readList(Class.class)!
        $\rightarrow$ \lstinline!List<Class>!
-    \item SQL ile sorgulama:\\
-      \lstinline!Persist.readList(Class.class, query, parameters)!\\
+    \item SQL ile sorgulama: hazýr komut yazýmýna benzer þekilde\\
+      \lstinline!Persist.readList(Class.class, String query, parameters)!\\
        $\rightarrow$ \lstinline!List<Class>!
   \end{itemize}
 \end{frame}
@@ -474,6 +493,9 @@ Persist db = new Persist(connection);
   \begin{ornek}[sorgulama: bütün filmler]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class);
+for (Movie movie : movies) {
+    ...
+}
     \end{lstlisting}
   \end{ornek}
 \end{frame}
@@ -484,7 +506,7 @@ List<Movie> movies = db.readList(Movie.class);
   \begin{ornek}[SQL ile sorgulama: 1977'de çekilmiþ filmler]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class,
-    "select * from movie where (year = ?)",
+    "SELECT * FROM MOVIE WHERE (YEAR = ?)",
     1977);
     \end{lstlisting}
   \end{ornek}
@@ -508,7 +530,7 @@ db.insert(m);
   \begin{ornek}[güncelleme]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class,
-    "select * from movie where (title = ?)",
+    "SELECT * FROM MOVIE WHERE (TITLE = ?)",
     "Casablanca");
 Movie found = movies.get(0);
 found.setYear(1943);
@@ -523,7 +545,7 @@ db.update(found);
   \begin{ornek}[silme]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class,
-    "select * from movie where (title = ?)",
+    "SELECT * FROM MOVIE WHERE (TITLE = ?)",
     "Casablanca");
 Movie found = movies.get(0);
 db.delete(found);
