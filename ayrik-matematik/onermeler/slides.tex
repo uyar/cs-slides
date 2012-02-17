@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Önermeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -62,7 +62,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -124,17 +124,17 @@
   \frametitle{Önerme Örnekleri}
 
   \begin{columns}[t]
-    \column{.55\textwidth}
+    \column{.6\textwidth}
     \begin{ornek}[önerme]
       \begin{itemize}
-        \item Ay dünyanın çevresinde döner.
+        \item Ay Yeryüzü'nün çevresinde döner.
         \item Filler uçabilir.
         \item $3+8=11$
       \end{itemize}
     \end{ornek}
 
     \pause
-    \column{.45\textwidth}
+    \column{.4\textwidth}
     \begin{ornek}[önerme değil]
       \begin{itemize}
         \item Saat kaç?
@@ -160,38 +160,39 @@
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item $p_1$: Ay dünyanın çevresinde döner. ($D$)
+      \item $p_1$: Ay Yeryüzü'nün çevresinde döner. ($D$)
       \item $p_2$: Filler uçabilir. ($Y$)
       \item $p_3$: $3+8=11$ ($D$)
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\subsection{İşlemler}
+\subsection{Birleşik Önermeler}
 
 \begin{frame}
-  \frametitle{İşlemler}
+  \frametitle{Birleşik Önermeler}
 
   \begin{itemize}
-    \item yeni önermeler elde etmek için:
-    \begin{itemize}
-      \item bir önerme değillenebilir
-      \item bir veya birden fazla önerme \alert{mantıksal bağlaçlar} ile
-        birleştirilerek \alert{birleşik önermeler} elde edilebilir
-    \end{itemize}
+    \item{\alert{birleşik önermeler}
+      \begin{itemize}
+        \item bir önermenin değillenmesiyle, ya da
+        \item birden fazla önermenin
+          \alert{mantıksal bağlaçlar} ile birleştirilmesiyle
+      \end{itemize}
+      elde edilir}
     \item \alert{yalın önermeler} daha küçük birimlere bölünemez
   \end{itemize}
 
   \pause
   \begin{itemize}
     \item \alert{doğruluk tablosu}:\\
-      içerdiği yalın önermelerin olası bütün değerleri için birleşik önermenin
-      sonucunu veren tablo
+      içerdiği yalın önermelerin olası bütün değerleri için\\
+      birleşik önermenin sonuçlarını listeleyen tablo
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Değilleme}
+  \frametitle{Değilleme (NOT)}
 
   \begin{columns}
     \column{.3\textwidth}
@@ -199,8 +200,8 @@
       \caption{$\neg p$}
       \begin{tabular}{|c||c|}\hline
         $p$ & $\neg p$\\\hline\hline
-        $D$ & $Y$     \\\hline
-        $Y$ & $D$     \\\hline
+        $D$ & $Y$\\\hline
+        $Y$ & $D$\\\hline
       \end{tabular}
     \end{table}
 
@@ -208,7 +209,7 @@
     \column{.7\textwidth}
     \begin{ornek}
       \begin{itemize}
-        \item $\neg p_1$: Ay dünyanın çevresinde dönmez.\\
+        \item $\neg p_1$: Ay Yeryüzü'nün çevresinde dönmez.\\
           $\neg D$: \emph{Yanlış}
         \item $\neg p_2$: Filler uçamaz.\\
           $\neg Y$: \emph{Doğru}
@@ -218,7 +219,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Ve Bağlacı}
+  \frametitle{VE Bağlacı (AND)}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -226,10 +227,10 @@
       \caption{$p \wedge q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \wedge q$\\\hline\hline
-        $D$ & $D$ & $D$         \\\hline
-        $D$ & $Y$ & $Y$         \\\hline
-        $Y$ & $D$ & $Y$         \\\hline
-        $Y$ & $Y$ & $Y$         \\\hline
+        $D$ & $D$ & $D$\\\hline
+        $D$ & $Y$ & $Y$\\\hline
+        $Y$ & $D$ & $Y$\\\hline
+        $Y$ & $Y$ & $Y$\\\hline
       \end{tabular}
     \end{table}
 
@@ -237,7 +238,7 @@
     \column{.6\textwidth}
     \begin{ornek}
       \begin{itemize}
-        \item $p_1 \wedge p_2$: Ay dünyanın çevresinde döner ve filler
+        \item $p_1 \wedge p_2$: Ay Yeryüzü'nün çevresinde döner ve filler
           uçabilir.\\
           $D \wedge Y$: \emph{Yanlış}
       \end{itemize}
@@ -246,7 +247,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veya Bağlacı}
+  \frametitle{VEYA Bağlacı (OR)}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -254,10 +255,10 @@
       \caption{$p \vee q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \vee q$\\\hline\hline
-        $D$ & $D$ & $D$       \\\hline
-        $D$ & $Y$ & $D$       \\\hline
-        $Y$ & $D$ & $D$       \\\hline
-        $Y$ & $Y$ & $Y$       \\\hline
+        $D$ & $D$ & $D$\\\hline
+        $D$ & $Y$ & $D$\\\hline
+        $Y$ & $D$ & $D$\\\hline
+        $Y$ & $Y$ & $Y$\\\hline
       \end{tabular}
     \end{table}
 
@@ -265,7 +266,7 @@
     \column{.6\textwidth}
     \begin{ornek}
       \begin{itemize}
-        \item $p_1 \vee p_2$: Ay dünyanın çevresinde döner veya filler
+        \item $p_1 \vee p_2$: Ay Yeryüzü'nün çevresinde döner veya filler
           uçabilir.\\
           $D \vee Y$: \emph{Doğru}
       \end{itemize}
@@ -274,26 +275,26 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dar Veya Bağlacı}
+  \frametitle{DAR VEYA Bağlacı (XOR)}
 
   \begin{columns}
-    \column{.4\textwidth}
+    \column{.38\textwidth}
     \begin{table}
       \caption{$p \veebar q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \veebar q$\\\hline\hline
-        $D$ & $D$ & $Y$          \\\hline
-        $D$ & $Y$ & $D$          \\\hline
-        $Y$ & $D$ & $D$          \\\hline
-        $Y$ & $Y$ & $Y$          \\\hline
+        $D$ & $D$ & $Y$\\\hline
+        $D$ & $Y$ & $D$\\\hline
+        $Y$ & $D$ & $D$\\\hline
+        $Y$ & $Y$ & $Y$\\\hline
       \end{tabular}
     \end{table}
 
     \pause
-    \column{.6\textwidth}
+    \column{.62\textwidth}
     \begin{ornek}
       \begin{itemize}
-        \item $p_1 \veebar p_2$: Ya ay dünyanın çevresinde döner ya da filler
+        \item $p_1 \veebar p_2$: Ya Ay Yeryüzü'nün çevresinde döner ya da filler
           uçabilir.\\
           $D \veebar Y$: \emph{Doğru}
       \end{itemize}
@@ -302,7 +303,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Koşullu Bağlaç}
+  \frametitle{Koşullu Bağlaç (IF)}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -310,10 +311,10 @@
       \caption{$p \rightarrow q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \rightarrow q$\\\hline\hline
-        $D$ & $D$ & $D$              \\\hline
-        $D$ & $Y$ & $Y$              \\\hline
-        $Y$ & $D$ & $D$              \\\hline
-        $Y$ & $Y$ & $D$              \\\hline
+        $D$ & $D$ & $D$\\\hline
+        $D$ & $Y$ & $Y$\\\hline
+        $Y$ & $D$ & $D$\\\hline
+        $Y$ & $Y$ & $D$\\\hline
       \end{tabular}
     \end{table}
 
@@ -342,7 +343,7 @@
   \begin{ornek}
     \begin{itemize}
       \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$
-      \item $p_7$: Güneş dünyanın çevresinde döner.
+      \item $p_7$: Güneş Yeryüzü'nün çevresinde döner.
     \end{itemize}
 
     \pause
@@ -361,11 +362,11 @@
       \pause
       \column{.5\textwidth}
         \begin{itemize}
-          \item $p_2 \rightarrow p_1$: Filler uçabilirse ay dünyanın çevresinde
-            döner.\\
+          \item $p_2 \rightarrow p_1$: Filler uçabilirse Ay Yeryüzü'nün
+            çevresinde döner.\\
             $Y \rightarrow D$: \emph{Doğru}
           \pause
-          \item $p_2 \rightarrow p_7$: Filler uçabilirse güneş dünyanın
+          \item $p_2 \rightarrow p_7$: Filler uçabilirse Güneş Yeryüzü'nün
             çevresinde döner.\\
             $Y \rightarrow Y$: \emph{Doğru}
         \end{itemize}
@@ -377,17 +378,21 @@
   \frametitle{Koşullu Bağlaç Örnekleri}
 
   \begin{ornek}
+    \begin{itemize}
+      \item "70 kg'yi geçersem spor yapacağım."
+    \end{itemize}
+
+    \pause
     \begin{columns}
       \column{.6\textwidth}
       \begin{itemize}
-        \item "70 kg'yi geçersem spor yapacağım."
-        \begin{itemize}
-          \item $p$: 70 kg'den ağırım.
-          \item $q$: Spor yapıyorum.
-        \end{itemize}
+        \item $p$: 70 kg'den ağırım.
+        \item $q$: Spor yapıyorum.
+      \end{itemize}
 
-        \pause
-        \item $p \rightarrow q$ nasıl yorumlanmalı?
+      \pause
+      \begin{itemize}
+        \item bu önerme ne zaman yanlış olur?
       \end{itemize}
 
       \column{.4\textwidth}
@@ -395,10 +400,10 @@
         \caption{$p \rightarrow q$}
         \begin{tabular}{|c|c||c|}\hline
           $p$ & $q$ & $p \rightarrow q$\\\hline\hline
-          $D$ & $D$ & $D$              \\\hline
-          $D$ & $Y$ & $Y$              \\\hline
-          $Y$ & $D$ & $D$              \\\hline
-          $Y$ & $Y$ & $D$              \\\hline
+          $D$ & $D$ & $D$\\\hline
+          $D$ & $Y$ & $Y$\\\hline
+          $Y$ & $D$ & $D$\\\hline
+          $Y$ & $Y$ & $D$\\\hline
         \end{tabular}
       \end{table}
     \end{columns}
@@ -406,7 +411,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Karşılıklı Koşullu Bağlaç}
+  \frametitle{Karşılıklı Koşullu Bağlaç (IFF)}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -414,10 +419,10 @@
       \caption{$p \leftrightarrow q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \leftrightarrow q$\\\hline\hline
-        $D$ & $D$ & $D$                  \\\hline
-        $D$ & $Y$ & $Y$                  \\\hline
-        $Y$ & $D$ & $Y$                  \\\hline
-        $Y$ & $Y$ & $D$                  \\\hline
+        $D$ & $D$ & $D$\\\hline
+        $D$ & $Y$ & $Y$\\\hline
+        $Y$ & $D$ & $Y$\\\hline
+        $Y$ & $Y$ & $D$\\\hline
       \end{tabular}
     \end{table}
 
@@ -438,23 +443,26 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Günlük Dilden Örnek}
+  \frametitle{Örnek}
 
   \begin{ornek}
     \begin{itemize}
+      \item Anne çocuğa:\\
+        "Ödevini yaparsan bilgisayar oyunu oynayabilirsin."
+
+      \pause
+      \medskip
       \item $s$: Çocuk ödevini yapar.
       \item $t$: Çocuk bilgisayar oyunu oynar.
 
       \pause
       \medskip
-      \item $s \rightarrow t$\\
-        "Ödevini yaparsan bilgisayar oyunu oynayabilirsin."
-      \item $t \rightarrow s$\\
-        "Bilgisayar oyunu oynaman için ödevini yapman gerek."
-
-      \pause
-      \medskip
-      \item söylenmek istenen: $s \leftrightarrow t$
+      \item annenin söylediği hangisi?
+      \begin{itemize}
+        \item $s \rightarrow t$
+        \item $\neg s \rightarrow \neg t$
+        \item $s \leftrightarrow t$
+      \end{itemize}
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -474,17 +482,17 @@
   \pause
   \begin{block}{Anlam}
     \begin{itemize}
-      \item \emph{yorum}: yalın önermelere değer vererek birleşik önermenin
-        değerini hesaplama
+      \item \emph{yorum}: yalın önermelere değer atayarak\\
+        birleşik önermenin değerini hesaplama
       \item doğruluk tablosu: önermenin bütün yorumları
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Sağlıklı Formül Örnekleri}
+  \frametitle{Formül Örnekleri}
 
-  \begin{ornek}[sağlıklı formül değil]
+  \begin{ornek}[sağlıklı değil]
     \begin{itemize}
       \item $\vee p$
       \item $p \wedge \neg$
@@ -520,17 +528,19 @@
     \end{itemize}
 
     \medskip
-    aşağıdaki SF'ler ne anlama gelir?
-
-    \pause
     \begin{itemize}
-      \item $t \wedge \neg u \rightarrow s$
+      \item aşağıdaki SF'ler ne anlama gelir?
+
       \pause
-      \item $t \rightarrow (\neg u \rightarrow s)$
-      \pause
-      \item $\neg (s \leftrightarrow (u \vee t))$
-      \pause
-      \item $\neg s \leftrightarrow u \vee t$
+      \begin{itemize}
+        \item $t \wedge \neg u \rightarrow s$
+        \pause
+        \item $t \rightarrow (\neg u \rightarrow s)$
+        \pause
+        \item $\neg (s \leftrightarrow (u \vee t))$
+        \pause
+        \item $\neg s \leftrightarrow u \vee t$
+      \end{itemize}
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -552,12 +562,12 @@
     \begin{table}
       \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
       \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $p \wedge (p \rightarrow q)$
-            & $p \wedge (p \rightarrow q) \rightarrow q$\\\hline\hline
-        $D$ & $D$ & $D$ & $D$ & $D$                     \\\hline
-        $D$ & $Y$ & $Y$ & $Y$ & $D$                     \\\hline
-        $Y$ & $D$ & $D$ & $Y$ & $D$                     \\\hline
-        $Y$ & $Y$ & $D$ & $Y$ & $D$                     \\\hline
+        $p$ & $q$ & $p \rightarrow q$ & $p \wedge A$ & $B \rightarrow q$\\
+            &     & ($A$)             & ($B$)        &\\\hline\hline
+        $D$ & $D$ & $D$ & $D$ & $D$\\\hline
+        $D$ & $Y$ & $Y$ & $Y$ & $D$\\\hline
+        $Y$ & $D$ & $D$ & $Y$ & $D$\\\hline
+        $Y$ & $Y$ & $D$ & $Y$ & $D$\\\hline
       \end{tabular}
     \end{table}
   \end{ornek}
@@ -570,12 +580,12 @@
     \begin{table}
       \caption{$p \wedge (\neg p \wedge q)$}
       \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $\neg p$ & $\neg p \wedge q$
-            & $p \wedge (\neg p \wedge q)$\\\hline\hline
-        $D$ & $D$ & $Y$ & $Y$ & $Y$       \\\hline
-        $D$ & $Y$ & $Y$ & $Y$ & $Y$       \\\hline
-        $Y$ & $D$ & $D$ & $D$ & $Y$       \\\hline
-        $Y$ & $Y$ & $D$ & $Y$ & $Y$       \\\hline
+        $p$ & $q$ & $\neg p$ & $\neg p \wedge q$ & $p \wedge A$\\
+            &     &          & ($A$)             &\\\hline\hline
+        $D$ & $D$ & $Y$ & $Y$ & $Y$\\\hline
+        $D$ & $Y$ & $Y$ & $Y$ & $Y$\\\hline
+        $Y$ & $D$ & $D$ & $D$ & $Y$\\\hline
+        $Y$ & $Y$ & $D$ & $Y$ & $Y$\\\hline
       \end{tabular}
     \end{table}
   \end{ornek}
@@ -587,12 +597,14 @@
   \frametitle{Üstdil}
 
   \begin{tanim}
-    \alert{hedef dil}: üzerinde çalışılan dil
+    \alert{hedef dil}:\\
+      üzerinde çalışılan dil
   \end{tanim}
 
   \pause
   \begin{tanim}
-    \alert{üstdil}: hedef dilin özelliklerinden söz ederken kullanılan dil
+    \alert{üstdil}:\\
+      hedef dilin özelliklerinden söz ederken kullanılan dil
   \end{tanim}
 
   \pause
@@ -604,7 +616,7 @@
 \begin{frame}
   \frametitle{Üstdil Örnekleri}
 
-  \begin{ornek}[İngilizce öğrenen biri için]
+  \begin{ornek}[İngilizce öğrenen bir Türk için]
     \begin{itemize}
       \item hedef dil: İngilizce
       \item üstdil: Türkçe
@@ -612,10 +624,10 @@
   \end{ornek}
 
   \pause
-  \begin{ornek}[Intro. to Sci. and Eng. Comp.]
+  \begin{ornek}[bir programlamaya giriş dersinde]
     \begin{itemize}
-      \item hedef dil: C
-      \item üstdil: İngilizce
+      \item hedef dil: C, Python, Java, \ldots
+      \item üstdil: İngilizce, Türkçe, \ldots
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -625,12 +637,12 @@
 
   \begin{itemize}
     \item $P_1,P_2,\dots,P_n \vdash Q$\\
-      $P_1,P_2,\dots,P_n$ varsayıldığında $Q$'nun doğruluğu tanıtlanabilir
+      $P_1,P_2,\dots,P_n$ varsayıldığında $Q$'nun doğruluğu tanıtlanabilir.
 
     \pause
     \medskip
     \item $P_1,P_2,\dots,P_n \vDash Q$\\
-      $P_1,P_2,\dots,P_n$ doğruysa $Q$ doğrudur
+      $P_1,P_2,\dots,P_n$ doğruysa $Q$ doğrudur.
   \end{itemize}
 \end{frame}
 
@@ -660,176 +672,192 @@
 
   \begin{itemize}
     \item Önermeler mantığı tutarlı ve eksiksizdir.
-    \item Yüklemler mantığı tutarlı ve eksiksizdir.
   \end{itemize}
 
   \pause
   \begin{block}{Gödel Kuramı}
     \begin{itemize}
-      \item Sıradan aritmetiği ifade edecek kadar güçlü hiçbir mantıksal sistem
-        hem tutarlı hem eksiksiz olamaz!
+      \item Sıradan aritmetiği ifade edecek kadar güçlü\\
+        hiçbir mantıksal sistem hem tutarlı hem eksiksiz olamaz.
     \end{itemize}
   \end{block}
 \end{frame}
-%
-% \section*{Örnek}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{itemize}
-%       \item antropolog yol ayrımına gelir
-%       \begin{itemize}
-%         \item köye giden yol hangisi?
-%       \end{itemize}
-%
-%       \item yol ayrımında bir yerli
-%       \begin{itemize}
-%         \item iki kabile var: doğrucular ve yalancılar
-%       \end{itemize}
-%
-%       \pause
-%       \item köye giden yolu öğrenmek için ne sormalı?
-%     \end{itemize}
-%   \end{ornek}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{itemize}
-%       \item Bu yol köye gidiyor mu diye sorsam "Evet" der misin?
-%
-%       \pause
-%       \medskip
-%       \begin{table}
-%         \begin{tabular}{|l|l||l|}\hline
-%           Yol         & Yerli   & Yanıt\\\hline\hline
-%           Köye gider  & Doğrucu & Evet \\\hline
-%           Köye gider  & Yalancı & Evet \\\hline
-%           Köye gitmez & Doğrucu & Hayır\\\hline
-%           Köye gitmez & Yalancı & Hayır\\\hline
-%         \end{tabular}
-%       \end{table}
-%     \end{itemize}
-%   \end{ornek}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{itemize}
-%       \item "bu yol köye gider mi?" diye soruyor olsa gerek
-%       \item belirsizliği kaldıralım
-%     \end{itemize}
-%
-%     \pause
-%     \medskip
-%     \begin{columns}
-%       \column{.5\textwidth}
-%       \begin{itemize}
-%         \item $p$: Yol köye gider.
-%         \item $q$: Yerli yalancı kabileden.
-%         \item $p \veebar q$
-%       \end{itemize}
-%
-%       \pause
-%       \column{.5\textwidth}
-%       \begin{table}
-%         \begin{tabular}{|c|c|c||c|}\hline
-%           $p$ & $q$ & $p \veebar q$ & Yanıt\\\hline\hline
-%           $D$ & $D$ & $Y$           & $D$  \\\hline
-%           $D$ & $Y$ & $D$           & $D$  \\\hline
-%           $Y$ & $D$ & $D$           & $Y$  \\\hline
-%           $Y$ & $Y$ & $Y$           & $Y$  \\\hline
-%         \end{tabular}
-%       \end{table}
-%     \end{columns}
-%   \end{ornek}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{itemize}
-%       \item düz yalancı: hesapla, değilini söyle
-%       \item dürüst yalancı: değilini al, hesapla, değilini söyle
-%     \end{itemize}
-%
-%     \pause
-%     \medskip
-%     \begin{table}
-%       \caption{$p \rightarrow q$}
-%       \begin{tabular}{|c|c|c|c|c|c||c|c|}\hline
-%         $p$ & $q$ & $p \rightarrow q$
-%             & $\neg p$ & $\neg q$ & $\neg p \rightarrow \neg q$
-%             & Dürüst & Düz\\\hline\hline
-%         $D$ & $D$ & $D$
-%             & $Y$ & $Y$ & $D$
-%             & $Y$ & $Y$\\\hline
-%         $D$ & $Y$ & $Y$
-%             & $Y$ & $D$ & $D$
-%             & $Y$ & $Y$\\\hline
-%         $Y$ & $D$ & $D$
-%             & $D$ & $Y$ & $Y$
-%             & $D$ & $Y$\\\hline
-%         $Y$ & $Y$ & $D$
-%             & $D$ & $D$ & $D$
-%             & $D$ & $D$\\\hline
-%       \end{tabular}
-%     \end{table}
-%   \end{ornek}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{table}
-%       \caption{$p \leftrightarrow q$}
-%       \begin{tabular}{|c|c|c|c|c|c||c|c|}\hline
-%         $p$ & $q$ & $p \leftrightarrow q$
-%             & $\neg p$ & $\neg q$ & $\neg p \leftrightarrow \neg q$
-%             & Dürüst & Düz\\\hline\hline
-%         $D$ & $D$ & $D$
-%             & $Y$ & $Y$ & $D$
-%             & $Y$ & $Y$\\\hline
-%         $D$ & $Y$ & $Y$
-%             & $Y$ & $D$ & $Y$
-%             & $Y$ & $Y$\\\hline
-%         $Y$ & $D$ & $Y$
-%             & $D$ & $Y$ & $Y$
-%             & $D$ & $D$\\\hline
-%         $Y$ & $Y$ & $D$
-%             & $D$ & $D$ & $D$
-%             & $D$ & $D$\\\hline
-%       \end{tabular}
-%     \end{table}
-%   \end{ornek}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Örnek}
-%
-%   \begin{ornek}[antropolog - yerli]
-%     \begin{itemize}
-%       \item yalan sanatçısı: amaç yanıltmak
-%
-%       \pause
-%       \medskip
-%       \item "köyde bedava bira dağıtıldığını biliyor muydun?"
-%       \begin{itemize}
-%         \item doğrucu: "hayır" deyip köye
-%         \item düz/dürüst yalancı: "evet" deyip köye
-%         \item yalan sanatçısı: "bira sevmem" deyip köye ya da diğer yola
-%       \end{itemize}
-%     \end{itemize}
-%   \end{ornek}
-% \end{frame}
+
+\subsection*{Örnek}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item "Mathematical Puzzles and Diversions" kitabından\\
+        (Martin Gardner)
+
+      \pause
+      \medskip
+      \item bir matematikçi ücra bir yerde bir yol ayrımına gelir
+      \item bölgede iki kabile yaşamaktadır: doğrucular ve yalancılar
+      \begin{itemize}
+        \item doğrucular her zaman doğru, yalancılar her zaman yalan söyler
+      \end{itemize}
+
+      \item yol ayrımında bir yerli var
+      \begin{itemize}
+        \item hangi kabileden olduğu belli değil
+      \end{itemize}
+
+      \pause
+      \item matematikçi köye giden yolu öğrenmek için ne sormalı?
+      \begin{itemize}
+        \item tek bir soru sorabilir, yanıtı evet ya da hayır olmalı
+      \end{itemize}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item $p$: Yol köye gider.
+      \item $q$: Yerli doğrucu kabileden.
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item "Bu yol köye gidiyor mu?" diye sorsam "evet" der misin?
+
+      \pause
+      \medskip
+      \begin{table}
+        \begin{tabular}{|l|l||l|}\hline
+          $p$ & $q$ & yanıt\\\hline\hline
+          $D$ & $D$ & evet \\\hline
+          $D$ & $Y$ & evet \\\hline
+          $Y$ & $D$ & hayır\\\hline
+          $Y$ & $Y$ & hayır\\\hline
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \medskip
+      \item gidiyorsa "evet", gitmiyorsa "hayır"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item "$p \veebar \neg q$ işleminin sonucu nedir?"
+
+      \pause
+      \medskip
+      \begin{table}
+        \begin{tabular}{|c|c|c|c||c|c|}\hline
+              &     &          &
+              & \rotatebox{90}{doğrucu} & \rotatebox{90}{yalancı}\\
+          $p$ & $q$ & $\neg q$ & $p \veebar \neg q$ & $A$     & $\neg A$\\
+              &     &          & ($A$)              &         &\\\hline\hline
+          $D$ & $D$ & $Y$ & $D$ & $D$ & $-$\\\hline
+          $D$ & $Y$ & $D$ & $Y$ & $-$ & $D$\\\hline
+          $Y$ & $D$ & $Y$ & $Y$ & $Y$ & $-$\\\hline
+          $Y$ & $Y$ & $D$ & $D$ & $-$ & $Y$\\\hline
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \medskip
+      \item gidiyorsa "$D$", gitmiyorsa "$Y$"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item dürüst bir yalancı kendine de yalan söyler
+
+      \pause
+      \medskip
+      \item düz yalancı: hesapla, değilini söyle
+      \item dürüst yalancı: değilini al, hesapla, değilini söyle
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item "$p \rightarrow \neg q$ işleminin sonucu nedir?"
+
+      \pause
+      \medskip
+      \begin{table}
+        \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+              &     &          &          &                        &
+              & \rotatebox{90}{doğrucu} & \rotatebox{90}{düz} & \rotatebox{90}{dürüst}\\
+          $p$ & $q$ & $\neg p$ & $\neg q$ & $p \rightarrow \neg q$ & $\neg p \rightarrow q$
+              & $A$ & $\neg A$ & $\neg B$\\
+              &     &          &          & ($A$)                  & ($B$)
+              &     &          &\\\hline\hline
+          $D$ & $D$ & $Y$ & $Y$ & $Y$ & $D$ & $Y$ & $-$ & $-$\\\hline
+          $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
+          $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
+          $Y$ & $Y$ & $D$ & $D$ & $D$ & $Y$ & $-$ & $Y$ & $D$\\\hline
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \medskip
+      \item dürüst yalancı durumunda gidiyorsa "$Y$", gitmiyorsa "$D$"
+      \item düz yalancı durumunu çözmüyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}[yol ayrımı]
+    \begin{itemize}
+      \item "$p \leftrightarrow \neg q$ işleminin sonucu nedir?"
+
+      \pause
+      \medskip
+      \begin{table}
+        \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+              &     &          &          &                        &
+              & \rotatebox{90}{doğrucu} & \rotatebox{90}{düz} & \rotatebox{90}{dürüst}\\
+          $p$ & $q$ & $\neg p$ & $\neg q$ & $p \leftrightarrow \neg q$ & $\neg p \leftrightarrow q$
+              & $A$ & $\neg A$ & $\neg B$\\
+              &     &          &          & ($A$)                  & ($B$)
+              &     &          &\\\hline\hline
+        $D$ & $D$ & $Y$ & $Y$ & $Y$ & $Y$ & $Y$ & $-$ & $-$\\\hline
+        $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
+        $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
+        $Y$ & $Y$ & $D$ & $D$ & $Y$ & $Y$ & $-$ & $D$ & $D$\\\hline
+        \end{tabular}
+      \end{table}
+
+      \pause
+      \medskip
+      \item gidiyorsa "$Y$", gitmiyorsa "$D$"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
 
 \section{Önerme Hesapları}
 
@@ -847,7 +875,8 @@
     \pause
     \item yazımsal yaklaşım: \emph{akıl yürütme kuralları}
     \begin{itemize}
-      \item önermelerden mantıksal gerektirmeler yoluyla yeni önermeler üretme
+      \item var olan önermelerden mantıksal gerektirmeler kullanarak\\
+        yeni önermeler üretme
     \end{itemize}
 
     \pause
@@ -864,8 +893,8 @@
   \begin{ornek}[$p \rightarrow q$]
     \begin{center}
       \begin{tabular}{|c|c||c|c|c|c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$ &
-                    $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
+        $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
+            & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
         $D$ & $D$ & $D$ & $D$ & $D$ & $D$\\\hline
         $D$ & $Y$ & $Y$ & $Y$ & $D$ & $D$\\\hline
         $Y$ & $D$ & $D$ & $D$ & $Y$ & $Y$\\\hline
@@ -908,8 +937,8 @@
     \begin{table}
       \caption{$\neg p \leftrightarrow p \rightarrow Y$}
       \begin{tabular}{|c|c|c||c|}\hline
-        $p$ & $\neg p$ & $p \rightarrow Y$
-            & $\neg p \leftrightarrow p \rightarrow Y$\\\hline\hline
+        $p$ & $\neg p$ & $p \rightarrow Y$ & $\neg p \leftrightarrow A$\\
+            &          & ($A$)             &\\\hline\hline
         $D$ & $Y$ & $Y$ & $D$\\\hline
         $Y$ & $D$ & $D$ & $D$\\\hline
       \end{tabular}
@@ -928,8 +957,8 @@
     \begin{table}
       \caption{$(p \rightarrow q) \leftrightarrow (\neg p \vee q)$}
       \begin{tabular}{|c|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $\neg p$ & $\neg p \vee q$
-            & $(p \rightarrow q) \leftrightarrow (\neg p \vee q)$\\\hline\hline
+        $p$ & $q$ & $p \rightarrow q$ & $\neg p$ & $\neg p \vee q$ & $A \leftrightarrow B$\\
+            &     & ($A$)             &          & ($B$)           &\\\hline\hline
         $D$ & $D$ & $D$ & $Y$ & $D$ & $D$\\\hline
         $D$ & $Y$ & $Y$ & $Y$ & $Y$ & $D$\\\hline
         $Y$ & $D$ & $D$ & $D$ & $D$ & $D$\\\hline
@@ -943,44 +972,44 @@
   \frametitle{Mantık Yasaları}
 
   \begin{tabular}{ll}
-  \alert{Çifte Değilleme Yasası (DN)} &\\
+  \alert{Çifte Değilleme (Double Negation - DN)} &\\
     $\neg (\neg p) \Leftrightarrow p$ &\\\\
   \pause
-  \alert{Değişme Yasaları (Co)} &\\
+  \alert{Değişme (Commutativity - Co)} &\\
     $p \wedge q \Leftrightarrow q \wedge p$ &
     $p \vee q \Leftrightarrow q \vee p$\\\\
   \pause
-  \alert{Birleşme Yasaları (As)} &\\
+  \alert{Birleşme (Associativity - As)} &\\
     $(p \wedge q) \wedge r \Leftrightarrow p \wedge (q \wedge r)$ &
     $(p \vee q) \vee r \Leftrightarrow p \vee (q \vee r)$\\\\
   \pause
-  \alert{Sabit Kuvvetlilik Yasaları (Ip)} &\\
+  \alert{Sabit Kuvvetlilik (Idempotence - Ip)} &\\
     $p \wedge p \Leftrightarrow p$ &
     $p \vee p \Leftrightarrow p$\\\\
   \pause
-  \alert{Terslik Yasaları (In)} &\\
+  \alert{Terslik (Inverse - In)} &\\
     $p \wedge \neg p \Leftrightarrow Y$ &
     $p \vee \neg p \Leftrightarrow D$
   \end{tabular}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eşdeğerlilikler}
+  \frametitle{Mantık Yasaları}
 
   \begin{tabular}{ll}
-  \alert{Etkisizlik Yasaları (Id)} &\\
+  \alert{Etkisizlik (Identity - Id)} &\\
     $p \wedge D \Leftrightarrow p$ &
     $p \vee Y \Leftrightarrow p$\\\\
   \pause
-  \alert{Baskınlık Yasaları (Do)} &\\
+  \alert{Baskınlık (Domination - Do)} &\\
     $p \wedge Y \Leftrightarrow Y$ &
     $p \vee D \Leftrightarrow D$\\\\
   \pause
-  \alert{Dağılma Yasaları (Di)} &\\
+  \alert{Dağılma (Distributivity - Di)} &\\
     $p \wedge (q \vee r) \Leftrightarrow (p \wedge q) \vee (p \wedge r)$ &
     $p \vee (q \wedge r) \Leftrightarrow (p \vee q) \wedge (p \vee r)$\\\\
   \pause
-  \alert{Yutma Yasaları (Ab)} &\\
+  \alert{Yutma (Absorption - Ab)} &\\
     $p \wedge (p \vee q) \Leftrightarrow p$ &
     $p \vee (p \wedge q) \Leftrightarrow p$\\\\
   \pause
@@ -991,12 +1020,54 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Eşdeğerlilik Hesabı Örneği}
+
+  \begin{ornek}
+    \begin{eqnarray*}
+                      & p \rightarrow q           &   \\
+      \pause
+      \Leftrightarrow & \neg p \vee q             &   \\
+      \pause
+      \Leftrightarrow & q \vee \neg p             & Co\\
+      \pause
+      \Leftrightarrow & \neg \neg q \vee \neg p   & DN\\
+      \pause
+      \Leftrightarrow & \neg q \rightarrow \neg p &
+    \end{eqnarray*}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eşdeğerlilik Hesabı Örneği}
+
+  \begin{ornek}
+    \begin{eqnarray*}
+                      & \neg (\neg ((p \vee q) \wedge r) \vee \neg q)      &   \\
+      \pause
+      \Leftrightarrow & \neg \neg ((p \vee q) \wedge r) \wedge \neg \neg q & DM\\
+      \pause
+      \Leftrightarrow & ((p \vee q) \wedge r) \wedge q                     & DN\\
+      \pause
+      \Leftrightarrow & (p \vee q) \wedge (r \wedge q)                     & As\\
+      \pause
+      \Leftrightarrow & (p \vee q) \wedge (q \wedge r)                     & Co\\
+      \pause
+      \Leftrightarrow & ((p \vee q) \wedge q) \wedge r                     & As\\
+      \pause
+      \Leftrightarrow & q \wedge r                                         & Ab
+    \end{eqnarray*}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
   \frametitle{Dualite}
 
   \begin{tanim}
     $\wedge$ ve $\vee$ dışında bir bağlaç içermeyen bir $s$ önermesinin\\
-    \alert{dual} önermesi $s^d$, $\wedge$ yerine $\vee$, $\vee$ yerine $\wedge$,\\
-    $D$ yerine $Y$, $Y$ yerine $D$ konarak elde edilir.
+    \alert{dual} önermesi $s^d$,\\
+    $\wedge$ yerine $\vee$, $\vee$ yerine $\wedge$,
+    $D$ yerine $Y$, $Y$ yerine $D$\\
+    konarak elde edilir.
   \end{tanim}
 
   \pause
@@ -1016,46 +1087,6 @@
     olsun.\\
     $s \Leftrightarrow t$ ise $s^d \Leftrightarrow t^d$.
   \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Eşdeğerlilik Hesabı Örneği}
-
-  \begin{ornek}
-    \begin{eqnarray*}
-                      & p \rightarrow q           &\\
-      \pause
-      \Leftrightarrow & \neg p \vee q             &\\
-      \pause
-      \Leftrightarrow & q \vee \neg p             & Co\\
-      \pause
-      \Leftrightarrow & \neg \neg q \vee \neg p   & DN\\
-      \pause
-      \Leftrightarrow & \neg q \rightarrow \neg p &
-    \end{eqnarray*}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Eşdeğerlilik Hesabı Örneği}
-
-  \begin{ornek}
-    \begin{eqnarray*}
-                      & \neg (\neg ((p \vee q) \wedge r) \vee \neg q)      &\\
-      \pause
-      \Leftrightarrow & \neg \neg ((p \vee q) \wedge r) \wedge \neg \neg q & DM\\
-      \pause
-      \Leftrightarrow & ((p \vee q) \wedge r) \wedge q                     & DN\\
-      \pause
-      \Leftrightarrow & (p \vee q) \wedge (r \wedge q)                     & As\\
-      \pause
-      \Leftrightarrow & (p \vee q) \wedge (q \wedge r)                     & Co\\
-      \pause
-      \Leftrightarrow & ((p \vee q) \wedge q) \wedge r                     & As\\
-      \pause
-      \Leftrightarrow & q \wedge r                                         & Ab
-    \end{eqnarray*}
-  \end{ornek}
 \end{frame}
 
 \subsection{Akıl Yürütme}
@@ -1081,8 +1112,8 @@
     \begin{table}
       \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
       \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $p \wedge (p \rightarrow q)$
-            & $p \wedge (p \rightarrow q) \rightarrow q$\\\hline\hline
+        $p$ & $q$ & $p \rightarrow q$ & $p \wedge A$ & $B \rightarrow q$\\
+            &     & ($A$)             & ($B$)        &\\\hline\hline
         $D$ & $D$ & $D$ & $D$ & $D$\\\hline
         $D$ & $Y$ & $Y$ & $Y$ & $D$\\\hline
         $Y$ & $D$ & $D$ & $Y$ & $D$\\\hline
@@ -1096,8 +1127,9 @@
   \frametitle{Akıl Yürütme}
 
   \begin{itemize}
-    \item doğruluğu varsayılan ya da tanıtlanmış önermeler içeren bir kümeden
-      yola çıkarak bu küme dışındaki bir önermenin doğruluğuna varma
+    \item doğruluğu varsayılan ya da tanıtlanmış\\
+      bir önermeler kümesinden yola çıkarak\\
+      bir önermenin doğruluğuna varma
   \end{itemize}
 
   \pause
@@ -1128,184 +1160,166 @@
 \begin{frame}
   \frametitle{Temel Kurallar}
 
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{block}{Özdeşlik (ID)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p
-          \end{array}
-        }
-        {
-          \therefore p
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Çelişki (CTR)}
+  \begin{block}{Özdeşlik (Identity - ID)}
     \[
     \frac
       {
         \begin{array}{c}
-          Y
+          p
         \end{array}
       }
       {
         \therefore p
       }
     \]
-    \end{block}
-  \end{columns}
+  \end{block}
+
+  \pause
+  \begin{block}{Çelişki (Contradiction - CTR)}
+  \[
+  \frac
+    {
+      \begin{array}{c}
+        Y
+      \end{array}
+    }
+    {
+      \therefore p
+    }
+  \]
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Temel Kurallar}
 
-  \begin{columns}
-    \column{.4\textwidth}
-    \begin{block}{Koşul Ekleme (ImpI)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \vdash q
-          \end{array}
-        }
-        {
-          \therefore p \rightarrow q
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.6\textwidth}
-    \begin{itemize}
-      \item $p$ doğru varsayıldığında\\
-        $q$ doğru olduğu gösterilebiliyorsa,\\
-        \alert{$p$ doğru varsayılmadan}\\
-        $p \rightarrow q$ doğrudur
-    \end{itemize}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Temel Kurallar}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{VE Ekleme (AndI)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p\\
-            q
-          \end{array}
-        }
-        {
-          \therefore p \wedge q
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{VE Eleme (AndE)}
+  \begin{block}{Koşul Ekleme (Implication Introduction - ImpI)}
     \[
     \frac
       {
         \begin{array}{c}
-          p \wedge q
+          p \vdash q
         \end{array}
       }
       {
-        \therefore p
+        \therefore ~ \vdash p \rightarrow q
       }
     \]
-    \end{block}
-  \end{columns}
+  \end{block}
+
+  \begin{itemize}
+    \item $p$ doğru varsayıldığında $q$ doğru olduğu gösterilebiliyorsa,\\
+      \emph{$p$ doğru varsayılmadan} $p \rightarrow q$ doğrudur
+
+    \pause
+    \medskip
+    \item $p$ bir \alert{geçici varsayım} (PA - provisional assumption)
+    \item geçici varsayımlar sonradan kaldırılabilmeli
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Temel Kurallar}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{VEYA Ekleme (OrI)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p
-          \end{array}
-        }
-        {
-          \therefore p \vee q
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{VEYA Eleme (OrE)}
+  \begin{block}{VE Ekleme (AND Introduction - AndI)}
     \[
     \frac
       {
         \begin{array}{c}
-          p \vee q\\
-          p \vdash r\\
-          q \vdash r
+          p\\
+          q
         \end{array}
       }
       {
-        \therefore r
+        \therefore p \wedge q
       }
     \]
-    \end{block}
-  \end{columns}
+  \end{block}
+
+  \pause
+  \begin{block}{VE Eleme (AND Elimination - AndE)}
+  \[
+  \frac
+    {
+      \begin{array}{c}
+        p \wedge q
+      \end{array}
+    }
+    {
+      \therefore p
+    }
+  \]
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Temel Kurallar}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{Modus Ponens (ImpE)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            p
-          \end{array}
-        }
-        {
-          \therefore q
-        }
-      \]
-    \end{block}
+  \begin{block}{VEYA Ekleme (OR Introduction - OrI)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p
+        \end{array}
+      }
+      {
+        \therefore p \vee q
+      }
+    \]
+  \end{block}
 
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Modus Tollens (MT)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            \neg q
-          \end{array}
-        }
-        {
-          \therefore \neg p
-        }
-      \]
-    \end{block}
-  \end{columns}
+  \pause
+  \begin{block}{VEYA Eleme (OR Elimination - OrE)}
+  \[
+  \frac
+    {
+      \begin{array}{c}
+        p \vee q\\
+        p \vdash r\\
+        q \vdash r
+      \end{array}
+    }
+    {
+      \therefore ~ \vdash r
+    }
+  \]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Temel Kurallar}
+
+  \begin{block}{Modus Ponens (Implication Elimination - ImpE)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          p
+        \end{array}
+      }
+      {
+        \therefore q
+      }
+    \]
+  \end{block}
+
+  \pause
+  \begin{block}{Modus Tollens (MT)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          \neg q
+        \end{array}
+      }
+      {
+        \therefore \neg p
+      }
+    \]
+  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -1367,7 +1381,7 @@
 
       \pause
       \medskip
-      \item o halde, Ali piyangoyu kazanmadı.
+      \item O halde, Ali piyangoyu kazanmadı.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1402,12 +1416,12 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item Madonna A.B.D. başkanıysa 35 yaşının üstündedir.
-      \item Madonna 35 yaşının üstündedir.
+      \item Ali piyangoyu kazanırsa araba alacak.
+      \item Ali araba aldı.
 
       \pause
       \medskip
-      \item O halde, Madonna A.B.D. başkanıdır.
+      \item O halde, Ali piyangoyu kazandı.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1443,12 +1457,12 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item $2+3=8$ ise $2+4=6$
-      \item $2+3 \neq 8$
+      \item Ali piyangoyu kazanırsa araba alacak.
+      \item Ali piyangoyu kazanmadı.
 
       \pause
       \medskip
-      \item o halde, $2+4 \neq 6$
+      \item O halde, Ali araba almayacak.
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1458,7 +1472,8 @@
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{block}{Ayırıcı Kıyas (DS)}
+    \begin{block}{Ayırıcı Kıyas\\
+      (Disjunctive Syllogism - DS)}
       \[
       \frac
         {
@@ -1482,13 +1497,13 @@
       \pause
       3.   & p \rightarrow Y & 2\\
       \pause
-      4a1. & p               & A!\\
+      4a1. & p               & PA\\
       \pause
       4a2. & Y               & ImpE:3,4a1\\
       \pause
       4a.  & q               & CTR:4a2\\
       \pause
-      4b1. & q               & A!\\
+      4b1. & q               & PA\\
       \pause
       4b.  & q               & ID:4b1\\
       \pause
@@ -1517,7 +1532,8 @@
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{block}{Varsayımlı Kıyas (HS)}
+    \begin{block}{Varsayımlı Kıyas\\
+      (Hypothetical Syllogism - HS)}
       \[
       \frac
         {
@@ -1534,7 +1550,7 @@
     \pause
     \column{.5\textwidth}
     \begin{eqnarray*}
-      1. & p               & A!\\
+      1. & p               & PA\\
       \pause
       2. & p \rightarrow q & A\\
       \pause
@@ -1555,8 +1571,9 @@
   \begin{ornek}[Uzay Yolu]
     Spock - Yarbay Decker:
     \begin{quote}
-      Şu anda düşman gemisine saldırmak intihar olur. İntihara teşebbüs eden
-      biri Atılgan'ın komutanlığını yapmaya psikolojik olarak yetkin degildir.
+      Şu anda düşman gemisine saldırmak intihar olur.\\
+      İntihara teşebbüs eden biri Atılgan'ın komutanlığını yapmaya psikolojik
+      olarak yetkin değildir.\\
       O halde, sizi görevden almak zorundayım.
     \end{quote}
   \end{ornek}
@@ -1618,45 +1635,45 @@
   \end{ornek}
 \end{frame}
 
-\begin{frame}
-  \frametitle{İkilemler}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{Yapıcı İkilem}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            r \rightarrow s\\
-            p \vee r
-          \end{array}}
-        {
-          \therefore q \vee s
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Yıkıcı İkilem}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            r \rightarrow s\\
-            \neg q \vee \neg s
-          \end{array}
-          }
-          {
-            \therefore \neg p \vee \neg r
-          }
-      \]
-    \end{block}
-  \end{columns}
-\end{frame}
+% \begin{frame}
+%   \frametitle{İkilemler}
+%
+%   \begin{columns}[t]
+%     \column{.5\textwidth}
+%     \begin{block}{Yapıcı İkilem}
+%       \[
+%       \frac
+%         {
+%           \begin{array}{c}
+%             p \rightarrow q\\
+%             r \rightarrow s\\
+%             p \vee r
+%           \end{array}}
+%         {
+%           \therefore q \vee s
+%         }
+%       \]
+%     \end{block}
+%
+%     \pause
+%     \column{.5\textwidth}
+%     \begin{block}{Yıkıcı İkilem}
+%       \[
+%       \frac
+%         {
+%           \begin{array}{c}
+%             p \rightarrow q\\
+%             r \rightarrow s\\
+%             \neg q \vee \neg s
+%           \end{array}
+%           }
+%           {
+%             \therefore \neg p \vee \neg r
+%           }
+%       \]
+%     \end{block}
+%   \end{columns}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Akıl Yürütme Örnekleri}
@@ -1775,7 +1792,7 @@
           \end{array}
         }
         {
-          \therefore q \wedge \neg q
+          \therefore Y
         }
       \]
 
@@ -1800,7 +1817,7 @@
        \pause
         9. & q                        & DS:8,6\\
        \pause
-       10. & q \wedge \neg q          & AndI:9,3
+       10. & q \wedge \neg q : Y      & AndI:9,3
       \end{eqnarray*}
     \end{columns}
   \end{ornek}
@@ -1810,12 +1827,10 @@
   \frametitle{Akıl Yürütme Örnekleri}
 
   \begin{ornek}
-    \begin{quote}
-      Eğer yağmur yağma olasılığı varsa veya saç bandını bulamazsa, Filiz
-      çimleri biçmez. Hava sıcaklığı 20 derecenin üzerindeyse yağmur yağma
-      olasılığı yoktur. Bugün hava sıcaklığı 22 derece ve Filiz saç bandını
-      takmış. O halde, Filiz çimleri biçecek.
-    \end{quote}
+    Eğer yağmur yağması olasılığı varsa veya saç bandını bulamazsa,\\
+    Filiz çimleri biçmez. Hava sıcaklığı 20~dereceden fazlaysa\\
+    yağmur yağma olasılığı yoktur. Bugün hava sıcaklığı 22~derece\\
+    ve Filiz saç bandını takmış. O halde, Filiz çimleri biçecek.
   \end{ornek}
 \end{frame}
 
@@ -1827,7 +1842,7 @@
       \item $p$: Yağmur yağabilir.
       \item $q$: Filiz'in saç bandı kayıp.
       \item $r$: Filiz çimleri biçer.
-      \item $s$: Hava sıcaklığı 20 derecenin üzerinde.
+      \item $s$: Hava sıcaklığı 20 dereceden fazla.
     \end{itemize}
   \end{ornek}
 \end{frame}
