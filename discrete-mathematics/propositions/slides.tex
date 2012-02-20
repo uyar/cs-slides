@@ -120,7 +120,8 @@
     \column{.55\textwidth}
     \begin{example}[proposition]
       \begin{itemize}
-        \item The Moon revolves around the Earth.
+        \item The Moon revolves around\\
+          the Earth.
         \item Elephants can fly.
         \item $3+8=11$
       \end{itemize}
@@ -441,7 +442,7 @@
   \begin{example}
     \begin{itemize}
       \item The parent tells the child:\\
-        "If you do your homework you can play computer games."
+        "If you do your homework, you can play computer games."
 
       \pause
       \medskip
@@ -539,8 +540,186 @@
   \end{example}
 \end{frame}
 
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \bigskip
+%   \hyperlink{formattr}{\beamergotobutton{skip example}}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item from the book "Mathematical Puzzles and Diversions"\\
+%         by Martin Gardner
+%
+%       \pause
+%       \medskip
+%       \item on a remote island, a logician arrives at a fork in the road
+%       \item two tribes living on the island: truth-tellers (tt) and liars (l)
+%       \begin{itemize}
+%         \item truth-tellers always tell the truth, liars always lie
+%       \end{itemize}
+%
+%       \item there is a native bystander at the fork
+%       \begin{itemize}
+%         \item no way of telling which tribe the native is from
+%       \end{itemize}
+%
+%       \pause
+%       \item to figure out which road leads to the village,\\
+%         what question does the logician ask?
+%       \begin{itemize}
+%         \item only one question with a yes/no answer
+%       \end{itemize}
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item $p$: The road leads to the village.
+%       \item $q$: The native is a truth-teller.
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item \emph{If I were to ask you if this road leads to the village,\\
+%         would you say "Yes"?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|l|l||l|}\hline
+%           $p$ & $q$ & Answer\\\hline\hline
+%           $T$ & $T$ & Yes\\\hline
+%           $T$ & $F$ & Yes\\\hline
+%           $F$ & $T$ & No\\\hline
+%           $F$ & $F$ & No\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item "Yes" if the road leads to the village, "No" if not
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item \emph{What is the result of $p \veebar \neg q$?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c||c|c|}\hline
+%               &     &          &                    & tt  & l\\
+%           $p$ & $q$ & $\neg q$ & $p \veebar \neg q$ & $A$ & $\neg A$\\
+%               &     &          & ($A$)              &     &\\\hline\hline
+%           $T$ & $T$ & $F$ & $T$ & $T$ & $-$\\\hline
+%           $T$ & $F$ & $T$ & $F$ & $-$ & $T$\\\hline
+%           $F$ & $T$ & $F$ & $F$ & $F$ & $-$\\\hline
+%           $F$ & $F$ & $T$ & $T$ & $-$ & $F$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item "$T$" if the road leads to the village, "$F$" if not
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item an honest liar also lies to himself
+%
+%       \pause
+%       \medskip
+%       \item simple liar (sl): compute, negate
+%       \item honest liar (hl): negate, compute, negate
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item \emph{What is the result of $p \rightarrow \neg q$?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+%               &     &          &          &                        &
+%               & tt  & sl       & hl\\
+%           $p$ & $q$ & $\neg p$ & $\neg q$ & $p \rightarrow \neg q$ & $\neg p \rightarrow q$
+%               & $A$ & $\neg A$ & $\neg B$\\
+%               &     &          &          & ($A$)                  & ($B$)
+%               &     &          &\\\hline\hline
+%           $T$ & $T$ & $F$ & $F$ & $F$ & $T$ & $F$ & $-$ & $-$\\\hline
+%           $T$ & $F$ & $F$ & $T$ & $T$ & $T$ & $-$ & $F$ & $F$\\\hline
+%           $F$ & $T$ & $T$ & $F$ & $T$ & $T$ & $T$ & $-$ & $-$\\\hline
+%           $F$ & $F$ & $T$ & $T$ & $T$ & $F$ & $-$ & $F$ & $T$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item honest liar: "$F$" if the road leads to the village, "$T$" if not
+%       \item fails in the simple liar case
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: The Fork in the Road}
+%
+%   \begin{example}
+%     \begin{itemize}
+%       \item \emph{What is the result of $p \leftrightarrow \neg q$?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+%             &     &          &          &                            &
+%             & tt  & sl       & hl\\
+%         $p$ & $q$ & $\neg p$ & $\neg q$ & $p \leftrightarrow \neg q$ & $\neg p \leftrightarrow q$
+%             & $A$ & $\neg A$ & $\neg B$\\
+%             &     &          &        & ($A$)                        & ($B$)
+%             &     &          &\\\hline\hline
+%         $T$ & $T$ & $F$ & $F$ & $F$ & $F$ & $F$ & $-$ & $-$\\\hline
+%         $T$ & $F$ & $F$ & $T$ & $T$ & $T$ & $-$ & $F$ & $F$\\\hline
+%         $F$ & $T$ & $T$ & $F$ & $T$ & $T$ & $T$ & $-$ & $-$\\\hline
+%         $F$ & $F$ & $T$ & $T$ & $F$ & $F$ & $-$ & $T$ & $T$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item "$F$" if the road leads to the village, "$T$" if not
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+
 \begin{frame}
-  \frametitle{Formula Types}
+  \frametitle{Formula Attributes}
 
   \begin{enumerate}
     \item \emph{tautology}: True for all interpretations
