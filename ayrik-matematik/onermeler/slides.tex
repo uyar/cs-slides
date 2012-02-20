@@ -545,176 +545,182 @@
   \end{ornek}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \bigskip
-  \hyperlink{formattr}{\beamergotobutton{örneği atla}}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item "Mathematical Puzzles and Diversions" kitabından
-
-      \pause
-      \medskip
-      \item bir matematikçi ücra bir yerde bir yol ayrımına gelir
-      \item bölgede iki kabile yaşamaktadır: doğrucular ve yalancılar
-      \begin{itemize}
-        \item doğrucular her zaman doğru, yalancılar her zaman yalan söyler
-      \end{itemize}
-
-      \item yol ayrımında bir yerli var
-      \begin{itemize}
-        \item hangi kabileden olduğu belli değil
-      \end{itemize}
-
-      \pause
-      \item matematikçi köye giden yolu öğrenmek için ne sormalı?
-      \begin{itemize}
-        \item tek bir soru sorabilir, yanıtı evet ya da hayır olmalı
-      \end{itemize}
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item $p$: Yol köye gider.
-      \item $q$: Yerli doğrucu kabileden.
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item "Bu yol köye gidiyor mu?" diye sorsam "evet" der misin?
-
-      \pause
-      \medskip
-      \begin{table}
-        \begin{tabular}{|l|l||l|}\hline
-          $p$ & $q$ & yanıt\\\hline\hline
-          $D$ & $D$ & evet \\\hline
-          $D$ & $Y$ & evet \\\hline
-          $Y$ & $D$ & hayır\\\hline
-          $Y$ & $Y$ & hayır\\\hline
-        \end{tabular}
-      \end{table}
-
-      \pause
-      \medskip
-      \item gidiyorsa "evet", gitmiyorsa "hayır"
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item "$p \veebar \neg q$ işleminin sonucu nedir?"
-
-      \pause
-      \medskip
-      \begin{table}
-        \begin{tabular}{|c|c|c|c||c|c|}\hline
-          $p$ & $q$ & $\neg q$ & $p \veebar \neg q$
-              & \rotatebox{90}{doğrucu} & \rotatebox{90}{yalancı}\\
-              &     &          & ($A$)  & $A$     & $\neg A$ \\\hline\hline
-          $D$ & $D$ & $Y$ & $D$ & $D$ & $-$\\\hline
-          $D$ & $Y$ & $D$ & $Y$ & $-$ & $D$\\\hline
-          $Y$ & $D$ & $Y$ & $Y$ & $Y$ & $-$\\\hline
-          $Y$ & $Y$ & $D$ & $D$ & $-$ & $Y$\\\hline
-        \end{tabular}
-      \end{table}
-
-      \pause
-      \medskip
-      \item gidiyorsa "$D$", gitmiyorsa "$Y$"
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item dürüst bir yalancı kendine de yalan söyler
-
-      \pause
-      \medskip
-      \item düz yalancı: hesapla, değille
-      \item dürüst yalancı: değille, hesapla, değille
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item "$p \rightarrow \neg q$ işleminin sonucu nedir?"
-
-      \pause
-      \medskip
-      \begin{table}
-        \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
-          $p$ & $q$ & $\neg p$ & $\neg q$ & $p \rightarrow \neg q$ & $\neg p \rightarrow q$
-              & \rotatebox{90}{doğrucu} & \rotatebox{90}{düz} & \rotatebox{90}{dürüst}\\
-              &     &          &          & ($A$)                  & ($B$)
-              & $A$ & $\neg A$ & $\neg B$\\\hline\hline
-          $D$ & $D$ & $Y$ & $Y$ & $Y$ & $D$ & $Y$ & $-$ & $-$\\\hline
-          $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
-          $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
-          $Y$ & $Y$ & $D$ & $D$ & $D$ & $Y$ & $-$ & $Y$ & $D$\\\hline
-        \end{tabular}
-      \end{table}
-
-      \pause
-      \medskip
-      \item dürüst yalancı durumunda gidiyorsa "$Y$", gitmiyorsa "$D$"
-      \item düz yalancı durumunu çözmüyor
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Martin Gardner}
-
-  \begin{ornek}[yol ayrımı]
-    \begin{itemize}
-      \item "$p \leftrightarrow \neg q$ işleminin sonucu nedir?"
-
-      \pause
-      \medskip
-      \begin{table}
-        \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
-          $p$ & $q$ & $\neg p$ & $\neg q$ & $p \leftrightarrow \neg q$ & $\neg p \leftrightarrow q$
-              & \rotatebox{90}{doğrucu} & \rotatebox{90}{düz} & \rotatebox{90}{dürüst}\\
-              &     &          &          & ($A$)                  & ($B$)
-              & $A$ & $\neg A$ & $\neg B$\\\hline\hline
-        $D$ & $D$ & $Y$ & $Y$ & $Y$ & $Y$ & $Y$ & $-$ & $-$\\\hline
-        $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
-        $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
-        $Y$ & $Y$ & $D$ & $D$ & $Y$ & $Y$ & $-$ & $D$ & $D$\\\hline
-        \end{tabular}
-      \end{table}
-
-      \pause
-      \medskip
-      \item gidiyorsa "$Y$", gitmiyorsa "$D$"
-    \end{itemize}
-  \end{ornek}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \bigskip
+%   \hyperlink{formattr}{\beamergotobutton{örneği atla}}
+%
+%   \begin{ornek}[yol ayrımı]
+%     \begin{itemize}
+%       \item Martin Gardner'ın\\
+%         "Mathematical Puzzles and Diversions" kitabından
+%
+%       \pause
+%       \medskip
+%       \item bir matematikçi ücra bir adada bir yol ayrımına gelir
+%       \item adada iki kabile yaşamaktadır: doğrucular (d) ve yalancılar (y)
+%       \begin{itemize}
+%         \item doğrucular her zaman doğru, yalancılar her zaman yalan söyler
+%       \end{itemize}
+%
+%       \item yol ayrımında bir yerli durmaktadır
+%       \begin{itemize}
+%         \item hangi kabileden olduğu belli değil
+%       \end{itemize}
+%
+%       \pause
+%       \item matematikçi köye giden yolu öğrenmek için ne sormalı?
+%       \begin{itemize}
+%         \item yanıtı evet ya da hayır olacak tek bir soru
+%       \end{itemize}
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item $p$: Yol köye gider.
+%       \item $q$: Yerli doğrucu kabileden.
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item \emph{Sana "bu yol köye gider mi?" diye sorsaydım\\
+%         "evet" der miydin?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|l|l||l|}\hline
+%           $p$ & $q$ & Yanıt\\\hline\hline
+%           $D$ & $D$ & Evet \\\hline
+%           $D$ & $Y$ & Evet \\\hline
+%           $Y$ & $D$ & Hayır\\\hline
+%           $Y$ & $Y$ & Hayır\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item yol köye gidiyorsa "Evet", gitmiyorsa "Hayır"
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item \emph{$p \veebar \neg q$ işleminin sonucu nedir?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c||c|c|}\hline
+%               &     &          &                    & d   & y\\
+%           $p$ & $q$ & $\neg q$ & $p \veebar \neg q$ & $A$ & $\neg A$\\
+%               &     &          & ($A$)              &     &\\\hline\hline
+%           $D$ & $D$ & $Y$ & $D$ & $D$ & $-$\\\hline
+%           $D$ & $Y$ & $D$ & $Y$ & $-$ & $D$\\\hline
+%           $Y$ & $D$ & $Y$ & $Y$ & $Y$ & $-$\\\hline
+%           $Y$ & $Y$ & $D$ & $D$ & $-$ & $Y$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item yol köye gidiyorsa "$D$", gitmiyorsa "$Y$"
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item dürüst bir yalancı kendine de yalan söyler
+%
+%       \pause
+%       \medskip
+%       \item basit yalancı (by): hesapla, değille
+%       \item dürüst yalancı (dy): değille, hesapla, değille
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item \emph{$p \rightarrow \neg q$ işleminin sonucu nedir?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+%               &     &          &          &                        &
+%               & d   & by       & dy\\
+%           $p$ & $q$ & $\neg p$ & $\neg q$ & $p \rightarrow \neg q$ & $\neg p \rightarrow q$
+%               & $A$ & $\neg A$ & $\neg B$\\
+%               &     &          &          & ($A$)                  & ($B$)
+%               &     &          &\\\hline\hline
+%           $D$ & $D$ & $Y$ & $Y$ & $Y$ & $D$ & $Y$ & $-$ & $-$\\\hline
+%           $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
+%           $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
+%           $Y$ & $Y$ & $D$ & $D$ & $D$ & $Y$ & $-$ & $Y$ & $D$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item dürüst yalancı: yol köye gidiyorsa "$Y$", gitmiyorsa "$D$"
+%       \item basit yalancı durumunu çözmüyor
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Örnek: Yol Ayrımı}
+%
+%   \begin{ornek}
+%     \begin{itemize}
+%       \item \emph{$p \leftrightarrow \neg q$ işleminin sonucu nedir?}
+%
+%       \pause
+%       \medskip
+%       \begin{table}
+%         \begin{tabular}{|c|c|c|c|c|c||c|c|c|}\hline
+%             &     &          &          &                            &
+%             & d   & by       & dy\\
+%         $p$ & $q$ & $\neg p$ & $\neg q$ & $p \leftrightarrow \neg q$ & $\neg p \leftrightarrow q$
+%             & $A$ & $\neg A$ & $\neg B$\\
+%             &     &          &        & ($A$)                        & ($B$)
+%             &     &          &\\\hline\hline
+%         $D$ & $D$ & $Y$ & $Y$ & $Y$ & $Y$ & $Y$ & $-$ & $-$\\\hline
+%         $D$ & $Y$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $Y$ & $Y$\\\hline
+%         $Y$ & $D$ & $D$ & $Y$ & $D$ & $D$ & $D$ & $-$ & $-$\\\hline
+%         $Y$ & $Y$ & $D$ & $D$ & $Y$ & $Y$ & $-$ & $D$ & $D$\\\hline
+%         \end{tabular}
+%       \end{table}
+%
+%       \pause
+%       \medskip
+%       \item yol köye gidiyorsa "$Y$", gitmiyorsa "$D$"
+%     \end{itemize}
+%   \end{ornek}
+% \end{frame}
 
 \begin{frame}[label=formattr]
   \frametitle{Formül Nitelikleri}
