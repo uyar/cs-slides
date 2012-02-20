@@ -1,0 +1,580 @@
+% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Bilişim Etiği}
+\subtitle{Kuramlar}
+
+\author{H. Turgut Uyar}
+\date{2004-2012}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[height=4.5cm]{bentham}{bentham}
+\pgfdeclareimage[height=4.5cm]{kant}{kant}
+\pgfdeclareimage[height=4.5cm]{hobbes}{hobbes}
+\pgfdeclareimage[height=4.5cm]{platon}{platon}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2004-2012 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Giriş}
+
+\subsection{Tanımlar}
+
+\begin{frame}
+  \frametitle{Deskriptif Önermeler}
+
+  \begin{tanim}
+    \alert{deskriptif önerme}: durumun ne olduğunu söyler
+
+    \begin{itemize}
+      \item sosyoloji, psikoloji, antropoloji, politik bilimlerin konusu
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{ornek}
+    \begin{quote}
+      bilgisayar kullanıcılarının \%85'i yazılımları\\
+      lisansına aykırı kullanıyor
+    \end{quote}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Normatif Önermeler}
+
+  \begin{tanim}
+    \alert{normatif önerme}: durumun ne olması gerektiğini söyler
+
+    \begin{itemize}
+      \item felsefenin konusu
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{ornek}
+    \begin{quote}
+      bilgisayar kullanıcıları yazılımları\\
+      lisansına aykırı kullanmamalı
+    \end{quote}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ahlak Sistemi}
+
+  \begin{tanim}
+    \alert{ahlak sistemi}:
+
+    \begin{itemize}
+      \item davranış kuralları: bireysel, toplumsal
+      \item değerlendirme ilkeleri: toplumsal yarar, ...
+    \end{itemize}
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item{özellikleri
+      \begin{itemize}
+        \item \emph{açık}: herkes biliyor
+        \item \emph{resmi değil}: zorlayıcı yetkili yok
+        \item \emph{akılcı}: akıl yürüterek anlaşılabilir
+        \item \emph{tarafsız}: bütün katılımcılar eşit
+      \end{itemize}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kuralların Oluşturulması}
+
+  \begin{itemize}
+    \item \alert{temel değerler} gözönüne alınarak:
+
+    \begin{itemize}
+      \item \emph{özünde iyi}: mutluluk, özerklik, mahremiyet, ...
+      \item \emph{araç olarak iyi}: para, ...
+    \end{itemize}
+
+    \pause
+    \item ahlak ilkelerinin dayandırıldığı \alert{zemin}den yola çıkılarak:
+
+    \begin{itemize}
+      \item din
+      \item hukuk
+      \item felsefe
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Metodoloji}
+
+\begin{frame}
+  \frametitle{Felsefe Metodolojisi}
+
+  \begin{tanim}
+    \alert{diyalektik}: \emph{çelişmelerle ilerleyen}
+
+    \begin{itemize}
+      \item tez
+      \item antitez
+      \item sentez
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diyalektik Örneği}
+
+  \begin{ornek}
+    \alert{"ötanazi yanlıştır çünkü insan yaşamı kasıtlı sona erdirilmemelidir"}
+
+    \pause
+    \begin{itemize}
+      \item bilinçli ve çok acı çekiyor
+      \item bilinçsiz ve beyin hasarı var
+      \item ölümcül hasta
+      \item genç - yaşlı
+
+      \pause
+      \item \emph{yaşam kalitesi}
+    \end{itemize}
+
+    \pause
+    aynı ilkenin uygulanabileceği durumlar: savaş, idam, kürtaj
+
+    \begin{itemize}
+      \item \emph{kendini savunma, başka yaşam kurtarma, ...}
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Yanılgılar}
+
+\begin{frame}
+  \frametitle{Tartışma Yanılgıları}
+
+  \begin{quote}
+    felsefeciler ahlaki sorunların çözümünde anlaşamıyor
+  \end{quote}
+
+  \pause
+  \begin{itemize}
+    \item başka alanlarda da uzmanların anlaşamadığı konular var
+
+    \pause
+    \item bazı konularda anlaşma var
+
+    \pause
+    \item ilkelerde anlaşmazlık - durumlarda anlaşmazlık
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kültürel Relativizm}
+
+  \begin{quote}
+    ahlaki normlar toplumdan topluma,\\
+    hatta aynı toplumda zaman içinde değişir
+  \end{quote}
+
+  \pause
+  \begin{itemize}
+    \item deskriptif bir önerme, normatif olması için:
+  \end{itemize}
+
+  \begin{quote}
+    neyin doğru neyin yanlış olduğuna\\
+    o toplumda yaşayanların karar vermesi gerekir
+  \end{quote}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relativizmin Eleştirisi}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item A toplumu barışçıl bir toplum,\\
+        ayrıca kültürel relativizme inanıyor
+
+      \item B toplumu pek barışçıl değil, farklı kültürlerden hoşlanmıyor,\\
+        A toplumunun yaşadığı yeri işgal ediyor
+
+      \item A toplumu B toplumunun davranışının yanlış olduğunu
+        söyleyemez
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\section{Etik Kuramlar}
+
+\subsection{Faydacılık}
+
+\begin{frame}
+  \frametitle{Faydacılık}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{tanim}
+      \alert{faydacılık}:\\
+      bir davranış, etkilenenlerin çoğunluğunu mutlu edecekse ahlaken doğrudur
+    \end{tanim}
+
+    \begin{itemize}
+      \item sonuca dayanıyor
+    \end{itemize}
+
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{bentham}
+    \end{center}
+    \begin{itemize}
+      \item Jeremy Bentham (18-19.yy)\\
+        Epikuros (İ.Ö. 3-4.yy)
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Faydacılık}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{eylem faydacılığı}
+      daha çok sayıda kişinin\\
+      daha mutlu olmasını\\
+      sağlayacak şekilde davran
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{kural faydacılığı}
+      herkes böyle davransaydı\\
+      daha çok sayıda insanın\\
+      daha mutlu olmasını\\
+      sağlayacak şekilde davran
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Faydacılık Sorun Örnekleri}
+
+  \begin{ornek}[eylem faydacılığı]
+    \begin{itemize}
+      \item "bir kişiyi öldürüp organlarıyla 10 kişiyi kurtaralım"
+      \item "toplumun \%1'ini köle olarak çalıştıralım"
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[kural faydacılığı]
+    \begin{itemize}
+      \item "toplumun \%1'ini köle olarak çalıştırmak toplumda
+        gerginlik yaratır"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Faydacılığın Eleştirisi}
+
+  \begin{itemize}
+    \item ahlak mutluluğa ya da zevke bağlanıyor
+
+    \pause
+    \item eylemi doğru ya da yanlış yapan şey eylemin dışında
+
+    \begin{itemize}
+      \item sonuç önceden bilinmiyor: \emph{ahlak şansı}
+    \end{itemize}
+
+    \pause
+    \item karar vermeye yardımcı değil
+
+    \begin{itemize}
+      \item üretilecek mutlulukları kestirmek çok zor, çoğu zaman olanaksız
+    \end{itemize}
+
+    \pause
+    \item iyi sonuçların adil dağılımıyla ilgilenmiyor
+  \end{itemize}
+\end{frame}
+
+\subsection{Deontoloji}
+
+\begin{frame}
+  \frametitle{Deontoloji}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item mutluluk için içgüdü yeterlidir
+      \item oysa insanı hayvandan ayıran akıl yürütme yeteneğidir
+      \item bu yetenek insana ahlaki bir ödev yükler
+    \end{itemize}
+
+    \begin{itemize}
+      \item ödeve dayanıyor
+    \end{itemize}
+
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{kant}
+    \end{center}
+    \begin{itemize}
+      \item Immanuel Kant (18.yy)
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kesin Buyruk}
+
+  \begin{tanim}
+    \alert{kesin buyruk}:
+
+    \begin{itemize}
+      \item kimseyi yalnızca bir amaca hizmet edecek araç olarak kullanma
+
+      \item öyle bir kurala göre davran ki, bu kuralın evrensel bir kural haline
+        gelmesini isteyebilesin
+    \end{itemize}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kesin Buyruk Örnekleri}
+
+  \begin{ornek}
+    \alert{"kölelik yanlıştır çünkü"}
+
+    \begin{itemize}
+      \item "bir grup insan bir amaca hizmet için araç olarak kullanılmış olur"
+      \item "tarafsız ve evrensel bir kural olarak uygulanmasını kimse istemez"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Deontolojinin Eleştirisi}
+
+  \begin{itemize}
+    \item çelişen ödevler varsa ne yapılacak?
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item arkadaşınıza buluşmak için söz verdiniz
+      \item buluşmaya giderken büyükannenizin hastaneye kaldırıldığını
+        öğrendiniz
+      \item arkadaşınıza haber veremiyorsunuz
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Toplumsal Sözleşme}
+
+\begin{frame}
+  \frametitle{Toplumsal Sözleşme Kuramı}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{hobbes}
+    \end{center}
+    \begin{itemize}
+      \item Thomas Hobbes (17.yy)
+    \end{itemize}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item \emph{ahlak öncesi devlet}: herkes kendi çıkarlarına göre davranıyor
+      \item bireyler özgür görünüyor ancak sürekli başkalarından gelecek tehditle
+        mücadele gerek
+      \item özgürlüğümüzün bir kısmını egemen bir yetkiye devrederiz
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item sözleşmeye dayanıyor
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Toplumsal Sözleşme Kuramının Eleştirisi}
+
+  \begin{itemize}
+    \item sözleşme yoksa ahlaki sorun da yok
+
+    \begin{itemize}
+      \item kimsenin kimseye yardım etmesi gerekmiyor
+    \end{itemize}
+
+    \pause
+    \item yasaya aykırı olan ahlaka aykırı olmayabilir
+
+    \begin{ornek}
+      ırk ayrımına karşı sivil itaatsizlik
+    \end{ornek}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Haklar}
+
+  \begin{itemize}
+    \item \alert{negatif haklar}: engellenmemek
+  \end{itemize}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item oy verme
+      \item yüksek eğitim
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{itemize}
+    \item \alert{pozitif haklar}: desteklenmek
+  \end{itemize}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item temel eğitim
+      \item sağlık?
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Erdem Ahlakı}
+
+\begin{frame}
+  \frametitle{Erdem Ahlakı}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{platon}
+    \end{center}
+    \begin{itemize}
+      \item Platon (İ.Ö. 4.yy)\\
+        Aristoteles
+    \end{itemize}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item iyi kişilik özelliklerinin geliştirilmesi
+
+      \item "şu durumda ne yapmalıyım?" değil\\
+        "nasıl bir insan olmalıyım?"
+
+      \item nezaket, doğru sözlülük, dürüstlük, güvenilirlik, yardımseverlik,
+        cömertlik, adillik
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item kişiliğe dayanıyor
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 2: \alert{Ethical Concepts and Ethical Theories}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
