@@ -1,0 +1,653 @@
+% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Bilişim Etiği}
+\subtitle{Profesyonel Etik}
+
+\author{H. Turgut Uyar}
+\date{2004-2012}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[width=7.4cm]{ibm-nazi}{ibm-nazi}
+\pgfdeclareimage[height=5.3cm]{iran}{iran}
+\pgfdeclareimage[height=4.5cm]{ariane}{ariane}
+\pgfdeclareimage[width=7cm]{aegis}{aegis}
+\pgfdeclareimage[width=6.5cm]{robot-sweden}{robot-sweden}
+\pgfdeclareimage[width=7.5cm]{therac}{therac}
+\pgfdeclareimage[height=4.5cm]{latimes}{latimes}
+\pgfdeclareimage[height=4.5cm]{gta}{gta}
+\pgfdeclareimage[width=6.5cm]{challenger}{challenger}
+\pgfdeclareimage[width=6.5cm]{boisjoly}{boisjoly}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2004-2012 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Mesleki Davranış}
+
+\subsection{Meslek Ahlakı}
+
+\begin{frame}
+  \frametitle{Bilgisayarcı Kimdir?}
+
+  \begin{itemize}
+    \item hangi işleri yapanlara bilgisayarcı denecek?
+    \begin{itemize}
+      \item bilişim teknolojileri alanında çalışan herkes?
+      \item yalnızca yazılım mühendisleri?
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item profesyonel etik tartışmalarında gözönüne alacaklarımız:\\
+      yazılım mühendisleri, kalite analistleri, teknik belgelemeciler,\\
+      proje yöneticileri
+    \begin{itemize}
+      \item bir yazılımın analizinde, belirtimlerinde, tasarımında,\\
+        geliştirilmesinde, sertifikasyonunda, bakımında ve sınanmasında\\
+        çalışan herkes
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Meslek Ahlakı}
+
+  \begin{itemize}
+    \item sıradan insanlar için geçerli olan etik kuralları\\
+      meslek sahipleri için farklılık gösterir mi?
+
+    \item meslek sahiplerinin sıradan insanlara göre\\
+      daha fazla etik sorumlulukları olabilir mi?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Farklılaşmış Meslekler}
+
+  \begin{itemize}
+    \item bazı meslekler ahlaki değerlendirme açısından\\
+      diğerlerinden farklı özellikler gösterir
+  \end{itemize}
+
+  \begin{ornek}
+    doktorluk, avukatlık
+  \end{ornek}
+
+  \pause
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item özel yetkiler
+      \item yasal koruma
+    \end{itemize}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item toplumun güvenini kazanma
+    \end{itemize}
+  \end{columns}
+
+  \pause
+  \bigskip
+  \begin{itemize}
+    \item yazılım mühendisliği farklılaşmış bir meslek mi?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Farklılaşmış Meslek Karakteristikleri}
+
+  \begin{itemize}
+    \item toplumsal işlev görürler
+
+    \pause
+    \item özel bilgi ve eğitim gerektirirler
+    \begin{itemize}
+      \item pratisyen - araştırmacı farkı vardır
+    \end{itemize}
+
+    \pause
+    \item emir almaktan çok inisiyatif kullanırlar
+
+    \pause
+    \item mesleki örgütlenmeleri (meslek odaları) vardır
+    \begin{itemize}
+      \item çalışmak için lisans gerekir
+    \end{itemize}
+
+    \pause
+    \item etik kodları ve mesleki davranış kuralları vardır
+  \end{itemize}
+\end{frame}
+
+\subsection{Etik Kodları}
+
+\begin{frame}
+  \frametitle{Etik Kodları}
+
+  \begin{itemize}
+    \item etik kodlarının amacı:
+
+    \begin{itemize}
+      \item esin verme
+      \item yol gösterme
+      \item eğitme
+      \item disiplin altına alma
+    \end{itemize}
+
+    \pause
+    \item bu mesleğin üyelerinden ne beklenebilir?
+  \end{itemize}
+\end{frame}
+
+% \subsection{ACM/IEEE-CS}
+
+\begin{frame}
+  \frametitle{ACM/IEEE-CS Yazılım Mühendisliği Etik Kodları}
+
+  \begin{itemize}
+    \item kamu çıkarlarına uygun davranmak
+    \item müşterisinin ve işvereninin çıkarlarını gözetmek
+    \item ürününün en yüksek mesleki standartlarda olmasını sağlamak
+    \item mesleki değerlendirmelerinde dürüst ve bağımsız olmak
+    \item yönetici olarak ahlaklı davranmak\\
+      ve bu tür davranışları teşvik etmek
+    \item mesleğinin dürüstlüğünü ve saygınlığını ilerletmek
+    \item meslektaşlarına adil davranmak ve desteklemek
+    \item yaşam boyu öğrenme ilkesine\\
+      ve ahlaki davranışlara sadık kalmak
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Davranış Kuralı Örnekleri}
+
+  \begin{itemize}
+    \item yaptığının sorumluluğunu almak
+    \item işveren, müşteri ve kullanıcı çıkarlarını\\
+      kamu yararıyla uzlaştırmak
+    \item fiziksel engeller, kaynakların dağılımı gibi etkenleri\\
+      gözönünde bulundurmak
+    \item mesleğiyle ilgili kamu eğitimine katkıda bulunmak
+    \item yazılım ve ilişkili belgelerin yeterince sınanmasını,\\
+      hatalarının ayıklanmasını ve gözden geçirilmesini sağlamak
+    \item etkilenecek olanların mahremiyetine saygı gösterecek şekilde\\
+      yazılım geliştirmek
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Davranış Kuralı Örnekleri}
+
+  \begin{itemize}
+    \item çıkar çatışmalarını ilgili bütün taraflara açıkça belirtmek
+    \item hiçbir yazılım mühendisinden bu kodla çelişecek\\
+      bir istekte bulunmamak
+    \item bu koda uygun davranmaya çalışan\\
+      diğer yazılım mühendislerini desteklemek
+    \item bu kodla çelişen örgüt ve işyerleriyle ilişki kurmamak
+    \item meslektaşlarının kendilerini geliştirmelerine yardımcı olmak
+    \item başkalarının yaptıkları işleri sahiplenmemek
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kodun Yorumlanması}
+
+  \begin{itemize}
+    \item bu kod doğru davranışı bulmak için verilmiş\\
+      bir algoritma \alert{DEĞİLDİR}
+
+    \pause
+    \item karar verirken şunları gözönüne alın:
+
+    \begin{itemize}
+      \item kimler etkilenir?
+      \item herkese gereken saygı gösterilmiş olur mu?
+      \item toplum yeterli bilgiye sahip olsa onaylar mı?
+      \item en güçsüzler nasıl etkilenir?
+      \item ideal bir yazılım mühendisine yakışır mı?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Sorumluluk}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Sorumluluk}
+
+  \begin{itemize}
+    \item ahlaki sorumluluk
+    \item yasal sorumluluk
+
+    \medskip
+    \item hesap verebilirlik
+  \end{itemize}
+
+  \pause
+  \begin{tanim}
+    ahlaki sorumluluk için iki şart aranır:
+
+    \begin{enumerate}
+      \item yol açma
+      \item kasıt
+    \end{enumerate}
+  \end{tanim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sorumluluk}
+
+  \begin{itemize}
+    \item bazı mühendisler ve akademisyenler\\
+      ahlaken yanlış buldukları projelerde çalışmayı reddeder
+    \begin{itemize}
+      \item silah sistemleri
+      \item gözetleme sistemleri
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: IBM - Nazi Hükümeti (1940'lar)}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{ibm-nazi}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item IBM Nazi hükümetine\\
+        teknoloji satıyor
+      \item gereksinimlerine göre\\
+        özel uygulamalar\\
+        geliştiriyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.cnet.com/Selling-technology-to-the-Nazis/2010-1071_3-876539.html}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Siemens - Nokia - İran (2009)}
+
+  \begin{center}
+    \pgfuseimage{iran}
+  \end{center}
+
+  \begin{itemize}
+    \item İran'ın gözetleme teknolojileri Siemens ve Nokia'dan
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://online.wsj.com/article/SB124562668777335653.html}}
+\end{frame}
+
+\subsection{Bilişimcilerin Sorumluluğu}
+
+\begin{frame}
+  \frametitle{Mesleki Hatalar}
+
+  \begin{itemize}
+    \item güvenlik açısından kritik uygulamalar
+    \begin{itemize}
+      \item tıp
+      \item hava trafiği
+      \item toplu taşımacılık
+      \item güç santralleri
+      \item silah sistemleri
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Ariane 5 (1996)}
+
+  \begin{center}
+    \pgfuseimage{ariane}
+  \end{center}
+
+  \begin{itemize}
+    \item Fransız uydu fırlatma sisteminden atılan roket\\
+      kendini imha ediyor: 500 milyon \$ zarar
+
+    \item 64 bit kayan noktalı sayıyı 16 bit tamsayıya çevirirken taşma
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.ima.umn.edu/~arnold/disasters/ariane5rep.html}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Aegis radar sistemi (1988)}
+
+  \begin{columns}
+    \column{.65\textwidth}
+    \pgfuseimage{aegis}
+
+    \column{.35\textwidth}
+    \begin{itemize}
+      \item ABD uçak gemisi\\
+        İran yolcu uçağını\\
+        düşürüyor:\\
+        290 kişi ölüyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/onthisday/hi/dates/stories/july/3/newsid_4678000/4678707.stm}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: İsveç fabrika robotu (2009)}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{robot-sweden}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item İsveç'te bir robot\\
+        bir fabrika işçisini\\
+        ağır yaralıyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.thelocal.se/19120/20090428/}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Therac-25 radyoterapi cihazı (1985-87)}
+
+  \begin{columns}
+    \column{.66\textwidth}
+    \pgfuseimage{therac}
+
+    \column{.34\textwidth}
+    \begin{itemize}
+      \item radyoterapi cihazı\\
+        aşırı dozda\\
+        radyasyon veriyor:\\
+        3 hasta ölüyor,\\
+        2 hasta ağır yaralanıyor
+
+      \item çok sayıda hata:\\
+        arayüz tasarımı,\\
+        yarış koşulları
+      \item donanım\\
+        korumaları yok
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.mendeley.com/research/investigation-therac25-accidents/}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: CT tarama cihazı (2009)}
+
+  \begin{center}
+    \pgfuseimage{latimes}
+  \end{center}
+
+  \begin{itemize}
+    \item Los Angeles'da bir hastanede CT tarama cihazı\\
+      normalin 8 katı dozda radyasyon veriyor
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://articles.latimes.com/2009/oct/13/local/me-cedars13}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Grand Theft Auto (2003)}
+
+  \begin{center}
+    \pgfuseimage{gta}
+  \end{center}
+
+  \begin{itemize}
+    \item ABD'de bir genç GTA oyununu taklit ediyor: 3 polis ölüyor
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.gamespot.com/news/grand-theft-auto-sparks-another-lawsuit-6118699}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Bilgisayar oyunları}
+
+  \begin{itemize}
+    \item GTA: "bütün Haitilileri öldür"
+    \item pornografik eklentiler
+
+    \bigskip
+    \item bazı ülkeler şiddet içeren bilgisayar oyunlarını yasaklıyor:
+    \begin{itemize}
+      \item Tayland'da GTA (2008), Avustralya'da Manhunt (2004)
+    \end{itemize}
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.gamespot.com/news/haitian-americans-protest-vice-city-6084645}}\\
+  \tiny{\url{http://www.gamespot.com/news/prostitutes-call-for-ban-on-gta-6144286}}\\
+  \tiny{\url{http://www.theregister.co.uk/2009/09/02/take_two_settles_investor_class_action_lawsuit/}}\\
+  \tiny{\url{http://www.reghardware.com/2008/08/04/gta_ban_thai/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/09/30/oz_manhunt_ban/}}\\
+\end{frame}
+
+\subsection{Sadakat}
+
+\begin{frame}
+  \frametitle{Sadakat}
+
+  \begin{itemize}
+    \item çalışanlar işverene sadık olmalı
+
+    \medskip
+    \item işverenin çalışanlara sadakati?
+    \begin{itemize}
+      \item sadakat ilişkisinin karşılıklı olması beklenebilir mi?
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item etik kodundan:
+    \begin{itemize}
+      \item işverenin çıkarlarına aykırı davranmamalı
+      \item daha önemli ahlaki ilke çiğnenmiyorsa
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Challenger uzay mekiği (1986)}
+
+  \begin{columns}
+    \column{.57\textwidth}
+    \pgfuseimage{challenger}
+
+    \column{.43\textwidth}
+    \begin{itemize}
+      \item riski bilinmesine rağmen\\
+        mekik fırlatılıyor:\\
+        7 astronot ölüyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/onthisday/hi/dates/stories/january/28/newsid_2506000/2506161.stm}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Challenger uzay mekiği (1986)}
+
+  \begin{columns}
+    \column{.57\textwidth}
+    \pgfuseimage{boisjoly}
+
+    \column{.43\textwidth}
+    \begin{itemize}
+      \item Roger Boisjoly fırlatmayı\\
+        durdurmaya\\
+        çalışıyor
+      \item olay sonrasındaki\\
+        soruşturmalarda\\
+        baskıya rağmen\\
+        gerçekleri söylüyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.latimes.com/news/obituaries/la-me-roger-boisjoly-20120207,0,2248999.story}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek Olay: Bay Area Rapid Transit (1970'ler)}
+
+  \begin{itemize}
+    \item bilgisayar denetimli toplu taşıma sistemi
+    \item mühendisler sistemin risklerini basına duyuruyor:\\
+      işten atılıyorlar
+
+    \medskip
+    \item bu tip davranışı özendirici yasal korumalar geliyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kamuya Duyurma}
+
+  \begin{itemize}
+    \item ne zaman izin var?
+    \begin{itemize}
+      \item ürün ciddi hasar yaratacaksa
+      \item durum üstlere bildirildiyse
+      \item kurum içinde bütün yollar denendiyse
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item ne zaman ahlaki yükümlülük?
+    \begin{itemize}
+      \item kanıt varsa
+      \item ortaya çıkması zararı engelleyecekse
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kolektif Sorumluluk}
+
+  \begin{itemize}
+    \item yazılım mühendisleri çoğu zaman projenin bütününü görmüyor
+
+    \pause
+    \item ahlaki sorumluluk her zaman bireysel midir?
+
+    \pause
+    \item mühendisler etik sorunların çözümü için bireyler
+      düzeyinde değil meslek düzeyinde düşünmeli ve
+      davranmalı
+  \end{itemize}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 4: \alert{Professional Ethics}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
