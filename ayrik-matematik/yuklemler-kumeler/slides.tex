@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Yüklemler ve Kümeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -62,7 +62,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -109,11 +109,11 @@
     \begin{itemize}
       \item bir ya da birden fazla değişken içeren ve
       \item bir önerme olmayan ama
-      \item değişkenlere izin verilen seçenekler arasından değer verildiğinde
-        önerme haline gelen
+      \item değişkenlere izin verilen seçenekler arasından değer verildiğinde\\
+        bir önerme haline gelen
     \end{itemize}
 
-    bir bildirim (\emph{açık bildirim})
+    bir belirtim tümcesi (\emph{açık bildirim})
   \end{tanim}
 \end{frame}
 
@@ -127,7 +127,7 @@
 
   \pause
   \begin{itemize}
-    \item örnek çalışma evrenleri:
+    \item örnekler:
     \begin{itemize}
       \item $\mathbb{Z}$: tamsayılar
       \item $\mathbb{N}$: doğal sayılar
@@ -188,7 +188,7 @@
     \end{tanim}
 
     \pause
-    \column{.48\textwidth}
+    \column{.5\textwidth}
     \begin{tanim}
       \alert{evrensel niceleyici}:\\
         yüklem bütün değerler için doğru
@@ -239,7 +239,7 @@
         \item $s(x): x^2 -3 > 0$
       \end{itemize}
 
-      şeklinde tanımlandıysa yandaki ifadelerin sonuçları ne olur?
+      yandaki ifadeler doğru mudur?
 
       \column{.4\textwidth}
       \begin{itemize}
@@ -490,20 +490,20 @@
   \frametitle{Küme İkilemi}
 
   \begin{itemize}
-    \item bir köyde bir berber kendini traş etmeyen herkesi traş ediyor\\
-      kendisini traş edenleri traş etmiyor
+    \item bir köyde bir berber kendisi traş olmayan herkesi traş ediyor,\\
+      kendisi traş olanları traş etmiyor
 
     \begin{quote}
-      bu berber kendisini traş eder mi?
+      bu berber kendisi traş olur mu?
     \end{quote}
 
     \pause
-    \item \emph{etmez}: kendisini traş etmeyen herkesi traş ediyor
-      $\rightarrow$ eder
+    \item \emph{olmaz}: kendisi traş olmayan herkesi traş ediyor
+      $\rightarrow$ olur
 
     \pause
-    \item \emph{eder}: kendisini traş edenleri traş etmiyor
-      $\rightarrow$ etmez
+    \item \emph{olur}: kendisi traş olanları traş etmiyor
+      $\rightarrow$ olmaz
   \end{itemize}
 \end{frame}
 
@@ -528,30 +528,6 @@
     \pause
     \item \emph{hayır}: yüklemi sağlar $\rightarrow$ evet
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Sonlu Küme}
-
-  \begin{tanim}
-    \alert{sayılabilen küme}:\\
-      elemanları numaralandırılabilen küme
-
-    \begin{itemize}
-      \item $\mathbb{R}$ kümesi sayılamaz
-    \end{itemize}
-  \end{tanim}
-
-  \pause
-  \begin{tanim}
-    \alert{sonlu küme}:\\
-      sayılabilen ve eleman sayısı sonlu olan küme
-
-    \begin{itemize}
-      \item $\mathbb{N}$ kümesi sayılabilir ama sonlu değildir
-      \item eleman sayısı: \alert{kardinalite}, gösterilim: $|S|$
-    \end{itemize}
-  \end{tanim}
 \end{frame}
 
 \subsection{Altküme}
@@ -600,13 +576,9 @@
   \frametitle{Altkümeler Kümesi}
 
   \begin{tanim}
-    \alert{altkümeler kümesi}:\\
-      bir kümenin, boş küme ve kendisi dahil, bütün altkümelerinin oluşturduğu
-      küme
-
-    \begin{itemize}
-      \item gösterilimi: $\mathcal{P}(S)$
-    \end{itemize}
+    \alert{altkümeler kümesi}: $\mathcal{P}(S)$\\
+    bir kümenin bütün altkümelerinin oluşturduğu küme,\\
+    boş küme ve kendisi dahil
   \end{tanim}
 
   \pause
@@ -643,7 +615,6 @@
   \begin{block}{kesişim}
     $A \cap B = \{ x | (x \in A) \wedge (x \in B) \}$
 
-    \pause
     \begin{itemize}
       \item $A \cap B = \emptyset$ ise $A$ ile $B$ \alert{ayrık kümeler}
     \end{itemize}
@@ -677,10 +648,9 @@
   \frametitle{Kartezyen Çarpım}
 
   \begin{tanim}
-    \alert{kartezyen çarpım}:\\
+    \alert{Kartezyen çarpım}:\\
       $A \times B = \{ (a,b) | a \in A, b \in B \}$
 
-      \pause
       \medskip
       $A \times B \times C \dots \times N =
         \{ (a,b,\dots,n) | a \in A, b \in B, \dots, n \in N \}$
