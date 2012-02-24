@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Predicates and Sets}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -53,7 +53,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -95,12 +95,12 @@
   \frametitle{Predicate}
 
   \begin{definition}
-    \alert{predicate} (or \alert{open statement}): a statement which
+    \alert{predicate} (or \alert{open statement}): a declarative sentence which
     \begin{itemize}
-      \item contains one or more variables
+      \item contains one or more variables, and
       \item is not a statement, but
-      \item becomes a statement when the variables in it are replaced by certain
-        allowable choices
+      \item becomes a statement when the variables in it\\
+        are replaced by certain allowable choices
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -110,15 +110,15 @@
 
   \begin{definition}
     \alert{universe of discourse}: $\mathcal{U}$\\
-      set of allowable choices
+    set of allowable choices
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item example universes:
+    \item examples:
     \begin{itemize}
       \item $\mathbb{Z}$: integers
-      \item $\mathbb{N}$: naturel numbers
+      \item $\mathbb{N}$: natural numbers
       \item $\mathbb{Z}^+$: positive integers
       \item $\mathbb{Q}$: rational numbers
       \item $\mathbb{R}$: real numbers
@@ -217,10 +217,8 @@
 
   \begin{example}
     \begin{columns}[t]
-      \column{.5\textwidth}
+      \column{.53\textwidth}
       $\mathcal{U} = \mathbb{R}$\\
-
-      given the definitions below
 
       \begin{itemize}
         \item $p(x): x \geq 0$
@@ -229,7 +227,7 @@
         \item $s(x): x^2 -3 > 0$
       \end{itemize}
 
-      what are the values of the statements on the right?
+      are the following expressions true?
 
       \column{.4\textwidth}
       \begin{itemize}
@@ -411,8 +409,8 @@
     \alert{set}: a collection of elements that are
     \begin{itemize}
       \item distinct
-      \item unsorted
-      \item not repeating
+      \item unordered
+      \item non-repeating
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -478,7 +476,7 @@
 
   \begin{itemize}
     \item There is a barber who lives in a small town.\\
-      The barber shaves all those men who do not shave themselves.\\
+      He shaves all those men who do not shave themselves.\\
       He does not shave those men who do shave themselves.
 
     \begin{quote}
@@ -486,11 +484,11 @@
     \end{quote}
 
     \pause
-    \item \emph{no}: the barber shaves all those men who do not shave themselves
+    \item \emph{no}: he shaves all men who do not shave themselves\\
       $\rightarrow$ yes, he does
 
     \pause
-    \item \emph{yes}: he does not shave those men who do shave themselves
+    \item \emph{yes}: he does not shave men who shave themselves\\
       $\rightarrow$ no, he doesn't
   \end{itemize}
 \end{frame}
@@ -516,30 +514,6 @@
     \pause
     \item \emph{no}: the statement is valid $\rightarrow$ yes
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Finite Set}
-
-  \begin{definition}
-    \alert{countable set}:\\
-      a set whose elements are enumerable
-
-    \begin{itemize}
-      \item the set $\mathbb{R}$ in uncountable
-    \end{itemize}
-  \end{definition}
-
-  \pause
-  \begin{definition}
-    \alert{finite set}:\\
-      a set which is countable and has finite number of elements
-
-    \begin{itemize}
-      \item the set $\mathbb{N}$ is countable but infinite
-      \item number of elements: \alert{cardinality}, shown as: $|S|$
-    \end{itemize}
-  \end{definition}
 \end{frame}
 
 \subsection{Subset}
@@ -588,12 +562,9 @@
   \frametitle{Power Set}
 
   \begin{definition}
-    \alert{power set}:\\
-      set of all subsets of a set, including empty set and the set itself
-
-    \begin{itemize}
-      \item shown as: $\mathcal{P}(S)$
-    \end{itemize}
+    \alert{power set}: $\mathcal{P}(S)$\\
+    the set of all subsets of a set,\\
+    including the empty set and the set itself
   \end{definition}
 
   \pause
@@ -630,7 +601,6 @@
   \begin{block}{intersection}
     $A \cap B = \{ x | (x \in A) \wedge (x \in B) \}$
 
-    \pause
     \begin{itemize}
       \item if $A \cap B = \emptyset$ then $A$ and $B$ are \alert{disjoint}
     \end{itemize}
@@ -664,10 +634,9 @@
   \frametitle{Cartesian Product}
 
   \begin{definition}
-    \alert{cartesian product}:\\
+    \alert{Cartesian product}:\\
       $A \times B = \{ (a,b) | a \in A, b \in B \}$
 
-      \pause
       \medskip
       $A \times B \times C \dots \times N =
         \{ (a,b,\dots,n) | a \in A, b \in B, \dots, n \in N \}$
