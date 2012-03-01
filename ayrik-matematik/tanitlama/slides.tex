@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2010
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Tanıtlama}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2010}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -66,7 +66,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -110,14 +110,11 @@
   \begin{itemize}
     \item olası bütün durumları teker teker incelemek
   \end{itemize}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Kaba Kuvvet Yöntemi Örneği}
-
+  \pause
   \begin{teorem}
-    $\{2,4,6,\dots,26\}$ kümesinden seçilecek her sayı en fazla 3~tamkarenin
-    toplamı şeklinde yazılabilir.
+    $\{2,4,6,\dots,26\}$ kümesinden seçilecek her sayı,\\
+    en fazla 3~tamkarenin toplamı şeklinde yazılabilir.
   \end{teorem}
 
   \pause
@@ -135,14 +132,14 @@
 \begin{frame}
   \frametitle{Temel Kurallar}
 
-  \begin{block}{Evrensel Özelleştirme (US)}
+  \begin{block}{Evrensel Özelleştirme (Universal Specification - US)}
     $\forall x~p(x) \Rightarrow p(a)$
   \end{block}
 
   \pause
-  \begin{block}{Evrensel Genelleştirme (UG)}
-    \emph{rasgele seçilen} bir $a$ için $p(a)$
-      $\Rightarrow$ $\forall x~p(x)$
+  \begin{block}{Evrensel Genelleştirme (Universal Generalization - UG)}
+    \alert{rasgele seçilen} bir $a$ için $p(a)$
+    $\Rightarrow$ $\forall x~p(x)$
   \end{block}
 \end{frame}
 
@@ -386,8 +383,8 @@
       \item asal sayılar: $2,3,5,7,11,\dots,S$
 
       \pause
-      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ sayısı, $2..S$
-        aralığındaki hiçbir asal sayıya kalansız bölünmez
+      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ sayısı,\\
+        $2..S$ aralığındaki hiçbir asal sayıya kalansız bölünmez
 
       \pause
       \begin{enumerate}
@@ -582,14 +579,10 @@
 
   \begin{proof}[$\overline{B} \subseteq \overline{A} \Rightarrow A \subseteq B$]
     \begin{eqnarray*}
-      \neg (A \subseteq B) & \Rightarrow & \exists w~[w \in A \wedge w \notin B]\\\pause
-                 &             &                      \\
-      w \in A    & \Rightarrow & w \notin \overline{A}\\\pause
-                 &             &                      \\
-      w \notin B & \Rightarrow & w \in \overline{B}\\\pause
-      \overline{B} \subseteq \overline{A}  & \Rightarrow & w \in \overline{A}\\\pause
-                 &             &                      \\
-                 & \Rightarrow & A \subseteq B
+      \neg(A \subseteq B)
+        & \Rightarrow & \exists w~[w \in A \wedge w \notin B]\\\pause
+        & \Rightarrow & \exists w~[w \notin \overline{A} \wedge w \in \overline{B}]\\\pause
+        & \Rightarrow & \neg(\overline{B} \subseteq \overline{A})
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -736,8 +729,8 @@
 
         \pause
         \item asal değilse: $n=u \cdot v$\\
-          $u < k \wedge v < k \Rightarrow$ $u$ ve $v$ asal sayıların çarpımı
-          şeklinde yazılabilir
+          $u < k \wedge v < k \Rightarrow$ $u$ ve $v$ sayılarının her biri\\
+          asal sayıların çarpımı şeklinde yazılabilir
       \end{enumerate}
     \end{itemize}
   \end{proof}
@@ -774,7 +767,7 @@
   \end{teorem}
 
   \pause
-  \begin{block}{taban adıma dikkat}
+  \begin{block}{taban adımı geçersiz}
     \begin{itemize}
       \item $n=k$: $1+2+3+\cdots+k=\frac{k^2+k+2}{2}$ kabul edelim
 
