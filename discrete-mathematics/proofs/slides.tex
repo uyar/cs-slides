@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Theorem Proving}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -57,7 +57,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -101,11 +101,8 @@
   \begin{itemize}
     \item examining all possible cases one by one
   \end{itemize}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Brute Force Method Example}
-
+  \pause
   \begin{theorem}
     Every number from the set $\{2,4,6,\dots,26\}$ can be written\\
     as the sum of at most 3 square numbers.
@@ -132,7 +129,7 @@
 
   \pause
   \begin{block}{Universal Generalization (UG)}
-    $p(a)$ for an \emph{arbitrarily chosen} $a$
+    $p(a)$ for an \alert{arbitrarily chosen} $a$
       $\Rightarrow$ $\forall x~p(x)$
   \end{block}
 \end{frame}
@@ -212,9 +209,9 @@
       \pause
       \column{.6\textwidth}
       \begin{eqnarray*}
-        1. & \forall x~[p(x) \rightarrow q(x)] & Pre\\\pause
+        1. & \forall x~[p(x) \rightarrow q(x)] & A\\\pause
         2. & p(c) \rightarrow q(c)             & US:1\\\pause
-        3. & \forall x~[q(x) \rightarrow r(x)] & Pre\\\pause
+        3. & \forall x~[q(x) \rightarrow r(x)] & A\\\pause
         4. & q(c) \rightarrow r(c)             & US:3\\\pause
         5. & p(c) \rightarrow r(c)             & HS:2,4\\\pause
         6. & \forall x~[p(x) \rightarrow r(x)] & UG:5
@@ -377,11 +374,11 @@
       \item prime numbers: $2,3,5,7,11,\dots,S$
 
       \pause
-      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ is not divisible
+      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ is not divisible\\
         by a prime number between $2..S$
       \pause
       \begin{enumerate}
-        \item either it is itself prime: $\neg Q$
+        \item either it is prime itself: $\neg Q$
 
         \pause
         \item or it is divisible by a prime number greater than $S$: $\neg Q$
@@ -572,14 +569,10 @@
 
   \begin{proof}[$\overline{B} \subseteq \overline{A} \Rightarrow A \subseteq B$]
     \begin{eqnarray*}
-      \neg (A \subseteq B) & \Rightarrow & \exists w~[w \in A \wedge w \notin B]\\\pause
-                 &             &                      \\
-      w \in A    & \Rightarrow & w \notin \overline{A}\\\pause
-                 &             &                      \\
-      w \notin B & \Rightarrow & w \in \overline{B}\\\pause
-      \overline{B} \subseteq \overline{A}  & \Rightarrow & w \in \overline{A}\\\pause
-                 &             &                      \\
-                 & \Rightarrow & A \subseteq B
+      \neg(A \subseteq B)
+        & \Rightarrow & \exists w~[w \in A \wedge w \notin B]\\\pause
+        & \Rightarrow & \exists w~[w \notin \overline{A} \wedge w \in \overline{B}]\\\pause
+        & \Rightarrow & \neg(\overline{B} \subseteq \overline{A})
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -726,7 +719,7 @@
 
         \pause
         \item if not prime: $n=u \cdot v$\\
-          $u < k \wedge v < k \Rightarrow$ $u$ and $v$ can be written\\
+          $u < k \wedge v < k \Rightarrow$ both $u$ and $v$ can be written\\
           as the product of prime numbers
       \end{enumerate}
     \end{itemize}
@@ -764,7 +757,7 @@
   \end{theorem}
 
   \pause
-  \begin{block}{attention to the base step}
+  \begin{block}{invalid base step}
     \begin{itemize}
       \item $n=k$: assume $1+2+3+\cdots+k=\frac{k^2+k+2}{2}$
 
