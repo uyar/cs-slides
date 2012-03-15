@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Relations and Functions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -60,7 +60,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -175,7 +175,6 @@
                 \exists b \in B [a \alpha b \wedge b \beta c)]\}$
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
   \end{itemize}
@@ -277,24 +276,19 @@
     \item $\alpha , \delta \subseteq A \times B \wedge
            \beta , \gamma \subseteq B \times C$
 
-    \begin{itemize}
-      \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
+    \medskip
+    \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
 
-      \pause
-      \item $\alpha (\beta \cap \gamma)
-        \subseteq \alpha \beta \cap \alpha \gamma$
+    \item $\alpha (\beta \cap \gamma)
+      \subseteq \alpha \beta \cap \alpha \gamma$
 
-      \pause
-      \item $(\alpha \cup \delta) \beta = \alpha \beta \cup \delta \beta$
+    \item $(\alpha \cup \delta) \beta = \alpha \beta \cup \delta \beta$
 
-      \pause
-      \item $(\alpha \cap \delta) \beta
-        \subseteq \alpha \beta \cap \delta \beta$
+    \item $(\alpha \cap \delta) \beta
+      \subseteq \alpha \beta \cap \delta \beta$
 
-      \pause
-      \item $(\alpha \subseteq \delta \wedge \beta \subseteq \gamma)
-        \Rightarrow \alpha \beta \subseteq \delta \gamma$
-    \end{itemize}
+    \item $(\alpha \subseteq \delta \wedge \beta \subseteq \gamma)
+      \Rightarrow \alpha \beta \subseteq \delta \gamma$
   \end{itemize}
 \end{frame}
 
@@ -324,7 +318,6 @@
     $\alpha^{-1}: \{(y,x) | (x,y) \in \alpha \}$
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item $M_{\alpha^{-1}} = M_{\alpha}^T$
   \end{itemize}
@@ -396,7 +389,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Converse Composite Relation}
+  \frametitle{Converse Composite}
 
   \begin{theorem}
     $(\alpha \beta)^{-1} = \beta^{-1} \alpha^{-1}$
@@ -417,17 +410,13 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Converse Composite Relation Matrix}
+  \frametitle{Converse Composite Matrix}
 
   \begin{itemize}
     \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
-    \item $M_{\alpha \beta}^{T} = M_{\beta}^{T} \times M_{\alpha}^{T}$
   \end{itemize}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Converse Composite Relation Matrix Example}
-
+  \pause
   \begin{example}
     \begin{columns}
       \column{.27\textwidth}
@@ -482,7 +471,7 @@
 
     \pause
     \medskip
-    \item \emph{identity relation}: $E = \{(x,x) | x \in A\}$
+    \item \alert{identity relation}: $E = \{(x,x) | x \in A\}$
 
     \pause
     \medskip
@@ -500,8 +489,10 @@
 
   \pause
   \begin{itemize}
-%     \item $E \subseteq \alpha$
-%     \item bağıntı matrisinde ana köşegen bütünüyle 1
+    \item $E \subseteq \alpha$
+
+    \pause
+    \medskip
     \item nonreflexive:\\
       $\exists a~[\neg (a \alpha a)]$
 
@@ -577,16 +568,15 @@
                         \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
 
     \pause
-    \medskip
     $\forall a,b [(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
   \end{block}
 
   \pause
   \begin{itemize}
-%     \item $\alpha = \alpha^{-1}$
-%     \item bağıntı matrisi ana köşegene göre simetrik:
-%       $M_{\alpha} = M_{\alpha}^T$
+    \item $\alpha^{-1} = \alpha$
 
+    \pause
+    \medskip
     \item asymmetric:\\
       $\exists a,b [(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
                                \vee (\neg (a \alpha b) \wedge b \alpha a))]$
@@ -611,7 +601,6 @@
     $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
     $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
 
-    \pause
     \medskip
     \begin{itemize}
       \item $\mathcal{R}$ is asymmetric
@@ -656,7 +645,10 @@
 
   \pause
   \begin{itemize}
-%     \item $\alpha^2 \subseteq \alpha$
+    \item $\alpha^2 \subseteq \alpha$
+
+    \pause
+    \medskip
     \item nontransitive:\\
       $\exists a,b,c~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
 
@@ -848,7 +840,7 @@
     \pause
     \medskip
     \begin{itemize}
-      \item can a relation be symmetric, transitive and irreflexive?
+      \item how can a relation be symmetric, transitive and irreflexive?
     \end{itemize}
   \end{block}
 \end{frame}
@@ -856,10 +848,10 @@
 \subsection{Equivalence Relations}
 
 \begin{frame}
-  \frametitle{Compatible Relations}
+  \frametitle{Compatibility Relations}
 
   \begin{definition}
-    \alert{compatible relation}: $\gamma$
+    \alert{compatibility relation}: $\gamma$
     \begin{itemize}
       \item reflexive
       \item symmetric
@@ -868,18 +860,18 @@
 
   \pause
   \begin{itemize}
-    \item undirected graph
+    \item when drawing, lines instead of arrows
     \item matrix representation as a triangle matrix
   \end{itemize}
 
   \pause
   \begin{itemize}
-    \item $\alpha \alpha^{-1}$ is a compatible relation
+    \item $\alpha \alpha^{-1}$ is a compatibility relation
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Compatible Relation Example}
+  \frametitle{Compatibility Relation Example}
 
   \begin{example}
     \begin{columns}
@@ -928,7 +920,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Compatible Relation Example}
+  \frametitle{Compatibility Relation Example}
 
   \begin{example}[$\alpha \alpha^{-1}$]
     $A$: persons, $B$: languages
@@ -969,7 +961,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Compatible Relation Example}
+  \frametitle{Compatibility Relation Example}
 
   \begin{example}[$\alpha \alpha^{-1}$]
     $\alpha \alpha^{-1} \subseteq A \times A$
@@ -997,7 +989,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Compatible Class}
+  \frametitle{Compatibility Block}
 
   \begin{definition}
     \alert{compatibility block}: $C \subseteq A$\\
@@ -1007,10 +999,8 @@
   \pause
   \medskip
   \begin{itemize}
-    \item \emph{maximal compatibility block}:\\
+    \item \alert{maximal compatibility block}:\\
       not a subset of another compatibility block
-
-    \pause
     \item an element can be a member of more than one MCB
 
     \pause
@@ -1021,7 +1011,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Compatible Block Examples}
+  \frametitle{Compatibility Block Example}
 
   \begin{example}[$\alpha \alpha^{-1}$]
     \begin{columns}
@@ -1065,25 +1055,11 @@
 
   \pause
   \begin{itemize}
-    \item equivalence classes
+    \item \alert{equivalence classes (partitions)}
     \item every element is a member of exactly one equivalence class
 
-    \pause
     \medskip
     \item complete cover: $C_\epsilon$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Partitioning}
-
-  \begin{itemize}
-    \item every equivalence relation \emph{partitions} a set\\
-      into equivalence classes
-
-    \pause
-    \medskip
-    \item every \emph{partitioning} corresponds to an equivalence relation
   \end{itemize}
 \end{frame}
 
@@ -1094,10 +1070,9 @@
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $(a,b) \in \mathcal{R} \equiv 5~|~|a - b|$
 
-    \pause
     \bigskip
     \begin{itemize}
-      \item $x~mod~5$ partitions $\mathbb{Z}$ into 5~equivalence classes
+      \item $\mathcal{R}$ partitions $\mathbb{Z}$ into 5~equivalence classes
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1271,7 +1246,7 @@
 
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{bijective}:\\
-    $f$ is both one-to-one and onto
+    $f$ is one-to-one and onto
   \end{definition}
 \end{frame}
 
@@ -1279,24 +1254,20 @@
   \frametitle{Subset Image Properties}
 
   \begin{itemize}
-    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$:
+    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$
 
-    \pause
     \medskip
-    \begin{itemize}
-      \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
-      \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
+    \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
 
-      \pause
-      \medskip
-      \item if $f$ is one-to-one:\\
-        $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
-    \end{itemize}
+    \medskip
+    \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
+    \item if $f$ is one-to-one:\\
+      $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Function}
+  \frametitle{Function Composition}
 
   \begin{definition}
     $f: X \rightarrow Y, g: Y \rightarrow Z$
@@ -1306,15 +1277,16 @@
     $(g \circ f)(x) = g(f(x))$
   \end{definition}
 
+  \pause
   \begin{itemize}
-    \item is not commutative
-    \item is associative:\\
+    \item function composition is not commutative
+    \item function composition is associative:\\
       $f \circ (g \circ h) = (f \circ g) \circ h$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Function Examples}
+  \frametitle{Function Composition Examples}
 
   \begin{example}[commutativity]
     $f: \mathbb{R} \rightarrow \mathbb{R}$\\
@@ -1537,7 +1509,6 @@
       \end{array}
     \right)$
 
-    \pause
     \medskip
     \item $n!$ permutations can be defined in a set of $n$ elements
   \end{itemize}
@@ -1601,7 +1572,6 @@
       \item the remaining elements do not change
     \end{itemize}
 
-    \pause
     \medskip
     $(a_i, a_j, a_k) = \left(
       \begin{array}{ccccccccc}
@@ -1746,12 +1716,12 @@
 
   \begin{example}
     \begin{itemize}
-      \item In a room where there are 367 people, at least two persons have the
-        same birthday.
+      \item In a room where there are 367 people,\\
+        at least two persons have the same birthday.
 
       \pause
       \item How many students should take an exam where the grades are between
-        0 and 100 so that two students have the same grade?
+        0 and 100, so that two students have the same grade?
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1767,8 +1737,8 @@
 
   \pause
   \begin{example}
-    In a room where there are 100 people at least $\lceil 100 / 12 \rceil = 9$
-    persons were born in the same month.
+    In a room with 100 people, at least 9~persons ($\lceil 100 / 12 \rceil$)\\
+    were born in the same month.
   \end{example}
 \end{frame}
 
@@ -1776,8 +1746,8 @@
   \frametitle{Pigeonhole Principle Example}
 
   \begin{theorem}
-    There are two elements which total 10\\
-    in any subset of cardinality 6 of the set S = \{1,2,3,\dots,9\}.
+    In any subset of cardinality 6 of the set S = \{1,2,3,\dots,9\},\\
+    there are two elements which total 10.
   \end{theorem}
 \end{frame}
 
@@ -1825,7 +1795,7 @@
 
   \begin{theorem}
     There is at least one pair of elements among 101 elements\\
-    chosen from set $S = \{1,2,3,\dots,200\}$\\
+    chosen from set $S = \{1,2,3,\dots,200\}$,\\
     so that one of the elements of the pair divides the other.
   \end{theorem}
 
@@ -1851,7 +1821,7 @@
   \pause
   \begin{columns}[t]
     \column{.55\textwidth}
-    \begin{proof}[Proof of Existence]
+    \begin{proof}[Proof of existence]
       $n = 1$: $r = 0, p = 1$\\
       $n = 2$: $r = 1, p = 1$
 
@@ -1872,7 +1842,7 @@
 
     \pause
     \column{.45\textwidth}
-    \begin{proof}[Proof of Uniqueness]
+    \begin{proof}[Proof of uniqueness]
       if not unique:
 
       \pause
@@ -1933,7 +1903,7 @@
 
   \begin{itemize}
     \item \emph{inductively defined function}:\\
-      the size reduced at every step of the recursion
+      the size is reduced at every step of the recursion
 
     \medskip
     $f(n) = \left\{
@@ -2018,7 +1988,6 @@
     \right.$
   \end{block}
 
-  \pause
   \bigskip
   $\begin{array}{ccccccccc}
      F_1 & F_2 & F_3 & F_4 & F_5 & F_6 & F_7 & F_8 & \dots\\
