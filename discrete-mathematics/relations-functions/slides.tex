@@ -112,14 +112,16 @@
     \pause
     \medskip
     \item $\alpha \subseteq A \times B$: \emph{binary relation}
-    \item  $\alpha \subseteq A \times A$: \emph{binary relation on A}
+    \begin{itemize}
+      \item $(a,b) \in \alpha \equiv a \alpha b$
+    \end{itemize}
 
     \pause
     \medskip
     \item representations:
     \begin{itemize}
       \item by drawing
-      \item with a matrix
+      \item by matrix
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -166,10 +168,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation}
+  \frametitle{Relation Composition}
 
   \begin{definition}
-    \alert{composite relation}:\\
+    \alert{relation composition}:\\
       $\alpha \subseteq A \times B \wedge \beta \subseteq B \times C$\\
       $\Rightarrow \alpha \beta = \{(a,c) | a \in A, c \in C,
                 \exists b \in B [a \alpha b \wedge b \beta c)]\}$
@@ -181,7 +183,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation Example}
+  \frametitle{Relation Composition Example}
 
   \begin{example}
     \begin{columns}
@@ -199,7 +201,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation Matrix Example}
+  \frametitle{Relation Composition Matrix Example}
 
   \begin{example}
     \begin{columns}
@@ -241,17 +243,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation Associativity}
+  \frametitle{Relation Composition Associativity}
 
-  \begin{theorem}
-      $(\alpha \beta) \gamma = \alpha (\beta \gamma) = \alpha \beta \gamma$
-  \end{theorem}
-\end{frame}
+  \begin{itemize}
+    \item relation composition is associative
+  \end{itemize}
 
-\begin{frame}
-  \frametitle{Composite Relation Associativity}
-
-  \begin{proof}
+  \pause
+  \begin{proof}[$(\alpha \beta) \gamma = \alpha (\beta \gamma)$]
     \begin{eqnarray*}
       &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
       & \Leftrightarrow & \exists c [(a,c) \in \alpha \beta
@@ -270,7 +269,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation Theorems}
+  \frametitle{Relation Composition Theorems}
 
   \begin{itemize}
     \item $\alpha , \delta \subseteq A \times B \wedge
@@ -293,7 +292,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Composite Relation Theorems}
+  \frametitle{Relation Composition Theorems}
 
   \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
     \begin{eqnarray*}
@@ -315,7 +314,7 @@
   \frametitle{Converse Relation}
 
   \begin{definition}
-    $\alpha^{-1}: \{(y,x) | (x,y) \in \alpha \}$
+    $\alpha^{-1} \equiv \{(y,x) | (x,y) \in \alpha \}$
   \end{definition}
 
   \begin{itemize}
@@ -389,7 +388,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Converse Composite}
+  \frametitle{Relation Composition Converse}
 
   \begin{theorem}
     $(\alpha \beta)^{-1} = \beta^{-1} \alpha^{-1}$
@@ -409,73 +408,27 @@
   \end{proof}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Converse Composite Matrix}
-
-  \begin{itemize}
-    \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
-  \end{itemize}
-
-  \pause
-  \begin{example}
-    \begin{columns}
-      \column{.27\textwidth}
-      \[
-        M_\alpha =
-          \begin{array}{|ccc|}
-            1 & 0 & 0\\
-            0 & 0 & 1\\
-            0 & 1 & 1\\
-            0 & 1 & 0\\
-            1 & 0 & 1
-          \end{array}
-      \]
-
-      \column{.27\textwidth}
-      \[
-        M_\beta =
-          \begin{array}{|cccc|}
-            1 & 1 & 0 & 0\\
-            0 & 0 & 1 & 1\\
-            0 & 1 & 1 & 0
-          \end{array}
-      \]
-    \end{columns}
-
-    \[
-      M_{\alpha \beta^{-1}} =
-        \begin{array}{|ccccc|}
-          1 & 0 & 0 & 0 & 1\\
-          1 & 1 & 1 & 0 & 1\\
-          0 & 1 & 1 & 1 & 1\\
-          0 & 0 & 1 & 1 & 0
-        \end{array}
-    \]
-  \end{example}
-\end{frame}
-
 \subsection{Relation Properties}
 
 \begin{frame}
-  \frametitle{Binary Relation Properties}
+  \frametitle{Relation Properties}
 
   \begin{itemize}
     \item $\alpha \subseteq A \times A$
+    \begin{itemize}
+      \item \emph{binary relation on $A$}
+    \end{itemize}
 
     \pause
     \medskip
-    \item $\alpha \alpha: \alpha^2$
+    \item $\alpha \alpha \equiv \alpha^2$
     \begin{itemize}
-      \item $\alpha \alpha \dots \alpha: \alpha^n$
+      \item $\alpha \alpha \dots \alpha \equiv \alpha^n$
     \end{itemize}
 
     \pause
     \medskip
     \item \alert{identity relation}: $E = \{(x,x) | x \in A\}$
-
-    \pause
-    \medskip
-    \item properties: reflexivity, symmetry, transitivity
   \end{itemize}
 \end{frame}
 
@@ -509,7 +462,7 @@
     \column{.45\textwidth}
     \begin{example}
       $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
-      $\mathcal{R}_1 = \{(1,1), (2,2)\}$
+      $\mathcal{R}_1 = \{(1,1), (1,2), (2,2)\}$
 
       \medskip
       \begin{itemize}
@@ -521,7 +474,7 @@
     \column{.45\textwidth}
     \begin{example}
       $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-      $\mathcal{R}_2 = \{(1,1), (2,2)\}$
+      $\mathcal{R}_2 = \{(1,1), (1,2), (2,2)\}$
 
       \medskip
       \begin{itemize}
@@ -630,7 +583,7 @@
     $\mathcal{R} = \{(1,1), (2,2)\}$
 
     \begin{itemize}
-      \item $\mathcal{R}$ is both symmetric and antisymmetric
+      \item $\mathcal{R}$ is symmetric and antisymmetric
     \end{itemize}
   \end{example}
 \end{frame}
@@ -830,7 +783,7 @@
 \begin{frame}
   \frametitle{Special Relations}
 
-  \begin{block}{brotherhood}
+  \begin{block}{sibling}
     \begin{itemize}
       \item irreflexive
       \item symmetric
@@ -840,7 +793,7 @@
     \pause
     \medskip
     \begin{itemize}
-      \item how can a relation be symmetric, transitive and irreflexive?
+      \item how can a relation be symmetric, transitive and nonreflexive?
     \end{itemize}
   \end{block}
 \end{frame}
@@ -1025,7 +978,7 @@
       \begin{itemize}
         \item $C_1=\{a_4,a_6\}$
         \item $C_2=\{a_2,a_4,a_6\}$
-        \item $C_3=\{a_1,a_2,a_4,a_6\}$ (MCC)
+        \item $C_3=\{a_1,a_2,a_4,a_6\}$ (MCB)
       \end{itemize}
 
       \pause
