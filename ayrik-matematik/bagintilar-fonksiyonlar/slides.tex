@@ -120,14 +120,16 @@
 
     \pause
     \medskip
-    \item $\alpha \subseteq A \times B$: \emph{ikili bağıntı}
-    \item $\alpha \subseteq A \times A$: \emph{A kümesinde ikili bağıntı}
+    \item $\alpha \subseteq A \times B$: \alert{ikili bağıntı}
+    \begin{itemize}
+      \item $(a,b) \in \alpha \equiv a \alpha b$
+    \end{itemize}
 
     \pause
     \medskip
-    \item gösterilim:
+    \item bağıntı gösterilimi:
     \begin{itemize}
-      \item çizerek
+      \item çizimle
       \item matrisle
     \end{itemize}
   \end{itemize}
@@ -252,15 +254,12 @@
 \begin{frame}
   \frametitle{Bağıntı Bileşkesinde Birleşme}
 
-  \begin{teorem}
-      $(\alpha \beta) \gamma = \alpha (\beta \gamma) = \alpha \beta \gamma$
-  \end{teorem}
-\end{frame}
+  \begin{itemize}
+    \item bağıntı bileşkesi birleşme özelliği gösterir
+  \end{itemize}
 
-\begin{frame}
-  \frametitle{Bağıntı Bileşkesinde Birleşme}
-
-  \begin{proof}[Tanıt]
+  \pause
+  \begin{proof}[$(\alpha \beta) \gamma = \alpha (\beta \gamma)$]
     \begin{eqnarray*}
       &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
       & \Leftrightarrow & \exists c [(a,c) \in \alpha \beta
@@ -324,7 +323,7 @@
   \frametitle{Evrik Bağıntı}
 
   \begin{tanim}
-    $\alpha^{-1}: \{(y,x) | (x,y) \in \alpha \}$
+    $\alpha^{-1} \equiv \{(y,x) | (x,y) \in \alpha \}$
   \end{tanim}
 
   \begin{itemize}
@@ -418,51 +417,6 @@
   \end{proof}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Bileşke Evriği Matrisi}
-
-  \begin{itemize}
-    \item $M_{(\alpha \beta)^{-1}} = M_{\beta^{-1}} \times M_{\alpha^{-1}}$
-  \end{itemize}
-
-  \pause
-  \begin{ornek}
-    \begin{columns}
-      \column{.27\textwidth}
-      \[
-        M_\alpha =
-          \begin{array}{|ccc|}
-            1 & 0 & 0\\
-            0 & 0 & 1\\
-            0 & 1 & 1\\
-            0 & 1 & 0\\
-            1 & 0 & 1
-          \end{array}
-      \]
-
-      \column{.27\textwidth}
-      \[
-        M_\beta =
-          \begin{array}{|cccc|}
-            1 & 1 & 0 & 0\\
-            0 & 0 & 1 & 1\\
-            0 & 1 & 1 & 0
-          \end{array}
-      \]
-    \end{columns}
-
-    \[
-      M_{\alpha \beta^{-1}} =
-        \begin{array}{|ccccc|}
-          1 & 0 & 0 & 0 & 1\\
-          1 & 1 & 1 & 0 & 1\\
-          0 & 1 & 1 & 1 & 1\\
-          0 & 0 & 1 & 1 & 0
-        \end{array}
-    \]
-  \end{ornek}
-\end{frame}
-
 \subsection{Bağıntı Nitelikleri}
 
 \begin{frame}
@@ -470,21 +424,20 @@
 
   \begin{itemize}
     \item $\alpha \subseteq A \times A$
+    \begin{itemize}
+      \item \emph{$A$ kümesinde ikili bağıntı}
+    \end{itemize}
 
     \pause
     \medskip
-    \item $\alpha \alpha: \alpha^2$
+    \item $\alpha \alpha \equiv \alpha^2$
     \begin{itemize}
-      \item $\alpha \alpha \dots \alpha: \alpha^n$
+      \item $\alpha \alpha \dots \alpha \equiv \alpha^n$
     \end{itemize}
 
     \pause
     \medskip
     \item \alert{birim bağıntı}: $E = \{(x,x) | x \in A\}$
-
-    \pause
-    \medskip
-    \item nitelikler: yansıma, bakışlılık, geçişlilik
   \end{itemize}
 \end{frame}
 
@@ -518,7 +471,7 @@
     \column{.45\textwidth}
     \begin{ornek}
       $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
-      $\mathcal{R}_1 = \{(1,1), (2,2)\}$
+      $\mathcal{R}_1 = \{(1,1), (1,2), (2,2)\}$
 
       \medskip
       \begin{itemize}
@@ -530,7 +483,7 @@
     \column{.45\textwidth}
     \begin{ornek}
       $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-      $\mathcal{R}_2 = \{(1,1), (2,2)\}$
+      $\mathcal{R}_2 = \{(1,1), (1,2), (2,2)\}$
 
       \medskip
       \begin{itemize}
@@ -639,7 +592,7 @@
     $\mathcal{R} = \{(1,1), (2,2)\}$
 
     \begin{itemize}
-      \item $\mathcal{R}$ hem bakışlı hem de ters bakışlıdır
+      \item $\mathcal{R}$ bakışlı ve ters bakışlıdır
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -848,7 +801,7 @@
     \pause
     \medskip
     \begin{itemize}
-      \item bir bağıntı nasıl bakışlı, geçişli ve ters yansımalı olabilir?
+      \item bir bağıntı nasıl bakışlı, geçişli ve yansımasız olabilir?
     \end{itemize}
   \end{block}
 \end{frame}
