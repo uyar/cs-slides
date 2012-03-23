@@ -1070,7 +1070,7 @@
 \subsection{Giriş}
 
 \begin{frame}
-  \frametitle{Fonksiyon}
+  \frametitle{Fonksiyonlar}
 
   \begin{tanim}
     \alert{fonksiyon}: $f: X \rightarrow Y$\\
@@ -1078,10 +1078,9 @@
       (x,y_1),(x,y_2) \in f \Rightarrow y_1=y_2$
   \end{tanim}
 
-  \pause
   \medskip
   \begin{itemize}
-    \item $X$: \emph{tanım kümesi}, $Y$: \emph{değer kümesi}
+    \item $X$: \alert{tanım kümesi}, $Y$: \alert{değer kümesi}
 
     \pause
     \medskip
@@ -1091,43 +1090,23 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Altküme Görüntüsü}
+  \frametitle{Fonksiyon Nitelikleri}
 
   \begin{tanim}
-    \alert{altküme görüntüsü}:\\
-    $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
-    $f(X_1) = \{ y | y \in Y, x \in X_1 \wedge y = f(x) \}$
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Altküme Görüntüsü Örnekleri}
-
-  \begin{ornek}
-    $\begin{array}{l}
-      f: \mathbb{R} \rightarrow \mathbb{R}\\
-      f(x) = x^2
-    \end{array}$
-
-    \pause
-    \medskip
-    \begin{itemize}
-      \item $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
-
-      \pause
-      \medskip
-      \item $A = \{-2,1\}$\\
-        $f(A) = \{1,4\}$
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Birebir Fonksiyon}
-
-  \begin{tanim}
-    $f: X \rightarrow Y$ fonksiyonu \alert{birebir}:\\
+    $f: X \rightarrow Y$ fonksiyonu \alert{birebir} (ya da \alert{injektif}):\\
       $\forall x_1,x_2 \in X~f(x_1)=f(x_2) \Rightarrow x_1=x_2$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{örten} (ya da \alert{sürjektif}):\\
+    $\forall y \in Y~\exists x \in X~f(x)=y$
+  \end{tanim}
+
+  \pause
+  \begin{tanim}
+    $f: X \rightarrow Y$ fonksiyonu \alert{bijektif}:\\
+    $f$ fonksiyonu birebir ve örten
   \end{tanim}
 \end{frame}
 
@@ -1171,20 +1150,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örten Fonksiyon}
-
-  \begin{tanim}
-    $f: X \rightarrow Y$ fonksiyonu \alert{örten}:\\
-    $\forall y \in Y~\exists x \in X~f(x)=y$
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-    \item $f(X)=Y$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Örten Fonksiyon Örnekleri}
 
   \begin{columns}
@@ -1201,31 +1166,6 @@
       $f(x) = 3x + 1$
     \end{block}
   \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Bijektif Fonksiyon}
-
-  \begin{tanim}
-    $f: X \rightarrow Y$ fonksiyonu \alert{bijektif}:\\
-    $f$ fonksiyonu birebir ve örten
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Altküme Görüntüsü Özellikleri}
-
-  \begin{itemize}
-    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$
-
-    \medskip
-    \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
-
-    \medskip
-    \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
-    \item $f$ birebir ise:\\
-      $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1450,8 +1390,6 @@
 
       \pause
       \item $f(a_1) = b = f(a_2)$ olması gerekir
-
-      \pause
       \item olamaz: $f$ birebir
     \end{itemize}
   \end{proof}
@@ -1661,7 +1599,7 @@
 
   \begin{tanim}
     \alert{güvercin deliği ilkesi} (Dirichlet kutuları):\\
-    $m$ adet güvercin $n$ adet deliğe yerleşirse ve $m>n$ ise\\
+    $m$ adet güvercin $n$ adet deliğe yerleşirse ve $m>n$ ise,\\
     en az bir delikte birden fazla güvercin vardır
   \end{tanim}
 
@@ -1694,7 +1632,7 @@
 
   \begin{tanim}
     \alert{genelleştirilmiş güvercin deliği ilkesi}:\\
-    $m$ adet nesne $n$ adet kutuya dağıtılırsa\\
+    $m$ adet nesne $n$ adet kutuya dağıtılırsa,\\
     en az bir kutuda en az $\lceil m / n \rceil$ adet nesne olur
   \end{tanim}
 
@@ -1766,7 +1704,7 @@
     \begin{itemize}
       \item $\forall n~\exists ! p~
         (n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
-      olduğu gösterilecek
+        olduğu gösterilecek
 
       \item bu teorem kullanılarak asıl teorem tanıtlanacak
     \end{itemize}
@@ -1831,8 +1769,7 @@
   \pause
   \begin{proof}[Tanıt]
     \begin{itemize}
-      \item $T \subseteq S$, $T$ kümesi $S$ kümesinin bütün tek elemanlarından
-        oluşan altkümesi olsun: $|T|=100$
+      \item $T=\{t | t \in S, \exists i \in \mathbb{Z}~t=2i+1\}$, $|T|=100$
 
       \pause
       \item $f: S \rightarrow T, (s, t) \in f \equiv s = 2^r t \wedge r \geq 0$
@@ -1917,23 +1854,22 @@
   \frametitle{Euclid Algoritması}
 
   \begin{ornek}[ortak bölenlerin en büyüğü]
-    \begin{eqnarray*}
-      333 & = & 3 \cdot 84 + 81\\\pause
-       84 & = & 1 \cdot 81 + 3\\\pause
-       81 & = & 27 \cdot 3 + 0
-    \end{eqnarray*}
-
-    \pause
-    $obeb(333,84) = 3$
-
-    \pause
-    \medskip
     $obeb(a,b) = \left\{
       \begin{array}{ll}
         b               & b | a\\
         obeb(b,a~mod~b) & b \nmid a
       \end{array}
     \right.$
+
+    \pause
+    \medskip
+    \begin{eqnarray*}
+      obeb(333,84) & = & obeb(84, 333~mod~84)\\
+                   & = & obeb(84, 81)\\
+                   & = & obeb(81, 84~mod~81)\\
+                   & = & obeb(81, 3)\\
+                   & = & 3
+    \end{eqnarray*}
   \end{ornek}
 \end{frame}
 
