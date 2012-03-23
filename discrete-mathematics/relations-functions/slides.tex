@@ -1061,7 +1061,7 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Function}
+  \frametitle{Functions}
 
   \begin{definition}
     \alert{function}: $f: X \rightarrow Y$\\
@@ -1069,56 +1069,35 @@
       (x,y_1),(x,y_2) \in f \Rightarrow y_1=y_2$
   \end{definition}
 
-  \pause
   \medskip
   \begin{itemize}
-    \item $X$: \emph{domain}, $Y$: \emph{codomain} (or \emph{range})
+    \item $X$: \alert{domain}, $Y$: \alert{codomain} (or \emph{range})
 
     \pause
     \medskip
     \item $(x,y) \in f \equiv y = f(x)$
-    \item $y$ is \emph{image} of $x$ under $f$
+    \item $y$ is the \emph{image} of $x$ under $f$
  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Subset Image}
+  \frametitle{Function Properties}
 
   \begin{definition}
-    \alert{subset image}:\\
-    $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
-    $f(X_1) = \{ y | y \in Y, x \in X_1 \wedge y = f(x) \}$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Subset Image Example}
-
-  \begin{example}
-    $\begin{array}{l}
-      f: \mathbb{R} \rightarrow \mathbb{R}\\
-      f(x) = x^2
-    \end{array}$
-
-    \pause
-    \medskip
-    \begin{itemize}
-      \item $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
-
-      \pause
-      \medskip
-      \item $A = \{-2,1\}$\\
-        $f(A) = \{1,4\}$
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{One-to-one Function}
-
-  \begin{definition}
-    $f: X \rightarrow Y$ is \alert{one-to-one}:\\
+    $f: X \rightarrow Y$ is \alert{one-to-one} (or \alert{injective}):\\
       $\forall x_1,x_2 \in X~f(x_1)=f(x_2) \Rightarrow x_1=x_2$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{onto} (or \alert{surjective}):\\
+    $\forall y \in Y~\exists x \in X~f(x)=y$
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    $f: X \rightarrow Y$ is \alert{bijective}:\\
+    $f$ is one-to-one and onto
   \end{definition}
 \end{frame}
 
@@ -1162,20 +1141,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Onto Function}
-
-  \begin{definition}
-    $f: X \rightarrow Y$ is \alert{onto}:\\
-    $\forall y \in Y~\exists x \in X~f(x)=y$
-  \end{definition}
-
-  \pause
-  \begin{itemize}
-    \item $f(X)=Y$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Onto Function Examples}
 
   \begin{columns}
@@ -1192,31 +1157,6 @@
       $f(x) = 3x + 1$
     \end{block}
   \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Bijective Function}
-
-  \begin{definition}
-    $f: X \rightarrow Y$ is \alert{bijective}:\\
-    $f$ is one-to-one and onto
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Subset Image Properties}
-
-  \begin{itemize}
-    \item $f: A \rightarrow B \wedge A_1,A_2 \subseteq A$
-
-    \medskip
-    \item $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$
-
-    \medskip
-    \item $f(A_1 \cap A_2) \subseteq f(A_1) \cap f(A_2)$
-    \item if $f$ is one-to-one:\\
-      $f(A_1 \cap A_2) = f(A_1) \cap f(A_2)$
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1361,7 +1301,7 @@
   \frametitle{Inverse Function}
 
   \begin{theorem}
-    If a function is invertable, its inverse is unique.
+    If a function is invertible, its inverse is unique.
   \end{theorem}
 
   \pause
@@ -1441,9 +1381,7 @@
 
       \pause
       \item this would mean: $f(a_1) = b = f(a_2)$
-
-      \pause
-      \item but: $f$ is one-to-one
+      \item but $f$ is one-to-one
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -1652,8 +1590,8 @@
 
   \begin{definition}
     \alert{pigeonhole principle} (Dirichlet drawers):\\
-    if $m$ pigeons go into $n$ holes and $m>n$ \\
-    at least one hole contains more than one pigeon
+    if $m$ pigeons go into $n$ holes and $m>n$,\\
+    then at least one hole contains more than one pigeon
   \end{definition}
 
   \pause
@@ -1684,8 +1622,8 @@
 
   \begin{definition}
     \alert{generalized pigeonhole principle}:\\
-    if $m$ objects are distributed to $n$ drawers\\
-    at least one of the drawers contains $\lceil m / n \rceil$ objects
+    if $m$ objects are distributed to $n$ drawers,\\
+    then at least one of the drawers contains $\lceil m / n \rceil$ objects
   \end{definition}
 
   \pause
@@ -1822,8 +1760,7 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $T \subseteq S$, Assume that $T$ is a subset of $S$\\
-        that contains all odd elements of $S$: $|T|=100$
+      \item $T=\{t | t \in S, \exists i \in \mathbb{Z}~t=2i+1\}$, $|T|=100$
 
       \pause
       \item $f: S \rightarrow T, (s, t) \in f \equiv s = 2^r t \wedge r \geq 0$
@@ -1908,23 +1845,22 @@
   \frametitle{Euclid Algorithm}
 
   \begin{example}[greatest common divisor]
-    \begin{eqnarray*}
-      333 & = & 3 \cdot 84 + 81\\\pause
-       84 & = & 1 \cdot 81 + 3\\\pause
-       81 & = & 27 \cdot 3 + 0
-    \end{eqnarray*}
-
-    \pause
-    $gcd(333,84) = 3$
-
-    \pause
-    \medskip
     $gcd(a,b) = \left\{
       \begin{array}{ll}
         b              & b | a\\
         gcd(b,a~mod~b) & b \nmid a
       \end{array}
     \right.$
+
+    \pause
+    \medskip
+    \begin{eqnarray*}
+      gcd(333,84) & = & gcd(84, 333~mod~84)\\
+                  & = & gcd(84, 81)\\
+                  & = & gcd(81, 84~mod~81)\\
+                  & = & gcd(81, 3)\\
+                  & = & 3
+    \end{eqnarray*}
   \end{example}
 \end{frame}
 
