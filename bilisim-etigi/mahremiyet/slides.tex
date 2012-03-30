@@ -73,6 +73,12 @@
 \pgfdeclareimage[width=6.5cm]{politico}{politico}
 \pgfdeclareimage[width=6.5cm]{google-doj}{google-doj}
 \pgfdeclareimage[width=6.2cm]{abacus}{abacus}
+\pgfdeclareimage[height=5cm]{dna}{dna}
+\pgfdeclareimage[width=6.2cm]{reddit}{reddit}
+\pgfdeclareimage[width=6cm]{flights}{flights}
+\pgfdeclareimage[width=6cm]{facebook-evolution}{facebook-evolution}
+\pgfdeclareimage[width=6.5cm]{survey}{survey}
+\pgfdeclareimage[height=6.5cm]{chrome-history}{chrome-history}
 
 \begin{document}
 
@@ -184,7 +190,7 @@
     \medskip
     \item mahremiyet özünde iyi bir değer mi?
     \begin{itemize}
-      \item güvenlik, özerklik mahremiyet olmadan mümkün değil
+      \item mahremiyet olmadan güvenlik, özerklik mümkün değil
       \item farklı türden ilişkiler kurabilme
     \end{itemize}
   \end{itemize}
@@ -629,7 +635,7 @@
       \item York Üniversitesi\\
         öğrencilerinin\\
         kişisel verileri\\
-        alınıyor (2011)
+        çalınıyor (2011)
     \end{itemize}
   \end{columns}
 
@@ -649,12 +655,12 @@
       \item bir hacker grubu,\\
         BTK bilgisayarlarından\\
         kişisel verileri\\
-        alarak yayımlıyor (2012)
+        çalarak yayımlıyor (2012)
       \item diğer bir hacker grubu,\\
         polis bilgisayarlarından\\
         yurttaşların\\
         ihbar duyurularını\\
-        alarak yayımlıyor (2012)
+        çalarak yayımlıyor (2012)
     \end{itemize}
   \end{columns}
 
@@ -680,6 +686,7 @@
 
   \medskip
   \tiny{\url{http://www.guardian.co.uk/politics/2007/nov/21/economy.uk}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/entertainment/7174760.stm}}\\
 \end{frame}
 
 \begin{frame}
@@ -752,7 +759,6 @@
         video şirketinden aldığı filmlerin\\
         listesini yayımlıyor (1988)
 
-      \pause
       \medskip
       \item \emph{Video Privacy Protection Act}
     \end{itemize}
@@ -777,7 +783,6 @@
         ehliyet bilgilerini\\
         isteyene satıyor (1989)
 
-      \pause
       \medskip
       \item \emph{Driver's Privacy Protection Act (1994)}
     \end{itemize}
@@ -912,205 +917,53 @@
   \tiny{\url{http://www.businessweek.com/magazine/content/11_12/b4220038620504.htm}}\\
 \end{frame}
 
-\subsection{Veri Madenciliği}
-
-\begin{frame}
-  \frametitle{Veri Madenciliği}
-
-  \begin{tanim}
-    \alert{veri madenciliği}
-
-    \begin{itemize}
-      \item veride örtülü kalıpların aranması
-      \item bariz olmayan yeni kategoriler ortaya çıkarma
-    \end{itemize}
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-    \item karar destek sistemlerinde kullanılıyor:\\
-      alışveriş kartları, kredi puanlama
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek: Total Information Awareness}
-
-  \begin{itemize}
-    \item pek çok değişik alandan veri toplansın
-    \begin{itemize}
-      \item finans, sağlık, iletişim, yolculuk, \ldots
-    \end{itemize}
-    \item benzer davranış kalıplarından terörist olabilecekler belirlensin
-
-    \pause
-    \bigskip
-    \item hatalı sonuçlar
-    \item yöntem kayması: suçu değil suçsuzluğu kanıtlamak gerekmesi
-  \end{itemize}
-\end{frame}
-
 \section{Önlemler}
 
-\subsection{Giriş}
-
-\begin{frame}
-  \frametitle{Önlemler}
-
-  \begin{itemize}
-    \item kişisel
-    \item mesleki
-    \item kurumsal
-    \item yasal
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kişisel Önlemler}
-
-  \begin{itemize}
-    \item kişisel verilerini vermemek ya da yanlış vermek
-    \begin{itemize}
-      \item alışveriş marketi kartlarını başkasıyla değişmek
-    \end{itemize}
-
-    \item teknolojiden yararlanmak
-    \begin{itemize}
-      \item şifreleme yazılımları:\\
-        PGP, TrueCrypt, ...
-      \item mahremiyet artırıcı yazılımlar:\\
-        Tor, Privoxy, Ghostery, TrackMeNot, ...
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek Olay}
-
-  \begin{ornek}[anketler]
-    \begin{itemize}
-      \item sorulanların \%90'dan fazlası hassas bilgileri veriyor
-      \begin{itemize}
-        \item evcil hayvanının adı
-        \item annesinin evlenmeden önceki soyadı
-      \end{itemize}
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kurumsal Önlemler}
-
-  \begin{itemize}
-    \item hizmet veren kurumlar müşterilerinin mahremiyetine özen gösterebilir
-    \begin{itemize}
-      \item Google arama bilgilerini 18 ay sonra anonimize ediyor;
-        Microsoft Bing 6 ay sonra
-      \item anonimizasyonun işe yaramadığı iddia ediliyor
-      \item Startpage arama motoru IP adreslerini kaydetmiyor
-      \item Facebook: "Hotel California" politikası
-    \end{itemize}
-
-    \pause
-    \item "çıkmak" değil "girmek" isteğe bağlı olmalı (opt-in / opt-out)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Örnek Olay}
-
-  \begin{ornek}[Google RSS hizmeti (2007)]
-    \begin{itemize}
-      \item etkinliklerini seçilen tanıdıklarla paylaşma
-      \item tanıdıklar listesindeki herkese açılıyor
-    \end{itemize}
-  \end{ornek}
-\end{frame}
+\subsection{Yasal}
 
 \begin{frame}
   \frametitle{Yasal Düzenlemeler}
 
   \begin{itemize}
-    \item ABD'de soruna özel düzenlemeler:\\
-      kredi, ehliyet, video, sağlık, ...
-
-    \pause
-    \item Avrupa'da sorunun kaynağına yönelik düzenlemeler
-
-    \pause
-    \item Türkiye'de yeni
-  \end{itemize}
-\end{frame}
-
-\subsection{Dünya}
-
-\begin{frame}
-  \frametitle{ABD Yasaları}
-
-  \begin{block}{Code of Fair Information Practices (1974)}
-    \begin{enumerate}
-      \item varlığı gizli bir veri kaydı tutma sistemi olamaz
-
-      \pause
-      \item kişiler kendileriyle ilgili hangi bilgilerin tutulduğunu ve bu
-        bilgilerin nasıl kullanıldığını öğrenebilmelidir
-
-      \pause
-      \item kişiler bir amaçla verdikleri bilgilerin izinleri alınmadan başka
-        amaçlarla kullanımını önleyebilmelidir
-
-      \pause
-      \item kişiler kendileriyle ilgili bilgileri düzeltebilmelidir
-
-      \pause
-      \item kişisel veri toplayan kurumlar bu verilerin ilgili amaçlar için
-        güvenilirliğini sağlamalı ve kötü kullanımını önlemelidir
-    \end{enumerate}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{ABD Yasaları}
-
-  \begin{itemize}
-    \item Code of Fair Information Practices
-
+    \item Avrupa Birliği'nde kapsamlı düzenlemeler
     \begin{itemize}
-      \item yalnızca kamu kurumlarını bağlıyor
-
-      \pause
-      \item kayıtların ayırdedici bir veriye göre aranabilmesi gerekir
-
-      \pause
-      \item yasayı uygulayıcı bir yetkili tanımlı değil
-
-      \pause
-      \item "sıradan kullanımlar için" veri alışverişine izin var
+      \item ilk veri koruma yasası Almanya'nın Hessen eyaletinde (1970)
     \end{itemize}
+
+    \pause
+    \item ABD'de alana özel düzenlemeler:\\
+      kredi, ehliyet, video, sağlık, ...
+    \begin{itemize}
+      \item yeni bir mahremiyet yasa taslağı (2012)
+    \end{itemize}
+
+    \pause
+    \item Türkiye'de Avrupa Birliği ile ilişkiler ve uluslararası sözleşmeler\\
+      çerçevesinde kalıyor
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Avrupa Birliği}
 
-  \begin{block}{AB Temel Haklar Bildirgesi - 8. Madde}
+  \begin{block}{AB Temel Haklar Bildirgesi}
     \begin{enumerate}
       \item kişisel bilgilerin korunmasını isteme hakkı
-
-      \pause
       \item amaca uygun, yasal ve adil kullanım;\\
         kendisiyle ilgili bilgilere erişme ve düzeltme hakkı
-
-      \pause
       \item kurallara uyulmasını denetleyen bağımsız makam
     \end{enumerate}
   \end{block}
+
+  \begin{itemize}
+    \item üye ülkeler bu ilkelere uygun yasal düzenlemeler yapmalı
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Avrupa Yasaları}
 
-  \begin{block}{Data Protection Act (1984, 1998)}
+  \begin{block}{İngiltere - Data Protection Act (1984, 1998)}
     \begin{enumerate}
       \item adil ve hukuki işleme
       \item açıkça belirtilmiş ve yasal amaçlar
@@ -1125,51 +978,129 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek Olay}
+  \frametitle{Örnek: İngiltere DNA veri bankası}
 
-  \begin{ornek}[İngiltere DNA veri bankası (2008)]
-    \begin{itemize}
-      \item AİHM: hüküm giymemiş kişilerin DNA bilgilerinin saklanması
-        yasaya aykırı
-    \end{itemize}
-  \end{ornek}
+  \begin{center}
+    \pgfuseimage{dna}
+  \end{center}
+
+  \begin{itemize}
+    \item Avrupa İnsan Hakları Mahkemesi kararı (2008):
+    \begin{quote}
+      Hüküm giymemiş kişilerin DNA bilgileri saklanamaz.
+    \end{quote}
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4630694.stm}}\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek Olay}
+  \frametitle{Örnek: Reddit - Facebook bilgi edinme istekleri}
 
-  \begin{ornek}[Almanya İSS kayıtları (2006)]
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{reddit}
+
+    \column{.45\textwidth}
     \begin{itemize}
-      \item Almanya Yüksek Temyiz Mahkemesi servis sağlayıcının
-        isteyen kullanıcıların IP kayıtlarını silmek zorunda
-        olduğuna karar veriyor
+      \item Reddit kullanıcıları\\
+        bilgi edinme istekleriyle\\
+        Facebook'a yoğun\\
+        iş yükü çıkarıyorlar (2011)
+      \item 24~yaşında bir öğrenciye\\
+        1200~sayfalık döküm geliyor
     \end{itemize}
-  \end{ornek}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.zdnet.com/blog/facebook/reddit-users-overwhelm-facebook-with-data-requests/4165}}\\
+  \tiny{\url{https://threatpost.com/en_us/blogs/twenty-something-asks-facebook-his-file-and-gets-it-all-1200-pages-121311}}\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek Olay}
+  \frametitle{Örnek: ABD - Avrupa yolcu verileri}
 
-  \begin{ornek}[A.B.D. - Avrupa veri aktarımı]
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{flights}
+
+    \column{.52\textwidth}
     \begin{itemize}
-      \item havayolu şirketleri A.B.D.'ye uçuşlarda yolcularla ilgili 34~parça
-        bilgiyi yetkililere teslim etmek zorunda
-      \item A.B.D. istihbarat birimlerinin Avrupa banka kayıtlarına erişimi
-        anlaşmasını Avrupa Parlamentosu bloke ediyor (2010)
+      \item havayolu şirketlerinden ABD'ye uçuşlarda yolcularla ilgili 34~parça
+        bilgi isteniyor
+      \item Avrupa Adalet Divanı\\
+        anlaşmayı iptal ediyor (2006)
+      \item daha sonraki anlaşmaya\\
+        Avrupa Veri Koruma\\
+        Denetçisi karşı çıkıyor (2011)
+
+      \pause
+      \item ABD istihbarat birimlerinin Avrupa banka kayıtlarına erişimi
+        anlaşmasını Avrupa Parlamentosu engelliyor (2010)
     \end{itemize}
-  \end{ornek}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/5028918.stm}}\\
+  \tiny{\url{http://www.theregister.co.uk/2011/03/29/europe_passenger_name_wrong/}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/8510471.stm}}\\
 \end{frame}
 
-\subsection{Türkiye}
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Code of Fair Information Practices (1974)}
+    \begin{enumerate}
+      \item varlığı gizli bir veri kaydı tutma sistemi olamaz
+      \item kişiler, kendileriyle ilgili hangi bilgilerin tutulduğunu\\
+        ve bu bilgilerin nasıl kullanıldığını öğrenebilmelidir
+      \item kişiler, bir amaçla verdikleri bilgilerin, izinleri alınmadan\\
+        başka amaçlarla kullanımını önleyebilmelidir
+      \item kişiler, kendileriyle ilgili bilgileri düzeltebilmelidir
+      \item kişisel veri toplayan kurumlar, bu verilerin ilgili amaçlar için\\
+        güvenilirliğini sağlamalı ve kötüye kullanımını önlemelidir
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Code of Fair Information Practices (1974)}
+    \begin{itemize}
+      \item yalnızca kamu kurumlarını bağlar
+      \item kayıtların ayırdedici bir veriye göre aranabilmesi gerekir
+      \item yasayı uygulayıcı bir yetkili tanımlı değil
+      \item "sıradan kullanımlar için" veri alışverişine izin var
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Consumer Privacy Bill of Rights (2012)}
+    \begin{itemize}
+      \item tüketiciler, firmaların kendileriyle ilgili hangi verileri
+        topladıklarını ve bunları nasıl kullandıkları denetleyebilmeli
+      \item tüketiciler, mahremiyet ve güvenlik yöntemleriyle ilgili kolayca
+        ve anlaşılabilir şekilde bilgi alabilmeli
+      \item toplama, kullanma ve yaymanın amaca uygunluğu
+      \item verinin güvenli ve sorumlu şekilde işlenmesi
+    \end{itemize}
+  \end{block}
+\end{frame}
 
 \begin{frame}
   \frametitle{Türkiye}
 
   \begin{itemize}
-    \item Anayasa: özel ve aile yaşamına saygı bekleme hakkı (20)
-    \item Anayasa: iletişim gizliliği (22)
-    \item kişisel verilerin otomatik işlenmesine ilişkin uluslararası sözleşme
-    \item bilgi edinme hakkı yasası
+    \item Anayasa: özel ve aile yaşamına saygı bekleme hakkı
+    \item Anayasa: iletişimin gizliliği
+    \item Kişisel Verilerin Otomatik İşlenmesine İlişkin\\
+      Uluslararası Sözleşme
+    \item Bilgi Edinme Hakkı Yasası
   \end{itemize}
 \end{frame}
 
@@ -1188,23 +1119,212 @@
 
   \begin{block}{Bilgi Edinme Hakkı Yasası (2003)}
     \begin{itemize}
-      \item bilgi edinme hakkı (4)
+      \item bilgi edinme hakkı
+      \item bilgi verme yükümlülüğü
+      \item itirazlar için \emph{Bilgi Edinme Değerlendirme Kurulu}
+      \item ihmal, kusur ya da kasıt durumunda ceza kovuşturması
 
       \pause
-      \item bilgi verme yükümlülüğü (5)
-
-      \pause
-      \item itirazlar için \emph{Bilgi Edinme Değerlendirme Kurulu} (13)
-
-      \pause
-      \item sınırlamalar: devlet sırrı (16), ülkenin ekonomik çıkarları (17),
-        istihbarat (18), idari ve adli soruşturmalar (19,20), özel hayatın
-        gizliliği (21), haberleşmenin gizliliği (22), ticari sır (23)
-
-      \pause
-      \item ihmal, kusur ya da kasıt durumunda ceza kovuşturması (29)
+      \item sınırlamalar:\\
+        devlet sırrı, ülkenin ekonomik çıkarları, istihbarat,\\
+        idari ve adli soruşturmalar, özel hayatın gizliliği,\\
+        haberleşmenin gizliliği, ticari sır
     \end{itemize}
   \end{block}
+\end{frame}
+
+\subsection{Kurumsal}
+
+\begin{frame}
+  \frametitle{Kurum Politikaları}
+
+  \begin{itemize}
+    \item kurumlar kullanıcılarının mahremiyetine değişik düzeylerde\\
+      özen gösteriyor: mahremiyet politikaları
+    \begin{itemize}
+      \item hangi verileri hangi amaçla topladığını açıkça belirtmek
+      \item gerekmeyen verileri toplamamak
+      \item amaca aykırı kullanmamak
+      \item izin almadan başkalarına aktarmamak
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item "istemiyorsa çıksın" (opt-out) değil, "istiyorsa girsin" (opt-in)
+
+    \pause
+    \medskip
+    \item HTTP protokolu için yeni başlık alanı: Do Not Track
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Facebook}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{facebook-evolution}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item hesabınızı kapatsanız da\\
+        bilgileriniz kalıyor
+      \item varsayılan ayarlarda\\
+        açık olan veriler\\
+        giderek artıyor
+      \item mahremiyet ayarlarının\\
+        karmaşıklığı eleştiriliyor\\
+      \item işyerleri, okullar v.b.\\
+        hesabınıza erişim istiyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://mattmckeon.com/facebook-privacy/}}\\
+  \tiny{\url{https://www.nytimes.com/interactive/2010/05/12/business/facebook-privacy.html}}\\
+  \tiny{\url{http://redtape.msnbc.msn.com/_news/2012/03/06/10585353-govt-agencies-colleges-demand-applicants-facebook-passwords}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google}
+
+  \begin{itemize}
+    \item gerçek isim politikası
+    \item hizmetleri birleştiren mahremiyet politikası,\\
+      hem ahlaki hem de yasal açıdan eleştiriliyor (2012)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2012/03/06/why_google_privacy_policy_is_so_difficult_to_follow/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Arama motorları}
+
+  \begin{itemize}
+    \item arama motorları arama verilerini bir süre sonra\\
+      anonimize ediyor
+    \begin{itemize}
+      \item anonimizasyonun işe yaramadığı iddia ediliyor
+    \end{itemize}
+
+    \medskip
+    \item bazı arama motorları IP adreslerini kaydetmiyor:\\
+      Startpage, DuckDuckGo
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://arstechnica.com/tech-policy/news/2009/09/your-secrets-live-online-in-databases-of-ruin.ars}}\\
+\end{frame}
+
+\subsection{Kişisel}
+
+\begin{frame}
+  \frametitle{Kişisel Önlemler}
+
+  \begin{itemize}
+    \item kişisel verileri konusunda duyarlı olmak
+    \begin{itemize}
+      \item gerekmeyen yerlere vermemek
+      \item yanlış bilgiler vermek
+      \item veri "gürültüsü" yaratmak
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item teknolojiden yararlanmak
+    \begin{itemize}
+      \item şifreleme yazılımları
+      \item mahremiyet artırıcı yazılımlar
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Anket soruları}
+
+  \begin{columns}
+    \column{.52\textwidth}
+    \pgfuseimage{survey}
+
+    \column{.48\textwidth}
+    \begin{itemize}
+      \item katılanların \%90'dan fazlası\\
+        duyarlı verilerini veriyor (2005)
+      \begin{itemize}
+        \item evcil hayvanının adı
+        \item annesinin evlenmeden önceki soyadı
+      \end{itemize}
+
+      \item Facebook'da arkadaşlık isteklerini düşünmeden\\
+        kabul ediyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4378253.stm}}\\
+  \tiny{\url{http://nakedsecurity.sophos.com/2009/12/06/facebook-id-probe-2009/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google Chrome tarayıcı izleme}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{chrome-history}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google, bakılan her sayfanın izleneceği bir programa katılanlara yılda 25\$ veriyor (2012)
+
+      \item ücret farkı çok az bile olsa,\\
+        insanlar mahremiyeti koruyan\\
+        servisi değil, ucuz olan servisi\\
+        seçiyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.forbes.com/sites/kashmirhill/2012/02/09/your-online-privacy-is-worth-less-than-a-six-pack-of-marshmallow-fluff/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/03/21/privacy_economics/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Veri Gürültüsü}
+
+  \begin{itemize}
+    \item çok miktarda yanlış ya da ilgisiz veri üreterek\\
+      gerçek verilerin hangisi olduğunun belirlenmesi zorlaştırılabilir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item alışveriş kartlarını başkalarıyla karşılıklı değişmek
+      \item Firefox eklentisi TrackMeNot, belli başlı arama motorlarında
+        rasgele aramalar yapıyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mahremiyet Artırıcı Yazılımlar}
+
+  \begin{itemize}
+    \item vekil sunucular (proxy)
+    \begin{itemize}
+      \item Privoxy: reklamları ve kötü niyetli kod kalıplarını engelliyor
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item Firefox tarayıcı eklentileri
+    \begin{itemize}
+      \item NoScript: JavaScript beyaz listesi
+      \item Cookie Monster: çerez beyaz listesi
+      \item Ghostery: böcek kara listesi
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \section*{Kaynaklar}
