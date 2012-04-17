@@ -1,0 +1,1334 @@
+% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Bilişim Etiği}
+\subtitle{Fikri Mülkiyet}
+
+\author{H. Turgut Uyar}
+\date{2004-2012}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[height=4.5cm]{locke}{locke}
+\pgfdeclareimage[height=4.5cm]{hegel}{hegel}
+
+\pgfdeclareimage[width=6cm]{lawyer}{lawyer}
+\pgfdeclareimage[width=5.7cm]{timezone}{timezone}
+\pgfdeclareimage[width=5.7cm]{wow}{wow}
+\pgfdeclareimage[width=5.7cm]{kwik-fit}{kwik-fit}
+\pgfdeclareimage[height=6cm]{lauren}{lauren}
+\pgfdeclareimage[height=6cm]{book-search}{book-search}
+\pgfdeclareimage[height=6cm]{turnitin}{turnitin}
+\pgfdeclareimage[height=6cm]{limewire}{limewire}
+\pgfdeclareimage[height=6cm]{pirate-bay}{pirate-bay}
+\pgfdeclareimage[height=6cm]{dvd-jon}{dvd-jon}
+\pgfdeclareimage[width=10cm]{sklyarov}{sklyarov}
+\pgfdeclareimage[height=6cm]{sony}{sony}
+\pgfdeclareimage[height=6cm]{mpaa}{mpaa}
+\pgfdeclareimage[height=6cm]{sarkozy}{sarkozy}
+\pgfdeclareimage[width=7.5cm]{liability}{liability}
+\pgfdeclareimage[height=6.3cm]{autodesk}{autodesk}
+\pgfdeclareimage[height=6cm]{personaldatamining}{personaldatamining}
+\pgfdeclareimage[height=6cm]{google-estimation}{google-estimation}
+\pgfdeclareimage[height=5.5cm]{eolas}{eolas}
+\pgfdeclareimage[height=5.5cm]{apple-samsung}{apple-samsung}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2004-2012 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{Fikri Mülkiyet}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Mülkiyet}
+
+  \begin{itemize}
+    \item nesneler üzerinden değil ilişkiler üzerinden tanım
+
+    \medskip
+    X kişisi Y nesnesinin sahibiyse, Y nesnesinin başka kişilerle ilişkilerini
+    denetleyebilir.
+
+    \pause
+    \medskip
+    \item elle tutulur nesneler sözkonusu olunca daha kolay anlaşılıyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fikri Eser}
+
+  \begin{itemize}
+    \item yaratıcı eserler: edebi ve sanatsal eserler\\
+      edebiyat, müzik, sinema, resim, bilgisayar programı
+    \item işlevsel eserler: buluşlar
+  \end{itemize}
+
+  \pause
+  \bigskip
+  \begin{itemize}
+    \item dışlayıcı değil
+    \begin{itemize}
+      \item sahibinden alınsa da sahibinin kullanması kısıtlanmış olmuyor
+    \end{itemize}
+
+    \item kısıtlı kaynak değil
+    \begin{itemize}
+      \item kolaylıkla çoğaltılabiliyor
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fikri Mülkiyet}
+
+  \begin{itemize}
+    \item sahibine ne haklar verilecek?
+    \begin{itemize}
+      \item fiziksel mülke sahip olmakla fikre sahip olmak aynı şey değil
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item toplumlar fikirler üzerinde mülkiyet istemiyor
+    \begin{itemize}
+      \item üreticinin fikrini ortaya koymasını teşvik etmek
+      \item sahibine kazanç sağladıktan sonra kamu malı haline gelmesi
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fikri Mülkiyet}
+
+  \begin{itemize}
+    \item fikrin belli bir ifadesine (dışavurumuna) mülkiyet
+
+    \pause
+    \medskip
+    \item yaratıcı fikirler somut bir ortamda "sabitlenmeli"
+    \begin{itemize}
+      \item örnek: kitap
+    \end{itemize}
+    \item \alert{telif}
+
+    \pause
+    \medskip
+    \item işlevsel fikirler somut biçimde ortaya konmalı
+    \begin{itemize}
+      \item örnek: makina
+    \end{itemize}
+    \item \alert{patent}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ticari Sır}
+
+  \begin{itemize}
+    \item formül, proses, tasarım, müşteri listesi v.b.
+    \item fikri eser sahibine rekabette avantaj sağlamak amaçlı
+    \item sırrın gizli kalması için önlemler alınmalı:\\
+      gizlilik sözleşmeleri
+
+    \pause
+    \medskip
+    \item süresi dolmaz, açıklanması gerekmez
+    \item açığa çıkarsa sırlığı kalmaz
+
+    \pause
+    \medskip
+    \item \emph{tersine mühendislik}
+  \end{itemize}
+\end{frame}
+
+\subsection{Kuramlar}
+
+\begin{frame}
+  \frametitle{Emek Kuramı}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{locke}
+      \begin{itemize}
+        \item John Locke (17.yy)
+      \end{itemize}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{block}{emek kuramı}
+        herkes emeğini kattığı çalışmanın ürünlerinin sahibi olmalı
+    \end{block}
+    \begin{itemize}
+      \item mülkiyet doğal bir haktır
+      \item herkes kendine gerektiği kadarını almalı
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Faydacı Kuram}
+
+  \begin{block}{faydacı kuram}
+    fikri eserlere mülkiyet hakkı tanımak topluma yarar sağlar
+  \end{block}
+
+  \begin{itemize}
+    \item fikri eserlerin yaratıcıları eserlerinden kazanç elde edecek
+      olurlarsa bunları toplumun kullanımına sunarlar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kişilik Kuramı}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{hegel}
+      \begin{itemize}
+        \item Hegel (19.yy)
+      \end{itemize}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{block}{kişilik kuramı}
+      fikri bir eser yaratıcısının kişiliğinin bir uzantısıdır
+    \end{block}
+
+    \begin{itemize}
+      \item nasıl kullanılacağını eserin yaratıcısı denetleyebilmelidir
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yazılım Mülkiyeti}
+
+  \begin{itemize}
+    \item yazılımların lisanslarına aykırı olarak çoğaltılması neden yanlış
+      olsun?
+
+    \pause
+    \medskip
+    \item emek kuramı açısından
+
+    \pause
+    \item faydacı kuram açısından
+
+    \pause
+    \item kişilik kuramı açısından
+
+    \pause
+    \item toplumsal sözleşme açısından
+  \end{itemize}
+\end{frame}
+
+\section{Telif}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Telif Hakkı}
+
+  \begin{itemize}
+    \item telif hakkı bir fikrin \alert{ifadesine} verilir
+    \begin{itemize}
+      \item yazılım: algoritma fikirdir, program ifadedir
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item sağlanması gereken koşullar:
+    \begin{itemize}
+      \item özgün olmalı
+      \item işlevsel olmamalı
+      \item somut bir ortamda sabitlenmeli
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item aynı ifade bağımsız olarak farklı kişilerce ortaya konabilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Telif Hakkının Kapsamı}
+
+  \begin{itemize}
+    \item çoğaltma
+    \item dağıtma
+    \item yeni eserler türetme (örneğin çeviri, romanın filme çekilmesi)
+    \item temsil (örneğin tiyatro)
+    \item teşhir (örneğin sanat eserleri)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: E-posta iletisi telifi}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{lawyer}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item bir e-posta iletisi,\\
+        yazarından izin alınmadan\/
+        başkalarına gönderiliyor
+      \item yazarı, telif hakkının\\
+        çiğnendiği gerekçesiyle\\
+        dava açıyor
+      \item mahkeme, iletinin\\
+        yaratıcı içeriği olmadığına\\
+        karar veriyor (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/04/12/email_not_creative_enough_for_copyright_protection/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Zaman dilimi veri tabanı}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{timezone}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item bazı bilgisayarlarda kullanılan\\
+        zaman dilimi veri tabanının\\
+        bir kısmı, Astrolabe firmasının\\
+        atlasından yararlanmış
+      \item Astrolabe, veri tabanının\\
+        kullanımını engellemek için\\
+        dava açıyor
+      \item daha sonra şikayetini\\
+        geri alıyor (2012)
+      \item tarihsel olgular üzerinde\\
+        telif hakkı olmaz
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.eff.org/press/releases/eff-wins-protection-time-zone-database}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Blizzard - MDY davası}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{wow}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item MDY, Blizzard'ın\\
+        World of Warcraft oyunu için "bot" satıyor
+      \item Blizzard dava açıyor:\\
+        "programı belleğe kopyalıyor"
+      \item mahkeme Blizzard'ı haklı buluyor (2008)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/7314353.stm}}\\
+  \tiny{\url{http://virtuallyblind.com/category/lawsuits/mdy-v-blizzard/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: PRS - Kwik-Fit}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{kwik-fit}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Performing Rights Society,\\
+        müzisyenlerin fikri mülkiyet\\
+        haklarını koruyan bir örgüt
+      \item bir araba tamir firmasına,\\
+        çalışanları radyo dinledikleri için\\
+        dava açıyor: "yayın" (2007)
+      \item bir market çalışanına\\
+        işyerinde şarkı söylediği için\\
+        dava açıyor: "temsil" (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/uk_news/scotland/edinburgh_and_east/7029892.stm}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/uk_news/scotland/tayside_and_central/8317952.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Yazılım Telifi}
+
+  \begin{itemize}
+    \item telif hakkı bir yazılımı, işlevinin taklit edilmesine karşı korumaz
+  \end{itemize}
+
+  \pause
+  \begin{ornek}[Lotus 123 - Borland (1995)]
+    \begin{itemize}
+      \item çizelgeleme programının görünüşü ve işlevinin benzerliği
+      \item programın görünümü telif korumasına girer mi?
+      \item mahkeme: "evet", temyiz: "hayır"
+    \end{itemize}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[Apple - Microsoft/HP]
+    \begin{itemize}
+      \item masaüstü arayüzü, ikonlar v.b.
+      \item mahkeme: "video düğmeleri ya da araba göstergelerine benzer"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\subsection{Yasalar}
+
+\begin{frame}
+  \frametitle{Uluslararası Anlaşmalar}
+
+  \begin{itemize}
+    \item Bern Anlaşması (1887)
+    \item TRIPS: Trade-Related Aspects of Intellectual Property Rights (1995)
+    \item WIPO Copyright Treaty (2002)
+    \begin{itemize}
+      \item World Intellectual Property Organization
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Telif Yasaları}
+
+  \begin{itemize}
+    \item Türkiye: Fikir ve Sanat Eserleri Kanunu (1995)
+    \item ABD: Digital Millenium Copyright Act (1998)
+
+    \pause
+    \medskip
+    \item koruma süresi: eser sahibinin ölümünden sonra 70~yıl
+    \begin{itemize}
+      \item ücretle yaptırılan işlerde 95~yıl
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item telif hakkı kendiliğinden oluşur, bir yere tescili gerekmez
+  \end{itemize}
+\end{frame}
+%
+% TODO: orphaned works
+
+\begin{frame}
+  \frametitle{İlkeler}
+
+  \begin{itemize}
+    \item \alert{makul kullanım} (fair use):\\
+      eleştiri, haber, eğitim, araştırma gibi amaçlarla kullanım için\\
+      izin almak gerekmeyebilir
+    \begin{itemize}
+      \item eserin doğası: kurgu - kurgu değil
+      \item kullanımın boyutu: parçası, tamamı
+      \item eserin satışına etkisi
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{ilk satış} (first sale):\\
+      ilk satışla birlikte telif sahibinin kopya üzerinde hakkı kalmaz
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Ralph Lauren reklam kampanyası}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{lauren}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Ralph Lauren giyim firmasının\\
+        bir reklam fotoğrafı eleştiriliyor
+      \item firma, fotoğrafın kullanılmasını\\
+        engellemeye çalışıyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://boingboing.net/2009/10/06/the-criticism-that-r.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google Book Search}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{book-search}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Google basılı kitapları tarayarak arama sonuçlarında gösteriyor
+      \item Yazarlar Sendikası dava açıyor,\\
+        Google makul kullanıma\\
+        girdiğini iddia ediyor (2005)
+      \item 125 milyon \$ anlaşma (2008)
+      \item Fransa'da 300 bin \euro~ceza (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2008/10/28/google_settles_book_suit/}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/8420876.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Turnitin}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{turnitin}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item Turnitin, üniversitelerin\\
+        kopyacılığı önlemek için\\
+        abone oldukları bir servis
+      \item ödevleri birbirleriyle,\\
+        eskiden gönderilen ödevlerle\\
+        ve İnternet kaynaklarıyla\\
+        karşılaştırıyor
+      \item öğrenciler Turnitin sitesini\\
+        kendi fikri eserlerini\\
+        veri tabanında sakladığı için\\
+        dava ediyor
+      \item mahkeme, makul kullanıma\\
+        girdiğine karar veriyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.wired.com/threatlevel/2009/04/fair-use-bolste/}}\\
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{Kişisel Kullanım}
+% 
+%   \begin{itemize}
+%     \item Fikir ve Sanat Eserleri Kanunu'na göre:
+%     \begin{itemize}
+%       \item kar amacı güdülmeksizin kişisel kullanım
+%       \item hukuki yollardan edinme
+%       \item yedekleme kopyası
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Yasal Bağışıklık}
+
+  \begin{itemize}
+    \item bazı kurumlar kullanıcıların yaptıklarına dayanarak\\
+      telif yasasını çiğnemekten dava edilemiyor
+
+    \medskip
+    \item servis sağlayıcılar
+    \item arama motorları
+    \item Internet Archive
+  \end{itemize}
+\end{frame}
+
+\subsection{DRM}
+
+\begin{frame}
+  \frametitle{Dosya Paylaşımı}
+
+  \begin{itemize}
+    \item yaygın dosya paylaşımı, telif haklarının çiğnenmesi sorununu\\
+      çok artırdı
+    \begin{itemize}
+      \item Napster, Kazaa gibi merkezi paylaşım ağları
+      \item BitTorrent protokolüne dayanan dağıtık yapı
+      \item Rapidshare, Megaupload gibi dosya barındırma servisleri
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item dosya paylaşımının yasal kullanımları da var
+    \begin{itemize}
+      \item mahkemeler, bu servislerin yaygın telif hakkı ihlallerini\\
+        önleme yükümlülüğü olduğuna karar veriyor
+      \item istenen tazminat miktarları gerçekçi bulunmayabiliyor
+      \item elde edilen tazminat gelirlerinin nasıl paylaşılacağı sorun
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Betamax}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Universal film şirketi, Sony'ye Betamax video kaydedici\\
+        nedeniyle dava açıyor (1970):\\
+        "telif haklarının çiğnenmesinde kullanılabilir"
+      \item mahkeme: "yasal kullanım şekilleri de var"
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: The Pirate Bay}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{pirate-bay}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item BitTorrent arama sitesi\\
+        The Pirate Bay'in kurucularına\\
+        4-10 ay hapis ve 6.5 milyon \$\\
+        tazminat cezası (2009-2010)
+
+      \pause
+      \medskip
+      \item yaptıkları Google'dan farklı mı?
+      \item yasal bağışıklık olmalı mı?
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.bbc.co.uk/news/technology-11847200}}\\
+  \tiny{\url{https://torrentfreak.com/google-defends-hotfile-and-megaupload-in-court-120319/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: LimeWire}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{limewire}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item LimeWire paylaşım ağı\\
+        davasında plak şirketleri\\
+        75 trilyon \$ tazminat istiyor
+      \item yargıç, miktarı saçma buluyor (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/03/24/judge_slaps_music_biz/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{DRM}
+
+  \begin{itemize}
+    \item çoğaltma ve dağıtma kurallarını teknoloji yardımıyla uygulama:\\
+      Digital Rights Management (DRM)
+    \begin{itemize}
+      \item DVD'lerde bölge koruması
+      \item CD'lerde kopyalama engelleme
+      \item ses ya da film dosyalarında başka ortama aktaramama
+    \end{itemize}
+    \item yeni telif hakkı yasalarında "atlatmayı önleme"\\
+      (anticircumvention) maddeleriyle destekleniyor
+
+    \pause
+    \medskip
+    \item tüketici hakları açısından sorunlu
+    \item tersine mühendislik açısından sorunlu
+    \item teknik olarak işe yaramadığı iddia ediliyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Adobe - Sklyarov}
+
+  \begin{center}
+    \pgfuseimage{sklyarov}
+  \end{center}
+
+  \medskip
+  \tiny{\url{http://www.infotoday.com/it/nov01/ardito.htm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Adobe - Sklyarov}
+
+  \begin{itemize}
+    \item Sklyarov, PDF formatındaki kitaplardan şifre korumasını\\
+      kaldıran bir yazılım geliştiriyor
+    \item çalıştığı şirket Elcomsoft bu yazılımı satıyor
+    \item Sklyarov, ABD'ye gelişinde tutuklanıyor (2001)
+    \item Adobe ve ABD Adalet Bakanlığı dava açıyor
+    \item olay büyüyünce, Sklyarov hakkındaki suçlamalar geri çekiliyor
+    \item Elcomsoft hakkındaki dava beraatle sonuçlanıyor (2002)
+
+    \pause
+    \medskip
+    \item makul kullanım açısından? (yedekleme kopyası)
+    \item ilk satış ilkesi açısından?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Jon Johansen (DeCSS)}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{dvd-jon}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Jon Johansen, Linux'da\\
+        DVD seyredebilmek için\\
+        koruma şifresini kıran\\
+        bir yazılım geliştiriyor
+      \item Paramount, Universal, MGM\\
+        dava açıyor
+      \item Johansen beraat ediyor (2003)
+
+      \pause
+      \medskip
+      \item Johansen - Apple: iTunes'dan müzik satın alabilme (2005)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.cnet.com/Norway-piracy-case-brings-activists-hope/2100-1025_3-979769.html}}\\
+  \tiny{\url{http://news.cnet.com/DVD-Jon-reopens-iTunes-back-door/2100-1027_3-5630703.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Sony müzik CD'leri}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{sony}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Sony müzik CD'leri,\\
+        kullanıcıya haber vermeden\\
+        bir kopya koruma yazılımı\\
+        kuruyor
+      \item Sony özür diliyor,\\
+        CD'leri geri topluyor (2005)
+
+      \pause
+      \item kopya koruma yazılımı,\\
+        açık kaynaklı projelerden\\
+        çalıntı çıkıyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4456970.stm}}\\
+  \tiny{\url{http://www.theregister.co.uk/2005/11/18/sony_copyright_infringement/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: MPAA}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{mpaa}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item Film Yapımcıları Birliği,\\
+        "This Film Is Not Yet Rated"\\
+        filmini izinsiz çoğaltarak\\
+        çalışanlarına dağıtıyor (2004)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.eff.org/deeplinks/2006/01/mpaa-copying-movies-ok-our-families-not-yours}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Nicolas Sarkozy}
+
+  \begin{columns}
+    \column{.46\textwidth}
+    \begin{center}
+      \pgfuseimage{sarkozy}
+    \end{center}
+
+    \column{.54\textwidth}
+    \begin{itemize}
+      \item Sarkozy'nin partisi,\\
+        MGMT grubunun bir şarkısını\\
+        izin almadan miting ve reklamlarda kullanıyor (2009)
+      \item Başkanlık Ofisi,\\
+        Sarkozy ile ilgili bir belgeseli\\
+        kopya DVD'lere basıyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.huffingtonpost.com/2009/10/08/nicolas-sarkozy-french-pr_n_313723.html}}\\
+\end{frame}
+
+\subsection{Lisans Anlaşmaları}
+
+\begin{frame}
+  \frametitle{Ürün - Hizmet}
+
+  \begin{itemize}
+    \item yazılım ürün mü, hizmet mi?
+    \begin{itemize}
+      \item kitle satışı $\rightarrow$ ürün
+      \item kişisel satış $\rightarrow$ hizmet
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item ürünse
+    \begin{itemize}
+      \item ticari dolaşıma soktuğuna göre güvenliğini sağlamalı\\
+        $\rightarrow$ sıkı sorumluluk
+      \item riski müşterilere yayabilir
+    \end{itemize}
+
+    \pause
+    \item hizmetse
+    \begin{itemize}
+      \item ticari dolaşıma sokmuyor $\rightarrow$ ihmal
+      \item riski müşterilere yayamaz
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Özel Mülkiyet Modeli}
+
+  \begin{itemize}
+    \item kaynak kodu ticari sır
+    \item derlenmiş kodun çoğaltılması ve dağıtılması\\
+      telif yasasına tabidir
+    \item kodun kullanım şekli lisans anlaşmasıyla belirlenir
+
+    \pause
+    \medskip
+    \item tüketicinin aldığı şey program değil, \alert{programı kullanma izni}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Microsoft Son Kullanıcı Anlaşması}
+
+  \begin{itemize}
+    \item kabul etmezseniz geri verip paranızı geri isteyebilirsiniz
+    \item etkinleştirme, donanım değişikliği
+    \item tersine mühendislik: yasanın izin verdiği kadar
+    \item garanti yokluğu
+    \item dava edilemezlik
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Açık Yazılım Modeli}
+
+  \begin{itemize}
+    \item kendine göre kişiselleştirebilme olanağı
+    \item daha hızlı güncellenme
+    \item üreticinin yaşayabileceği sıkıntılardan etkilenmeme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{GNU General Public License - GPL}
+
+  \begin{itemize}
+    \item kullanım: kısıtlama yok
+    \item dağıtım: kısıtlama yok (satılması dahil)
+    \item değiştirme: kısıtlama yok
+    \item değiştirilenin dağıtılması: kaynak kod verilmeli
+    \item garanti yok
+    \item dava edilemez
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diğer Açık Lisanslar}
+
+  \begin{itemize}
+    \item BSD: değiştirilen kodda istenen lisans uygulanabilir
+    \item Lesser GPL, Apache, Mozilla, ...
+    \item dual licensing: MySQL, Qt
+
+    \pause
+    \medskip
+    \item belgeleme için: GNU Free Documentation License
+    \item yaratıcı eserler için: Creative Commons
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Open Source Initiative (OSI)}
+
+  \begin{itemize}
+    \item dağıtım özgürlüğü
+    \item kaynak kodun açıklığı
+    \item değişikliklere izin
+    \item özgün kaynak kodunun bütünlüğü
+    \item kişi ve gruplara karşı ayrımcılık yapılmaması
+    \item iş alanlarına karşı ayrımcılık yapılmaması
+    \item lisansın dağıtımı
+    \item lisansın ürüne özel olmaması
+    \item lisansın başka yazılımları kısıtlamaması
+    \item lisansın teknolojiden bağımsız olması
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: İlk satış}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{autodesk}
+    \end{center}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item ABD'de bir mahkeme,\\
+        yazılımın lisanslanmadığına,\\
+        satın alındığına karar veriyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.out-law.com/page-10421}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Dava edilemezlik}
+
+  \begin{center}
+    \pgfuseimage{liability}
+  \end{center}
+
+  \begin{itemize}
+    \item İngiltere'de Yüksek Mahkeme, yazılımın kötü performans\\
+      nedeniyle dava edilememesini kabul etmiyor (2010)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.channelregister.co.uk/2010/05/12/red_sky_liability_ruling/}}\\
+\end{frame}
+
+\section{Patent}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Patent}
+  
+  \begin{itemize}
+    \item patent koruması \alert{buluşlar} içindir
+
+    \medskip
+    \item sağlanması gereken koşullar:
+    \begin{itemize}
+      \item \emph{yenilik}: tekniğin bilinen durumunun aşılması
+      \item \emph{yararlılık}: sanayiye uygulanabilirlik
+      \item \emph{bariz olmama}
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item başkası bağımsız olarak bulsa da fikri kullanamaz
+
+    \pause
+    \medskip
+    \item çiğnenmesinden müşterilere de dava açılabiliyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Patent Korumasının Kapsamı}
+
+  \begin{itemize}
+    \item üretme
+    \item kullanma
+    \item satma
+    \item başkalarına bu izinleri verme (lisanslama)
+
+    \pause
+    \medskip
+    \item koruma süresi: genelde 20~yıl civarı
+    \begin{itemize}
+      \item ülkeden ülkeye değişebiliyor
+      \item değişik türleri olabiliyor
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Patent Zorlukları}
+
+  \begin{itemize}
+    \item patent ofisine tescil ettirilmeli
+    \begin{itemize}
+      \item alınması çok masraflı
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item patent başvurularının değerlendirilmesi zor:\\
+      önceki başvurulara bakılıyor
+
+    \pause
+    \medskip
+    \item çalışılan alanda ne patentler olduğunu bulmak zor
+
+    \pause
+    \medskip
+    \item patent ofisinin patenti vermiş olması,\\
+      mahkemede mutlaka kabul edileceği anlamına gelmiyor
+  \end{itemize}
+\end{frame}
+
+\subsection{Yazılım Patentleri}
+
+\begin{frame}
+  \frametitle{Yazılım Patentleri}
+
+  \begin{itemize}
+    \item ABD'de 1981'e kadar yazılım patenti başvuruları reddediliyor
+    \begin{itemize}
+      \item 1981'de bir davada kabul edilmesinden sonra\\
+        yazılımlara patent verilmeye başlanıyor
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item yazılımlara patent verilip verilmeyeceği çoğu ülkede tartışılıyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Benson, BCD~sayıları ikili sayılara çeviren algoritma için\\
+        patent başvurusunda bulunuyor
+      \item patent ofisi reddedince dava açıyor
+      \item mahkeme, bu algoritmanın patentlenemeyeceğine\\
+        karar veriyor (1972)
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Patent Sorunları}
+
+  \begin{itemize}
+    \item ölçütleri sağlamadığı halde verilen patentler
+    
+    \medskip
+    \item patentin rakipleri engellemeye amacıyla kullanılması
+    \begin{itemize}
+      \item karşılıklı olarak birbirlerini engellemeleri teknolojiyi tıkayabilir
+      \item \emph{patent havuzları}
+      \item kritik patentler için "adil, makul ve ayrımsız" lisanslama\\
+        (Fair, Reasonable and Non-Discriminatory - FRAND)
+    \end{itemize}
+
+    \medskip
+    \item fikri üretimde kullanma amacıyla değil,\\
+      yalnızca dava açma amacıyla patent almak
+
+    \medskip
+    \item patent korumasını başta uygulamayıp,\\
+      teknoloji yaygınlaşınca uygulamak
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Patent Sorunları}
+
+  \begin{itemize}
+    \item patentler karşılıklı silah haline gelmiş durumda:\\
+      pek çok firma savunma amaçlı patent alıyor
+
+    \pause
+    \medskip
+    \item sistem yaratıcılığı destekleme amacından uzaklaştı
+    \item tam tersine, yeni başlayan ve küçük şirketlerin aleyhine işliyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Amazon - Tek tıkla alışveriş}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Amazon tek tıkla alışveriş için patent alıyor (1999)
+      \item Barnes and Noble'a dava açıyor
+      \item patent ofisi tekrar incelemeye alıyor
+      \begin{itemize}
+        \item patentin bazı yönlerini reddediyor (2007)
+        \item değiştirilmiş patent başvurusunu kabul ediyor (2010)
+      \end{itemize}
+
+      \pause
+      \medskip
+      \item Bilski davası: Temyiz Mahkemesi iş yöntemi patentlerini\\
+        zorlaştıran bir karar veriyor (2008)
+    \end{itemize}
+  \end{ornek}
+
+  \medskip
+  \tiny{\url{http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1725009}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Microsoft - Kişisel veri madenciliği}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{personaldatamining}
+    \end{center}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item Microsoft: kişisel veri madenciliği patenti (2010)
+      \item Microsoft AOL'den 800 adet\\
+        patent satın alıyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://techflash.com/seattle/2010/02/gates_ozzie_other_microsoft_execs_patent_personal_data_mining.html}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/04/09/aol_microsoft_patent_deal/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google - Gönderi süresi tahmini}
+
+  \begin{columns}
+    \column{.35\textwidth}
+    \begin{center}
+      \pgfuseimage{google-estimation}
+    \end{center}
+
+    \column{.65\textwidth}
+    \begin{itemize}
+      \item Google: gönderi ne sürede gelecek? (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/08/12/google_customer_notification_patent/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Apple - Samsung - Google}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{apple-samsung}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Apple, bir Samsung tabletin Almanya'da satışını engelliyor (2011)
+      \item Motorola patenti, Almanya'da\\
+        Apple kullanıcılarının\\
+        "push email" kullanmasını engelliyor (2012)
+      \item HTC, Google'ın verdiği patentlerle Apple'a dava açıyor (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.pcworld.com/article/245493/apple_to_samsung_dont_make_thin_or_rectangular_tablets_or_smartphones.html}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/02/24/apple_patent_motorola/}}\\
+  \tiny{\url{http://www.bloomberg.com/news/2011-09-07/htc-sues-apple-alleging-infringement-of-four-u-s-patents.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Microsoft - Eolas}
+
+  \begin{columns}
+    \column{.52\textwidth}
+    \begin{center}
+      \pgfuseimage{eolas}
+    \end{center}
+
+    \column{.48\textwidth}
+    \begin{itemize}
+      \item Eolas patenti:\\
+        tarayıcı içinden\\
+        uygulama çalıştırma
+      \item Microsoft'a dava açıyor (1999)
+      \item mahkeme dışı anlaşma (2007)
+
+      \pause
+      \item Eolas daha sonra\\
+        Apple ve Google'a\\
+        dava açıyor (2010)
+      \item davayı kaybediyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2007/08/31/microsoft_eolas_settlement/}}\\
+  \tiny{\url{http://www.wired.com/threatlevel/2012/02/interactive-web-patent/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Compuserve - GIF resim formatı}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item Compuserve patenti: GIF'de kullanılan sıkıştırma algoritması
+      \item patent nedeniyle kimseye dava açmıyor
+      \item kullanımı yaygınlaşınca bazı web sitelerine dava açacağını\\
+        duyuruyor (1994)
+
+      \pause
+      \medskip
+      \item alternatif olarak PNG resim formatı geliştiriliyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 8: \alert{Intellectual Property Disputes in Cyberspace}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
