@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -28,7 +28,7 @@
 \subtitle{Algebraic Structures}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -57,7 +57,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2010 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -98,18 +98,13 @@
 \begin{frame}
   \frametitle{Algebraic Structure}
 
-  \begin{definition}
-    \alert{algebraic structure}:
-    \begin{itemize}
-      \item carrier
-      \item operations
-      \item constants
-    \end{itemize}
-  \end{definition}
-
-  \pause
   \begin{itemize}
-    \item \emph{signature}: $<$carrier, operations, constants$>$
+    \item \alert{algebraic structure}: $<$set, operations, constants$>$
+    \begin{itemize}
+      \item carrier set
+      \item operations: binary, unary
+      \item constants: identity, zero
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -117,15 +112,15 @@
   \frametitle{Operation}
 
   \begin{itemize}
+    \item every operation is a function
+
+    \medskip
     \item binary operation:\\
       $\circ: S \times S \rightarrow T$
 
+    \medskip
     \item unary operation:\\
       $\Delta: S \rightarrow T$
-
-    \pause
-    \medskip
-    \item every operation is a function
 
     \pause
     \medskip
@@ -154,7 +149,6 @@
     $\forall a,b \in S~a \circ b = b \circ a$
   \end{definition}
 
-  \pause
   \begin{definition}
     \alert{associativity}:\\
     $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
@@ -199,7 +193,6 @@
       \alert{identity}:\\
       $x \circ 1 = 1 \circ x = x$
 
-      \pause
       \begin{itemize}
         \item left identity: $1_l \circ x = x$
         \item right identity: $x \circ 1_r = x$
@@ -212,7 +205,6 @@
       \alert{zero}:\\
       $x \circ 0 = 0 \circ x = 0$
 
-      \pause
       \begin{itemize}
         \item left zero: $0_l \circ x = 0$
         \item right zero: $x \circ 0_r = 0$
@@ -228,6 +220,7 @@
     \begin{itemize}
       \item identity for $<\mathbb{N}, max>$ is $0$
       \item zero for $<\mathbb{N}, min>$ is $0$
+      \item zero for $<\mathbb{Z}^+, min>$ is $1$
     \end{itemize}
   \end{example}
 
@@ -281,19 +274,17 @@
 \begin{frame}
   \frametitle{Inverse}
 
-  \begin{definition}
-    if $x \circ y = 1$:
-
+  \begin{itemize}
+    \item if $x \circ y = 1$:
     \begin{itemize}
       \item $x$ is a \emph{left inverse} of $y$
       \item $y$ is a \emph{right inverse} of $x$
-
-      \pause
-      \medskip
-      \item if $x \circ y = y \circ x = 1$
-        $x$ and $y$ are \alert{inverse}
     \end{itemize}
-  \end{definition}
+
+    \medskip
+    \item if $x \circ y = y \circ x = 1$
+      $x$ and $y$ are \alert{inverse}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -320,7 +311,11 @@
   \frametitle{Algebraic Families}
 
   \begin{itemize}
-    \item \emph{algebraic family}: signature + axioms
+    \item \alert{algebraic family}: algebraic structure, axioms
+    \begin{itemize}
+      \item commutativity, associativity
+      \item inverse elements
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -337,7 +332,7 @@
       \end{itemize}
 
       \pause
-      \item structures obeying these axioms:
+      \item structures for which these axioms hold:
       \begin{itemize}
        \item $<\mathbb{Z},+,0>$
        \item $<\mathbb{Z},\cdot,1>$
@@ -369,11 +364,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Subalgebra Example}
+  \frametitle{Subalgebra Examples}
 
   \begin{example}
-    $<\mathbb{Z},+,0>$
-    is a subalgebra of $<\mathbb{R},+,0>$
+    \begin{itemize}
+      \item $<\mathbb{Z}^+,+,0>$ is a subalgebra of $<\mathbb{Z},+,0>$.
+      \pause
+      \item $<\mathbb{N},-,0>$ is not a subalgebra of $<\mathbb{Z},-,0>$.
+    \end{itemize}
   \end{example}
 \end{frame}
 
@@ -453,39 +451,31 @@
   \frametitle{Group Examples}
 
   \begin{example}
-    $<\mathbb{Z},+,0>$
-
     \begin{itemize}
-      \item $x^{-1} = -x$
-    \end{itemize}
-  \end{example}
+      \item $<\mathbb{Z},+,0>$ is a group.
 
-  \pause
-  \begin{example}
-    $<\mathbb{Q}-\{0\},\cdot,1>$
-
-    \begin{itemize}
-      \item $x^{-1} = \frac{1}{x}$
+      \pause
+      \medskip
+      \item $<\mathbb{Q},\cdot,1>$ is not a group.
+      \item $<\mathbb{Q}-\{0\},\cdot,1>$ is a group.
     \end{itemize}
   \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Permutations}
+  \frametitle{Group Example: Permutation Composition}
 
   \begin{itemize}
     \item permutation: a bijective function on a set
 
     \medskip
-    $\left(
+    \item representation:
+    \[\left(
       \begin{array}{cccc}
          a_1   &  a_2   & \dots &  a_n\\
         p(a_1) & p(a_2) & \dots & p(a_n)
       \end{array}
-    \right)$
-
-    \medskip
-    \item $n!$ permutations can be defined in a set of $n$ elements
+    \right)\]
   \end{itemize}
 \end{frame}
 
@@ -538,142 +528,31 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cyclic Permutation}
+  \frametitle{Group Example: Permutation Composition}
 
   \begin{itemize}
-    \item \emph{cyclic permutation}:
-    \begin{itemize}
-      \item a subset of elements form a cycle
-      \item the remaining elements do not change
-    \end{itemize}
-
-    \medskip
-    $(a_i, a_j, a_k) = \left(
-      \begin{array}{ccccccccc}
-        \dots & a_i & \dots & a_n & \dots & a_j & \dots & a_k & \dots\\
-        \dots & a_j & \dots & a_n & \dots & a_k & \dots & a_i & \dots
+    \item permutation composition is associative
+    \item identity permutasyon: $1_A$
+    \[\left(
+      \begin{array}{cccc}
+         a_1 & a_2 & \dots & a_n\\
+         a_1 & a_2 & \dots & a_n
       \end{array}
-    \right)$
+    \right)\]
 
     \pause
-    \bigskip
-    \item \emph{transposition}: a cyclic permutation of length 2
+    \medskip
+    \item the set of permutations of the elements of a set,\\
+      the permutation composition operation\\
+      and the identity permutation constitute a group
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cyclic Permutation Examples}
+  \frametitle{Group Example: Permutation Composition}
 
-  \begin{example}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    $(1,3,5) = \left(
-      \begin{array}{ccccc}
-        1 & 2 & 3 & 4 & 5\\
-        3 & 2 & 5 & 4 & 1
-      \end{array}
-    \right)$
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Permutation Composition}
-
-  \begin{itemize}
-    \item permutation composition is not commutative
-  \end{itemize}
-
-  \pause
-  \begin{example}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    \small{$\begin{array}{lll}
-      (4,1,3,5) \diamond (5,2,3) & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          3 & 2 & 5 & 1 & 4
-        \end{array}
-      \right) \diamond \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          1 & 3 & 5 & 4 & 2
-        \end{array}
-      \right)\smallskip\pause\\
-      & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          5 & 3 & 2 & 1 & 4
-        \end{array}
-      \right)\medskip\pause\\
-      (5,2,3) \diamond (4,1,3,5) & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          1 & 3 & 5 & 4 & 2
-        \end{array}
-      \right) \diamond \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          3 & 2 & 5 & 1 & 4
-      \end{array}
-    \right)\smallskip\pause\\
-    & = & \left(
-      \begin{array}{ccccc}
-        1 & 2 & 3 & 4 & 5\\
-        3 & 5 & 4 & 1 & 2
-      \end{array}
-    \right)
-    \end{array}$}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Cyclic Permutation Composition}
-
-  \begin{itemize}
-    \item all permutations that are not cyclic can be written\\
-      as a composition of disjoint cyclic permutations
-  \end{itemize}
-
-  \pause
-  \begin{example}
-    $A = \{1,2,3,4,5,6,7,8\}$
-
-    \medskip
-    $\left(
-      \begin{array}{cccccccc}
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-        3 & 4 & 6 & 5 & 2 & 1 & 8 & 7
-      \end{array}
-    \right) = (1,3,6) \diamond (2,4,5) \diamond (7,8)$
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Transposition Composition}
-
-  \begin{itemize}
-    \item all cyclic permutations can be written\\
-      as a composition of transpositions
-  \end{itemize}
-
-  \pause
-  \begin{example}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    $(1,2,3,4,5) = (1,2) \diamond (1,3) \diamond (1,4) \diamond (1,5)$
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Group Examples}
-
-  \begin{example}[composition of permutations]
-    \begin{tiny}
-    \[
-      \begin{array}{c|cccccccccccccccccccccccc}
+  \begin{example}[permutations on $\{1,2,3,4\}$]
+    $\begin{array}{c|cccccccccccccccccccccccc}
         A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
           & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
         1 &   1    &   1    &   1    &   1    &   1    &  1
@@ -683,13 +562,8 @@
         3 &   3    &   4    &   2    &   4    &   2    &  3
           &   3    &   4    &   1    &   4    &   1    &  3\\
         4 &   4    &   3    &   4    &   2    &   3    &  2
-          &   4    &   3    &   4    &   1    &   3    &  1
-      \end{array}
-    \]
-
-    \[
-      \begin{array}{c|cccccccccccccccccccccccc}
-        A & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
+          &   4    &   3    &   4    &   1    &   3    &  1\\\\
+          & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
           & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
         1 &   3    &   3    &   3    &   3    &   3    &  3
           &   4    &   4    &   4    &   4    &   4    &  4\\
@@ -699,25 +573,31 @@
           &   2    &   3    &   1    &   3    &   1    &  2\\
         4 &   4    &   2    &   4    &   1    &   2    &  1
           &   3    &   2    &   3    &   1    &   2    &  1
-      \end{array}
-    \]
-    \end{tiny}
-
-    \pause
-    \medskip
-    $p_8 \diamond p_{12}=1_A \Rightarrow p_{12} = p_8^{-1}$\\
-    $p_{14} \diamond p_{14}=1_A \Rightarrow p_{14} = p_{14}^{-1}$\\
-
-    \pause
-    \bigskip
-    $<\{1_A,p_1,\dots,p_{23}\},\diamond,\Delta^{-1},1_A>$
+      \end{array}$
   \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Subgroup Example}
+  \frametitle{Group Example: Permutation Composition}
 
-  \begin{example}[composition of permutations]
+  \begin{example}
+    \begin{itemize}
+      \item $p_8 \diamond p_{12}=p_{12} \diamond p_8=1_A$:\\
+        $p_{12} = p_8^{-1}$, $p_8 = p_{12}^{-1}$
+      \item $p_{14} \diamond p_{14}=1_A$:\\
+        $p_{14} = p_{14}^{-1}$
+
+      \pause
+      \bigskip
+      \item $G_1=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ is a group
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Group Example: Permutation Composition}
+
+  \begin{example}
     \[
       \begin{array}{c||c|c|c|c|c|c}
         \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
@@ -729,6 +609,12 @@
         p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
       \end{array}
     \]
+
+    \bigskip
+    \begin{itemize}
+      \item $<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$
+        is a subgroup of $G_1$
+    \end{itemize}
   \end{example}
 \end{frame}
 
@@ -859,13 +745,13 @@
 
   \pause
   \begin{itemize}
-    \item \emph{partially ordered set (poset)}:\\
+    \item \emph{partially ordered set} (\alert{poset}):\\
       a set with a partial order relation defined on its elements
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Poset Examples}
+  \frametitle{Partial Order Examples}
 
   \begin{example}[set of sets, $\subseteq$]
     \begin{itemize}
@@ -877,7 +763,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Poset Examples}
+  \frametitle{Partial Order Examples}
 
   \begin{example}[$\mathbb{Z}$, $\leq$]
     \begin{itemize}
@@ -889,7 +775,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Poset Examples}
+  \frametitle{Partial Order Examples}
 
   \begin{example}[$\mathbb{Z}^+$, $|$]
     \begin{itemize}
@@ -911,7 +797,7 @@
 
     \pause
     \bigskip
-    \item \alert{total order} (linear order, chain):\\
+    \item \alert{total order} (linear order):\\
       all elements are comparable with each other
   \end{itemize}
 \end{frame}
@@ -954,7 +840,7 @@
     \begin{columns}
       \column{.45\textwidth}
       $\{1,2,3,4,6,8,9,12,18,24\}$\\
-      $|$ relation
+      the relation $|$
 
       \column{.45\textwidth}
       \begin{center}
@@ -967,20 +853,18 @@
 \begin{frame}
   \frametitle{Consistent Enumeration}
 
-  \begin{definition}
-    \alert{consistent enumeration}:
-
-    $f: S \rightarrow \mathbb{N}$\\
-    $a \preceq b \Rightarrow f(a) \leq f(b)$
-  \end{definition}
-
   \begin{itemize}
+    \item consistent enumeration:\\
+      $f: S \rightarrow \mathbb{N}$\\
+      $a \preceq b \Rightarrow f(a) \leq f(b)$
+
+    \medskip
     \item there can be more than one consistent enumeration
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Consistent Enumeration}
+  \frametitle{Consistent Enumeration Examples}
 
   \begin{example}
     \begin{center}
@@ -988,31 +872,33 @@
     \end{center}
 
     \begin{itemize}
-     \item $f(d)=1, f(e)=2, f(b)=3, f(c)=4, f(a)=5$
+     \item $\{a \longmapsto 5, b \longmapsto 3, c \longmapsto 4,
+      d \longmapsto 1, e \longmapsto 2\}$
 
      \pause
-     \item $f(e)=1, f(d)=2, f(c)=3, f(b)=4, f(a)=5$
+     \item $\{a \longmapsto 5, b \longmapsto 4, c \longmapsto 3,
+      d \longmapsto 2, e \longmapsto 1\}$
     \end{itemize}
   \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Upper Bound - Lower Bound}
+  \frametitle{Maximum - Minimum Elements}
 
   \begin{definition}
-    \alert{upper bound}: $max$\\
+    \alert{maximum element}: $max$\\
     $\forall x \in S~max \preceq x \Rightarrow x = max$
   \end{definition}
 
   \pause
   \begin{definition}
-    \alert{lower bound}: $min$\\
+    \alert{minimum element}: $min$\\
     $\forall x \in S~x \preceq min \Rightarrow x = min$
   \end{definition}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Upper Bound - Lower Bound Examples}
+  \frametitle{Maximum - Minimum Element Examples}
 
   \begin{example}
     \begin{columns}
@@ -1029,45 +915,42 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Supremum}
+  \frametitle{Bounds}
 
-  \begin{definition}
-    $A \subseteq S$
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{definition}
+      $A \subseteq S$
 
-    \medskip
-    $M$ is an \alert{upper bound} of $A$:\\
-    $\forall x \in A~x \preceq M$
-  \end{definition}
+      \medskip
+      $M$ is an \alert{upper bound} of $A$:\\
+      $\forall x \in A~x \preceq M$
 
-  \pause
-  \begin{definition}
-    $M(A)$: set of upper bounds of $A$
+      \bigskip
+      $M(A)$: set of upper bounds of $A$
 
-    \medskip
-    $sup(A)$ is the \alert{supremum} of $A$:\\
-    $\forall M \in M(A)~sup(A) \preceq M$
-  \end{definition}
-\end{frame}
+      \medskip
+      $sup(A)$ is the \alert{supremum} of $A$:\\
+      $\forall M \in M(A)~sup(A) \preceq M$
+    \end{definition}
 
-\begin{frame}
-  \frametitle{Infimum}
+    \pause
+    \column{.5\textwidth}
+    \begin{definition}
+      $A \subseteq S$
 
-  \begin{definition}
-    $A \subseteq S$
+      \medskip
+      $m$ is a \alert{lower bound} of $A$:\\
+      $\forall x \in A~m \preceq x$
 
-    \medskip
-    $m$ is a \alert{lower bound} of $A$:\\
-    $\forall x \in S~m \preceq x$
-  \end{definition}
+      \bigskip
+      $m(A)$: set of lower bound of $A$
 
-  \pause
-  \begin{definition}
-    $m(A)$: set of lower bound of $A$
-
-    \medskip
-    $inf(A)$ is the \alert{infimum} of $A$:\\
-    $\forall m \in m(A)~m \preceq inf(A)$
-  \end{definition}
+      \medskip
+      $inf(A)$ is the \alert{infimum} of $A$:\\
+      $\forall m \in m(A)~m \preceq inf(A)$
+    \end{definition}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
