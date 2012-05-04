@@ -1077,7 +1077,29 @@
     \medskip
     \item $(x,y) \in f \equiv y = f(x)$
     \item $y$ is the \emph{image} of $x$ under $f$
+
+    \pause
+    \medskip
+    \item \emph{subset image}:\\
+      $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
+      $f(X_1) = \{ f(x) | x \in X_1\}$
  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subset Image Examples}
+
+  \begin{example}
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = x^2$
+
+    \pause
+    \bigskip
+    $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
+
+    \medskip
+    $f(\{-2,1\}) = \{1,4\}$
+  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -1092,6 +1114,10 @@
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{onto} (or \alert{surjective}):\\
     $\forall y \in Y~\exists x \in X~f(x)=y$
+
+    \begin{itemize}
+      \item $f(X)=Y$
+    \end{itemize}
   \end{definition}
 
   \pause
