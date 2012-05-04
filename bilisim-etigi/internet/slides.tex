@@ -1,0 +1,765 @@
+% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
+% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
+% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
+% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
+%
+% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Bilişim Etiği}
+\subtitle{İnternet}
+
+\author{H. Turgut Uyar}
+\date{2004-2012}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[width=5.6cm]{tomcruise}{tomcruise}
+\pgfdeclareimage[width=5.8cm]{milka}{milka}
+\pgfdeclareimage[width=5.8cm]{gmail}{gmail}
+\pgfdeclareimage[width=5.8cm]{goggle}{goggle}
+\pgfdeclareimage[width=5.6cm]{icann}{icann}
+\pgfdeclareimage[width=5.6cm]{sucks}{sucks}
+\pgfdeclareimage[height=6.8cm]{china}{china}
+\pgfdeclareimage[width=5.6cm]{neutrality}{neutrality}
+\pgfdeclareimage[height=6.8cm]{turkey}{turkey}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lisans}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2004-2012 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konular}
+  \tableofcontents
+\end{frame}
+
+\section{İnternet}
+
+\subsection{Alan Adları}
+
+\begin{frame}
+  \frametitle{Alan Adları}
+
+  \begin{itemize}
+    \item alan adlarının dağıtımı adil mi?
+
+    \pause
+    \bigskip
+    \item 1998'e kadar NSF dağıtıyor
+    \begin{itemize}
+      \item "ilk gelen alır" politikası
+      \item \emph{sanal çöreklenme} (cybersquatting)
+    \end{itemize}
+    
+    \item 1998'den sonra ICANN'e geçiyor
+    \begin{itemize}
+      \item kar amacı gütmeyen bir kuruluş
+      \item \emph{UDRP}: Uniform Domain-Name Dispute-Resolution Policy
+      \item tescilli markalar geçerli
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Anlaşmazlıkların Çözümü}
+
+  \begin{itemize}
+    \item WIPO Hakemlik ve Arabuluculuk Merkezi
+
+    \medskip
+    \item bir alan adının aktarılması için
+    \begin{itemize}
+      \item isim tescilli markayla aynı ya da çok benzer olmalı
+      \item eski sahibinin bu isim üzerinde hiçbir hakkı olmamalı
+      \item kötü niyet olmalı
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: TomCruise.com}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{tomcruise}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item WIPO, TomCruise.com\\
+        alanını, kaydeden kişiden alıp\\
+        sinema oyuncusu\\
+        Tom Cruise'a veriyor (2006)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2006/07/23/tom_cruise_dotcom_win/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/12/17/ronaldinho_scores_own_domain_name/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2006/10/13/rooney_wins_dotcom/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/03/19/pope_benedict_cybersquatter/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: milka.fr}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{milka}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Fransız modacı\\
+        Milka Budimir almış
+      \item Kraft istiyor
+      \item mahkeme, Kraft'ı\\
+        haklı buluyor (2005)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/4348585.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Gmail}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{gmail}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google, İngiltere'de (2005)\\
+        ve Almanya'da (2007)\\
+        Gmail ismini kullanamıyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/business/4354954.stm}}\\
+  \tiny{\url{https://mashable.com/2007/10/02/google-german-domain/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{İsim Benzerlikleri}
+
+  \begin{itemize}
+    \item benzeyen isimler de anlaşmazlık konusu olabiliyor
+    \begin{itemize}
+      \item mikerowesoft.com: Mike Rowe - Microsoft
+      \item mocosoft.com: Mocosoft - Microsoft
+    \end{itemize}
+
+    \medskip
+    \item \emph{yazım hatasına çöreklenme} (typosquatting)
+    \begin{itemize}
+      \item arama motorları ve tarayıcılar aynı şekilde para kazanmıyor mu?
+    \end{itemize}
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2004/01/19/microsoft_lawyers_threaten_mike_rowe/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/12/15/mocosoft_beats_microsoft/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2008/10/23/google_and_typosquatting/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Goggle}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{goggle}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google, çeşitli alan adlarını\\
+        kazanıyor (2005):\\
+        googkle.com, ghoogle.com,\\
+        gfoogle.com, gooigle.com
+      \item goggle.com alan adını\\
+        kazanamıyor (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/07/11/google_ruling/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2011/10/12/google_v_goggle/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: ICANN çıkar çatışmaları (2012)}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{icann}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item ICANN başkanı,\\
+        yönetim kurulundakilerin\\
+        çıkar çatışmalarına\\
+        dikkat çekiyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2012/03/19/icann_president_calls_out_his_own_board_over_conflicts_of_interest/}}\\
+\end{frame}
+
+\subsection{İfade Özgürlüğü}
+
+\begin{frame}
+  \frametitle{İfade Özgürlüğü}
+
+  \begin{itemize}
+    \item neler ifade özgürlüğüne girmez?
+
+    \pause
+    \bigskip
+    \item çocuk pornografisi
+
+    \pause
+    \item nefret ya da şiddet propagandası
+
+    \pause
+    \item suça ya da zararlı davranışa özendirme
+    \begin{itemize}
+      \item nasıl bomba yapılır?
+      \item nasıl acısız intihar edilir?
+    \end{itemize}
+
+    \pause
+    \item hakaret
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Protesto Siteleri}
+
+  \begin{itemize}
+    \item insanlar memnun olmadığı kurumları protesto etmek için\\
+      site açıyorlar
+
+    \medskip
+    \item iki açıdan değerlendiriliyor:
+    \begin{itemize}
+      \item sitenin içeriği (yalan, hakaret, ifade özgürlüğü)
+      \item alan adı (tescilli marka)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Air France, Wal-Mart}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{sucks}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item WIPO, airfrancesucks.com,\\
+        wal-martcanadasucks.com\\
+        gibi alan adlarını\\
+        ilgili şirketlere veriyor
+      \item ABD Temyiz Mahkemesi,\\
+        ticari amaç gütmeyen\\
+        sitelerin ifade özgürlüğüne
+        gireceğini söylüyor (2005)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/04/05/bosley_case_appeal/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2006/12/29/wipo_rules_against_ryanair/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2009/07/28/wipo_free_speech/}}\\
+\end{frame}
+
+\subsection{Demokrasi}
+
+\begin{frame}
+  \frametitle{Demokrasi}
+
+  \begin{itemize}
+    \item İnternet demokratik bir ortam mı?
+    \item İnternet demokrasiye katkı yapıyor mu?
+    \item İnternet'in demokrasiye katkı yapması gerekli mi?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bilgiye Erişim}
+
+  \begin{itemize}
+    \item \emph{evet}: düşük maliyetle bilgiye erişim sağlıyor
+
+    \pause
+    \medskip
+    \item \emph{ama}: bilginin önemli bir kısmı yanlış
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aşırılıkları Azaltma}
+
+  \begin{itemize}
+    \item \emph{evet}: insanlar coğrafyadan bağımsız olarak biraraya
+      gelebiliyor
+    \begin{itemize}
+      \item farklı insanları ve kültürleri tanımak sivrilikleri törpüler
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \emph{ama}: kişisel tercihler ters yönde etki yapıyor
+    \begin{itemize}
+      \item bakacağımız siteleri, haber alacağımız kaynakları\\
+        süzgeçten geçiriyoruz
+      \item kendimiz gibi düşünen insanlarla biraraya geliyoruz
+      \item tek bilgi kaynağı İnternet olursa hiç yeni düşünce\\
+        ya da görüş duymuyoruz
+      \item aşırılıklara kaymak kolaylaşıyor
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Politik Sürece Katılım}
+
+  \begin{itemize}
+    \item \emph{evet}: bireyler ve azınlık grupları seslerini duyurabiliyor
+
+    \pause
+    \medskip
+    \item \emph{ama}: kaotik bir ortam
+    \begin{itemize}
+      \item sesini duyurabilmek için insanların ilgisini çekmek gerek
+      \item web sitesi hazırlama, arama motorlarına kaydettirme
+      \item kaynak gerektiriyor: güçlüye daha çok güç mü veriyor?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arama Motorlarının Rolü}
+
+  \begin{itemize}
+    \item pek çok insan için giriş noktası arama motorları
+    \item arama motorlarının sonuçları çok önemli:
+    \begin{itemize}
+      \item hangi sayfalar gösterilecek?
+      \item ne sırayla gösterilecek?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Arama motorları - Çin}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{china}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Çin'den yapılan aramalarda\\
+        arama sonuçları sansürleniyor
+      \item Google sansürlü servisini\\
+        iptal ediyor (2010)
+      \item içerik sağlayıcı lisansını\\
+        kaybediyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.guardian.co.uk/technology/2010/mar/25/china-microsoft-free-speech-google}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ağ Tarafsızlığı}
+
+  \begin{itemize}
+    \item \alert{ağ tarafsızlığı}:\\
+      İnternet'in her kullanıcıya, her uygulama sağlayıcıya\\
+      ve her taşıyıcıya açık, erişilebilir ve ayrımsız olması
+
+    \medskip
+    \item aksi örnekler:
+    \begin{itemize}
+      \item taşıyıcıların bazı uygulamaları engellemesi\\
+        ya da harcadıkları bant genişliklerini kısıtlaması (örneğin VoIP)
+      \item taşıyıcıların bazı site ya da hizmetlere erişimi engellemesi\\
+        ya da önceliklendirmesi
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ağ Tarafsızlığı İlkeleri}
+
+  \begin{itemize}
+    \item kullanıcıların her türlü yasal İnternet içeriğine ulaşabilmesi
+    \item kullanıcıların istedikleri uygulama ve hizmetleri kullanabilmesi
+    \item ağa zarar vermedikleri sürece,\\
+      kullanıcıların ağa istedikleri aygıtla bağlanabilmesi
+    \item kullanıcıların taşıyıcılar, içerik sağlayıcılar ve\\
+      uygulama sağlayıcılar arasındaki rekabetten yararlanabilmesi
+
+    \pause
+    \medskip
+    \item hizmet sağlayıcıların yasal İnternet içerik uygulamaları\\
+      ve hizmetleri arasında ayrım yapmaması
+    \item hizmet sağlayıcıların uyguladıkları ağ yönetimi konusunda\\
+      bilgi vermeleri
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.computerworlduk.com/in-depth/it-business/3028/net-neutrality-a-simple-guide/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Ağ tarafsızlığı yasaları}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{neutrality}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Şili'de (2010) ve\\
+        Hollanda'da (2011)\\
+        ağ tarafsızlığını koruma\\
+        yasaları çıkıyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/06/23/netherlands_net_neutrality/}}\\
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 9: \alert{Regulating Commerce and Speech in Cyberspace}
+      \item Chapter 11:\\
+        Social Issues II: Community and Identity in Cyberspace
+      \begin{itemize}
+          \item 11.1. \alert{Online Communities}
+          \item 11.2. \alert{Democracy and the Internet}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Toplumsal Etkiler}
+
+\subsection{Sayısal Uçurum}
+
+\begin{frame}
+  \frametitle{Sayısal Uçurum}
+
+  \begin{tanim}
+    \alert{sayısal uçurum}:
+      bilişim teknolojilerinden yararlanmada eşitsizlik
+  \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item ülkeler arasındaki farklar
+    \begin{itemize}
+      \item BT kullanıcılarının çoğunluğu Kuzey Amerika ve Avrupa'da
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item toplum içindeki farklar
+    \begin{itemize}
+      \item gelir düzeyi
+      \item cinsiyet
+      \item fiziksel engeller
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kadınların Katılımı}
+
+  \begin{itemize}
+    \item kadınlar bilişim teknolojileri alanında etkin değil
+
+    \bigskip
+    \item ilgi duyan az
+    \begin{itemize}
+      \item kültürel roller: "kadınlar matematik sevmez"
+    \end{itemize}
+
+    \pause
+    \item yüksek eğitim alan az
+
+    \pause
+    \item meslekte çalışan az
+    \begin{itemize}
+      \item doğumdan sonra geri dönmek zor
+    \end{itemize}
+
+    \pause
+    \item karar mekanizmalarında yer alan az
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Türkiye'de kadınların katılımı}
+
+  \begin{columns}
+    \column{.47\textwidth}
+    \begin{center}
+      \pgfuseimage{turkey}
+    \end{center}
+
+    \column{.53\textwidth}
+    \begin{itemize}
+      \item Türkiye'de bilgisayar alanında\\
+        yüksek eğitim gören\\
+        kadınların oranı,\\
+        diğer ülkelere göre yüksek
+      \item lisede matematiğin zorunlu olmasına bağlanıyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/08/15/women_it_maths_mandatory/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiziksel Engellilerin Katılımı}
+
+  \begin{itemize}
+    \item fiziksel engellilerin erişimi için düzenlemeler, yönergeler
+    \item World Wide Web Consortium (W3C):\\
+      Web Accessibility Initiative (WAI)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ahlaki Sorun}
+
+  \begin{itemize}
+    \item sayısal uçurum ahlaki bir sorun mu?
+
+    \medskip
+    \item bilgiye erişim
+    \item ekonomik sisteme katılım
+    \item politik sürece katılım
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İnternet Erişimi}
+
+  \begin{itemize}
+    \item İnternet erişimi pozitif bir hak olmalı mı?
+    \begin{itemize}
+      \item eğitimde fırsat eşitliği
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item yalnızca erişimi sağlamak yeterli mi?
+    \begin{itemize}
+      \item kullanma becerilerinin kazandırılması
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{İş Yaşamı}
+
+\begin{frame}
+  \frametitle{İşsizlik}
+
+  \begin{itemize}
+    \item bilişim teknolojileri işsizliğe yol açıyor mu?
+
+    \bigskip
+    \item \emph{evet}: otomasyon nedeniyle pek çok insan işinden oldu
+    \item \emph{ama}: pek çok yeni iş alanı yarattı
+    \item işler nitelik değiştirdi: daha fazla eğitim gerektiriyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bilişim Sektöründe Çalışma Koşulları}
+
+  \begin{itemize}
+    \item iş güvencesi:
+    \begin{itemize}
+      \item işten çıkarma yaygın
+      \item proje bazında geçici işçilik yaygın
+      \item taşeronluk ve küreselleşme: işler başka ülkelere gidiyor
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item çalışma saatleri
+    \begin{itemize}
+      \item mesai saatleri dışında çalıştırma yaygın
+      \item fazla mesai, tazminat zorlukları
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İşyerinde Gözetleme}
+
+  \begin{itemize}
+    \item çalışanlar mesai saatlerinde İnternet'e iş dışı amaçlarla\\
+      bağlanıyor
+
+    \item işverenler çeşitli önlemler alıyor:
+    \begin{itemize}
+      \item web kullanımının gözetlenmesi
+      \item iletişim kanallarının (e-posta, mesajlaşma) gözetlenmesi
+    \end{itemize}
+    \item bu önlemler mahremiyet sorunları yaratıyor
+
+    \medskip
+    \item bazı ilkeler:
+    \begin{itemize}
+      \item çalışanlara gözetleme yapıldığının açıkça bildirilmesi
+      \item çalışanların kendileriyle ilgili toplanan bilgileri görebilmesi\\
+        ve itiraz edebilmesi
+      \item toplanan bilgilere göre değerlendirme yapmadan önce\\
+        bilgilerin doğrulanması
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evden Çalışma}
+
+  \begin{itemize}
+    \item evden çalışma (\emph{telecommuting})
+    \begin{itemize}
+      \item şirketler için cazip: ofis kiraları yüksek
+    \end{itemize}
+
+    \medskip
+    \item avantajları:
+    \begin{itemize}
+      \item kadınların katılımı: özellikle doğumdan sonra
+      \item engellilerin katılımı
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item dezavantajları:
+    \begin{itemize}
+      \item işten çıkartmalar ve yükseltmelerde dezavantaj
+      \item çalışma saatleri belirsizleşiyor
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 10:\\
+        \alert{Social Issues I: Equity and Access, Employment and Work}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
