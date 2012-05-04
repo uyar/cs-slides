@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2011
+% Copyright (c) 2001-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Cebirsel Yapılar}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2011}
+\date{2001-2012}
 
 \AtBeginSubsection[]
 {
@@ -69,7 +69,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2011 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -110,18 +110,13 @@
 \begin{frame}
   \frametitle{Cebirsel Yapı}
 
-  \begin{tanim}
-    \alert{cebirsel yapı}:
+  \begin{itemize}
+    \item \alert{cebirsel yapı}: $<$küme, işlemler, sabitler$>$
     \begin{itemize}
       \item taşıyıcı küme
-      \item işlemler
-      \item sabitler
+      \item işlemler: ikili, tekli
+      \item sabitler: etkisiz, yutucu
     \end{itemize}
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-    \item \emph{imza}: $<$küme, işlemler, sabitler$>$
   \end{itemize}
 \end{frame}
 
@@ -129,15 +124,15 @@
   \frametitle{İşlem}
 
   \begin{itemize}
+    \item her işlem bir fonksiyon
+
+    \medskip
     \item ikili işlem:\\
       $\circ: S \times S \rightarrow T$
 
+    \medskip
     \item tekli işlem:\\
       $\Delta: S \rightarrow T$
-
-    \pause
-    \medskip
-    \item her işlem bir fonksiyon olarak görülebilir
 
     \pause
     \medskip
@@ -150,10 +145,10 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item çıkartma işlemi $\mathbb{Z}$ kümesinde kapalı
+      \item çıkarma işlemi $\mathbb{Z}$ kümesinde kapalı
 
       \pause
-      \item çıkartma işlemi $\mathbb{Z^+}$ kümesinde kapalı değil
+      \item çıkarma işlemi $\mathbb{Z^+}$ kümesinde kapalı değil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -166,7 +161,6 @@
     $\forall a,b \in S~a \circ b = b \circ a$
   \end{tanim}
 
-  \pause
   \begin{tanim}
     \alert{birleşme}:\\
     $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
@@ -211,7 +205,6 @@
       \alert{etkisiz eleman}:\\
       $x \circ 1 = 1 \circ x = x$
 
-      \pause
       \begin{itemize}
         \item soldan etkisiz: $1_l \circ x = x$
         \item sağdan etkisiz: $x \circ 1_r = x$
@@ -224,7 +217,6 @@
       \alert{yutucu eleman}:\\
       $x \circ 0 = 0 \circ x = 0$
 
-      \pause
       \begin{itemize}
         \item soldan yutucu: $0_l \circ x = 0$
         \item sağdan yutucu: $x \circ 0_r = 0$
@@ -240,6 +232,7 @@
     \begin{itemize}
       \item $<\mathbb{N}, max>$ için etkisiz eleman $0$
       \item $<\mathbb{N}, min>$ için yutucu eleman $0$
+      \item $<\mathbb{Z}^+, min>$ için yutucu eleman $1$
     \end{itemize}
   \end{ornek}
 
@@ -293,19 +286,17 @@
 \begin{frame}
   \frametitle{Evrik}
 
-  \begin{tanim}
-    $x \circ y = 1$ ise:
-
+  \begin{itemize}
+    \item $x \circ y = 1$ ise:
     \begin{itemize}
       \item $x$ elemanı $y$ elemanının \emph{sol evriği}
       \item $y$ elemanı $x$ elemanının \emph{sağ evriği}
-
-      \pause
-      \medskip
-      \item $x \circ y = y \circ x = 1$ ise
-        $x$ ile $y$ \alert{evrik}
     \end{itemize}
-  \end{tanim}
+
+    \medskip
+    \item $x \circ y = y \circ x = 1$ ise
+      $x$ ile $y$ \alert{evrik}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -329,10 +320,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cebir Aileleri}
+  \frametitle{Cebir Ailesi}
 
   \begin{itemize}
-    \item \emph{cebir ailesi}: imza + aksiyomlar
+    \item \alert{cebir ailesi}: cebirsel yapı, aksiyomlar
+    \begin{itemize}
+      \item değişme, birleşme
+      \item evrik elemanlar
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -381,11 +376,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Altcebir Örneği}
+  \frametitle{Altcebir Örnekleri}
 
   \begin{ornek}
-    $<\mathbb{Z},+,0>$ cebri
-    $<\mathbb{R},+,0>$ cebrinin bir altcebridir
+    \begin{itemize}
+      \item $<\mathbb{Z}^+,+,0>$ cebri,
+        $<\mathbb{Z},+,0>$ cebrinin bir altcebridir.
+
+      \pause
+      \item $<\mathbb{N},-,0>$ cebri,
+        $<\mathbb{Z},-,0>$ cebrinin bir altcebri değildir.
+    \end{itemize}
   \end{ornek}
 \end{frame}
 
@@ -465,39 +466,31 @@
   \frametitle{Grup Örnekleri}
 
   \begin{ornek}
-    $<\mathbb{Z},+,0>$
-
     \begin{itemize}
-      \item $x^{-1} = -x$
-    \end{itemize}
-  \end{ornek}
+      \item  $<\mathbb{Z},+,0>$ bir gruptur.
 
-  \pause
-  \begin{ornek}
-    $<\mathbb{Q}-\{0\},\cdot,1>$
-
-    \begin{itemize}
-      \item $x^{-1} = \frac{1}{x}$
+      \pause
+      \medskip
+      \item $<\mathbb{Q},\cdot,1>$ bir grup değildir.
+      \item $<\mathbb{Q}-\{0\},\cdot,1>$ bir gruptur.
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Permutasyonlar}
+  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
 
   \begin{itemize}
     \item permutasyon: küme içi bijektif bir fonksiyon
 
     \medskip
-    $\left(
+    \item gösterilim:
+    \[\left(
       \begin{array}{cccc}
          a_1   &  a_2   & \dots &  a_n\\
         p(a_1) & p(a_2) & \dots & p(a_n)
       \end{array}
-    \right)$
-
-    \medskip
-    \item $n$ elemanlı bir kümede $n!$ permutasyon tanımlanabilir
+    \right)\]
   \end{itemize}
 \end{frame}
 
@@ -550,142 +543,31 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çevrimli Permutasyon}
+  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
 
   \begin{itemize}
-    \item \emph{çevrimli permutasyon}:
-    \begin{itemize}
-      \item elemanların bir altkümesi bir çevrim oluşturuyor
-      \item diğerleri yer değiştirmiyor
-    \end{itemize}
-
-    \medskip
-    $(a_i, a_j, a_k) = \left(
-      \begin{array}{ccccccccc}
-        \dots & a_i & \dots & a_n & \dots & a_j & \dots & a_k & \dots\\
-        \dots & a_j & \dots & a_n & \dots & a_k & \dots & a_i & \dots
+    \item permutasyon bileşkesi birleşme özelliği gösterir
+    \item birim permutasyon: $1_A$
+    \[\left(
+      \begin{array}{cccc}
+         a_1 & a_2 & \dots & a_n\\
+         a_1 & a_2 & \dots & a_n
       \end{array}
-    \right)$
+    \right)\]
 
     \pause
-    \bigskip
-    \item \emph{transpozisyon}: 2~uzunluklu çevrimli permutasyon
+    \medskip
+    \item bir küme üzerindeki permutasyonların kümesi,\\
+      permutasyon bileşkesi işlemi\\
+      ve birim permutasyon bir grup oluşturur
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çevrimli Permutasyon Örnekleri}
+  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
 
-  \begin{ornek}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    $(1,3,5) = \left(
-      \begin{array}{ccccc}
-        1 & 2 & 3 & 4 & 5\\
-        3 & 2 & 5 & 4 & 1
-      \end{array}
-    \right)$
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Permutasyon Bileşkesi}
-
-  \begin{itemize}
-    \item permutasyon bileşkesi değişme özelliği göstermez
-  \end{itemize}
-
-  \pause
-  \begin{ornek}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    \small{$\begin{array}{lll}
-      (4,1,3,5) \diamond (5,2,3) & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          3 & 2 & 5 & 1 & 4
-        \end{array}
-      \right) \diamond \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          1 & 3 & 5 & 4 & 2
-        \end{array}
-      \right)\smallskip\pause\\
-      & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          5 & 3 & 2 & 1 & 4
-        \end{array}
-      \right)\medskip\pause\\
-      (5,2,3) \diamond (4,1,3,5) & = & \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          1 & 3 & 5 & 4 & 2
-        \end{array}
-      \right) \diamond \left(
-        \begin{array}{ccccc}
-          1 & 2 & 3 & 4 & 5\\
-          3 & 2 & 5 & 1 & 4
-      \end{array}
-    \right)\smallskip\pause\\
-    & = & \left(
-      \begin{array}{ccccc}
-        1 & 2 & 3 & 4 & 5\\
-        3 & 5 & 4 & 1 & 2
-      \end{array}
-    \right)
-    \end{array}$}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Çevrimli Permutasyon Bileşkesi}
-
-  \begin{itemize}
-    \item çevrimli olmayan her permutasyon\\
-      ayrık çevrimlerin bileşkesi olarak yazılabilir
-  \end{itemize}
-
-  \pause
-  \begin{ornek}
-    $A = \{1,2,3,4,5,6,7,8\}$
-
-    \medskip
-    $\left(
-      \begin{array}{cccccccc}
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-        3 & 4 & 6 & 5 & 2 & 1 & 8 & 7
-      \end{array}
-    \right) = (1,3,6) \diamond (2,4,5) \diamond (7,8)$
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Transpozisyon Bileşkesi}
-
-  \begin{itemize}
-    \item çevrimli her permutasyon\\
-      transpozisyon bileşkesi olarak yazılabilir
-  \end{itemize}
-
-  \pause
-  \begin{ornek}
-    $A = \{1,2,3,4,5\}$
-
-    \medskip
-    $(1,2,3,4,5) = (1,2) \diamond (1,3) \diamond (1,4) \diamond (1,5)$
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Grup Örnekleri}
-
-  \begin{ornek}[permutasyon bileşkesi]
-    \begin{tiny}
-    \[
-      \begin{array}{c|cccccccccccccccccccccccc}
+  \begin{ornek}[$\{1,2,3,4\}$ kümesindeki permutasyonlar]
+    $\begin{array}{c|cccccccccccccccccccccccc}
         A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
           & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
         1 &   1    &   1    &   1    &   1    &   1    &  1
@@ -695,13 +577,8 @@
         3 &   3    &   4    &   2    &   4    &   2    &  3
           &   3    &   4    &   1    &   4    &   1    &  3\\
         4 &   4    &   3    &   4    &   2    &   3    &  2
-          &   4    &   3    &   4    &   1    &   3    &  1
-      \end{array}
-    \]
-
-    \[
-      \begin{array}{c|cccccccccccccccccccccccc}
-        A & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
+          &   4    &   3    &   4    &   1    &   3    &  1\\\\
+          & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
           & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
         1 &   3    &   3    &   3    &   3    &   3    &  3
           &   4    &   4    &   4    &   4    &   4    &  4\\
@@ -711,25 +588,31 @@
           &   2    &   3    &   1    &   3    &   1    &  2\\
         4 &   4    &   2    &   4    &   1    &   2    &  1
           &   3    &   2    &   3    &   1    &   2    &  1
-      \end{array}
-    \]
-    \end{tiny}
-
-    \pause
-    \medskip
-    $p_8 \diamond p_{12}=1_A \Rightarrow p_{12} = p_8^{-1}$\\
-    $p_{14} \diamond p_{14}=1_A \Rightarrow p_{14} = p_{14}^{-1}$\\
-
-    \pause
-    \bigskip
-    $<\{1_A,p_1,\dots,p_{23}\},\diamond,\Delta^{-1},1_A>$
+      \end{array}$
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Altgrup Örneği}
+  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
 
-  \begin{ornek}[permutasyon bileşkesi]
+  \begin{ornek}
+    \begin{itemize}
+      \item $p_8 \diamond p_{12}=p_{12} \diamond p_8=1_A$:\\
+        $p_{12} = p_8^{-1}$, $p_8 = p_{12}^{-1}$
+      \item $p_{14} \diamond p_{14}=1_A$:\\
+        $p_{14} = p_{14}^{-1}$
+
+      \pause
+      \bigskip
+      \item $G_1=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ bir gruptur
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+
+  \begin{ornek}
     \[
       \begin{array}{c||c|c|c|c|c|c}
         \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
@@ -741,6 +624,12 @@
         p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
       \end{array}
     \]
+
+    \bigskip
+    \begin{itemize}
+      \item $<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$
+        $G_1$'in bir altgrubudur
+    \end{itemize}
   \end{ornek}
 \end{frame}
 
@@ -871,13 +760,13 @@
 
   \pause
   \begin{itemize}
-    \item \emph{kısmi sıralı küme}:\\
+    \item \emph{kısmi sıralı küme} (\alert{poset}):\\
       elemanları üzerinde kısmi sıra bağıntısı tanımlanmış küme
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kısmi Sıralı Küme Örnekleri}
+  \frametitle{Kısmi Sıra Örnekleri}
 
   \begin{ornek}[kümeler kümesi, $\subseteq$]
     \begin{itemize}
@@ -889,7 +778,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kısmi Sıralı Küme Örnekleri}
+  \frametitle{Kısmi Sıra Örnekleri}
 
   \begin{ornek}[$\mathbb{Z}$, $\leq$]
     \begin{itemize}
@@ -901,7 +790,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kısmi Sıralı Küme Örnekleri}
+  \frametitle{Kısmi Sıra Örnekleri}
 
   \begin{ornek}[$\mathbb{Z}^+$, $|$]
     \begin{itemize}
@@ -979,14 +868,12 @@
 \begin{frame}
   \frametitle{Tutarlı Sayılama}
 
-  \begin{tanim}
-    \alert{tutarlı sayılama}:
-
-    $f: S \rightarrow \mathbb{N}$\\
-    $a \preceq b \Rightarrow f(a) \leq f(b)$
-  \end{tanim}
-
   \begin{itemize}
+    \item tutarlı sayılama:\\
+      $f: S \rightarrow \mathbb{N}$\\
+      $a \preceq b \Rightarrow f(a) \leq f(b)$
+
+    \medskip
     \item birden fazla tutarlı sayılama olabilir
   \end{itemize}
 \end{frame}
@@ -1000,10 +887,12 @@
     \end{center}
 
     \begin{itemize}
-     \item $f(d)=1, f(e)=2, f(b)=3, f(c)=4, f(a)=5$
+     \item $\{a \longmapsto 5, b \longmapsto 3, c \longmapsto 4,
+      d \longmapsto 1, e \longmapsto 2\}$
 
      \pause
-     \item $f(e)=1, f(d)=2, f(c)=3, f(b)=4, f(a)=5$
+     \item $\{a \longmapsto 5, b \longmapsto 4, c \longmapsto 3,
+      d \longmapsto 2, e \longmapsto 1\}$
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1041,45 +930,42 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{En Küçük Üstsınır}
+  \frametitle{Sınırlar}
 
-  \begin{tanim}
-    $A \subseteq S$
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{tanim}
+      $A \subseteq S$
 
-    \medskip
-    $A$'nın \alert{üstsınırı} $M$:\\
-    $\forall x \in A~x \preceq M$
-  \end{tanim}
+      \medskip
+      $A$'nın \alert{üstsınırı} $M$:\\
+      $\forall x \in A~x \preceq M$
 
-  \pause
-  \begin{tanim}
-    $M(A)$: $A$'nın üstsınırları kümesi
+      \bigskip
+      $M(A)$: $A$'nın üstsınırları kümesi
 
-    \medskip
-    $A$'nın \alert{en küçük üstsınırı} $sup(A)$:\\
-    $\forall M \in M(A)~sup(A) \preceq M$
-  \end{tanim}
-\end{frame}
+      \medskip
+      $A$'nın \alert{en küçük üstsınırı} $sup(A)$:\\
+      $\forall M \in M(A)~sup(A) \preceq M$
+    \end{tanim}
 
-\begin{frame}
-  \frametitle{En Büyük Altsınır}
+    \pause
+    \column{.5\textwidth}
+    \begin{tanim}
+      $A \subseteq S$
 
-  \begin{tanim}
-    $A \subseteq S$
+      \medskip
+      $A$'nın \alert{altsınırı} $m$:\\
+      $\forall x \in A~m \preceq x$
 
-    \medskip
-    $A$'nın \alert{altsınırı} $m$:\\
-    $\forall x \in S~m \preceq x$
-  \end{tanim}
+      \bigskip
+      $m(A)$: $A$'nın altsınırları kümesi
 
-  \pause
-  \begin{tanim}
-    $m(A)$: $A$'nın altsınırları kümesi
-
-    \medskip
-    $A$'nın \alert{en büyük altsınırı} $inf(A)$:\\
-    $\forall m \in m(A)~m \preceq inf(A)$
-  \end{tanim}
+      \medskip
+      $A$'nın \alert{en büyük altsınırı} $inf(A)$:\\
+      $\forall m \in m(A)~m \preceq inf(A)$
+    \end{tanim}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
