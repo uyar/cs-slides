@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -29,7 +29,7 @@
 \subtitle{Introduction}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2011}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -59,7 +59,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -135,7 +135,7 @@
       \item \emph{input data}: unprocessed data that just entered the system
       \begin{itemize}
         \item can be added to persistent data
-        \item can cause changes in the persistent data
+        \item can cause changes in persistent data
         \item can be ignored completely
       \end{itemize}
     \end{itemize}
@@ -206,7 +206,7 @@
 \begin{frame}
   \frametitle{Record Files}
 
-  \begin{columns}
+  \begin{columns}[b]
     \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{records}
@@ -234,7 +234,7 @@
   \pause
   \begin{example}
     \begin{itemize}
-      \item the name, number and department of the student is kept\\
+      \item the names, numbers and departments of students are kept\\
 	both in Student Affairs and in the Library
     \end{itemize}
   \end{example}
@@ -258,16 +258,16 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Integrity}
+  \frametitle{Loss of Integrity}
 
   \begin{itemize}
-    \item the correctness of data is difficult to achieve
+    \item it is difficult to keep the data correct
   \end{itemize}
 
   \pause
   \begin{example}
     \begin{itemize}
-      \item student transfers from "Civil Engineering"\\
+      \item a student transfers from "Civil Engineering"\\
 	to "Computer Engineering"
       \item Student Affairs data is updated, Library data is not
     \end{itemize}
@@ -275,10 +275,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{New Applications}
+  \frametitle{Difficulties in New Applications}
 
   \begin{itemize}
-    \item same work has to be done for every new application
+    \item a lot of work must be duplicated for every new application
   \end{itemize}
 
   \pause
@@ -295,7 +295,7 @@
   \begin{itemize}
     \item no standards in the applications of the institution
     \begin{itemize}
-      \item different paradigms, methods, programming languages, etc.
+      \item different paradigms, methods, programming languages
       \item data transfer between applications
     \end{itemize}
 
@@ -379,7 +379,7 @@
   \frametitle{External Level}
 
   \begin{itemize}
-    \item from the end user's perspective:
+    \item external level from the end user's perspective:
     \begin{itemize}
       \item the data needed by that end user
       \item the interface of the application that she is using
@@ -387,7 +387,7 @@
 
     \pause
     \bigskip
-    \item from the application programmer's perspective:
+    \item external level from the application programmer's perspective:
     \begin{itemize}
       \item the programming language she uses
       \item the extensions to this language for database operations:\\
@@ -400,8 +400,8 @@
   \frametitle{Conceptual Level}
 
   \begin{itemize}
-    \item the entire data
-    \item where the data independence is achieved
+    \item conceptual level: the entire data
+    \item where data independence is achieved
 
     \pause
     \bigskip
@@ -419,7 +419,7 @@
   \frametitle{Internal Level}
 
   \begin{itemize}
-    \item physical level
+    \item internal level: implementation details
 
     \pause
     \item how the data is represented
@@ -439,31 +439,24 @@
   \frametitle{Conversions}
 
   \begin{itemize}
-    \item conversions between levels for abstraction
+    \item conversions between levels for data independence
   \end{itemize}
 
   \pause
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{example}[conceptual - external]
-      \begin{itemize}
-        \item present the student number\\
-	  as a string to the\\
-	  Student Affairs application\\
-	  and as a number\\
-	  to the Library application
-      \end{itemize}
-    \end{example}
+  \begin{example}[conceptual - external]
+    \begin{itemize}
+      \item present the student number\\
+        as a string to the Student Affairs application and\\
+        as a number to the Library application
+    \end{itemize}
+  \end{example}
 
-    \pause
-    \column{.5\textwidth}
-    \begin{example}[conceptual - internal]
-      \begin{itemize}
-        \item generate an index\\
-	  on the student number
-      \end{itemize}
-    \end{example}
-  \end{columns}
+  \pause
+  \begin{example}[conceptual - internal]
+    \begin{itemize}
+      \item generate an index on the student number
+    \end{itemize}
+  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -540,8 +533,8 @@
     \column{.6\textwidth}
     \begin{itemize}
       \item the client and the server can be\\
-	on the same computer\\
-	or on different computers
+	on the same computer or\\
+	on different computers
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -638,7 +631,7 @@
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 1: An Overview of Database Management
       \begin{itemize}
