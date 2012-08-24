@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
 %
@@ -30,7 +30,7 @@
 \subtitle{Giriþ}
 
 \author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2011}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -66,7 +66,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2012 T. Uyar, Þ. Öðüdücü
 
   \vfill
   \begin{tiny}
@@ -214,7 +214,7 @@
 \begin{frame}
   \frametitle{Kayýt Dosyalarý}
 
-  \begin{columns}
+  \begin{columns}[b]
     \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{kayit}
@@ -265,7 +265,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bütünlük}
+  \frametitle{Bütünlük Bozulmasý}
 
   \begin{itemize}
     \item bilginin doðruluðunu saðlamak zordur
@@ -274,7 +274,7 @@
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öðrencinin "Ýnþaat Mühendisliði" bölümünden\\
+      \item bir öðrenci "Ýnþaat Mühendisliði" bölümünden\\
 	"Bilgisayar Mühendisliði" bölümüne yatay geçiþ yapar
       \item  Öðrenci Ýþleri'nde güncellenir, Kitaplýk'ta güncellenmez
     \end{itemize}
@@ -282,7 +282,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yeni Uygulamalar}
+  \frametitle{Yeni Uygulamalarda Zorluklar}
 
   \begin{itemize}
     \item her yeni uygulama için benzer iþlerin yeniden yapýlmasý gerekir
@@ -384,7 +384,7 @@
   \frametitle{Dýþ Düzey}
 
   \begin{itemize}
-    \item son kullanýcý açýsýndan
+    \item son kullanýcý açýsýndan dýþ düzey:
     \begin{itemize}
       \item verinin kendine gereken altkümesi
       \item kullandýðý uygulama programýnýn arayüzü
@@ -392,7 +392,7 @@
 
     \pause
     \bigskip
-    \item uygulama programcýsý açýsýndan
+    \item uygulama programcýsý açýsýndan dýþ düzey:
     \begin{itemize}
       \item kullandýðý programlama dili
       \item bu dile veri tabaný iþlemleri için yapýlan ekler:\\
@@ -405,7 +405,7 @@
   \frametitle{Kavramsal Düzey}
 
   \begin{itemize}
-    \item verinin bütünü
+    \item kavramsal düzey: verinin bütünü
     \item veriden baðýmsýzlýðýn saðlandýðý düzey
 
     \pause
@@ -424,7 +424,7 @@
   \frametitle{Ýç Düzey}
 
   \begin{itemize}
-    \item fiziksel düzey
+    \item iç düzey: gerçekleme ayrýntýlarý
 
     \pause
     \item verinin nasýl temsil edildiði:
@@ -444,28 +444,24 @@
   \frametitle{Dönüþümler}
 
   \begin{itemize}
-    \item soyutlama için düzeyler arasýnda dönüþümler
+    \item veri baðýmsýzlýðý için düzeyler arasýnda dönüþümler
   \end{itemize}
 
   \pause
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{ornek}[kavramsal - dýþ]
-      \begin{itemize}
-        \item öðrenci numarasýný Öðrenci Ýþleri uygulamasýna katar,\\
-	  Kitaplýk uygulamasýna sayý olarak sun
-      \end{itemize}
-    \end{ornek}
+  \begin{ornek}[kavramsal - dýþ]
+    \begin{itemize}
+      \item öðrenci numarasýný\\
+        Öðrenci Ýþleri uygulamasýna katar,\\
+        Kitaplýk uygulamasýna sayý olarak sun
+    \end{itemize}
+  \end{ornek}
 
-    \pause
-    \column{.5\textwidth}
-    \begin{ornek}[kavramsal - iç]
-      \begin{itemize}
-        \item öðrenci numarasý için\\
-	  dizin oluþtur
-      \end{itemize}
-    \end{ornek}
-  \end{columns}
+  \pause
+  \begin{ornek}[kavramsal - iç]
+    \begin{itemize}
+      \item öðrenci numarasý için dizin oluþtur
+    \end{itemize}
+  \end{ornek}
 \end{frame}
 
 \begin{frame}
