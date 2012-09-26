@@ -1,6 +1,6 @@
 % Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
-%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%       Åule GÃ¼ndÃ¼z Ã–ÄŸÃ¼dÃ¼cÃ¼ <sgunduz@itu.edu.tr>
 %
 % These notes are licensed using the
 % "Creative Commons Attribution-NonCommercial-ShareAlike License".
@@ -15,7 +15,7 @@
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
-\usepackage[latin5]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
 \setbeamertemplate{navigation symbols}{}
 
@@ -26,10 +26,10 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veri Tabanı Sistemleri}
-\subtitle{Giriş}
+\title{Veri TabanÄ± Sistemleri}
+\subtitle{GiriÅŸ}
 
-\author{H. Turgut Uyar \and Şule Öğüdücü}
+\author{H. Turgut Uyar \and Åule Ã–ÄŸÃ¼dÃ¼cÃ¼}
 \date{2002-2012}
 
 \AtBeginSubsection[]{
@@ -40,10 +40,10 @@
 }
 
 \theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
+\newtheorem{tanim}[theorem]{TanÄ±m}
 
 \theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
+\newtheorem{ornek}[theorem]{Ã–rnek}
 
 \theoremstyle{plain}
 
@@ -66,7 +66,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Å. Ã–ÄŸÃ¼dÃ¼cÃ¼
 
   \vfill
   \begin{tiny}
@@ -100,50 +100,50 @@
   \tableofcontents
 \end{frame}
 
-\section{Veri İşleme}
+\section{Veri Ä°ÅŸleme}
 
-\subsection{Giriş}
+\subsection{GiriÅŸ}
 
 \begin{frame}
-  \frametitle{Veri İşleme}
+  \frametitle{Veri Ä°ÅŸleme}
 
   \begin{itemize}
-    \item büyük miktarda verinin etkin biçimde tutulması ve işlenmesi
+    \item bÃ¼yÃ¼k miktarda verinin etkin biÃ§imde tutulmasÄ± ve iÅŸlenmesi
 
     \pause
     \medskip
-    \item temel işlemler:
+    \item temel iÅŸlemler:
     \begin{itemize}
       \item yeni veri ekleme
-      \item olan verilerde değişiklik
+      \item olan verilerde deÄŸiÅŸiklik
       \item veri silme
-      \item sorgulama: planlı - plansız
+      \item sorgulama: planlÄ± - plansÄ±z
     \end{itemize}
     \item \alert{CRUD}: create - read - update - delete
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veri Türleri}
+  \frametitle{Veri TÃ¼rleri}
 
   \begin{itemize}
-    \item \emph{kalıcı veriler}:\\
-      tutulacak bilginin doğası gereği bulunması zorunlu olan veriler
+    \item \emph{kalÄ±cÄ± veriler}:\\
+      tutulacak bilginin doÄŸasÄ± gereÄŸi bulunmasÄ± zorunlu olan veriler
 
     \pause
     \bigskip
-    \item \emph{geçici veriler}
+    \item \emph{geÃ§ici veriler}
     \begin{itemize}
-      \item \emph{çıkış verileri}: kalıcı verilerden türetilebilen veriler\\
-        (sorgu sonuçları, raporlar v.b.)
+      \item \emph{Ã§Ä±kÄ±ÅŸ verileri}: kalÄ±cÄ± verilerden tÃ¼retilebilen veriler\\
+        (sorgu sonuÃ§larÄ±, raporlar v.b.)
 
       \pause
       \medskip
-      \item \emph{giriş verileri}: sisteme yeni giren, henüz işlenmemiş veriler
+      \item \emph{giriÅŸ verileri}: sisteme yeni giren, henÃ¼z iÅŸlenmemiÅŸ veriler
       \begin{itemize}
-        \item kalıcı verilere eklenebilir
-        \item kalıcı verilerde değişikliklere yol açabilir
-        \item hiç kullanılmayabilir
+        \item kalÄ±cÄ± verilere eklenebilir
+        \item kalÄ±cÄ± verilerde deÄŸiÅŸikliklere yol aÃ§abilir
+        \item hiÃ§ kullanÄ±lmayabilir
       \end{itemize}
     \end{itemize}
   \end{itemize}
@@ -153,38 +153,38 @@
   \frametitle{Roller}
 
   \begin{itemize}
-    \item \emph{son kullanıcılar}:\\
-      veri üzerinde işlem yapanlar
+    \item \emph{son kullanÄ±cÄ±lar}:\\
+      veri Ã¼zerinde iÅŸlem yapanlar
     \begin{itemize}
-      \item teknik konularda bilgileri olmadığı varsayılır
+      \item teknik konularda bilgileri olmadÄ±ÄŸÄ± varsayÄ±lÄ±r
     \end{itemize}
 
     \pause
     \bigskip
-    \item \emph{uygulama programcıları}:\\
-      son kullanıcıların kullandıkları programları yazanlar
+    \item \emph{uygulama programcÄ±larÄ±}:\\
+      son kullanÄ±cÄ±larÄ±n kullandÄ±klarÄ± programlarÄ± yazanlar
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Uygulama Örneği}
+  \frametitle{Uygulama Ã–rneÄŸi}
 
-  \begin{ornek}[öğrenci verileri]
+  \begin{ornek}[Ã¶ÄŸrenci verileri]
     \begin{columns}[t]
       \begin{column}<1->{5.1cm}
       \begin{itemize}
-        \item Öğrenci İşleri:\\
-          öğrencinin adı, numarası,\\
-          bölümü, aldığı dersler,\\
-          stajları v.b.
+        \item Ã–ÄŸrenci Ä°ÅŸleri:\\
+          Ã¶ÄŸrencinin adÄ±, numarasÄ±,\\
+          bÃ¶lÃ¼mÃ¼, aldÄ±ÄŸÄ± dersler,\\
+          stajlarÄ± v.b.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
         \item ortak veriler:\\
-          öğrencinin adı, numarası,\\
-          bölümü v.b.
+          Ã¶ÄŸrencinin adÄ±, numarasÄ±,\\
+          bÃ¶lÃ¼mÃ¼ v.b.
       \end{itemize}
       \end{column}
     \end{columns}
@@ -192,16 +192,16 @@
     \begin{columns}[t]
       \begin{column}<1->{5.1cm}
       \begin{itemize}
-        \item Kitaplık:\\
-          öğrencinin adı, numarası,\\
-          bölümü, aldığı kitaplar v.b.
+        \item KitaplÄ±k:\\
+          Ã¶ÄŸrencinin adÄ±, numarasÄ±,\\
+          bÃ¶lÃ¼mÃ¼, aldÄ±ÄŸÄ± kitaplar v.b.
       \end{itemize}
       \end{column}
 
       \begin{column}<2->{5.1cm}
       \begin{itemize}
-        \item uygulamaya özel veriler:\\
-          öğrencinin aldığı dersler,\\
+        \item uygulamaya Ã¶zel veriler:\\
+          Ã¶ÄŸrencinin aldÄ±ÄŸÄ± dersler,\\
           stajlar, kitaplar v.b.
       \end{itemize}
       \end{column}
@@ -209,10 +209,10 @@
   \end{ornek}
 \end{frame}
 
-\subsection{Kayıt Dosyaları}
+\subsection{KayÄ±t DosyalarÄ±}
 
 \begin{frame}
-  \frametitle{Kayıt Dosyaları}
+  \frametitle{KayÄ±t DosyalarÄ±}
 
   \begin{columns}[b]
     \column{.4\textwidth}
@@ -222,61 +222,60 @@
 
     \column{.6\textwidth}
     \begin{itemize}
-      \item her uygulamanın kendi verileri var
+      \item her uygulamanÄ±n kendi verileri var
       \item her uygulama verilerini\\
-	kendi yönettiği dosyalarda tutuyor
+	kendi yÃ¶nettiÄŸi dosyalarda tutuyor
     \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tekrarlılık}
+  \frametitle{TekrarlÄ±lÄ±k}
 
   \begin{itemize}
-    \item aynı veri birden fazla yerde tutuluyor
+    \item aynÄ± veri birden fazla yerde tutuluyor
     \begin{itemize}
-      \item disk alanı israfı
+      \item disk alanÄ± israfÄ±
     \end{itemize}
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item öğrenci adı, numarası ve bölümü Öğrenci İşleri'nde ayrı,\\
-	Kitaplık'ta ayrı tutuluyor
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tutarsızlık}
-
-  \begin{itemize}
-    \item birden fazla yerde tutulan veriler farklılık gösterebilir
-  \end{itemize}
-
-  \pause
-  \begin{ornek}
-    \begin{itemize}
-      \item aynı öğrencinin adı Öğrenci İşleri'nde "Victoria Adams",\\
-	Kitaplık'ta "Victoria Beckham" görünebilir
+      \item Ã¶ÄŸrenci adÄ±, numarasÄ± ve bÃ¶lÃ¼mÃ¼ Ã–ÄŸrenci Ä°ÅŸleri'nde ayrÄ±,\\
+	KitaplÄ±k'ta ayrÄ± tutuluyor
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bütünlük Bozulması}
+  \frametitle{TutarsÄ±zlÄ±k}
 
   \begin{itemize}
-    \item bilginin doğruluğunu sağlamak zordur
+    \item birden fazla yerde tutulan veriler farklÄ±lÄ±k gÃ¶sterebilir
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item bir öğrenci "İnşaat Mühendisliği" bölümünden\\
-	"Bilgisayar Mühendisliği" bölümüne yatay geçiş yapar
-      \item  Öğrenci İşleri'nde güncellenir, Kitaplık'ta güncellenmez
+      \item aynÄ± Ã¶ÄŸrencinin adÄ± Ã–ÄŸrenci Ä°ÅŸleri'nde "Victoria Adams",\\
+	KitaplÄ±k'ta "Victoria Beckham" gÃ¶rÃ¼nebilir
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BÃ¼tÃ¼nlÃ¼k BozulmasÄ±}
+
+  \begin{itemize}
+    \item bilginin doÄŸruluÄŸunu saÄŸlamak zordur
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item "Kontrol ve Bilgisayar MÃ¼hendisliÄŸi" bÃ¶lÃ¼mÃ¼ kapatÄ±lÄ±r\\
+	ama Ã¶ÄŸrencilerinin bÃ¶lÃ¼m verisi eskisi gibi kalÄ±r
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -285,78 +284,78 @@
   \frametitle{Yeni Uygulamalarda Zorluklar}
 
   \begin{itemize}
-    \item her yeni uygulama için benzer işlerin yeniden yapılması gerekir
+    \item her yeni uygulama iÃ§in benzer iÅŸlerin yeniden yapÄ±lmasÄ± gerekir
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item Burs İşleri için de uygulama yazılacak
+      \item Burs Ä°ÅŸleri iÃ§in de uygulama yazÄ±lacak
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Politika Boşlukları}
+  \frametitle{Politika BoÅŸluklarÄ±}
 
   \begin{itemize}
-    \item kurum uygulamalarında standart eksikliği
+    \item kurum uygulamalarÄ±nda standart eksikliÄŸi
     \begin{itemize}
-      \item yaklaşım, yöntem, programlama dili farklılıkları
-      \item uygulamalar arasında veri alışverişi
+      \item yaklaÅŸÄ±m, yÃ¶ntem, programlama dili farklÄ±lÄ±klarÄ±
+      \item uygulamalar arasÄ±nda veri alÄ±ÅŸveriÅŸi
     \end{itemize}
 
     \pause
-    \item her birim yalnızca kendi gereksinimlerine göre karar verir
+    \item her birim yalnÄ±zca kendi gereksinimlerine gÃ¶re karar verir
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Güvenlik}
+  \frametitle{GÃ¼venlik}
 
   \begin{itemize}
-    \item ayrıntılı güvenlik izinleri tanımlamak zor
-    \item güvenlik yalnızca işletim sistemine bağlı
+    \item ayrÄ±ntÄ±lÄ± gÃ¼venlik izinleri tanÄ±mlamak zor
+    \item gÃ¼venlik yalnÄ±zca iÅŸletim sistemine baÄŸlÄ±
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veriye Bağımlılık}
+  \frametitle{Veriye BaÄŸÄ±mlÄ±lÄ±k}
 
   \begin{tanim}
-    \alert{veriye bağımlılık}:\\
-      uygulama kodunun veri düzeni ve erişim yöntemine bağımlı olması
+    \alert{veriye baÄŸÄ±mlÄ±lÄ±k}:\\
+      uygulama kodunun veri dÃ¼zeni ve eriÅŸim yÃ¶ntemine baÄŸÄ±mlÄ± olmasÄ±
 
     \begin{itemize}
-      \item uygulamada değişiklik yapmak çok zor
+      \item uygulamada deÄŸiÅŸiklik yapmak Ã§ok zor
     \end{itemize}
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veriye Bağımlılık}
+  \frametitle{Veriye BaÄŸÄ±mlÄ±lÄ±k}
 
   \begin{ornek}
     \begin{itemize}
-      \item öğrenci numarası Öğrenci İşleri'nde katar, Kitaplık'ta sayı
+      \item Ã¶ÄŸrenci numarasÄ± Ã–ÄŸrenci Ä°ÅŸleri'nde katar, KitaplÄ±k'ta sayÄ±
 
       \pause
       \medskip
-      \item Öğrenci İşleri kayıtlarında öğrenci numarası için\\
-	B-ağacı dizin tutuluyor
+      \item Ã–ÄŸrenci Ä°ÅŸleri kayÄ±tlarÄ±nda Ã¶ÄŸrenci numarasÄ± iÃ§in\\
+	B-aÄŸacÄ± dizin tutuluyor
       \begin{itemize}
-	\item arama yapılırken B-ağacı algoritmaları kullanılıyor
+	\item arama yapÄ±lÄ±rken B-aÄŸacÄ± algoritmalarÄ± kullanÄ±lÄ±yor
       \end{itemize}
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\section{Veri Tabanı Yönetim Sistemleri}
+\section{Veri TabanÄ± YÃ¶netim Sistemleri}
 
-\subsection{Giriş}
+\subsection{GiriÅŸ}
 
 \begin{frame}
-  \frametitle{Veri Tabanı Yönetim Sistemleri}
+  \frametitle{Veri TabanÄ± YÃ¶netim Sistemleri}
 
   \begin{columns}[b]
     \column{.45\textwidth}
@@ -367,7 +366,7 @@
     \column{.55\textwidth}
     \begin{itemize}
       \item veriler ortak bir sistemde tutuluyor
-      \item uygulamalar verilere ortak bir arayüz üzerinden erişiyor
+      \item uygulamalar verilere ortak bir arayÃ¼z Ã¼zerinden eriÅŸiyor
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -381,153 +380,153 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dış Düzey}
+  \frametitle{DÄ±ÅŸ DÃ¼zey}
 
   \begin{itemize}
-    \item son kullanıcı açısından dış düzey:
+    \item son kullanÄ±cÄ± aÃ§Ä±sÄ±ndan dÄ±ÅŸ dÃ¼zey:
     \begin{itemize}
-      \item verinin kendine gereken altkümesi
-      \item kullandığı uygulama programının arayüzü
+      \item verinin kendine gereken altkÃ¼mesi
+      \item kullandÄ±ÄŸÄ± uygulama programÄ±nÄ±n arayÃ¼zÃ¼
     \end{itemize}
 
     \pause
     \bigskip
-    \item uygulama programcısı açısından dış düzey:
+    \item uygulama programcÄ±sÄ± aÃ§Ä±sÄ±ndan dÄ±ÅŸ dÃ¼zey:
     \begin{itemize}
-      \item kullandığı programlama dili
-      \item bu dile veri tabanı işlemleri için yapılan ekler:\\
+      \item kullandÄ±ÄŸÄ± programlama dili
+      \item bu dile veri tabanÄ± iÅŸlemleri iÃ§in yapÄ±lan ekler:\\
         \alert{veri altdili}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kavramsal Düzey}
+  \frametitle{Kavramsal DÃ¼zey}
 
   \begin{itemize}
-    \item kavramsal düzey: verinin bütünü
-    \item veriden bağımsızlığın sağlandığı düzey
+    \item kavramsal dÃ¼zey: verinin bÃ¼tÃ¼nÃ¼
+    \item veriden baÄŸÄ±msÄ±zlÄ±ÄŸÄ±n saÄŸlandÄ±ÄŸÄ± dÃ¼zey
 
     \pause
     \bigskip
     \item \alert{katalog}:\\
-      verinin içeriğini betimleyen tanımlar
+      verinin iÃ§eriÄŸini betimleyen tanÄ±mlar
     \begin{itemize}
-      \item veri tabanları
-      \item veri tipleri, bütünlük kısıtlamaları
-      \item kullanıcılar, yetkiler, güvenlik kısıtlamaları
+      \item veri tabanlarÄ±
+      \item veri tipleri, bÃ¼tÃ¼nlÃ¼k kÄ±sÄ±tlamalarÄ±
+      \item kullanÄ±cÄ±lar, yetkiler, gÃ¼venlik kÄ±sÄ±tlamalarÄ±
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İç Düzey}
+  \frametitle{Ä°Ã§ DÃ¼zey}
 
   \begin{itemize}
-    \item iç düzey: gerçekleme ayrıntıları
+    \item iÃ§ dÃ¼zey: gerÃ§ekleme ayrÄ±ntÄ±larÄ±
 
     \pause
-    \item verinin nasıl temsil edildiği:
+    \item verinin nasÄ±l temsil edildiÄŸi:
     \begin{itemize}
-      \item dosyalar, kayıtlar
+      \item dosyalar, kayÄ±tlar
     \end{itemize}
 
     \pause
-    \item veriye nasıl erişileceği
+    \item veriye nasÄ±l eriÅŸileceÄŸi
     \begin{itemize}
-      \item işaretçiler, dizinler, B-ağaçları
+      \item iÅŸaretÃ§iler, dizinler, B-aÄŸaÃ§larÄ±
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dönüşümler}
+  \frametitle{DÃ¶nÃ¼ÅŸÃ¼mler}
 
   \begin{itemize}
-    \item veri bağımsızlığı için düzeyler arasında dönüşümler
+    \item veri baÄŸÄ±msÄ±zlÄ±ÄŸÄ± iÃ§in dÃ¼zeyler arasÄ±nda dÃ¶nÃ¼ÅŸÃ¼mler
   \end{itemize}
 
   \pause
-  \begin{ornek}[kavramsal - dış]
+  \begin{ornek}[kavramsal - dÄ±ÅŸ]
     \begin{itemize}
-      \item öğrenci numarasını\\
-        Öğrenci İşleri uygulamasına katar,\\
-        Kitaplık uygulamasına sayı olarak sun
+      \item Ã¶ÄŸrenci numarasÄ±nÄ±\\
+        Ã–ÄŸrenci Ä°ÅŸleri uygulamasÄ±na katar,\\
+        KitaplÄ±k uygulamasÄ±na sayÄ± olarak sun
     \end{itemize}
   \end{ornek}
 
   \pause
-  \begin{ornek}[kavramsal - iç]
+  \begin{ornek}[kavramsal - iÃ§]
     \begin{itemize}
-      \item öğrenci numarası için dizin oluştur
+      \item Ã¶ÄŸrenci numarasÄ± iÃ§in dizin oluÅŸtur
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yönetici Rolleri}
+  \frametitle{YÃ¶netici Rolleri}
 
   \begin{itemize}
-    \item \emph{veri yöneticisi}: kararları verir
+    \item \emph{veri yÃ¶neticisi}: kararlarÄ± verir
     \begin{itemize}
       \item hangi veriler tutulacak?
-      \item hangi veriye kim erişebilir?
+      \item hangi veriye kim eriÅŸebilir?
     \end{itemize}
 
     \pause
     \bigskip
-    \item \emph{veri tabanı yöneticisi}: kararları uygular
+    \item \emph{veri tabanÄ± yÃ¶neticisi}: kararlarÄ± uygular
     \begin{itemize}
-      \item kavramsal - dış/iç düzey dönüşümlerini tanımlar
-      \item sistem başarımını ayarlar
-      \item sistemin sürekliliğini sağlar
+      \item kavramsal - dÄ±ÅŸ/iÃ§ dÃ¼zey dÃ¶nÃ¼ÅŸÃ¼mlerini tanÄ±mlar
+      \item sistem baÅŸarÄ±mÄ±nÄ± ayarlar
+      \item sistemin sÃ¼rekliliÄŸini saÄŸlar
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{VTYS İşlevleri}
+  \frametitle{VTYS Ä°ÅŸlevleri}
 
   \begin{itemize}
-    \item veri tanımlama dili
+    \item veri tanÄ±mlama dili
 
     \pause
-    \item veri işleme dili
+    \item veri iÅŸleme dili
 
     \pause
-    \item veri işleme isteklerinin bütünlük ve güvenlik\\
-      açısından değerlendirilmesi
+    \item veri iÅŸleme isteklerinin bÃ¼tÃ¼nlÃ¼k ve gÃ¼venlik\\
+      aÃ§Ä±sÄ±ndan deÄŸerlendirilmesi
 
     \pause
-    \item eşzamanlı isteklerin uygun biçimde yürütülmeleri
+    \item eÅŸzamanlÄ± isteklerin uygun biÃ§imde yÃ¼rÃ¼tÃ¼lmeleri
 
     \pause
-    \item başarım
+    \item baÅŸarÄ±m
   \end{itemize}
 \end{frame}
 
-\subsection{İstemci/Sunucu}
+\subsection{Ä°stemci/Sunucu}
 
 \begin{frame}
-  \frametitle{İstemci/Sunucu Yapısı}
+  \frametitle{Ä°stemci/Sunucu YapÄ±sÄ±}
 
   \begin{itemize}
     \item \alert{sunucu}:\\
-      VTYS işlevlerini yerine getirir
+      VTYS iÅŸlevlerini yerine getirir
 
     \pause
     \bigskip
     \item \alert{istemci}:\\
-      kullanıcı ile sunucu arasında etkileşimi sağlar
+      kullanÄ±cÄ± ile sunucu arasÄ±nda etkileÅŸimi saÄŸlar
     \begin{itemize}
-      \item hazır paketler (sorgu dili işleyiciler, rapor üreteçleri vs.)
-      \item uygulama programcılarının yazdıkları
+      \item hazÄ±r paketler (sorgu dili iÅŸleyiciler, rapor Ã¼reteÃ§leri vs.)
+      \item uygulama programcÄ±larÄ±nÄ±n yazdÄ±klarÄ±
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yapı}
+  \frametitle{YapÄ±}
 
   \begin{columns}
     \column{.4\textwidth}
@@ -537,14 +536,14 @@
 
     \column{.6\textwidth}
     \begin{itemize}
-      \item istemci ile sunucu aynı makinada\\
-	ya da farklı makinada olabilirler
+      \item istemci ile sunucu aynÄ± makinada\\
+	ya da farklÄ± makinada olabilirler
     \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çok İstemci/Tek Sunucu}
+  \frametitle{Ã‡ok Ä°stemci/Tek Sunucu}
 
   \begin{columns}
     \column{.45\textwidth}
@@ -554,8 +553,8 @@
 
     \column{.55\textwidth}
     \begin{itemize}
-      \item birden çok istemci bir sunucuya\\
-	bağlanarak çalışabilir
+      \item birden Ã§ok istemci bir sunucuya\\
+	baÄŸlanarak Ã§alÄ±ÅŸabilir
     \end{itemize}
 
     \pause
@@ -563,14 +562,14 @@
     \begin{ornek}[Banka]
       \begin{itemize}
         \item merkezde bir sunucu
-        \item şubelerde istemciler
+        \item ÅŸubelerde istemciler
       \end{itemize}
     \end{ornek}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çok İstemci/Çok Sunucu}
+  \frametitle{Ã‡ok Ä°stemci/Ã‡ok Sunucu}
 
   \begin{columns}
     \column{.45\textwidth}
@@ -580,16 +579,16 @@
 
     \column{.55\textwidth}
     \begin{itemize}
-      \item sunucular da dağıtık olabilir
+      \item sunucular da daÄŸÄ±tÄ±k olabilir
     \end{itemize}
 
     \pause
     \bigskip
     \begin{ornek}[Banka]
       \begin{itemize}
-        \item her şube kendi hesaplarının\\
+        \item her ÅŸube kendi hesaplarÄ±nÄ±n\\
 	  sunucusu (ve istemcisi)
-        \item her şube diğer şube hesaplarının\\
+        \item her ÅŸube diÄŸer ÅŸube hesaplarÄ±nÄ±n\\
 	  istemcisi
       \end{itemize}
     \end{ornek}
@@ -604,29 +603,29 @@
   \begin{itemize}
     \item \emph{Structured Query Language}
     \begin{itemize}
-      \item veri tanımlama dili
-      \item veri işleme dili
-      \item genel amaçlı programlama dilleriyle etkileşim
+      \item veri tanÄ±mlama dili
+      \item veri iÅŸleme dili
+      \item genel amaÃ§lÄ± programlama dilleriyle etkileÅŸim
     \end{itemize}
 
     \pause
     \bigskip
-    \item tarihçe
+    \item tarihÃ§e
     \begin{itemize}
-      \item 1970'lerde IBM başlatıyor
+      \item 1970'lerde IBM baÅŸlatÄ±yor
       \item standartlar: 1992, 1999, 2003
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{SQL Ürünleri}
+  \frametitle{SQL ÃœrÃ¼nleri}
 
   \begin{itemize}
     \item Oracle
     \item IBM DB2, Progress, MS-SQL, Sybase
-    \item açık: PostgreSQL, MySQL, Firebird
-    \item gömülü: SQLite, MS Access
+    \item aÃ§Ä±k: PostgreSQL, MySQL, Firebird
+    \item gÃ¶mÃ¼lÃ¼: SQLite, MS Access
   \end{itemize}
 \end{frame}
 
