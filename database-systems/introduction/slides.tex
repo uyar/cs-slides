@@ -130,7 +130,6 @@
       \item \emph{output data}: data that can be derived from persistent data\\
         (query results, reports, etc.)
 
-      \pause
       \medskip
       \item \emph{input data}: unprocessed data that just entered the system
       \begin{itemize}
@@ -216,7 +215,7 @@
     \begin{itemize}
       \item every application has its own data
       \item every application keeps its data\\
-	in the files that it manages itself
+        in the files that it manages itself
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -235,7 +234,7 @@
   \begin{example}
     \begin{itemize}
       \item the names, numbers and departments of students are kept\\
-	both in Student Affairs and in the Library
+        both in Student Affairs and in the Library
     \end{itemize}
   \end{example}
 \end{frame}
@@ -251,8 +250,8 @@
   \begin{example}
     \begin{itemize}
       \item the name of the same student can be recorded\\
-	as "Victoria Adams" in Student Affairs and\\
-	as "Victoria Beckham" in the Library
+        as "Victoria Adams" in Student Affairs and\\
+        as "Victoria Beckham" in the Library
     \end{itemize}
   \end{example}
 \end{frame}
@@ -332,13 +331,13 @@
   \begin{example}
     \begin{itemize}
       \item the student number is a string in Student Affairs\\
-	but a number in the Library
+        but a number in the Library
 
       \pause
       \item the Student Affairs application keeps a B-tree index\\
-	on the student number
+        on the student number
       \begin{itemize}
-	\item B-tree search algorithms are used in queries
+        \item B-tree search algorithms are used in queries
       \end{itemize}
     \end{itemize}
   \end{example}
@@ -361,7 +360,7 @@
     \begin{itemize}
       \item data is kept in a shared system
       \item applications access data\\
-	over a common interface
+        over a common interface
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -421,12 +420,12 @@
     \item internal level: implementation details
 
     \pause
+    \medskip
     \item how the data is represented
     \begin{itemize}
       \item files, records
     \end{itemize}
 
-    \pause
     \item how the data is accessed
     \begin{itemize}
       \item pointers, indexes, B-trees
@@ -500,10 +499,10 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Client/Server}
+\subsection{Client / Server}
 
 \begin{frame}
-  \frametitle{Client/Server Architecture}
+  \frametitle{Client / Server Architecture}
 
   \begin{itemize}
     \item \alert{server}:\\
@@ -532,8 +531,8 @@
     \column{.6\textwidth}
     \begin{itemize}
       \item the client and the server can be\\
-	on the same computer or\\
-	on different computers
+        on the same computer or\\
+        on different computers
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -550,7 +549,7 @@
     \column{.55\textwidth}
     \begin{itemize}
       \item many clients can connect\\
-	to a single server
+        to a single server
     \end{itemize}
 
     \pause
@@ -583,9 +582,9 @@
     \begin{example}[Bank]
       \begin{itemize}
         \item each branch is the server\\
-	  (and client) for its own accounts
+          (and client) for its own accounts
         \item each branch is a client\\
-	  for other branches' accounts
+          for other branches' accounts
       \end{itemize}
     \end{example}
   \end{columns}
