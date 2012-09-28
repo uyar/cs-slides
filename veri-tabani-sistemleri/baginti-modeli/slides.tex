@@ -1,6 +1,6 @@
 % Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
-%       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
+%       Åžule GÃ¼ndÃ¼z Ã–ÄŸÃ¼dÃ¼cÃ¼ <sgunduz@itu.edu.tr>
 %
 % These notes are licensed using the
 % "Creative Commons Attribution-NonCommercial-ShareAlike License".
@@ -15,21 +15,24 @@
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
-\usepackage[latin5]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
 \setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty,aboveskip=1pt,belowskip=1pt]{caption}
 
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
-  morekeywords={BASE, BOOL, CHAR, DELETE, DROP, INSERT, INTEGER, KEY, POSSREP,
-                RATIONAL, RELATION, TUPLE, TYPE, UPDATE, VAR, WHERE}
+  morekeywords={AND, AS, BASE, BOOL, CAST_AS_, CAST_AS_RATIONAL, CHAR,
+                CONSTRAINT, DELETE, DROP, INSERT, INTEGER, KEY, POSSREP,
+                RATIONAL, RELATION, RENAME, THE_, TUPLE, TYPE, UPDATE, VAR,
+                WHERE}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
-                START, TO, TYPE, VACUUM},
-  deletekeywords={YEAR}
+                START, TO, TYPE, VACUUM}
 }
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}}
 
 \mode<presentation>
 {
@@ -38,10 +41,10 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veri Tabaný Sistemleri}
-\subtitle{Baðýntý Modeli}
+\title{Veri TabanÄ± Sistemleri}
+\subtitle{BaÄŸÄ±ntÄ± Modeli}
 
-\author{H. Turgut Uyar \and Þule Öðüdücü}
+\author{H. Turgut Uyar \and Åžule Ã–ÄŸÃ¼dÃ¼cÃ¼}
 \date{2002-2012}
 
 \AtBeginSubsection[]{
@@ -52,10 +55,10 @@
 }
 
 \theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Taným}
+\newtheorem{tanim}[theorem]{TanÄ±m}
 
 \theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
+\newtheorem{ornek}[theorem]{Ã–rnek}
 
 \theoremstyle{plain}
 
@@ -71,7 +74,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2012 T. Uyar, Åž. Ã–ÄŸÃ¼dÃ¼cÃ¼
 
   \vfill
   \begin{tiny}
@@ -105,25 +108,25 @@
   \tableofcontents
 \end{frame}
 
-\lstset{language=TutorialD, extendedchars=true}
+\lstset{language=TutorialD}
 
-\section{Baðýntý Modeli}
+\section{BaÄŸÄ±ntÄ± Modeli}
 
-\subsection{Giriþ}
+\subsection{GiriÅŸ}
 
 \begin{frame}
   \frametitle{Veri Modelleri}
 
   \begin{itemize}
-    \item önceki modeller:
+    \item Ã¶nceki modeller:
     \begin{itemize}
       \item ters liste
-      \item hiyerarþik
-      \item að
+      \item hiyerarÅŸik
+      \item aÄŸ
     \end{itemize}
 
     \pause
-    \item baðýntý modeli:
+    \item baÄŸÄ±ntÄ± modeli:
     \begin{itemize}
       \item Dr. E. F. Codd, 1970
     \end{itemize}
@@ -132,40 +135,41 @@
     \item sonraki modeller:
     \begin{itemize}
       \item nesne
-      \item nesne / baðýntý
+      \item nesne / baÄŸÄ±ntÄ±
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baðýntý Modeli}
+  \frametitle{BaÄŸÄ±ntÄ± Modeli}
 
   \begin{itemize}
-    \item veri \alert{baðýntýlar} þeklinde modellenir:\\
+    \item veri \alert{baÄŸÄ±ntÄ±lar} ÅŸeklinde modellenir:\\
       $\alpha \subseteq A \times B \times C \times ...$
 
     \pause
     \medskip
-    \item baðýntýnýn her bir elemaný bir \alert{çoklu}
-    \item elemanlarýn her bir verisi bir \alert{nitelik}
+    \item baÄŸÄ±ntÄ±nÄ±n her bir elemanÄ± bir \alert{Ã§oklu}
+    \item elemanlarÄ±n her bir verisi bir \alert{nitelik}
 
     \pause
     \medskip
-    \item baðýntýlar tablolarla temsil edilir
+    \item baÄŸÄ±ntÄ±lar tablolarla temsil edilir
     \begin{itemize}
-      \item kullanýcý bütün veriyi tablolar þeklinde \emph{algýlamalý}
-      \item baðýntý $\rightarrow$ tablo, çoklu $\rightarrow$ satýr,
-        nitelik $\rightarrow$ sütun
+      \item kullanÄ±cÄ± bÃ¼tÃ¼n veriyi tablolar ÅŸeklinde \emph{algÄ±lamalÄ±}
+      \item baÄŸÄ±ntÄ± $\rightarrow$ tablo, Ã§oklu $\rightarrow$ satÄ±r,
+        nitelik $\rightarrow$ sÃ¼tun
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baðýntý Örneði}
+  \frametitle{BaÄŸÄ±ntÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[film baðýntýsý]
+  \begin{ornek}[film baÄŸÄ±ntÄ±sÄ±]
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
 TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
@@ -178,82 +182,83 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
     \pause
     \begin{itemize}
-      \item \texttt{(Usual Suspects,1995,Bryan Singer,8.7,3502)}\\
-        film baðýntýsýnýn bir çoklusudur
-      \item \texttt{YEAR} film baðýntýsýnýn bir niteliðidir
+      \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
+        \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n bir Ã§oklusudur
+      \item \texttt{YEAR}, \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n bir niteliÄŸidir
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baðýntý Yapýsý}
+  \frametitle{BaÄŸÄ±ntÄ± YapÄ±sÄ±}
 
-  \begin{block}{baðýntý baþlýðý}
+  \begin{block}{baÄŸÄ±ntÄ± baÅŸlÄ±ÄŸÄ±}
     \begin{itemize}
-      \item baðýntýyý oluþturan nitelikler kümesi
-      \item baðýntý yaratýlýrken belirtilir
-      \item veri tanýmlama dili komutlarýndan etkilenir
+      \item baÄŸÄ±ntÄ±yÄ± oluÅŸturan nitelikler kÃ¼mesi
+      \item baÄŸÄ±ntÄ± yaratÄ±lÄ±rken belirtilir
+      \item veri tanÄ±mlama dili komutlarÄ±ndan etkilenir
     \end{itemize}
   \end{block}
 
   \pause
-  \begin{block}{baðýntý gövdesi}
+  \begin{block}{baÄŸÄ±ntÄ± gÃ¶vdesi}
     \begin{itemize}
-      \item baðýntýdaki çoklular kümesi
-      \item veri iþleme dili komutlarýndan etkilenir
+      \item baÄŸÄ±ntÄ±daki Ã§oklular kÃ¼mesi
+      \item veri iÅŸleme dili komutlarÄ±ndan etkilenir
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baðýntý Yüklemi}
+  \frametitle{BaÄŸÄ±ntÄ± YÃ¼klemi}
 
   \begin{tanim}
-    \alert{baðýntý yüklemi}:\\
-      baðýntýnýn "anlamýný" ifade eden cümle
+    \alert{baÄŸÄ±ntÄ± yÃ¼klemi}:\\
+      baÄŸÄ±ntÄ±nÄ±n "anlamÄ±nÄ±" ifade eden cÃ¼mle
   \end{tanim}
 
   \begin{itemize}
-    \item her çoklu yükleme göre \emph{Doðru} ya da \emph{Yanlýþ} deðerini alýr
+    \item her Ã§oklu yÃ¼kleme gÃ¶re \emph{DoÄŸru} ya da \emph{YanlÄ±ÅŸ} deÄŸerini alÄ±r
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baðýntý Yüklemi Örneði}
+  \frametitle{BaÄŸÄ±ntÄ± YÃ¼klemi Ã–rneÄŸi}
 
-  \begin{ornek}[film baðýntýsýnýn yüklemi]
+  \begin{ornek}[film baÄŸÄ±ntÄ±sÄ±nÄ±n yÃ¼klemi]
     \begin{itemize}
-      \item \texttt{TITLE} baþlýklý film \texttt{YEAR} yýlýnda,
-        \texttt{DIRECTOR} tarafýndan\\
-        çekilmiþtir; verilen \texttt{VOTES} oyun ortalamasý \texttt{SCORE}'dur.
+      \item \texttt{TITLE} baÅŸlÄ±klÄ± film \texttt{YEAR} yÄ±lÄ±nda,
+        \texttt{DIRECTOR} tarafÄ±ndan\\
+        Ã§ekilmiÅŸtir; verilen \texttt{VOTES} oyun ortalamasÄ± \texttt{SCORE}'dur.
 
       \pause
       \medskip
       \item \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)}\\
-        çoklusu doðrudur
+        Ã§oklusu doÄŸrudur
       \item \texttt{(Suspiria, 1978, Dario Argento, 1004, 7.1)}\\
-        çoklusu yanlýþtýr
+        Ã§oklusu yanlÄ±ÅŸtÄ±r
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çoklu Sýrasý}
+  \frametitle{Ã‡oklu SÄ±rasÄ±}
 
   \begin{itemize}
-    \item çoklularýn sýrasý önemsiz
+    \item Ã§oklularÄ±n sÄ±rasÄ± Ã¶nemsizdir
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item aþaðýdaki iki baðýntý eþdeðerli:
+      \item aÅŸaÄŸÄ±daki iki baÄŸÄ±ntÄ± eÅŸdeÄŸerlidir:
     \end{itemize}
 
     \begin{columns}
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
+        \caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Usual Suspects       & ...\\\hline
@@ -266,6 +271,7 @@ Being John Malkovich & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
+        \caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Suspiria             & ...\\\hline
@@ -279,22 +285,23 @@ Usual Suspects       & ...\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Nitelik Sýrasý}
+  \frametitle{Nitelik SÄ±rasÄ±}
 
   \begin{itemize}
-    \item niteliklerin sýrasý önemsiz
+    \item niteliklerin sÄ±rasÄ± Ã¶nemsizdir
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item aþaðýdaki iki baðýntý eþdeðerli:
+      \item aÅŸaÄŸÄ±daki iki baÄŸÄ±ntÄ± eÅŸdeÄŸerlidir:
     \end{itemize}
 
     \begin{columns}
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
+        \caption{MOVIE}
         \begin{tabular}{|l|r|l|}\hline
 TITLE                & YEAR & ...\\\hline\hline
 Usual Suspects       & 1995 & ...\\\hline
@@ -307,6 +314,7 @@ Being John Malkovich & 1999 & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
+        \caption{MOVIE}
         \begin{tabular}{|r|l|l|}\hline
 YEAR & TITLE                & ...\\\hline\hline
 1995 & Usual Suspects       & ...\\\hline
@@ -320,19 +328,20 @@ YEAR & TITLE                & ...\\\hline\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Nitelik Deðerleri}
+  \frametitle{Nitelik DeÄŸerleri}
 
   \begin{itemize}
-    \item niteliklere verilen deðerler bölünmez olmalý
+    \item niteliklere verilen deÄŸerler tek boyutlu olmalÄ±dÄ±r
     \begin{itemize}
-      \item dizi, liste, kayýt gibi türlerden deðerler olmaz
+      \item dizi, liste, kayÄ±t gibi deÄŸerlere izin verilmez
     \end{itemize}
   \end{itemize}
 
   \pause
-  \begin{ornek}[birden fazla yönetmen]
+  \begin{ornek}[birden fazla yÃ¶netmen]
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|l|c|l|c|}\hline
 TITLE  & ... & DIRECTORS                      & ...\\\hline\hline
 ...    & ... & ...                            & ...\\\hline
@@ -354,63 +363,63 @@ Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Boþ Deðer}
+  \frametitle{BoÅŸ DeÄŸer}
 
   \begin{columns}[t]
     \column{.5\textwidth}
     \begin{itemize}
-      \item çoklu için o niteliðin\\
-	deðeri bilinmiyor
+      \item Ã§oklu iÃ§in o niteliÄŸin\\
+	deÄŸeri bilinmiyor
     \end{itemize}
 
     \begin{ornek}
       \begin{itemize}
-        \item filmin yönetmeni bilinmiyor
+        \item filmin yÃ¶netmeni bilinmiyor
       \end{itemize}
     \end{ornek}
 
     \pause
     \column{.5\textwidth}
     \begin{itemize}
-      \item çoklu o nitelik için\\
-	bir deðer taþýmýyor
+      \item Ã§oklu o nitelik iÃ§in\\
+	bir deÄŸer taÅŸÄ±mÄ±yor
     \end{itemize}
 
     \begin{ornek}
       \begin{itemize}
-        \item film için oy kullanýlmamýþ,\\
-          o yüzden \texttt{SCORE} yok
+        \item film iÃ§in oy kullanÄ±lmamÄ±ÅŸ,\\
+          o yÃ¼zden \texttt{SCORE} yok
       \end{itemize}
     \end{ornek}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Varsayýlan Deðer}
+  \frametitle{VarsayÄ±lan DeÄŸer}
 
   \begin{itemize}
-    \item boþ deðer yerine varsayýlan bir deðer kullanýlabilir
+    \item boÅŸ deÄŸer yerine varsayÄ±lan bir deÄŸer kullanÄ±labilir
     \begin{itemize}
-      \item niteliðin alabileceði geçerli deðerlerden biri olmamalý
+      \item niteliÄŸin alabileceÄŸi geÃ§erli deÄŸerlerden biri olmamalÄ±
     \end{itemize}
   \end{itemize}
 
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{SCORE} niteliði 1.0 ile 10.0 arasýnda deðer alýyorsa\\
-	varsayýlan deðeri \texttt{0.0} seçilebilir
+      \item \texttt{SCORE} niteliÄŸi 1.0 ile 10.0 arasÄ±nda deÄŸer alÄ±yorsa\\
+	varsayÄ±lan deÄŸeri \texttt{0.0} seÃ§ilebilir
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Eþ Çoklular}
+  \frametitle{EÅŸ Ã‡oklular}
 
   \begin{itemize}
-    \item bir baðýntýda birbirinin eþi çoklular bulunamaz
+    \item bir baÄŸÄ±ntÄ±da birbirinin eÅŸi Ã§oklular bulunamaz
     \begin{itemize}
-      \item her çoklu diðerlerinden ayýrt edilebilmeli
+      \item her Ã§oklu diÄŸerlerinden ayÄ±rt edilebilmelidir
     \end{itemize}
   \end{itemize}
 
@@ -418,6 +427,7 @@ Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \begin{ornek}
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
 TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
@@ -442,30 +452,30 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \frametitle{Anahtarlar}
 
   \begin{itemize}
-    \item $B$ baðýntýnýn nitelikleri kümesi ve $A \subseteq B$ olsun
+    \item $B$ baÄŸÄ±ntÄ±nÄ±n nitelikleri kÃ¼mesi olsun ve $A \subseteq B$ olsun
 
-    \item $A$'nýn bir anahtar adayý olabilmesi için\\
-      þu koþullar saðlanmalý:
+    \item $A$'nÄ±n bir anahtar adayÄ± olabilmesi iÃ§in\\
+      ÅŸu koÅŸullar saÄŸlanmalÄ±:
 
     \pause
     \begin{itemize}
-      \item \alert{eþsizlik}: herhangi iki çoklu $A$'da yer alan\\
-        bütün nitelikler için ayný deðeri taþýmazlar
+      \item \alert{eÅŸsizlik}: herhangi iki Ã§oklu $A$'da yer alan\\
+        bÃ¼tÃ¼n nitelikler iÃ§in aynÄ± deÄŸeri taÅŸÄ±mazlar
 
       \pause
-      \item \alert{indirgenemezlik}: $A$'nýn hiçbir altkümesi\\
-        eþsizlik özelliðini saðlamaz
+      \item \alert{indirgenemezlik}: $A$'nÄ±n hiÃ§bir altkÃ¼mesi\\
+        eÅŸsizlik Ã¶zelliÄŸini saÄŸlamaz
     \end{itemize}
 
     \pause
-    \item her baðýntýnýn en az bir anahtar adayý vardýr
+    \item her baÄŸÄ±ntÄ±nÄ±n en az bir anahtar adayÄ± vardÄ±r
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Anahtar Adayý Örneði}
+  \frametitle{Anahtar AdayÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[film baðýntýsý için anahtar adaylarý]
+  \begin{ornek}[film baÄŸÄ±ntÄ±sÄ± iÃ§in anahtar adaylarÄ±]
     \begin{itemize}
       \item \texttt{\{TITLE\}}
 
@@ -482,28 +492,29 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Anahtar Eþdeðeri}
+  \frametitle{Anahtar EÅŸdeÄŸeri}
 
   \begin{itemize}
-    \item \alert{doðal anahtar} seçilemiyorsa \alert{anahtar eþdeðeri}
-      tanýmlanabilir
+    \item bir \alert{doÄŸal anahtar} bulunamÄ±yorsa\\
+      bir \alert{anahtar eÅŸdeÄŸeri} tanÄ±mlanabilir
 
     \pause
     \medskip
-    \item kimlik nitelikleri
+    \item kimlik niteliÄŸi
     \begin{itemize}
-      \item deðerlerinin ne olduðunun önemi yok
-      \item sistem tarafýndan üretilebilir
+      \item deÄŸerinin ne olduÄŸunun Ã¶nemi yok
+      \item sistem tarafÄ±ndan Ã¼retilebilir
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Anahtar Eþdeðeri Örneði}
+  \frametitle{Anahtar EÅŸdeÄŸeri Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
 MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
     ... & ...                  &  ... & ...           & ...   &   ...\\\hline
@@ -517,8 +528,8 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 
     \pause
     \begin{itemize}
-      \item \texttt{\{MOVIE\#\}} anahtar adayýdýr
-      \item \texttt{\{MOVIE\#, TITLE\}} anahtar adayý deðildir
+      \item \texttt{\{MOVIE\#\}} anahtar adayÄ±dÄ±r
+      \item \texttt{\{MOVIE\#, TITLE\}} anahtar adayÄ± deÄŸildir
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -527,33 +538,34 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \frametitle{Birincil Anahtar}
 
   \begin{itemize}
-    \item bir baðýntýnýn birden fazla anahtar adayý varsa:
+    \item bir baÄŸÄ±ntÄ±nÄ±n birden fazla anahtar adayÄ± varsa:
     \begin{itemize}
-      \item biri \alert{birincil anahtar} seçilir
-      \item diðerleri \alert{anahtar seçeneði} olur
+      \item biri \alert{birincil anahtar} seÃ§ilir
+      \item diÄŸerleri \alert{anahtar seÃ§eneÄŸi} olur
     \end{itemize}
 
     \pause
-    \item her baðýntýnýn bir birincil anahtarý bulunmasý zorunludur
+    \item her baÄŸÄ±ntÄ±nÄ±n bir birincil anahtarÄ± bulunmasÄ± zorunludur
 
     \pause
-    \item birincil anahtarýn parçasý olan hiçbir niteliðin deðeri\\
-      hiçbir çokluda boþ olamaz
+    \item birincil anahtarÄ±n parÃ§asÄ± olan hiÃ§bir niteliÄŸin deÄŸeri\\
+      hiÃ§bir Ã§okluda boÅŸ olamaz
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Birincil Anahtar Örneði}
+  \frametitle{Birincil Anahtar Ã–rneÄŸi}
 
   \begin{itemize}
-    \item birincil anahtarý oluþturan nitelikler altý çizili gösterilir
+    \item birincil anahtarÄ± oluÅŸturan nitelikler altÄ± Ã§izili gÃ¶sterilir
   \end{itemize}
 
   \begin{ornek}
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
-\underline{MOVIE\#} & TITLE & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
+\underline{MOVIE\#} & TITLE & YEAR & DIRECTOR      & SCORE & VOTES\\[2pt]\hline\hline
  ... & ...                  &  ... & ...           &   ... &   ...\\\hline
    6 & Usual Suspects       & 1995 & Bryan Singer  &   ... &   ...\\\hline
 1512 & Suspiria             & 1977 & Dario Argento &   ... &   ...\\\hline
@@ -565,143 +577,206 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \end{ornek}
 \end{frame}
 
-\subsection{Veri Tanýmlama}
-
-\begin{frame}
-  \frametitle{Veri Tanýmlama Dili}
-
-  \begin{itemize}
-    \item baðýntý yaratma ve silme
-
-    \pause
-    \item baðýntý baþlýðýnda deðiþiklik
-    \begin{itemize}
-      \item nitelik ekleme ve silme
-      \item kýsýtlama ekleme ve silme
-    \end{itemize}
-
-    \pause
-    \bigskip
-    \item bu notlarda "Tutorial D" dilinin "Rel" gerçeklemesi\\
-      esas alýnmýþtýr
-  \end{itemize}
-\end{frame}
+\subsection{Veri Tipleri}
 
 \begin{frame}
   \frametitle{Veri Tipleri}
 
   \begin{itemize}
-    \item ayný niteliðe iliþkin deðerler ayný taným kümesinden seçilmeli
+    \item aynÄ± niteliÄŸe iliÅŸkin deÄŸerler aynÄ± tanÄ±m kÃ¼mesinden seÃ§ilmeli
     \begin{itemize}
-      \item karþýlaþtýrma iþlemi ancak ayný taným kümesinden seçilmiþ\\
-        deðerler arasýnda anlamlýdýr
+      \item karÅŸÄ±laÅŸtÄ±rma iÅŸlemi ancak aynÄ± tanÄ±m kÃ¼mesinden seÃ§ilmiÅŸ\\
+        deÄŸerler arasÄ±nda anlamlÄ±dÄ±r
     \end{itemize}
 
     \pause
     \medskip
-    \item pratikte veri tipleri kullanýlýr
+    \item pratikte veri tipleri kullanÄ±lÄ±r
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Taným Kümesi Örneði}
+  \frametitle{TanÄ±m KÃ¼mesi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{TITLE} baþlýklar kümesinden, \texttt{YEAR} yýllar
-        kümesinden,\\
-        \texttt{DIRECTOR} yönetmenler kümesinden, ...
+      \item \texttt{TITLE} baÅŸlÄ±klar kÃ¼mesinden, \texttt{YEAR} yÄ±llar
+        kÃ¼mesinden,\\
+        \texttt{DIRECTOR} yÃ¶netmenler kÃ¼mesinden, ...
 
       \pause
-      \item veri tipi kullanýlýrsa:\\
-        \texttt{TITLE} katar, \texttt{YEAR} tamsayý, \texttt{DIRECTOR} katar,
+      \item veri tipi kullanÄ±lÄ±rsa:\\
+        \texttt{TITLE} katar, \texttt{YEAR} tamsayÄ±, \texttt{DIRECTOR} katar,
           ...
 
       \begin{itemize}
-        \item \texttt{DIRECTOR} niteliðine \texttt{"Usual Suspects"} deðerini
+        \item \texttt{DIRECTOR} niteliÄŸine \texttt{"Usual Suspects"} deÄŸerini
           vermek\\
-          veri tipi açýsýndan doðru, yüklem açýsýndan yanlýþ
+          veri tipi aÃ§Ä±sÄ±ndan doÄŸru, yÃ¼klem aÃ§Ä±sÄ±ndan yanlÄ±ÅŸ
 
-        \item \texttt{YEAR} ve \texttt{VOTES} deðerleri birer tamsayý\\
-          ancak bunlarý karþýlaþtýrmak anlamlý deðil
+        \item \texttt{YEAR} ve \texttt{VOTES} deÄŸerleri birer tamsayÄ±\\
+          ancak bunlarÄ± karÅŸÄ±laÅŸtÄ±rmak anlamlÄ± deÄŸil
       \end{itemize}
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veri Tipleri}
+  \frametitle{Tutorial D Veri Tipleri}
 
   \begin{itemize}
-    \item \lstinline!INTEGER!: tamsayý
-    \item \lstinline!RATIONAL!: rasyonel sayý
-    \item \lstinline!BOOL!: mantýksal
-    \item \lstinline!CHAR!: katar
+    \item \texttt{INTEGER}
+    \item \texttt{RATIONAL}
+    \item \texttt{BOOL}
+    \item \texttt{CHAR}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tip Tanýmlama}
+  \frametitle{Tip TanÄ±mlama}
 
-  \begin{itemize}
-    \item var olan tiplerden yeni tipler türetilebilir
-    \item yaratýlan tip için deðerler uygun þekilde üretilmeli
-  \end{itemize}
-
-  \pause
-  \begin{block}{Komut}
+  \begin{block}{tip tanÄ±mlama}
     \begin{lstlisting}
-TYPE tip_adý
-  POSSREP { alan_adý alan_tipi [, ...] }
+TYPE type_name POSSREP {
+  field_name field_type
+  [, ...]
+};
     \end{lstlisting}
   \end{block}
 
   \pause
+  \begin{block}{tip silme}
+    \begin{lstlisting}
+DROP TYPE type_name;
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tip TanÄ±mlama Ã–rnekleri}
+
+  \begin{ornek}
+    \begin{lstlisting}
+TYPE MOVIE# POSSREP { VALUE INTEGER };
+
+TYPE YEAR POSSREP { VALUE INTEGER };
+
+TYPE SCORE POSSREP { VALUE RATIONAL };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tip Ä°ÅŸlemleri}
+
   \begin{itemize}
-    \item deðer üretmek için: \lstinline!tip_adý(taban_deðer [, ...])!
+    \item tÃ¼retilen tip iÃ§in deÄŸer Ã¼retme:
+    \begin{lstlisting}
+type_name(base_value [, ...])!
+    \end{lstlisting}
 
     \pause
-    \item tipi silmek için: \lstinline!DROP TYPE tip_adý!
+    \item bir alanÄ±n deÄŸerini alma: \lstinline!THE_! iÅŸleÃ§leri
+    \begin{lstlisting}
+THE_field_name(variable_name)
+    \end{lstlisting}
+
+    \pause
+    \item tip dÃ¶nÃ¼ÅŸÃ¼mÃ¼: \lstinline!CAST_AS_! iÅŸleÃ§leri
+    \begin{lstlisting}
+CAST_AS_target_type(value)
+    \end{lstlisting}
+
+    \pause
+    \item bir niteliÄŸin adÄ±nÄ± deÄŸiÅŸtirme:
+    \begin{lstlisting}
+RENAME (attribute_name AS new_name)
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tip Tanýmlama Örnekleri}
+  \frametitle{Tip Ä°ÅŸlemleri Ã–rnekleri}
 
   \begin{ornek}
-    \begin{lstlisting}
-TYPE MOVIE# POSSREP { VALUE INTEGER }
-
-TYPE YEAR POSSREP { VALUE INTEGER }
-
-TYPE SCORE POSSREP { VALUE RATIONAL }
-    \end{lstlisting}
-
-    \pause
-    \bigskip
     \begin{itemize}
-      \item bir \texttt{SCORE} deðeri üretmek için: \lstinline!SCORE(8.7)!
+      \item bir \texttt{SCORE} deÄŸeri Ã¼retme:
+      \begin{lstlisting}
+SCORE(8.7)
+      \end{lstlisting}
 
       \pause
-      \item \texttt{YEAR} tipini silmek için: \lstinline!DROP TYPE YEAR!
+      \item bir \texttt{SCORE} deÄŸiÅŸkeninin \texttt{VALUE} alanÄ±nÄ± alma:
+      \begin{lstlisting}
+THE_VALUE(SCORE)
+      \end{lstlisting}
+
+      \pause
+      \item bir tamsayÄ± \texttt{VOTES} deÄŸerini bir \texttt{RATIONAL} deÄŸere
+        dÃ¶nÃ¼ÅŸtÃ¼rme:
+      \begin{lstlisting}
+CAST_AS_RATIONAL(VOTES)
+      \end{lstlisting}
+
+      \pause
+      \item \texttt{MOVIE\#} niteliÄŸinin adÄ±nÄ± deÄŸiÅŸtirme:
+      \begin{lstlisting}
+RENAME (MOVIE# AS MOVIENO)
+      \end{lstlisting}
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Baðýntý Tanýmlama}
+  \frametitle{DeÄŸer KÄ±sÄ±tlamalarÄ±}
 
-  \begin{block}{Komut}
+  \begin{block}{deÄŸer kÄ±sÄ±tlamasÄ± tanÄ±mlama}
     \begin{lstlisting}
-RELATION
-  { nitelik_adý nitelik_tipi [, ...] }
-  KEY { anahtar_nitelik [, ...] }
+TYPE SCORE POSSREP {
+  field_name field_type
+  [, ...]
+  CONSTRAINT condition
+};
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Baðýntý Tanýmlama Örneði}
+  \frametitle{DeÄŸer KÄ±sÄ±tlamasÄ± Ã–rneÄŸi}
+
+  \begin{example}
+    \begin{itemize}
+      \item \texttt{SCORE} deÄŸerleri \texttt{1.0} ile \texttt{10.0} arasÄ±nda
+        olmalÄ±
+    \end{itemize}
+
+    \begin{lstlisting}
+TYPE SCORE POSSREP {
+  VALUE RATIONAL
+  CONSTRAINT
+    (VALUE >= 1.0) AND (VALUE <= 10.0)
+};
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{BaÄŸÄ±ntÄ± YÃ¶netimi}
+
+\begin{frame}[fragile]
+  \frametitle{BaÄŸÄ±ntÄ± TanÄ±mlama}
+
+  \begin{block}{baÄŸÄ±ntÄ± tanÄ±mlama}
+    \begin{lstlisting}
+RELATION
+  { attribute_name attribute_type
+    [, ...] }
+  KEY { attribute_name [, ...] }
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{BaÄŸÄ±ntÄ± TanÄ±mlama Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{lstlisting}
@@ -718,24 +793,26 @@ RELATION
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Taban Baðýntý Deðiþkeni Yaratma}
+  \frametitle{Taban BaÄŸÄ±ntÄ± DeÄŸiÅŸkeni Yaratma}
 
-  \begin{block}{Komut}
+  \begin{block}{taban baÄŸÄ±ntÄ± deÄŸiÅŸkeni yaratma}
     \begin{lstlisting}
-VAR deðiþken_adý BASE RELATION
+VAR variable_name BASE RELATION
   { ... }
-  KEY { ... }
+  KEY { ... };
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{itemize}
-    \item deðiþkeni silmek için: \lstinline!DROP VAR deðiþken_adý!
-  \end{itemize}
+  \begin{block}{deÄŸiÅŸken silme}
+    \begin{lstlisting}
+DROP VAR variable_name;
+    \end{lstlisting}
+  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Taban Baðýntý Deðiþkeni Yaratma Örneði}
+  \frametitle{Taban BaÄŸÄ±ntÄ± DeÄŸiÅŸkeni Yaratma Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{lstlisting}
@@ -746,31 +823,25 @@ VAR MOVIE BASE RELATION
     DIRECTOR CHAR,
     SCORE SCORE,
     VOTES INTEGER }
-  KEY { MOVIE# }
+  KEY { MOVIE# };
     \end{lstlisting}
-
-    \pause
-    \bigskip
-    \begin{itemize}
-      \item \texttt{MOVIE} deðiþkenini silmek için: \lstinline!DROP VAR MOVIE!
-    \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Çoklu ve Baðýntý Üretme}
+  \frametitle{Ã‡oklu ve BaÄŸÄ±ntÄ± Ãœretme}
 
-  \begin{block}{Çoklu Üretme}
+  \begin{block}{Ã§oklu Ã¼retme}
     \begin{lstlisting}
 TUPLE {
-  nitelik_adý nitelik_deðeri
+  attribute_name attribute_value
   [, ...]
 }
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{Baðýntý Üretme}
+  \begin{block}{baÄŸÄ±ntÄ± Ã¼retme}
     \begin{lstlisting}
 RELATION {
   TUPLE { ... }
@@ -781,17 +852,18 @@ RELATION {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Baðýntý Deðiþkenine Atama}
+  \frametitle{BaÄŸÄ±ntÄ± DeÄŸiÅŸkenine Atama}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item bir baÄŸÄ±ntÄ± bir deÄŸiÅŸkene atanabilir:
     \begin{lstlisting}
-deðiþken_adý := RELATION { ... }
+variable_name := RELATION { ... };
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Baðýntý Deðiþkenine Atama Örneði}
+  \frametitle{BaÄŸÄ±ntÄ± DeÄŸiÅŸkenine Atama Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{lstlisting}
@@ -804,150 +876,134 @@ MOVIE := RELATION {
     TITLE "Being John Malkovich",
     YEAR YEAR(1999), DIRECTOR "Spike Jonze",
     SCORE SCORE(8.3), VOTES 13809 }
-}
+};
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
-\subsection{Veri Ýþleme}
-
-\begin{frame}
-  \frametitle{Veri Ýþleme Dili}
-
-  \begin{itemize}
-    \item çoklu ekleme
-    \item çoklu silme
-    \item çoklu güncelleme
-
-    \pause
-    \bigskip
-    \item iþlemler çoklu kümesi üzerinde yapýlýr
-    \begin{itemize}
-      \item bir koþula uyan bütün çoklular
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+\subsection{Veriyi DeÄŸiÅŸtirme}
 
 \begin{frame}[fragile]
-  \frametitle{Çoklu Ekleme}
+  \frametitle{Ã‡oklu Ekleme}
 
-  \begin{block}{Komut}
+  \begin{block}{Ã§oklu ekleme}
     \begin{lstlisting}
-INSERT baðýntý_deðiþkeni_adý RELATION {
+INSERT relation_variable_name RELATION {
   TUPLE { ... }
   [, ...]
-}
+};
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Çoklu Ekleme Örneði}
+  \frametitle{Ã‡oklu Ekleme Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{lstlisting}
 INSERT MOVIE RELATION {
-  TUPLE { MOVIE# MOVIE#(1512),
-    TITLE "Suspiria",
-    YEAR YEAR(1977), DIRECTOR "Dario Argento",
-    SCORE SCORE(7.1), VOTES 1004 }
+  TUPLE { MOVIE# MOVIE#(6),
+    TITLE "Usual Suspects",
+    YEAR YEAR(1995), DIRECTOR "Bryan Singer",
+    SCORE SCORE(8.7), VOTES 35027 }
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Çoklu Silme}
+  \frametitle{Ã‡oklu Silme}
 
-  \begin{block}{Komut}
+  \begin{block}{Ã§oklu silme}
     \begin{lstlisting}
-DELETE baðýntý_deðiþkeni_adý
-  [ WHERE koþul ]
+DELETE relation_variable_name
+  [ WHERE condition ];
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item koþul belirtilmezse bütün çoklular silinir
+    \item koÅŸul belirtilmezse bÃ¼tÃ¼n Ã§oklular silinir
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Çoklu Silme Örneði}
+  \frametitle{Ã‡oklu Silme Ã–rneÄŸi}
 
-  \begin{ornek}
-    \begin{lstlisting}
-DELETE MOVIE
-  WHERE (SCORE < SCORE(3.0))
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Çoklu Güncelleme}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-UPDATE baðýntý_deðiþkeni_adý
-  [ WHERE koþul ]
-  { nitelik_adý := deyim [, ...] }
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item koþul belirtilmezse bütün çoklular güncellenir
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Çoklu Güncelleme Örneði}
-
-  \begin{ornek}
-    \begin{lstlisting}
-UPDATE MOVIE
-  WHERE (YEAR > YEAR(1990))
-  { VOTES := VOTES + 1, SCORE := 5.0 }
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\subsection{Bütünlük}
-
-\begin{frame}
-  \frametitle{Deðer Kýsýtlamasý}
-
-  \begin{tanim}
-    \alert{deðer kýsýtlamasý}:\\
-      deðer bir mantýksal deyimi saðlamalý
-  \end{tanim}
-
-  \pause
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{SCORE} deðerleri \texttt{1.0} ile \texttt{10.0} arasýnda
-        olmalý
+      \item puanÄ± 3.0'dan dÃ¼ÅŸÃ¼k, oy sayÄ±sÄ± 4'den fazla olan filmleri sil
     \end{itemize}
+
+    \begin{lstlisting}
+DELETE MOVIE
+  WHERE ((SCORE < SCORE(3.0))
+     AND (VOTES > 4));
+    \end{lstlisting}
   \end{ornek}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Ã‡oklu GÃ¼ncelleme}
+
+  \begin{block}{Ã§oklu gÃ¼ncelleme}
+    \begin{lstlisting}
+UPDATE relation_variable_name
+  [ WHERE condition ]
+  ( attribute_name := attribute_value
+    [, ...] );
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item koÅŸul belirtilmezse bÃ¼tÃ¼n Ã§oklular gÃ¼ncellenir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ã‡oklu GÃ¼ncelleme Ã–rneÄŸi}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item "Suspiria" filmi iÃ§in yeni verilen bir oyu (9) iÅŸle
+    \end{itemize}
+
+    \begin{lstlisting}
+UPDATE MOVIE
+  WHERE (TITLE = 'Suspiria') (
+    SCORE := SCORE(
+      (THE_VALUE(SCORE)
+         * CAST_AS_RATIONAL(VOTES)
+         + CAST_AS_RATIONAL(9))
+       / CAST_AS_RATIONAL(VOTES + 1)
+    ),
+    VOTES := VOTES + 1
+  );
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\subsection{BaÅŸvuru BÃ¼tÃ¼nlÃ¼ÄŸÃ¼}
+
 \begin{frame}
-  \frametitle{Bölünmezlik}
+  \frametitle{Tek Boyutlu DeÄŸerler}
 
   \begin{itemize}
-    \item deðerlerin bölünmezliði kuralýna uyabilmek için\\
-      çoklularýn kýsmen yinelenmeleri gerekebilir
+    \item deÄŸerlerin tek boyutlu olmasÄ± kuralÄ±na uyabilmek iÃ§in\\
+      Ã§oklularÄ±n kÄ±smen yinelenmeleri gerekebilir
   \end{itemize}
   
-  \begin{ornek}[oyuncular nasýl tutulacak?]
+  \begin{ornek}[oyuncular nasÄ±l tutulacak?]
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|r|l|c|l|}\hline
-\underline{MOVIE\#} & TITLE    & ... & ACTORS                     \\\hline\hline
-      6 & Usual Suspects       & ... & Gabriel Byrne              \\\hline
-    ... & ...                  & ... & ...                        \\\hline
-     70 & Being John Malkovich & ... & Cameron Diaz,John Malkovich\\\hline
-    ... & ...                  & ... & ...                        \\\hline
+\underline{MOVIE\#} & TITLE    & ... & ACTORS                      \\[2pt]\hline\hline
+      6 & Usual Suspects       & ... & Gabriel Byrne               \\\hline
+    ... & ...                  & ... & ...                         \\\hline
+     70 & Being John Malkovich & ... & Cameron Diaz, John Malkovich\\\hline
+    ... & ...                  & ... & ...                         \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -962,8 +1018,10 @@ UPDATE MOVIE
     \end{picture}
 
     \pause
+    \vspace{-1cm}
     \begin{tiny}
     \begin{table}
+      \caption{MOVIE}
       \begin{tabular}{|r|l|c|l|}\hline
 MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       6 & Usual Suspects       & ... & Gabriel Byrne \\\hline
@@ -978,14 +1036,14 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bölünmezlik Örneði}
+  \frametitle{Tek Boyutluluk Ã–rneÄŸi}
 
   \begin{ornek}[filmler ve oyuncular]
     \begin{tiny}
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|c|}\hline
-\underline{MOVIE\#} & TITLE                & ...\\\hline\hline
+\underline{MOVIE\#} & TITLE                & ...\\[2pt]\hline\hline
                   6 & Usual Suspects       & ...\\\hline
                1512 & Suspiria             & ...\\\hline
                  70 & Being John Malkovich & ...\\\hline
@@ -994,13 +1052,13 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{table}
     \end{tiny}
 
-    \begin{columns}
+    \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{ACTOR}
         \begin{tabular}{|r|l|}\hline
-\underline{ACTOR\#} & NAME          \\\hline\hline
+\underline{ACTOR\#} & NAME          \\[2pt]\hline\hline
                 308 & Gabriel Byrne \\\hline
                 282 & Cameron Diaz  \\\hline
                 503 & John Malkovich\\\hline
@@ -1014,7 +1072,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{CASTING}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\\hline\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                  70 &                 503 &  14\\\hline
@@ -1027,14 +1085,14 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bölünmezlik Örneði}
+  \frametitle{Tek Boyutluluk Ã–rneÄŸi}
 
-  \begin{ornek}[yönetmenler nasýl tutulacak?]
+  \begin{ornek}[yÃ¶netmenler nasÄ±l tutulacak?]
     \begin{tiny}
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|c|r|}\hline
-\underline{MOVIE\#} & TITLE                & ... & DIRECTOR\#\\\hline\hline
+\underline{MOVIE\#} & TITLE                & ... & DIRECTOR\#\\[2pt]\hline\hline
                   6 & Usual Suspects       & ... &        639\\\hline
                1512 & Suspiria             & ... &       2259\\\hline
                  70 & Being John Malkovich & ... &       1485\\\hline
@@ -1043,13 +1101,13 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{table}
     \end{tiny}
 
-    \begin{columns}
+    \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{PERSON\#} & NAME\\\hline\hline
+\underline{PERSON\#} & NAME          \\[2pt]\hline\hline
                  308 & Gabriel Byrne \\\hline
                 1485 & Spike Jonze   \\\hline
                  639 & Bryan Singer  \\\hline
@@ -1066,7 +1124,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{CASTING}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\\hline\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                  70 &                 503 &  14\\\hline
@@ -1079,29 +1137,29 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dýþ Anahtarlar}
+  \frametitle{DÄ±ÅŸ Anahtarlar}
 
   \begin{tanim}
-    \alert{dýþ anahtar}:\\
-      bir baðýntýnýn bir niteliði baþka bir baðýntýnýn anahtar adayý
+    \alert{dÄ±ÅŸ anahtar}:\\
+      bir baÄŸÄ±ntÄ±nÄ±n bir niteliÄŸi baÅŸka bir baÄŸÄ±ntÄ±nÄ±n anahtar adayÄ±
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dýþ Anahtar Örnekleri}
+  \frametitle{DÄ±ÅŸ Anahtar Ã–rnekleri}
 
-  \begin{ornek}[MOVIE baðýntýsýnýn DIRECTORID niteliði]
+  \begin{ornek}[\texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{DIRECTORID} niteliÄŸi]
     \begin{columns}[t]
       \column{.6\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE                & ... & DIRECTORID\\\hline\hline
-             6 & Usual Suspects       & ... &        639\\\hline
-          1512 & Suspiria             & ... &       2259\\\hline
-            70 & Being John Malkovich & ... &       1485\\\hline
-           ... & ...                  & ... &        ...\\\hline
+\underline{ID} & TITLE      & ... & DIRECTORID\\[2pt]\hline\hline
+   6 & Usual Suspects       & ... &        639\\\hline
+1512 & Suspiria             & ... &       2259\\\hline
+  70 & Being John Malkovich & ... &       1485\\\hline
+ ... & ...                  & ... &        ...\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1111,14 +1169,14 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME          \\\hline\hline
-           308 & Gabriel Byrne \\\hline
-          1485 & Spike Jonze   \\\hline
-           639 & Bryan Singer  \\\hline
-           282 & Cameron Diaz  \\\hline
-          2259 & Dario Argento \\\hline
-           503 & John Malkovich\\\hline
-           ... & ...           \\\hline
+\underline{ID} & NAME\\[2pt]\hline\hline
+ 308 & Gabriel Byrne \\\hline
+1485 & Spike Jonze   \\\hline
+ 639 & Bryan Singer  \\\hline
+ 282 & Cameron Diaz  \\\hline
+2259 & Dario Argento \\\hline
+ 503 & John Malkovich\\\hline
+ ... & ...           \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1134,27 +1192,27 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \put(23,21){\vector(3,-1){55}}   % movie.directorid=2259->person.id=2259
     }
     \only<3->{
-      \put(0,39){\oval(45,9)}          % movie.directorid
-      \put(90,39){\oval(20,9)}         % person.id
-      \put(24,39){\vector(1,0){56}}    % movie.directorid->person.id
+      \put(0,41){\oval(45,9)}          % movie.directorid
+      \put(90,41){\oval(20,9)}         % person.id
+      \put(24,41){\vector(1,0){56}}    % movie.directorid->person.id
     }
   \end{picture}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dýþ Anahtar Örnekleri}
+  \frametitle{DÄ±ÅŸ Anahtar Ã–rnekleri}
 
-  \begin{ornek}[film veri tabanýndaki dýþ anahtarlar]
+  \begin{ornek}[film veri tabanÄ±ndaki dÄ±ÅŸ anahtarlar]
     \begin{columns}
       \column{.6\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE           & ... & DIRECTORID\\\hline\hline
-             6 & Usual Suspects  & ... &        639\\\hline
-          1512 & Suspiria        & ... &       2259\\\hline
-           ... & ...             & ... &        ...\\\hline
+\underline{ID} & TITLE          & ... & DIRECTORID\\[2pt]\hline\hline
+             6 & Usual Suspects & ... &        639\\\hline
+          1512 & Suspiria       & ... &       2259\\\hline
+           ... & ...            & ... &        ...\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1164,7 +1222,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME         \\\hline\hline
+\underline{ID} & NAME         \\[2pt]\hline\hline
            308 & Gabriel Byrne\\\hline
           1485 & Spike Jonze  \\\hline
            ... & ...          \\\hline
@@ -1177,7 +1235,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \begin{table}
       \caption{CASTING}
       \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                 ... &                 ... & ...\\\hline
@@ -1190,39 +1248,39 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \color[rgb]{0.1,0.6,0.1}
     \thicklines
     \only<2->{
-      \put(105,82){\oval(45,9)}        % movie.directorid
-      \put(209,82){\oval(20,9)}        % person.id
-      \put(128,82){\vector(1,0){71}}   % movie.directorid->person.id
+      \put(105,78){\oval(45,9)}        % movie.directorid
+      \put(209,78){\oval(20,9)}        % person.id
+      \put(128,78){\vector(1,0){71}}   % movie.directorid->person.id
     }
     \only<3->{
-      \put(96,2){\oval(35,9)}          % casting.movieid
-      \put(0,82){\oval(20,9)}          % movie.id
-      \put(96,7){\vector(-4,3){92}}    % casting.movieid->movie.id
+      \put(96,4){\oval(35,9)}          % casting.movieid
+      \put(0,78){\oval(20,9)}          % movie.id
+      \put(96,9){\vector(-4,3){88}}    % casting.movieid->movie.id
     }
     \only<4->{
-      \put(136,2){\oval(35,9)}         % casting.personid
-      \put(150,7){\vector(3,4){53}}    % casting.personid->person.id
+      \put(136,4){\oval(35,9)}         % casting.personid
+      \put(150,9){\vector(3,4){49}}    % casting.personid->person.id
     }
   \end{picture}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baþvuru Bütünlüðü}
+  \frametitle{BaÅŸvuru BÃ¼tÃ¼nlÃ¼ÄŸÃ¼}
 
   \begin{tanim}
-    \alert{baþvuru bütünlüðü}:\\
-      dýþ anahtar niteliðinin aldýðý bütün deðerler\\
-      baþvurulan baðýntýnýn ilgili niteliðinde bulunmalý
+    \alert{baÅŸvuru bÃ¼tÃ¼nlÃ¼ÄŸÃ¼}:\\
+      dÄ±ÅŸ anahtar niteliÄŸinin aldÄ±ÄŸÄ± bÃ¼tÃ¼n deÄŸerler\\
+      baÅŸvurulan baÄŸÄ±ntÄ±nÄ±n ilgili niteliÄŸinde bulunmalÄ±
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item yapýlacak iþlem baþvuru bütünlüðünü bozacaksa ne olacak?
+    \item baÅŸvuru bÃ¼tÃ¼nlÃ¼ÄŸÃ¼nÃ¼ bozacak iÅŸlemlere izin verilmez
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Baþvuru Bütünlüðü Örneði}
+  \frametitle{BaÅŸvuru BÃ¼tÃ¼nlÃ¼ÄŸÃ¼ Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{columns}
@@ -1231,10 +1289,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE    & ... & DIRECTORID\\\hline\hline
-           ... & ...      & ... &        ...\\\hline
-          1512 & Suspiria & ... &       2259\\\hline
-           ... & ...      & ... &        ...\\\hline
+\underline{ID} & TITLE & ... & DIRECTORID\\[2pt]\hline\hline
+ ... & ...             & ... &        ...\\\hline
+1512 & Suspiria        & ... &       2259\\\hline
+ ... & ...             & ... &        ...\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1244,10 +1302,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME         \\\hline\hline
-           ... & ...          \\\hline
-          2259 & Dario Argento\\\hline
-           ... & ...          \\\hline
+\underline{ID} & NAME\\[2pt]\hline\hline
+ ... & ...           \\\hline
+2259 & Dario Argento \\\hline
+ ... & ...           \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1255,133 +1313,302 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 
     \pause
     \begin{itemize}
-      \item \texttt{(2259, Dario Argento)} çoklusunu sil
-      \item \texttt{(2259, Dario Argento)} çoklusunu\\
-        \texttt{(2871, Dario Argento)} olarak deðiþtir
+      \item \texttt{(2259, Dario Argento)} Ã§oklusunu sil
+      \item \texttt{(2259, Dario Argento)} Ã§oklusunu\\
+        \texttt{(2871, Dario Argento)} olarak deÄŸiÅŸtir
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\lstset{language=FullSQL, extendedchars=true}
+\begin{frame}[fragile]
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama}
+
+  \begin{block}{dÄ±ÅŸ anahtar tanÄ±mlama}
+    \begin{lstlisting}
+CONSTRAINT constraint_name
+  referencing_relation_variable_name
+      { attribute_name }
+    <= referenced_relation_variable_name
+        { attribute_name };
+    \end{lstlisting}
+  \end{block}
+
+  \begin{itemize}
+    \item \texttt{<=} iÅŸlemi $\subseteq$ diye okunabilir
+    \item iki baÄŸÄ±ntÄ±daki nitelik isimlerinin aynÄ± olmasÄ± gerek
+    \begin{itemize}
+      \item deÄŸilse nitelik isimleri deÄŸiÅŸtirilmeli
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama Ã–rnekleri}
+
+  \begin{ornek}[\texttt{CASTING} baÄŸÄ±ntÄ±sÄ±nda \texttt{MOVIE\#} dÄ±ÅŸ anahtarÄ±]
+    \begin{lstlisting}
+CONSTRAINT CASTING_FKEY_MOVIE
+  CASTING { MOVIE# }
+    <= MOVIE { MOVIE# };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama Ã–rnekleri}
+
+  \begin{ornek}[\texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nda \texttt{DIRECTOR\#} dÄ±ÅŸ anahtarÄ±]
+    \begin{lstlisting}
+CONSTRAINT MOVIE_FKEY_DIRECTOR
+    MOVIE { DIRECTOR# }
+        RENAME (DIRECTOR# AS PERSON#)
+      <= PERSON { PERSON# };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
+
+  \begin{ornek}[tiplerin tanÄ±mlanmasÄ±]
+    \begin{lstlisting}
+TYPE MOVIE# POSSREP { VALUE INTEGER };
+TYPE YEAR POSSREP { VALUE INTEGER };
+TYPE SCORE POSSREP { VALUE RATIONAL
+  CONSTRAINT (VALUE >= 1.0)
+         AND (VALUE <= 10.0) };
+TYPE PERSON# POSSREP { VALUE INTEGER };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
+
+  \begin{ornek}[\texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n yaratÄ±lmasÄ±]
+    \begin{lstlisting}
+VAR MOVIE BASE RELATION
+  { MOVIE# MOVIE#, TITLE CHAR, YEAR YEAR,
+    SCORE SCORE, VOTES INTEGER,
+    DIRECTOR# PERSON# }
+  KEY { MOVIE# };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
+
+  \begin{ornek}[\texttt{PERSON} ve \texttt{CASTING} baÄŸÄ±ntÄ±larÄ±nÄ±n yaratÄ±lmasÄ±]
+    \begin{lstlisting}
+VAR PERSON BASE RELATION
+    { PERSON# PERSON#, NAME CHAR }
+    KEY { PERSON# };
+
+VAR CASTING BASE RELATION
+    { MOVIE# MOVIE#, ACTOR# PERSON#,
+      ORD INTEGER }
+    KEY { MOVIE#, ACTOR# };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
+
+  \begin{ornek}[dÄ±ÅŸ anahtarlarÄ±n tanÄ±mlanmasÄ±]
+    \begin{lstlisting}
+CONSTRAINT MOVIE_FKEY_DIRECTOR
+  MOVIE { DIRECTOR# }
+      RENAME (DIRECTOR# AS PERSON#)
+    <= PERSON { PERSON# };
+
+CONSTRAINT CASTING_FKEY_MOVIE
+  CASTING { MOVIE# } <= MOVIE { MOVIE# };
+
+CONSTRAINT CASTING_FKEY_ACTOR
+  CASTING { ACTOR# }
+      RENAME (ACTOR# AS PERSON#)
+    <= PERSON { PERSON# };
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\lstset{language=FullSQL}
 
 \section{SQL}
 
-\subsection{Veri Tanýmlama}
+\subsection{Veri Tipleri}
 
 \begin{frame}
   \frametitle{Veri Tipleri}
 
   \begin{itemize}
-    \item \lstinline!INTEGER!
+    \item \texttt{INTEGER}
     \begin{itemize}
-      \item \lstinline!SMALLINT!
+      \item \texttt{SMALLINT}
     \end{itemize}
 
     \pause
     \medskip
-    \item \lstinline!NUMERIC (precision, scale)!
+    \item \texttt{NUMERIC (precision, scale)}
     \begin{itemize}
-      \item \texttt{precision}: toplam hane sayýsý
-      \item \texttt{scale}: noktadan sonraki hane sayýsý
-      \item \lstinline!DECIMAL (precision, scale)! ile eþanlamlý
+      \item \texttt{precision}: toplam hane sayÄ±sÄ±
+      \item \texttt{scale}: noktadan sonraki hane sayÄ±sÄ±
+      \item eÅŸanlamlÄ±sÄ±: \texttt{DECIMAL (precision, scale)}
     \end{itemize}
 
     \pause
     \medskip
-    \item \lstinline!FLOAT (p)!
+    \item \texttt{FLOAT (p)}
     \begin{itemize}
-      \item \texttt{p}: kabul edilebilir en düþük duyarlýlýk
+      \item \texttt{p}: kabul edilebilir en dÃ¼ÅŸÃ¼k duyarlÄ±k
     \end{itemize}
 
     \pause
     \medskip
-    \item \lstinline!BOOLEAN!
+    \item \texttt{BOOLEAN}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veri Tipleri}
+  \frametitle{Katar Veri Tipleri}
 
   \begin{itemize}
-    \item \lstinline!CHARACTER [VARYING] (n)!
+    \item \texttt{CHARACTER [VARYING] (n)}
     \begin{itemize}
-      \item \lstinline!CHARACTER (n)! tipinde katar \texttt{n} simgeden kýsaysa\\
-        sona boþluk eklenir
+      \item \texttt{CHARACTER (n)} tipinde, katar \texttt{n} simgeden kÄ±saysa\\
+        sona boÅŸluk eklenir
     \end{itemize}
 
     \pause
-    \item kýsaltmalar:
+    \item kÄ±saltmalar:
     \begin{itemize}
-      \item \lstinline!CHARACTER (n)! yerine \lstinline!CHAR (n)!
-      \item \lstinline!CHARACTER VARYING (n)! yerine \lstinline!VARCHAR (n)!
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Veri Tipleri}
-
-  \begin{itemize}
-    \item \lstinline!DATE!
-    \begin{itemize}
-      \item deðer örneði: \texttt{2005-09-26}
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item \lstinline!TIME!
-    \begin{itemize}
-      \item deðer örneði: \texttt{11:59:22.078717}
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item \lstinline!TIMESTAMP!
-    \begin{itemize}
-      \item deðer örneði: \texttt{2005-09-26 11:59:22.078717}
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item \lstinline!INTERVAL!
-    \begin{itemize}
-      \item deðer örneði: \texttt{3 days}
+      \item \texttt{CHARACTER (n)} yerine \texttt{CHAR (n)}
+      \item \texttt{CHARACTER VARYING (n)} yerine \texttt{VARCHAR (n)}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veri Tipleri}
+  \frametitle{Tarih - Zaman Veri Tipleri}
 
   \begin{itemize}
-    \item rasgele uzunluklu
-    \item sorgulama yapýlamaz
+    \item \texttt{DATE}
+    \begin{itemize}
+      \item deÄŸer Ã¶rneÄŸi: \texttt{2005-09-26}
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \texttt{TIME}
+    \begin{itemize}
+      \item deÄŸer Ã¶rneÄŸi: \texttt{11:59:22.078717}
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \texttt{TIMESTAMP}
+    \begin{itemize}
+      \item deÄŸer Ã¶rneÄŸi: \texttt{2005-09-26 11:59:22.078717}
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \texttt{INTERVAL}
+    \begin{itemize}
+      \item deÄŸer Ã¶rneÄŸi: \texttt{3 days}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BÃ¼yÃ¼k Nesne Veri Tipleri}
+
+  \begin{itemize}
+    \item rasgele uzunluklu nesneler
+    \item sorgulamada kullanÄ±lamaz
 
     \pause
     \bigskip
-    \item metin: \lstinline!CHARACTER LARGE OBJECT (n)!
+    \item metin: \texttt{CHARACTER LARGE OBJECT (n)}
     \begin{itemize}
-      \item \lstinline!CLOB!
+      \item \texttt{CLOB}
     \end{itemize}
 
     \pause
-    \item ikili: \lstinline!BINARY LARGE OBJECT (n)!
+    \item ikili: \texttt{BINARY LARGE OBJECT (n)}
     \begin{itemize}
-      \item \lstinline!BLOB!
+      \item \texttt{BLOB}
       \item resim, ses v.b.
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{TanÄ±m KÃ¼mesi Yaratma}
+
+  \begin{block}{tanÄ±m kÃ¼mesi yaratma}
+    \begin{lstlisting}
+CREATE DOMAIN domain_name [ AS ] base_type
+  [ DEFAULT default_value ]
+  [ { CHECK ( condition ) } [, ...] ]
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \medskip
+  \begin{block}{tanÄ±m kÃ¼mesi silme}
+    \begin{lstlisting}
+DROP DOMAIN domain_name [, ...]
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{TanÄ±m KÃ¼mesi Ã–rneÄŸi}
+
+  \begin{ornek}[geÃ§erli \texttt{SCORE} deÄŸerleri iÃ§in bir tanÄ±m kÃ¼mesi]
+    \begin{lstlisting}
+CREATE DOMAIN SCORES AS FLOAT
+  DEFAULT 2012
+  CHECK ((VALUE >= 1.0) AND (VALUE <= 10.0))
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\subsection{Tablo YÃ¶netimi}
+
+\begin{frame}[fragile]
   \frametitle{Tablo Yaratma}
 
-  \begin{block}{Komut}
+  \begin{block}{tablo yaratma}
     \begin{lstlisting}
-CREATE TABLE tablo_adý (
-  { sütun_adý veri_tipi
+CREATE TABLE table_name (
+  { column_name data_type }
+  [, ... ]
+)
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \medskip
+  \begin{block}{tablo silme}
+    \begin{lstlisting}
+DROP TABLE table_name [, ... ]
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{BoÅŸ ve VarsayÄ±lan DeÄŸerler}
+
+  \begin{block}{boÅŸ ve varsayÄ±lan deÄŸerler}
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  { column_name data_type
               [ NULL | NOT NULL ]
-              [ DEFAULT varsayýlan_deðer ] }
+              [ DEFAULT default_value ] }
   [, ... ]
 )
     \end{lstlisting}
@@ -1389,28 +1616,62 @@ CREATE TABLE tablo_adý (
 
   \pause
   \begin{itemize}
-    \item \lstinline!NULL!: niteliðin boþ býrakýlmasýna izin var (varsayýlan)
-    \item \lstinline!NOT NULL!: niteliðin boþ býrakýlmasýna izin yok
+    \item \texttt{NULL}: niteliÄŸin boÅŸ bÄ±rakÄ±lmasÄ±na izin var (varsayÄ±lan)
+    \item \texttt{NOT NULL}: niteliÄŸin boÅŸ bÄ±rakÄ±lmasÄ±na izin yok
   \end{itemize}
-
-  \begin{block}{Tablo Silme}
-    \begin{lstlisting}
-DROP TABLE tablo_adý [, ... ]
-    \end{lstlisting}
-  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tablo Yaratma Örneði}
+  \frametitle{Birincil Anahtar TanÄ±mlama}
+
+  \begin{block}{birincil anahtar tanÄ±mlama}
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  { column_name data_type
+              [ NULL | NOT NULL ]
+              [ DEFAULT default_value ] }
+  [, ... ]
+  [ PRIMARY KEY ( column_name [, ...] ) ]
+)
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item birincil anahtar tek bir sÃ¼tundan oluÅŸuyorsa,\\
+      doÄŸrudan sÃ¼tun tanÄ±mÄ±nda belirtilebilir:
+      \begin{lstlisting}
+column_name data_type PRIMARY KEY
+      \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tablo Yaratma Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
+  ID INTEGER,
   TITLE VARCHAR(80) NOT NULL,
-  YEAR NUMERIC(4),
+  YR NUMERIC(4),
   DIRECTOR VARCHAR(40),
-  COUNTRY CHAR(2),
   SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  PRIMARY KEY (ID)
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tablo Yaratma Ã–rneÄŸi}
+
+  \begin{ornek}
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY,
+  ...
   VOTES INTEGER DEFAULT 0
 )
     \end{lstlisting}
@@ -1418,16 +1679,53 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tablo Adý Deðiþtirme}
+  \frametitle{DeÄŸer KÄ±sÄ±tlamalarÄ±}
 
-  \begin{block}{Komut}
+  \begin{block}{deÄŸer kÄ±sÄ±tlamalarÄ±}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  RENAME TO yeni_ad
+CREATE TABLE table_name (
+  ...
+  [ { CHECK ( condition ) }
+    [, ...] ]
+  ...
+)
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DeÄŸer KÄ±sÄ±tlamasÄ± Ã–rneÄŸi}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{SCORE} deÄŸerleri \texttt{1.0} ile \texttt{10.0} arasÄ±nda
+        olmalÄ±
+    \end{itemize}
+
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY,
+  ...,
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tablo AdÄ± DeÄŸiÅŸtirme}
+
+  \begin{block}{tablo adÄ± deÄŸiÅŸtirme}
+    \begin{lstlisting}
+ALTER TABLE table_name
+  RENAME TO new_name
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
@@ -1437,56 +1735,59 @@ ALTER TABLE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Ekleme}
+  \frametitle{SÃ¼tun Ekleme}
 
-  \begin{block}{Komut}
+  \begin{block}{sÃ¼tun ekleme}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  ADD [ COLUMN ] sütun_adý veri_tipi
+ALTER TABLE table_name
+  ADD [ COLUMN ] column_name data_type
                  [ NULL | NOT NULL ]
-                 [ DEFAULT varsayýlan_deðer ]
+                 [ DEFAULT default_value ]
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  ADD COLUMN LANGUAGE CHAR(2)
+  ADD COLUMN RUNTIME INTEGER
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Silme}
+  \frametitle{SÃ¼tun Silme}
 
-  \begin{block}{Komut}
+  \begin{block}{sÃ¼tun silme}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  DROP [ COLUMN ] sütun_adý
+ALTER TABLE table_name
+  DROP [ COLUMN ] column_name
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
-  DROP COLUMN LANGUAGE
+  DROP COLUMN RUNTIME
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Adý Deðiþtirme}
+  \frametitle{SÃ¼tun AdÄ± DeÄŸiÅŸtirme}
 
-  \begin{block}{Komut}
+  \begin{block}{sÃ¼tun adÄ± deÄŸiÅŸtirme}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  RENAME [ COLUMN ] sütun_adý TO yeni_ad
+ALTER TABLE table_name
+  RENAME [ COLUMN ] column_name TO new_name
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
@@ -1496,139 +1797,124 @@ ALTER TABLE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Varsayýlan Deðeri Deðiþtirme}
+  \frametitle{SÃ¼tun VarsayÄ±lan DeÄŸeri DeÄŸiÅŸtirme}
 
-  \begin{block}{Komut}
+  \begin{block}{sÃ¼tun varsayÄ±lan deÄŸeri deÄŸiÅŸtirme}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  ALTER [ COLUMN ] sütun_adý
-    SET DEFAULT yeni_deðer
+ALTER TABLE table_name
+  ALTER [ COLUMN ] column_name
+  SET DEFAULT default_value
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ALTER COLUMN SCORE
-    SET DEFAULT 0
+  SET DEFAULT 0.0
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Varsayýlan Deðeri Silme}
+  \frametitle{SÃ¼tun VarsayÄ±lan DeÄŸeri Silme}
 
-  \begin{block}{Komut}
+  \begin{block}{sÃ¼tun varsayÄ±lan deÄŸeri silme}
     \begin{lstlisting}
-ALTER TABLE tablo_adý
-  ALTER [ COLUMN ] sütun_adý
-    DROP DEFAULT
+ALTER TABLE table_name
+  ALTER [ COLUMN ] column_name
+  DROP DEFAULT
     \end{lstlisting}
   \end{block}
 
   \pause
+  \medskip
   \begin{ornek}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ALTER COLUMN SCORE
-    DROP DEFAULT
+  DROP DEFAULT
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Anahtar Adayý Tanýmlama}
+  \frametitle{EÅŸsizlik TanÄ±mÄ±}
 
-  \begin{block}{Komut Yazýmý}
+  \begin{block}{eÅŸsizlik tanÄ±mÄ±}
     \begin{lstlisting}
-CREATE TABLE tablo_adý (
+CREATE TABLE table_name (
   ...
-  [ { UNIQUE ( sütun_adý [, ...] ) } [, ...] ]
+  [ { UNIQUE ( column_name [, ...] ) }
+    [, ...] ]
   ...
 )
     \end{lstlisting}
   \end{block}
 
+  \pause
   \begin{itemize}
-    \item anahtar adayý tek sütunsa sütun tanýmýnda belirtilebilir:\\
-      \lstinline!sütun_adý veri_tipi UNIQUE!
+    \item eÅŸsizlik kÄ±sÄ±tlamasÄ± tek bir sÃ¼tundan oluÅŸuyorsa,\\
+      doÄŸrudan sÃ¼tun tanÄ±mÄ±nda belirtilebilir:
+      \begin{lstlisting}
+column_name data_type UNIQUE
+      \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Anahtar Adayý Tanýmlama Örnekleri}
+  \frametitle{EÅŸsizlik TanÄ±mÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[\texttt{{ID}} ve \texttt{\{TITLE, DIRECTOR\}} eþsiz]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER,
-  TITLE VARCHAR(80) NOT NULL,
-  ...
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YEAR >= 1888),
-  UNIQUE (ID),
-  UNIQUE (TITLE, DIRECTOR)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Anahtar Adayý Tanýmlama Örnekleri}
-
-  \begin{ornek}[\texttt{ID} eþsiz ve boþ býrakýlamaz]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER UNIQUE NOT NULL,
-  TITLE VARCHAR(80) NOT NULL,
-  ...
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YEAR >= 1888),
-  UNIQUE (TITLE, DIRECTOR)
-)
-   \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Otomatik Kimlik Deðerleri}
-
-  \begin{itemize}
-    \item ürüne özel tanýmlar
-
+  \begin{ornek}
     \begin{itemize}
-      \item PostgreSQL: \texttt{SERIAL} veri tipi
-      \item MySQL: \texttt{AUTO\_INCREMENT} özelliði
+      \item \texttt{\{ITITLE\}} ve \texttt{\{DIRECTOR, YR\}} eÅŸsiz
     \end{itemize}
 
-    \pause
-    \item satýr eklerken boþ býrakýlýr
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY,
+  TITLE VARCHAR(80) UNIQUE NOT NULL,
+  YR NUMERIC(4),
+  DIRECTOR VARCHAR(40),
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  UNIQUE (DIRECTOR, YR)
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Otomatik DeÄŸer Ãœretme}
+
+  \begin{itemize}
+    \item Ã¼rÃ¼ne Ã¶zel tanÄ±mlar
+    \begin{itemize}
+      \item PostgreSQL: \texttt{SERIAL} veri tipi
+      \item MySQL: \texttt{AUTO\_INCREMENT} Ã¶zelliÄŸi
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Otomatik Kimlik Deðeri Örnekleri}
+  \frametitle{Otomatik DeÄŸer Ãœretme Ã–rnekleri}
 
   \begin{ornek}[PostgreSQL]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  ID SERIAL UNIQUE NOT NULL,
-  TITLE VARCHAR(80) NOT NULL,
+  ID SERIAL PRIMARY KEY,
   ...
 )
     \end{lstlisting}
   \end{ornek}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Otomatik Kimlik Deðeri Örnekleri}
-
+  \pause
   \begin{ornek}[MySQL]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  ID INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
-  TITLE VARCHAR(80) NOT NULL,
+  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
   ...
 )
     \end{lstlisting}
@@ -1636,91 +1922,92 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Birincil Anahtar Tanýmlama}
+  \frametitle{KÄ±sÄ±tlama YÃ¶netimi}
 
-  \begin{block}{Komut Yazýmý}
+  \begin{block}{kÄ±sÄ±tlama ekleme}
     \begin{lstlisting}
-CREATE TABLE tablo_adý (
-  ...
-  [ PRIMARY KEY ( sütun_adý [, ...] ) ]
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-
-  \begin{itemize}
-    \item birincil anahtar tek sütunsa sütun tanýmýnda belirtilebilir:\\
-      \lstinline!sütun_adý veri_tipi PRIMARY KEY!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Birincil Anahtar Tanýmlama Örnekleri}
-
-  \begin{ornek}[{ID} birincil anahtar]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER,
-  TITLE VARCHAR(80) NOT NULL,
-  ...
-  VOTES INTEGER DEFAULT 0,
-  UNIQUE (TITLE, DIRECTOR),
-  CHECK (YEAR >= 1888),
-  PRIMARY KEY (ID)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Birincil Anahtar Tanýmlama Örnekleri}
-
-  \begin{ornek}[ID birincil anahtar]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80),
-  ...
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YEAR >= 1888),
-  UNIQUE (TITLE, DIRECTOR)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\subsection{Veri Ýþleme}
-
-\begin{frame}[fragile]
-  \frametitle{Satýr Ekleme}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-INSERT INTO tablo_adý
-  [ ( sütun_adý [, ...] ) ]
-  VALUES ( deðer [, ...] )
+ALTER TABLE table_name
+  ADD [ CONSTRAINT constraint_name ]
+    constraint_definition
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item deðer sýrasý sütun adý sýrasýna uymalýdýr
-    \item sütun adlarý belirtilmezse sütun deðerleri\\
-      tablo yaratýlýrken verilen sýrayla yazýlmalýdýr
-    \item belirtilmeyen sütunlara varsayýlan deðerleri atanýr
+    \item var olan Ã§oklular ne olacak?
+  \end{itemize}
+
+  \pause
+  \begin{block}{kÄ±sÄ±tlama silme}
+    \begin{lstlisting}
+ALTER TABLE table_name
+  DROP [ CONSTRAINT ] constraint_name
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{KÄ±sÄ±tlama YÃ¶netimi Ã–rnekleri}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{YR} deÄŸerleri 1888'den kÃ¼Ã§Ã¼k olamasÄ±n
+    \end{itemize}
+
+    \begin{lstlisting}
+ALTER TABLE MOVIE
+  ADD CONSTRAINT MINIMUM_YEAR
+    CHECK (YR >= 1888)
+    \end{lstlisting}
+
+    \pause
+    \begin{itemize}
+      \item minimum yÄ±l kÄ±sÄ±tlamasÄ±nÄ± kaldÄ±r
+    \end{itemize}
+
+    \begin{lstlisting}
+ALTER TABLE MOVIE
+  DROP CONSTRAINT MINIMUM_YEAR
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\subsection{Veriyi DeÄŸiÅŸtirme}
+
+\begin{frame}[fragile]
+  \frametitle{SatÄ±r Ekleme}
+
+  \begin{block}{satÄ±r ekleme}
+    \begin{lstlisting}
+INSERT INTO table_name
+  [ ( column_name [, ...] ) ]
+  VALUES ( column_value [, ...] )
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item deÄŸer sÄ±rasÄ± sÃ¼tun adÄ± sÄ±rasÄ±na uymalÄ±dÄ±r
+    \item sÃ¼tun adlarÄ± belirtilmezse sÃ¼tun deÄŸerleri\\
+      tablo yaratÄ±lÄ±rken verilen sÄ±rayla yazÄ±lmalÄ±dÄ±r
+    \item belirtilmeyen sÃ¼tunlara varsayÄ±lan deÄŸerleri atanÄ±r
+
+    \pause
+    \medskip
+    \item otomatik Ã¼retilecek sÃ¼tunlarÄ± belirtmemek gerekir
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Satýr Ekleme Örnekleri}
+  \frametitle{SatÄ±r Ekleme Ã–rnekleri}
 
   \begin{ornek}
     \begin{lstlisting}
 INSERT INTO MOVIE VALUES (
+  6,
   'Usual Suspects',
   1995,
   'Bryan Singer',
-  'UK',
   8.7,
   35027
 )
@@ -1729,373 +2016,178 @@ INSERT INTO MOVIE VALUES (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Satýr Ekleme Örnekleri}
+  \frametitle{SatÄ±r Ekleme Ã–rnekleri}
 
   \begin{ornek}
     \begin{lstlisting}
-INSERT INTO MOVIE (YEAR, TITLE) VALUES (
+INSERT INTO MOVIE (YR, TITLE) VALUES (
   1995,
   'Usual Suspects'
 )
     \end{lstlisting}
+
+    \pause
+    \begin{itemize}
+      \item \texttt{ID} deÄŸeri otomatik Ã¼retilir
+    \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Satýr Silme}
+  \frametitle{SatÄ±r Silme}
 
-  \begin{block}{Komut}
+  \begin{block}{satÄ±r silme}
     \begin{lstlisting}
-DELETE FROM tablo_adý
-  [ WHERE koþul ]
+DELETE FROM table_name
+  [ WHERE condition ]
     \end{lstlisting}
   \end{block}
-
-  \pause
-  \begin{itemize}
-    \item koþul belirtilmezse bütün satýrlar silinir
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Satýr Silme Örnekleri}
+  \frametitle{SatÄ±r Silme Ã–rneÄŸi}
 
-  \begin{ornek}[puaný 3'ün altýnda olan filmleri sil]
+  \begin{ornek}
+    \begin{itemize}
+      \item puanÄ± 3.0'dan dÃ¼ÅŸÃ¼k, oy sayÄ±sÄ± 4'den fazla olan filmleri sil
+    \end{itemize}
+
     \begin{lstlisting}
 DELETE FROM MOVIE
-  WHERE (SCORE < 3)
+  WHERE ((SCORE < 3.0) AND (VOTES > 4))
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Satýr Silme Örnekleri}
+  \frametitle{SatÄ±r GÃ¼ncelleme}
 
-  \begin{ornek}[puaný 3'ün altýnda olan, en az 5 oy almýþ filmleri sil]
+  \begin{block}{satÄ±r gÃ¼ncelleme}
     \begin{lstlisting}
-DELETE FROM MOVIE
-  WHERE ((SCORE < 3) AND (VOTES >= 5))
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Satýr Güncelleme}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-UPDATE tablo_adý
-  SET { sütun_adý = deðer } [, ...]
-  [ WHERE koþul ]
+UPDATE table_name
+  SET { column_name = column_value } [, ...]
+  [ WHERE condition ]
     \end{lstlisting}
   \end{block}
-
-  \pause
-  \begin{itemize}
-    \item koþul belirtilmezse bütün satýrlar güncellenir
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Satýr Güncelleme Örnekleri}
+  \frametitle{SatÄ±r GÃ¼ncelleme Ã–rneÄŸi}
 
-  \begin{ornek}[1997'den önce çekilmiþ filmlerin puanlarýný ve oylarýný sýfýrla]
+  \begin{ornek}
+    \begin{itemize}
+      \item "Suspiria" filmi iÃ§in yeni verilen bir oyu (9) iÅŸle
+    \end{itemize}
+
     \begin{lstlisting}
 UPDATE MOVIE
-  SET SCORE = 0, VOTES = 0
-  WHERE (YEAR < 1997)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Satýr Güncelleme Örnekleri}
-
-  \begin{ornek}["Suspiria" filmine 9 puan ver]
-    \begin{lstlisting}
-UPDATE MOVIE
-  SET SCORE = (SCORE * VOTES + 9) / (VOTES + 1),
+  SET SCORE = (SCORE * VOTES + 9)
+                  / (VOTES + 1),
       VOTES = VOTES + 1
   WHERE (TITLE = 'Suspiria')
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
-\subsection{Bütünlük}
+\subsection{BaÅŸvuru BÃ¼tÃ¼nlÃ¼ÄŸÃ¼}
 
 \begin{frame}[fragile]
-  \frametitle{Deðer Kýsýtlamasý Belirtme}
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama}
 
-  \begin{block}{Komut Yazýmý}
+  \begin{block}{dÄ±ÅŸ anahtar tanÄ±mlama}
     \begin{lstlisting}
-CREATE TABLE tablo_adý (
+CREATE TABLE table_name (
   ...
-  [ { CHECK ( deyim ) } [, ...] ]
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Deðer Kýsýtlamasý Örneði}
-
-  \begin{ornek}[YEAR deðerleri 1888'den küçük olamaz]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80) NOT NULL,
-  YEAR NUMERIC(4),
-  ...,
-  VOTES INTEGER DEFAULT 0,
-  CHECK (YEAR >= 1888)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Taným Kümesi Yaratma}
-
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}
-CREATE DOMAIN taným_kümesi_adý [ AS ] taban_tip
-  [ DEFAULT varsayýlan_deðer ]
-  [ kýsýtlama_tanýmlarý ]
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item yaratýlan taným kümesi sütun tipi olarak kullanýlabilir
-  \end{itemize}
-
-  \pause
-  \begin{block}{Taným Kümesi Silme}
-    \begin{lstlisting}
-DROP DOMAIN taným_kümesi_adý [, ...]
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Taným Kümesi Örneði}
-
-  \begin{ornek}[yýllar için taným kümesi]
-    \begin{lstlisting}
-CREATE DOMAIN YEARS AS NUMERIC(4)
-  DEFAULT 2011
-  CHECK (VALUE >= 1888)
-    \end{lstlisting}
-
-    \pause
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  TITLE VARCHAR(80) NOT NULL,
-  YEAR YEARS,
+  [ { FOREIGN KEY ( column_name [, ...] )
+        REFERENCES table_name
+          [ ( column_name [, ...] ) ]
+        [ ON DELETE option ]
+        [ ON UPDATE option ] } [, ...] ]
   ...
 )
     \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kýsýtlama Yönetimi}
-
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}
-ALTER TABLE tablo_adý
-  ADD [ CONSTRAINT kýsýtlama_adý ]
-    kýsýtlama_tanýmý
-    \end{lstlisting}
   \end{block}
-
-  \pause
-  \begin{itemize}
-    \item var olan çoklular ne olacak?
-  \end{itemize}
-
-  \pause
-  \begin{block}{Kýsýtlama Silme}
-    \begin{lstlisting}
-ALTER TABLE tablo_adý
-  DROP [ CONSTRAINT ] kýsýtlama_adý
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kýsýtlama Yönetimi Örnekleri}
-
-  \begin{ornek}[SCORE niteliði 10'dan büyük olamasýn]
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ADD CHECK (SCORE <= 10)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kýsýtlama Yönetimi Örnekleri}
-
-  \begin{ornek}[SCORE niteliði 1 ile 10 arasýnda olsun]
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ADD CONSTRAINT SCORE_RANGE
-      CHECK ((SCORE >= 1) AND (SCORE <= 10))
-    \end{lstlisting}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[SCORE niteliði deðer aralýðý kontrol edilmesin]
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  DROP CONSTRAINT SCORE_RANGE
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
-
-  \begin{ornek}[MOVIE tablosunun yaratýlmasý]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80) NOT NULL,
-  YEAR NUMERIC(4),
-  SCORE FLOAT,
-  VOTES INTEGER DEFAULT 0,
-  DIRECTORID INTEGER
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
-
-  \begin{ornek}[PERSON tablosunun yaratýlmasý]
-    \begin{lstlisting}
-CREATE TABLE PERSON (
-  ID INTEGER PRIMARY KEY,
-  NAME VARCHAR(40) UNIQUE NOT NULL
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
-
-  \begin{ornek}[CASTING tablosunun yaratýlmasý]
-    \begin{lstlisting}
-CREATE TABLE CASTING (
-  MOVIEID INTEGER,
-  ACTORID INTEGER,
-  ORD INTEGER,
-  PRIMARY KEY (MOVIEID, ACTORID)
-)
-    \end{lstlisting}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bütünlük Kýsýtlamalarý}
+  \frametitle{BaÅŸvuru BÃ¼tÃ¼nlÃ¼ÄŸÃ¼ SeÃ§enekleri}
 
   \begin{itemize}
-    \item iþleme izin verme (\lstinline!RESTRICT! | \lstinline!NO\_ACTION!)
+    \item iÅŸleme izin verme: \texttt{RESTRICT}, \texttt{NO\_ACTION}
 
     \pause
-    \item iþlemi etkilenen çoklulara yansýt (\lstinline!CASCADE!)
+    \item iÅŸlemi etkilenen Ã§oklulara yansÄ±t: \texttt{CASCADE}
 
     \pause
-    \item boþ deðer ata (\lstinline!SET NULL!)
+    \item boÅŸ deÄŸer ata: \texttt{SET NULL}
     \begin{itemize}
-      \item boþ deðer olmasýna izin varsa
+      \item boÅŸ deÄŸer olmasÄ±na izin varsa
     \end{itemize}
 
     \pause
-    \item varsayýlan deðer ata (\lstinline!SET DEFAULT!)
+    \item varsayÄ±lan deÄŸer ata: \texttt{SET DEFAULT}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Bütünlük Kýsýtlamalarý Örnekleri}
+  \frametitle{BÃ¼tÃ¼nlÃ¼k KÄ±sÄ±tlamalarÄ± Ã–rnekleri}
 
-  \begin{ornek}[silerken kýsýtla]
+  \begin{ornek}[silerken kÄ±sÄ±tla]
     \begin{itemize}
-      \item \texttt{PERSON} baðýntýsýndan silinmek istenen\\
-        yönetmenin \texttt{ID} niteliði deðeri\\
-        \texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliði deðerleri\\
-        arasýnda geçiyorsa silmeye izin verme
+      \item \texttt{PERSON} baÄŸÄ±ntÄ±sÄ±ndan silinmek istenen\\
+        yÃ¶netmenin \texttt{ID} niteliÄŸi deÄŸeri\\
+        \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{DIRECTORID} niteliÄŸi deÄŸerleri\\
+        arasÄ±nda geÃ§iyorsa silmeye izin verme
     \end{itemize}
   \end{ornek}
 
   \pause
-  \begin{ornek}[güncellerken yansýt]
+  \begin{ornek}[gÃ¼ncellerken yansÄ±t]
     \begin{itemize}
-      \item bir yönetmenin \texttt{ID} niteliði deðeri\\
-        \texttt{PERSON} baðýntýsýnda güncellendiðinde\\
-        \texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliði deðerlerinde\\
-        geçtiði çoklularda da güncelle
+      \item bir yÃ¶netmenin \texttt{ID} niteliÄŸi deÄŸeri\\
+        \texttt{PERSON} baÄŸÄ±ntÄ±sÄ±nda gÃ¼ncellendiÄŸinde\\
+        \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{DIRECTORID} niteliÄŸi deÄŸerlerinde\\
+        geÃ§tiÄŸi Ã§oklularda da gÃ¼ncelle
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Bütünlük Kýsýtlamalarý Örnekleri}
+  \frametitle{BÃ¼tÃ¼nlÃ¼k KÄ±sÄ±tlamalarÄ± Ã–rnekleri}
 
-  \begin{ornek}[silerken yansýt]
+  \begin{ornek}[silerken yansÄ±t]
     \begin{itemize}
-      \item kiþiyi \texttt{PERSON} baðýntýsýndan sil
+      \item kiÅŸiyi \texttt{PERSON} baÄŸÄ±ntÄ±sÄ±ndan sil
 
       \pause
-      \item \texttt{CASTING} baðýntýsýnýn \texttt{ACTORID} niteliðinde\\
-        silinen kiþinin \texttt{ID} niteliði deðerinin geçtiði bütün çoklularý
+      \item \texttt{CASTING} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{ACTORID} niteliÄŸinde\\
+        silinen kiÅŸinin \texttt{ID} niteliÄŸi deÄŸerinin geÃ§tiÄŸi bÃ¼tÃ¼n Ã§oklularÄ±
         sil
 
       \pause
-      \item kiþinin \texttt{ID} niteliði deðerinin\\
-        \texttt{MOVIE} baðýntýsýnýn \texttt{DIRECTORID} niteliðinde geçtiði\\
-        bütün çoklularý \texttt{MOVIE} baðýntýsýndan sil
+      \item kiÅŸinin \texttt{ID} niteliÄŸi deÄŸerinin\\
+        \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{DIRECTORID} niteliÄŸinde geÃ§tiÄŸi\\
+        bÃ¼tÃ¼n Ã§oklularÄ± \texttt{MOVIE} baÄŸÄ±ntÄ±sÄ±ndan sil
 
       \pause
-      \item önceki adýmda silinen her bir \texttt{MOVIE} çoklusu için\\
-        \texttt{CASTING} baðýntýsýnýn \texttt{MOVIEID} niteliðinde\\
-        silinen filmin \texttt{ID} niteliði deðerinin geçtiði bütün çoklularý sil
+      \item Ã¶nceki adÄ±mda silinen her bir \texttt{MOVIE} Ã§oklusu iÃ§in\\
+        \texttt{CASTING} baÄŸÄ±ntÄ±sÄ±nÄ±n \texttt{MOVIEID} niteliÄŸinde\\
+        silinen filmin \texttt{ID} niteliÄŸi deÄŸerinin geÃ§tiÄŸi bÃ¼tÃ¼n Ã§oklularÄ± sil
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Dýþ Anahtar Tanýmlama}
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama Ã–rneÄŸi}
 
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}
-CREATE TABLE tablo_adý (
-  ...
-  [ { FOREIGN KEY ( sütun_adý [, ...] )
-        REFERENCES tablo_adý
-          [ ( sütun_adý [, ...] ) ]
-        [ ON DELETE seçenek ]
-        [ ON UPDATE seçenek ] } [, ...] ]
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Dýþ Anahtar Tanýmlama Örneði}
-
-  \begin{ornek}[MOVIE tablosunun yaratýlmasý]
+  \begin{ornek}[\texttt{MOVIE} tablosunda \texttt{DIRECTORID} dÄ±ÅŸ anahtarÄ±]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80) NOT NULL,
   ...
   DIRECTORID INTEGER,
-  FOREIGN KEY DIRECTORID REFERENCES PERSON (ID)
+  FOREIGN KEY DIRECTORID
+    REFERENCES PERSON (ID)
     ON DELETE RESTRICT
     ON UPDATE CASCADE
 )
@@ -2104,28 +2196,32 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Dýþ Anahtar Tanýmlama}
+  \frametitle{DÄ±ÅŸ Anahtar TanÄ±mlama}
 
   \begin{itemize}
-    \item dýþ anahtar baþvurulan tabloda birincil anahtarsa\\
-      \lstinline!REFERENCES! kýsmýnda belirtilmesi zorunlu deðil
+    \item dÄ±ÅŸ anahtar, baÅŸvurulan tabloda birincil anahtarla eÅŸleÅŸiyorsa\\
+      \texttt{REFERENCES} kÄ±smÄ±nda belirtilmesi zorunlu deÄŸildir
 
     \pause
-    \item dýþ anahtar tek sütunsa sütun tanýmýnda belirtilebilir:\\
-      \lstinline!sütun_adý veri_tipi!\\
-      ~~~~\lstinline!REFERENCES tablo_adý [ ( sütun_adý ) ]!
+    \medskip
+    \item dÄ±ÅŸ anahtar tek bir sÃ¼tundan oluÅŸuyorsa,\\
+      sÃ¼tun tanÄ±mÄ±nda belirtilebilir:
+    \begin{lstlisting}
+column_name data_type
+  REFERENCES table_name [ ( column_name ) ]
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
 
-  \begin{ornek}[MOVIE tablosunun yaratýlmasý]
+  \begin{ornek}[\texttt{MOVIE} tablosunun yaratÄ±lmasÄ±]
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
-  YEAR NUMERIC(4),
+  YR NUMERIC(4),
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
   DIRECTORID INTEGER REFERENCES PERSON
@@ -2135,9 +2231,9 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
 
-  \begin{ornek}[PERSON tablosunun yaratýlmasý]
+  \begin{ornek}[\texttt{PERSON} tablosunun yaratÄ±lmasÄ±]
     \begin{lstlisting}
 CREATE TABLE PERSON (
   ID INTEGER PRIMARY KEY,
@@ -2148,9 +2244,9 @@ CREATE TABLE PERSON (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Örnek Tablolarýn Yaratýlmasý}
+  \frametitle{Ã–rnek Veri TabanÄ±nÄ±n YaratÄ±lmasÄ±}
 
-  \begin{ornek}[CASTING tablosunun yaratýlmasý]
+  \begin{ornek}[\texttt{CASTING} tablosunun yaratÄ±lmasÄ±]
     \begin{lstlisting}
 CREATE TABLE CASTING (
   MOVIEID INTEGER REFERENCES MOVIE,
