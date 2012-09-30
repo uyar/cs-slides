@@ -1141,16 +1141,17 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Foreign Key Example}
+  \frametitle{Foreign Key Examples}
 
-  \begin{example}[the \texttt{DIRECTORID} attribute of the \texttt{MOVIE} relation]
+  \begin{example}[the \texttt{DIRECTOR\#} attribute of the \texttt{MOVIE}
+                  relation]
     \begin{columns}[t]
-      \column{.6\textwidth}
+      \column{.63\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE      & ... & DIRECTORID\\[2pt]\hline\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
    6 & Usual Suspects       & ... &        639\\\hline
 1512 & Suspiria             & ... &       2259\\\hline
   70 & Being John Malkovich & ... &       1485\\\hline
@@ -1159,12 +1160,12 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \end{table}
       \end{tiny}
 
-      \column{.4\textwidth}
+      \column{.37\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME\\[2pt]\hline\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
  308 & Gabriel Byrne \\\hline
 1485 & Spike Jonze   \\\hline
  639 & Bryan Singer  \\\hline
@@ -1182,14 +1183,14 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \color[rgb]{0.1,0.6,0.1}
     \thicklines
     \only<2->{
-      \put(12,22){\oval(20,8)}         % movie.directorid=2259
-      \put(88,0){\oval(20,8)}          % person.id=2259
-      \put(23,21){\vector(3,-1){55}}   % movie.directorid=2259->person.id=2259
+      \put(22,22){\oval(20,8)}       % movie.director#=2259
+      \put(101,0){\oval(20,8)}       % person.person#=2259
+      \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
     }
     \only<3->{
-      \put(0,41){\oval(45,9)}          % movie.directorid
-      \put(90,41){\oval(20,9)}         % person.id
-      \put(24,41){\vector(1,0){56}}    % movie.directorid->person.id
+      \put(10,41){\oval(45,9)}       % movie.director#
+      \put(92,41){\oval(36,9)}       % person.person#
+      \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
     }
   \end{picture}
 \end{frame}
@@ -1197,30 +1198,30 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \begin{frame}
   \frametitle{Foreign Key Example}
 
-  \begin{example}[foreign keys in movie database]
+  \begin{example}[foreign keys in the movie database]
     \begin{columns}
-      \column{.6\textwidth}
+      \column{.63\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE          & ... & DIRECTORID\\[2pt]\hline\hline
-             6 & Usual Suspects & ... &        639\\\hline
-          1512 & Suspiria       & ... &       2259\\\hline
-           ... & ...            & ... &        ...\\\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
+         6 & Usual Suspects & ... &        639\\\hline
+      1512 & Suspiria       & ... &       2259\\\hline
+       ... & ...            & ... &        ...\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
 
-      \column{.4\textwidth}
+      \column{.37\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME         \\[2pt]\hline\hline
-           308 & Gabriel Byrne\\\hline
-          1485 & Spike Jonze  \\\hline
-           ... & ...          \\\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
+        308 & Gabriel Byrne\\\hline
+       1485 & Spike Jonze  \\\hline
+        ... & ...          \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1230,7 +1231,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \begin{table}
       \caption{CASTING}
       \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                 ... &                 ... & ...\\\hline
@@ -1243,18 +1244,18 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \color[rgb]{0.1,0.6,0.1}
     \thicklines
     \only<2->{
-      \put(105,78){\oval(45,9)}        % movie.directorid
-      \put(209,78){\oval(20,9)}        % person.id
-      \put(128,78){\vector(1,0){71}}   % movie.directorid->person.id
+      \put(116,78){\oval(45,9)}        % movie.director#
+      \put(211,78){\oval(36,9)}        % person.person#
+      \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
     }
     \only<3->{
-      \put(96,4){\oval(35,9)}          % casting.movieid
-      \put(0,78){\oval(20,9)}          % movie.id
-      \put(96,9){\vector(-4,3){88}}    % casting.movieid->movie.id
+      \put(97,4){\oval(33,9)}          % casting.movie#
+      \put(3,77){\oval(33,9)}          % movie.movie#
+      \put(96,9){\vector(-4,3){83}}    % casting.movie#->movie.movie#
     }
     \only<4->{
-      \put(136,4){\oval(35,9)}         % casting.personid
-      \put(150,9){\vector(3,4){49}}    % casting.personid->person.id
+      \put(136,4){\oval(35,9)}         % casting.actor#
+      \put(150,9){\vector(3,4){48}}    % casting.actor#->person.person#
     }
   \end{picture}
 \end{frame}
@@ -1284,10 +1285,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{MOVIE}
         \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE & ... & DIRECTORID\\[2pt]\hline\hline
- ... & ...             & ... &        ...\\\hline
-1512 & Suspiria        & ... &       2259\\\hline
- ... & ...             & ... &        ...\\\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
+             ... & ...      & ... &        ...\\\hline
+            1512 & Suspiria & ... &       2259\\\hline
+             ... & ...      & ... &        ...\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1297,10 +1298,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \begin{table}
         \caption{PERSON}
         \begin{tabular}{|r|l|}\hline
-\underline{ID} & NAME\\[2pt]\hline\hline
- ... & ...           \\\hline
-2259 & Dario Argento \\\hline
- ... & ...           \\\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
+        ... & ...          \\\hline
+       2259 & Dario Argento\\\hline
+        ... & ...          \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1329,7 +1330,6 @@ CONSTRAINT constraint_name
   \end{block}
 
   \begin{itemize}
-    \item read \texttt{<=} as $\subseteq$
     \item attribute names have to match in both relations
     \begin{itemize}
       \item otherwise, attributes should be renamed
@@ -1396,12 +1396,20 @@ VAR MOVIE BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[creating the \texttt{PERSON} and \texttt{CASTING} relations]
+  \begin{example}[creating the \texttt{PERSON} relation]
     \begin{lstlisting}
 VAR PERSON BASE RELATION
     { PERSON# PERSON#, NAME CHAR }
     KEY { PERSON# };
+    \end{lstlisting}
+  \end{example}
+\end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Creating the Example Database}
+
+  \begin{example}[creating the \texttt{CASTING} relation]
+    \begin{lstlisting}
 VAR CASTING BASE RELATION
     { MOVIE# MOVIE#, ACTOR# PERSON#,
       ORD INTEGER }
@@ -1413,13 +1421,21 @@ VAR CASTING BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[defining the foreign keys]
+  \begin{example}[defining the foreign keys in the \texttt{MOVIE} relation]
     \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
   MOVIE { DIRECTOR# }
       RENAME (DIRECTOR# AS PERSON#)
     <= PERSON { PERSON# };
+    \end{lstlisting}
+  \end{example}
+\end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Creating the Example Database}
+
+  \begin{example}[defining the foreign keys in the \texttt{CASTING} relation]
+    \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# } <= MOVIE { MOVIE# };
 
