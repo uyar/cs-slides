@@ -17,7 +17,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
-\usepackage[labelformat=empty,aboveskip=1pt,belowskip=1pt]{caption}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
@@ -448,7 +448,8 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \frametitle{Keys}
 
   \begin{itemize}
-    \item let $B$ be the attributes of the relation and let $A \subseteq B$
+    \item let $B$ be the set of all attributes of the relation,\\
+      and let $A \subseteq B$ 
 
     \item in order for $A$ to be a candidate key,\\
       the following conditions must hold:
@@ -632,7 +633,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 \begin{frame}[fragile]
   \frametitle{Defining Types}
 
-  \begin{block}{defining types}
+  \begin{block}{Statement}
     \begin{lstlisting}
 TYPE type_name POSSREP {
   field_name field_type
@@ -642,7 +643,7 @@ TYPE type_name POSSREP {
   \end{block}
 
   \pause
-  \begin{block}{deleting types}
+  \begin{block}{Deleting Types}
     \begin{lstlisting}
 DROP TYPE type_name;
     \end{lstlisting}
@@ -726,9 +727,9 @@ RENAME (MOVIE# AS MOVIENO)
 \begin{frame}[fragile]
   \frametitle{Value Constraints}
 
-  \begin{block}{defining value constraints}
+  \begin{block}{Statement}
     \begin{lstlisting}
-TYPE SCORE POSSREP {
+TYPE type_name POSSREP {
   field_name field_type
   [, ...]
   CONSTRAINT condition
@@ -760,7 +761,7 @@ TYPE SCORE POSSREP {
 \begin{frame}[fragile]
   \frametitle{Defining Relations}
 
-  \begin{block}{defining relations}
+  \begin{block}{Statement}
     \begin{lstlisting}
 RELATION
   { attribute_name attribute_type
@@ -790,18 +791,18 @@ RELATION
 \begin{frame}[fragile]
   \frametitle{Creating Base Relation Variables}
 
-  \begin{block}{creating base relation variables}
+  \begin{block}{Statement}
     \begin{lstlisting}
-VAR variable_name BASE RELATION
+VAR relvar_name BASE RELATION
   { ... }
   KEY { ... };
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{deleting a variable}
+  \begin{block}{Deleting Variables}
     \begin{lstlisting}
-DROP VAR variable_name;
+DROP VAR relvar_name;
     \end{lstlisting}
   \end{block}
 \end{frame}
@@ -826,7 +827,7 @@ VAR MOVIE BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Tuple and Relation Generation}
 
-  \begin{block}{tuple generation}
+  \begin{block}{Tuple Generation}
     \begin{lstlisting}
 TUPLE {
   attribute_name attribute_value
@@ -836,7 +837,7 @@ TUPLE {
   \end{block}
 
   \pause
-  \begin{block}{relation generation}
+  \begin{block}{Relation Generation}
     \begin{lstlisting}
 RELATION {
   TUPLE { ... }
@@ -850,9 +851,9 @@ RELATION {
   \frametitle{Relation Variable Assignment}
 
   \begin{itemize}
-    \item a relation can be assigned to a relation variable:
+    \item a relation body can be assigned to a relation variable:
     \begin{lstlisting}
-variable_name := RELATION { ... };
+relvar_name := RELATION { ... };
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -881,9 +882,9 @@ MOVIE := RELATION {
 \begin{frame}[fragile]
   \frametitle{Inserting Tuples}
 
-  \begin{block}{inserting tuples}
+  \begin{block}{Statement}
     \begin{lstlisting}
-INSERT relation_variable_name RELATION {
+INSERT relvar_name RELATION {
   TUPLE { ... }
   [, ...]
 };
@@ -898,9 +899,10 @@ INSERT relation_variable_name RELATION {
     \begin{lstlisting}
 INSERT MOVIE RELATION {
   TUPLE { MOVIE# MOVIE#(6),
-    TITLE "Usual Suspects",
-    YEAR YEAR(1995), DIRECTOR "Bryan Singer",
-    SCORE SCORE(8.7), VOTES 35027 }
+    TITLE "Suspiria",
+    YEAR YEAR(1977),
+    DIRECTOR "Dario Argento",
+    SCORE SCORE(7.1), VOTES 1004 }
 };
     \end{lstlisting}
   \end{example}
@@ -909,9 +911,9 @@ INSERT MOVIE RELATION {
 \begin{frame}[fragile]
   \frametitle{Deleting Tuples}
 
-  \begin{block}{deleting tuples}
+  \begin{block}{Statement}
     \begin{lstlisting}
-DELETE relation_variable_name
+DELETE relvar_name
   [ WHERE condition ];
     \end{lstlisting}
   \end{block}
@@ -941,9 +943,9 @@ DELETE MOVIE
 \begin{frame}[fragile]
   \frametitle{Updating Tuples}
 
-  \begin{block}{updating tuples}
+  \begin{block}{Statement}
     \begin{lstlisting}
-UPDATE relation_variable_name
+UPDATE relvar_name
   [ WHERE condition ]
   ( attribute_name := attribute_value
     [, ...] );
@@ -1013,7 +1015,7 @@ UPDATE MOVIE
     \end{picture}
 
     \pause
-    \vspace{-1cm}
+    \vspace{-25pt}
     \begin{tiny}
     \begin{table}
       \caption{MOVIE}
@@ -1047,6 +1049,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{table}
     \end{tiny}
 
+    \vspace{-12pt}
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -1096,6 +1099,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{table}
     \end{tiny}
 
+    \vspace{-12pt}
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -1319,12 +1323,12 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Defining Foreign Keys}
 
-  \begin{block}{defining foreign keys}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CONSTRAINT constraint_name
-  referencing_relation_variable_name
+  referencing_relvar_name
       { attribute_name }
-    <= referenced_relation_variable_name
+    <= referenced_relvar_name
         { attribute_name };
     \end{lstlisting}
   \end{block}
@@ -1562,7 +1566,7 @@ CONSTRAINT CASTING_FKEY_ACTOR
 \begin{frame}[fragile]
   \frametitle{Creating Domains}
 
-  \begin{block}{creating domains}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE DOMAIN domain_name [ AS ] base_type
   [ DEFAULT default_value ]
@@ -1572,7 +1576,7 @@ CREATE DOMAIN domain_name [ AS ] base_type
 
   \pause
   \medskip
-  \begin{block}{deleting domains}
+  \begin{block}{Deleting Domains}
     \begin{lstlisting}
 DROP DOMAIN domain_name [, ...]
     \end{lstlisting}
@@ -1596,7 +1600,7 @@ CREATE DOMAIN SCORES AS FLOAT
 \begin{frame}[fragile]
   \frametitle{Creating Tables}
 
-  \begin{block}{creating tables}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type }
@@ -1607,7 +1611,7 @@ CREATE TABLE table_name (
 
   \pause
   \medskip
-  \begin{block}{deleting tables}
+  \begin{block}{Deleting Tables}
     \begin{lstlisting}
 DROP TABLE table_name [, ... ]
     \end{lstlisting}
@@ -1617,7 +1621,7 @@ DROP TABLE table_name [, ... ]
 \begin{frame}[fragile]
   \frametitle{Null and Default Values}
 
-  \begin{block}{null and default values}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type
@@ -1638,7 +1642,7 @@ CREATE TABLE table_name (
 \begin{frame}[fragile]
   \frametitle{Defining Primary Keys}
 
-  \begin{block}{defining primary keys}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type
@@ -1695,7 +1699,7 @@ CREATE TABLE MOVIE (
 \begin{frame}[fragile]
   \frametitle{Value Constraints}
 
-  \begin{block}{value constraints}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1730,7 +1734,7 @@ CREATE TABLE MOVIE (
 \begin{frame}[fragile]
   \frametitle{Renaming Tables}
 
-  \begin{block}{renaming tables}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   RENAME TO new_name
@@ -1750,7 +1754,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Adding Columns}
 
-  \begin{block}{adding columns}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ COLUMN ] column_name data_type
@@ -1772,7 +1776,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Deleting Columns}
 
-  \begin{block}{deleting columns}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   DROP [ COLUMN ] column_name
@@ -1792,7 +1796,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Renaming Columns}
 
-  \begin{block}{renaming columns}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   RENAME [ COLUMN ] column_name TO new_name
@@ -1812,7 +1816,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Changing Column Default Value}
 
-  \begin{block}{changing column default value}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
@@ -1834,7 +1838,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Removing Column Default Value}
 
-  \begin{block}{removing column default value}
+  \begin{block}{Statement}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
@@ -1856,7 +1860,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Uniqueness Definition}
 
-  \begin{block}{uniqueness definition}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1937,7 +1941,7 @@ CREATE TABLE MOVIE (
 \begin{frame}[fragile]
   \frametitle{Constraint Management}
 
-  \begin{block}{adding constraints}
+  \begin{block}{Adding Constraints}
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ CONSTRAINT constraint_name ]
@@ -1951,7 +1955,7 @@ ALTER TABLE table_name
   \end{itemize}
 
   \pause
-  \begin{block}{removing constraints}
+  \begin{block}{Removing Constraints}
     \begin{lstlisting}
 ALTER TABLE table_name
   DROP [ CONSTRAINT ] constraint_name
@@ -1990,7 +1994,7 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Inserting Rows}
 
-  \begin{block}{inserting rows}
+  \begin{block}{Statement}
     \begin{lstlisting}
 INSERT INTO table_name
   [ ( column_name [, ...] ) ]
@@ -2049,7 +2053,7 @@ INSERT INTO MOVIE (YR, TITLE) VALUES (
 \begin{frame}[fragile]
   \frametitle{Deleting Rows}
 
-  \begin{block}{deleting rows}
+  \begin{block}{Statement}
     \begin{lstlisting}
 DELETE FROM table_name
   [ WHERE condition ]
@@ -2075,7 +2079,7 @@ DELETE FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Updating Rows}
 
-  \begin{block}{updating rows}
+  \begin{block}{Statement}
     \begin{lstlisting}
 UPDATE table_name
   SET { column_name = column_value } [, ...]
@@ -2107,7 +2111,7 @@ UPDATE MOVIE
 \begin{frame}[fragile]
   \frametitle{Defining Foreign Keys}
 
-  \begin{block}{defining foreign keys}
+  \begin{block}{Statement}
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
