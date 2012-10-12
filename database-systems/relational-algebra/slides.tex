@@ -22,9 +22,9 @@
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
   morekeywords={AND, AS, BASE, BOOL, CAST_AS_, CAST_AS_RATIONAL, CHAR,
-                CONSTRAINT, DELETE, DROP, INSERT, INTEGER, JOIN, KEY, POSSREP,
-                RATIONAL, RELATION, RENAME, THE_, TUPLE, TYPE, UPDATE, VAR,
-                WHERE}
+                CONSTRAINT, DELETE, DIVIDEBY, DROP, INSERT, INTEGER, INTERSECT,
+                JOIN, KEY, MINUS, OR, PER, POSSREP, RATIONAL, RELATION, RENAME,
+                THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -131,23 +131,23 @@
       %\caption{MOVIE}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE           & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects                 & 1995 &    87 & 35027 &        639\\\hline
-  70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
- 107 & Batman \& Robin                & 1997 &    35 & 10577 &        105\\\hline
- 110 & Sleepy Hollow                  & 1999 &    75 & 10514 &        148\\\hline
- 112 & Three Kings                    & 1999 &    77 & 10319 &       1070\\\hline
- 151 & Gattaca                        & 1997 &    74 &  8388 &       2020\\\hline
- 213 & Blade                          & 1998 &    67 &  6885 &       2861\\\hline
- 228 & Ed Wood                        & 1994 &    78 &  6587 &        148\\\hline
- 251 & End of Days                    & 1999 &    55 &  6095 &        103\\\hline
- 281 & Dangerous Liaisons             & 1988 &    77 &  5651 &        292\\\hline
- 373 & Fear and Loathing in Las Vegas & 1998 &    65 &  4658 &         59\\\hline
- 432 & Stigmata                       & 1999 &    61 &  4141 &       2557\\\hline
- 433 & eXistenZ                       & 1999 &    69 &  4130 &         97\\\hline
- 573 & Dead Man                       & 1995 &    74 &  3333 &        175\\\hline
-1468 & Europa                         & 1991 &    76 &  1042 &        615\\\hline
-1512 & Suspiria                       & 1977 &    71 &  1004 &       2259\\\hline
-1539 & Cry-Baby                       & 1990 &    59 &   972 &        364\\\hline
+   6 & Usual Suspects                 & 1995 &   8.7 & 35027 &        639\\\hline
+  70 & Being John Malkovich           & 1999 &   8.3 & 13809 &       1485\\\hline
+ 107 & Batman \& Robin                & 1997 &   3.5 & 10577 &        105\\\hline
+ 110 & Sleepy Hollow                  & 1999 &   7.5 & 10514 &        148\\\hline
+ 112 & Three Kings                    & 1999 &   7.7 & 10319 &       1070\\\hline
+ 151 & Gattaca                        & 1997 &   7.4 &  8388 &       2020\\\hline
+ 213 & Blade                          & 1998 &   6.7 &  6885 &       2861\\\hline
+ 228 & Ed Wood                        & 1994 &   7.8 &  6587 &        148\\\hline
+ 251 & End of Days                    & 1999 &   5.5 &  6095 &        103\\\hline
+ 281 & Dangerous Liaisons             & 1988 &   7.7 &  5651 &        292\\\hline
+ 373 & Fear and Loathing in Las Vegas & 1998 &   6.5 &  4658 &         59\\\hline
+ 432 & Stigmata                       & 1999 &   6.1 &  4141 &       2557\\\hline
+ 433 & eXistenZ                       & 1999 &   6.9 &  4130 &         97\\\hline
+ 573 & Dead Man                       & 1995 &   7.4 &  3333 &        175\\\hline
+1468 & Europa                         & 1991 &   7.6 &  1042 &        615\\\hline
+1512 & Suspiria                       & 1977 &   7.1 &  1004 &       2259\\\hline
+1539 & Cry-Baby                       & 1990 &   5.9 &   972 &        364\\\hline
     \end{tabular}
   \end{table}
   \end{tiny}
@@ -301,7 +301,7 @@ relvar_name WHERE condition
 
   \pause
   \begin{itemize}
-    \item output relation header = input relation header
+    \item output header = input header
   \end{itemize}
 \end{frame}
 
@@ -380,7 +380,7 @@ relvar_name { attribute_name [, ...] }
 
   \pause
   \begin{itemize}
-    \item output relation header = attribute list
+    \item output header = attribute list
   \end{itemize}
 \end{frame}
 
@@ -539,7 +539,7 @@ MOVIE { YEAR }
         and scores higher than 7.0 (\texttt{P4A})
 
       \pause
-      \item the titles in the \texttt{P4A} relation (\texttt{P4})
+      \item the titles in \texttt{P4A} (\texttt{P4})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -583,7 +583,7 @@ MOVIE WHERE ((VOTES > 5000)
 
   \begin{example}
     \begin{itemize}
-      \item the titles in the \texttt{P4A} relation (\texttt{P4})
+      \item the titles in \texttt{P4A} (\texttt{P4})
     \end{itemize}
 
     \begin{lstlisting}
@@ -634,15 +634,25 @@ Usual Suspects      \\\hline
   \frametitle{Join}
 
   \begin{definition}
-    \alert{joining}: matching tuples of two relations\\
+    \alert{join}: matching tuples of two relation variables\\
       over common values of one or more attributes
-
-    \begin{itemize}
-      \item over common values of all the attributes with the same name
-    \end{itemize}
   \end{definition}
 
-  \pause
+  \begin{itemize}
+    \item from the Carthesian product of the two relation variables,\\
+      selecting the tuples which have the same values\\
+      for the given attributes
+    \item matching attributes are not repeated in the output
+
+    \pause
+    \item \alert{natural join}: over common values of all the attributes\\
+      with the same name
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Join}
+
   \begin{block}{Statement}
     \begin{lstlisting}
 relvar1_name JOIN relvar2_name
@@ -651,7 +661,7 @@ relvar1_name JOIN relvar2_name
 
   \pause
   \begin{itemize}
-    \item output relation header = relvar1 header $\cup$ relvar2 header
+    \item output header = relvar1 header $\cup$ relvar2 header
   \end{itemize}
 \end{frame}
 
@@ -669,8 +679,7 @@ relvar1_name JOIN relvar2_name
       \item all movies and their directors (\texttt{J1A})
 
       \pause
-      \item the movie titles and director names in the \texttt{J1A} relation
-        (\texttt{J1})
+      \item the movie titles and director names in \texttt{J1A} (\texttt{J1})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -684,7 +693,7 @@ relvar1_name JOIN relvar2_name
     \end{itemize}
 
     \begin{lstlisting}
-MOVIE RENAME (DIRECTOR# AS PERSON#)
+(MOVIE RENAME (DIRECTOR# AS PERSON#))
     JOIN PERSON
     \end{lstlisting}
 
@@ -713,7 +722,7 @@ MOVIE RENAME (DIRECTOR# AS PERSON#)
 
   \begin{example}
     \begin{itemize}
-      \item the movie titles and director names in the \texttt{J1A} relation
+      \item the movie titles and director names in \texttt{J1A}
         (\texttt{J1})
     \end{itemize}
 
@@ -755,12 +764,11 @@ eXistenZ             & David Cronenberg\\\hline
       \item all movies and their casting data (\texttt{J2A})
 
       \pause
-      \item all data in the \texttt{J2A} relation matched with persons
-        (\texttt{J2B})
+      \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
 
       \pause
-      \item the movie titles, actor names and ordinal numbers\\
-        in the \texttt{J2B} relation (\texttt{J2})
+      \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
+        (\texttt{J2})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -803,12 +811,11 @@ MOVIE JOIN CASTING
 
   \begin{example}
     \begin{itemize}
-      \item all data in the \texttt{J2A} relation matched with persons
-        (\texttt{J2B})
+      \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
     \end{itemize}
 
     \begin{lstlisting}
-J2A JOIN PERSON RENAME (PERSON# AS ACTOR#)
+J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
     \end{lstlisting}
 
     \pause
@@ -837,8 +844,8 @@ J2A JOIN PERSON RENAME (PERSON# AS ACTOR#)
 
   \begin{example}
     \begin{itemize}
-      \item the movie titles, actor names and ordinal numbers\\
-        in the \texttt{J2B} relation (\texttt{J2})
+      \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
+        (\texttt{J2})
     \end{itemize}
 
     \begin{lstlisting}
@@ -869,19 +876,21 @@ Cry-Baby             & Traci Lords      &   7\\\hline
 \begin{frame}
   \frametitle{Join Examples - 3}
 
-  \begin{example}[names of actors who played with Johnny Depp]
+  \begin{example}
+    \begin{itemize}
+      \item the names of the actors in Johnny Depp's movies (\texttt{J3})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item select Johnny Depp's identity
+      \item the identifiers of Johnny Depp's movies (\texttt{J3A})
 
       \pause
-      \item match this identity with the casting data
+      \item the identifiers of the actors in the movies in \texttt{J3A}
+        (\texttt{J3B})
 
       \pause
-      \item match the obtained data with actor identities
-
-      \pause
-      \item match the obtained actor identities with person data
+      \item the names of the actors in \texttt{J3B} (\texttt{J3})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -889,20 +898,29 @@ Cry-Baby             & Traci Lords      &   7\\\hline
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}[Johnny Depp's identity]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers of Johnny Depp's movies (\texttt{J3A})
+    \end{itemize}
+
     \begin{lstlisting}
-j3a = project (select (person)
-                      (name='Johnny Depp'))
-              (id)
-    \end{lstlisting}
+(((PERSON RENAME (PERSON# AS ACTOR#))
+    JOIN CASTING)
+  WHERE (NAME = 'Johnny Depp')) { MOVIE# }
+  \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3a}
-      \begin{tabular}{|r|}\hline
-ID\\\hline\hline
-26\\\hline
+      \caption{J3A}
+      \begin{tabular}{|r|l|r|r|}\hline
+\underline{MOVIE\#}\\[2pt]\hline\hline
+                110\\\hline
+                228\\\hline
+                373\\\hline
+                573\\\hline
+               1539\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -912,24 +930,31 @@ ID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}[identities of movies Johnny Depp was in]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers of the actors in the movies in \texttt{J3A}
+        (\texttt{J3B})
+    \end{itemize}
+
     \begin{lstlisting}
-j3b = project (join (j3a) (casting)
-                    (j3a.id=casting.actorid))
-              (movieid)
+(J3A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3b}
+      \caption{J3B}
       \begin{tabular}{|r|}\hline
-MOVIEID\\\hline\hline
-    110\\\hline
-    228\\\hline
-    373\\\hline
-    573\\\hline
-   1539\\\hline
+\underline{ACTOR\#}\\[2pt]\hline\hline
+                 26\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
+                406\\\hline
+               1641\\\hline
+               3578\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -939,56 +964,29 @@ MOVIEID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}[identities of actors who were in the movies
-                  Johnny Depp was in]
+  \begin{example}
+    \begin{itemize}
+      \item the names of the actors in \texttt{J3B} (\texttt{J3})
+    \end{itemize}
+
     \begin{lstlisting}
-j3c = project (join (j3b) (casting)
-          (j3b.movieid=casting.movieid))
-        (actorid)
+((J3B RENAME (ACTOR# AS PERSON#))
+    JOIN PERSON) { NAME }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3c}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-     26\\\hline
-    187\\\hline
-    406\\\hline
-    282\\\hline
-    302\\\hline
-    308\\\hline
-   1641\\\hline
-   3578\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Join Examples - 3}
-
-  \begin{example}[names of actors who played with Johnny Depp]
-    \begin{lstlisting}
-j3 = project (join (j3c) (person)
-                   (j3c.actorid=person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{j3}
+      \caption{J3}
       \begin{tabular}{|l|}\hline
 NAME             \\\hline\hline
 Johnny Depp      \\\hline
 Christina Ricci  \\\hline
-Patricia Arquette\\\hline
 Cameron Diaz     \\\hline
 Benicio Del Toro \\\hline
 Gabriel Byrne    \\\hline
+Patricia Arquette\\\hline
 Iggy Pop         \\\hline
 Traci Lords      \\\hline
       \end{tabular}
@@ -1018,47 +1016,47 @@ Traci Lords      \\\hline
   \frametitle{Division}
 
   \begin{definition}
-    \alert{division}: relation\_1 / relation\_2\\
-      from the tuples of the first relation\\
-      choose the ones that match all tuples in the second relation\\
-      and get the attributes not found in the second relation
+    \alert{division}: from the tuples of the first relation variable,\\
+      selecting the ones that match all the tuples\\
+      of the second relation variable in a mediating relation variable
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-divide (relation_1) (relation_2)
+relvar1_name DIVIDEBY relvar2_name
+  PER (relvar3_name)
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item relation$_2$ header $\subseteq$ relation$_1$ header
+    \item relvar1 header $\cup$ relvar2 header $\subseteq$ relvar3 header
 
     \pause
-    \item output relation header = relation${_1}$ header - relation${_2}$
-      header
+    \item output header = relvar1 header
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Division Example}
 
-  \begin{example}[titles of movies in which Johnny Depp and Christina Ricci
-                  both played]
+  \begin{example}
+    \begin{itemize}
+      \item the titles of the movies in which both Johnny Depp\\
+        and Christina Ricci played (\texttt{V1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item get the identities of Johnny Depp and Christina Ricci
+      \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
 
       \pause
-      \item get the identities of all movies and actors
+      \item the identities of the movies with all the actors in \texttt{V1A}
+        (\texttt{V1B})
 
       \pause
-      \item get the identities of the movies\\
-	in which Johnny Depp and Christina Ricci both played
-
-      \pause
-      \item match the obtained identities to the movies and get their titles
+      \item the titles of the movies in \texttt{V1B} (\texttt{V1})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -1066,22 +1064,27 @@ divide (relation_1) (relation_2)
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}[identities of Johnny Depp and Christina Ricci]
+  \begin{example}
+    \begin{itemize}
+      \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
+    \end{itemize}
+
     \begin{lstlisting}
-v1a = project (select (person)
-                  ((name='Johnny Depp')
-                or (name='Christina Ricci')))
-              (id)
+(PERSON
+    WHERE ((NAME = "Johnny Depp")
+        OR (NAME = "Christina Ricci")))
+  { PERSON# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1a}
+      \caption{V1A}
       \begin{tabular}{|r|}\hline
- ID\\\hline\hline
- 26\\\hline
-187\\\hline
+\underline{PERSON\#}\\[2pt]\hline\hline
+                  26\\\hline
+                 187\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1091,71 +1094,27 @@ v1a = project (select (person)
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}[identities of all movies and actors]
+  \begin{example}
+    \begin{itemize}
+      \item the identities of movies with all the actors in \texttt{V1A}
+        (\texttt{V1B})
+    \end{itemize}
+
     \begin{lstlisting}
-v1b = project (casting) (movieid,actorid)
+(MOVIE { MOVIE# })
+    DIVIDEBY (V1A RENAME (PERSON# AS ACTOR#))
+      PER (CASTING { MOVIE#, ACTOR# })
     \end{lstlisting}
 
     \pause
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{v1b}
-        \begin{tabular}{|r|r|}\hline
-MOVIEID & ACTORID\\\hline\hline
-      6 &     308\\\hline
-      6 &     302\\\hline
-     70 &     282\\\hline
-     70 &     503\\\hline
-    ... &     ...\\\hline
-    110 &      26\\\hline
-    110 &     187\\\hline
-    ... &     ...\\\hline
-    228 &      26\\\hline
-    ... &     ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|}\hline
-    ... &     ...\\\hline
-    373 &      26\\\hline
-    373 &     187\\\hline
-    ... &     ...\\\hline
-    573 &      26\\\hline
-    ... &     ...\\\hline
-   1512 &     745\\\hline
-   1539 &      26\\\hline
-   1539 &    1641\\\hline
-   1539 &    3578\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Division Example}
-
-  \begin{example}[identities of movies in which Johnny Depp and
-                  Christina Ricci both played]
-    \begin{lstlisting}
-v1c = project (divide (v1b) (v1a)) (movieid)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1c}
+      \caption{V1B}
       \begin{tabular}{|r|}\hline
-MOVIEID\\\hline\hline
-    110\\\hline
-    373\\\hline
+\underline{MOVIE\#}\\[2pt]\hline\hline
+                110\\\hline
+                373\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1165,22 +1124,24 @@ MOVIEID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}[titles of movies in which Johnny Depp and
-                  Christina Ricci both played]
+  \begin{example}
+    \begin{itemize}
+      \item the titles of the movies in \texttt{V1B} (\texttt{V1})
+    \end{itemize}
+
     \begin{lstlisting}
-v1 = project (join (v1c) (movie)
-                   (v1c.movieid=movie.id))
-             (title)
+(V1B JOIN MOVIE) { TITLE }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1}
+      \caption{V1}
       \begin{tabular}{|l|}\hline
-TITLE                         \\\hline\hline
-Sleepy Hollow                 \\\hline
+\underline{TITLE}             \\[2pt]\hline\hline
 Fear and Loathing in Las Vegas\\\hline
+Sleepy Hollow                 \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1191,19 +1152,18 @@ Fear and Loathing in Las Vegas\\\hline
   \frametitle{Division Example}
 
   \begin{example}[product - division relationship]
-    \begin{lstlisting}
-product (v1c) (v1a)
-    \end{lstlisting}
+    \lstinline!V1B JOIN V1A! $\subseteq$ \lstinline!CASTING { MOVIE#, ACTOR# }!
 
     \pause
     \begin{tiny}
     \begin{table}
+      \caption{$V1B \times V1A$}
       \begin{tabular}{|r|r|}\hline
-MOVIEID &  ACTORID\\\hline\hline
-    110 &       26\\\hline
-    110 &      187\\\hline
-    373 &       26\\\hline
-    373 &      187\\\hline
+\underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
+                110 &                  26\\\hline
+                110 &                 187\\\hline
+                373 &                  26\\\hline
+                373 &                 187\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1216,39 +1176,36 @@ MOVIEID &  ACTORID\\\hline\hline
   \frametitle{Intersection}
 
   \begin{definition}
-    \alert{intersection}: relation\_1 $\cap$ relation\_2\\
-      select the tuples found in both relations
+    \alert{intersection}: selecting the tuples found in both relation variables
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-intersect (relation_1) (relation_2)
+relvar1_name INTERSECT relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output relation header = relation$_1$ header = relation$_2$ header
+    \item output header = relvar1 header = relvar2 header
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Intersect Example}
+  \frametitle{Intersection Example}
 
-  \begin{example}[names of all directors who also acted]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all directors who also acted (\texttt{I1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item identities of all directors
+      \item the identifiers of all directors who also acted (\texttt{I1A})
 
       \pause
-      \item identities of all actors
-
-      \pause
-      \item identities of all directors who also acted
-
-      \pause
-      \item names of all directors who also acted
+      \item the names of all the persons in \texttt{I1A} (\texttt{I1})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -1256,31 +1213,27 @@ intersect (relation_1) (relation_2)
 \begin{frame}[fragile]
   \frametitle{Intersection Example}
 
-  \begin{example}[identities of all directors]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers of all directors who also acted (\texttt{I1})
+    \end{itemize}
+
     \begin{lstlisting}
-i1a = project (movie) (directorid)
+(MOVIE { DIRECTOR# }
+      RENAME (DIRECTOR# AS PERSON#))
+  INTERSECT
+(CASTING { ACTOR# }
+      RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{i1a}
+      \caption{I1A}
       \begin{tabular}{|r|}\hline
-DIRECTORID\\\hline\hline
-       639\\\hline
-      1485\\\hline
-       105\\\hline
-       148\\\hline
-         0\\\hline
-      2020\\\hline
-       103\\\hline
-       292\\\hline
-        59\\\hline
-        97\\\hline
-       175\\\hline
-       615\\\hline
-      2259\\\hline
-       364\\\hline
+\underline{PERSON\#}\\[2pt]\hline\hline
+                1485\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1288,91 +1241,25 @@ DIRECTORID\\\hline\hline
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Intersect Example}
+  \frametitle{Intersection Example}
 
-  \begin{example}[identities of all actors]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all the persons in \texttt{I1A} (\texttt{I1})
+    \end{itemize}
+
     \begin{lstlisting}
-i1b = project (casting) (actorid)
+(I1A JOIN PERSON) { NAME }
     \end{lstlisting}
 
     \pause
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{i1b}
-        \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    308\\\hline
-    302\\\hline
-    282\\\hline
-    503\\\hline
-      9\\\hline
-    138\\\hline
-    243\\\hline
-     26\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{i1b}
-        \begin{tabular}{|r|}\hline
-    187\\\hline
-   1485\\\hline
-    793\\\hline
-    745\\\hline
-   3578\\\hline
-    406\\\hline
-    350\\\hline
-   1641\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Intersect Example}
-
-  \begin{example}[identities of all directors who also acted]
-    \begin{lstlisting}
-i1c = intersect (i1a) (i1b)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{i1c}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-   1485\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Intersect Example}
-
-  \begin{example}[names of all directors who also acted]
-    \begin{lstlisting}
-i1 = project (join (i1c) (person)
-                   (actorid=person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{i1}
+      \caption{I1}
       \begin{tabular}{|l|}\hline
-NAME       \\\hline\hline
-Spike Jonze\\\hline
+\underline{NAME}\\[2pt]\hline\hline
+Spike Jonze     \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1383,46 +1270,47 @@ Spike Jonze\\\hline
   \frametitle{Union}
 
   \begin{definition}
-    \alert{union}: relation\_1 $\cup$ relation\_2\\
-      creating a new relation from the tuples which are found in
-      at least one of the relations
+    \alert{union}: selecting the tuples found in at least one of two\\
+      relation variables
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-union (relation_1) (relation_2)
+relvar1_name UNION relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output relation header = relation$_1$ header = relation$_2$ header
+    \item output header = relvar1 header = relvar2 header
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Union Example}
 
-  \begin{example}[names of directors and actors of all movies newer than 1997]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all the directors and actors of all movies\\
+        newer than 1997 (\texttt{U1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item all movies newer than 1997
+      \item the identifiers and director identifiers of all movies\\
+        newer than 1997 (\texttt{U1A})
 
       \pause
-      \item all movies newer than 1997 and their actors
+      \item the identifiers of all the actors in the movies in \texttt{U1A}
+        (\texttt{U1B})
 
       \pause
-      \item identities of directors of all movies newer than 1997
+      \item the identifiers of the directors and actors in at least one of\\
+        \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
 
       \pause
-      \item identities of actors of all movies newer than 1997
-
-      \pause
-      \item identities of directors and actors of all movies newer than 1997
-
-      \pause
-      \item names of directors and actors of all movies newer than 1997
+      \item the names of all the persons in \texttt{U1C} (\texttt{U1})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -1430,25 +1318,32 @@ union (relation_1) (relation_2)
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}[all movies newer than 1997]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers and director identifiers of all movies\\
+        newer than 1997 (\texttt{U1A})
+    \end{itemize}
+
     \begin{lstlisting}
-u1a = select (movie) (yr>'1997')
+(MOVIE WHERE (YEAR > YEAR(1997)))
+  { MOVIE#, DIRECTOR# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{u1a}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
- ID & TITLE                          &   YR & SCORE & VOTES & DIRECTORID\\\hline\hline
- 70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
-110 & Sleepy Hollow                  & 1999 &    75 & 10514 &        148\\\hline
-112 & Three Kings                    & 1999 &    77 & 10319 &          0\\\hline
-213 & Blade                          & 1998 &    67 &  6885 &          0\\\hline
-251 & End of Days                    & 1999 &    55 &  6095 &        103\\\hline
-373 & Fear and Loathing in Las Vegas & 1998 &    65 &  4658 &         59\\\hline
-432 & Stigmata                       & 1999 &    61 &  4141 &          0\\\hline
-433 & eXistenZ                       & 1999 &    69 &  4130 &         97\\\hline
+      \caption{U1A}
+      \begin{tabular}{|r|r|}\hline
+\underline{MOVIE\#} & DIRECTOR\#\\[2pt]\hline\hline
+ 70 &       1485\\\hline
+110 &        148\\\hline
+112 &       1070\\\hline
+213 &       2861\\\hline
+251 &        103\\\hline
+373 &         59\\\hline
+432 &       2557\\\hline
+433 &         97\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1458,84 +1353,32 @@ u1a = select (movie) (yr>'1997')
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}[all movies newer than 1997 and their actors]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers of all the actors in the movies in \texttt{U1A}
+        (\texttt{U1B})
+    \end{itemize}
+
     \begin{lstlisting}
-u1b = join (u1a) (casting)
-           (u1a.id=casting.movieid)
+(U1A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
 
     \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{u1b}
-      \begin{tabular}{|r|l|c|r|r|r|r|}\hline
- ID & TITLE                          & ... & DIRECTORID & MOVIEID & ACTORID & ORD\\\hline\hline
- 70 & Being John Malkovich           & ... &       1485 &      70 &     282 &   2\\\hline
- 70 & Being John Malkovich           & ... &       1485 &      70 &     503 &  14\\\hline
-110 & Sleepy Hollow                  & ... &        148 &     110 &      26 &   1\\\hline
-110 & Sleepy Hollow                  & ... &        148 &     110 &     187 &   2\\\hline
-112 & Three Kings                    & ... &          0 &     112 &     138 &   1\\\hline
-... & ...                            & ... &        ... &     ... &     ... & ...\\\hline
-373 & Fear and Loathing in Las Vegas & ... &         59 &     373 &     302 &   2\\\hline
-432 & Stigmata                       & ... &          0 &     432 &     308 &   2\\\hline
-432 & Stigmata                       & ... &          0 &     432 &     406 &   1\\\hline
-433 & eXistenZ                       & ... &         97 &     433 &     350 &   1\\\hline
-433 & eXistenZ                       & ... &         97 &     433 &     793 &   2\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Union Example}
-
-  \begin{example}[identities of directors of all movies newer than 1997]
-    \begin{lstlisting}
-u1c = project (u1b) (directorid)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{u1c}
-      \begin{tabular}{|r|}\hline
-DIRECTORID\\\hline\hline
-      1485\\\hline
-       148\\\hline
-         0\\\hline
-       103\\\hline
-        59\\\hline
-        97\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Union Example}
-
-  \begin{example}[identities of actors of all movies newer than 1997]
-    \begin{lstlisting}
-u1d = project (u1b) (actorid)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{columns}[b]
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1d}
+        \caption{U1B}
         \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    282\\\hline
-    503\\\hline
-     26\\\hline
-    187\\\hline
-    138\\\hline
-   1485\\\hline
-    745\\\hline
+\underline{ACTOR\#}\\[2pt]\hline\hline
+                  9\\\hline
+                 26\\\hline
+                138\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1543,15 +1386,14 @@ ACTORID\\\hline\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1d}
         \begin{tabular}{|r|}\hline
-   3578\\\hline
-      9\\\hline
-    308\\\hline
-    302\\\hline
-    406\\\hline
-    350\\\hline
-    793\\\hline
+                350\\\hline
+                406\\\hline
+                503\\\hline
+                745\\\hline
+                793\\\hline
+               1485\\\hline
+               3578\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1562,48 +1404,73 @@ ACTORID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}[identities of directors and actors of all movies
-                  newer than 1997]
+  \begin{example}
+    \begin{itemize}
+      \item the identifiers of the directors and actors in at least one of\\
+        \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
+    \end{itemize}
+
     \begin{lstlisting}
-u1e = union (u1c) (u1d)
+(U1A { DIRECTOR# }
+      RENAME (DIRECTOR# AS PERSON#))
+UNION (U1B RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{columns}[b]
-      \column{.5\textwidth}
+      \column{.2\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1e}
+        \caption{U1C}
         \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-   1485\\\hline
-    148\\\hline
-      0\\\hline
-    103\\\hline
-     59\\\hline
-     97\\\hline
-    282\\\hline
-    503\\\hline
-     26\\\hline
-    187\\\hline
-      \end{tabular}
+\underline{PERSON\#}\\[2pt]\hline\hline
+                  9\\\hline
+                 26\\\hline
+                 59\\\hline
+                 97\\\hline
+                103\\\hline
+                138\\\hline
+        \end{tabular}
       \end{table}
       \end{tiny}
 
-      \column{.5\textwidth}
+      \column{.1\textwidth}
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|r|}\hline
-    138\\\hline
-    745\\\hline
-   3578\\\hline
-      9\\\hline
-    308\\\hline
-    302\\\hline
-    406\\\hline
-    350\\\hline
-    793\\\hline
-      \end{tabular}
+                148\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.1\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|r|}\hline
+                350\\\hline
+                406\\\hline
+                503\\\hline
+                745\\\hline
+                793\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.1\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|r|}\hline
+               1070\\\hline
+               1485\\\hline
+               2557\\\hline
+               2861\\\hline
+               3578\\\hline
+        \end{tabular}
       \end{table}
       \end{tiny}
     \end{columns}
@@ -1613,47 +1480,69 @@ ACTORID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}[names of directors and actors of all movies newer than 1997]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all the persons in \texttt{U1C} (\texttt{U1})
+    \end{itemize}
+
     \begin{lstlisting}
-u1 = project (join (u1e) (person)
-              (u1e.actorid=person.id)) (name)
+(U1C JOIN PERSON) { NAME }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{columns}[b]
-      \column{.5\textwidth}
+      \column{.2\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1}
+        \caption{U1}
         \begin{tabular}{|l|}\hline
-NAME                 \\\hline\hline
-Spike Jonze          \\\hline
-Tim Burton           \\\hline
-Peter Hyams          \\\hline
-Terry Gilliam        \\\hline
-David Cronenberg     \\\hline
+\underline{NAME}     \\[2pt]\hline\hline
+Arnold Schwarzenegger\\\hline
+Benicio Del Toro     \\\hline
 Cameron Diaz         \\\hline
+Christina Ricci      \\\hline
+David Cronenberg     \\\hline
+David O. Russell     \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.15\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Gabriel Byrne        \\\hline
+George Clooney       \\\hline
+Jennifer Jason Leigh \\\hline
 John Malkovich       \\\hline
 Johnny Depp          \\\hline
-Christina Ricci      \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
 
-      \column{.5\textwidth}
+      \column{.15\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1}
         \begin{tabular}{|l|}\hline
-George Clooney       \\\hline
-Udo Kier             \\\hline
-Traci Lords          \\\hline
-Arnold Schwarzenegger\\\hline
-Gabriel Byrne        \\\hline
-Benicio Del Toro     \\\hline
-Patricia Arquette    \\\hline
-Jennifer Jason Leigh \\\hline
 Jude Law             \\\hline
+Patricia Arquette    \\\hline
+Peter Hyams          \\\hline
+Rupert Wainwright    \\\hline
+Spike Jonze          \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Stephen Norrington   \\\hline
+Terry Gilliam        \\\hline
+Tim Burton           \\\hline
+Traci Lords          \\\hline
+Udo Kier             \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1665,40 +1554,39 @@ Jude Law             \\\hline
   \frametitle{Difference}
 
   \begin{definition}
-    \alert{difference}: relation\_1 - relation\_2\\
-      creating a new relation from the tuples which are found in the first
-      relation but not in the second
+    \alert{difference}: selecting the tuples which are found in the first
+      but not in the second relation variable
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-difference (relation_1) (relation_2)
+relvar1_name MINUS relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output relation header = relation$_1$ header = relation$_2$ header
+    \item output header = relvar1 header = relvar2 header
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Difference Example}
 
-  \begin{example}[names of actors who have not played with Johnny Depp]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all the actors who have not played\\
+        in Johnny Depp's movies (\texttt{D1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item identities of actors who played with Johnny Depp
+      \item the identities of all the actors who played\\
+        in Johnny Depp's movies (\texttt{J3B})
 
       \pause
-      \item identities of all actors
-
-      \pause
-      \item identities of actors who have not played with Johnny Depp
-
-      \pause
-      \item names of actors who have not played with Johnny Depp
+      \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
     \end{enumerate}
   \end{example}
 \end{frame}
@@ -1706,58 +1594,46 @@ difference (relation_1) (relation_2)
 \begin{frame}[fragile]
   \frametitle{Difference Example}
 
-  \begin{example}[identities of actors who have not played with Johnny Depp]
+  \begin{example}
+    \begin{itemize}
+      \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
+    \end{itemize}
+
     \begin{lstlisting}
-d1a = difference (i1b) (j3c)
+(((CASTING { ACTOR# } MINUS J3B)
+      RENAME (ACTOR# AS PERSON#))
+  JOIN PERSON) {NAME}
     \end{lstlisting}
 
     \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{d1a}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    503\\\hline
-      9\\\hline
-    138\\\hline
-    243\\\hline
-   1485\\\hline
-    793\\\hline
-    745\\\hline
-    350\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Difference Example}
-
-  \begin{example}[names of actors who have not played with Johnny Depp]
-    \begin{lstlisting}
-d1 = project (join (d1a) (person)
-                   (d1a.actorid=person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{d1}
-      \begin{tabular}{|l|}\hline
-NAME                 \\\hline\hline
-John Malkovich       \\\hline
+    \vspace{-10pt}
+    \begin{columns}[b]
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{D1}
+        \begin{tabular}{|l|}\hline
+\underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 George Clooney       \\\hline
-Uma Thurman          \\\hline
-Spike Jonze          \\\hline
-Jude Law             \\\hline
-Udo Kier             \\\hline
 Jennifer Jason Leigh \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+John Malkovich       \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Jude Law             \\\hline
+Spike Jonze          \\\hline
+Udo Kier             \\\hline
+Uma Thurman          \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
   \end{example}
 \end{frame}
 
