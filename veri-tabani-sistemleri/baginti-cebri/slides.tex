@@ -23,9 +23,9 @@
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
   morekeywords={AND, AS, BASE, BOOL, CAST_AS_, CAST_AS_RATIONAL, CHAR,
-                CONSTRAINT, DELETE, DROP, INSERT, INTEGER, JOIN, KEY, POSSREP,
-                RATIONAL, RELATION, RENAME, THE_, TUPLE, TYPE, UPDATE, VAR,
-                WHERE}
+                CONSTRAINT, DELETE, DIVIDEBY, DROP, INSERT, INTEGER, INTERSECT,
+                JOIN, KEY, MINUS, OR, PER, POSSREP, RATIONAL, RELATION, RENAME,
+                THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -138,23 +138,23 @@
       %\caption{MOVIE}
       \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE           & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects                 & 1995 &    87 & 35027 &        639\\\hline
-  70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
- 107 & Batman \& Robin                & 1997 &    35 & 10577 &        105\\\hline
- 110 & Sleepy Hollow                  & 1999 &    75 & 10514 &        148\\\hline
- 112 & Three Kings                    & 1999 &    77 & 10319 &       1070\\\hline
- 151 & Gattaca                        & 1997 &    74 &  8388 &       2020\\\hline
- 213 & Blade                          & 1998 &    67 &  6885 &       2861\\\hline
- 228 & Ed Wood                        & 1994 &    78 &  6587 &        148\\\hline
- 251 & End of Days                    & 1999 &    55 &  6095 &        103\\\hline
- 281 & Dangerous Liaisons             & 1988 &    77 &  5651 &        292\\\hline
- 373 & Fear and Loathing in Las Vegas & 1998 &    65 &  4658 &         59\\\hline
- 432 & Stigmata                       & 1999 &    61 &  4141 &       2557\\\hline
- 433 & eXistenZ                       & 1999 &    69 &  4130 &         97\\\hline
- 573 & Dead Man                       & 1995 &    74 &  3333 &        175\\\hline
-1468 & Europa                         & 1991 &    76 &  1042 &        615\\\hline
-1512 & Suspiria                       & 1977 &    71 &  1004 &       2259\\\hline
-1539 & Cry-Baby                       & 1990 &    59 &   972 &        364\\\hline
+   6 & Usual Suspects                 & 1995 &   8.7 & 35027 &        639\\\hline
+  70 & Being John Malkovich           & 1999 &   8.3 & 13809 &       1485\\\hline
+ 107 & Batman \& Robin                & 1997 &   3.5 & 10577 &        105\\\hline
+ 110 & Sleepy Hollow                  & 1999 &   7.5 & 10514 &        148\\\hline
+ 112 & Three Kings                    & 1999 &   7.7 & 10319 &       1070\\\hline
+ 151 & Gattaca                        & 1997 &   7.4 &  8388 &       2020\\\hline
+ 213 & Blade                          & 1998 &   6.7 &  6885 &       2861\\\hline
+ 228 & Ed Wood                        & 1994 &   7.8 &  6587 &        148\\\hline
+ 251 & End of Days                    & 1999 &   5.5 &  6095 &        103\\\hline
+ 281 & Dangerous Liaisons             & 1988 &   7.7 &  5651 &        292\\\hline
+ 373 & Fear and Loathing in Las Vegas & 1998 &   6.5 &  4658 &         59\\\hline
+ 432 & Stigmata                       & 1999 &   6.1 &  4141 &       2557\\\hline
+ 433 & eXistenZ                       & 1999 &   6.9 &  4130 &         97\\\hline
+ 573 & Dead Man                       & 1995 &   7.4 &  3333 &        175\\\hline
+1468 & Europa                         & 1991 &   7.6 &  1042 &        615\\\hline
+1512 & Suspiria                       & 1977 &   7.1 &  1004 &       2259\\\hline
+1539 & Cry-Baby                       & 1990 &   5.9 &   972 &        364\\\hline
     \end{tabular}
   \end{table}
   \end{tiny}
@@ -308,7 +308,7 @@ relvar_name WHERE condition
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = giriş bağıntısı başlığı
+    \item çıktı başlığı = girdi başlığı
   \end{itemize}
 \end{frame}
 
@@ -387,7 +387,7 @@ relvar_name { attribute_name [, ...] }
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = nitelik listesi
+    \item çıktı başlığı = nitelik listesi
   \end{itemize}
 \end{frame}
 
@@ -546,7 +546,7 @@ MOVIE { YEAR }
         (\texttt{P4A})
 
       \pause
-      \item \texttt{P4A} bağıntısındaki başlıklar (\texttt{P4})
+      \item \texttt{P4A}'daki başlıklar (\texttt{P4})
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -590,7 +590,7 @@ MOVIE WHERE ((VOTES > 5000)
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{P4A} bağıntısındaki başlıklar (\texttt{P4})
+      \item \texttt{P4A}'daki başlıklar (\texttt{P4})
     \end{itemize}
 
     \begin{lstlisting}
@@ -641,15 +641,24 @@ Usual Suspects      \\\hline
   \frametitle{Katma}
 
   \begin{tanim}
-    \alert{katma}: iki bağıntının çoklularını, bir ya da birden fazla\\
+    \alert{katma}: iki bağıntı değişkeninin çoklularını, bir ya da birden fazla\\
       niteliğin ortak değerleri üzerinden eşleştirme
-
-    \begin{itemize}
-      \item aynı isimli niteliklerin ortak değerleri üzerinden eşleştirme
-    \end{itemize}
   \end{tanim}
 
-  \pause
+  \begin{itemize}
+    \item iki bağıntı değişkeninin Kartezyen çarpımından,\\
+      verilen nitelikler için aynı değeri taşıyan çokluları seçme
+    \item eşleşen nitelikler çıktıda tekrarlanmaz
+
+    \pause
+    \item \alert{doğal katma}: aynı isimli niteliklerin ortak değerleri\\
+      üzerinden eşleştirme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Katma}
+
   \begin{block}{Komut}
     \begin{lstlisting}
 relvar1_name JOIN relvar2_name
@@ -658,7 +667,7 @@ relvar1_name JOIN relvar2_name
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = bağıntı1 başlığı $\cup$ bağıntı2 başlığı
+    \item çıktı başlığı = relvar1 başlığı $\cup$ relvar2 başlığı
   \end{itemize}
 \end{frame}
 
@@ -675,7 +684,7 @@ relvar1_name JOIN relvar2_name
       \item bütün filmler ve yönetmenleri (\texttt{J1A})
 
       \pause
-      \item \texttt{J1A} bağıntısındaki film başlıkları ve yönetmen isimleri
+      \item \texttt{J1A}'daki film başlıkları ve yönetmen isimleri
          (\texttt{J1})
     \end{enumerate}
   \end{ornek}
@@ -690,7 +699,7 @@ relvar1_name JOIN relvar2_name
     \end{itemize}
 
     \begin{lstlisting}
-MOVIE RENAME (DIRECTOR# AS PERSON#)
+(MOVIE RENAME (DIRECTOR# AS PERSON#))
     JOIN PERSON
     \end{lstlisting}
 
@@ -719,7 +728,7 @@ MOVIE RENAME (DIRECTOR# AS PERSON#)
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{J1A} bağıntısındaki film başlıkları ve yönetmen isimleri
+      \item \texttt{J1A}'daki film başlıkları ve yönetmen isimleri
          (\texttt{J1})
     \end{itemize}
 
@@ -761,12 +770,10 @@ eXistenZ             & David Cronenberg\\\hline
       \item bütün filmler ve oyunculuk verileri (\texttt{J2A})
 
       \pause
-      \item \texttt{J2A} bağıntısındaki bütün verilerin kişilerle eşlenmesi
-        (\texttt{J2B})
+      \item \texttt{J2A}'daki bütün verilerin kişilerle eşlenmesi (\texttt{J2B})
 
       \pause
-      \item \texttt{J2B} bağıntısındaki film başlıkları, oyuncu isimleri
-	ve sıraları\\
+      \item \texttt{J2B}'deki film başlıkları, oyuncu isimleri ve sıraları
 	(\texttt{J2})
     \end{enumerate}
   \end{ornek}
@@ -810,12 +817,11 @@ MOVIE JOIN CASTING
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{J2A} bağıntısındaki bütün verilerin kişilerle eşlenmesi
-        (\texttt{J2B})
+      \item \texttt{J2A}'daki bütün verilerin kişilerle eşlenmesi (\texttt{J2B})
     \end{itemize}
 
     \begin{lstlisting}
-J2A JOIN PERSON RENAME (PERSON# AS ACTOR#)
+J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
     \end{lstlisting}
 
     \pause
@@ -844,8 +850,7 @@ J2A JOIN PERSON RENAME (PERSON# AS ACTOR#)
 
   \begin{ornek}
     \begin{itemize}
-      \item \texttt{J2B} bağıntısındaki film başlıkları, oyuncu isimleri
-        ve sıraları\\
+      \item \texttt{J2B}'deki film başlıkları, oyuncu isimleri ve sıraları
         (\texttt{J2})
     \end{itemize}
 
@@ -877,19 +882,21 @@ Cry-Baby             & Traci Lords      &   7\\\hline
 \begin{frame}
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}[Johnny Depp ile oynamış oyuncuların isimleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item Johnny Depp'in filmlerindeki oyuncuların isimleri (\texttt{J3})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item Johnny Depp'in kimliğini seç
+      \item Johnny Depp'in filmlerinin kimlikleri (\texttt{J3A})
 
       \pause
-      \item bu kimliği oyunculuk verileriyle eşleştir
+      \item  \texttt{J3A}'daki filmlerde oynamış oyuncuların kimlikleri
+        (\texttt{J3B})
 
       \pause
-      \item elde edilen oyunculuk verilerini oyuncu kimlikleriyle eşleştir
-
-      \pause
-      \item elde edilen oyuncu kimliklerini oyuncu isimleriyle eşleştir
+      \item \texttt{J3B}'deki oyuncuların isimleri (\texttt{J3})
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -897,20 +904,29 @@ Cry-Baby             & Traci Lords      &   7\\\hline
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}[Johnny Depp'in kimliği]
+  \begin{ornek}
+    \begin{itemize}
+      \item Johnny Depp'in filmlerinin kimlikleri (\texttt{J3A})
+    \end{itemize}
+
     \begin{lstlisting}
-j3a = project (select (person)
-                      (name = 'Johnny Depp'))
-              (id)
-    \end{lstlisting}
+(((PERSON RENAME (PERSON# AS ACTOR#))
+    JOIN CASTING)
+  WHERE (NAME = 'Johnny Depp')) { MOVIE# }
+  \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3a}
-      \begin{tabular}{|r|}\hline
-ID\\\hline\hline
-26\\\hline
+      \caption{J3A}
+      \begin{tabular}{|r|l|r|r|}\hline
+\underline{MOVIE\#}\\[2pt]\hline\hline
+                110\\\hline
+                228\\\hline
+                373\\\hline
+                573\\\hline
+               1539\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -920,24 +936,31 @@ ID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}[Johnny Depp'in oynadığı filmlerin kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item  \texttt{J3A}'daki filmlerde oynamış oyuncuların kimlikleri
+        (\texttt{J3B})
+    \end{itemize}
+
     \begin{lstlisting}
-j3b = project (join (j3a) (casting)
-                (j3a.id = casting.actorid))
-              (movieid)
+(J3A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3b}
+      \caption{J3B}
       \begin{tabular}{|r|}\hline
-MOVIEID\\\hline\hline
-    110\\\hline
-    228\\\hline
-    373\\\hline
-    573\\\hline
-   1539\\\hline
+\underline{ACTOR\#}\\[2pt]\hline\hline
+                 26\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
+                406\\\hline
+               1641\\\hline
+               3578\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -947,56 +970,29 @@ MOVIEID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}[Johnny Depp'in oynadığı filmlerde oynamış oyuncuların
-                kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{J3B}'deki oyuncuların isimleri (\texttt{J3})
+    \end{itemize}
+
     \begin{lstlisting}
-j3c = project (join (j3b) (casting)
-                (j3b.movieid = casting.movieid))
-              (actorid)
+((J3B RENAME (ACTOR# AS PERSON#))
+    JOIN PERSON) { NAME }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{j3c}
-      \begin{tabular}{|r|}\hline
-ACTORID \\\hline\hline
-     26 \\\hline
-    187 \\\hline
-    406 \\\hline
-    282 \\\hline
-    302 \\\hline
-    308 \\\hline
-   1641 \\\hline
-   3578 \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Katma Örnekleri - 3}
-
-  \begin{ornek}[Johnny Depp'in oynadığı filmlerde oynamış oyuncuların isimleri]
-    \begin{lstlisting}
-j3 = project (join (j3c) (person)
-                   (j3c.actorid = person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{j3}
+      \caption{J3}
       \begin{tabular}{|l|}\hline
 NAME             \\\hline\hline
 Johnny Depp      \\\hline
 Christina Ricci  \\\hline
-Patricia Arquette\\\hline
 Cameron Diaz     \\\hline
 Benicio Del Toro \\\hline
 Gabriel Byrne    \\\hline
+Patricia Arquette\\\hline
 Iggy Pop         \\\hline
 Traci Lords      \\\hline
       \end{tabular}
@@ -1026,47 +1022,48 @@ Traci Lords      \\\hline
   \frametitle{Bölme}
 
   \begin{tanim}
-    \alert{bölme}: bağıntı$_1$ / bağıntı$_2$\\
-      birinci bağıntıdaki çoklular arasından\\
-      ikinci bağıntıdaki bütün çoklularla eşleşenlerin\\
-      ortak olmayan niteliklerini seç
+    \alert{bölme}:  birinci bağıntı değişkenindeki çoklular arasından\\
+      ikinci bağıntı değişkenindeki bütün çoklularla\\
+      bir ara bağıntı değişkeninde eşleşenleri seçme
   \end{tanim}
 
   \pause
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
-divide (bağıntı1_adı) (bağıntı2_adı)
+relvar1_name DIVIDEBY relvar2_name
+  PER (relvar3_name)
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item bağıntı$_2$ başlığı $\subseteq$ bağıntı$_1$ başlığı
+    \item relvar1 başlığı $\cup$ relvar2 başlığı $\subseteq$ relvar3 başlığı
 
     \pause
-    \item çıkış bağıntısı başlığı = bağıntı${_1}$ başlığı - bağıntı${_2}$
-      başlığı
+    \item çıktı başlığı = relvar1 başlığı
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}[Johnny Depp ile Christina Ricci'nin birlikte oynadıkları
-                filmlerin başlıkları]
+  \begin{ornek}
+    \begin{itemize}
+      \item Johnny Depp ile Christina Ricci'nin birlikte oynadıkları\\
+        filmlerin başlıkları (\texttt{V1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item Johnny Depp ve Christina Ricci'nin kimliklerini bul
+      \item Johnny Depp ve Christina Ricci'nin kimlikleri (\texttt{V1A})
 
       \pause
-      \item bütün filmlerin ve oyuncularının kimliklerini bul
+      \item \texttt{V1A}'daki oyuncuların birlikte oynadıkları filmlerin
+        kimlikleri\\
+        (\texttt{V1B})
 
       \pause
-      \item Johnny Depp ve Christina Ricci'nin\\
-	birlikte oynadıkları filmlerin kimliklerini bul
-
-      \pause
-      \item elde edilen kimlikleri filmlerle eşleştirerek başlıklarını al
+      \item \texttt{V1B}'deki filmlerin başlıkları (\texttt{V1})
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1074,22 +1071,27 @@ divide (bağıntı1_adı) (bağıntı2_adı)
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}[Johnny Depp ve Christina Ricci'nin kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item Johnny Depp ve Christina Ricci'nin kimlikleri (\texttt{V1A})
+    \end{itemize}
+
     \begin{lstlisting}
-v1a = project (select (person)
-                  ((name = 'Johnny Depp')
-                or (name = 'Christina Ricci')))
-              (id)
+(PERSON
+    WHERE ((NAME = "Johnny Depp")
+        OR (NAME = "Christina Ricci")))
+  { PERSON# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1a}
+      \caption{V1A}
       \begin{tabular}{|r|}\hline
- ID\\\hline\hline
- 26\\\hline
-187\\\hline
+\underline{PERSON\#}\\[2pt]\hline\hline
+                  26\\\hline
+                 187\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1099,71 +1101,28 @@ v1a = project (select (person)
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}[bütün film ve oyuncu kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{V1A}'daki oyuncuların birlikte oynadıkları filmlerin
+        kimlikleri\\
+        (\texttt{V1B})
+    \end{itemize}
+
     \begin{lstlisting}
-v1b = project (casting) (movieid, actorid)
+(MOVIE { MOVIE# })
+    DIVIDEBY (V1A RENAME (PERSON# AS ACTOR#))
+      PER (CASTING { MOVIE#, ACTOR# })
     \end{lstlisting}
 
     \pause
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{v1b}
-        \begin{tabular}{|r|r|}\hline
-MOVIEID & ACTORID\\\hline\hline
-      6 &     308\\\hline
-      6 &     302\\\hline
-     70 &     282\\\hline
-     70 &     503\\\hline
-    ... &     ...\\\hline
-    110 &      26\\\hline
-    110 &     187\\\hline
-    ... &     ...\\\hline
-    228 &      26\\\hline
-    ... &     ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|}\hline
-    ... &     ...\\\hline
-    373 &      26\\\hline
-    373 &     187\\\hline
-    ... &     ...\\\hline
-    573 &      26\\\hline
-    ... &     ...\\\hline
-   1512 &     745\\\hline
-   1539 &      26\\\hline
-   1539 &    1641\\\hline
-   1539 &    3578\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Bölme Örneği}
-
-  \begin{ornek}[Johnny Depp ve Christina Ricci'nin birlikte oynadıkları
-                filmlerin kimlikleri]
-    \begin{lstlisting}
-v1c = project (divide (v1b) (v1a)) (movieid)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1c}
+      \caption{V1B}
       \begin{tabular}{|r|}\hline
-MOVIEID \\\hline\hline
-    110 \\\hline
-    373 \\\hline
+\underline{MOVIE\#}\\[2pt]\hline\hline
+                110\\\hline
+                373\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1173,22 +1132,24 @@ MOVIEID \\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}[Johnny Depp ile Christina Ricci'nin birlikte oynadıkları
-                filmlerin başlıkları]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{V1B}'deki filmlerin başlıkları (\texttt{V1})
+    \end{itemize}
+
     \begin{lstlisting}
-v1 = project (join (v1c) (movie)
-                   (v1c.movieid = movie.id))
-             (title)
+(V1B JOIN MOVIE) { TITLE }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{v1}
+      \caption{V1}
       \begin{tabular}{|l|}\hline
-TITLE                         \\\hline\hline
-Sleepy Hollow                 \\\hline
+\underline{TITLE}             \\[2pt]\hline\hline
 Fear and Loathing in Las Vegas\\\hline
+Sleepy Hollow                 \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1199,19 +1160,18 @@ Fear and Loathing in Las Vegas\\\hline
   \frametitle{Bölme Örneği}
 
   \begin{ornek}[bölme - çarpma ilişkisi]
-    \begin{lstlisting}
-product (v1c) (v1a)
-    \end{lstlisting}
+    \lstinline!V1B JOIN V1A! $\subseteq$ \lstinline!CASTING { MOVIE#, ACTOR# }!
 
     \pause
     \begin{tiny}
     \begin{table}
+      \caption{$V1B \times V1A$}
       \begin{tabular}{|r|r|}\hline
-MOVIEID &  ACTORID\\\hline\hline
-    110 &       26\\\hline
-    110 &      187\\\hline
-    373 &       26\\\hline
-    373 &      187\\\hline
+\underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
+                110 &                  26\\\hline
+                110 &                 187\\\hline
+                373 &                  26\\\hline
+                373 &                 187\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1224,71 +1184,64 @@ MOVIEID &  ACTORID\\\hline\hline
   \frametitle{Kesişim}
 
   \begin{tanim}
-    \alert{kesişim}: bağıntı$_1$ $\cap$ bağıntı$_2$\\
-      iki bağıntıda da bulunan çokluları seçme
+    \alert{kesişim}: iki bağıntı değişkeninde de bulunan çokluları seçme
   \end{tanim}
 
   \pause
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
-intersect (bağıntı1_adı) (bağıntı2_adı)
+relvar1_name INTERSECT relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = bağıntı$_1$ başlığı = bağıntı$_2$ başlığı
+    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kesişim Örneği}
 
-  \begin{ornek}[oyunculuk yapmış yönetmenlerin isimleri]
+  \begin{example}
+    \begin{itemize}
+      \item oyunculuk yapmış bütün yönetmenlerin isimleri (\texttt{I1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item bütün yönetmenlerin kimliklerini bul
+      \item oyunculuk yapmış bütün yönetmenlerin kimlikleri (\texttt{I1A})
 
       \pause
-      \item bütün oyuncuların kimlikleri bul
-
-      \pause
-      \item oyunculuk yapmış yönetmenlerin kimliklerini bul
-
-      \pause
-      \item bu kimlikleri kişilerle eşleştirerek isimlerini al
+      \item \texttt{I1A}'daki bütün kişilerin isimleri (\texttt{I1})
     \end{enumerate}
-  \end{ornek}
+  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kesişim Örneği}
 
-  \begin{ornek}[bütün yönetmenlerin kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item oyunculuk yapmış bütün yönetmenlerin kimlikleri (\texttt{I1A})
+    \end{itemize}
+
     \begin{lstlisting}
-i1a = project (movie) (directorid)
+(MOVIE { DIRECTOR# }
+      RENAME (DIRECTOR# AS PERSON#))
+  INTERSECT
+(CASTING { ACTOR# }
+      RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{i1a}
+      \caption{I1A}
       \begin{tabular}{|r|}\hline
-DIRECTORID\\\hline\hline
-       639\\\hline
-      1485\\\hline
-       105\\\hline
-       148\\\hline
-         0\\\hline
-      2020\\\hline
-       103\\\hline
-       292\\\hline
-        59\\\hline
-        97\\\hline
-       175\\\hline
-       615\\\hline
-      2259\\\hline
-       364\\\hline
+\underline{PERSON\#}\\[2pt]\hline\hline
+                1485\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1298,89 +1251,23 @@ DIRECTORID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Kesişim Örneği}
 
-  \begin{ornek}[bütün oyuncuların kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{I1A}'daki bütün kişilerin isimleri (\texttt{I1})
+    \end{itemize}
+
     \begin{lstlisting}
-i1b = project (casting) (actorid)
+(I1A JOIN PERSON) { NAME }
     \end{lstlisting}
 
     \pause
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{i1b}
-        \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    308\\\hline
-    302\\\hline
-    282\\\hline
-    503\\\hline
-      9\\\hline
-    138\\\hline
-    243\\\hline
-     26\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{i1b}
-        \begin{tabular}{|r|}\hline
-    187\\\hline
-   1485\\\hline
-    793\\\hline
-    745\\\hline
-   3578\\\hline
-    406\\\hline
-    350\\\hline
-   1641\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kesişim Örneği}
-
-  \begin{ornek}[oyunculuk yapmış yönetmenlerin kimlikleri]
-    \begin{lstlisting}
-i1c = intersect (i1a) (i1b)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{i1c}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-   1485\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kesişim Örneği}
-
-  \begin{ornek}[oyunculuk yapmış yönetmenlerin isimleri]
-    \begin{lstlisting}
-i1 = project (join (i1c) (person)
-                   (actorid = person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{i1}
+      \caption{I1}
       \begin{tabular}{|l|}\hline
-NAME       \\\hline\hline
-Spike Jonze\\\hline
+\underline{NAME}\\[2pt]\hline\hline
+Spike Jonze     \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1391,46 +1278,46 @@ Spike Jonze\\\hline
   \frametitle{Birleşim}
 
   \begin{tanim}
-    \alert{birleşim}: bağıntı$_1$ $\cup$ bağıntı$_2$\\
-      iki bağıntının en az birinde bulunan çokluları seçme
+    \alert{birleşim}: iki bağıntı değişkeninden en az birinde bulunan\\
+      çokluları seçme
   \end{tanim}
 
   \pause
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
-union (bağıntı1_adı) (bağıntı2_adı)
+relvar1_name UNION relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = bağıntı$_1$ başlığı = bağıntı$_2$ başlığı
+    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}[1997'den sonra çekilen filmlerin yönetmenlerinin ve
-                oyuncularının isimleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item 1997'den sonra çekilen filmlerin yönetmenlerinin\\
+        ve oyuncularının isimleri (\texttt{U1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item 1997'den sonra çekilen filmleri seç
+      \item 1997'den sonra çekilen filmlerin kimlikleri\\
+        ve yönetmen kimlikleri (\texttt{U1A})
 
       \pause
-      \item bu filmlerin verilerini oyuncularının kimlikleriyle eşleştir
+      \item \texttt{U1A}'daki filmlerin bütün oyuncularının kimlikleri (\texttt{U1B})
 
       \pause
-      \item elde edilen verilerden yönetmen kimliklerini al
+      \item \texttt{U1A} ile \texttt{U1B}'den en az birinde bulunan yönetmen\\
+        ve oyuncuların kimlikleri (\texttt{U1C})
 
       \pause
-      \item elde edilen verilerden oyuncu kimliklerini al
-
-      \pause
-      \item elde edilen yönetmen ve oyuncu kimliklerinin birleşimini bul
-
-      \pause
-      \item elde edilen kimlikleri kişilerin isimleriyle eşleştir
+      \item \texttt{U1C}'deki bütün kişilerin isimleri (\texttt{U1})
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1438,25 +1325,32 @@ union (bağıntı1_adı) (bağıntı2_adı)
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}[1997'den sonra çekilen filmler]
+  \begin{ornek}
+    \begin{itemize}
+      \item 1997'den sonra çekilen filmlerin kimlikleri\\
+        ve yönetmen kimlikleri (\texttt{U1A})
+    \end{itemize}
+
     \begin{lstlisting}
-u1a = select (movie) (yr > '1997')
+(MOVIE WHERE (YEAR > YEAR(1997)))
+  { MOVIE#, DIRECTOR# }
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{tiny}
     \begin{table}
-      %\caption{u1a}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
- ID & TITLE                          & YEAR & SCORE & VOTES & DIRECTORID\\\hline\hline
- 70 & Being John Malkovich           & 1999 &    83 & 13809 &       1485\\\hline
-110 & Sleepy Hollow                  & 1999 &    75 & 10514 &        148\\\hline
-112 & Three Kings                    & 1999 &    77 & 10319 &          0\\\hline
-213 & Blade                          & 1998 &    67 &  6885 &          0\\\hline
-251 & End of Days                    & 1999 &    55 &  6095 &        103\\\hline
-373 & Fear and Loathing in Las Vegas & 1998 &    65 &  4658 &         59\\\hline
-432 & Stigmata                       & 1999 &    61 &  4141 &          0\\\hline
-433 & eXistenZ                       & 1999 &    69 &  4130 &         97\\\hline
+      \caption{U1A}
+      \begin{tabular}{|r|r|}\hline
+\underline{MOVIE\#} & DIRECTOR\#\\[2pt]\hline\hline
+ 70 &       1485\\\hline
+110 &        148\\\hline
+112 &       1070\\\hline
+213 &       2861\\\hline
+251 &        103\\\hline
+373 &         59\\\hline
+432 &       2557\\\hline
+433 &         97\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -1466,123 +1360,32 @@ u1a = select (movie) (yr > '1997')
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}[1997'den sonra çekilen filmler ve oyuncuları]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{U1A}'daki filmlerin bütün oyuncularının kimlikleri (\texttt{U1B})
+    \end{itemize}
+
     \begin{lstlisting}
-u1b = join (u1a) (casting)
-           (u1a.id = casting.movieid)
+(U1A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
 
     \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{u1b}
-      \begin{tabular}{|r|l|c|r|r|r|r|}\hline
- ID & TITLE                          & ... & DIRECTORID & MOVIEID & ACTORID & ORD\\\hline\hline
- 70 & Being John Malkovich           & ... &       1485 &      70 &     282 &   2\\\hline
- 70 & Being John Malkovich           & ... &       1485 &      70 &     503 &  14\\\hline
-110 & Sleepy Hollow                  & ... &        148 &     110 &      26 &   1\\\hline
-110 & Sleepy Hollow                  & ... &        148 &     110 &     187 &   2\\\hline
-112 & Three Kings                    & ... &          0 &     112 &     138 &   1\\\hline
-... & ...                            & ... &        ... &     ... &     ... & ...\\\hline
-373 & Fear and Loathing in Las Vegas & ... &         59 &     373 &     302 &   2\\\hline
-432 & Stigmata                       & ... &          0 &     432 &     308 &   2\\\hline
-432 & Stigmata                       & ... &          0 &     432 &     406 &   1\\\hline
-433 & eXistenZ                       & ... &         97 &     433 &     350 &   1\\\hline
-433 & eXistenZ                       & ... &         97 &     433 &     793 &   2\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Birleşim Örneği}
-
-  \begin{ornek}[1997'den sonra çekilen filmlerin yönetmenlerinin kimlikleri]
-    \begin{lstlisting}
-u1c = project (u1b) (directorid)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{u1c}
-      \begin{tabular}{|r|}\hline
-DIRECTORID\\\hline\hline
-      1485\\\hline
-       148\\\hline
-         0\\\hline
-       103\\\hline
-        59\\\hline
-        97\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Birleşim Örneği}
-
-  \begin{ornek}[1997'den sonra çekilen filmlerin oyuncularının kimlikleri]
-    \begin{lstlisting}
-u1d = project (u1b) (actorid)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{u1d}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    282\\\hline
-    503\\\hline
-     26\\\hline
-    187\\\hline
-    138\\\hline
-   1485\\\hline
-    745\\\hline
-   3578\\\hline
-      9\\\hline
-    308\\\hline
-    302\\\hline
-    406\\\hline
-    350\\\hline
-    793\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Birleşim Örneği}
-
-  \begin{ornek}[1997'den sonra çekilen filmlerin yönetmenlerinin ve
-                oyuncularının kimlikleri]
-    \begin{lstlisting}
-u1e = union (u1c) (u1d)
-    \end{lstlisting}
-
-    \pause
+    \vspace{-10pt}
     \begin{columns}[b]
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1e}
+        \caption{U1B}
         \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-   1485\\\hline
-    148\\\hline
-      0\\\hline
-    103\\\hline
-     59\\\hline
-     97\\\hline
-    282\\\hline
-    503\\\hline
-     26\\\hline
-    187\\\hline
-      \end{tabular}
+\underline{ACTOR\#}\\[2pt]\hline\hline
+                  9\\\hline
+                 26\\\hline
+                138\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
+        \end{tabular}
       \end{table}
       \end{tiny}
 
@@ -1590,16 +1393,14 @@ ACTORID\\\hline\hline
       \begin{tiny}
       \begin{table}
         \begin{tabular}{|r|}\hline
-    138\\\hline
-    745\\\hline
-   3578\\\hline
-      9\\\hline
-    308\\\hline
-    302\\\hline
-    406\\\hline
-    350\\\hline
-    793\\\hline
-      \end{tabular}
+                350\\\hline
+                406\\\hline
+                503\\\hline
+                745\\\hline
+                793\\\hline
+               1485\\\hline
+               3578\\\hline
+        \end{tabular}
       \end{table}
       \end{tiny}
     \end{columns}
@@ -1609,48 +1410,145 @@ ACTORID\\\hline\hline
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}[1997'den sonra çekilen filmlerin yönetmenlerinin ve
-                oyuncularının isimleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{U1A} ile \texttt{U1B}'den en az birinde bulunan yönetmen\\
+        ve oyuncuların kimlikleri (\texttt{U1C})
+    \end{itemize}
+
     \begin{lstlisting}
-u1 = project (join (u1e) (person)
-              (u1e.actorid = person.id)) (name)
+(U1A { DIRECTOR# }
+      RENAME (DIRECTOR# AS PERSON#))
+UNION (U1B RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
 
     \pause
+    \vspace{-10pt}
     \begin{columns}[b]
-      \column{.5\textwidth}
+      \column{.2\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1}
-        \begin{tabular}{|l|}\hline
-NAME                 \\\hline\hline
-Spike Jonze          \\\hline
-Tim Burton           \\\hline
-Peter Hyams          \\\hline
-Terry Gilliam        \\\hline
-David Cronenberg     \\\hline
-Cameron Diaz         \\\hline
-John Malkovich       \\\hline
-Johnny Depp          \\\hline
-Christina Ricci      \\\hline
+        \caption{U1C}
+        \begin{tabular}{|r|}\hline
+\underline{PERSON\#}\\[2pt]\hline\hline
+                  9\\\hline
+                 26\\\hline
+                 59\\\hline
+                 97\\\hline
+                103\\\hline
+                138\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
 
-      \column{.5\textwidth}
+      \column{.1\textwidth}
       \begin{tiny}
       \begin{table}
-        %\caption{u1}
+        \begin{tabular}{|r|}\hline
+                148\\\hline
+                187\\\hline
+                282\\\hline
+                302\\\hline
+                308\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.1\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|r|}\hline
+                350\\\hline
+                406\\\hline
+                503\\\hline
+                745\\\hline
+                793\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.1\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|r|}\hline
+               1070\\\hline
+               1485\\\hline
+               2557\\\hline
+               2861\\\hline
+               3578\\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Birleşim Örneği}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{U1C}'deki bütün kişilerin isimleri (\texttt{U1})
+    \end{itemize}
+
+    \begin{lstlisting}
+(U1C JOIN PERSON) { NAME }
+    \end{lstlisting}
+
+    \pause
+    \vspace{-10pt}
+    \begin{columns}[b]
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{U1}
         \begin{tabular}{|l|}\hline
-George Clooney       \\\hline
-Udo Kier             \\\hline
-Traci Lords          \\\hline
+\underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
-Gabriel Byrne        \\\hline
 Benicio Del Toro     \\\hline
-Patricia Arquette    \\\hline
+Cameron Diaz         \\\hline
+Christina Ricci      \\\hline
+David Cronenberg     \\\hline
+David O. Russell     \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.15\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Gabriel Byrne        \\\hline
+George Clooney       \\\hline
 Jennifer Jason Leigh \\\hline
+John Malkovich       \\\hline
+Johnny Depp          \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.15\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
 Jude Law             \\\hline
+Patricia Arquette    \\\hline
+Peter Hyams          \\\hline
+Rupert Wainwright    \\\hline
+Spike Jonze          \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Stephen Norrington   \\\hline
+Terry Gilliam        \\\hline
+Tim Burton           \\\hline
+Traci Lords          \\\hline
+Udo Kier             \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -1662,39 +1560,39 @@ Jude Law             \\\hline
   \frametitle{Fark}
 
   \begin{tanim}
-    \alert{fark}: bağıntı$_1$ - bağıntı$_2$\\
-      birinci bağıntıda bulunup ikincide bulunmayan çokluları seçme
+    \alert{fark}:  birinci bağıntı değişkeninde bulunan\\
+      ama ikincide bulunmayan çokluları seçme
   \end{tanim}
 
   \pause
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
-difference (bağıntı1_adı) (bağıntı2_adı)
+relvar1_name MINUS relvar2_name
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıkış bağıntısı başlığı = bağıntı$_1$ başlığı = bağıntı$_2$ başlığı
+    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Fark Örneği}
 
-  \begin{ornek}[Johnny Depp ile oynamamış oyuncuların isimleri]
+  \begin{ornek}[]
+    \begin{itemize}
+      \item Johnny Depp'in filmlerinde oynamamış oyuncuların isimleri\\
+        (\texttt{D1})
+    \end{itemize}
+
     \pause
     \begin{enumerate}
-      \item Johnny Depp ile oynamış oyuncuların kimliklerini bul
+      \item Johnny Depp'in filmlerinde oynamış oyuncuların kimlikleri\\
+        (\texttt{J3B})
 
       \pause
-      \item bütün oyuncuların kimliklerini bul
-
-      \pause
-      \item Johnny Depp ile oynamamış oyuncuların kimliklerini bul
-
-      \pause
-      \item elde edilen kimlikleri oyuncu isimleriyle eşleştir
+      \item \texttt{J3B}'de olmayan bütün oyuncuların isimleri (\texttt{D1})
     \end{enumerate}
   \end{ornek}
 \end{frame}
@@ -1702,58 +1600,46 @@ difference (bağıntı1_adı) (bağıntı2_adı)
 \begin{frame}[fragile]
   \frametitle{Fark Örneği}
 
-  \begin{ornek}[Johnny Depp ile oynamamış oyuncuların kimlikleri]
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{J3B}'de olmayan bütün oyuncuların isimleri (\texttt{D1})
+    \end{itemize}
+
     \begin{lstlisting}
-d1a = difference (i1b) (j3c)
+(((CASTING { ACTOR# } MINUS J3B)
+      RENAME (ACTOR# AS PERSON#))
+  JOIN PERSON) {NAME}
     \end{lstlisting}
 
     \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{d1a}
-      \begin{tabular}{|r|}\hline
-ACTORID\\\hline\hline
-    503\\\hline
-      9\\\hline
-    138\\\hline
-    243\\\hline
-   1485\\\hline
-    793\\\hline
-    745\\\hline
-    350\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fark Örneği}
-
-  \begin{ornek}[Johnny Depp ile oynamamış oyuncuların isimleri]
-    \begin{lstlisting}
-d1 = project (join (d1a) (person)
-                   (d1a.actorid = person.id))
-             (name)
-    \end{lstlisting}
-
-    \pause
-    \begin{tiny}
-    \begin{table}
-      %\caption{d1}
-      \begin{tabular}{|l|}\hline
-NAME                 \\\hline\hline
-John Malkovich       \\\hline
+    \vspace{-10pt}
+    \begin{columns}[b]
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{D1}
+        \begin{tabular}{|l|}\hline
+\underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 George Clooney       \\\hline
-Uma Thurman          \\\hline
-Spike Jonze          \\\hline
-Jude Law             \\\hline
-Udo Kier             \\\hline
 Jennifer Jason Leigh \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+John Malkovich       \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+
+      \column{.2\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \begin{tabular}{|l|}\hline
+Jude Law             \\\hline
+Spike Jonze          \\\hline
+Udo Kier             \\\hline
+Uma Thurman          \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
+    \end{columns}
   \end{ornek}
 \end{frame}
 
@@ -1783,7 +1669,7 @@ Jennifer Jason Leigh \\\hline
 \begin{frame}[fragile]
   \frametitle{Basit Sorgulama}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] sütun_adı [, ...]
   FROM tablo_adı
@@ -1830,7 +1716,7 @@ SELECT DISTINCT YEAR FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Sonuçların Sıralanması}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] sütun_adı [, ...]
   FROM tablo_adı
@@ -1871,7 +1757,7 @@ SELECT DISTINCT YEAR FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Deyimler}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { deyim [ AS sütun_adı ] } [, ...]
@@ -1922,7 +1808,7 @@ SELECT TITLE, SCORE * VOTES
 \begin{frame}[fragile]
   \frametitle{Satır Seçme}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { deyim [ AS sütun_adı ] } [, ...]
@@ -2028,7 +1914,7 @@ SELECT TITLE, SCORE FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Gruplama}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { deyim [ AS sütun_adı ] } [, ...]
@@ -2253,7 +2139,7 @@ SELECT TITLE, NAME
     \end{itemize}
   \end{itemize}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT ...
   FROM tablo_deyimi [ AS tablo_adı ]
@@ -2324,7 +2210,7 @@ tablo1_adı NATURAL JOIN tablo2_adı
   \end{itemize}
 
   \pause
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 tablo1_adı [ LEFT | RIGHT | FULL ]
            [ OUTER ] JOIN tablo2_adı
@@ -2533,7 +2419,7 @@ tablo1_adı CROSS JOIN tablo2_adı
     \item koşul deyiminde bir altsorgunun ürettiği sonuç kullanılabilir
   \end{itemize}
 
-  \begin{block}{Komut Yazımı}
+  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT ...
   FROM ...
@@ -2603,7 +2489,7 @@ SELECT ...
     \item bir değerin bir altsorgudan elde edilen birden fazla değerle
       karşılaştırılması
 
-    \begin{block}{Komut Yazımı}
+    \begin{block}{Komut}
       \begin{lstlisting}
 SELECT ...
   FROM ...
