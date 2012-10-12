@@ -22,9 +22,9 @@
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
   morekeywords={AND, AS, BASE, BOOL, CAST_AS_, CAST_AS_RATIONAL, CHAR,
-                CONSTRAINT, DELETE, DROP, INSERT, INTEGER, KEY, POSSREP,
-                RATIONAL, RELATION, RENAME, THE_, TUPLE, TYPE, UPDATE, VAR,
-                WHERE}
+                CONSTRAINT, DELETE, DIVIDEBY, DROP, INSERT, INTEGER, INTERSECT,
+                JOIN, KEY, MINUS, OR, PER, POSSREP, RATIONAL, RELATION, RENAME,
+                THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -968,7 +968,7 @@ UPDATE relvar_name
 
     \begin{lstlisting}
 UPDATE MOVIE
-  WHERE (TITLE = 'Suspiria') (
+  WHERE (TITLE = "Suspiria") (
     SCORE := SCORE(
       (THE_VALUE(SCORE)
          * CAST_AS_RATIONAL(VOTES)
@@ -988,7 +988,7 @@ UPDATE MOVIE
 
   \begin{itemize}
     \item in order to meet the scalar value requirement,\\
-      tuples may have to be partly repeated
+      tuples may have to be repeated
   \end{itemize}
 
   \begin{example}[how to store actor data?]
@@ -1139,8 +1139,8 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \frametitle{Foreign Keys}
 
   \begin{definition}
-    \alert{foreign key}:\\
-      an attribute of a relation is the candidate key of another relation
+    \alert{foreign key}: an attribute of a relation\\
+      being the candidate key of another relation
   \end{definition}
 \end{frame}
 
@@ -1589,7 +1589,6 @@ DROP DOMAIN domain_name [, ...]
   \begin{example}[a domain for valid \texttt{SCORE} values]
     \begin{lstlisting}
 CREATE DOMAIN SCORES AS FLOAT
-  DEFAULT 2012
   CHECK ((VALUE >= 1.0) AND (VALUE <= 10.0))
     \end{lstlisting}
   \end{example}
@@ -1697,6 +1696,41 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Automatically Incremented Values}
+
+  \begin{itemize}
+    \item product-specific definitions
+    \begin{itemize}
+      \item PostgreSQL: \texttt{SERIAL} data type
+      \item MySQL: \texttt{AUTO\_INCREMENT} property
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Automatically Incremented Value Examples}
+
+  \begin{example}[PostgreSQL]
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID SERIAL PRIMARY KEY,
+  ...
+)
+    \end{lstlisting}
+  \end{example}
+
+  \pause
+  \begin{example}[MySQL]
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+  ...
+)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Value Constraints}
 
   \begin{block}{Statement}
@@ -1726,6 +1760,52 @@ CREATE TABLE MOVIE (
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
   CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
+)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uniqueness Definition}
+
+  \begin{block}{Statement}
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  ...
+  [ { UNIQUE ( column_name [, ...] ) }
+    [, ...] ]
+  ...
+)
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item if the uniqueness constraint consists of a single column,\\
+      it can be specified directly when defining the column:
+      \begin{lstlisting}
+column_name data_type UNIQUE
+      \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uniqueness Definition Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item \texttt{\{TITLE\}} and \texttt{\{DIRECTOR, YR\}} are unique
+    \end{itemize}
+
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY,
+  TITLE VARCHAR(80) UNIQUE NOT NULL,
+  YR NUMERIC(4),
+  DIRECTOR VARCHAR(40),
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  UNIQUE (DIRECTOR, YR)
 )
     \end{lstlisting}
   \end{example}
@@ -1814,9 +1894,9 @@ ALTER TABLE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Changing Column Default Value}
+  \frametitle{Column Default Value}
 
-  \begin{block}{Statement}
+  \begin{block}{Setting Column Default Value}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
@@ -1825,123 +1905,20 @@ ALTER TABLE table_name
   \end{block}
 
   \pause
-  \medskip
-  \begin{example}
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ALTER COLUMN SCORE
-  SET DEFAULT 0.0
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Removing Column Default Value}
-
-  \begin{block}{Statement}
+  \begin{block}{Removing Column Default Value}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
   DROP DEFAULT
     \end{lstlisting}
   \end{block}
-
-  \pause
   \medskip
-  \begin{example}
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ALTER COLUMN SCORE
-  DROP DEFAULT
-    \end{lstlisting}
-  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uniqueness Definition}
+  \frametitle{Adding Constraints}
 
   \begin{block}{Statement}
-    \begin{lstlisting}
-CREATE TABLE table_name (
-  ...
-  [ { UNIQUE ( column_name [, ...] ) }
-    [, ...] ]
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item if the uniqueness constraint consists of a single column,\\
-      it can be specified directly when defining the column:
-      \begin{lstlisting}
-column_name data_type UNIQUE
-      \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Uniqueness Definition Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{\{TITLE\}} and \texttt{\{DIRECTOR, YR\}} are unique
-    \end{itemize}
-
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80) UNIQUE NOT NULL,
-  YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
-  SCORE FLOAT,
-  VOTES INTEGER DEFAULT 0,
-  UNIQUE (DIRECTOR, YR)
-)
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Generating Automatic Values}
-
-  \begin{itemize}
-    \item product-specific definitions
-    \begin{itemize}
-      \item PostgreSQL: \texttt{SERIAL} data type
-      \item MySQL: \texttt{AUTO\_INCREMENT} property
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Automatic Value Generation Examples}
-
-  \begin{example}[PostgreSQL]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID SERIAL PRIMARY KEY,
-  ...
-)
-    \end{lstlisting}
-  \end{example}
-
-  \pause
-  \begin{example}[MySQL]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-  ...
-)
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Constraint Management}
-
-  \begin{block}{Adding Constraints}
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ CONSTRAINT constraint_name ]
@@ -1964,7 +1941,7 @@ ALTER TABLE table_name
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Constraint Management Examples}
+  \frametitle{Constraint Addition Example}
 
   \begin{example}
     \begin{itemize}
