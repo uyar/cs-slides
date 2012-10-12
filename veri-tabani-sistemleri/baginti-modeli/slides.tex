@@ -23,9 +23,9 @@
 \usepackage{listings}
 \lstdefinelanguage{TutorialD}[]{}{
   morekeywords={AND, AS, BASE, BOOL, CAST_AS_, CAST_AS_RATIONAL, CHAR,
-                CONSTRAINT, DELETE, DROP, INSERT, INTEGER, KEY, POSSREP,
-                RATIONAL, RELATION, RENAME, THE_, TUPLE, TYPE, UPDATE, VAR,
-                WHERE}
+                CONSTRAINT, DELETE, DIVIDEBY, DROP, INSERT, INTEGER, INTERSECT,
+                JOIN, KEY, MINUS, OR, PER, POSSREP, RATIONAL, RELATION, RENAME,
+                THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -973,7 +973,7 @@ UPDATE relvar_name
 
     \begin{lstlisting}
 UPDATE MOVIE
-  WHERE (TITLE = 'Suspiria') (
+  WHERE (TITLE = "Suspiria") (
     SCORE := SCORE(
       (THE_VALUE(SCORE)
          * CAST_AS_RATIONAL(VOTES)
@@ -993,7 +993,7 @@ UPDATE MOVIE
 
   \begin{itemize}
     \item değerlerin tek boyutlu olması kuralına uyabilmek için\\
-      çokluların kısmen yinelenmeleri gerekebilir
+      çokluların yinelenmeleri gerekebilir
   \end{itemize}
   
   \begin{ornek}[oyuncular nasıl tutulacak?]
@@ -1144,8 +1144,8 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \frametitle{Dış Anahtarlar}
 
   \begin{tanim}
-    \alert{dış anahtar}:\\
-      bir bağıntının bir niteliği başka bir bağıntının anahtar adayı
+    \alert{dış anahtar}: bir bağıntının bir niteliğinin\\
+      başka bir bağıntının anahtar adayı olması
   \end{tanim}
 \end{frame}
 
@@ -1590,7 +1590,6 @@ DROP DOMAIN domain_name [, ...]
   \begin{ornek}[geçerli \texttt{SCORE} değerleri için bir tanım kümesi]
     \begin{lstlisting}
 CREATE DOMAIN SCORES AS FLOAT
-  DEFAULT 2012
   CHECK ((VALUE >= 1.0) AND (VALUE <= 10.0))
     \end{lstlisting}
   \end{ornek}
@@ -1698,6 +1697,41 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Kendiliğinden Artırılan Değerler}
+
+  \begin{itemize}
+    \item ürüne özel tanımlar
+    \begin{itemize}
+      \item PostgreSQL: \texttt{SERIAL} veri tipi
+      \item MySQL: \texttt{AUTO\_INCREMENT} özelliği
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kendiliğinden Artırılan Değer Örnekleri}
+
+  \begin{ornek}[PostgreSQL]
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID SERIAL PRIMARY KEY,
+  ...
+)
+    \end{lstlisting}
+  \end{ornek}
+
+  \pause
+  \begin{ornek}[MySQL]
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+  ...
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Değer Kısıtlamaları}
 
   \begin{block}{Komut}
@@ -1728,6 +1762,52 @@ CREATE TABLE MOVIE (
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
   CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
+)
+    \end{lstlisting}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Eşsizlik Tanımı}
+
+  \begin{block}{Komut}
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  ...
+  [ { UNIQUE ( column_name [, ...] ) }
+    [, ...] ]
+  ...
+)
+    \end{lstlisting}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item eşsizlik kısıtlaması tek bir sütundan oluşuyorsa,\\
+      doğrudan sütun tanımında belirtilebilir:
+      \begin{lstlisting}
+column_name data_type UNIQUE
+      \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Eşsizlik Tanımı Örneği}
+
+  \begin{ornek}
+    \begin{itemize}
+      \item \texttt{\{TITLE\}} ve \texttt{\{DIRECTOR, YR\}} eşsiz
+    \end{itemize}
+
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY,
+  TITLE VARCHAR(80) UNIQUE NOT NULL,
+  YR NUMERIC(4),
+  DIRECTOR VARCHAR(40),
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  UNIQUE (DIRECTOR, YR)
 )
     \end{lstlisting}
   \end{ornek}
@@ -1816,9 +1896,9 @@ ALTER TABLE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sütun Varsayılan Değeri Değiştirme}
+  \frametitle{Sütun Varsayılan Değeri}
 
-  \begin{block}{Komut}
+  \begin{block}{Sütun Varsayılan Değeri Değiştirme}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
@@ -1827,123 +1907,20 @@ ALTER TABLE table_name
   \end{block}
 
   \pause
-  \medskip
-  \begin{ornek}
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ALTER COLUMN SCORE
-  SET DEFAULT 0.0
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sütun Varsayılan Değeri Silme}
-
-  \begin{block}{Komut}
+  \begin{block}{Sütun Varsayılan Değeri Silme}
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
   DROP DEFAULT
     \end{lstlisting}
   \end{block}
-
-  \pause
   \medskip
-  \begin{ornek}
-    \begin{lstlisting}
-ALTER TABLE MOVIE
-  ALTER COLUMN SCORE
-  DROP DEFAULT
-    \end{lstlisting}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Eşsizlik Tanımı}
+  \frametitle{Kısıtlama Ekleme}
 
   \begin{block}{Komut}
-    \begin{lstlisting}
-CREATE TABLE table_name (
-  ...
-  [ { UNIQUE ( column_name [, ...] ) }
-    [, ...] ]
-  ...
-)
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item eşsizlik kısıtlaması tek bir sütundan oluşuyorsa,\\
-      doğrudan sütun tanımında belirtilebilir:
-      \begin{lstlisting}
-column_name data_type UNIQUE
-      \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Eşsizlik Tanımı Örneği}
-
-  \begin{ornek}
-    \begin{itemize}
-      \item \texttt{\{ITITLE\}} ve \texttt{\{DIRECTOR, YR\}} eşsiz
-    \end{itemize}
-
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80) UNIQUE NOT NULL,
-  YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
-  SCORE FLOAT,
-  VOTES INTEGER DEFAULT 0,
-  UNIQUE (DIRECTOR, YR)
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Otomatik Değer Üretme}
-
-  \begin{itemize}
-    \item ürüne özel tanımlar
-    \begin{itemize}
-      \item PostgreSQL: \texttt{SERIAL} veri tipi
-      \item MySQL: \texttt{AUTO\_INCREMENT} özelliği
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Otomatik Değer Üretme Örnekleri}
-
-  \begin{ornek}[PostgreSQL]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID SERIAL PRIMARY KEY,
-  ...
-)
-    \end{lstlisting}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[MySQL]
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-  ...
-)
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kısıtlama Yönetimi}
-
-  \begin{block}{Kısıtlama Ekleme}
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ CONSTRAINT constraint_name ]
@@ -1966,7 +1943,7 @@ ALTER TABLE table_name
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Kısıtlama Yönetimi Örnekleri}
+  \frametitle{Kısıtlama Ekleme Örneği}
 
   \begin{ornek}
     \begin{itemize}
