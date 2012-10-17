@@ -294,7 +294,7 @@
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar_name WHERE condition
+relation WHERE condition
     \end{lstlisting}
   \end{block}
 
@@ -373,7 +373,7 @@ MOVIE WHERE ((YEAR < YEAR(1992))
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar_name { attribute_name [, ...] }
+relation { attribute_name [, ...] }
     \end{lstlisting}
   \end{block}
 
@@ -633,12 +633,12 @@ Usual Suspects      \\\hline
   \frametitle{Join}
 
   \begin{definition}
-    \alert{join}: matching tuples of two relation variables\\
+    \alert{join}: matching tuples of two relations\\
       over common values of one or more attributes
   \end{definition}
 
   \begin{itemize}
-    \item from the Cartesian product of the two relation variables,\\
+    \item from the Cartesian product of the two relations,\\
       selecting the tuples which have the same values\\
       for the given attributes
     \item matching attributes are not repeated in the output
@@ -654,13 +654,13 @@ Usual Suspects      \\\hline
 
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar1_name JOIN relvar2_name
+relation1 JOIN relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output header = relvar1 header $\cup$ relvar2 header
+    \item output header = relation1 header $\cup$ relation2 header
   \end{itemize}
 \end{frame}
 
@@ -1015,16 +1015,16 @@ Traci Lords      \\\hline
   \frametitle{Division}
 
   \begin{definition}
-    \alert{division}: from the tuples of the first relation variable,\\
+    \alert{division}: from the tuples of the first relation,\\
       selecting the ones that match all the tuples\\
-      of the second relation variable in a mediating relation variable
+      of the second relation in a mediating relation
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar1_name DIVIDEBY relvar2_name
-  PER (relvar3_name)
+relation1 DIVIDEBY relation2
+  PER (relation3)
     \end{lstlisting}
   \end{block}
 \end{frame}
@@ -1167,19 +1167,19 @@ Sleepy Hollow                 \\\hline
   \frametitle{Intersection}
 
   \begin{definition}
-    \alert{intersection}: selecting the tuples found in both relation variables
+    \alert{intersection}: selecting the tuples found in both relations
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar1_name INTERSECT relvar2_name
+relation1 INTERSECT relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output header = relvar1 header = relvar2 header
+    \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
 
@@ -1261,20 +1261,19 @@ Spike Jonze     \\\hline
   \frametitle{Union}
 
   \begin{definition}
-    \alert{union}: selecting the tuples found in at least one of two\\
-      relation variables
+    \alert{union}: selecting the tuples found in at least one of two relations
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar1_name UNION relvar2_name
+relation1 UNION relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output header = relvar1 header = relvar2 header
+    \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
 
@@ -1545,20 +1544,20 @@ Udo Kier             \\\hline
   \frametitle{Difference}
 
   \begin{definition}
-    \alert{difference}: selecting the tuples which are found in the first
-      but not in the second relation variable
+    \alert{difference}: selecting the tuples which are found in the first\\
+      but not in the second relation
   \end{definition}
 
   \pause
   \begin{block}{Statement}
     \begin{lstlisting}
-relvar1_name MINUS relvar2_name
+relation1 MINUS relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item output header = relvar1 header = relvar2 header
+    \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
 
