@@ -301,7 +301,7 @@
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar_name WHERE condition
+relation WHERE condition
     \end{lstlisting}
   \end{block}
 
@@ -380,7 +380,7 @@ MOVIE WHERE ((YEAR < YEAR(1992))
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar_name { attribute_name [, ...] }
+relation { attribute_name [, ...] }
     \end{lstlisting}
   \end{block}
 
@@ -640,12 +640,12 @@ Usual Suspects      \\\hline
   \frametitle{Katma}
 
   \begin{tanim}
-    \alert{katma}: iki bağıntı değişkeninin çoklularını, bir ya da birden fazla\\
-      niteliğin ortak değerleri üzerinden eşleştirme
+    \alert{katma}: iki bağıntının çoklularını, bir ya da birden fazla niteliğin\\
+      ortak değerleri üzerinden eşleştirme
   \end{tanim}
 
   \begin{itemize}
-    \item iki bağıntı değişkeninin Kartezyen çarpımından,\\
+    \item iki bağıntının Kartezyen çarpımından,\\
       verilen nitelikler için aynı değeri taşıyan çokluları seçme
     \item eşleşen nitelikler çıktıda tekrarlanmaz
 
@@ -660,13 +660,13 @@ Usual Suspects      \\\hline
 
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar1_name JOIN relvar2_name
+relation1 JOIN relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıktı başlığı = relvar1 başlığı $\cup$ relvar2 başlığı
+    \item çıktı başlığı = relation1 başlığı $\cup$ relation2 başlığı
   \end{itemize}
 \end{frame}
 
@@ -1021,16 +1021,16 @@ Traci Lords      \\\hline
   \frametitle{Bölme}
 
   \begin{tanim}
-    \alert{bölme}:  birinci bağıntı değişkenindeki çoklular arasından\\
-      ikinci bağıntı değişkenindeki bütün çoklularla\\
-      bir ara bağıntı değişkeninde eşleşenleri seçme
+    \alert{bölme}: birinci bağıntıdaki çoklular arasından\\
+      ikinci bağıntıdaki bütün çoklularla\\
+      bir ara bağıntıda eşleşenleri seçme
   \end{tanim}
 
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar1_name DIVIDEBY relvar2_name
-  PER (relvar3_name)
+relation1 DIVIDEBY relation2
+  PER (relation3)
     \end{lstlisting}
   \end{block}
 \end{frame}
@@ -1175,19 +1175,19 @@ Sleepy Hollow                 \\\hline
   \frametitle{Kesişim}
 
   \begin{tanim}
-    \alert{kesişim}: iki bağıntı değişkeninde de bulunan çokluları seçme
+    \alert{kesişim}: iki bağıntıda da bulunan çokluları seçme
   \end{tanim}
 
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar1_name INTERSECT relvar2_name
+relation1 INTERSECT relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
+    \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
 
@@ -1269,20 +1269,19 @@ Spike Jonze     \\\hline
   \frametitle{Birleşim}
 
   \begin{tanim}
-    \alert{birleşim}: iki bağıntı değişkeninden en az birinde bulunan\\
-      çokluları seçme
+    \alert{birleşim}: iki bağıntıdan en az birinde bulunan çokluları seçme
   \end{tanim}
 
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar1_name UNION relvar2_name
+relation1 UNION relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
+    \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
 
@@ -1551,20 +1550,20 @@ Udo Kier             \\\hline
   \frametitle{Fark}
 
   \begin{tanim}
-    \alert{fark}:  birinci bağıntı değişkeninde bulunan\\
-      ama ikincide bulunmayan çokluları seçme
+    \alert{fark}: birinci bağıntıda bulunan ama ikincide bulunmayan\\
+      çokluları seçme
   \end{tanim}
 
   \pause
   \begin{block}{Komut}
     \begin{lstlisting}
-relvar1_name MINUS relvar2_name
+relation1 MINUS relation2
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item çıktı başlığı = relvar1 başlığı = relvar2 başlığı
+    \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
 
