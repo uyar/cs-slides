@@ -142,8 +142,9 @@
 
     \pause
     \medskip
+    \item relations are assigned to \alert{relation variables} (\alert{relvar})
     \item each element of a relation is a \alert{tuple}
-    \item each data of an element is an \alert{attribute}
+    \item each piece of data of an element is an \alert{attribute}
 
     \pause
     \medskip
@@ -175,9 +176,10 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
     \pause
     \begin{itemize}
+      \item the name of the relation variable is \texttt{MOVIE}
       \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
-        is a tuple of the \texttt{MOVIE} relation
-      \item \texttt{YEAR} is an attribute of the \texttt{MOVIE} relation
+        is a tuple of the movie relation
+      \item \texttt{YEAR} is an attribute of the movie relation
     \end{itemize}
   \end{example}
 \end{frame}
@@ -187,8 +189,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
   \begin{block}{relation header}
     \begin{itemize}
-      \item the set of attributes making up the relation
-      \item specified when the relation is created
+      \item the set of attributes of the relation
       \item affected by data definition language statements
     \end{itemize}
   \end{block}
@@ -253,7 +254,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Usual Suspects       & ...\\\hline
@@ -266,7 +267,7 @@ Being John Malkovich & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Suspiria             & ...\\\hline
@@ -296,7 +297,7 @@ Usual Suspects       & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|r|l|}\hline
 TITLE                & YEAR & ...\\\hline\hline
 Usual Suspects       & 1995 & ...\\\hline
@@ -309,7 +310,7 @@ Being John Malkovich & 1999 & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|r|l|l|}\hline
 YEAR & TITLE                & ...\\\hline\hline
 1995 & Usual Suspects       & ...\\\hline
@@ -336,7 +337,7 @@ YEAR & TITLE                & ...\\\hline\hline
   \begin{example}[multiple directors]
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|l|c|l|c|}\hline
 TITLE  & ... & DIRECTORS                      & ...\\\hline\hline
 ...    & ... & ...                            & ...\\\hline
@@ -423,7 +424,7 @@ Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \begin{example}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
 TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
@@ -511,7 +512,7 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \begin{example}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
 MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
     ... & ...                  &  ... & ...           & ...   &   ...\\\hline
@@ -560,7 +561,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \begin{example}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & DIRECTOR      & SCORE & VOTES\\[2pt]\hline\hline
  ... & ...                  &  ... & ...           &   ... &   ...\\\hline
@@ -851,7 +852,7 @@ RELATION {
   \frametitle{Relation Variable Assignment}
 
   \begin{itemize}
-    \item a relation body can be assigned to a relation variable:
+    \item assigning relations to relation variables:
     \begin{lstlisting}
 relvar_name := RELATION { ... };
     \end{lstlisting}
@@ -1148,7 +1149,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \frametitle{Foreign Key Examples}
 
   \begin{example}[the \texttt{DIRECTOR\#} attribute of the \texttt{MOVIE}
-                  relation]
+                  relation variable]
     \begin{columns}[t]
       \column{.63\textwidth}
       \begin{tiny}
@@ -1344,8 +1345,8 @@ CONSTRAINT constraint_name
 \begin{frame}[fragile]
   \frametitle{Foreign Key Definition Examples}
 
-  \begin{example}[the \texttt{MOVIE\#} foreign key in the \texttt{CASTING}
-                  relation]
+  \begin{example}[the \texttt{MOVIE\#} attribute of the \texttt{CASTING}
+                  relation variable]
     \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# }
@@ -1357,8 +1358,8 @@ CONSTRAINT CASTING_FKEY_MOVIE
 \begin{frame}[fragile]
   \frametitle{Foreign Key Definition Examples}
 
-  \begin{example}[the \texttt{DIRECTOR\#} foreign key in the \texttt{MOVIE}
-                  relation]
+  \begin{example}[the \texttt{DIRECTOR\#} attribute of the \texttt{MOVIE}
+                  relation variable]
     \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
     MOVIE { DIRECTOR# }
@@ -1371,7 +1372,7 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[defining the types]
+  \begin{example}[types]
     \begin{lstlisting}
 TYPE MOVIE# POSSREP { VALUE INTEGER };
 TYPE YEAR POSSREP { VALUE INTEGER };
@@ -1386,7 +1387,7 @@ TYPE PERSON# POSSREP { VALUE INTEGER };
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[creating the \texttt{MOVIE} relation]
+  \begin{example}[the \texttt{MOVIE} relation variable]
     \begin{lstlisting}
 VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#, TITLE CHAR, YEAR YEAR,
@@ -1400,7 +1401,7 @@ VAR MOVIE BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[creating the \texttt{PERSON} relation]
+  \begin{example}[the \texttt{PERSON} relation variable]
     \begin{lstlisting}
 VAR PERSON BASE RELATION
     { PERSON# PERSON#, NAME CHAR }
@@ -1412,7 +1413,7 @@ VAR PERSON BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[creating the \texttt{CASTING} relation]
+  \begin{example}[the \texttt{CASTING} relation variable]
     \begin{lstlisting}
 VAR CASTING BASE RELATION
     { MOVIE# MOVIE#, ACTOR# PERSON#,
@@ -1425,7 +1426,7 @@ VAR CASTING BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[defining the foreign keys in the \texttt{MOVIE} relation]
+  \begin{example}[the foreign keys of the \texttt{MOVIE} relation variable]
     \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
   MOVIE { DIRECTOR# }
@@ -1438,7 +1439,7 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 \begin{frame}[fragile]
   \frametitle{Creating the Example Database}
 
-  \begin{example}[defining the foreign keys in the \texttt{CASTING} relation]
+  \begin{example}[the foreign keys of the \texttt{CASTING} relation variable]
     \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# } <= MOVIE { MOVIE# };
