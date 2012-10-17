@@ -149,8 +149,9 @@
 
     \pause
     \medskip
-    \item bağıntının her bir elemanı bir \alert{çoklu}
-    \item elemanların her bir verisi bir \alert{nitelik}
+    \item bağıntılar \alert{bağıntı değişkenlerine} atanır
+    \item bağıntının her elemanı bir \alert{çoklu}
+    \item elemanların her verisi bir \alert{nitelik}
 
     \pause
     \medskip
@@ -182,9 +183,10 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
     \pause
     \begin{itemize}
+      \item bağıntı değişkeninin adı \texttt{MOVIE}
       \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
-        \texttt{MOVIE} bağıntısının bir çoklusudur
-      \item \texttt{YEAR}, \texttt{MOVIE} bağıntısının bir niteliğidir
+        film bağıntısının bir çoklusu
+      \item \texttt{YEAR}, film bağıntısının bir niteliği
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -194,8 +196,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
   \begin{block}{bağıntı başlığı}
     \begin{itemize}
-      \item bağıntıyı oluşturan nitelikler kümesi
-      \item bağıntı yaratılırken belirtilir
+      \item bağıntının nitelikleri kümesi
       \item veri tanımlama dili komutlarından etkilenir
     \end{itemize}
   \end{block}
@@ -213,8 +214,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \frametitle{Bağıntı Yüklemi}
 
   \begin{tanim}
-    \alert{bağıntı yüklemi}:\\
-      bağıntının "anlamını" ifade eden cümle
+    \alert{bağıntı yüklemi}: bağıntının "anlamını" ifade eden cümle
   \end{tanim}
 
   \begin{itemize}
@@ -251,14 +251,14 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item aşağıdaki iki bağıntı eşdeğerlidir:
+      \item şu iki bağıntı eşdeğerlidir:
     \end{itemize}
 
     \begin{columns}
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Usual Suspects       & ...\\\hline
@@ -271,7 +271,7 @@ Being John Malkovich & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
 TITLE                & ...\\\hline\hline
 Suspiria             & ...\\\hline
@@ -294,14 +294,14 @@ Usual Suspects       & ...\\\hline
   \pause
   \begin{ornek}
     \begin{itemize}
-      \item aşağıdaki iki bağıntı eşdeğerlidir:
+      \item şu iki bağıntı eşdeğerlidir:
     \end{itemize}
 
     \begin{columns}
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|l|r|l|}\hline
 TITLE                & YEAR & ...\\\hline\hline
 Usual Suspects       & 1995 & ...\\\hline
@@ -314,7 +314,7 @@ Being John Malkovich & 1999 & ...\\\hline
       \column{.5\textwidth}
       \begin{tiny}
       \begin{table}
-        \caption{MOVIE}
+        %\caption{MOVIE}
         \begin{tabular}{|r|l|l|}\hline
 YEAR & TITLE                & ...\\\hline\hline
 1995 & Usual Suspects       & ...\\\hline
@@ -341,7 +341,7 @@ YEAR & TITLE                & ...\\\hline\hline
   \begin{ornek}[birden fazla yönetmen]
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|l|c|l|c|}\hline
 TITLE  & ... & DIRECTORS                      & ...\\\hline\hline
 ...    & ... & ...                            & ...\\\hline
@@ -427,7 +427,7 @@ Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \begin{ornek}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|l|r|l|c|r|r|}\hline
 TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
@@ -515,7 +515,7 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \begin{ornek}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
 MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
     ... & ...                  &  ... & ...           & ...   &   ...\\\hline
@@ -564,7 +564,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \begin{ornek}
     \begin{tiny}
     \begin{table}
-      \caption{MOVIE}
+      %\caption{MOVIE}
       \begin{tabular}{|r|l|r|l|c|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & DIRECTOR      & SCORE & VOTES\\[2pt]\hline\hline
  ... & ...                  &  ... & ...           &   ... &   ...\\\hline
@@ -856,7 +856,7 @@ RELATION {
   \frametitle{Bağıntı Değişkenine Atama}
 
   \begin{itemize}
-    \item bir bağıntı gövdesi bir bağıntı değişkenine atanabilir:
+    \item bağıntıların bağıntı değişkenlerine atanması:
     \begin{lstlisting}
 relvar_name := RELATION { ... };
     \end{lstlisting}
@@ -1152,7 +1152,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \begin{frame}
   \frametitle{Dış Anahtar Örnekleri}
 
-  \begin{ornek}[\texttt{MOVIE} bağıntısının \texttt{DIRECTOR\#} niteliği]
+  \begin{ornek}[\texttt{MOVIE} bağıntı değişkeninin \texttt{DIRECTOR\#} niteliği]
     \begin{columns}[t]
       \column{.63\textwidth}
       \begin{tiny}
@@ -1279,7 +1279,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 
   \pause
   \begin{itemize}
-    \item başvuru bütünlüğünü bozacak işlemlere izin verilmez
+    \item başvuru bütünlüğünü bozacak işlemler engellenmeli
   \end{itemize}
 \end{frame}
 
@@ -1348,7 +1348,7 @@ CONSTRAINT constraint_name
 \begin{frame}[fragile]
   \frametitle{Dış Anahtar Tanımlama Örnekleri}
 
-  \begin{ornek}[\texttt{CASTING} bağıntısında \texttt{MOVIE\#} dış anahtarı]
+  \begin{ornek}[\texttt{CASTING} bağıntı değişkeninin \texttt{MOVIE\#} niteliği]
     \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# }
@@ -1360,7 +1360,7 @@ CONSTRAINT CASTING_FKEY_MOVIE
 \begin{frame}[fragile]
   \frametitle{Dış Anahtar Tanımlama Örnekleri}
 
-  \begin{ornek}[\texttt{MOVIE} bağıntısında \texttt{DIRECTOR\#} dış anahtarı]
+  \begin{ornek}[\texttt{MOVIE} bağıntı değişkeninin \texttt{DIRECTOR\#} niteliği]
     \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
     MOVIE { DIRECTOR# }
@@ -1373,7 +1373,7 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[tiplerin tanımlanması]
+  \begin{ornek}[tipler]
     \begin{lstlisting}
 TYPE MOVIE# POSSREP { VALUE INTEGER };
 TYPE YEAR POSSREP { VALUE INTEGER };
@@ -1388,7 +1388,7 @@ TYPE PERSON# POSSREP { VALUE INTEGER };
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[\texttt{MOVIE} bağıntısının yaratılması]
+  \begin{ornek}[\texttt{MOVIE} bağıntı değişkeni]
     \begin{lstlisting}
 VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#, TITLE CHAR, YEAR YEAR,
@@ -1402,7 +1402,7 @@ VAR MOVIE BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[\texttt{PERSON} bağıntısının yaratılması]
+  \begin{ornek}[\texttt{PERSON} bağıntı değişkeni]
     \begin{lstlisting}
 VAR PERSON BASE RELATION
     { PERSON# PERSON#, NAME CHAR }
@@ -1414,7 +1414,7 @@ VAR PERSON BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[\texttt{CASTING} bağıntısının yaratılması]
+  \begin{ornek}[\texttt{CASTING} bağıntı değişkeni]
     \begin{lstlisting}
 VAR CASTING BASE RELATION
     { MOVIE# MOVIE#, ACTOR# PERSON#,
@@ -1427,7 +1427,7 @@ VAR CASTING BASE RELATION
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[\texttt{MOVIE} bağıntısındaki dış anahtarların tanımlanması]
+  \begin{ornek}[\texttt{MOVIE} bağıntı değişkeninin dış anahtarları]
     \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
   MOVIE { DIRECTOR# }
@@ -1440,7 +1440,7 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 \begin{frame}[fragile]
   \frametitle{Örnek Veri Tabanının Yaratılması}
 
-  \begin{ornek}[\texttt{CASTING} bağıntısındaki dış anahtarların tanımlanması]
+  \begin{ornek}[\texttt{CASTING} bağıntı değişkeninin dış anahtarları]
     \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# } <= MOVIE { MOVIE# };
