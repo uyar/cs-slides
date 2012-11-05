@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -17,25 +17,28 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
 \lstdefinelanguage{ExtendedPHP}[]{PHP}{
   morekeywords={odbc_exec}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
-  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
-  deletekeywords={YEAR}
+  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
+                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
+                START, TO, TYPE, VACUUM}
 }
 \lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
-  morekeywords={AFTER,BEFORE,DO,EACH,FOR,FUNCTION,INSTEAD,LANGUAGE,OPTION,
-                PROCEDURE,RETURNS,ROW,RULE,SNAPSHOT,STATEMENT,WITH}
+  morekeywords={AFTER, BEFORE, DO, EACH, FOR, FUNCTION, INSTEAD, LANGUAGE,
+                OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
+                WITH}
 }
 \lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
-  morekeywords={BEGIN,CLOSE,CONTINUE,CURSOR,DECLARE,FETCH,FOR,DO,END,EXEC,FOUND,
-                GOTO,INCLUDE,INTO,OPEN,SECTION,SQL,SQLERROR,SQLWARNING,
-                STATEMENT,STOP,WHENEVER,sqlca,sqlcode}
+  morekeywords={BEGIN, CLOSE, CONTINUE, CURSOR, DECLARE, FETCH, FOR, DO, END,
+                EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
+                SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
 }
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}}
 
 \mode<presentation>
 {
@@ -48,7 +51,7 @@
 \subtitle{Application Development}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2011}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -73,7 +76,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
@@ -104,6 +107,8 @@
 \end{frame}
 
 \section{Application Development}
+
+\lstset{language=C}
 
 \subsection{Introduction}
 
@@ -136,7 +141,7 @@
 
     \pause
     \medskip
-    \item run statements as necessary:
+    \item run statements as needed:
     \begin{itemize}
       \item update operations return number of affected rows
       \item query operations return result sets\\
@@ -177,10 +182,10 @@
   \frametitle{API Example}
 
   \begin{example}[PostgreSQL - C]
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}
 #include <libpq-fe.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
     /* connect */
     /* execute query */
@@ -194,7 +199,7 @@ int main(void)
   \frametitle{API Example}
 
   \begin{example}[connecting]
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}
 /* PGconn *conn; */
 
 conn = PQconnectdb("host=localhost dbname=imdb"
@@ -213,11 +218,11 @@ PQfinish(conn);
   \frametitle{API Example}
 
   \begin{example}[executing a query]
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}
 /* PGresult *result; */
 
-sprintf(query, "SELECT TITLE,SCORE"
-        " FROM MOVIE WHERE (YEAR = %d)", year);
+sprintf(query, "SELECT TITLE, SCORE"
+        " FROM MOVIE WHERE (YR = %d)", year);
 result = PQexec(conn, query);
 if (PQresultStatus(result) != PGRES_TUPLES_OK) {
     fprintf(stderr, "Query failed.\n");
@@ -233,7 +238,7 @@ if (PQresultStatus(result) != PGRES_TUPLES_OK) {
   \frametitle{API Example}
 
   \begin{example}[processing the result set]
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}
 for (i = 0; i < PQntuples(result); i++) {
     title = PQgetvalue(result, i, 0);
     score = PQgetvalue(result, i, 1);
@@ -245,6 +250,8 @@ PQclear(result);
   \end{example}
 \end{frame}
 
+\lstset{language=EmbeddedSQL}
+
 \subsection{Embedded SQL}
 
 \begin{frame}
@@ -253,8 +260,7 @@ PQclear(result);
   \begin{itemize}
     \item stages:
     \begin{enumerate}
-      \item mark SQL statements within host language code:\\
-        \lstinline!EXEC SQL!
+      \item mark SQL statements within host language code: \lstinline!EXEC SQL!
       \item embedded SQL preprocessor:\\
         embedded SQL directives $\rightarrow$ API calls
       \item host language compiler
@@ -292,7 +298,7 @@ PQclear(result);
   \frametitle{Variable Sharing}
 
   \begin{block}{Syntax}
-    \begin{lstlisting}[language=EmbeddedSQL]
+    \begin{lstlisting}
 EXEC SQL BEGIN DECLARE SECTION;
 shared variables
 EXEC SQL END DECLARE SECTION;
@@ -308,7 +314,7 @@ EXEC SQL END DECLARE SECTION;
   \frametitle{Error Control}
 
   \begin{block}{Error Processing}
-    \begin{lstlisting}[language=EmbeddedSQL]
+    \begin{lstlisting}
 EXEC SQL WHENEVER
   { SQLERROR | SQLWARNING | NOT FOUND }
   { STOP | CONTINUE | DO command | GOTO label }
@@ -320,7 +326,7 @@ EXEC SQL WHENEVER
   \frametitle{Adapting Query Results}
 
   \begin{block}{Cursors}
-    \begin{lstlisting}[language=EmbeddedSQL]
+    \begin{lstlisting}
 EXEC SQL DECLARE cursor_name CURSOR FOR
     SELECT ...;
 EXEC SQL OPEN cursor_name;
@@ -367,7 +373,7 @@ EXEC SQL DISCONNECT;
 scanf("%d", &year);
 EXEC SQL DECLARE c_query CURSOR FOR
     SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YEAR = :year);
+      WHERE (YR = :year);
 EXEC SQL OPEN c_query;
 
 /* execute query */
@@ -391,6 +397,8 @@ while (1) {
     \end{lstlisting}
  \end{example}
 \end{frame}
+
+\lstset{language=ExtendedPHP}
 
 \subsection{ODBC}
 
@@ -439,10 +447,10 @@ while (1) {
   \frametitle{ODBC Example}
 
   \begin{example}[PHP]
-    \begin{lstlisting}[language=ExtendedPHP]
+    \begin{lstlisting}
 $conn = odbc_connect("imdb", "itucs", "itucs");
 $query = "SELECT TITLE, SCORE FROM MOVIE"
-       . " WHERE (YEAR = " . $year . ")";
+       . " WHERE (YR = " . $year . ")";
 $result = odbc_exec($conn, $query);
 
 /* process the result set */
@@ -456,7 +464,7 @@ odbc_close($conn);
   \frametitle{ODBC Example}
 
   \begin{example}[processing the result set]
-    \begin{lstlisting}[language=ExtendedPHP]
+    \begin{lstlisting}
 echo "<table>\n";
 while (odbc_fetch_row($result)) {
     $title = odbc_result($result, "title");
@@ -471,9 +479,9 @@ echo "</table>\n";
   \end{example}
 \end{frame}
 
-\section{JDBC}
+\lstset{language=Java}
 
-\subsection{Architecture}
+\subsection{JDBC}
 
 \begin{frame}
   \frametitle{JDBC}
@@ -528,8 +536,6 @@ echo "</table>\n";
   \end{itemize}
 \end{frame}
 
-\subsection{API}
-
 \begin{frame}
   \frametitle{JDBC Flow}
 
@@ -541,7 +547,6 @@ echo "</table>\n";
     \end{itemize}
 
     \pause
-    \medskip
     \item create a statement object on the connection
     \begin{itemize}
       \item \lstinline!Connection.createStatement()!
@@ -549,7 +554,6 @@ echo "</table>\n";
     \end{itemize}
 
     \pause
-    \medskip
     \item execute the query
     \begin{itemize}
       \item read: \lstinline!Statement.executeQuery(query)!
@@ -558,13 +562,11 @@ echo "</table>\n";
     \end{itemize}
 
     \pause
-    \medskip
     \item process the results
 
     \pause
-    \medskip
-    \item close resources (result set, statement, connection)\\
-      which are no longer needed
+    \item close resources which are no longer needed\\
+      (result sets, statements, connections)
   \end{itemize}
 \end{frame}
 
@@ -582,8 +584,8 @@ echo "</table>\n";
     \medskip
     \item convert and transfer data in the row to variables
     \begin{itemize}
-      \item by column name: \lstinline!ResultSet.getXXX(column_name)!
-      \item by column order: \lstinline!ResultSet.getXXX(column_order)!
+      \item by column name: \lstinline!ResultSet.getXXX(name)!
+      \item by column order: \lstinline!ResultSet.getXXX(order)!
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -612,7 +614,7 @@ TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
   \frametitle{JDBC Example}
 
   \begin{example}[loading the database driver]
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 try {
   Class.forName("org.postgresql.Driver");
 } catch (ClassNotFoundException e) {
@@ -626,10 +628,10 @@ try {
   \frametitle{JDBC Example}
 
   \begin{example}[connecting]
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 try {
   Connection conn = DriverManager.getConnection(
-      "jdbc:postgresql:imdb", "itucs", "itucs"
+    "jdbc:postgresql:imdb", "itucs", "itucs"
   );
 } catch (SQLException e) {
   // connection error
@@ -642,8 +644,8 @@ try {
   \frametitle{JDBC Example}
 
   \begin{example}[inserting]
-    \begin{lstlisting}[language=Java]
-String query = "INSERT INTO MOVIE (TITLE, YEAR)"
+    \begin{lstlisting}
+String query = "INSERT INTO MOVIE (TITLE, YR)"
     + " VALUES ('Casablanca', 1942)";
 Statement stmt = conn.createStatement();
 stmt.executeUpdate(query);
@@ -667,7 +669,7 @@ stmt.close();
     \item placeholder for parameters in query: '\lstinline!?!'
     \begin{itemize}
       \item values must be set before executing:\\
-	\lstinline!PreparedStatement.setXXX(parameter_order, parameter_value)!
+	\lstinline!PreparedStatement.setXXX(order, value)!
     \end{itemize}
 
     \pause
@@ -681,8 +683,8 @@ stmt.close();
   \frametitle{Prepared Statement Example}
 
   \begin{example}[inserting - using prepared statement]
-    \begin{lstlisting}[language=Java]
-String query = "INSERT INTO MOVIE (TITLE, YEAR)"
+    \begin{lstlisting}
+String query = "INSERT INTO MOVIE (TITLE, YR)"
     + " VALUES (?, ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
@@ -700,9 +702,9 @@ stmt.close();
   \frametitle{Result Set Example}
 
   \begin{example}[listing movie titles in a year]
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 String query = String.format(
-  "SELECT TITLE FROM MOVIE WHERE (YEAR = %d)",
+  "SELECT TITLE FROM MOVIE WHERE (YR = %d)",
   year);
 Statement stmt = conn.createStatement();
 ResultSet results = stmt.executeQuery(query);
@@ -720,7 +722,7 @@ stmt.close();
   \frametitle{JDBC Example}
 
   \begin{example}[deleting]
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 String query = "DELETE FROM MOVIE" +
     " WHERE (ID = ?)";
 PreparedStatement stmt =
@@ -736,8 +738,8 @@ stmt.close();
   \frametitle{JDBC Example}
 
   \begin{example}[updating]
-    \begin{lstlisting}[language=Java]
-String query = "UPDATE MOVIE SET YEAR = ?" +
+    \begin{lstlisting}
+String query = "UPDATE MOVIE SET YR = ?" +
     " WHERE (ID = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
@@ -749,14 +751,12 @@ stmt.close();
   \end{example}
 \end{frame}
 
-\subsection{Tips}
-
 \begin{frame}
   \frametitle{Closing Resources}
 
   \begin{itemize}
     \item it is recommended to close resources\\
-      like results sets and statements\\
+      such as results sets and statements\\
       in the \lstinline!finally! part
       of \lstinline!try - catch - finally! blocks
   \end{itemize}
@@ -766,7 +766,7 @@ stmt.close();
   \frametitle{Resource Closing Example}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 Statement stmt = conn.createStatement();
 ResultSet results = null;
 try {
@@ -783,26 +783,27 @@ try {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Getting Auto-Generated Identity Values}
+  \frametitle{Auto-Generated Identity Values}
 
   \begin{itemize}
-    \item use the \lstinline!RETURN_GENERATED_KEYS! flag\\
+    \item to obtain auto-generated identity values,\\
+      use the \lstinline!RETURN_GENERATED_KEYS! flag\\
       when creating the statement
-    \item \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
+    \item after executing the statement:\\
+      \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
       \lstinline!ResultSet!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Getting Auto-Generated Keys Example}
+  \frametitle{Auto-Generated Keys Example}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 String query = "INSERT INTO ... ";
 PreparedStatement stmt =
     connection.prepareStatement(query,
         Statement.RETURN_GENERATED_KEYS);
-
 stmt.executeUpdate();
 
 ResultSet ids = statement.getGeneratedKeys();
@@ -830,10 +831,10 @@ int id = ids.getInt(1);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Batch Mode}
+  \frametitle{Batch Mode Example}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 stmt = conn.createStatement( ... );
 conn.setAutoCommit(false);
 int queryCount = 0;
@@ -868,7 +869,7 @@ for ( ... ) {
   \frametitle{Fetch Size Example}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 stmt.setFetchSize(1);
 
 // MySQL
@@ -877,7 +878,9 @@ stmt.setFetchSize(Integer.MIN_VALUE)
   \end{block}
 \end{frame}
 
-\section{SQL Facilities}
+\lstset{language=ExtendedSQL}
+
+\section{SQL}
 
 \subsection{Stored Procedures}
 
@@ -895,6 +898,7 @@ stmt.setFetchSize(Integer.MIN_VALUE)
     \item \alert{not recommended}
     \begin{itemize}
       \item not portable
+      \item not scalable
       \item database servers are not optimized for business logic
     \end{itemize}
     $\rightarrow$ implement business logic on the application server
@@ -905,7 +909,7 @@ stmt.setFetchSize(Integer.MIN_VALUE)
   \frametitle{Creating Functions}
 
   \begin{block}{Statement}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE FUNCTION
   function_name([parameter_type [, ...]])
   RETURNS return_type
@@ -914,7 +918,6 @@ CREATE FUNCTION
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
     \item first parameter \$1, second parameter \$2, ...
   \end{itemize}
@@ -925,7 +928,7 @@ CREATE FUNCTION
 
   \begin{example}[calculating new score]
     \$1: old score, \$2: old votes, \$3: new vote
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE FUNCTION NEW_SCORE(float, int, int)
   RETURNS float
   AS 'SELECT ($1*$2+$3) / ($2+1);'
@@ -950,7 +953,7 @@ CREATE FUNCTION NEW_SCORE(float, int, int)
   \frametitle{Creating Triggers}
 
   \begin{block}{Statement}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE TRIGGER trigger_name
   { BEFORE | AFTER } { event [ OR ... ] }
   ON table_name
@@ -959,7 +962,6 @@ CREATE TRIGGER trigger_name
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
     \item PL/pgSQL:
     \begin{itemize}
@@ -973,7 +975,7 @@ CREATE TRIGGER trigger_name
   \frametitle{Trigger Example}
 
   \begin{example}[let SCORE * VOTES be kept in the POINTS column]
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE FUNCTION UPDATE_MOVIE_POINTS()
   RETURNS opaque
   AS 'BEGIN
@@ -989,7 +991,7 @@ CREATE FUNCTION UPDATE_MOVIE_POINTS()
   \frametitle{Trigger Example}
 
   \begin{example}[calculate POINTS automatically on updates]
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE TRIGGER UPDATE_MOVIE
   BEFORE INSERT OR UPDATE ON MOVIE
   FOR EACH ROW
@@ -1019,13 +1021,12 @@ CREATE TRIGGER UPDATE_MOVIE
   \frametitle{Creating Views}
 
   \begin{block}{Statement}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE VIEW view_name AS
   SELECT ...
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
     \item the \lstinline!SELECT! query will be executed every time the view is
       used
@@ -1036,14 +1037,11 @@ CREATE VIEW view_name AS
   \frametitle{View Example}
 
   \begin{example}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE VIEW NEW_MOVIE AS
-  SELECT ID, TITLE, YEAR FROM MOVIE
-    WHERE (YEAR > 1995)
-    \end{lstlisting}
+  SELECT ID, TITLE, YR FROM MOVIE
+    WHERE (YR > 1995)
 
-    \pause
-    \begin{lstlisting}[language=ExtendedSQL]
 SELECT * FROM NEW_MOVIE
     \end{lstlisting}
   \end{example}
@@ -1061,7 +1059,7 @@ SELECT * FROM NEW_MOVIE
 
   \pause
   \begin{block}{Creating Rules}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE RULE rule_name AS
   ON event TO view_name
   [ WHERE condition ]
@@ -1074,13 +1072,13 @@ CREATE RULE rule_name AS
   \frametitle{View Rule Example}
 
   \begin{example}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 UPDATE NEW_MOVIE SET TITLE='..'
   WHERE (ID = 1)
     \end{lstlisting}
 
     \pause
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE RULE UPDATE_TITLE AS
   ON UPDATE TO NEW_MOVIE
   DO INSTEAD
@@ -1089,33 +1087,6 @@ CREATE RULE UPDATE_TITLE AS
     \end{lstlisting}
   \end{example}
 \end{frame}
-
-% \begin{frame}
-%   \frametitle{Snapshots}
-%
-%   \begin{itemize}
-%     \item similar to view but creates a new base table
-%     \begin{itemize}
-%       \item the query is executed only once when snapshot is created
-%     \end{itemize}
-%
-%     \pause
-%     \medskip
-%     \item changes to base tables do not effect the snapshot
-%     \item no updates on the snapshot
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{Creating Snapshots}
-%
-%   \begin{block}{SQL Statement}
-%     \begin{lstlisting}[language=ExtendedSQL]
-% CREATE SNAPSHOT snapshot_name AS
-%   SELECT ...
-%     \end{lstlisting}
-%   \end{block}
-% \end{frame}
 
 \subsection{Permissions}
 
@@ -1136,7 +1107,7 @@ CREATE RULE UPDATE_TITLE AS
   \frametitle{SQL Permissions}
 
   \begin{block}{Granting Permissions}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 GRANT permission_name [, ...]
   ON object_name TO subject_name
   [ WITH GRANT OPTION ]
@@ -1145,7 +1116,7 @@ GRANT permission_name [, ...]
 
   \pause
   \begin{block}{Revoking Permissions}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 REVOKE permission_name
   ON object_name FROM subject_name
     \end{lstlisting}
@@ -1156,22 +1127,17 @@ REVOKE permission_name
   \frametitle{Permission Examples}
 
   \begin{example}[granting permissions on a table]
-    \begin{lstlisting}[language=ExtendedSQL]
-GRANT SELECT, INSERT, UPDATE ON MOVIE TO 'itucs'
-    \end{lstlisting}
-  \end{example}
-
-  \pause
-  \begin{example}[granting permissions on a view]
-    \begin{lstlisting}[language=ExtendedSQL]
-GRANT SELECT ON NEW_MOVIES TO 'itucs'
+    \begin{lstlisting}
+GRANT SELECT, INSERT, UPDATE ON MOVIE
+  TO 'itucs'
     \end{lstlisting}
   \end{example}
 
   \pause
   \begin{example}[revoking permissions on a table]
-    \begin{lstlisting}[language=ExtendedSQL]
-REVOKE INSERT ON MOVIE FROM 'itucs'
+    \begin{lstlisting}
+REVOKE INSERT ON MOVIE
+  FROM 'itucs'
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -1188,13 +1154,13 @@ REVOKE INSERT ON MOVIE FROM 'itucs'
     \pause
     \item creating indexes speeds up queries
     \begin{itemize}
-      \item speeds down insert and update operations
+      \item slows down insert and update operations
     \end{itemize}
   \end{itemize}
 
   \pause
-  \begin{block}{SQL Statement}
-    \begin{lstlisting}[language=ExtendedSQL]
+  \begin{block}{Statement}
+    \begin{lstlisting}
 CREATE [ UNIQUE ] INDEX index_name
   ON table_name(column_name [, ...])
     \end{lstlisting}
@@ -1245,7 +1211,7 @@ LOAD DATA INFILE 'input_file_path'
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 4: An Introduction to SQL
       \begin{itemize}
@@ -1261,7 +1227,7 @@ LOAD DATA INFILE 'input_file_path'
     \end{itemize}
   \end{block}
 
-  \begin{block}{Supplementary text: Ramakrishnan, Gehrke}
+  \begin{block}{Supplementary Reference: Ramakrishnan, Gehrke}
     \begin{itemize}
       \item Chapter 6: Database Application Development
     \end{itemize}
