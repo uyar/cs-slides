@@ -1,6 +1,6 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
-%       Þule Gündüz Öðüdücü <sgunduz@itu.edu.tr>
+%       Åžule GÃ¼ndÃ¼z Ã–ÄŸÃ¼dÃ¼cÃ¼ <sgunduz@itu.edu.tr>
 %
 % These notes are licensed using the
 % "Creative Commons Attribution-NonCommercial-ShareAlike License".
@@ -15,29 +15,31 @@
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
-\usepackage[latin5]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
 \setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
 \lstdefinelanguage{ExtendedPHP}[]{PHP}{
   morekeywords={odbc_exec}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
-  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
-  deletekeywords={YEAR}
+  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
+                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
+                START, TO, TYPE, VACUUM}
 }
 \lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
-  morekeywords={AFTER,BEFORE,DO,EACH,FOR,FUNCTION,INSTEAD,LANGUAGE,OPTION,
-                PROCEDURE,RETURNS,ROW,RULE,SNAPSHOT,STATEMENT,WITH}
+  morekeywords={AFTER, BEFORE, DO, EACH, FOR, FUNCTION, INSTEAD, LANGUAGE,
+                OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
+                WITH}
 }
 \lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
-  morekeywords={BEGIN,CLOSE,CONTINUE,CURSOR,DECLARE,FETCH,FOR,DO,END,EXEC,FOUND,
-                GOTO,INCLUDE,INTO,OPEN,SECTION,SQL,SQLERROR,SQLWARNING,
-                STATEMENT,STOP,WHENEVER,sqlca,sqlcode}
+  morekeywords={BEGIN, CLOSE, CONTINUE, CURSOR, DECLARE, FETCH, FOR, DO, END,
+                EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
+                SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
 }
-\lstset{extendedchars=true}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}}
 
 \mode<presentation>
 {
@@ -46,11 +48,11 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veri Tabaný Yönetim Sistemleri}
-\subtitle{Uygulama Geliþtirme}
+\title{Veri TabanÄ± Sistemleri}
+\subtitle{Uygulama GeliÅŸtirme}
 
-\author{H. Turgut Uyar \and Þule Öðüdücü}
-\date{2002-2011}
+\author{H. Turgut Uyar \and Åžule Ã–ÄŸÃ¼dÃ¼cÃ¼}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -60,10 +62,10 @@
 }
 
 \theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Taným}
+\newtheorem{tanim}[theorem]{TanÄ±m}
 
 \theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
+\newtheorem{ornek}[theorem]{Ã–rnek}
 
 \theoremstyle{plain}
 
@@ -81,7 +83,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Þ. Öðüdücü
+  \copyright 2002-2012 T. Uyar, Åž. Ã–ÄŸÃ¼dÃ¼cÃ¼
 
   \vfill
   \begin{tiny}
@@ -115,120 +117,123 @@
   \tableofcontents
 \end{frame}
 
-\section{Uygulama Geliþtirme}
+\section{Uygulama GeliÅŸtirme}
 
-\subsection{Giriþ}
+\lstset{language=C}
+
+\subsection{GiriÅŸ}
 
 \begin{frame}
-  \frametitle{Giriþ}
+  \frametitle{GiriÅŸ}
 
   \begin{itemize}
-    \item veri tabaný dili ile programlama dilinin birlikte kullanýmý
-    \item uygulamanýn yazýldýðý genel amaçlý dil: \alert{taban dil}
+    \item veri tabanÄ± dili ile genel amaÃ§lÄ± bir programlama dilinin\\
+      birlikte kullanÄ±mÄ±
+    \item uygulamanÄ±n yazÄ±ldÄ±ÄŸÄ± genel amaÃ§lÄ± dil: \alert{taban dil}
 
     \pause
     \bigskip
-    \item SQL ile taban dil arasýnda uyumsuzluk:
+    \item SQL ile taban dil arasÄ±nda uyumsuzluk:
     \begin{itemize}
-      \item SQL iþlemleri kümeler üzerinde
-      \item genel amaçlý dillerde yineleme yapýlarý
+      \item SQL iÅŸlemleri kÃ¼meler Ã¼zerinde
+      \item genel amaÃ§lÄ± dillerde yineleme yapÄ±larÄ±
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Program Yapýsý}
+  \frametitle{Program YapÄ±sÄ±}
 
   \begin{itemize}
-    \item baðlantý kur
+    \item baÄŸlantÄ± kur
     \begin{itemize}
-      \item sunucu, veri tabaný, kullanýcý adý, parola
+      \item sunucu, veri tabanÄ±, kullanÄ±cÄ± adÄ±, parola
     \end{itemize}
 
     \pause
     \medskip
-    \item gerektikçe komut çalýþtýr:
+    \item gerektikÃ§e komut Ã§alÄ±ÅŸtÄ±r:
     \begin{itemize}
-      \item güncelleme iþlemleri iþlemden etkilenen satýr sayýsýný döndürür
-      \item sorgulama iþlemleri sonuç kümeleri döndürür\\
-        $\rightarrow$ döngüyle satýr satýr gez
+      \item gÃ¼ncelleme iÅŸlemleri iÅŸlemden etkilenen satÄ±r sayÄ±sÄ±nÄ± dÃ¶ndÃ¼rÃ¼r
+      \item sorgulama iÅŸlemleri sonuÃ§ kÃ¼meleri dÃ¶ndÃ¼rÃ¼r\\
+        $\rightarrow$ dÃ¶ngÃ¼yle satÄ±r satÄ±r gez
     \end{itemize}
 
     \pause
     \medskip
-    \item baðlantýyý kopar
+    \item baÄŸlantÄ±yÄ± kopar
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Uygulama Geliþtirme Yöntemleri}
+  \frametitle{Uygulama GeliÅŸtirme YÃ¶ntemleri}
 
   \begin{itemize}
-    \item uygulama programý arayüzü (API)
-    \item gömülü SQL
+    \item uygulama programÄ± arayÃ¼zÃ¼ (API)
+    \item gÃ¶mÃ¼lÃ¼ SQL
     \item ODBC
-    \item dil standart arayüzleri
+    \item dil standart arayÃ¼zleri
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Uygulama Programý Arayüzü}
+  \frametitle{Uygulama ProgramÄ± ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item SQL sunucusunun kitaplýk fonksiyonlarýný çaðýrarak
+    \item SQL sunucusunun kitaplÄ±k fonksiyonlarÄ±nÄ± Ã§aÄŸÄ±rarak
 
     \pause
     \bigskip
-    \item avantajý: hýzlý
-    \item dezavantajý: sunucudan sunucuya deðiþiyor
+    \item avantajÄ±: hÄ±zlÄ±
+    \item dezavantajÄ±: sunucudan sunucuya deÄŸiÅŸiyor
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uygulama Programý Arayüzü Örneði}
+  \frametitle{Uygulama ProgramÄ± ArayÃ¼zÃ¼ Ã–rneÄŸi}
 
   \begin{ornek}[PostgreSQL - C]
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}
 #include <libpq-fe.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    /* veri tabanýna baðlan */
-    /* sorguyu iþle */
-    /* baðlantýyý kopar */
+    /* connect */
+    /* execute query */
+    /* disconnect */
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uygulama Programý Arayüzü Örneði}
+  \frametitle{Uygulama ProgramÄ± ArayÃ¼zÃ¼ Ã–rneÄŸi}
 
-  \begin{ornek}[veri tabaný baðlantýsý]
-    \begin{lstlisting}[language=C]
+  \begin{ornek}[veri tabanÄ± baÄŸlantÄ±sÄ±]
+    \begin{lstlisting}
 /* PGconn *conn; */
 
 conn = PQconnectdb("host=localhost dbname=imdb"
-                 " user=itucs password=itucs");
+                " user=itucs password=itucs");
 if (PQstatus(conn) == CONNECTION_BAD) {
     fprintf(stderr, "Connection failed.\n");
     exit(1);
 }
-/* sorguyu iþle */
+/* execute query */
 PQfinish(conn);
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uygulama Programý Arayüzü Örneði}
+  \frametitle{Uygulama ProgramÄ± ArayÃ¼zÃ¼ Ã–rneÄŸi}
 
-  \begin{ornek}[sorgunun iþleniþi]
-    \begin{lstlisting}[language=C]
+  \begin{ornek}[sorgunun iÅŸleniÅŸi]
+    \begin{lstlisting}
 /* PGresult *result; */
 
 sprintf(query, "SELECT TITLE, SCORE"
-        " FROM MOVIE WHERE (YEAR = %d)", year);
+        " FROM MOVIE WHERE (YR = %d)", year);
 result = PQexec(conn, query);
 if (PQresultStatus(result) != PGRES_TUPLES_OK) {
     fprintf(stderr, "Query failed.\n");
@@ -241,10 +246,10 @@ if (PQresultStatus(result) != PGRES_TUPLES_OK) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uygulama Programý Arayüzü Örneði}
+  \frametitle{Uygulama ProgramÄ± ArayÃ¼zÃ¼ Ã–rneÄŸi}
 
-  \begin{ornek}[sonuç kümesinin iþleniþi]
-    \begin{lstlisting}[language=C]
+  \begin{ornek}[sonuÃ§ kÃ¼mesinin iÅŸleniÅŸi]
+    \begin{lstlisting}
 for (i = 0; i < PQntuples(result); i++) {
     title = PQgetvalue(result, i, 0);
     score = PQgetvalue(result, i, 1);
@@ -256,33 +261,34 @@ PQclear(result);
   \end{ornek}
 \end{frame}
 
-\subsection{Gömülü SQL}
+\lstset{language=EmbeddedSQL}
+
+\subsection{GÃ¶mÃ¼lÃ¼ SQL}
 
 \begin{frame}
-  \frametitle{Gömülü SQL}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL}
 
   \begin{itemize}
-    \item aþamalar:
+    \item aÅŸamalar:
     \begin{enumerate}
-      \item taban dil içinde SQL komutlarý iþaretlenir:\\
-	\lstinline!EXEC SQL!
-      \item gömülü SQL öniþleyicisi:\\
-        gömülü SQL komutlarý $\rightarrow$ uygulama programý arayüzü çaðrýlarý
+      \item taban dil iÃ§inde SQL komutlarÄ± iÅŸaretlenir: \lstinline!EXEC SQL!
+      \item gÃ¶mÃ¼lÃ¼ SQL Ã¶niÅŸleyicisi:\\
+        gÃ¶mÃ¼lÃ¼ SQL komutlarÄ± $\rightarrow$ uygulama programÄ± arayÃ¼zÃ¼ Ã§aÄŸrÄ±larÄ±
       \item taban dil derleyicisi
     \end{enumerate}
 
     \pause
     \bigskip
-    \item avantajlarý: hýzlý, standart
-    \item dezavantajlarý: kullanýþsýz, farklý diller için desteði yok
+    \item avantajlarÄ±: hÄ±zlÄ±, standart
+    \item dezavantajlarÄ±: kullanÄ±ÅŸsÄ±z, farklÄ± diller iÃ§in desteÄŸi yok
 
     \bigskip
-    \hyperlink{odbc}{\beamergotobutton{Gömülü SQL bölümünü atla}}
+    \hyperlink{odbc}{\beamergotobutton{GÃ¶mÃ¼lÃ¼ SQL bÃ¶lÃ¼mÃ¼nÃ¼ atla}}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Gömülü SQL}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL}
 
   \begin{center}
     \pgfuseimage{esql}
@@ -290,70 +296,70 @@ PQclear(result);
 \end{frame}
 
 \begin{frame}
-  \frametitle{Gömülü SQL Standardý}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL StandardÄ±}
 
   \begin{itemize}
-    \item taban dil ile deðiþken paylaþýmý
+    \item taban dil ile deÄŸiÅŸken paylaÅŸÄ±mÄ±
     \item hata denetimi
-    \item sorgu sonuçlarýnýn uyarlanmasý
+    \item sorgu sonuÃ§larÄ±nÄ±n uyarlanmasÄ±
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Deðiþken Paylaþýmý}
+  \frametitle{DeÄŸiÅŸken PaylaÅŸÄ±mÄ±}
 
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=EmbeddedSQL]
+  \begin{block}{YazÄ±m}
+    \begin{lstlisting}
 EXEC SQL BEGIN DECLARE SECTION;
-paylaþýlan deðiþkenler
+shared variables
 EXEC SQL END DECLARE SECTION;
     \end{lstlisting}
   \end{block}
 
   \begin{itemize}
-    \item SQL komutlarýnda taban dil deðiþkenlerinin önüne '\lstinline!:!'
+    \item SQL komutlarÄ±nda taban dil deÄŸiÅŸkenlerinin Ã¶nÃ¼ne '\lstinline!:!'
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Hata Denetimi}
 
-  \begin{block}{Hata Ýþleme}
-    \begin{lstlisting}[language=EmbeddedSQL]
+  \begin{block}{Hata Ä°ÅŸleme}
+    \begin{lstlisting}
 EXEC SQL WHENEVER
   { SQLERROR | SQLWARNING | NOT FOUND }
-  { STOP | CONTINUE | DO komut | GOTO etiket }
+  { STOP | CONTINUE | DO command | GOTO label }
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sorgu Sonuçlarýnýn Uyarlanmasý}
+  \frametitle{Sorgu SonuÃ§larÄ±nÄ±n UyarlanmasÄ±}
 
-  \begin{block}{Ýmleçler}
-    \begin{lstlisting}[language=EmbeddedSQL]
-EXEC SQL DECLARE imleç_adý CURSOR FOR
+  \begin{block}{Ä°mleÃ§ler}
+    \begin{lstlisting}
+EXEC SQL DECLARE cursor_name CURSOR FOR
     SELECT ...;
-EXEC SQL OPEN imleç_adý;
-EXEC SQL FETCH IN imleç_adý INTO deðiþkenler;
-EXEC SQL CLOSE imleç_adý;
+EXEC SQL OPEN cursor_name;
+EXEC SQL FETCH IN cursor_name INTO variables;
+EXEC SQL CLOSE cursor_name;
     \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item tanýmlama iþleminde sorgu çalýþtýrýlmaz
-    \item açma iþlemiyle sorgu çalýþtýrýlýr
+    \item tanÄ±mlama iÅŸleminde sorgu Ã§alÄ±ÅŸtÄ±rÄ±lmaz
+    \item aÃ§ma iÅŸlemiyle sorgu Ã§alÄ±ÅŸtÄ±rÄ±lÄ±r
     \begin{itemize}
-      \item imleç sonuç kümesinin ilk satýrýna konumlandýrýlýr
+      \item imleÃ§ sonuÃ§ kÃ¼mesinin ilk satÄ±rÄ±na konumlandÄ±rÄ±lÄ±r
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneði}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL Ã–rneÄŸi}
 
-  \begin{ornek}[veri tabanýna baðlanma]
+  \begin{ornek}[veri tabanÄ±na baÄŸlanma]
     \begin{lstlisting}[language=C]
 EXEC SQL BEGIN DECLARE SECTION;
 int year;
@@ -363,7 +369,7 @@ EXEC SQL END DECLARE SECTION;
 EXEC SQL CONNECT TO imdb
     USER itucs IDENTIFIED BY itucs;
 
-/* sorguyu iþle */
+/* process query */
 
 EXEC SQL DISCONNECT;
     \end{lstlisting}
@@ -371,17 +377,17 @@ EXEC SQL DISCONNECT;
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneði}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL Ã–rneÄŸi}
 
-  \begin{ornek}[sorgunun iþlenmesi]
+  \begin{ornek}[sorgunun iÅŸlenmesi]
     \begin{lstlisting}[language=C]
 scanf("%d", &year);
 EXEC SQL DECLARE c_query CURSOR FOR
     SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YEAR = :year);
+      WHERE (YR = :year);
 EXEC SQL OPEN c_query;
 
-/* sorguyu çalýþtýr */
+/* execute query */
 
 EXEC SQL CLOSE c_query;
 EXEC SQL COMMIT;
@@ -390,9 +396,9 @@ EXEC SQL COMMIT;
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneði}
+  \frametitle{GÃ¶mÃ¼lÃ¼ SQL Ã–rneÄŸi}
 
-  \begin{ornek}[sorgunun çalýþtýrýlmasý]
+  \begin{ornek}[sorgunun Ã§alÄ±ÅŸtÄ±rÄ±lmasÄ±]
     \begin{lstlisting}[language=C]
 EXEC SQL WHENEVER NOT FOUND DO break;
 while (1) {
@@ -403,6 +409,8 @@ while (1) {
  \end{ornek}
 \end{frame}
 
+\lstset{language=ExtendedPHP}
+
 \subsection{ODBC}
 
 \begin{frame}[label=odbc]
@@ -410,12 +418,12 @@ while (1) {
 
   \begin{itemize}
     \item \alert{ODBC}: Open DataBase Connectivity\\
-      uygulama ile sunucu arasýnda bir servis katmaný
+      uygulama ile sunucu arasÄ±nda bir servis katmanÄ±
 
     \pause
     \bigskip
-    \item avantajlarý: standart
-    \item dezavantajlarý: yavaþ
+    \item avantajlarÄ±: standart
+    \item dezavantajlarÄ±: yavaÅŸ
   \end{itemize}
 \end{frame}
 
@@ -426,37 +434,37 @@ while (1) {
     \item uygulama
 
     \pause
-    \item sürücü yöneticisi
+    \item sÃ¼rÃ¼cÃ¼ yÃ¶neticisi
     \begin{itemize}
-      \item ODBC sürücülerini kaydeder
-      \item uygulamadan gelen ODBC isteklerini ilgili sürücüye aktarýr
+      \item ODBC sÃ¼rÃ¼cÃ¼lerini kaydeder
+      \item uygulamadan gelen ODBC isteklerini ilgili sÃ¼rÃ¼cÃ¼ye aktarÄ±r
     \end{itemize}
 
     \pause
-    \item sürücü
+    \item sÃ¼rÃ¼cÃ¼
     \begin{itemize}
-      \item istekleri veri kaynaðýna uygun þekilde iletir
+      \item istekleri veri kaynaÄŸÄ±na uygun ÅŸekilde iletir
     \end{itemize}
 
     \pause
-    \item veri kaynaðý
+    \item veri kaynaÄŸÄ±
     \begin{itemize}
-      \item sürücüden gelen komutlarý iþler
+      \item sÃ¼rÃ¼cÃ¼den gelen komutlarÄ± iÅŸler
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{ODBC Örneði}
+  \frametitle{ODBC Ã–rneÄŸi}
 
   \begin{ornek}[PHP]
-    \begin{lstlisting}[language=ExtendedPHP]
+    \begin{lstlisting}
 $conn = odbc_connect("imdb", "itucs", "itucs");
 $query = "SELECT TITLE, SCORE FROM MOVIE"
-       . " WHERE (YEAR = " . $year . ")";
+       . " WHERE (YR = " . $year . ")";
 $result = odbc_exec($conn, $query);
 
-/* sonuç kümesini iþle */
+/* process the result set */
 
 odbc_close($conn);
     \end{lstlisting}
@@ -464,10 +472,10 @@ odbc_close($conn);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{ODBC Örneði}
+  \frametitle{ODBC Ã–rneÄŸi}
 
-  \begin{ornek}[sonuç kümesinin iþlenmesi]
-    \begin{lstlisting}[language=ExtendedPHP]
+  \begin{ornek}[sonuÃ§ kÃ¼mesinin iÅŸlenmesi]
+    \begin{lstlisting}
 echo "<table>\n";
 while (odbc_fetch_row($result)) {
     $title = odbc_result($result, "title");
@@ -482,9 +490,9 @@ echo "</table>\n";
   \end{ornek}
 \end{frame}
 
-\section{JDBC}
+\lstset{language=Java}
 
-\subsection{Mimari}
+\subsection{JDBC}
 
 \begin{frame}
   \frametitle{JDBC}
@@ -493,120 +501,112 @@ echo "</table>\n";
     \item \alert{JDBC}: Java DataBase Connectivity
 
     \pause
-    \medskip
-    \item ODBC ile ayný mimari kavramlarý
+    \item ODBC ile aynÄ± mimari kavramlarÄ±
     \begin{itemize}
-      \item deðiþik sürücü tipleri
+      \item deÄŸiÅŸik sÃ¼rÃ¼cÃ¼ tipleri
     \end{itemize}
 
     \pause
-    \medskip
-    \item baðlantý için JDBC URL adresi
+    \item baÄŸlantÄ± iÃ§in JDBC URL adresi
     \begin{itemize}
       \item \lstinline!jdbc:<altprotokol>:<parametreler>!
     \end{itemize}
 
     \pause
-    \medskip
-    \item Java ile SQL veri tiplerinin eþleþtirilmesi
+    \item Java ile SQL veri tiplerinin eÅŸleÅŸtirilmesi
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{JDBC Sürücü Tipleri}
+  \frametitle{JDBC SÃ¼rÃ¼cÃ¼leri}
 
   \begin{enumerate}
-    \item \emph{Tip I}: köprüler
+    \item \emph{Tip I}: kÃ¶prÃ¼ler
     \begin{itemize}
-      \item baþka sistemlerin çaðrýlarýna dönüþtür (örneðin ODBC)
+      \item baÅŸka sistemlerin Ã§aÄŸrÄ±larÄ±na dÃ¶nÃ¼ÅŸtÃ¼r (Ã¶rneÄŸin ODBC)
     \end{itemize}
 
     \pause
-    \item \emph{Tip II}: Java olmayan bir sürücüyle doðrudan çeviri
+    \item \emph{Tip II}: Java olmayan bir sÃ¼rÃ¼cÃ¼yle doÄŸrudan Ã§eviri
     \begin{itemize}
-      \item veri kaynaðýnýn uygulama arayüzüne çevir (örneðin C++)
+      \item veri kaynaÄŸÄ±nÄ±n uygulama arayÃ¼zÃ¼ne Ã§evir (Ã¶rneÄŸin C++)
     \end{itemize}
 
     \pause
-    \item \emph{Tip III}: að köprüleri
+    \item \emph{Tip III}: aÄŸ kÃ¶prÃ¼leri
     \begin{itemize}
-      \item veri kaynaðýnýn uygulama arayüzüne çevirmesi için\\
-	orta katman yazýlýmýna baðlan
+      \item veri kaynaÄŸÄ±nÄ±n uygulama arayÃ¼zÃ¼ne Ã§evirmesi iÃ§in\\
+	orta katman yazÄ±lÄ±mÄ±na baÄŸlan
     \end{itemize}
 
     \pause
-    \item \emph{Tip IV}: Java sürücüsüyle doðrudan çeviri
+    \item \emph{Tip IV}: Java sÃ¼rÃ¼cÃ¼sÃ¼yle doÄŸrudan Ã§eviri
     \begin{itemize}
-      \item VTYS ile Java soketleri üzerinden iletiþim kur
+      \item VTYS ile Java soketleri Ã¼zerinden iletiÅŸim kur
     \end{itemize}
   \end{enumerate}
 \end{frame}
 
-\subsection{Arayüz}
-
 \begin{frame}
-  \frametitle{JDBC Akýþý}
+  \frametitle{JDBC AkÄ±ÅŸÄ±}
 
   \begin{itemize}
-    \item bir baðlantý nesnesi al
+    \item bir baÄŸlantÄ± nesnesi al
     \begin{itemize}
       \item statik: \lstinline!DriverManager.getConnection()!
 	$\rightarrow$ \lstinline!Connection!
     \end{itemize}
 
     \pause
-    \medskip
-    \item baðlantý üzerinde bir komut nesnesi yarat
+    \item baÄŸlantÄ± Ã¼zerinde bir komut nesnesi yarat
     \begin{itemize}
       \item \lstinline!Connection.createStatement()!
 	 $\rightarrow$ \lstinline!Statement!
     \end{itemize}
 
     \pause
-    \medskip
-    \item sorguyu çalýþtýr
+    \item sorguyu Ã§alÄ±ÅŸtÄ±r
     \begin{itemize}
       \item okuma: \lstinline!Statement.executeQuery(query)!
 	$\rightarrow$ \lstinline!ResultSet!
-      \item ekleme, güncelleme, silme: \lstinline!Statement.executeUpdate(query)!
+      \item ekleme, gÃ¼ncelleme, silme: \lstinline!Statement.executeUpdate(query)!
     \end{itemize}
 
     \pause
-    \medskip
-    \item sonuçlarý iþle
+    \item sonuÃ§larÄ± iÅŸle
 
     \pause
-    \medskip
-    \item iþi biten kaynaklarý (sonuç kümesi, komut, baðlantý) kapat
+    \item iÅŸi biten kaynaklarÄ± kapat\\
+      (sonuÃ§ kÃ¼mesi, komut, baÄŸlantÄ±)
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Sonuçlarýn Ýþlenmesi}
+  \frametitle{SonuÃ§larÄ±n Ä°ÅŸlenmesi}
 
   \begin{itemize}
     \item \lstinline!ResultSet! bir yineleyici
     \begin{itemize}
-      \item baþta satýr olup olmadýðý: \lstinline!ResultSet.hasNext()!
-      \item sýradaki satýra geç: \lstinline!ResultSet.next()!
+      \item baÅŸta satÄ±r olup olmadÄ±ÄŸÄ±: \lstinline!ResultSet.hasNext()!
+      \item sÄ±radaki satÄ±ra geÃ§: \lstinline!ResultSet.next()!
     \end{itemize}
 
     \pause
     \medskip
-    \item satýrdaki veriyi uygun tiplere dönüþtürerek deðiþkenlere aktar
+    \item satÄ±rdaki veriyi uygun tiplere dÃ¶nÃ¼ÅŸtÃ¼rerek deÄŸiÅŸkenlere aktar
     \begin{itemize}
-      \item sütunun adýyla: \lstinline!ResultSet.getXXX(sütun_adý)!
-      \item sütunun sýra numarasýyla: \lstinline!ResultSet.getXXX(sütun_sýrasý)!
+      \item sÃ¼tunun adÄ±yla: \lstinline!ResultSet.getXXX(name)!
+      \item sÃ¼tunun sÄ±ra numarasÄ±yla: \lstinline!ResultSet.getXXX(order)!
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Veri Tipi Dönüþümleri}
+  \frametitle{Veri Tipi DÃ¶nÃ¼ÅŸÃ¼mleri}
 
   \begin{table}
     \begin{tabular}{|l|l|l|}\hline
-SQL tipi  & Java sýnýfý        & ResultSet metodu\\\hline\hline
+SQL tipi  & Java sÄ±nÄ±fÄ±        & ResultSet metodu\\\hline\hline
 BIT       & Boolean            & getBoolean()    \\\hline
 CHAR      & String             & getString()     \\\hline
 VARCHAR   & String             & getString()     \\\hline
@@ -622,41 +622,41 @@ TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Örneði}
+  \frametitle{JDBC Ã–rneÄŸi}
 
-  \begin{ornek}[veri tabaný sürücüsünün yüklenmesi]
-    \begin{lstlisting}[language=Java]
+  \begin{ornek}[veri tabanÄ± sÃ¼rÃ¼cÃ¼sÃ¼nÃ¼n yÃ¼klenmesi]
+    \begin{lstlisting}
 try {
   Class.forName("org.postgresql.Driver");
 } catch (ClassNotFoundException e) {
-  // PostgreSQL sürücüsü kurulu deðil
+  // PostgreSQL driver not installed
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Örneði}
+  \frametitle{JDBC Ã–rneÄŸi}
 
-  \begin{ornek}[veri tabanýna baðlantý]
-    \begin{lstlisting}[language=Java]
+  \begin{ornek}[veri tabanÄ±na baÄŸlantÄ±]
+    \begin{lstlisting}
 try {
   Connection conn = DriverManager.getConnection(
-      "jdbc:postgresql:imdb", "itucs", "itucs"
+    "jdbc:postgresql:imdb", "itucs", "itucs"
   );
 } catch (SQLException e) {
-  // baðlantýda hata
+  // connection error
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Örneði}
+  \frametitle{JDBC Ã–rneÄŸi}
 
   \begin{ornek}[ekleme]
-    \begin{lstlisting}[language=Java]
-String query = "INSERT INTO MOVIE (TITLE, YEAR)"
+    \begin{lstlisting}
+String query = "INSERT INTO MOVIE (TITLE, YR)"
     + " VALUES ('Casablanca', 1942)";
 Statement stmt = conn.createStatement();
 stmt.executeUpdate(query);
@@ -666,36 +666,36 @@ stmt.close();
 \end{frame}
 
 \begin{frame}
-  \frametitle{Hazýr Komutlar}
+  \frametitle{HazÄ±r Komutlar}
 
   \begin{itemize}
-    \item hazýr komutlar parametre deðerleri deðiþtirilerek\\
-      yeniden kullanýlabilir
+    \item hazÄ±r komutlar parametre deÄŸerleri deÄŸiÅŸtirilerek\\
+      yeniden kullanÄ±labilir
 
     \pause
     \medskip
     \item yaratma:\\
       \lstinline!Connection.prepareStatement(query)!
       $\rightarrow$ \lstinline!PreparedStatement!
-    \item sorguda parametreler için yer tutucu: '\lstinline!?!'
+    \item sorguda parametreler iÃ§in yer tutucu: '\lstinline!?!'
     \begin{itemize}
-      \item çalýþtýrmadan önce deðerleri ayarlanmalý:\\
-	\lstinline!PreparedStatement.setXXX(parametre_sýrasý, parametre_deðeri)!
+      \item Ã§alÄ±ÅŸtÄ±rmadan Ã¶nce deÄŸerleri ayarlanmalÄ±:\\
+        \lstinline!PreparedStatement.setXXX(order, value)!
     \end{itemize}
 
     \pause
     \medskip
-    \item çalýþtýrma: \lstinline!PreparedStatement.executeQuery()!\\
+    \item Ã§alÄ±ÅŸtÄ±rma: \lstinline!PreparedStatement.executeQuery()!\\
       ya da \lstinline!PreparedStatement.executeUpdate()!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Hazýr Komut Örneði}
+  \frametitle{HazÄ±r Komut Ã–rneÄŸi}
 
-  \begin{ornek}[ekleme - hazýr komutla]
-    \begin{lstlisting}[language=Java]
-String query = "INSERT INTO MOVIE (TITLE, YEAR)"
+  \begin{ornek}[ekleme - hazÄ±r komutla]
+    \begin{lstlisting}
+String query = "INSERT INTO MOVIE (TITLE, YR)"
     + " VALUES (?, ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
@@ -710,12 +710,12 @@ stmt.close();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sonuç Kümesi Örneði}
+  \frametitle{SonuÃ§ KÃ¼mesi Ã–rneÄŸi}
 
-  \begin{ornek}[bir yýldaki film baþlýklarýný listeleme]
-    \begin{lstlisting}[language=Java]
+  \begin{ornek}[bir yÄ±ldaki film baÅŸlÄ±klarÄ±nÄ± listeleme]
+    \begin{lstlisting}
 String query = String.format(
-  "SELECT TITLE FROM MOVIE WHERE (YEAR = %d)",
+  "SELECT TITLE FROM MOVIE WHERE (YR = %d)",
   year);
 Statement stmt = conn.createStatement();
 ResultSet results = stmt.executeQuery(query);
@@ -730,10 +730,10 @@ stmt.close();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Örneði}
+  \frametitle{JDBC Ã–rneÄŸi}
 
   \begin{ornek}[silme]
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 String query = "DELETE FROM MOVIE" +
     " WHERE (ID = ?)";
 PreparedStatement stmt =
@@ -746,11 +746,11 @@ stmt.close();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Örneði}
+  \frametitle{JDBC Ã–rneÄŸi}
 
-  \begin{ornek}[güncelleme]
-    \begin{lstlisting}[language=Java]
-String query = "UPDATE MOVIE SET YEAR = ?" +
+  \begin{ornek}[gÃ¼ncelleme]
+    \begin{lstlisting}
+String query = "UPDATE MOVIE SET YR = ?" +
     " WHERE (ID = ?)";
 PreparedStatement stmt =
     conn.prepareStatement(query);
@@ -762,23 +762,21 @@ stmt.close();
   \end{ornek}
 \end{frame}
 
-\subsection{Ýpuçlarý}
-
 \begin{frame}
-  \frametitle{Kaynaklarý Kapama}
+  \frametitle{KaynaklarÄ± Kapama}
 
   \begin{itemize}
-    \item sonuç kümesi, komut gibi kaynaklarýn\\
-      \lstinline!try - catch - finally! bloklarýnýn\\
-      \lstinline!finally! kýsmýnda kapatýlmasý önerilir
+    \item sonuÃ§ kÃ¼mesi, komut gibi kaynaklarÄ±n\\
+      \lstinline!try - catch - finally! bloklarÄ±nÄ±n\\
+      \lstinline!finally! kÄ±smÄ±nda kapatÄ±lmasÄ± Ã¶nerilir
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Kaynaklarý Kapatma Örneði}
+  \frametitle{KaynaklarÄ± Kapatma Ã–rneÄŸi}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 Statement stmt = conn.createStatement();
 ResultSet results = null;
 try {
@@ -795,30 +793,31 @@ try {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Üretilen Kimlik Deðerlerini Sorgulama}
+  \frametitle{Otomatik Kimlik DeÄŸerleri}
 
   \begin{itemize}
-    \item komutu yaratýrken\\
-      \lstinline!RETURN_GENERATED_KEYS! bayraðý kullanýlýr
-    \item \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
+    \item otomatik Ã¼retilen kimlik deÄŸerleri sorulmak isteniyorsa,\\
+      komutu yaratÄ±rken\\
+      \lstinline!RETURN_GENERATED_KEYS! bayraÄŸÄ± kullanÄ±lÄ±r
+    \item komutu Ã§alÄ±ÅŸtÄ±rdÄ±ktan sonra:\\
+      \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
       \lstinline!ResultSet!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Üretilen Kimlik Deðerlerini Sorgulama Örneði}
+  \frametitle{Otomatik Kimlik DeÄŸerleri Ã–rneÄŸi}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 String query = "INSERT INTO ... ";
 PreparedStatement stmt =
     connection.prepareStatement(query,
         Statement.RETURN_GENERATED_KEYS);
-
 stmt.executeUpdate();
 
 ResultSet ids = stmt.getGeneratedKeys();
-// bir ve yalnýz bir sonuç olduðu varsayýlýyor
+// assuming there is one and only one result
 ids.next();
 int id = ids.getInt(1);
     \end{lstlisting}
@@ -826,25 +825,25 @@ int id = ids.getInt(1);
 \end{frame}
 
 \begin{frame}
-  \frametitle{Toplu Komut Çalýþtýrma}
+  \frametitle{Toplu Komut Ã‡alÄ±ÅŸtÄ±rma}
 
   \begin{itemize}
-    \item komutlarý biriktirerek topluca çalýþtýrmak hýz kazandýrabilir
+    \item komutlarÄ± biriktirerek topluca Ã§alÄ±ÅŸtÄ±rmak hÄ±z kazandÄ±rabilir
 
     \pause
     \medskip
-    \item baðlantý "auto commit" kipinden çýkarýlýr
+    \item baÄŸlantÄ± "auto commit" kipinden Ã§Ä±karÄ±lÄ±r
     \item biriktirme: \lstinline!Statement.addBatch(query)!
-    \item birikenleri çalýþtýrma: \lstinline!Statement.executeBatch()!
-    \item yazmayý sonlandýrma: \lstinline!Connection.commit()!
+    \item birikenleri Ã§alÄ±ÅŸtÄ±rma: \lstinline!Statement.executeBatch()!
+    \item yazmayÄ± sonlandÄ±rma: \lstinline!Connection.commit()!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Komut Çalýþtýrma Örneði}
+  \frametitle{Toplu Komut Ã‡alÄ±ÅŸtÄ±rma Ã–rneÄŸi}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 stmt = conn.createStatement( ... );
 conn.setAutoCommit(false);
 int queryCount = 0;
@@ -862,24 +861,24 @@ for ( ... ) {
 \end{frame}
 
 \begin{frame}
-  \frametitle{Önceden Okuma Miktarý}
+  \frametitle{Ã–nceden Okuma MiktarÄ±}
 
   \begin{itemize}
-    \item JDBC sürücüleri sorgudaki satýrlarý önceden okur
-    \item baþarýmý artýrýr ama bellek harcamasýný da artýrýr
+    \item JDBC sÃ¼rÃ¼cÃ¼leri sorgudaki satÄ±rlarÄ± Ã¶nceden okur
+    \item baÅŸarÄ±mÄ± artÄ±rÄ±r ama bellek harcamasÄ±nÄ± da artÄ±rÄ±r
 
     \pause
     \medskip
-    \item küçük bir önceden okuma miktarý bellek harcamasýný azaltýr:\\
-      \lstinline!Statement.setFetchSize(sayý)!
+    \item kÃ¼Ã§Ã¼k bir Ã¶nceden okuma miktarÄ± bellek harcamasÄ±nÄ± azaltÄ±r:\\
+      \lstinline!Statement.setFetchSize(count)!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Önceden Okuma Miktarý Örneði}
+  \frametitle{Ã–nceden Okuma MiktarÄ± Ã–rneÄŸi}
 
   \begin{block}{}
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}
 stmt.setFetchSize(1);
 
 // MySQL
@@ -888,56 +887,58 @@ stmt.setFetchSize(Integer.MIN_VALUE)
   \end{block}
 \end{frame}
 
-\section{SQL Uygulamalarý}
+\lstset{language=ExtendedSQL}
 
-\subsection{Tetikler}
+\section{SQL}
+
+\subsection{KayÄ±tlÄ± Yordamlar}
 
 \begin{frame}
-  \frametitle{Fonksiyonlar}
+  \frametitle{KayÄ±tlÄ± Yordamlar}
 
   \begin{itemize}
-    \item uygulamanýn bazý iþlevleri\\
-      veri tabaný sunucusunda gerçeklenebilir
+    \item uygulamanÄ±n bazÄ± iÅŸlevleri\\
+      veri tabanÄ± sunucusunda gerÃ§eklenebilir
     \begin{itemize}
       \item diller: SQL, PL/SQL, C, ...
     \end{itemize}
 
     \pause
     \bigskip
-    \item \alert{pek tavsiye edilmez}
+    \item \alert{tavsiye edilmez}
     \begin{itemize}
-      \item taþýnabilir deðil
-      \item veri tabaný sunucularý iþ mantýðýna göre optimize edilmiyor
+      \item taÅŸÄ±nabilir deÄŸil
+      \item Ã¶lÃ§eklenebilir deÄŸil
+      \item veri tabanÄ± sunucularÄ± iÅŸ mantÄ±ÄŸÄ±na gÃ¶re optimize edilmiyor
     \end{itemize}
-    $\rightarrow$ iþ mantýðý uygulama sunucusunda gerçeklenmeli
+    $\rightarrow$ iÅŸ mantÄ±ÄŸÄ± uygulama sunucusunda gerÃ§eklenmeli
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Fonksiyon Yaratma}
 
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
+  \begin{block}{Komut}
+    \begin{lstlisting}
 CREATE FUNCTION
-  fonksiyon_adý([parametre_tipi [, ...]])
-  RETURNS dönüþ_tipi
-  AS fonksiyon_gövdesi
-  LANGUAGE dil
+  function_name([parameter_type [, ...]])
+  RETURNS return_type
+  AS function_body
+  LANGUAGE language_name
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
     \item birinci parametre \$1, ikinci parametre \$2, ...
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQL Fonksiyonu Örneði}
+  \frametitle{SQL Fonksiyonu Ã–rneÄŸi}
 
-  \begin{ornek}[yeni puan hesaplanmasý]
-    \$1: eski puan, \$2: eski oy sayýsý, \$3: yeni oy
-    \begin{lstlisting}[language=ExtendedSQL]
+  \begin{ornek}[yeni puan hesaplanmasÄ±]
+    \$1: eski puan, \$2: eski oy sayÄ±sÄ±, \$3: yeni oy
+    \begin{lstlisting}
 CREATE FUNCTION NEW_SCORE(float, int, int)
   RETURNS float
   AS 'SELECT ($1*$2+$3) / ($2+1);'
@@ -950,42 +951,41 @@ CREATE FUNCTION NEW_SCORE(float, int, int)
   \frametitle{Tetikler}
 
   \begin{tanim}
-    \alert{tetik}: belirli olaylarda kendiliðinden etkinleþtirilen fonksiyon
+    \alert{tetik}: belirli olaylarda kendiliÄŸinden etkinleÅŸtirilen fonksiyon
   \end{tanim}
 
   \begin{itemize}
-    \item bütünlüðü saðlamaya yardýmcý olabilir
+    \item bÃ¼tÃ¼nlÃ¼ÄŸÃ¼ saÄŸlamaya yardÄ±mcÄ± olabilir
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQL Komutlarý}
+  \frametitle{Tetik Yaratma}
 
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE TRIGGER tetik_adý
-  { BEFORE | AFTER } { olay [ OR ... ] }
-  ON tablo_adý
+  \begin{block}{Komut}
+    \begin{lstlisting}
+CREATE TRIGGER trigger_name
+  { BEFORE | AFTER } { event [ OR ... ] }
+  ON table_name
   [ FOR [ EACH ] { ROW | STATEMENT } ]
-  EXECUTE PROCEDURE fonksiyon_adý(...)
+  EXECUTE PROCEDURE function_name(...)
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
     \item PL/pgSQL:
     \begin{itemize}
-      \item \lstinline!old!: çoklunun iþlemden önceki deðeri
-      \item \lstinline!new!: çoklunun iþlemden sonraki deðeri
+      \item \lstinline!old!: Ã§oklunun iÅŸlemden Ã¶nceki deÄŸeri
+      \item \lstinline!new!: Ã§oklunun iÅŸlemden sonraki deÄŸeri
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tetik Örneði}
+  \frametitle{Tetik Ã–rneÄŸi}
 
-  \begin{ornek}[SCORE * VOTES deðeri POINTS sütununda tutulsun]
-    \begin{lstlisting}[language=ExtendedSQL]
+  \begin{ornek}[SCORE * VOTES deÄŸeri POINTS sÃ¼tununda tutulsun]
+    \begin{lstlisting}
 CREATE FUNCTION UPDATE_MOVIE_POINTS()
   RETURNS opaque
   AS 'BEGIN
@@ -998,10 +998,10 @@ CREATE FUNCTION UPDATE_MOVIE_POINTS()
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tetik Örneði}
+  \frametitle{Tetik Ã–rneÄŸi}
 
-  \begin{ornek}[POINTS sütunu güncellemelerde kendiliðinden hesaplansýn]
-    \begin{lstlisting}[language=ExtendedSQL]
+  \begin{ornek}[POINTS sÃ¼tunu gÃ¼ncellemelerde kendiliÄŸinden hesaplansÄ±n]
+    \begin{lstlisting}
 CREATE TRIGGER UPDATE_MOVIE
   BEFORE INSERT OR UPDATE ON MOVIE
   FOR EACH ROW
@@ -1010,90 +1010,86 @@ CREATE TRIGGER UPDATE_MOVIE
   \end{ornek}
 \end{frame}
 
-\subsection{Görüntüler}
+\subsection{GÃ¶rÃ¼ntÃ¼ler}
 
 \begin{frame}
-  \frametitle{Görüntüler}
+  \frametitle{GÃ¶rÃ¼ntÃ¼ler}
 
   \begin{itemize}
-    \item türetilmiþ tabloyu taban tablo gibi göstermek
+    \item tÃ¼retilmiÅŸ tabloyu taban tablo gibi gÃ¶stermek
 
     \pause
-    \item veri tabaný yapýsýndaki deðiþikliklerden\\
-      kullanýcýlarýn ve uygulama programlarýnýn etkilenmemesi
+    \item veri tabanÄ± yapÄ±sÄ±ndaki deÄŸiÅŸikliklerden\\
+      kullanÄ±cÄ±larÄ±n ve uygulama programlarÄ±nÄ±n etkilenmemesi
 %       \begin{itemize}
-%         \item normalizasyon ile bölünen tablonun var olan uygulamalara eskisi
-%           gibi gösterilmesi
+%         \item normalizasyon ile bÃ¶lÃ¼nen tablonun var olan uygulamalara eskisi
+%           gibi gÃ¶sterilmesi
 %       \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Görüntü Yaratma}
+  \frametitle{GÃ¶rÃ¼ntÃ¼ Yaratma}
 
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE VIEW görüntü_adý AS
+  \begin{block}{Komut}
+    \begin{lstlisting}
+CREATE VIEW view_name AS
   SELECT ...
     \end{lstlisting}
   \end{block}
 
-  \pause
   \begin{itemize}
-    \item görüntü üzerindeki her iþlemde\\
-      \lstinline!SELECT! komutu yeniden çalýþtýrýlýr
+    \item gÃ¶rÃ¼ntÃ¼ Ã¼zerindeki her iÅŸlemde\\
+      \lstinline!SELECT! komutu yeniden Ã§alÄ±ÅŸtÄ±rÄ±lÄ±r
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Görüntü Örneði}
+  \frametitle{GÃ¶rÃ¼ntÃ¼ Ã–rneÄŸi}
 
   \begin{ornek}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE VIEW NEW_MOVIE AS
-  SELECT ID, TITLE, YEAR FROM MOVIE
-    WHERE (YEAR > 1995)
-    \end{lstlisting}
+  SELECT ID, TITLE, YR FROM MOVIE
+    WHERE (YR > 1995)
 
-    \pause
-    \begin{lstlisting}[language=ExtendedSQL]
 SELECT * FROM NEW_MOVIE
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Görüntüde Güncelleme}
+  \frametitle{GÃ¶rÃ¼ntÃ¼de GÃ¼ncelleme}
 
   \begin{itemize}
-    \item güncellemeler taban tablolarda yapýlmalý
+    \item gÃ¼ncellemeler taban tablolarda yapÄ±lmalÄ±
     \begin{itemize}
       \item kural belirtilmeli
     \end{itemize}
   \end{itemize}
 
   \pause
-  \begin{block}{Kural Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE RULE kural_adý AS
-  ON olay TO görüntü_adý
-  [ WHERE koþul ]
-  DO [ INSTEAD ] sql_komutu
+  \begin{block}{Kural Yaratma}
+    \begin{lstlisting}
+CREATE RULE rule_name AS
+  ON event TO view_name
+  [ WHERE condition ]
+  DO [ INSTEAD ] sql_statement
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Görüntü Kuralý Örneði}
+  \frametitle{GÃ¶rÃ¼ntÃ¼ KuralÄ± Ã–rneÄŸi}
 
   \begin{ornek}
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 UPDATE NEW_MOVIE SET TITLE = '..'
   WHERE (ID = 1)
     \end{lstlisting}
 
     \pause
-    \begin{lstlisting}[language=ExtendedSQL]
+    \begin{lstlisting}
 CREATE RULE UPDATE_TITLE AS
   ON UPDATE TO NEW_MOVIES
   DO INSTEAD
@@ -1103,129 +1099,98 @@ CREATE RULE UPDATE_TITLE AS
   \end{ornek}
 \end{frame}
 
-% \begin{frame}
-%   \frametitle{Resimler}
-%
-%   \begin{itemize}
-%     \item görüntüye benzer ancak yeni bir taban tablo türetir
-%
-%     \medskip
-%     \item komut resim yaratýlýrken bir kere çalýþtýrýlýr
-%     \item istenirse belli aralýklarla yinelenebilir
-%
-%     \pause
-%     \medskip
-%     \item alt tablolardaki deðiþiklikler resmi etkilemez
-%     \item resimde deðiþiklik yapýlamaz
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{Resim Yaratma}
-%
-%   \begin{block}{Komut Yazýmý}
-%     \begin{lstlisting}[language=ExtendedSQL]
-% CREATE SNAPSHOT resim_adý AS
-%   SELECT ...
-%     \end{lstlisting}
-%   \end{block}
-% \end{frame}
-
-\subsection{Ýzinler}
+\subsection{Ä°zinler}
 
 \begin{frame}
-  \frametitle{Ýzinler}
+  \frametitle{Ä°zinler}
 
   \begin{itemize}
-    \item \alert{özne}: kullanýcý, kullanýcý grubu
-    \item \alert{nesne}: tablo, sütun, görüntü, veri tabaný, ...
+    \item \alert{Ã¶zne}: kullanÄ±cÄ±, kullanÄ±cÄ± grubu
+    \item \alert{nesne}: tablo, sÃ¼tun, gÃ¶rÃ¼ntÃ¼, veri tabanÄ±, ...
 
     \pause
-    \item nesnenin sahibi olan özne\\
-      diðer öznelerin eriþim yetkilerini belirler
+    \item nesnenin sahibi olan Ã¶zne\\
+      diÄŸer Ã¶znelerin eriÅŸim yetkilerini belirler
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQL Komutlarý}
+  \frametitle{SQL Ä°zinleri}
 
-  \begin{block}{Ýzin Verme}
-    \begin{lstlisting}[language=ExtendedSQL]
-GRANT izin_adý ON nesne_adý TO özne_adý
+  \begin{block}{Ä°zin Verme}
+    \begin{lstlisting}
+GRANT permission_name [, ...]
+  ON object_name TO subject_name
   [ WITH GRANT OPTION ]
     \end{lstlisting}
   \end{block}
 
   \pause
-  \begin{block}{Ýzin Kaldýrma}
-    \begin{lstlisting}[language=ExtendedSQL]
-REVOKE izin_adý ON nesne_adý FROM özne_adý
+  \begin{block}{Ä°zin KaldÄ±rma}
+    \begin{lstlisting}
+REVOKE permission_name
+  ON object_name FROM subject_name
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Ýzin Örnekleri}
+  \frametitle{Ä°zin Ã–rnekleri}
 
-  \begin{ornek}[tablo için izin verme]
-    \begin{lstlisting}[language=ExtendedSQL]
-GRANT SELECT, INSERT, UPDATE ON MOVIE TO 'itucs'
+  \begin{ornek}[tablo iÃ§in izin verme]
+    \begin{lstlisting}
+GRANT SELECT, INSERT, UPDATE ON MOVIE
+  TO 'itucs'
     \end{lstlisting}
   \end{ornek}
 
   \pause
-  \begin{ornek}[görüntü için izin verme]
-    \begin{lstlisting}[language=ExtendedSQL]
-GRANT SELECT ON NEW_MOVIE TO 'itucs'
-    \end{lstlisting}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[tablo için izin kaldýrma]
-    \begin{lstlisting}[language=ExtendedSQL]
-REVOKE INSERT ON MOVIE FROM 'itucs'
+  \begin{ornek}[tablo iÃ§in izin kaldÄ±rma]
+    \begin{lstlisting}
+REVOKE INSERT ON MOVIE
+  FROM 'itucs'
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
-\subsection{Ýpuçlarý}
+\subsection{Ä°puÃ§larÄ±}
 
 \begin{frame}[fragile]
   \frametitle{Dizinler}
 
   \begin{itemize}
-    \item bazý iþlemler sýralama gerektirir:\\
+    \item bazÄ± iÅŸlemler sÄ±ralama gerektirir:\\
       \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
 
     \pause
-    \item dizinler aramalarý hýzlandýrýr
+    \item dizinler aramalarÄ± hÄ±zlandÄ±rÄ±r
     \begin{itemize}
-      \item ekleme ve güncellemeleri yavaþlatýr
+      \item ekleme ve gÃ¼ncellemeleri yavaÅŸlatÄ±r
     \end{itemize}
   \end{itemize}
 
   \pause
-  \begin{block}{Komut Yazýmý}
-    \begin{lstlisting}[language=ExtendedSQL]
-CREATE [ UNIQUE ] INDEX dizin_adý
-  ON tablo_adý(sütun_adý [, ...])
+  \begin{block}{Komut}
+    \begin{lstlisting}
+CREATE [ UNIQUE ] INDEX index_name
+  ON table_name(column_name [, ...])
     \end{lstlisting}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarýmý}
+  \frametitle{Toplu Veri AktarÄ±mÄ±}
 
   \begin{itemize}
-    \item satýrlarý tek tek eklemek ya da silmek yerine\\
-      ürüne özel toplu veri aktarýmý komutlarý kullanýlmalý
+    \item satÄ±rlarÄ± tek tek eklemek ya da silmek yerine\\
+      Ã¼rÃ¼ne Ã¶zel toplu veri aktarÄ±mÄ± komutlarÄ± kullanÄ±lmalÄ±
 
-    \item tab ile ayrýlmýþ deðer dosyalarýna yazma / okuma
+    \item tab ile ayrÄ±lmÄ±ÅŸ deÄŸer dosyalarÄ± ile okuma-yazma
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarýmý}
+  \frametitle{Toplu Veri AktarÄ±mÄ±}
 
   \begin{block}{PostgreSQL}
     \begin{lstlisting}
@@ -1239,7 +1204,7 @@ COPY table_name (column_name [, ...])
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarýmý}
+  \frametitle{Toplu Veri AktarÄ±mÄ±}
 
   \begin{block}{MySQL}
     \begin{lstlisting}
@@ -1273,7 +1238,7 @@ LOAD DATA INFILE 'input_file_path'
     \end{itemize}
   \end{block}
 
-  \begin{block}{Yardýmcý Kaynak: Ramakrishnan}
+  \begin{block}{YardÄ±mcÄ± Kaynak: Ramakrishnan, Gehrke}
     \begin{itemize}
       \item Chapter 6: Database Application Development
     \end{itemize}
