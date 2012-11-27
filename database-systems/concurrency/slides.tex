@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -17,17 +17,20 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
 \lstdefinelanguage{FullSQL}[]{SQL}{
-  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
-  deletekeywords={YEAR}
+  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
+                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
+                START, TO, TYPE, VACUUM}
 }
-\lstdefinelanguage{ExtendedSQL}[]{SQL}{
-  morekeywords={ACCESS,BEGIN,COMMITTED,ERROR,EXCLUSIVE,FOR,GOTO,LOCK,MODE,ON,
-                REPEATABLE,ROW,SERIALIZABLE,SHARE,UNCOMMITTED,WORK}
+\lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
+  morekeywords={ACCESS, BEGIN, COMMITTED, ERROR, EXCLUSIVE, FOR, GOTO, LOCK,
+                MODE, ON, REPEATABLE, ROW, SERIALIZABLE, SHARE, UNCOMMITTED,
+                WORK}
 }
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
 \lstset{language=ExtendedSQL}
 
 \mode<presentation>
@@ -41,7 +44,7 @@
 \subtitle{Concurrency}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2011}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -68,25 +71,25 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
     You are free:
     \begin{itemize}
-      \item to Share — to copy, distribute and transmit the work
-      \item to Remix — to adapt the work
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
     \end{itemize}
 
     Under the following conditions:
     \begin{itemize}
-      \item Attribution — You must attribute the work in the manner specified by
+      \item Attribution -- You must attribute the work in the manner specified by
         the author or licensor (but not in any way that suggests that they
         endorse you or your use of the work).
 
-      \item Noncommercial — You may not use this work for commercial purposes.
+      \item Noncommercial -- You may not use this work for commercial purposes.
 
-      \item Share Alike — If you alter, transform, or build upon this work, you
+      \item Share Alike -- If you alter, transform, or build upon this work, you
         may distribute the resulting work only under the same or similar license
         to this one.
     \end{itemize}
@@ -110,10 +113,16 @@
   \frametitle{Transactions}
 
   \begin{itemize}
-    \item a group of operations to be carried out together
+    \item a group of operations may have to be carried out together
     \begin{itemize}
       \item finishing some operations while failing on others\\
 	might cause inconsistency
+    \end{itemize}
+
+    \pause
+    \item no guarantee that multiple operations will all be finished
+    \begin{itemize}
+      \item at least return to the state before the changes
     \end{itemize}
   \end{itemize}
 
@@ -138,17 +147,6 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
 \end{frame}
 
 \begin{frame}
-  \frametitle{Transaction Management}
-
-  \begin{itemize}
-    \item no guarantee that multiple operations will all be completed
-    \begin{itemize}
-      \item at least return to the state before the changes
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Transaction Properties}
 
   \begin{itemize}
@@ -160,14 +158,14 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
     \pause
     \item consistency
     \begin{itemize}
-      \item from one consistent state to another
+      \item moving from one consistent state to another
     \end{itemize}
 
     \pause
     \item isolation
     \begin{itemize}
-      \item operations of an unfinished transaction\\
-	do not affect other transactions
+      \item whether operations of an unfinished transaction\\
+	affect other transactions or not
     \end{itemize}
 
     \pause
@@ -211,12 +209,14 @@ ROLLBACK [ WORK | TRANSACTION ]
   BEGIN TRANSACTION
   ON ERROR GOTO UNDO
   UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
-    WHERE ACCOUNTID = 123
+    WHERE (ACCOUNTID = 123)
   UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
-    WHERE ACCOUNTID = 456
+    WHERE (ACCOUNTID = 456)
   COMMIT
   ...
-UNDO: ROLLBACK
+
+UNDO:
+  ROLLBACK
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -227,7 +227,7 @@ UNDO: ROLLBACK
   \frametitle{Recovery}
 
   \begin{itemize}
-    \item system failure during a transaction
+    \item consider a system failure during a transaction
     \begin{itemize}
       \item buffer cache has not been flushed to the disk
     \end{itemize}
@@ -266,11 +266,12 @@ UNDO: ROLLBACK
 
   \begin{itemize}
     \item create \alert{checkpoints} in the log at certain intervals
-    \begin{itemize}
-      \item flush buffer cache to the physical medium
-      \item the checkpoint is noted:\\
-        continuing transactions
-    \end{itemize}
+
+    \pause
+    \medskip
+    \item flush buffer cache to the physical medium
+    \item note the checkpoint in the log
+    \item note the continuing transactions
   \end{itemize}
 \end{frame}
 
@@ -281,20 +282,20 @@ UNDO: ROLLBACK
     \item after the failure, which transactions will be undone,\\
       which transactions will be made permanent?
     \begin{itemize}
-      \item two lists: \emph{undo} (U), \emph{redo} (R)
+      \item create two lists: \emph{undo} (U), \emph{redo} (R)
     \end{itemize}
 
     \pause
     \item $t_C$: last checkpoint in the log
     \begin{itemize}
-      \item add the transactions which are active at $t_C$ to the undo list
+      \item add the transactions which are active at $t_C$ to U
     \end{itemize}
 
     \pause
     \item scan records from $t_C$ to end of log
     \begin{itemize}
-      \item add any starting transaction to the undo list
-      \item add any finishing transaction to the redo list
+      \item add any starting transaction to U
+      \item move any finishing transaction to R
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -344,15 +345,15 @@ UNDO: ROLLBACK
   \frametitle{Recovery Process}
 
   \begin{itemize}
-    \item scan records from end of log backwards
+    \item scan records backwards from end of log
     \begin{itemize}
-      \item undo the operations of the transactions in the undo list
+      \item undo the changes made by the transactions in U
     \end{itemize}
 
     \pause
     \item scan records forwards
     \begin{itemize}
-      \item redo the operations of the transactions in the redo list
+      \item redo the changes made by the transactions in R
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -371,8 +372,8 @@ UNDO: ROLLBACK
     \pause
     \item modifications on data that reside on different source managers
     \begin{itemize}
-      \item either commit in all sources\\
-        or rollback in all sources
+      \item either commit in all source managers\\
+        or rollback in all source managers
     \end{itemize}
 
     \pause
@@ -394,7 +395,7 @@ UNDO: ROLLBACK
       \item if all participants report success, coordinator decides to
         commit
       \item if one or more participants report failure,\\
-	coordinator decides to rollback
+        coordinator decides to rollback
     \end{itemize}
 
     \pause
@@ -407,7 +408,7 @@ UNDO: ROLLBACK
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 15: \alert{Recovery}
     \end{itemize}
@@ -422,6 +423,9 @@ UNDO: ROLLBACK
   \frametitle{Concurrency}
 
   \begin{itemize}
+    \item problems that might arise due to simultaneuous transactions:
+
+    \bigskip
     \item lost update
     \item uncommitted dependency
     \item inconsistent analysis
@@ -550,7 +554,9 @@ S & N & Y & Y\\\hline
 
   \begin{itemize}
     \item if exclusive lock, all lock requests are denied
-    \item if shared lock
+
+    \pause
+    \item if shared lock:
     \begin{itemize}
       \item exclusive lock requests are denied
       \item shared lock requests are granted
@@ -562,8 +568,8 @@ S & N & Y & Y\\\hline
   \frametitle{Locking Protocol}
 
   \begin{itemize}
-    \item the transaction requests a lock\\
-      depending on the operation it wants to perform
+    \item the transaction requests a lock depending on the operation\\
+      it wants to perform
     \begin{itemize}
       \item promote a shared lock to an exclusive lock
     \end{itemize}
@@ -644,7 +650,7 @@ wait                 & wait
 
   \begin{definition}
     \alert{deadlock}:\\
-      transactions are waiting for each other to release their locks
+      transactions waiting for each other to release the locks
   \end{definition}
 
   \pause
@@ -690,11 +696,11 @@ wait                 & wait
       conflicts with a lock held by transaction B:
     \begin{itemize}
       \item \alert{wait-die}: A waits if it is older than B,\\
-	otherwise it dies\\
+        otherwise it dies\\
         A is rolled back and restarted
 
       \item \alert{wound-wait}: A waits if it is younger than B,\\
-	otherwise it wounds B\\
+        otherwise it wounds B\\
         B is rolled back and restarted
     \end{itemize}
 
@@ -726,27 +732,27 @@ SELECT query FOR UPDATE
   \frametitle{Isolation Levels}
 
   \begin{itemize}
-    \item if isolation is decreased, concurrency can be increased:
-    \begin{itemize}
-      \item serializable
-      \item repeatable read
-      \item read committed
-      \item read uncommitted
-    \end{itemize}
+    \item if isolation is decreased, concurrency can be increased
+    \item various isolation levels:
+
+    \bigskip
+    \item serializable
+    \item repeatable read
+    \item read committed
+    \item read uncommitted
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Serializable}
+  \frametitle{Serializability}
 
   \begin{itemize}
     \item \emph{serial execution}:\\
-      a transaction starts only after another one is finished
+      a transaction starts only after another is finished
 
     \pause
-    \item \alert{serializable}:\\
-      the result of concurrent execution is always the same\\
-      as one of the serial executions
+    \item \alert{serializable}: the result of concurrent execution is always\\
+      the same as one of the serial executions
   \end{itemize}
 
   \pause
@@ -791,7 +797,7 @@ SELECT query FOR UPDATE
   \frametitle{Read Committed}
 
   \begin{itemize}
-    \item only exclusive locks are held until end of transaction
+    \item only exclusive locks are held until end of the transaction
   \end{itemize}
 
   \begin{example}
@@ -815,8 +821,7 @@ RETRIEVE p (S+) &
   \frametitle{Phantoms}
 
   \begin{definition}
-    \alert{phantom}:\\
-      when query is executed again, new tuples appear in the result
+    \alert{phantom}: when the query is executed again, new tuples appear
   \end{definition}
 
   \pause
@@ -838,7 +843,7 @@ RETRIEVE p (S+) &
 \begin{frame}[fragile]
   \frametitle{Setting Isolation Levels}
 
-  \begin{block}{statement}
+  \begin{block}{Statement}
     \begin{lstlisting}
 SET TRANSACTION ISOLATION LEVEL
   [ SERIALIZABLE | REPEATABLE READ |
@@ -852,7 +857,7 @@ SET TRANSACTION ISOLATION LEVEL
 
   \begin{table}
     \begin{tabular}{|l||c|c|c|}\hline
-Isolation level  & Dirty & Non-repeatable & Phantom\\
+isolation level  & dirty & non-repeatable & phantom\\
                  & read  & read           &        \\\hline\hline
 READ UNCOMMITTED & Y     & Y              & Y      \\\hline
 READ COMMITTED   & N     & Y              & Y      \\\hline
@@ -946,7 +951,7 @@ SIX & N &  N  & N  & N & Y  & Y\\\hline
 \begin{frame}[fragile]
   \frametitle{Locking Statements}
 
-  \begin{block}{statement}
+  \begin{block}{Statement}
     \begin{lstlisting}
 LOCK [ TABLE ] table_name
      [ IN lock_mode MODE ]
@@ -975,7 +980,7 @@ LOCK [ TABLE ] table_name
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 16: \alert{Concurrency}
     \end{itemize}
