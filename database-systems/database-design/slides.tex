@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -17,6 +17,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \mode<presentation>
 {
@@ -29,7 +30,7 @@
 \subtitle{Database Design}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2011}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -56,25 +57,25 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
     You are free:
     \begin{itemize}
-      \item to Share — to copy, distribute and transmit the work
-      \item to Remix — to adapt the work
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
     \end{itemize}
 
     Under the following conditions:
     \begin{itemize}
-      \item Attribution — You must attribute the work in the manner specified by
+      \item Attribution -- You must attribute the work in the manner specified by
         the author or licensor (but not in any way that suggests that they
         endorse you or your use of the work).
 
-      \item Noncommercial — You may not use this work for commercial purposes.
+      \item Noncommercial -- You may not use this work for commercial purposes.
 
-      \item Share Alike — If you alter, transform, or build upon this work, you
+      \item Share Alike -- If you alter, transform, or build upon this work, you
         may distribute the resulting work only under the same or similar license
         to this one.
     \end{itemize}
@@ -99,13 +100,12 @@
 
   \begin{definition}
     \begin{itemize}
-      \item $Z$: the set of all attributes of relation $R$
+      \item $Z$: the set of all attributes of the relation $R$
       \item $A,B \subseteq Z$
 
       \pause
-      \medskip
       \item \alert{$A$ functionally determines $B$}: $A \rightarrow B$\\
-        for every $A$ value there is only one $B$ value
+        for every $A$ value there can only be one $B$ value
     \end{itemize}
   \end{definition}
 
@@ -116,19 +116,19 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Functional Dependency Examples}
+  \frametitle{Sample Relation}
 
   \begin{example}
     \begin{tiny}
     \begin{table}
       \caption{R}
-      \begin{tabular}{|r|l|l|l|r|l|r|}\hline
-\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\\hline\hline
-      6 & Usual Suspects       & UK  &   EN &     308 & Gabriel Byrne    &   2\\\hline
-    228 & Ed Wood              & US  &   EN &      26 & Johnny Depp      &   1\\\hline
-     70 & Being John Malkovich & US  &   EN &     282 & Cameron Diaz     &   2\\\hline
-   1512 & Suspiria             & IT  &   IT &     745 & Udo Kier         &   9\\\hline
-     70 & Being John Malkovich & US  &   EN &     503 & John Malkovich   &  14\\\hline
+      \begin{tabular}{|r|l|c|c|r|l|r|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\[2pt]\hline\hline
+      6 & Usual Suspects       & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
+    228 & Ed Wood              & US  &  EN  &      26 & Johnny Depp      &   1\\\hline
+     70 & Being John Malkovich & US  &  EN  &     282 & Cameron Diaz     &   2\\\hline
+   1512 & Suspiria             & IT  &  IT  &     745 & Udo Kier         &   9\\\hline
+     70 & Being John Malkovich & US  &  EN  &     503 & John Malkovich   &  14\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
@@ -181,7 +181,7 @@
     \item $T \subseteq S$, such that
     \begin{itemize}
       \item $T$ contains as few elements as possible
-      \item every FD in $S$ can be derived by the FDs in $T$
+      \item every FD in $S$ can be derived from the FDs in $T$
     \end{itemize}
 
     \pause
@@ -205,7 +205,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dependence Diagram}
+  \frametitle{Dependency Diagram}
 
   \begin{example}
     \begin{center}
@@ -242,14 +242,14 @@
       transition from one form to the next, narrower form
 
     \begin{itemize}
-      \item transition between normal forms must be lossless
+      \item transition between forms must be lossless
     \end{itemize}
   \end{definition}
 
   \pause
   \begin{theorem}[Heath]
     \begin{itemize}
-      \item $Z$: $R$ the set of all attributes of the relation
+      \item $Z$: the set of all attributes of the relation $R$
       \item $A,B,C \subseteq Z$
 
       \pause
@@ -264,16 +264,16 @@
 
   \begin{example}
     \begin{columns}[c]
-      \column{.55\textwidth}
+      \column{.57\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{R1}
-        \begin{tabular}{|r|l|l|l|}\hline
+        \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  & EN  \\\hline
-    228 & Ed Wood              & US  & EN  \\\hline
-     70 & Being John Malkovich & US  & EN  \\\hline
-   1512 & Suspiria             & IT  & IT  \\\hline
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -294,9 +294,9 @@ MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
       \end{tiny}
 
       \pause
-      \column{.42\textwidth}
+      \column{.4\textwidth}
       \begin{itemize}
-        \item $R = natjoin~(R1)~(R2)$
+        \item R $=$ R1 JOIN R2
       \end{itemize}
     \end{columns}
   \end{example}
@@ -307,16 +307,16 @@ MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
 
   \begin{example}
     \begin{columns}[c]
-      \column{.55\textwidth}
+      \column{.57\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{R1}
-        \begin{tabular}{|r|l|l|l|}\hline
+        \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  & EN  \\\hline
-    228 & Ed Wood              & US  & EN  \\\hline
-     70 & Being John Malkovich & US  & EN  \\\hline
-   1512 & Suspiria             & IT  & IT  \\\hline
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -325,7 +325,7 @@ MOVIEID & TITLE                & COU & LANG\\\hline\hline
       \begin{tiny}
       \begin{table}
         \caption{R2}
-        \begin{tabular}{|l|r|l|r|}\hline
+        \begin{tabular}{|c|r|l|r|}\hline
 COU & ACTORID & NAME           & ORD\\\hline\hline
 UK  &     308 & Gabriel Byrne  &   2\\\hline
 US  &      26 & Johnny Depp    &   1\\\hline
@@ -337,9 +337,9 @@ US  &     503 & John Malkovich &  14\\\hline
       \end{tiny}
 
       \pause
-      \column{.42\textwidth}
+      \column{.4\textwidth}
       \begin{itemize}
-        \item $R \neq natjoin~(R1)~(R2)$
+        \item R $\neq$ R1 JOIN R2
 
         \pause
         \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
@@ -376,15 +376,15 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item it is known that the country of the movie Gattaca is US\\
-	but it cannot be inserted if there is no actor in the movie
+      \item the country of the movie "Gattaca" is known to be US,\\
+	but this cannot be inserted if there is no actor in the movie
 
       \pause
-      \item deleting that Gabriel Byrne is in the movie Usual Suspects\\
+      \item deleting that Gabriel Byrne acts in the movie "Usual Suspects"\\
         also deletes that the movie was made in the UK
 
       \pause
-      \item changing the country of the movie Being John Malkovich\\
+      \item changing the country of the movie "Being John Malkovich"\\
         requires modifications in two tuples
     \end{itemize}
   \end{example}
@@ -399,14 +399,14 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{block}{transition from 1NF to 2NF}
     \begin{itemize}
-      \item in an $R$ relation that conforms to 1NF:
+      \item in a relation $R$ that conforms to 1NF:
       \begin{itemize}
         \item $R(A,B,C,D)$, primary key: $\{A,B\}$
         \item $A \rightarrow D$
       \end{itemize}
 
       \pause
-      \item for it to be 2NF:
+      \item to be 2NF:
       \begin{itemize}
         \item $R1(A,D)$, primary key: $A$
         \item $R2(A,B,C)$, primary key: $\{A,B\}$\\
@@ -428,8 +428,8 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{itemize}
         \item $A$: MOVIEID
         \item $B$: ACTORID
-        \item $C$: \{NAME,ORD\}
-        \item $D$: \{TITLE,COUNTRY,LANGUAGE\}
+        \item $C$: \{NAME, ORD\}
+        \item $D$: \{TITLE, COUNTRY, LANGUAGE\}
       \end{itemize}
     \end{itemize}
   \end{example}
@@ -440,12 +440,12 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item R1(MOVIEID,TITLE,COUNTRY,LANGUAGE)\\
+      \item R1(MOVIEID, TITLE, COUNTRY, LANGUAGE)\\
         primary key: MOVIEID
 
       \pause
-      \item R2(MOVIEID,ACTORID,NAME,ORD)\\
-        primary key: \{MOVIEID,ACTORID\}\\
+      \item R2(MOVIEID, ACTORID, NAME, ORD)\\
+        primary key: \{MOVIEID, ACTORID\}\\
         MOVIEID is a foreign key referencing R1
     \end{itemize}
  \end{example}
@@ -469,12 +469,12 @@ US  &     503 & John Malkovich &  14\\\hline
 
     \pause
     \begin{itemize}
-      \item R3(ACTORID,NAME)\\
+      \item R3(ACTORID, NAME)\\
         primary key: ACTORID
 
       \pause
-      \item R4(MOVIEID,ACTORID,ORD)\\
-        primary key: \{MOVIEID,ACTORID\}\\
+      \item R4(MOVIEID, ACTORID, ORD)\\
+        primary key: \{MOVIEID, ACTORID\}\\
         ACTORID is a foreign key referencing R3
     \end{itemize}
   \end{example}
@@ -488,12 +488,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{tiny}
       \begin{table}
         \caption{R1}
-        \begin{tabular}{|r|l|l|l|}\hline
-\underline{MOVIEID} & TITLE    & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  & EN  \\\hline
-    228 & Ed Wood              & US  & EN  \\\hline
-     70 & Being John Malkovich & US  & EN  \\\hline
-   1512 & Suspiria             & IT  & IT  \\\hline
+        \begin{tabular}{|r|l|c|c|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG\\[2pt]\hline\hline
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -506,7 +506,7 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R3}
         \begin{tabular}{|r|l|}\hline
-\underline{ACTORID} & NAME\\\hline\hline
+\underline{ACTORID} & NAME\\[2pt]\hline\hline
       308 & Gabriel Byrne \\\hline
        26 & Johnny Depp   \\\hline
       282 & Cameron Diaz  \\\hline
@@ -521,7 +521,7 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R4}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
    6 & 308 &  2\\\hline
  228 &  26 &  1\\\hline
   70 & 282 &  2\\\hline
@@ -549,16 +549,16 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item if the country of the movie Gattaca is US,\\
-	it can be inserted to $R1$
+      \item if the country of the movie "Gattaca" is known to be US,\\
+	this can be inserted to R1
 
       \pause
-      \item if Gabriel Byrne is deleted from the movie Usual Suspects,\\
-	the country of the movie is retained in $R1$
+      \item if Gabriel Byrne is deleted from the movie "Usual Suspects",\\
+	the country of the movie is still kept in R1
 
       \pause
-      \item changing the country of the movie Being John Malkovich\\
-	requires updating only one tuple in $R1$
+      \item changing the country of the movie "Being John Malkovich"\\
+	requires updating only one tuple in R1
     \end{itemize}
   \end{example}
 \end{frame}
@@ -568,12 +568,12 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item it is known that movies made in Brasil are in Portuguese\\
-	but it can not be inserted if there is no movie made in Brasil
+      \item it is known that movies made in Brazil are in Portuguese\\
+	but this can not be inserted if there is no movie made in Brazil
 
       \pause
-      \item deleting the movie Suspiria\\
-	also deletes that movies made in Italy are in Italian
+      \item deleting the movie "Suspiria" also deletes that\\
+        the language of movies made in Italy is Italian
 
       \pause
       \item changing the language of the movies made in the US\\
@@ -588,14 +588,14 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{3rd Normal Form}
 
   \begin{definition}
-    \alert{3NF}: non-key attributes do not depend\\
-      on any attribute or attribute group other than the primary key
+    \alert{3NF}: non-key attributes do not depend on any attributes\\
+      other than the primary key
   \end{definition}
 
   \pause
   \begin{block}{transition from 2NF to 3NF}
     \begin{itemize}
-      \item in an $R$ relation that conforms to 2NF:
+      \item in a relation $R$ that conforms to 2NF:
       \begin{itemize}
         \item $R(A,B,C,D)$, primary key: $A$
         \item $C \rightarrow D$
@@ -650,8 +650,8 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{tiny}
       \begin{table}
         \caption{R6}
-        \begin{tabular}{|r|l|l|}\hline
-\underline{MOVIEID} & TITLE    & COU\\\hline\hline
+        \begin{tabular}{|r|l|c|}\hline
+\underline{MOVIEID} & TITLE    & COU\\[2pt]\hline\hline
       6 & Usual Suspects       & UK \\\hline
     228 & Ed Wood              & US \\\hline
      70 & Being John Malkovich & US \\\hline
@@ -664,8 +664,8 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{tiny}
       \begin{table}
         \caption{R5}
-        \begin{tabular}{|l|l|}\hline
-\underline{COU} & LANG\\\hline\hline
+        \begin{tabular}{|c|c|}\hline
+\underline{COU} & LANG\\[2pt]\hline\hline
 UK & EN\\\hline
 US & EN\\\hline
 IT & IT\\\hline
@@ -681,7 +681,7 @@ IT & IT\\\hline
       \begin{table}
         \caption{R3}
         \begin{tabular}{|r|l|}\hline
-\underline{ACTORID} & NAME\\\hline\hline
+\underline{ACTORID} & NAME\\[2pt]\hline\hline
       308 & Gabriel Byrne \\\hline
        26 & Johnny Depp   \\\hline
       282 & Cameron Diaz  \\\hline
@@ -696,7 +696,7 @@ IT & IT\\\hline
       \begin{table}
         \caption{R4}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
    6 & 308 &  2\\\hline
  228 &  26 &  1\\\hline
   70 & 282 &  2\\\hline
@@ -724,16 +724,16 @@ IT & IT\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item if movies made in Brasil are in Portuguese,\\
-	it can be inserted into $R5$.
+      \item if movies made in Brazil are in known to be in Portuguese,\\
+	this can be inserted into R5
 
       \pause
-      \item if the movie Suspiria is deleted, $R5$ retains the data\\
+      \item if the movie "Suspiria" is deleted, R5 still keeps\\
         that movies made in Italy are in Italian
 
       \pause
       \item changing the language of the movies made in the US\\
-	requires modifying only one tuple in $R5$
+	requires modifying only one tuple in R5
     \end{itemize}
   \end{example}
 \end{frame}
@@ -759,8 +759,8 @@ IT & IT\\\hline
     \begin{itemize}
       \item candidate keys:
       \begin{itemize}
-        \item \{MOVIEID,ACTORID\}
-        \item \{TITLE,ACTORID\}
+        \item \{MOVIEID, ACTORID\}
+        \item \{TITLE, ACTORID\}
       \end{itemize}
 
       \pause
@@ -778,7 +778,7 @@ IT & IT\\\hline
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 11: \alert{Functional Dependencies}
       \item Chapter 12: \alert{Further Normalization I: 1NF, 2NF, 3NF, BCNF}
@@ -813,8 +813,7 @@ IT & IT\\\hline
   \frametitle{Entities}
 
   \begin{definition}
-    \alert{entity}:\\
-      set of "things" with the same attributes
+    \alert{entity}: set of "things" with the same attributes
 
     \pause
     \begin{itemize}
@@ -834,14 +833,14 @@ IT & IT\\\hline
 
   \begin{example}
     \begin{itemize}
-      \item entity: movie, director, actor
+      \item entity: movie, person
 
       \pause
-      \item instance: Johnny Depp
+      \item person instance: Johnny Depp
 
       \pause
       \medskip
-      \item strong entity: director
+      \item strong entity: person
       \item weak entity: movie
     \end{itemize}
   \end{example}
@@ -851,8 +850,7 @@ IT & IT\\\hline
   \frametitle{Properties}
 
   \begin{definition}
-    \alert{property}:\\
-      data describing entities or relationships
+    \alert{property}: data describing entities or relationships
 
     \pause
     \begin{itemize}
@@ -889,14 +887,13 @@ IT & IT\\\hline
   \frametitle{Relationships}
 
   \begin{definition}
-    \alert{relationship}:\\
-      connections between entities
+    \alert{relationship}: connections between entities
 
     \pause
     \begin{itemize}
       \item \emph{participant}: entities in the relationship
       \item \emph{degree}: number of participants
-      \item \emph{total / partial}: all instances of the entity\\
+      \item \emph{total} / \emph{partial}: all instances of the entity\\
         do / don't participate in the relationship
     \end{itemize}
   \end{definition}
@@ -1011,7 +1008,7 @@ IT & IT\\\hline
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
       \item Chapter 14: \alert{Semantic Modeling}
     \end{itemize}
