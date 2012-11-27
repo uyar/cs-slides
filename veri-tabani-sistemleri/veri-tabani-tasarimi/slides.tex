@@ -1,6 +1,6 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2002-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
-%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%       Åule GÃ¼ndÃ¼z Ã–ÄŸÃ¼dÃ¼cÃ¼ <sgunduz@itu.edu.tr>
 %
 % These notes are licensed using the
 % "Creative Commons Attribution-NonCommercial-ShareAlike License".
@@ -15,8 +15,10 @@
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
-\usepackage[latin5]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \mode<presentation>
 {
@@ -25,11 +27,11 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veri Tabanı Yönetim Sistemleri}
-\subtitle{Veri Tabanı Tasarımı}
+\title{Veri TabanÄ± Sistemleri}
+\subtitle{Veri TabanÄ± TasarÄ±mÄ±}
 
-\author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2011}
+\author{H. Turgut Uyar \and Åule Ã–ÄŸÃ¼dÃ¼cÃ¼}
+\date{2002-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -39,10 +41,10 @@
 }
 
 \theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
+\newtheorem{tanim}[theorem]{TanÄ±m}
 
 \theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
+\newtheorem{ornek}[theorem]{Ã–rnek}
 
 \theoremstyle{plain}
 \newtheorem{teorem}[theorem]{Teorem}
@@ -65,7 +67,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2002-2012 T. Uyar, Å. Ã–ÄŸÃ¼dÃ¼cÃ¼
 
   \vfill
   \begin{tiny}
@@ -101,55 +103,55 @@
 
 \section{Normalizasyon}
 
-\subsection{Giriş}
+\subsection{GiriÅŸ}
 
 \begin{frame}
-  \frametitle{İşlevsel Bağımlılık}
+  \frametitle{Ä°ÅŸlevsel BaÄŸÄ±mlÄ±lÄ±k}
 
   \begin{tanim}
     \begin{itemize}
-      \item $Z$: $R$ bağıntısının bütün nitelikleri kümesi
+      \item $Z$: $R$ baÄŸÄ±ntÄ±sÄ±nÄ±n bÃ¼tÃ¼n nitelikleri kÃ¼mesi
       \item $A,B \subseteq Z$
 
       \pause
-      \item \alert{$A$, $B$'yi işlevsel olarak belirliyor}: $A \rightarrow B$\\
-        her $A$ değerine karşılık tek bir $B$ değeri var
+      \item \alert{$A$, $B$'yi iÅŸlevsel olarak belirliyor}: $A \rightarrow B$\\
+        her $A$ deÄŸerine karÅŸÄ±lÄ±k tek bir $B$ deÄŸeri olabilir
     \end{itemize}
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item her işlevsel bağımlılık bir bütünlük kısıtlaması
+    \item her iÅŸlevsel baÄŸÄ±mlÄ±lÄ±k bir bÃ¼tÃ¼nlÃ¼k kÄ±sÄ±tlamasÄ±
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek Veri Tabanı}
+  \frametitle{Ã–rnek BaÄŸÄ±ntÄ±}
 
   \begin{ornek}
     \begin{tiny}
     \begin{table}
       \caption{R}
-      \begin{tabular}{|r|l|l|l|r|l|r|}\hline
-\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\\hline\hline
-      6 & Usual Suspects       & UK  & EN   &     308 & Gabriel Byrne    &   2\\\hline
-    228 & Ed Wood              & US  & EN   &      26 & Johnny Depp      &   1\\\hline
-     70 & Being John Malkovich & US  & EN   &     282 & Cameron Diaz     &   2\\\hline
-   1512 & Suspiria             & IT  & IT   &     745 & Udo Kier         &   9\\\hline
-     70 & Being John Malkovich & US  & EN   &     503 & John Malkovich   &  14\\\hline
+      \begin{tabular}{|r|l|c|c|r|l|r|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\[2pt]\hline\hline
+      6 & Usual Suspects       & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
+    228 & Ed Wood              & US  &  EN  &      26 & Johnny Depp      &   1\\\hline
+     70 & Being John Malkovich & US  &  EN  &     282 & Cameron Diaz     &   2\\\hline
+   1512 & Suspiria             & IT  &  IT  &     745 & Udo Kier         &   9\\\hline
+     70 & Being John Malkovich & US  &  EN  &     503 & John Malkovich   &  14\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
 
     \pause
     \begin{itemize}
-      \item varsayım: film hangi ülkede çekildiyse o ülkenin dilinde
+      \item varsayÄ±m: film hangi Ã¼lkede Ã§ekildiyse o Ã¼lkenin dilinde
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İşlevsel Bağımlılık Örnekleri}
+  \frametitle{Ä°ÅŸlevsel BaÄŸÄ±mlÄ±lÄ±k Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
@@ -180,24 +182,25 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{İndirgenemez Küme}
+  \frametitle{Ä°ndirgenemez KÃ¼me}
 
   \begin{itemize}
-    \item $S$: bağıntının bütün işlevsel bağımlılıkları kümesi
+    \item $S$: baÄŸÄ±ntÄ±nÄ±n bÃ¼tÃ¼n iÅŸlevsel baÄŸÄ±mlÄ±lÄ±klarÄ± kÃ¼mesi
 
-    \item $T \subseteq S$, öyle ki
+    \item $T \subseteq S$, Ã¶yle ki
     \begin{itemize}
-      \item $T$ olabildiğince az eleman içerir
-      \item $S$'deki her işlevsel bağımlılık $T$'dekilerden türetilebilir
+      \item $T$ olabildiÄŸince az eleman iÃ§erir
+      \item $S$'deki her iÅŸlevsel baÄŸÄ±mlÄ±lÄ±k $T$'dekilerden tÃ¼retilebilir
     \end{itemize}
 
     \pause
-    \item işlevsel bağımlılıkların sağ yanlarında tek nitelik yer alsın
+    \medskip
+    \item iÅŸlevsel baÄŸÄ±mlÄ±lÄ±klarÄ±n saÄŸ yanlarÄ±nda tek nitelik yer alsÄ±n
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İndirgenemez Küme Örneği}
+  \frametitle{Ä°ndirgenemez KÃ¼me Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
@@ -211,7 +214,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bağımlılık Çizeneği}
+  \frametitle{BaÄŸÄ±mlÄ±lÄ±k Ã‡izeneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -228,14 +231,15 @@
   \begin{itemize}
     \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
 
-    \item her form bir önceki formun kapsamını daraltır
+    \item her form bir Ã¶nceki formun kapsamÄ±nÄ± daraltÄ±r
     \begin{itemize}
-      \item bütün 2NF bağıntılar aynı zamanda 1NF
-      \item bütün 3NF bağıntılar aynı zamanda 2NF, ...
+      \item bÃ¼tÃ¼n 2NF baÄŸÄ±ntÄ±lar aynÄ± zamanda 1NF
+      \item bÃ¼tÃ¼n 3NF baÄŸÄ±ntÄ±lar aynÄ± zamanda 2NF, ...
     \end{itemize}
 
     \pause
-    \item 1NF: nitelik değerleri bölünmezdir
+    \medskip
+    \item 1NF: nitelik deÄŸerleri bÃ¶lÃ¼nmezdir
   \end{itemize}
 \end{frame}
 
@@ -244,42 +248,42 @@
 
   \begin{tanim}
     \alert{normalizasyon}:\\
-      bir formdan daha dar kapsamlı diğer forma geçiş
+      bir formdan daha dar kapsamlÄ± bir sonraki forma geÃ§iÅŸ
 
     \begin{itemize}
-      \item normal formlar arası geçişler kayıpsız olmalı
+      \item formlar arasÄ± geÃ§iÅŸler kayÄ±psÄ±z olmalÄ±
     \end{itemize}
   \end{tanim}
 
   \pause
-  \begin{teorem}[Heath Kuramı]
+  \begin{teorem}[Heath KuramÄ±]
     \begin{itemize}
-      \item $Z$: $R$ bağıntısının bütün nitelikleri kümesi
-      \item $A, B, C \subseteq Z$
+      \item $Z$: $R$ baÄŸÄ±ntÄ±sÄ±nÄ±n bÃ¼tÃ¼n nitelikleri kÃ¼mesi
+      \item $A,B,C \subseteq Z$
 
       \pause
-      \item $A \rightarrow B$ ise $R$ bağıntısı $\{A, B\}$ ile $\{A, C\}$
-        bağıntılarının\\
-        birleştirilmesiyle elde edilebilir
+      \item $A \rightarrow B$ ise $R$ baÄŸÄ±ntÄ±sÄ± $\{A,B\}$ ile $\{A,C\}$
+        baÄŸÄ±ntÄ±larÄ±nÄ±n\\
+        birleÅŸtirilmesiyle elde edilebilir
     \end{itemize}
   \end{teorem}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kayıpsız Geçiş Örneği}
+  \frametitle{KayÄ±psÄ±z GeÃ§iÅŸ Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{columns}[c]
-      \column{.55\textwidth}
+      \column{.57\textwidth}
       \begin{tiny}
       \begin{table}
         \caption{R1}
-        \begin{tabular}{|r|l|l|l|}\hline
+        \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  & EN  \\\hline
-    228 & Ed Wood              & US  & EN  \\\hline
-     70 & Being John Malkovich & US  & EN  \\\hline
-   1512 & Suspiria             & IT  & IT  \\\hline
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -300,99 +304,99 @@ MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
       \end{tiny}
 
       \pause
-      \column{.42\textwidth}
+      \column{.4\textwidth}
       \begin{itemize}
-        \item $R = natjoin~(R1)~(R2)$
+        \item R $=$ R1 JOIN R2
       \end{itemize}
     \end{columns}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kayıplı Geçiş Örneği}
+  \frametitle{KayÄ±plÄ± GeÃ§iÅŸ Ã–rneÄŸi}
 
   \begin{ornek}
-  \begin{columns}[c]
-    \column{.55\textwidth}
-    \begin{tiny}
-    \begin{table}
-      \caption{R1}
-      \begin{tabular}{|r|l|l|l|}\hline
+    \begin{columns}[c]
+      \column{.57\textwidth}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  & EN  \\\hline
-    228 & Ed Wood              & US  & EN  \\\hline
-     70 & Being John Malkovich & US  & EN  \\\hline
-   1512 & Suspiria             & IT  & IT  \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
 
-    \vspace{-0.7cm}
-    \begin{tiny}
-    \begin{table}
-      \caption{R2}
-      \begin{tabular}{|l|r|l|r|}\hline
+      \vspace{-0.7cm}
+      \begin{tiny}
+      \begin{table}
+        \caption{R2}
+        \begin{tabular}{|c|r|l|r|}\hline
 COU & ACTORID & NAME           & ORD\\\hline\hline
 UK  &     308 & Gabriel Byrne  &   2\\\hline
 US  &      26 & Johnny Depp    &   1\\\hline
 US  &     282 & Cameron Diaz   &   2\\\hline
 IT  &     745 & Udo Kier       &   9\\\hline
 US  &     503 & John Malkovich &  14\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-
-    \pause
-    \column{.42\textwidth}
-    \begin{itemize}
-      \item $R \neq natjoin~(R1)~(R2)$
+        \end{tabular}
+      \end{table}
+      \end{tiny}
 
       \pause
-      \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
-    \end{itemize}
-  \end{columns}
+      \column{.4\textwidth}
+      \begin{itemize}
+        \item R $\neq$ R1 JOIN R2
+
+        \pause
+        \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
+      \end{itemize}
+    \end{columns}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Aykırılıklar}
+  \frametitle{AykÄ±rÄ±lÄ±klar}
 
   \begin{itemize}
     \item \emph{ekleme}
     \begin{itemize}
-      \item bilinen bir verinin kısıtlamalar nedeniyle tutulamaması
+      \item bilinen bir verinin kÄ±sÄ±tlamalar nedeniyle tutulamamasÄ±
     \end{itemize}
 
     \pause
     \item \emph{silme}
     \begin{itemize}
-        \item bir veri silinmek istendiğinde başka bir verinin de yitirilmesi
+        \item bir veri silinmek istendiÄŸinde baÅŸka bir verinin de yitirilmesi
     \end{itemize}
 
     \pause
-    \item \emph{güncelleme}
+    \item \emph{gÃ¼ncelleme}
     \begin{itemize}
-      \item bir veriyi güncellemek için\\
-	birden fazla çokluda değişiklik gerekmesi
+      \item bir veriyi gÃ¼ncellemek iÃ§in birden fazla Ã§okluda deÄŸiÅŸiklik\\
+        gerekmesi
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Aykırılık Örnekleri}
+  \frametitle{AykÄ±rÄ±lÄ±k Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item Gattaca filminin ülkesinin US olduğu biliniyor\\
-	ama filmde oynayan bir oyuncu olmadıkça eklenemiyor
+      \item "Gattaca" filminin Ã¼lkesinin US olduÄŸu biliniyor\\
+	ama filmde oynayan bir oyuncu olmadÄ±kÃ§a eklenemiyor
 
       \pause
-      \item Gabriel Byrne'in Usual Suspects filminde oynadığı silinirse\\
-        filmin ülkesinin UK olduğu da siliniyor
+      \item Gabriel Byrne'in "Usual Suspects" filminde oynadÄ±ÄŸÄ± silinirse\\
+        filmin Ã¼lkesinin UK olduÄŸu da siliniyor
 
       \pause
-      \item Being John Malkovich filminin ülkesinin güncellenmesi\\
-        iki çokluda değişiklik gerektiriyor
+      \item "Being John Malkovich" filminin Ã¼lkesinin gÃ¼ncellenmesi\\
+        iki Ã§okluda deÄŸiÅŸiklik gerektiriyor
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -401,41 +405,41 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{2. Normal Form}
 
   \begin{tanim}
-    \alert{2NF}: anahtar olmayan her nitelik birincil anahtara bağımlı
+    \alert{2NF}: anahtar olmayan her nitelik birincil anahtara baÄŸÄ±mlÄ±
   \end{tanim}
 
-  \begin{block}{1NF'den 2NF'ye geçiş}
+  \begin{block}{1NF'den 2NF'ye geÃ§iÅŸ}
     \begin{itemize}
-      \item 1NF'ye uyan $R$ bağıntısında:
+      \item 1NF'ye uyan bir $R$ baÄŸÄ±ntÄ±sÄ±nda:
       \begin{itemize}
-        \item $R(A, B, C, D)$, birincil anahtar: $\{A, B\}$
+        \item $R(A,B,C,D)$, birincil anahtar: $\{A,B\}$
         \item $A \rightarrow D$
       \end{itemize}
 
       \pause
-      \item 2NF olması için:
+      \item 2NF olmasÄ± iÃ§in:
       \begin{itemize}
-        \item $R1(A, D)$, birincil anahtar: $A$
-        \item $R2(A, B, C)$, birincil anahtar: $\{A, B\}$\\
-          $A$, $R1$'e başvuran dış anahtar
+        \item $R1(A,D)$, birincil anahtar: $A$
+        \item $R2(A,B,C)$, birincil anahtar: $\{A,B\}$\\
+          $A$, $R1$'e baÅŸvuran dÄ±ÅŸ anahtar
       \end{itemize}
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{1NF-2NF Geçişi Örneği}
+  \frametitle{1NF-2NF GeÃ§iÅŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
-      \item anahtar olmayan niteliklerden ORD dışındakiler\\
-	birincil anahtara bağımlı değil
+      \item anahtar olmayan niteliklerden ORD dÄ±ÅŸÄ±ndakiler\\
+	birincil anahtara baÄŸÄ±mlÄ± deÄŸil
 
       \pause
       \begin{itemize}
         \item $A$: MOVIEID
         \item $B$: ACTORID
-        \item $C$: \{NAME,ORD\}
+        \item $C$: \{NAME, ORD\}
         \item $D$: \{TITLE, COUNTRY, LANGUAGE\}
       \end{itemize}
     \end{itemize}
@@ -443,7 +447,7 @@ US  &     503 & John Malkovich &  14\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{1NF-2NF Geçişi Örneği}
+  \frametitle{1NF-2NF GeÃ§iÅŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
@@ -453,17 +457,17 @@ US  &     503 & John Malkovich &  14\\\hline
       \pause
       \item R2(MOVIEID, ACTORID, NAME, ORD)\\
         birincil anahtar: \{MOVIEID, ACTORID\}\\
-        MOVIEID, R1'e başvuran dış anahtar
+        MOVIEID, R1'e baÅŸvuran dÄ±ÅŸ anahtar
     \end{itemize}
  \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{1NF-2NF Geçişi Örneği}
+  \frametitle{1NF-2NF GeÃ§iÅŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
-      \item R2 hala 2NF değil: ACTORID $\rightarrow$ NAME
+      \item R2 hala 2NF deÄŸil: ACTORID $\rightarrow$ NAME
 
       \pause
       \begin{itemize}
@@ -482,28 +486,28 @@ US  &     503 & John Malkovich &  14\\\hline
       \pause
       \item R4(MOVIEID, ACTORID, ORD)\\
         birincil anahtar: \{MOVIEID, ACTORID\}\\
-        ACTORID, R3'e başvuran dış anahtar
+        ACTORID, R3'e baÅŸvuran dÄ±ÅŸ anahtar
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{2NF Bağıntı Örnekleri}
+  \frametitle{2NF BaÄŸÄ±ntÄ± Ã–rnekleri}
 
   \begin{ornek}
     \begin{center}
-    \begin{tiny}
-    \begin{table}
-      \caption{R1}
-      \begin{tabular}{|r|l|l|l|}\hline
-\underline{MOVIEID} & TITLE                & COU & LANG\\\hline\hline
-                  6 & Usual Suspects       & UK  & EN  \\\hline
-                228 & Ed Wood              & US  & EN  \\\hline
-                 70 & Being John Malkovich & US  & EN  \\\hline
-               1512 & Suspiria             & IT  & IT  \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+      \begin{tiny}
+      \begin{table}
+        \caption{R1}
+        \begin{tabular}{|r|l|c|c|}\hline
+\underline{MOVIEID} & TITLE    & COU & LANG\\[2pt]\hline\hline
+      6 & Usual Suspects       & UK  &  EN \\\hline
+    228 & Ed Wood              & US  &  EN \\\hline
+     70 & Being John Malkovich & US  &  EN \\\hline
+   1512 & Suspiria             & IT  &  IT \\\hline
+        \end{tabular}
+      \end{table}
+      \end{tiny}
     \end{center}
 
     \vspace{-0.7cm}
@@ -513,12 +517,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R3}
         \begin{tabular}{|r|l|}\hline
-\underline{ACTORID} & NAME          \\\hline\hline
-                308 & Gabriel Byrne \\\hline
-                 26 & Johnny Depp   \\\hline
-                282 & Cameron Diaz  \\\hline
-                745 & Udo Kier      \\\hline
-                503 & John Malkovich\\\hline
+\underline{ACTORID} & NAME\\[2pt]\hline\hline
+      308 & Gabriel Byrne \\\hline
+       26 & Johnny Depp   \\\hline
+      282 & Cameron Diaz  \\\hline
+      745 & Udo Kier      \\\hline
+      503 & John Malkovich\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -528,12 +532,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R4}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
-                  6 &                 308 &   2\\\hline
-                228 &                  26 &   1\\\hline
-                 70 &                 282 &   2\\\hline
-               1512 &                 745 &   9\\\hline
-                 70 &                 503 &  14\\\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
+   6 & 308 &  2\\\hline
+ 228 &  26 &  1\\\hline
+  70 & 282 &  2\\\hline
+1512 & 745 &  9\\\hline
+  70 & 503 & 14\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -542,7 +546,7 @@ US  &     503 & John Malkovich &  14\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bağımlılık Çizeneği Örneği}
+  \frametitle{BaÄŸÄ±mlÄ±lÄ±k Ã‡izeneÄŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -552,39 +556,39 @@ US  &     503 & John Malkovich &  14\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{2NF Düzelen Aykırılıklar}
+  \frametitle{2NF DÃ¼zelen AykÄ±rÄ±lÄ±klar}
 
   \begin{ornek}
     \begin{itemize}
-      \item Gattaca filminin ülkesinin US olduğu\\
-	R1~bağıntısına eklenebilir
+      \item "Gattaca" filminin Ã¼lkesinin US olduÄŸu biliniyorsa\\
+	bu bilgi R1 baÄŸÄ±ntÄ±sÄ±na eklenebilir
 
       \pause
-      \item Gabriel Byrne'in Usual Suspects filminde oynadığı silinse de\\
-        filmin ülkesinin UK olduğu bilgisi R1~bağıntısında korunur
+      \item Gabriel Byrne'in "Usual Suspects" filminde oynadÄ±ÄŸÄ± silinse de\\
+        filmin Ã¼lkesinin UK olduÄŸu bilgisi R1 baÄŸÄ±ntÄ±sÄ±nda kalÄ±r
 
       \pause
-      \item Being John Malkovich filminin ülkesini güncellemek için\\
-        R1~bağıntısında tek çokluda değişiklik yapmak yeterli
+      \item "Being John Malkovich" filminin Ã¼lkesini gÃ¼ncellemek iÃ§in\\
+        R1 baÄŸÄ±ntÄ±sÄ±nda tek Ã§okluda deÄŸiÅŸiklik yapmak yeterli
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{2NF Düzelmeyen Aykırılıklar}
+  \frametitle{2NF DÃ¼zelmeyen AykÄ±rÄ±lÄ±klar}
 
   \begin{ornek}
     \begin{itemize}
-      \item Brezilya'da çekilen filmlerin Portekizce olduğu biliniyor\\
-	ama Brezilya'da çekilen bir film olmadıkça eklenemiyor
+      \item Brezilya'da Ã§ekilen filmlerin Portekizce olduÄŸu biliniyor\\
+	ama Brezilya'da Ã§ekilen bir film olmadÄ±kÃ§a eklenemiyor
 
       \pause
-      \item Suspiria filmi silinirse\\
-	İtalya'da çekilen filmlerin İtalyanca olduğu da siliniyor
+      \item "Suspiria" filmi silinirse Ä°talya'da Ã§ekilen filmlerin\\
+        Ä°talyanca olduÄŸu da siliniyor
 
       \pause
-      \item Amerika'da çekilen filmlerin dilinin güncellenmesi\\
-        iki çokluda değişiklik gerektiriyor
+      \item Amerika'da Ã§ekilen filmlerin dilinin gÃ¼ncellenmesi\\
+        iki Ã§okluda deÄŸiÅŸiklik gerektiriyor
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -595,36 +599,36 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{3. Normal Form}
 
   \begin{tanim}
-    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dışında\\
-      bir nitelik ya da nitelik grubuna bağımlı değil
+    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dÄ±ÅŸÄ±nda\\
+      niteliklere baÄŸÄ±mlÄ± deÄŸil
   \end{tanim}
 
   \pause
-  \begin{block}{2NF'den 3NF'ye geçiş}
+  \begin{block}{2NF'den 3NF'ye geÃ§iÅŸ}
     \begin{itemize}
-      \item 2NF'ye uyan $R$ bağıntısında:
+      \item 2NF'ye uyan bir $R$ baÄŸÄ±ntÄ±sÄ±nda:
       \begin{itemize}
-        \item $R(A, B, C, D)$, birincil anahtar: $A$
+        \item $R(A,B,C,D)$, birincil anahtar: $A$
         \item $C \rightarrow D$
       \end{itemize}
 
       \pause
-      \item 3NF olması için:
+      \item 3NF olmasÄ± iÃ§in:
       \begin{itemize}
-        \item $R1(C, D)$, birincil anahtar: $C$
-        \item $R2(A, B, C)$, birincil anahtar: $A$\\
-          $C$, $R1$'e başvuran dış anahtar
+        \item $R1(C,D)$, birincil anahtar: $C$
+        \item $R2(A,B,C)$, birincil anahtar: $A$\\
+          $C$, $R1$'e baÅŸvuran dÄ±ÅŸ anahtar
       \end{itemize}
     \end{itemize}
  \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{2NF-3NF Geçişi Örneği}
+  \frametitle{2NF-3NF GeÃ§iÅŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{itemize}
-      \item R1: LANGUAGE niteliği COUNTRY niteliğine bağımlı
+      \item R1: COUNTRY $\rightarrow$ LANGUAGE
 
       \pause
       \begin{itemize}
@@ -643,13 +647,13 @@ US  &     503 & John Malkovich &  14\\\hline
       \pause
       \item R6(MOVIEID, TITLE, COUNTRY)\\
         birincil anahtar: MOVIEID\\
-        COUNTRY, R5'e başvuran dış anahtar
+        COUNTRY, R5'e baÅŸvuran dÄ±ÅŸ anahtar
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{3NF Bağıntı Örnekleri}
+  \frametitle{3NF BaÄŸÄ±ntÄ± Ã–rnekleri}
 
   \begin{ornek}
     \begin{columns}[t]
@@ -657,12 +661,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{tiny}
       \begin{table}
         \caption{R6}
-        \begin{tabular}{|r|l|l|}\hline
-\underline{MOVIEID} & TITLE                & COU\\\hline\hline
-                  6 & Usual Suspects       & UK \\\hline
-                228 & Ed Wood              & US \\\hline
-                 70 & Being John Malkovich & US \\\hline
-               1512 & Suspiria             & IT \\\hline
+        \begin{tabular}{|r|l|c|}\hline
+\underline{MOVIEID} & TITLE    & COU\\[2pt]\hline\hline
+      6 & Usual Suspects       & UK \\\hline
+    228 & Ed Wood              & US \\\hline
+     70 & Being John Malkovich & US \\\hline
+   1512 & Suspiria             & IT \\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -671,11 +675,11 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{tiny}
       \begin{table}
         \caption{R5}
-        \begin{tabular}{|l|l|}\hline
-\underline{COU} & LANG\\\hline\hline
-             UK & EN  \\\hline
-             US & EN  \\\hline
-             IT & IT  \\\hline
+        \begin{tabular}{|c|c|}\hline
+\underline{COU} & LANG\\[2pt]\hline\hline
+UK & EN\\\hline
+US & EN\\\hline
+IT & IT\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -688,12 +692,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R3}
         \begin{tabular}{|r|l|}\hline
-\underline{ACTORID} & NAME          \\\hline\hline
-                308 & Gabriel Byrne \\\hline
-                 26 & Johnny Depp   \\\hline
-                282 & Cameron Diaz  \\\hline
-                745 & Udo Kier      \\\hline
-                503 & John Malkovich\\\hline
+\underline{ACTORID} & NAME\\[2pt]\hline\hline
+      308 & Gabriel Byrne \\\hline
+       26 & Johnny Depp   \\\hline
+      282 & Cameron Diaz  \\\hline
+      745 & Udo Kier      \\\hline
+      503 & John Malkovich\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -703,12 +707,12 @@ US  &     503 & John Malkovich &  14\\\hline
       \begin{table}
         \caption{R4}
         \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIEID} & \underline{ACTORID} & ORD\\\hline\hline
-                  6 &                 308 &   2\\\hline
-                228 &                  26 &   1\\\hline
-                 70 &                 282 &   2\\\hline
-               1512 &                 745 &   9\\\hline
-                 70 &                 503 &  14\\\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
+   6 & 308 &  2\\\hline
+ 228 &  26 &  1\\\hline
+  70 & 282 &  2\\\hline
+1512 & 745 &  9\\\hline
+  70 & 503 & 14\\\hline
         \end{tabular}
       \end{table}
       \end{tiny}
@@ -717,7 +721,7 @@ US  &     503 & John Malkovich &  14\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bağımlılık Çizeneği Örneği}
+  \frametitle{BaÄŸÄ±mlÄ±lÄ±k Ã‡izeneÄŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -727,20 +731,20 @@ US  &     503 & John Malkovich &  14\\\hline
  \end{frame}
 
 \begin{frame}
-  \frametitle{3NF Düzelen Aykırılıklar}
+  \frametitle{3NF DÃ¼zelen AykÄ±rÄ±lÄ±klar}
 
   \begin{ornek}
     \begin{itemize}
-      \item Brezilya'da çekilen filmlerin Portekizce olduğu\\
-	R5~bağıntısına eklenebilir
+      \item Brezilya'da Ã§ekilen filmlerin Portekizce olduÄŸu biliniyorsa\\
+	R5 baÄŸÄ±ntÄ±sÄ±na eklenebilir
 
       \pause
-      \item Suspiria filmi silinse de İtalya'da çekilen filmlerin\\
-	İtalyanca olduğu R5~bağıntısında korunur
+      \item "Suspiria" filmi silinse de Ä°talya'da Ã§ekilen filmlerin\\
+	Ä°talyanca olduÄŸu R5 baÄŸÄ±ntÄ±sÄ±nda kalÄ±r
 
       \pause
-      \item Amerika'da çekilen filmlerin dilini güncellemek için\\
-	R5~bağıntısında tek çokluda değişiklik yapmak yeterli
+      \item Amerika'da Ã§ekilen filmlerin dilini gÃ¼ncellemek iÃ§in\\
+	R5 baÄŸÄ±ntÄ±sÄ±nda tek Ã§okluda deÄŸiÅŸiklik yapmak yeterli
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -749,29 +753,29 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{Boyce-Codd Normal Formu}
 
   \begin{tanim}
-    \alert{BCNF}: bütün işlevsel bağımlılıklar anahtar adaylarına
+    \alert{BCNF}: bÃ¼tÃ¼n iÅŸlevsel baÄŸÄ±mlÄ±lÄ±klar anahtar adaylarÄ±na
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item anahtarı oluşturan nitelikler arasındaki bağımlılıklar\\
-      dikkate alınmalı
+    \item anahtarÄ± oluÅŸturan nitelikler arasÄ±ndaki baÄŸÄ±mlÄ±lÄ±klar\\
+      dikkate alÄ±nmalÄ±
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{BCNF Örneği}
+  \frametitle{BCNF Ã–rneÄŸi}
 
-  \begin{ornek}[filmlerin başlık nitelikleri eşsiz]
+  \begin{ornek}[filmlerin baÅŸlÄ±k nitelikleri eÅŸsiz]
     \begin{itemize}
-      \item anahtar adayları:
+      \item anahtar adaylarÄ±:
       \begin{itemize}
         \item \{MOVIEID, ACTORID\}
         \item \{TITLE, ACTORID\}
       \end{itemize}
 
       \pause
-      \item aykırı işlevsel bağımlılıklar:
+      \item aykÄ±rÄ± iÅŸlevsel baÄŸÄ±mlÄ±lÄ±klar:
       \begin{itemize}
         \item MOVIEID $\rightarrow$ TITLE
         \item TITLE $\rightarrow$ MOVIEID
@@ -793,185 +797,184 @@ US  &     503 & John Malkovich &  14\\\hline
   \end{block}
 \end{frame}
 
-\section{Varlık/İlişki Modeli}
+\section{VarlÄ±k/Ä°liÅŸki Modeli}
 
-\subsection{Giriş}
+\subsection{GiriÅŸ}
 
 \begin{frame}
-  \frametitle{Varlık/İlişki Modeli}
+  \frametitle{VarlÄ±k/Ä°liÅŸki Modeli}
 
   \begin{itemize}
-    \item modelleme yaklaşımı
+    \item modelleme yaklaÅŸÄ±mÄ±
     \begin{itemize}
       \item Chen 1976
     \end{itemize}
 
     \pause
-    \item bileşenleri
+    \item bileÅŸenleri
     \begin{itemize}
-      \item varlıklar
-      \item özellikler
-      \item ilişkiler
+      \item varlÄ±klar
+      \item Ã¶zellikler
+      \item iliÅŸkiler
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Varlıklar}
+  \frametitle{VarlÄ±klar}
 
   \begin{tanim}
-    \alert{varlık}:\\
-      aynı özellikleri taşıyan "şeyler" kümesi
+    \alert{varlÄ±k}: aynÄ± Ã¶zellikleri taÅŸÄ±yan "ÅŸeyler" kÃ¼mesi
 
     \pause
     \begin{itemize}
-      \item küme elemanları varlık tipinin birer \emph{örneği}
+      \item kÃ¼me elemanlarÄ± varlÄ±k tipinin birer \emph{Ã¶rneÄŸi}
     \end{itemize}
 
     \pause
     \begin{itemize}
-      \item \emph{güçlü}: tek başına var olabilir
-      \item \emph{zayıf}: varlığı başka bir varlığa bağlı
+      \item \emph{gÃ¼Ã§lÃ¼}: tek baÅŸÄ±na var olabilir
+      \item \emph{zayÄ±f}: varlÄ±ÄŸÄ± baÅŸka bir varlÄ±ÄŸa baÄŸlÄ±
     \end{itemize}
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Varlık Örnekleri}
+  \frametitle{VarlÄ±k Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item varlık: film, yönetmen, oyuncu
+      \item varlÄ±k: film, kiÅŸi
 
       \pause
-      \item varlık örneği: Johnny Depp
+      \item kiÅŸi Ã¶rneÄŸi: Johnny Depp
 
       \pause
       \medskip
-      \item güçlü varlık: yönetmen
-      \item zayıf varlık: film
+      \item gÃ¼Ã§lÃ¼ varlÄ±k: kiÅŸi
+      \item zayÄ±f varlÄ±k: film
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Özellikler}
+  \frametitle{Ã–zellikler}
 
   \begin{tanim}
-    \alert{özellik}:\\
-      varlıkları ya da ilişkileri betimleyen veriler
+    \alert{Ã¶zellik}: varlÄ±klarÄ± ya da iliÅŸkileri betimleyen veriler
 
     \pause
     \begin{itemize}
-      \item basit - bileşke
+      \item basit - bileÅŸke
       \item anahtar
-      \item tekli - çoklu değerli
-      \item boş
-      \item taban - türetilmiş
+      \item tekli - Ã§oklu deÄŸerli
+      \item boÅŸ
+      \item taban - tÃ¼retilmiÅŸ
     \end{itemize}
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Özellik Örnekleri}
+  \frametitle{Ã–zellik Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item özellik: başlık, ülke, dil
+      \item Ã¶zellik: baÅŸlÄ±k, Ã¼lke, dil
 
       \pause
       \medskip
-      \item basit: önad, soyad
-      \item bileşke: tam ad
+      \item basit: Ã¶nad, soyad
+      \item bileÅŸke: tam ad
 
       \pause
       \medskip
-      \item taban: doğum tarihi
-      \item türetilmiş: yaş
+      \item taban: doÄŸum tarihi
+      \item tÃ¼retilmiÅŸ: yaÅŸ
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İlişkiler}
+  \frametitle{Ä°liÅŸkiler}
 
   \begin{tanim}
-    \alert{ilişki}: varlıklar arasındaki bağlantılar
+    \alert{iliÅŸki}: varlÄ±klar arasÄ±ndaki baÄŸlantÄ±lar
 
     \pause
     \begin{itemize}
-      \item \emph{katılımcı}: ilişkideki varlıklar
-      \item \emph{derece}: katılımcı sayısı
-      \item \emph{total - kısmi}: bütün örnekler ilişkiye katılıyor - katılmıyor
+      \item \emph{katÄ±lÄ±mcÄ±}: iliÅŸkideki varlÄ±klar
+      \item \emph{derece}: katÄ±lÄ±mcÄ± sayÄ±sÄ±
+      \item \emph{total} - \emph{kÄ±smi}: bÃ¼tÃ¼n Ã¶rnekler iliÅŸkiye
+        katÄ±lÄ±yor - katÄ±lmÄ±yor
     \end{itemize}
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İlişki Türleri}
+  \frametitle{Ä°liÅŸki TÃ¼rleri}
 
   \begin{itemize}
     \item \emph{bire bir}
-    \item \emph{bire çok}
-    \item \emph{çoka çok}
+    \item \emph{bire Ã§ok}
+    \item \emph{Ã§oka Ã§ok}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İlişki Örnekleri}
+  \frametitle{Ä°liÅŸki Ã–rnekleri}
 
   \begin{ornek}[bire bir]
     \begin{itemize}
-      \item ülkeler ile şehirler arasındaki başkentlik ilişkisi
+      \item Ã¼lkeler ile ÅŸehirler arasÄ±ndaki baÅŸkentlik iliÅŸkisi
     \end{itemize}
   \end{ornek}
 
   \pause
-  \begin{ornek}[bire çok]
+  \begin{ornek}[bire Ã§ok]
     \begin{itemize}
-      \item çalışanlar ile projeler arasındaki yöneticilik ilişkisi
+      \item Ã§alÄ±ÅŸanlar ile projeler arasÄ±ndaki yÃ¶neticilik iliÅŸkisi
     \end{itemize}
   \end{ornek}
 
   \pause
-  \begin{ornek}[çoka çok]
+  \begin{ornek}[Ã§oka Ã§ok]
     \begin{itemize}
-      \item öğrenciler ile dersler arasındaki kayıt ilişkisi
+      \item Ã¶ÄŸrenciler ile dersler arasÄ±ndaki kayÄ±t iliÅŸkisi
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\subsection{V/İ Çizenekleri}
+\subsection{V/Ä° Ã‡izenekleri}
 
 \begin{frame}
-  \frametitle{Varlık/İlişki Çizenekleri}
+  \frametitle{VarlÄ±k/Ä°liÅŸki Ã‡izenekleri}
 
   \begin{itemize}
-    \item varlık: dikdörtgen
+    \item varlÄ±k: dikdÃ¶rtgen
     \begin{itemize}
-      \item zayıf: çift çizgi
+      \item zayÄ±f: Ã§ift Ã§izgi
     \end{itemize}
 
     \pause
-    \item özellik: elips
+    \item Ã¶zellik: elips
     \begin{itemize}
-      \item türetilmiş: kesikli çizgi
-      \item çoklu değerli: çift çizgi
-      \item bileşke: alt-elipsler
+      \item tÃ¼retilmiÅŸ: kesikli Ã§izgi
+      \item Ã§oklu deÄŸerli: Ã§ift Ã§izgi
+      \item bileÅŸke: alt-elipsler
     \end{itemize}
 
     \pause
-    \item ilişki: eşkenar dörtgen
+    \item iliÅŸki: eÅŸkenar dÃ¶rtgen
     \begin{itemize}
-      \item zayıf-güçlü arasında: çift çizgi
-      \item total: bağlantı çift çizgi
-      \item ilişkinin türüne göre 1 ya da n
+      \item zayÄ±f-gÃ¼Ã§lÃ¼ arasÄ±nda: Ã§ift Ã§izgi
+      \item total: baÄŸlantÄ± Ã§ift Ã§izgi
+      \item iliÅŸkinin tÃ¼rÃ¼ne gÃ¶re 1 ya da n
     \end{itemize}
  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Varlık/İlişki Çizeneği Örneği}
+  \frametitle{VarlÄ±k/Ä°liÅŸki Ã‡izeneÄŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -981,7 +984,7 @@ US  &     503 & John Malkovich &  14\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Varlık/İlişki Çizeneği Örneği}
+  \frametitle{VarlÄ±k/Ä°liÅŸki Ã‡izeneÄŸi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -990,26 +993,24 @@ US  &     503 & John Malkovich &  14\\\hline
   \end{ornek}
 \end{frame}
 
-\subsection{Uygulama}
-
 \begin{frame}
-  \frametitle{Tasarıma Geçiş}
+  \frametitle{TasarÄ±ma GeÃ§iÅŸ}
 
   \begin{itemize}
-    \item her varlık bir bağıntı
+    \item her varlÄ±k bir baÄŸÄ±ntÄ±
 
     \pause
-    \item her özellik bir nitelik
+    \item her Ã¶zellik bir nitelik
 
     \pause
-    \item her çoka çok ilişki bir bağıntı
+    \item her Ã§oka Ã§ok iliÅŸki bir baÄŸÄ±ntÄ±
     \begin{itemize}
-      \item katılımcı varlıklara dış anahtarlar
+      \item katÄ±lÄ±mcÄ± varlÄ±klara dÄ±ÅŸ anahtarlar
     \end{itemize}
 
     \pause
-    \item her bire çok ilişki için ilişkinin "çok" tarafından\\
-      "bir" tarafına dış anahtar
+    \item her bire Ã§ok iliÅŸki iÃ§in iliÅŸkinin "Ã§ok" tarafÄ±ndan\\
+      "bir" tarafÄ±na dÄ±ÅŸ anahtar
  \end{itemize}
 \end{frame}
 
