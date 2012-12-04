@@ -1,6 +1,6 @@
-% Copyright (c) 2002-2011
+% Copyright (c) 2005-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
-%       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
+%       Åule GÃ¼ndÃ¼z Ã–ÄŸÃ¼dÃ¼cÃ¼ <sgunduz@itu.edu.tr>
 %
 % These notes are licensed using the
 % "Creative Commons Attribution-NonCommercial-ShareAlike License".
@@ -15,17 +15,13 @@
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
-\usepackage[latin5]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
 \setbeamertemplate{navigation symbols}{}
 
 \usepackage{listings}
-\lstdefinelanguage{FullSQL}[]{SQL}{
-  morekeywords={BINARY,BOOLEAN,CYCLE,FINAL,INCREMENT,IS,LARGE,MAXVALUE,MINVALUE,
-                NO_ACTION,OBJECT,REFERENCES,RENAME,SEQUENCE,START,TO,TYPE,VACUUM},
-  deletekeywords={YEAR}
-}
-\lstset{extendedchars=true,language=Java}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{language=Java}
 
 \mode<presentation> {
   \usetheme{Warsaw}
@@ -33,11 +29,11 @@
   \setbeamercovered{transparent}
 }
 
-\title{Veri Tabanı Yönetim Sistemleri}
-\subtitle{Nesne Veri Tabanları}
+\title{Veri TabanÄ± Sistemleri}
+\subtitle{Nesne Veri TabanlarÄ±}
 
-\author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2005-2011}
+\author{H. Turgut Uyar \and Åule Ã–ÄŸÃ¼dÃ¼cÃ¼}
+\date{2005-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -47,10 +43,10 @@
 }
 
 \theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
+\newtheorem{tanim}[theorem]{TanÄ±m}
 
 \theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
+\newtheorem{ornek}[theorem]{Ã–rnek}
 
 \theoremstyle{plain}
 
@@ -69,7 +65,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2011 T. Uyar, Ş. Öğüdücü
+  \copyright 2005-2012 T. Uyar, Å. Ã–ÄŸÃ¼dÃ¼cÃ¼
 
   \vfill
   \begin{tiny}
@@ -103,27 +99,27 @@
   \tableofcontents
 \end{frame}
 
-\section{Nesne Veri Tabanları}
+\section{Nesne Veri TabanlarÄ±}
 
-\subsection{Giriş}
+\subsection{GiriÅŸ}
 
 \begin{frame}
   \frametitle{Nesne Modeli}
 
   \begin{itemize}
-    \item yazılım modeli ile veri modeli arasında uyumsuzluk
+    \item veri modeli ile yazÄ±lÄ±m modeli arasÄ±nda uyumsuzluk
     \begin{itemize}
-      \item bağıntılarda: bağıntı, çoklu, dış anahtar, \ldots
-      \item yazılımda: nesne, yöntem, \ldots
+      \item veride: baÄŸÄ±ntÄ±, Ã§oklu, dÄ±ÅŸ anahtar, \ldots
+      \item yazÄ±lÄ±mda: nesne, yÃ¶ntem, \ldots
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Düzey Farkı Örneği}
+  \frametitle{Model FarkÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[filme oyuncu ekleme - SQL tanımları]
-    \begin{lstlisting}[language=FullSQL]
+  \begin{ornek}[filme oyuncu ekleme - SQL tanÄ±mlarÄ±]
+    \begin{lstlisting}[language=SQL]
 CREATE TABLE MOVIE (ID INTEGER PRIMARY KEY,
     TITLE VARCHAR(80) NOT NULL)
 
@@ -140,10 +136,10 @@ CREATE TABLE CASTING(
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Düzey Farkı Örneği}
+  \frametitle{Model FarkÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[filme oyuncu ekleme - SQL işlemleri]
-    \begin{lstlisting}[language=FullSQL]
+  \begin{ornek}[filme oyuncu ekleme - SQL iÅŸlemleri]
+    \begin{lstlisting}[language=SQL]
 INSERT INTO MOVIE (ID, TITLE)
   VALUES (110, 'Sleepy Hollow')
 
@@ -157,9 +153,9 @@ INSERT INTO CASTING (MOVIEID, ACTORID)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Düzey Farkı Örneği}
+  \frametitle{Model FarkÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[filme oyuncu ekleme - Java tanımları]
+  \begin{ornek}[filme oyuncu ekleme - Java tanÄ±mlarÄ±]
     \begin{lstlisting}
 public class Movie {
     ...
@@ -175,9 +171,9 @@ public class Movie {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Düzey Farkı Örneği}
+  \frametitle{DÃ¼zey FarkÄ± Ã–rneÄŸi}
 
-  \begin{ornek}[filme oyuncu ekleme - Java işlemleri]
+  \begin{ornek}[filme oyuncu ekleme - Java iÅŸlemleri]
     \begin{lstlisting}
 Movie m = new Movie("Sleepy Hollow", ...);
 Person p = new Person("Johnny Depp", ...);
@@ -186,35 +182,35 @@ m.addActor(p);
   \end{ornek}
 \end{frame}
 
-\subsection{Nesne Kimliği}
+\subsection{Nesne KimliÄŸi}
 
 \begin{frame}
-  \frametitle{Nesne Kimliği}
+  \frametitle{Nesne KimliÄŸi}
 
   \begin{itemize}
-    \item her nesnenin bir nesne kimliği var
+    \item her nesnenin bir nesne kimliÄŸi var
     \begin{itemize}
-      \item özellikler değişse bile kimlik aynı kalır
+      \item Ã¶zellikler deÄŸiÅŸse bile kimlik aynÄ± kalÄ±r
     \end{itemize}
 
     \pause
-    \item birincil anahtardan farklı
+    \item birincil anahtardan farklÄ±
     \begin{itemize}
-      \item birincil anahtar görünür (kullanıcı tanımlar)
-      \item birincil anahtardaki değerler değişebilir
+      \item birincil anahtar gÃ¶rÃ¼nÃ¼r (kullanÄ±cÄ± tanÄ±mlar)
+      \item birincil anahtardaki deÄŸerler deÄŸiÅŸebilir
     \end{itemize}
 
     \pause
-    \item programlama dillerindeki referanslara (işaretçilere) karşı düşer
+    \item programlama dillerindeki referanslara karÅŸÄ± dÃ¼ÅŸer
     \begin{itemize}
-      \item nesne kimliği ile başka nesnelere işaret edilebilir:\\
-        \emph{içerme hiyerarşisi}
+      \item nesne kimliÄŸi ile baÅŸka nesnelere baÅŸvurulabilir:\\
+        \emph{iÃ§erme hiyerarÅŸisi}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İçerme Hiyerarşisi Örneği}
+  \frametitle{Ä°Ã§erme HiyerarÅŸisi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -224,7 +220,7 @@ m.addActor(p);
 \end{frame}
 
 \begin{frame}
-  \frametitle{İçerme Hiyerarşisi Örneği}
+  \frametitle{Ä°Ã§erme HiyerarÅŸisi Ã–rneÄŸi}
 
   \begin{ornek}
     \begin{center}
@@ -234,80 +230,82 @@ m.addActor(p);
 \end{frame}
 
 \begin{frame}
-  \frametitle{Nesne Veri Tabanları}
+  \frametitle{Nesne Veri TabanlarÄ±}
 
   \begin{itemize}
-    \item uygulamanın kalıcı nesneleri veri tabanında\\
-      bağıntılar değil nesne halinde saklanır
-    \item yazma: nesne $\rightarrow$ iç format
-    \item okuma: iç format $\rightarrow$ nesne
+    \item uygulamanÄ±n kalÄ±cÄ± nesneleri veri tabanÄ±nda\\
+      baÄŸÄ±ntÄ±lar deÄŸil nesneler halinde saklanÄ±r
+
+    \medskip
+    \item yazma: nesne $\rightarrow$ iÃ§ format (\alert{serileÅŸtirme})
+    \item okuma: iÃ§ format $\rightarrow$ nesne
   \end{itemize}
 \end{frame}
 
-\subsection{Örnek: db4o}
+\subsection{Ã–rnek: db4o}
 
-\begin{frame}[fragile]
+\begin{frame}
   \frametitle{db4o}
 
   \begin{itemize}
-    \item gömülü çalışabilen bir nesne veri tabanı yazılımı
+    \item gÃ¶mÃ¼lÃ¼ Ã§alÄ±ÅŸabilen bir nesne veri tabanÄ± sistemi
 
     \pause
     \medskip
-    \item koşulla sorgulama
-    \item örneğe göre sorgulama
+    \item koÅŸulla sorgulama
+    \item Ã¶rneÄŸe gÃ¶re sorgulama
     \begin{itemize}
-      \item sorgulanacak sınıftan bir nesne yaratılır
-      \item istenen nitelikler ayarlanır, diğerleri boş bırakılır
-      \item bu nesneye benzer nesneler aratılır
+      \item sorgulanacak sÄ±nÄ±ftan bir nesne yaratÄ±lÄ±r
+      \item istenen nitelikler ayarlanÄ±r, diÄŸerleri boÅŸ bÄ±rakÄ±lÄ±r
+      \item bu nesneye benzer nesneler aratÄ±lÄ±r
     \end{itemize}
 
     \pause
     \medskip
-    \item güncellenecek ya da silinecek nesnelerin\\
-      veri tabanından çekilmiş olması gerek (nesne kimliği)
+    \item gÃ¼ncellenecek ya da silinecek nesnelerin\\
+      veri tabanÄ±ndan Ã§ekilmiÅŸ olmasÄ± gerek (nesne kimliÄŸi)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{db4o Arayüzü}
+\begin{frame}
+  \frametitle{db4o ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item veri tabanına bağlantı (gömülü kip):\\
+    \item veri tabanÄ±na baÄŸlantÄ± (gÃ¶mÃ¼lÃ¼ kip):\\
       \lstinline!Db4oEmbedded.openFile(filePath)!
         $\rightarrow$ \lstinline!ObjectContainer!
 
     \pause
     \medskip
-    \item ekleme ve güncelleme:\\
+    \item ekleme ve gÃ¼ncelleme:\\
       \lstinline!ObjectContainer.store(object)!
     \item silme:\\
       \lstinline!ObjectContainer.delete(object)!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{db4o Arayüzü}
+\begin{frame}
+  \frametitle{db4o ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item bir sınıftan bütün nesneler:\\
+    \item bir sÄ±nÄ±ftan bÃ¼tÃ¼n nesneler:\\
       \lstinline!ObjectContainer.query(Class.class)!
        $\rightarrow$ \lstinline!List<Class>!
 
     \pause
     \medskip
-    \item örneğe göre sorgulama:\\
+    \item Ã¶rneÄŸe gÃ¶re sorgulama:\\
       \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
        $\rightarrow$ \lstinline!ObjectSet<Class>!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{db4o Arayüzü}
+\begin{frame}
+  \frametitle{db4o ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item sorgulama koşulu: \lstinline!Predicate<Class>!
-    \item bu sınıfın \lstinline!match! yöntemi gerçeklenir:\\
+    \item sorgulama koÅŸulu: \lstinline!Predicate<Class>!
+    \item bu sÄ±nÄ±fÄ±n \lstinline!match! yÃ¶ntemi gerÃ§eklenir:\\
       \lstinline!public boolean match(Class object)!
 
     \pause
@@ -319,9 +317,9 @@ m.addActor(p);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
-  \begin{ornek}[veri tabanına bağlantı]
+  \begin{ornek}[veri tabanÄ±na baÄŸlantÄ±]
     \begin{lstlisting}
 ObjectContainer db = Db4oEmbedded.openFile(
     "imdb.db4o"
@@ -331,9 +329,9 @@ ObjectContainer db = Db4oEmbedded.openFile(
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
-  \begin{ornek}[sorgulama: bütün filmler]
+  \begin{ornek}[sorgulama: bÃ¼tÃ¼n filmler]
     \begin{lstlisting}
 List<Movie> movies = db.query(Movie.class);
 for (Movie movie : movies) {
@@ -344,9 +342,9 @@ for (Movie movie : movies) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
-  \begin{ornek}[örneğe göre sorgulama: 1977'de çekilmiş filmler]
+  \begin{ornek}[Ã¶rneÄŸe gÃ¶re sorgulama: 1977'de Ã§ekilmiÅŸ filmler]
     \begin{lstlisting}
 Movie prototype = new Movie(null);
 prototype.setYear(1977);
@@ -361,9 +359,9 @@ while (movies.hasNext()) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
-  \begin{ornek}[koşulla sorgulama: 1977'den sonra çekilmiş filmler]
+  \begin{ornek}[koÅŸulla sorgulama: 1977'den sonra Ã§ekilmiÅŸ filmler]
     \begin{lstlisting}
 List<Movie> movies = db.query(
     new Predicate<Movie>() {
@@ -376,7 +374,7 @@ List<Movie> movies = db.query(
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
   \begin{ornek}[ekleme]
     \begin{lstlisting}
@@ -389,9 +387,9 @@ db.commit();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
-  \begin{ornek}[güncelleme]
+  \begin{ornek}[gÃ¼ncelleme]
     \begin{lstlisting}
 Movie prototype = new Movie("Casablanca");
 ObjectSet<Movie> result =
@@ -405,7 +403,7 @@ db.commit();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{db4o Örnekleri}
+  \frametitle{db4o Ã–rnekleri}
 
   \begin{ornek}[silme]
     \begin{lstlisting}
@@ -419,66 +417,78 @@ db.commit();
   \end{ornek}
 \end{frame}
 
-\section{Nesne - Bağıntı Eşleştirmesi}
-
-\subsection{Giriş}
+\subsection*{Kaynaklar}
 
 \begin{frame}
-  \frametitle{Nesne - Bağıntı Eşleştirmesi}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 25: \alert{Object Databases}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Nesne-BaÄŸÄ±ntÄ± Veri TabanlarÄ±}
+
+\subsection{GiriÅŸ}
+
+\begin{frame}
+  \frametitle{Nesne-BaÄŸÄ±ntÄ± EÅŸleÅŸtirmesi}
 
   \begin{itemize}
-    \item yazılım nesneye dayalı
-    \item veri tabanı bağıntılar şeklinde
-    \item uygulamadaki nesneler ile veri tabanındaki bağıntılar eşleştirilir
+    \item yazÄ±lÄ±m nesneye dayalÄ±
+    \item veri tabanÄ± baÄŸÄ±ntÄ±lar ÅŸeklinde
+    \item yazÄ±lÄ±m bileÅŸenleri veri tabanÄ± bileÅŸenleriyle eÅŸleÅŸtirilir
   \end{itemize}
 \end{frame}
 
-\subsection{Örnek: Persist}
+\subsection{Ã–rnek: Persist}
 
 \begin{frame}
-  \frametitle{Örnek: Persist}
+  \frametitle{Ã–rnek: Persist}
 
   \begin{itemize}
-    \item bir JDBC bağlantısını sarmalıyor
-    \item nesne veri tabanı arayüzünü JDBC komutlarına dönüştürüyor
+    \item bir JDBC baÄŸlantÄ±sÄ±nÄ± sarmalÄ±yor
+    \item nesne veri tabanÄ± arayÃ¼zÃ¼nÃ¼ JDBC komutlarÄ±na Ã§eviriyor
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Persist Arayüzü}
+\begin{frame}
+  \frametitle{Persist ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item veri tabanına bağlantı: \lstinline!Connection connection!\\
+    \item veri tabanÄ±na baÄŸlantÄ±: \lstinline!Connection connection!\\
       \lstinline!Persist(connection)! $\rightarrow$ \lstinline!Persist!
 
     \pause
     \medskip
     \item ekleme:\\
       \lstinline!Persist.insert(object)!
-    \item güncelleme:\\
+    \item gÃ¼ncelleme:\\
       \lstinline!Persist.update(object)!
     \item silme:\\
       \lstinline!Persist.delete(object)!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Persist Arayüzü}
+\begin{frame}
+  \frametitle{Persist ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item sorgulama: bir sınıftan bütün nesneler\\
+    \item sorgulama: bir sÄ±nÄ±ftan bÃ¼tÃ¼n nesneler\\
       \lstinline!Persist.readList(Class.class)!
        $\rightarrow$ \lstinline!List<Class>!
-    \item SQL ile sorgulama: hazır komut yazımına benzer şekilde\\
-      \lstinline!Persist.readList(Class.class, String query, parameters)!\\
+    \item SQL ile sorgulama: hazÄ±r komut yazÄ±mÄ±na benzer ÅŸekilde\\
+      \lstinline!Persist.readList(Class.class, String query, params)!\\
        $\rightarrow$ \lstinline!List<Class>!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist Örnekleri}
+  \frametitle{Persist Ã–rnekleri}
 
-  \begin{ornek}[veri tabanına bağlantı]
+  \begin{ornek}[veri tabanÄ±na baÄŸlantÄ±]
     \begin{lstlisting}
 Connection connection =
     DriverManager.getConnection(jdbcURL);
@@ -488,9 +498,9 @@ Persist db = new Persist(connection);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist Örnekleri}
+  \frametitle{Persist Ã–rnekleri}
 
-  \begin{ornek}[sorgulama: bütün filmler]
+  \begin{ornek}[sorgulama: bÃ¼tÃ¼n filmler]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class);
 for (Movie movie : movies) {
@@ -501,9 +511,9 @@ for (Movie movie : movies) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist}
+  \frametitle{Persist Ã–rnekleri}
 
-  \begin{ornek}[SQL ile sorgulama: 1977'de çekilmiş filmler]
+  \begin{ornek}[SQL ile sorgulama: 1977'de Ã§ekilmiÅŸ filmler]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class,
     "SELECT * FROM MOVIE WHERE (YEAR = ?)",
@@ -513,7 +523,7 @@ List<Movie> movies = db.readList(Movie.class,
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist Örnekleri}
+  \frametitle{Persist Ã–rnekleri}
 
   \begin{ornek}[ekleme]
     \begin{lstlisting}
@@ -525,9 +535,9 @@ db.insert(m);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist}
+  \frametitle{Persist Ã–rnekleri}
 
-  \begin{ornek}[güncelleme]
+  \begin{ornek}[gÃ¼ncelleme]
     \begin{lstlisting}
 List<Movie> movies = db.readList(Movie.class,
     "SELECT * FROM MOVIE WHERE (TITLE = ?)",
@@ -540,7 +550,7 @@ db.update(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Persist}
+  \frametitle{Persist Ã–rnekleri}
 
   \begin{ornek}[silme]
     \begin{lstlisting}
@@ -553,27 +563,41 @@ db.delete(found);
   \end{ornek}
 \end{frame}
 
-\section{XML Veri Tabanları}
+\subsection*{Kaynaklar}
 
-\subsection{Giriş}
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Date}
+    \begin{itemize}
+      \item Chapter 26: \alert{Object/Relational Databases}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% TODO: JPA
+
+\section{XML Veri TabanlarÄ±}
+
+\subsection{GiriÅŸ}
 
 \begin{frame}
   \frametitle{XML}
 
   \begin{itemize}
-    \item XML kendisi bir dil değil
+    \item XML kendisi bir dil deÄŸil
     \begin{itemize}
-      \item dil tanımlama kuralları
+      \item dil tanÄ±mlama kurallarÄ±
     \end{itemize}
 
     \pause
-    \item XML ile tanımlanmış diller
+    \item XML ile tanÄ±mlanmÄ±ÅŸ diller
     \begin{itemize}
       \item XHTML, DocBook, SVG, MathML, ...
     \end{itemize}
 
     \pause
-    \item XML ile bağlantılı diller
+    \item XML ile baÄŸlantÄ±lÄ± diller
     \begin{itemize}
       \item XPath, XQuery, XSL Transforms, SOAP, XLink, ...
     \end{itemize}
@@ -581,38 +605,37 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}
-  \frametitle{XML Yapısı}
+  \frametitle{XML YapÄ±sÄ±}
 
   \begin{itemize}
-    \item ağaç yapısı
+    \item aÄŸaÃ§ yapÄ±sÄ±
 
-    \item düğümler: \emph{eleman}
+    \item dÃ¼ÄŸÃ¼mler: \emph{eleman}
     \begin{itemize}
-      \item kök düğümü: \emph{belge elemanı}
-      \item yapraklar: \emph{karakter verileri}
-      \item boş elemanlar
+      \item kÃ¶k dÃ¼ÄŸÃ¼mÃ¼: \emph{belge elemanÄ±}
+      \item yapraklar: \emph{karakter verileri}, boÅŸ elemanlar
     \end{itemize}
 
     \pause
     \medskip
-    \item açılış - kapanış takıları
+    \item aÃ§Ä±lÄ±ÅŸ-kapanÄ±ÅŸ takÄ±larÄ±
     \item nitelikler
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
-  \begin{ornek}[XHTML]
+  \begin{ornek}[HTML]
     \begin{lstlisting}[language=XML]
 <html>
-<head><title>İTÜ Bilgisayar</title></head>
+<head><title>Foo Bar</title></head>
 <body>
-  <h1>İTÜ Bilgisayar Mühendisliği Bölümü</h1>
-  <p>Üniversiteyle ilgili genel bilgileri
-    <a href="http://www.itu.edu.tr/">İTÜ
-      ana sayfasında</a> bulabilirsiniz.</p>
-  <img src="logo.jpg" alt="İTÜ Logosu" />
+  <h1>Welcome to Foo Bar!</h1>
+  <p>You can get more information from the
+    <a href="http://www.foobar.net/">
+      foobar page</a>.</p>
+  <img src="logo.jpg" alt="Foo Bar logo" />
 </body>
 </html>
     \end{lstlisting}
@@ -620,12 +643,12 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
   \begin{ornek}[DocBook]
     \begin{lstlisting}[language=XML]
 <book lang="tr">
-  <title>VTYS Dersi Projesi</title>
+  <title>Foobar Report</title>
   <bookinfo>...</bookinfo>
   <chapter>...</chapter>
   <chapter>...</chapter>
@@ -636,14 +659,14 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
   \begin{ornek}[DocBook]
     \begin{lstlisting}[language=XML]
   <bookinfo>
     <author>
-      <firstname>Ali</firstname>
-      <surname>Özer</surname>
+      <firstname>John</firstname>
+      <surname>Foobar</surname>
     </author>
     <date>2007</date>
   </bookinfo>
@@ -652,15 +675,15 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
   \begin{ornek}[DocBook]
     \begin{lstlisting}[language=XML]
   <chapter>
-    <title>Giriş</title>
+    <title>Introduction</title>
     <section>
-      <title>Proje Tanımı</title>
-      <para>Bu proje, ...</para>
+      <title>Description</title>
+      <para>Foobar is ...</para>
     </section>
     ...
   </chapter>
@@ -669,9 +692,9 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
-  \begin{ornek}[Filmler]
+  \begin{ornek}[filmler]
     \begin{lstlisting}[language=XML]
 <movies>
   <movie color="Color">
@@ -689,7 +712,7 @@ db.delete(found);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Örneği}
+  \frametitle{XML Ã–rneÄŸi}
 
   \begin{ornek}[filmler]
     \begin{lstlisting}[language=XML]
@@ -714,8 +737,8 @@ db.delete(found);
   \frametitle{XQuery}
 
   \begin{itemize}
-    \item XPath: XML belgelerinden düğüm ve veri çekme
-    \item XQuery: XPath + güncelleme işlemleri
+    \item XPath: XML belgelerinden dÃ¼ÄŸÃ¼m ve veri Ã§ekme
+    \item XQuery: XPath + gÃ¼ncelleme iÅŸlemleri
   \end{itemize}
 \end{frame}
 
@@ -723,38 +746,38 @@ db.delete(found);
   \frametitle{XPath}
 
   \begin{itemize}
-    \item aranılan düğümlerin yolu: yol adımları zinciri
+    \item aranÄ±lan dÃ¼ÄŸÃ¼mlerin yolu: yol adÄ±mlarÄ± zinciri
     \begin{itemize}
-      \item kök düğümünden başlanarak (mutlak)
-      \item bulunulan düğümden başlanarak (bağıl)
+      \item kÃ¶k dÃ¼ÄŸÃ¼mÃ¼nden baÅŸlanarak (mutlak)
+      \item bulunulan dÃ¼ÄŸÃ¼mden baÅŸlanarak (baÄŸÄ±l)
 
       \medskip
-      \item yol adımları \texttt{/} işaretleriyle ayrılır
+      \item yol adÄ±mlarÄ± \lstinline!/! iÅŸaretleriyle ayrÄ±lÄ±r
     \end{itemize}
 
     \pause
     \begin{ornek}
       \begin{itemize}
-       \item \texttt{/movies/movie}
-       \item \texttt{./cast/actor}
-       \item \texttt{../../year}
+       \item \lstinline!/movies/movie!
+       \item \lstinline!cast/actor! veya \lstinline!./cast/actor!
+       \item \lstinline!../../year!
       \end{itemize}
     \end{ornek}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yol Adımları}
+  \frametitle{Yol AdÄ±mlarÄ±}
 
   \begin{itemize}
-    \item yol adımı yapısı:\\
-      \texttt{eksen::düğüm\_seçici[yüklem]}
+    \item yol adÄ±mÄ± yapÄ±sÄ±:\\
+      \lstinline!axis::node_selector[predicate]!
 
     \pause
     \medskip
     \item eksen: nerede aranacak?
-    \item seçici: ne aranacak?
-    \item yüklem: hangi koşula uyanlar aranacak?
+    \item seÃ§ici: ne aranacak?
+    \item yÃ¼klem: hangi koÅŸula uyanlar aranacak?
   \end{itemize}
 \end{frame}
 
@@ -762,126 +785,129 @@ db.delete(found);
   \frametitle{Eksenler}
 
   \begin{itemize}
-    \item \texttt{child}:
-      bütün çocuklarda, bir düzey (varsayılan eksen)
-    \item \texttt{descendant}:
-      bütün çocuklarda, bütün altdüzeylerde\\
-      (kısa gösterilim: \texttt{//})
-    \item \texttt{parent}:
-      anne düğümde, bir düzey
-    \item \texttt{ancestor}:
-      bütün anne düğümlerde, köke kadar
-    \item \texttt{attribute}: niteliklerde (kısa gösterilim: \texttt{@})
-    \item \texttt{following-sibling}:
-      sonra gelen kardeşlerde
-    \item \texttt{preceding-sibling}:
-      önce gelen kardeşlerde
+    \item \lstinline!child!:
+      bÃ¼tÃ¼n Ã§ocuklarda, bir dÃ¼zey (varsayÄ±lan eksen)
+    \item \lstinline!descendant!:
+      bÃ¼tÃ¼n Ã§ocuklarda, rekÃ¼rsif olarak\\
+      (kÄ±sa gÃ¶sterilim: \lstinline!//!)
+    \item \lstinline!parent!:
+      anne dÃ¼ÄŸÃ¼mde, bir dÃ¼zey
+    \item \lstinline!ancestor!:
+      bÃ¼tÃ¼n anne dÃ¼ÄŸÃ¼mlerde, kÃ¶ke kadar
+    \item \lstinline!attribute!: niteliklerde (kÄ±sa gÃ¶sterilim: \lstinline!@!)
+    \item \lstinline!following-sibling!:
+      sonra gelen kardeÅŸlerde
+    \item \lstinline!preceding-sibling!:
+      Ã¶nce gelen kardeÅŸlerde
     \item ...
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Düğüm Seçiciler}
+  \frametitle{DÃ¼ÄŸÃ¼m SeÃ§iciler}
 
   \begin{itemize}
-    \item düğümün takısı
-    \item düğümün bir niteliği
-    \item düğümün altındaki metin: \texttt{text()}
-    \item düğümün bütün çocukları: \texttt{*}
+    \item dÃ¼ÄŸÃ¼m takÄ±sÄ±
+    \item dÃ¼ÄŸÃ¼m niteliÄŸi
+    \item dÃ¼ÄŸÃ¼m metni: \lstinline!text()!
+    \item dÃ¼ÄŸÃ¼mÃ¼n bÃ¼tÃ¼n Ã§ocuklarÄ±: \lstinline!*!
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{XPath Örnekleri}
+  \frametitle{XPath Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item bütün yönetmenlerin isimleri:\\
-        \texttt{/movies/movie/director/text()}\\
-        \texttt{//director/text()}
+      \item bÃ¼tÃ¼n yÃ¶netmenlerin isimleri:\\
+        \lstinline!/movies/movie/director/text()!\\
+        \lstinline!//director/text()!
 
       \pause
-      \item bu filmdeki bütün oyuncular:\\
-        \texttt{./cast/actor}\\
-        \texttt{.//actor}
+      \item bu filmdeki bÃ¼tÃ¼n oyuncular:\\
+        \lstinline!./cast/actor!\\
+        \lstinline!.//actor!
 
       \pause
-      \item bütün filmlerin renkleri:\\
-        \texttt{//movie/@color}
+      \item bÃ¼tÃ¼n filmlerin renkleri:\\
+        \lstinline!//movie/@color!
 
       \pause
-      \item bundan sonraki filmlerin puanları:\\
-        \texttt{./following-sibling::movie/score}
+      \item bundan sonraki filmlerin puanlarÄ±:\\
+        \lstinline!./following-sibling::movie/score!
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{XPath Yüklemleri}
+  \frametitle{XPath YÃ¼klemleri}
 
   \begin{itemize}
-    \item belli bir sıradaki düğümün seçilmesi: \lstinline![sıra]!
+    \item dÃ¼ÄŸÃ¼m sÄ±rasÄ± sÄ±namasÄ±: \lstinline![position]!
 
     \pause
-    \item çocuğun varlığına göre seçme: \lstinline![çocuk]!
-    \item çocuğun değerine göre seçme: \lstinline![çocuk="değer"]!
+    \medskip
+    \item Ã§ocuk varlÄ±ÄŸÄ± sÄ±namasÄ±: \lstinline![child_tag]!
+    \item Ã§ocuk deÄŸeri sÄ±namasÄ±: \lstinline![child_tag="value"]!
 
     \pause
-    \item niteliğin varlığına göre seçme: \lstinline![@nitelik]!
-    \item niteliğe göre seçme: \lstinline![@nitelik="değer"]!
+    \medskip
+    \item nitelik varlÄ±ÄŸÄ± sÄ±namasÄ±: \lstinline![@attribute]!
+    \item nitelik deÄŸeri sÄ±namasÄ±: \lstinline![@attribute="value"]!
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{XPath Örnekleri}
+  \frametitle{XPath Ã–rnekleri}
 
   \begin{ornek}
     \begin{itemize}
-      \item birinci filmin başlığı:\\
-        \texttt{/movies/movie[1]/title/text()}
+      \item birinci filmin baÅŸlÄ±ÄŸÄ±:\\
+        \lstinline!/movies/movie[1]/title/text()!
 
       \pause
-      \item 1997 yılında çekilmiş filmler:\\
-        \texttt{//movie[year="1997"]}
+      \item 1997 yÄ±lÄ±nda Ã§ekilmiÅŸ filmler:\\
+        \lstinline!//movie[year="1997"]!
 
       \pause
       \item siyah-beyaz filmler:\\
-        \texttt{//movie[@color="BW"]}
+        \lstinline!//movie[@color="BW"]!
     \end{itemize}
   \end{ornek}
 \end{frame}
 
-\subsection{Örnek: DBXML}
+\subsection{Ã–rnek: DBXML}
 
 \begin{frame}
-  \frametitle{Örnek: Oracle Berkeley DBXML}
+  \frametitle{Ã–rnek: Oracle Berkeley DBXML}
 
   \begin{itemize}
-    \item gömülü XML veri tabanı
+    \item gÃ¶mÃ¼lÃ¼ XML veri tabanÄ±
     \item XML belgeleri tutuyor
-    \item XQuery ile üzerinde işlem yapılabiliyor
-    \item kendi istemcisi ile kullanılabiliyor
-    \item çeşitli programlama dilleri için arayüzleri var
+    \item XQuery ile veri Ã¼zerinde iÅŸlem yapÄ±labiliyor
+    \item kendi istemcisi ile kullanÄ±labiliyor
+    \item Ã§eÅŸitli programlama dilleri iÃ§in arayÃ¼zleri var
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{DBXML Arayüzü}
+\begin{frame}
+  \frametitle{DBXML ArayÃ¼zÃ¼}
 
   \begin{itemize}
-    \item veri tabanı yaratma:\\
+    \item veri tabanÄ± yaratma:\\
     \begin{itemize}
-      \item \lstinline!XmlManager! nesnesi yaratılır
+      \item \lstinline!XmlManager! nesnesi yaratÄ±lÄ±r
       \item \lstinline!XmlManager.createContainer(name)!
         $\rightarrow$ \lstinline!XmlContainer!
-      \item belge elemanı (kök) yerleştirilir:\\
-        \lstinline!XmlContainer.putDocument(namespace, xml_string, configuration)!
+      \item belge elemanÄ± (kÃ¶k) yerleÅŸtirilir:\\
+        \lstinline!XmlContainer.putDocument(namespace, xml_string,!\\
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!configuration)!
     \end{itemize}
 
     \pause
-    \item var olan veri tabanına bağlanma:\\
+    \item var olan veri tabanÄ±na baÄŸlanma:\\
     \begin{itemize}
-      \item \lstinline!XmlManager! nesnesi yaratılır
+      \item \lstinline!XmlManager! nesnesi yaratÄ±lÄ±r
       \item \lstinline?XmlManager.existsContainer(name) != 0? ise
       \item \lstinline!XmlManager.openContainer(name)!
         $\rightarrow$ \lstinline!XmlContainer!
@@ -889,8 +915,8 @@ db.delete(found);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{DBXML Sorgu Arayüzü}
+\begin{frame}
+  \frametitle{DBXML ArayÃ¼zÃ¼}
 
   \begin{itemize}
     \item \lstinline!XmlManager.createQueryContext()!
@@ -898,99 +924,98 @@ db.delete(found);
     \item \lstinline!XmlQueryContext.setNamespace(namespace, URL)!
 
     \pause
-    \item sorgu katarı: \lstinline!collection(name)/xpath_expression!
-    \item sorgunun çalıştırılması:\\
+    \item sorgu katarÄ±: \lstinline!collection(name)/xpath_expression!
+    \item sorgunun Ã§alÄ±ÅŸtÄ±rÄ±lmasÄ±:\\
       \lstinline!XmlManager.query(query, context)!
       $\rightarrow$ \lstinline!XmlResults!
 
     \pause
-    \item \lstinline!XmlResults! iteratörünün her bir elemanı bir
+    \medskip
+    \item \lstinline!XmlResults! yineleyicisinin her bir elemanÄ± bir
       \lstinline!XmlValue!
-      \begin{itemize}
-        \item \lstinline!getFirstChild()!, \lstinline!getLastChild()!,
-          \lstinline!getNextSibling()!, ...
-        \item karakter verisi değeri: \lstinline!getNodeValue()!
-          $\rightarrow$ \lstinline!String!
-        \item nitelikler:
-          \lstinline!XmlValue.getAttributes()! $\rightarrow$ \lstinline!XmlResults!
-      \end{itemize}
+    \item \lstinline!getFirstChild()!, \lstinline!getLastChild()!,
+      \lstinline!getNextSibling()!, ...
+    \item karakter verisi: \lstinline!getNodeValue()!
+      $\rightarrow$ \lstinline!String!
+    \item nitelikler:
+      \lstinline!XmlValue.getAttributes()! $\rightarrow$ \lstinline!XmlResults!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML}
+  \frametitle{DBXML Ã–rnekleri}
 
-  \begin{ornek}[veri tabanına bağlantı]
+  \begin{ornek}[veri tabanÄ±na baÄŸlantÄ±]
     \begin{lstlisting}
 db = new XmlManager();
 XmlContainer container = null;
 if (db.existsContainer("imdb.dbxml") != 0)
-    container = db.openContainer("imdb.dbxml");
+  container = db.openContainer("imdb.dbxml");
 else {
-    container = db.createContainer("imdb.dbxml");
-    container.putDocument("movies",
-        "<movies />",
-        (XmlDocumentConfig) null);
+  container = db.createContainer("imdb.dbxml");
+  container.putDocument("movies",
+      "<movies />",
+      (XmlDocumentConfig) null);
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML}
+  \frametitle{DBXML Ã–rnekleri}
 
-  \begin{ornek}[film nesnesini XML katarına çevirme]
+  \begin{ornek}[film nesnesini XML katarÄ±na Ã§evirme]
     \begin{lstlisting}
 public static String toXml(Movie movie) {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("<movie>");
-    buffer.append("<title>"
-      + movie.getTitle() + "</title>");
-    buffer.append("<year>"
-      + movie.getYear().toString() + "</year>");
-    buffer.append("</movie>");
-    return buffer.toString();
+  StringBuffer buffer = new StringBuffer();
+  buffer.append("<movie>");
+  buffer.append("<title>"
+    + movie.getTitle() + "</title>");
+  buffer.append("<year>"
+    + movie.getYear().toString() + "</year>");
+  buffer.append("</movie>");
+  return buffer.toString();
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML}
+  \frametitle{DBXML Ã–rnekleri}
 
-  \begin{ornek}[XML düğümünü film nesnesine çevirme]
+  \begin{ornek}[XML dÃ¼ÄŸÃ¼mÃ¼nÃ¼ film nesnesine Ã§evirme]
     \begin{lstlisting}
 private static Movie fromNode(XmlValue node)
         throws XmlException {
-    XmlValue tn = node.getFirstChild();
-    String title =
-        tn.getFirstChild().getNodeValue();
-    XmlValue yn = tn.getNextSibling();
-    String yearValue =
-        yn.getFirstChild().getNodeValue();
-    Integer year = Integer.parseInt(yearValue);
-    Movie movie = new Movie(title);
-    movie.setYear(year);
-    return movie;
+  XmlValue tn = node.getFirstChild();
+  String title =
+      tn.getFirstChild().getNodeValue();
+  XmlValue yn = tn.getNextSibling();
+  String yearValue =
+      yn.getFirstChild().getNodeValue();
+  Integer year = Integer.parseInt(yearValue);
+  Movie movie = new Movie(title);
+  movie.setYear(year);
+  return movie;
 }
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML}
+  \frametitle{DBXML Ã–rnekleri}
 
-  \begin{ornek}[sorgulama: bütün filmler]
+  \begin{ornek}[sorgulama: bÃ¼tÃ¼n filmler]
     \begin{lstlisting}
 XmlQueryContext context = ...;
 context.setNamespace(...);
 String query =
-    "collection(\"imdb.dbxml\")/movies/movie";
+  "collection(\"imdb.dbxml\")/movies/movie";
 XmlResults results = db.query(query, context);
 if (results.hasNext()) {
-    XmlValue node = results.next();
-    Movie movie = fromNode(node);
-    ...
+  XmlValue node = results.next();
+  Movie movie = fromNode(node);
+  ...
 }
 results.delete();
     \end{lstlisting}
@@ -998,7 +1023,7 @@ results.delete();
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML}
+  \frametitle{DBXML Ã–rnekleri}
 
   \begin{ornek}[ekleme]
     \begin{lstlisting}
@@ -1008,22 +1033,20 @@ m.setYear(1942);
 XmlQueryContext context = ...;
 context.setNamespace(...);
 String query = "insert nodes " + toXml(m)
-    + " into collection(\"imdb.dbxml\")/movies";
+  + " into collection(\"imdb.dbxml\")/movies";
 XmlResults results = db.query(query, context);
 results.delete();
     \end{lstlisting}
   \end{ornek}
 \end{frame}
 
-\section*{Kaynaklar}
+\subsection*{Kaynaklar}
 
 \begin{frame}
   \frametitle{Kaynaklar}
 
   \begin{block}{Okunacak: Date}
     \begin{itemize}
-      \item Chapter 25: \alert{Object Databases}
-      \item Chapter 26: \alert{Object/Relational Databases}
       \item Chapter 27: \alert{The World Wide Web and XML}
     \end{itemize}
   \end{block}
