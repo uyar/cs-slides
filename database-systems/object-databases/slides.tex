@@ -1,4 +1,4 @@
-% Copyright (c) 2005-2010
+% Copyright (c) 2005-2012
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -19,6 +19,7 @@
 \setbeamertemplate{navigation symbols}{}
 
 \usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
 \lstset{language=Java}
 
 \mode<presentation> {
@@ -31,7 +32,7 @@
 \subtitle{Object Databases}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2005-2010}
+\date{2005-2012}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -57,25 +58,25 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2005-2010 T. Uyar, Ş. Öğüdücü
+  \copyright 2005-2012 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{tiny}
     You are free:
     \begin{itemize}
-      \item to Share — to copy, distribute and transmit the work
-      \item to Remix — to adapt the work
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
     \end{itemize}
 
     Under the following conditions:
     \begin{itemize}
-      \item Attribution — You must attribute the work in the manner specified by
+      \item Attribution -- You must attribute the work in the manner specified by
         the author or licensor (but not in any way that suggests that they
         endorse you or your use of the work).
 
-      \item Noncommercial — You may not use this work for commercial purposes.
+      \item Noncommercial -- You may not use this work for commercial purposes.
 
-      \item Share Alike — If you alter, transform, or build upon this work, you
+      \item Share Alike -- If you alter, transform, or build upon this work, you
         may distribute the resulting work only under the same or similar license
         to this one.
     \end{itemize}
@@ -99,14 +100,7 @@
   \frametitle{Object-Orientation}
 
   \begin{itemize}
-    \item object oriented techniques are successful in programming
-    \begin{itemize}
-      \item could they be applied to data modelling?
-    \end{itemize}
-
-    \pause
-    \bigskip
-    \item mismatch between data modelling and software modelling
+    \item mismatch between the data model and the software model
     \begin{itemize}
       \item data: relation, tuple, foreign key, \ldots
       \item software: object, method, \ldots
@@ -117,16 +111,19 @@
 \begin{frame}[fragile]
   \frametitle{Mismatch Example}
 
-  \begin{example}[adding an actor to a movie]
+  \begin{example}[adding an actor to a movie - SQL definitions]
     \begin{lstlisting}[language=SQL]
-INSERT INTO MOVIE(ID,TITLE)
-  VALUES(110,'Sleepy Hollow')
+CREATE TABLE MOVIE (ID INTEGER PRIMARY KEY,
+    TITLE VARCHAR(80) NOT NULL)
 
-INSERT INTO PERSON(ID,NAME)
-  VALUES(26,'Johnny Depp')
+CREATE TABLE PERSON (ID INTEGER PRIMARY KEY,
+    NAME VARCHAR(40) NOT NULL)
 
-INSERT INTO CASTING(MOVIEID, ACTORID)
-  VALUES(110,26)
+CREATE TABLE CASTING(
+    MOVIEID INTEGER REFERENCES MOVIE,
+    ACTORID INTEGER REFERENCES PERSON,
+    PRIMARY KEY (MOVIEID, ACTORID)
+)
     \end{lstlisting}
   \end{example}
 \end{frame}
@@ -134,16 +131,33 @@ INSERT INTO CASTING(MOVIEID, ACTORID)
 \begin{frame}[fragile]
   \frametitle{Mismatch Example}
 
-  \begin{example}[adding an actor to a movie]
+  \begin{example}[adding an actor to a movie - SQL operations]
+    \begin{lstlisting}[language=SQL]
+INSERT INTO MOVIE(ID, TITLE)
+  VALUES(110, 'Sleepy Hollow')
+
+INSERT INTO PERSON(ID, NAME)
+  VALUES(26, 'Johnny Depp')
+
+INSERT INTO CASTING(MOVIEID, ACTORID)
+  VALUES(110, 26)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{example}[adding an actor to a movie - Java definitions]
     \begin{lstlisting}
 public class Movie {
-  ...
-  private Person director;
-  private ArrayList<Person> cast;
+    ...
+    private List<Person> cast;
 
-  public void castActor(Person p) {
-    this.cast.add(p);
-  }
+    ...
+    public void addActor(Person p) {
+        this.cast.add(p);
+    }
 }
     \end{lstlisting}
   \end{example}
@@ -152,53 +166,24 @@ public class Movie {
 \begin{frame}[fragile]
   \frametitle{Mismatch Example}
 
-  \begin{example}[adding an actor to a movie]
+  \begin{example}[adding an actor to a movie - Java operations]
     \begin{lstlisting}
 Movie m = new Movie("Sleepy Hollow", ...);
 Person p = new Person("Johnny Depp", ...);
-m.castActor(p);
+m.addActor(p);
     \end{lstlisting}
   \end{example}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Persistence}
-
-  \begin{itemize}
-    \item \alert{persistence}:\\
-      saving object state between different runs of the application
-
-    \pause
-    \medskip
-    \item SQL is not the only way to achive persistence
-    \begin{itemize}
-      \item might even damage the software model
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+\subsection{Object Identifiers}
 
 \begin{frame}
-  \frametitle{Nesneye Dayalı Veritabanları}
-
-  \begin{itemize}
-    \item persistent objects are stored in an object database
-    \item use the host language to access these objects
-
-    \pause
-    \item single language for both application and data operations
-    \begin{itemize}
-      \item no need for data conversion
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Object Ids}
+  \frametitle{Object Identifiers}
 
   \begin{itemize}
     \item every object has an identifier
     \begin{itemize}
-      \item identifiers don't change even if attributes change
+      \item object identifiers don't change even if object attributes change
     \end{itemize}
 
     \pause
@@ -209,15 +194,16 @@ m.castActor(p);
     \end{itemize}
 
     \pause
-    \item corresponds to references (pointers) in programming languages
+    \item correspond to references in programming languages
     \begin{itemize}
-      \item \emph{containment hierarchy}
+      \item object identifiers can refer to other objects:\\
+        \emph{containment hierarchy}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Object Database Example}
+  \frametitle{Containment Hierarchy Example}
 
   \begin{example}
     \begin{center}
@@ -227,7 +213,7 @@ m.castActor(p);
 \end{frame}
 
 \begin{frame}
-  \frametitle{Object Database Example}
+  \frametitle{Containment Hierarchy Example}
 
   \begin{example}
     \begin{center}
@@ -236,155 +222,206 @@ m.castActor(p);
   \end{example}
 \end{frame}
 
-\subsection{Sample System}
-
 \begin{frame}
-  \frametitle{DB4O}
+  \frametitle{Object Databases}
 
   \begin{itemize}
-    \item Java
-    \item .NET
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Database Connection}
-
-  \begin{example}
-    \begin{lstlisting}
-ObjectContainer db = Db4o.openFile("dbfile");
-try {
-    // database operations
-} catch (Exception e) {
-    e.printStackTrace();
-} finally {
-    db.close();
-}
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example}
-
-  \begin{example}
-    \begin{lstlisting}
-public class Movie {
-  private String title;
-  private float points;
-
-  public Movie(String title, float points) {
-    this.title = title;
-    this.points = points;
-  }
-
-  // methods
-}
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example}
-
-  \begin{example}
-    \begin{lstlisting}
-  public String getTitle() {
-    return title;
-  }
-
-  public float getPoints() {
-    return points;
-  }
-
-  public void addPoints(float points) {
-    this.points += points;
-  }
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example}
-
-  \begin{example}
-    \begin{lstlisting}
-Movie movie1 = new Movie("Casablanca", 5.2f);
-db.set(movie1);
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Queries}
-
-  \begin{itemize}
-    \item query by example
-    \begin{itemize}
-      \item create an example object of the same class
-      \item select all objects with the same attribute values as the example
-    \end{itemize}
+    \item persistent objects are stored as objects, not as relations
 
     \medskip
-    \item natural query
+    \item write: object $\rightarrow$ internal format (\alert{serialization})
+    \item read: internal format $\rightarrow$ object (\alert{deserialization})
+  \end{itemize}
+\end{frame}
+
+\subsection{Example: db4o}
+
+\begin{frame}
+  \frametitle{db4o}
+
+  \begin{itemize}
+    \item an object database system that can work embedded
+
+    \pause
+    \medskip
+    \item query using conditions
+    \item query by example
+    \begin{itemize}
+      \item create an object of the class to be queried
+      \item set the desired properties, leave the others blank
+      \item search for similar objects
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item the objects to be updated or deleted have to be retrieved\\
+      from the database (object identifier)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{db4o Interface}
+
+  \begin{itemize}
+    \item connecting to database (embedded mode):\\
+      \lstinline!Db4oEmbedded.openFile(filePath)!
+        $\rightarrow$ \lstinline!ObjectContainer!
+
+    \pause
+    \medskip
+    \item insert and update:\\
+      \lstinline!ObjectContainer.store(object)!
+    \item delete:\\
+      \lstinline!ObjectContainer.delete(object)!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{db4o Interface}
+
+  \begin{itemize}
+    \item all instances of a class:\\
+      \lstinline!ObjectContainer.query(Class.class)!
+       $\rightarrow$ \lstinline!List<Class>!
+
+    \pause
+    \medskip
+    \item query by example:\\
+      \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
+       $\rightarrow$ \lstinline!ObjectSet<Class>!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{db4o Interface}
+
+  \begin{itemize}
+    \item query condition: \lstinline!Predicate<Class>!
+    \item implement the \lstinline!match! method:\\
+      \lstinline!public boolean match(Class object)!
+
+    \pause
+    \medskip
+    \item query:\\
+      \lstinline!ObjectContainer.query(Predicate<Class> predicate)!\\
+      $\rightarrow$ \lstinline!List<Class>!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Query by Example}
+  \frametitle{db4o Examples}
 
-  \begin{example}[all movies]
+  \begin{example}[connecting to the database]
     \begin{lstlisting}
-Movie proto = new Movie(null, 0f);
-ObjectSet result = db.get(proto);
+ObjectContainer db = Db4oEmbedded.openFile(
+    "imdb.db4o"
+);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
 
-System.out.println(result.size());
-while (result.hasNext()) {
-  System.out.println(result.next());
+\begin{frame}[fragile]
+  \frametitle{db4o Examples}
+
+  \begin{example}[query: all movies]
+    \begin{lstlisting}
+List<Movie> movies = db.query(Movie.class);
+for (Movie movie : movies) {
+    ...
 }
     \end{lstlisting}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Update Example}
+  \frametitle{db4o Examples}
 
-  \begin{example}[Casablanca filminin puanını güncelle]
+  \begin{example}[query by example: movies in 1977]
     \begin{lstlisting}
-Movie casablanca = new Movie("Casablanca", 0f);
-ObjectSet result = db.get(casablanca);
-Movie found = (Movie) result.next();
-found.addPoints(1.1f);
-db.set(found);
+Movie prototype = new Movie(null);
+prototype.setYear(1977);
+ObjectSet<Movie> movies =
+    db.queryByExample(prototype);
+while (movies.hasNext()) {
+    Movie m = movies.next();
+    ...
+}
     \end{lstlisting}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Delete Example}
+  \frametitle{db4o Examples}
 
-  \begin{example}[delete "Casablanca"]
+  \begin{example}[query by condition: movies after 1977]
     \begin{lstlisting}
-Movie casablanca = new Movie("Casablanca", 0f);
-ObjectSet result = db.get(casablanca);
-Movie found = (Movie) result.next();
-db.delete(found);
+List<Movie> movies = db.query(
+    new Predicate<Movie>() {
+        public boolean match(Movie movie) {
+            return movie.getYear() > 1977;
+        }
+});
     \end{lstlisting}
   \end{example}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Problems}
+\begin{frame}[fragile]
+  \frametitle{db4o Examples}
 
-  \begin{itemize}
-    \item ad-hoc queries
-    \item integrity
-    \item referential integrity
-    \item performance
-  \end{itemize}
+  \begin{example}[insert]
+    \begin{lstlisting}
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+db.store(m);
+db.commit();
+    \end{lstlisting}
+  \end{example}
 \end{frame}
 
-\section{O/R Mapping}
+\begin{frame}[fragile]
+  \frametitle{db4o Examples}
+
+  \begin{example}[update]
+    \begin{lstlisting}
+Movie prototype = new Movie("Casablanca");
+ObjectSet<Movie> result =
+    db.queryByExample(prototype);
+Movie found = result.next();
+found.setYear(1943);
+db.store(found);
+db.commit();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{db4o Examples}
+
+  \begin{example}[delete]
+    \begin{lstlisting}
+Movie prototype = new Movie("Casablanca");
+ObjectSet<Movie> result =
+    db.queryByExample(prototype);
+Movie found = result.next();
+db.delete(found);
+db.commit();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Date}
+    \begin{itemize}
+      \item Chapter 25: \alert{Object Databases}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Object/Relational Databases}
 
 \subsection{Introduction}
 
@@ -392,113 +429,617 @@ db.delete(found);
   \frametitle{Object/Relational Mapping}
 
   \begin{itemize}
-    \item database employs relational model
-    \item application is written in an object-oriented language
+    \item software is object-oriented
+    \item database is relational
+    \item map software components to database components
+  \end{itemize}
+\end{frame}
+
+\subsection{Example: Persist}
+
+\begin{frame}
+  \frametitle{Example: Persist}
+
+  \begin{itemize}
+    \item wraps a JDBC connection
+    \item translates the object database interface into SQL statements
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Persist Interface}
+
+  \begin{itemize}
+    \item database connection: \lstinline!Connection connection!\\
+      \lstinline!Persist(connection)! $\rightarrow$ \lstinline!Persist!
 
     \pause
-    \item relation = class?
-    \item domain = class?
-  \end{itemize}
-\end{frame}
-
-\subsection{Sample System}
-
-\begin{frame}
-  \frametitle{BeanKeeper}
-
-  \begin{itemize}
-    \item transparent persistence
-    \item connection to databases via JDBC
+    \medskip
+    \item insert:\\
+      \lstinline!Persist.insert(object)!
+    \item update:\\
+      \lstinline!Persist.update(object)!
+    \item delete:\\
+      \lstinline!Persist.delete(object)!
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Data Manipulation}
+  \frametitle{Persist Interface}
 
   \begin{itemize}
-    \item database operations: \lstinline!Store! objects
-    \item parameters: driver and JDBC URL
-    \begin{itemize}
-      \item \lstinline!save()!
-      \item \lstinline!remove()!
-      \item \lstinline!find()!
-    \end{itemize}
+    \item query: all instances of a class\\
+      \lstinline!Persist.readList(Class.class)!
+       $\rightarrow$ \lstinline!List<Class>!
+    \item query using SQL: similar to prepared statements\\
+      \lstinline!Persist.readList(Class.class, String query, params)!\\
+       $\rightarrow$ \lstinline!List<Class>!
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example}
+  \frametitle{Persist Examples}
 
-  \begin{example}
+  \begin{example}[database connection]
     \begin{lstlisting}
-public class Person {
-  private String name;
+Connection connection =
+    DriverManager.getConnection(jdbcURL);
+Persist db = new Persist(connection);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
 
-  public String getName() {
-    return name;
-  }
+\begin{frame}[fragile]
+  \frametitle{Persist Examples}
 
-  public void setName(String newName) {
-    this.name = newName;
-  }
+  \begin{example}[query: all movies]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class);
+for (Movie movie : movies) {
+    ...
 }
     \end{lstlisting}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example}
+  \frametitle{Persist Examples}
 
-  \begin{example}
+  \begin{example}[query using SQL: all movies in 1977]
     \begin{lstlisting}
-Store myStore = new Store("org.postgres.Driver",
-                          "jdbc:postgres:mydb");
-
-Public person = new Person();
-person.setName(name);
-myStore.save(person);
+List<Movie> movies = db.readList(Movie.class,
+    "SELECT * FROM MOVIE WHERE (YEAR = ?)",
+    1977);
     \end{lstlisting}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example}
+  \frametitle{Persist Examples}
 
-  \begin{example}[all persons]
+  \begin{example}[insert]
     \begin{lstlisting}
-List persons = myStore.find("find person");
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+db.insert(m);
     \end{lstlisting}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQL Queries}
+  \frametitle{Persist Examples}
 
-  \begin{example}
+  \begin{example}[update]
     \begin{lstlisting}
-Statement stmt = con.createStatement();
-ResultSet rs = stmt.executeQuery(
-    "select name from person"
-    );
-while (rs.next()) {
-    name = rs.getString(1);
-    System.out.println(name);
-}
+List<Movie> movies = db.readList(Movie.class,
+    "SELECT * FROM MOVIE WHERE (TITLE = ?)",
+    "Casablanca");
+Movie found = movies.get(0);
+found.setYear(1943);
+db.update(found);
     \end{lstlisting}
   \end{example}
 \end{frame}
 
-% TODO: JPA
+\begin{frame}[fragile]
+  \frametitle{Persist Examples}
 
-\section*{References}
+  \begin{example}[delete]
+    \begin{lstlisting}
+List<Movie> movies = db.readList(Movie.class,
+    "SELECT * FROM MOVIE WHERE (TITLE = ?)",
+    "Casablanca");
+Movie found = movies.get(0);
+db.delete(found);
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
 
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required text: Date}
+  \begin{block}{Required Reading: Date}
     \begin{itemize}
-      \item Chapter 25: \alert{Object Databases}
       \item Chapter 26: \alert{Object/Relational Databases}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% TODO: JPA
+
+\section{XML Databases}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{XML}
+
+  \begin{itemize}
+    \item XML is not a language itself
+    \begin{itemize}
+      \item framework for defining languages
+    \end{itemize}
+
+    \pause
+    \item XML-based languages
+    \begin{itemize}
+      \item XHTML, DocBook, SVG, MathML, WML, XMI, ...
+    \end{itemize}
+
+    \pause
+    \item XML-related languages
+    \begin{itemize}
+      \item XPath, XQuery, XSL Transforms, SOAP, XLink, ...
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XML Structure}
+
+  \begin{itemize}
+    \item an XML document forms a \emph{tree}
+
+    \item nodes: \emph{elements}
+    \begin{itemize}
+      \item root node: \emph{document element}
+      \item leaves: character data, self-closing elements
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item opening/closing tags
+    \item attributes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[HTML]
+    \begin{lstlisting}[language=XML]
+<html>
+<head><title>Foo Bar</title></head>
+<body>
+  <h1>Welcome to Foo Bar!</h1>
+  <p>You can get more information from the
+    <a href="http://www.foobar.net/">
+      foobar page</a>.</p>
+  <img src="logo.jpg" alt="Foo Bar logo" />
+</body>
+</html>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+<book lang="en">
+  <title>Foobar Report</title>
+  <bookinfo>...</bookinfo>
+  <chapter>...</chapter>
+  <chapter>...</chapter>
+  ...
+</book>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <bookinfo>
+    <author>
+      <firstname>John</firstname>
+      <surname>Foobar</surname>
+    </author>
+    <date>2007</date>
+  </bookinfo>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[DocBook]
+    \begin{lstlisting}[language=XML]
+  <chapter>
+    <title>Introduction</title>
+    <section>
+      <title>Description</title>
+      <para>Foobar is ...</para>
+    </section>
+    ...
+  </chapter>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[movies]
+    \begin{lstlisting}[language=XML]
+<movies>
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    ...
+  </movie>
+  <movie color="Color">
+    <title>Being John Malkovich</title>
+    ...
+  </movie>
+  ...
+</movies>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example}
+
+  \begin{example}[movies]
+    \begin{lstlisting}[language=XML]
+  <movie color="Color">
+    <title>Usual Suspects</title>
+    <year>1995</year>
+    <score>8.7</score>
+    <votes>35027</votes>
+    <director>Bryan Singer</director>
+    <cast>
+      <actor>Gabriel Byrne</actor>
+      <actor>Benicio Del Toro</actor>
+    </cast>
+  </movie>
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection{XQuery}
+
+\begin{frame}
+  \frametitle{XQuery}
+
+  \begin{itemize}
+    \item XPath: selecting nodes and data from XML documents
+    \item XQuery: XPath + update operations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath}
+
+  \begin{itemize}
+    \item path of nodes to find: chain of location steps
+    \begin{itemize}
+      \item starting from the root (absolute)
+      \item starting from the current node (relative)
+
+      \medskip
+      \item location steps are separated by \lstinline!/! symbols
+    \end{itemize}
+
+    \pause
+    \begin{example}
+      \begin{itemize}
+       \item \lstinline!/movies/movie!
+       \item \lstinline!cast/actor! or \lstinline!./cast/actor!
+       \item \lstinline!../../year!
+      \end{itemize}
+    \end{example}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Location Steps}
+
+  \begin{itemize}
+    \item location step structure:\\
+      \lstinline!axis::node_selector[predicate]!
+
+    \pause
+    \medskip
+    \item axis: where to search
+    \item selector: what to search
+    \item predicate: under which conditions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Axes}
+
+  \begin{itemize}
+    \item \lstinline!child!:
+      all children, one level (default axis)
+    \item \lstinline!descendant!:
+      all children, recursively (shorthand: \lstinline!//!)
+    \item \lstinline!parent!:
+      parent node, one level
+    \item \lstinline!ancestor!:
+      parent nodes, up to document element
+    \item \lstinline!attribute!:
+      attributes (shorthand: \lstinline!@!)
+    \item \lstinline!following-sibling!:
+      siblings that come later
+    \item \lstinline!preceding-sibling!:
+      siblings that come earlier
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Node Selectors}
+
+  \begin{itemize}
+    \item node tag
+    \item node attribute
+    \item node text: \lstinline!text()!
+    \item all children: \lstinline!*!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item names of all directors:\\
+        \lstinline!/movies/movie/director/text()!\\
+        \lstinline!//director/text()!
+
+      \pause
+      \item all actors in this movie:\\
+        \lstinline!./cast/actor!\\
+        \lstinline!.//actor!
+
+      \pause
+      \item colors of all movies:\\
+        \lstinline!//movie/@color!
+
+      \pause
+      \item scores of movies after this one:\\
+        \lstinline!./following-sibling::movie/score!
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Predicates}
+
+  \begin{itemize}
+    \item testing node position: \lstinline![position]!
+
+    \pause
+    \medskip
+    \item testing existence of a child: \lstinline![child_tag]!
+    \item testing value of a child: \lstinline![child_tag="value"]!
+
+    \pause
+    \medskip
+    \item testing existence of an attribute: \lstinline![@attribute]!
+    \item testing value of an attribute: \lstinline![@attribute="value"]!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XPath Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item the title of the first movie:\\
+        \lstinline!/movies/movie[1]/title!
+
+      \pause
+      \item all movies in the year 1997:\\
+        \lstinline!movie[year="1997"]!
+
+      \pause
+      \item black-and-white movies:\\
+        \lstinline!movie[@color="BW"]!
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Example: DBXML}
+
+\begin{frame}
+  \frametitle{Example: Oracle Berkeley DBXML}
+
+  \begin{itemize}
+    \item an embedded XML database
+    \item stores XML documents
+    \item manipulates data using XQuery
+    \item can be used via its own client
+    \item has bindings for several languages
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DBXML Interface}
+
+  \begin{itemize}
+    \item creating a database:\\
+    \begin{itemize}
+      \item create an \lstinline!XmlManager! object
+      \item \lstinline!XmlManager.createContainer(name)!
+        $\rightarrow$ \lstinline!XmlContainer!
+      \item put a document element:\\
+        \lstinline!XmlContainer.putDocument(namespace, xml_string,!\\
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!configuration)!
+    \end{itemize}
+
+    \pause
+    \item connecting to an existing database:\\
+    \begin{itemize}
+      \item create an \lstinline!XmlManager! object
+      \item if \lstinline?XmlManager.existsContainer(name) != 0?
+      \item \lstinline!XmlManager.openContainer(name)!
+        $\rightarrow$ \lstinline!XmlContainer!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DBXML Interface}
+
+  \begin{itemize}
+    \item \lstinline!XmlManager.createQueryContext()!
+      $\rightarrow$ \lstinline!XmlQueryContext!
+    \item \lstinline!XmlQueryContext.setNamespace(namespace, URL)!
+
+    \pause
+    \item query string: \lstinline!collection(name)/xpath_expression!
+    \item running the query:\\
+      \lstinline!XmlManager.query(query, context)!
+      $\rightarrow$ \lstinline!XmlResults!
+
+    \pause
+    \medskip
+    \item each element of the \lstinline!XmlResults! iterator is an
+      \lstinline!XmlValue!
+    \item \lstinline!getFirstChild()!, \lstinline!getLastChild()!,
+      \lstinline!getNextSibling()!, ...
+    \item character data: \lstinline!getNodeValue()!
+      $\rightarrow$ \lstinline!String!
+    \item attributes:
+      \lstinline!XmlValue.getAttributes()! $\rightarrow$ \lstinline!XmlResults!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Examples}
+
+  \begin{example}[database connection]
+    \begin{lstlisting}
+db = new XmlManager();
+XmlContainer container = null;
+if (db.existsContainer("imdb.dbxml") != 0)
+  container = db.openContainer("imdb.dbxml");
+else {
+  container = db.createContainer("imdb.dbxml");
+  container.putDocument("movies",
+      "<movies />",
+      (XmlDocumentConfig) null);
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Examples}
+
+  \begin{example}[converting a movie object into an XML string]
+    \begin{lstlisting}
+public static String toXml(Movie movie) {
+  StringBuffer buffer = new StringBuffer();
+  buffer.append("<movie>");
+  buffer.append("<title>"
+    + movie.getTitle() + "</title>");
+  buffer.append("<year>"
+    + movie.getYear().toString() + "</year>");
+  buffer.append("</movie>");
+  return buffer.toString();
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Examples}
+
+  \begin{example}[converting an XML node into a movie object]
+    \begin{lstlisting}
+private static Movie fromNode(XmlValue node)
+        throws XmlException {
+  XmlValue tn = node.getFirstChild();
+  String title =
+      tn.getFirstChild().getNodeValue();
+  XmlValue yn = tn.getNextSibling();
+  String yearValue =
+      yn.getFirstChild().getNodeValue();
+  Integer year = Integer.parseInt(yearValue);
+  Movie movie = new Movie(title);
+  movie.setYear(year);
+  return movie;
+}
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Examples}
+
+  \begin{example}[query: all movies]
+    \begin{lstlisting}
+XmlQueryContext context = ...;
+context.setNamespace(...);
+String query =
+  "collection(\"imdb.dbxml\")/movies/movie";
+XmlResults results = db.query(query, context);
+if (results.hasNext()) {
+  XmlValue node = results.next();
+  Movie movie = fromNode(node);
+  ...
+}
+results.delete();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{DBXML Examples}
+
+  \begin{example}[insert]
+    \begin{lstlisting}
+Movie m = new Movie("Casablanca");
+m.setYear(1942);
+
+XmlQueryContext context = ...;
+context.setNamespace(...);
+String query = "insert nodes " + toXml(m)
+  + " into collection(\"imdb.dbxml\")/movies";
+XmlResults results = db.query(query, context);
+results.delete();
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Date}
+    \begin{itemize}
+      \item Chapter 27: \alert{The World Wide Web and XML}
     \end{itemize}
   \end{block}
 \end{frame}
