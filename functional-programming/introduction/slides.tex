@@ -1,0 +1,501 @@
+% Copyright (c) 2013
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Introduction}
+
+\author{H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\pgfdeclareimage[width=4cm]{turing}{turing}
+\pgfdeclareimage[width=4cm]{church}{church}
+\pgfdeclareimage[width=4cm]{backus}{backus}
+\pgfdeclareimage[width=4cm]{mccarthy}{mccarthy}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Paradigms}
+
+\subsection{Programming Languages}
+
+\begin{frame}
+  \frametitle{Syntax and Semantics}
+
+  \begin{itemize}
+    \item \alert{syntax}: rules for writing a ``grammatically correct'' program
+    \begin{itemize}
+      \item how expressions, commands, declarations and other constructs\\
+        must be arranged to make a well-formed program
+    \end{itemize}
+
+    \bigskip
+    \item \alert{semantics}: how the program should be ``interpreted''
+    \begin{itemize}
+      \item how the program may be expected to behave\\
+        when executed on a computer
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Beyond Syntax and Semantics}
+
+  \begin{itemize}
+    \item mastering a programming language is not just knowing its syntax
+      and understanding its semantics
+
+    \bigskip
+    \item standard library
+    \item other libraries
+    \item tools: debugging, testing, profiling
+    \item documenting
+    \item style: code formatting, identifiers, \ldots
+
+    \pause
+    \medskip
+    \item idioms: patterns for using language features
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universality}
+
+  \begin{itemize}
+    \item a programming language is \alert{universal}\\
+      if it is capable of expressing any computation
+  \end{itemize}
+
+  \begin{block}{Church-Turing Thesis (from Wikipedia)}
+    If some method (algorithm) exists to carry out a calculation,\\
+    then the same calculation can also be carried out by a Turing machine\\
+    (as well as by a recursively definable function).
+  \end{block}
+  
+  \begin{itemize}
+    \item any programming language that supports iteration or recursion\\
+      is universal
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Programming Domains}
+
+  \begin{itemize}
+    \item no programming language is well suited to all kinds of applications
+
+    \bigskip
+    \item scientific applications: computation intensive
+    \begin{itemize}
+      \item floating-point arithmetics, arrays and matrices
+    \end{itemize}
+    
+    \item business applications: input/output intensive
+    \begin{itemize}
+      \item text, file and database operations, strings, dates, decimals
+    \end{itemize}
+    
+    \item artificial intelligence
+    \begin{itemize}
+      \item symbolic computations, lists, trees
+    \end{itemize}
+      
+    \item systems programming
+    \begin{itemize}
+      \item speed, availability, low-level features
+    \end{itemize}
+      
+    \item web applications
+    \begin{itemize}
+      \item security, reliability, scalability, easy deployment
+    \end{itemize}
+      
+    \item scripting: glueing applications (probably written in different PLs)
+    \begin{itemize}
+      \item file and text processing, regular expressions
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluating Programming Languages}
+
+  \begin{itemize}
+    \item \alert{readability}: easy to understand written code
+    \begin{itemize}
+      \item ease of maintenance
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{expressivity}: less lines of code
+    \begin{itemize}
+      \item increases programmer productivity
+      \item if not sacrificing readability
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{orthogonality}: combining features consistently
+    \begin{itemize}
+      \item small set of independent features
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{reliability}
+    \begin{itemize}
+      \item type checking, safe memory management, exception handling
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Paradigms}
+
+  \begin{itemize}
+    \item programming paradigm: style of programming
+    \item thought patterns
+  \end{itemize}
+\end{frame}
+
+\subsection{Imperative Paradigm}
+
+\begin{frame}
+  \frametitle{Imperative Programming}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{turing}\\
+      Alan Turing (1912-1954)
+    \end{center}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item based on the Turing machine
+      \item a program is a list of instructions\\
+        for a von Neumann computer
+      \item contents of memory constitutes\\
+        the program \alert{state}
+
+      \pause
+      \medskip
+      \item statements update variables
+        (\alert{mutation})
+      \item assignment and control structures
+
+      \pause
+      \medskip
+      \item natural model of hardware
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Greatest Common Divisor}
+
+  \begin{example}[imperative style]
+    \begin{pygments}[]{c}
+int gcd(int x, int y)
+{
+    int r = 0;
+
+    while (y > 0)
+    {
+        r = x % y;
+        x = y;
+        y = r;
+    }
+    return x;
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Milestones in Imperative Programming Languages}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{backus}\\
+      John Backus (1924-2007)
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Fortran (1957)
+      \item ALGOL (1960)
+      \item Ada (1983)
+      \item Java (1995)
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\subsection{Functional Paradigm}
+
+\begin{frame}
+  \frametitle{Functional Programming}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{church}\\
+      Alonzo Church (1903-1995)
+    \end{center}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item based on $\lambda$-calculus by Alonzo Church
+      \item a program is a function application
+      \item same inputs should produce\\
+        same output
+
+      \pause
+      \medskip
+      \item the function also changes
+        the context $\rightarrow$ \emph{side effect}
+      \item \alert{avoid mutation}
+
+      \pause
+      \medskip
+      \item functions as arguments
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Greatest Common Divisor}
+
+  \begin{example}[functional style]
+    \begin{pygments}[]{c}
+# note that variables are not updated
+
+int gcd(int x, int y)
+{
+    if (y == 0)
+        return x;
+    else
+        return gcd(y, x % y);
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sources of Side Effects}
+
+  \begin{itemize}
+    \item global variables
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}[]{c}
+int x = 0;
+
+int foo(int n)
+{
+    x++;
+    return x * n;
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sources of Side Effects}
+
+  \begin{itemize}
+    \item function state
+    \item object state
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}[]{c}
+int foo(int n)
+{
+    static int z[] = {3, 5, 2, 8};
+    static int i = -1;
+
+    i++;
+    return z[i] * n;
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sources of Side Effects}
+
+  \begin{itemize}
+    \item input/output
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}[]{c}
+int foo(int n, FILE *fp)
+{
+    int value;
+
+    fscanf(fp, "%d\n", &value);
+    return value * n;
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sources of Side Effects}
+
+  \begin{itemize}
+    \item randomness
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}[]{c}
+int foo(int n)
+{
+    int r = rand() % 10;
+
+    return r * n;
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Milestones in Functional Programming Languages}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{mccarthy}\\
+      John McCarthy (1927-2011)
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Lisp (1957)
+      \item ML (1973)
+      \item Haskell (1990)
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\subsection{Object Orientation}
+
+\begin{frame}
+  \frametitle{Object Orientation}
+
+  \begin{itemize}
+    \item data abstraction
+    \item type hierarchies
+
+    \bigskip
+    \item these can be achieved in both imperative and functional paradigms
+    \begin{itemize}
+      \item Ocaml, F\#
+      \item Scala
+    \end{itemize}
+
+    \bigskip
+    \item modern imperative languages support functional features
+    \begin{itemize}
+      \item Ruby, Python
+      \item Java 8, C\# (LINQ)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+% 
+% \section*{References}
+% 
+% \begin{frame}
+%   \frametitle{References}
+% 
+%   \begin{block}{Required Reading: Scott}
+%     \begin{itemize}
+%       \item Chapter 1: Introduction
+%       \begin{itemize}
+%         \item 1.1. \alert{The Art of Language Design}
+%       \end{itemize}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\end{document}
