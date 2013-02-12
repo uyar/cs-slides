@@ -1,0 +1,577 @@
+% Copyright (c) 2013
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Expressions and Types}
+
+\author{H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Expressions}
+
+\subsection{Definitions}
+
+\begin{frame}
+  \frametitle{Expressions}
+
+  \begin{definition}
+    \alert{expression}: a construct that will be \emph{evaluated} to yield a value
+  \end{definition}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item every programming language provides:
+
+    \medskip
+    \item primitive expressions: the simplest elements\\
+    \begin{itemize}
+      \item literals, constants, variables
+    \end{itemize}
+    \item means of combination: building compound elements from simpler ones\\
+    \begin{itemize}
+      \item operators
+    \end{itemize}
+    \item means of abstraction: naming compound elements\\
+      and manipulating them as units
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Expressions}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+Prelude> 6 * 7
+42
+Prelude> let r = 2.4
+Prelude> 3.14159 * r * r
+18.095558399999998
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Expressions}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+scala> 6 * 7
+res0: Int = 42
+scala> def r = 2.4
+r: Double
+scala> 3.14159 * r * r
+res1: Double = 18.095558399999998
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Expressions}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+>>> 6 * 7
+42
+>>> r = 2.4
+>>> 3.14159 * r * r
+18.095558399999998
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluating Expressions}
+
+  \begin{itemize}
+    \item take the operator with the highest precedence
+    \item evaluate its operands (note the recursion)
+    \item apply the operator to the operands
+
+    \pause
+    \medskip
+    \item a name is evaluated by replacing it\\
+      with the right-hand side of its definition
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluating Expressions}
+
+  \begin{example}
+    \pygment{python}{(3.14159 * r) * r}
+
+    \pause
+    \medskip
+    \pygment{python}{(3.14159 * 2.4) * r}
+
+    \pause
+    \medskip
+    \pygment{python}{7.539815999999999 * 2.4}
+
+    \pause
+    \medskip
+    \pygment{python}{18.095558399999998}
+  \end{example}
+\end{frame}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Termination}
+% 
+%   \begin{itemize}
+%     \item expression evaluation might not terminate
+%   \end{itemize}
+% 
+%   \begin{example}[Haskell]
+%     \begin{pygments}{haskell}
+% loop :: Int
+% loop = loop
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+
+\subsection{Functions}
+
+\begin{frame}
+  \frametitle{Functions}
+
+  \begin{itemize}
+    \item \alert{formal parameter}: an identifier\\
+      through which a function can access an argument
+    \begin{itemize}
+      \item declared at function definition
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{actual parameter}: an expression which yields an argument
+    \begin{itemize}
+      \item defined at function application
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+square :: Int -> Int
+square x = x * x
+
+-- square 21 -> 441
+-- square (2 + 5) -> 49
+
+sum_of_squares :: (Int, Int) -> Int
+sum_of_squares (x, y) = square x + square y
+
+-- sum_of_squares 3 4 -> 25
+-- sum_of_squares (a + 1, a * 2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def square(x: Int): Int = x * x
+
+// square(21) -> 441
+// square(2 + 5) -> 49
+
+def sumOfSquares(x: Int, y: Int): Int =
+    square(x) + square(y)
+
+// sumOfSquares(3, 4) -> 25
+// sumOfSquares(a + 1, a * 2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def square(x):
+    return x * x
+
+# square(21) -> 441
+# square(2 + 5) -> 49
+
+def sum_of_squares(x, y):
+    return square(x) + square(y)
+
+# sum_of_squares(3, 4) -> 25
+# sum_of_squares(a + 1, a * 2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluating Functions}
+
+  \begin{itemize}
+    \item evaluate all function arguments (left to right)
+    \item replace the function application\\
+      with the right-hand side of its definition
+    \item replace the formal parameters of the function\\
+      with the actual parameters
+
+    \pause
+    \bigskip
+    \item \alert{substitution model}: reduces an expression to a value
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluating Functions}
+
+  \begin{example}
+    \pygment{python}{sum_of_squares(3, 2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{sum_of_squares(3, 4)}
+
+    \pause
+    \medskip
+    \pygment{python}{square(3) + square(4)}
+
+    \pause
+    \medskip
+    \pygment{python}{3 * 3 + square(4)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + square(4)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + 4 * 4}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + 16}
+
+    \pause
+    \medskip
+    \pygment{python}{25}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluation Strategies}
+
+  \begin{itemize}
+    \item \alert{applicative order evaluation}: first evaluate arguments\\
+      and then apply the function to the resulting values
+
+    \pause
+    \medskip
+    \item \alert{normal order evaluation}: do not evaluate arguments\\
+      until their values are needed
+    \begin{itemize}
+      \item \alert{lazy evaluation}: evaluate an argument once\\
+        when its value is \emph{first} needed
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Normal Order Evaluation}
+
+  \begin{example}
+    \pygment{python}{sum_of_squares(3, 2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{square(3) + square(2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{3 * 3 + square(2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + square(2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + (2 + 2) * (2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + 4 * (2 + 2)}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + 4 * 4}
+
+    \pause
+    \medskip
+    \pygment{python}{9 + 16}
+
+    \pause
+    \medskip
+    \pygment{python}{25}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Church-Rosser Property}
+
+  \begin{itemize}
+    \item applicative order and normal order evaluations yield the same result\\
+      as long as:
+
+    \bigskip
+    \item there are no side effects
+    \item all evaluations terminate
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluation Strategies}
+
+  \begin{itemize}
+    \item Haskell uses lazy evaluation by default
+  \end{itemize}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+first :: (Int, Int) -> Int
+first (x, y) = x
+
+-- first(1, 1 / 0) -> 1
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluation Strategies}
+
+  \begin{itemize}
+    \item in Scala, programmer can choose evaluation strategy
+  \end{itemize}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def first_app(x: Int, y: Int) = x
+
+def first_normal(x: Int, y: => Int) = x
+
+// first_app(1, 1 / 0) -> division by zero
+// first_normal(1, 1 / 0) -> 1
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Conditionals}
+
+\begin{frame}
+  \frametitle{Conditional Expressions}
+
+  \begin{itemize}
+    \item perform different operations depending on the result of a test
+
+    \pause
+    \bigskip
+    \item it's an expression, not a statement
+    \item in C, not like:\\
+      \pygment{c}{if (predicate) true_block; else false_block}
+    \item but like:\\
+      \pygment{c}{predicate ? true_expr : false_expr}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Conditional Expressions}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+-- if predicate then true_expr else false_expr
+absval :: Int -> Int
+absval x = if x < 0 then (-x) else x
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+// if (predicate) true_expr else false_expr
+def absval(x: Int): Int =
+    if (x < 0) -x else x
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{example}[Python]
+    \begin{pygments}{python}
+# true_expr if predicate else false_expr
+def absval(x):
+    return -x if x < 0 else x
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Short-Circuit Evaluation}
+
+  \begin{definition}
+    \alert{short-circuit evaluation}: evaluation stops
+      as soon as result is determined
+  \end{definition}
+
+  \pause
+  \begin{example}
+    \pygment{c}{(a >= 0) && (b < 10)}\\
+    -- 2nd clause not evaluated if a < 0
+
+    \bigskip
+    \pygment{c}{(a >= 0) || (b < 10)}\\
+    -- 2nd clause not evaluated if a >= 0
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Short-Circuit Evaluation}
+
+  \begin{itemize}
+    \item code might depend on short-circuit evaluation
+  \end{itemize}
+
+  \begin{example}[Java]
+    \begin{pygments}{java}
+// find the index of a key in a list
+index = 0;
+while ((index < listlen) && (list[index] != key))
+    index = index + 1;
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Short-Circuit Evaluation}
+
+  \begin{itemize}
+    \item using normal order evaluation, short-circuited Boolean operators\\
+      can be expressed in terms of conditionals
+  \end{itemize}
+
+  \begin{visibleenv}<2->
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+newAnd :: (Bool, Bool) -> Bool
+newAnd (x, y) = if x then y else False
+
+newOr :: (Bool, Bool) -> Bool
+newOr (x, y) = if x then True else y
+
+newNot :: Bool -> Bool
+newNot x = if x then False else True
+    \end{pygments}
+  \end{example}
+  \end{visibleenv}
+\end{frame}
+
+\section{Types}
+
+\subsection{Type Systems}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Abelson, Sussman}
+    \begin{itemize}
+      \item Chapter 1: Building Abstractions with Procedures
+      \begin{itemize}
+        \item 1.1. \alert{The Elements of Programming}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}

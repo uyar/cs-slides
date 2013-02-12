@@ -25,7 +25,7 @@
 }
 
 \title{Functional Programming}
-\subtitle{Introduction}
+\subtitle{Programming Paradigms}
 
 \author{H. Turgut Uyar}
 \date{2013}
@@ -90,7 +90,7 @@
   \tableofcontents
 \end{frame}
 
-\section{Paradigms}
+\section{Programming Paradigms}
 
 \subsection{Programming Languages}
 
@@ -104,6 +104,7 @@
         must be arranged to make a well-formed program
     \end{itemize}
 
+    \pause
     \bigskip
     \item \alert{semantics}: how the program should be ``interpreted''
     \begin{itemize}
@@ -125,7 +126,7 @@
     \item other libraries
     \item tools: debugging, testing, profiling
     \item documenting
-    \item style: code formatting, identifiers, \ldots
+    \item style: code formatting, variable/class naming, \ldots
 
     \pause
     \medskip
@@ -141,12 +142,14 @@
       if it is capable of expressing any computation
   \end{itemize}
 
+  \pause
   \begin{block}{Church-Turing Thesis (from Wikipedia)}
     If some method (algorithm) exists to carry out a calculation,\\
     then the same calculation can also be carried out by a Turing machine\\
     (as well as by a recursively definable function).
   \end{block}
-  
+
+  \pause
   \begin{itemize}
     \item any programming language that supports iteration or recursion\\
       is universal
@@ -467,19 +470,25 @@ int foo(int n)
     \item data abstraction
     \item type hierarchies
 
-    \bigskip
+    \pause
+    \medskip
     \item these can be achieved in both imperative and functional paradigms
     \begin{itemize}
       \item Ocaml, F\#
       \item Scala
     \end{itemize}
 
+    \pause
     \bigskip
     \item modern imperative languages support functional features
     \begin{itemize}
       \item Ruby, Python
       \item Java 8, C\# (LINQ)
     \end{itemize}
+
+    \pause
+    \bigskip
+    \item what makes a language functional / imperative?
   \end{itemize}
 \end{frame}
 % 
