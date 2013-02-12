@@ -87,7 +87,7 @@
 
 \section{Expressions}
 
-\subsection{Definitions}
+\subsection{Expression Evaluation}
 
 \begin{frame}
   \frametitle{Expressions}
@@ -192,23 +192,8 @@ res1: Double = 18.095558399999998
     \pygment{python}{18.095558399999998}
   \end{example}
 \end{frame}
-% 
-% \begin{frame}[fragile]
-%   \frametitle{Termination}
-% 
-%   \begin{itemize}
-%     \item expression evaluation might not terminate
-%   \end{itemize}
-% 
-%   \begin{example}[Haskell]
-%     \begin{pygments}{haskell}
-% loop :: Int
-% loop = loop
-%     \end{pygments}
-%   \end{example}
-% \end{frame}
 
-\subsection{Functions}
+\subsection{Function Evaluation}
 
 \begin{frame}
   \frametitle{Functions}
@@ -243,7 +228,7 @@ square x = x * x
 sum_of_squares :: (Int, Int) -> Int
 sum_of_squares (x, y) = square x + square y
 
--- sum_of_squares 3 4 -> 25
+-- sum_of_squares (3, 4) -> 25
 -- sum_of_squares (a + 1, a * 2)
     \end{pygments}
   \end{example}
@@ -351,10 +336,6 @@ def sum_of_squares(x, y):
     \medskip
     \item \alert{normal order evaluation}: do not evaluate arguments\\
       until their values are needed
-    \begin{itemize}
-      \item \alert{lazy evaluation}: evaluate an argument once\\
-        when its value is \emph{first} needed
-    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -411,6 +392,42 @@ def sum_of_squares(x, y):
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Lazy Evaluation}
+
+  \begin{itemize}
+    \item applicative order evaluation evaluates arguments only once
+    \item but it might evaluate arguments which are not needed
+
+    \pause
+    \medskip
+    \item normal order does not evaluate arguments which are not needed
+    \item but it might evaluate others more than once
+
+    \pause
+    \medskip
+    \item \alert{lazy evaluation}: evaluate an argument once\\
+      when its value is \emph{first} needed
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluation Strategies}
+
+  \begin{itemize}
+    \item most languages use applicative order evaluation
+  \end{itemize}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def first(x, y):
+    return x
+
+# first(1, 1 / 0) -> division by zero
+    \end{pygments}
+  \end{example}
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Evaluation Strategies}
 
@@ -432,7 +449,8 @@ first (x, y) = x
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item in Scala, programmer can choose evaluation strategy
+    \item Scala uses applicative order evaluation by default
+    \item but programmer can specify normal order evaluation
   \end{itemize}
 
   \begin{example}[Scala]
@@ -447,7 +465,7 @@ def first_normal(x: Int, y: => Int) = x
   \end{example}
 \end{frame}
 
-\subsection{Conditionals}
+\subsection{Conditional Expressions}
 
 \begin{frame}
   \frametitle{Conditional Expressions}
