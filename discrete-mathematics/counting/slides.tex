@@ -1,0 +1,746 @@
+% Copyright (c) 2013
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Discrete Mathematics}
+\subtitle{Principles of Counting}
+
+\author{Ayşegül Gençata Yayımlı \and H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Licence}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 A. Yayımlı, T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share — to copy, distribute and transmit the work
+      \item to Remix — to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution — You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial — You may not use this work for commercial purposes.
+
+      \item Share Alike — If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Basic Principles}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Basic Principles}
+
+  \begin{itemize}
+    \item counting = enumeration
+
+    \pause
+    \medskip
+    \item two basic principles of counting:
+    \begin{itemize}
+      \item the rule of sum
+      \item the rule of product
+    \end{itemize}
+
+    \item decompose more complex problems into smaller ones
+    \item piece together partial solutions to arrive at the final answer
+  \end{itemize}
+\end{frame}
+
+\subsection{The Rule of Sum}
+
+\begin{frame}
+  \frametitle{The Rule of Sum}
+
+  \begin{block}{The Rule of Sum}
+    \begin{itemize}
+      \item a first task can be performed in $m$ (distinct) ways
+      \item a second task can be performed in $n$ (distinct) ways
+      \item the two tasks cannot be performed simultaneously
+
+      \medskip
+      \item performing either task can be accomplished\\
+    in any one of $m+n$ ways
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Rule of Sum}
+
+  \begin{example}
+    \begin{itemize}
+      \item a college library has 40 textbooks on sociology
+      \item and 50 textbooks on anthropology
+
+      \medskip
+      \item a student can select from $40 + 50 = 90$ textbooks\\
+        in order to learn more about one or the other subject
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Rule of Sum}
+
+  \begin{example}
+    \begin{itemize}
+      \item a computer science instructor has two colleagues
+      \item one colleague has 3 textbooks on ``Analysis of Algorithms''
+      \item the other colleague has 5 such textbooks
+
+      \medskip
+      \item $n$: maximum number of different books\\
+        that the instructor can borrow
+      \item since both colleagues may own copies of the same book:\\
+        $5 \leq n \leq 8$
+   \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{The Rule of Product}
+
+\begin{frame}
+  \frametitle{The Rule of Product}
+
+  \begin{block}{The Rule of Product}
+    \begin{itemize}
+      \item a procedure can be broken down into first and second stages
+      \item there are $m$ possible outcomes for the first stage
+      \item for each of these outcomes,\\
+        there are $n$ possible outcomes for the second stage
+
+      \medskip
+      \item the total procedure can be carried out in $m \cdot n$ ways
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Rule of Product}
+
+  \begin{example}
+    \begin{itemize}
+      \item the drama club is holding tryouts for a play
+      \item there are 6 men and 8 women auditioning for the leading roles
+
+      \medskip
+      \item the director can cast the leading couple in
+        $6 \cdot 8 = 48$ ways
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Rule of Product}
+
+  \begin{example}
+    \begin{itemize}
+      \item license plates consist of 2 letters, followed by 4 digits
+      \item how many plates?
+
+      \pause
+      \medskip
+      \item if no letter or digit can be repeated:\\
+        $26 \cdot 25 \cdot 10 \cdot 9 \cdot 8 \cdot 7 = 3,276,000$
+
+      \pause
+      \medskip
+      \item if repetitions are allowed for both letters and digits:\\
+        $26 \cdot 26 \cdot 10 \cdot 10 \cdot 10 \cdot 10 = 6,760,000$
+
+      \pause
+      \medskip
+      \item if repetitions are allowed for both letters and digits,\\
+        how many plates consist of only vowels and even digits?\\
+        $5 \cdot 5 \cdot 5 \cdot 5 \cdot 5 \cdot 5 = 15,625$
+   \end{itemize}
+  \end{example}
+\end{frame}
+
+\section{Permutations and Combinations}
+
+\subsection{Permutations}
+
+\begin{frame}
+  \frametitle{Permutation}
+
+  \begin{definition}
+    \alert{permutation}: any linear arrangement of $n$ distinct objects
+  \end{definition}
+
+  \begin{itemize}
+    \item ``arrangement'' means that the order is important
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutations}
+
+  \begin{example}
+    \begin{itemize}
+      \item a class has 10 students: $A, B, C, \ldots, I, J$
+      \item 5 students are to be chosen and seated in a row for a picture:
+      \begin{itemize}
+        \item $BCEFI, CEFIB, ABCFG, \ldots$
+      \end{itemize}
+      \item how many such linear arrangements are possible?
+
+      \pause
+      \medskip
+      \item the filling of a position is a stage of the counting procedure:\\
+        $10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 = 30,240$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutations}
+
+  \begin{example}
+    \begin{eqnarray*}
+    10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 & = &
+      10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot
+      \frac{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}
+      {5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}\\\pause
+    & = & \frac{10!}{5!}
+    \end{eqnarray*}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Permutations}
+
+  \begin{block}{number of permutations}
+    \begin{itemize}
+      \item $n$ distinct objects
+      \item number of permutations of size $r$ (where $1 \leq r \leq n$):\\
+      \begin{eqnarray*}
+        P(n,r) & = & n \cdot (n-1) \cdot (n-2) \cdots (n-r+1)\\
+               & = & \frac{n!}{(n-r)!}
+      \end{eqnarray*}
+
+      \pause
+      \medskip
+      \item if repetitions are allowed: $n^r$
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutations}
+
+  \begin{example}
+    \begin{itemize}
+      \item what is the number of permutations of the letters in ``BALL''?
+      \item the two L's are indistinguishable
+    \end{itemize}
+
+    \pause
+    \begin{columns}[t]
+      \column{.4\textwidth}
+      \begin{tabular}{c c c c}
+ A & B & L & L\\
+ A & L & B & L\\
+ A & L & L & B\\
+ B & A & L & L\\
+ B & L & A & L\\
+ B & L & L & A
+      \end{tabular}
+
+      \column{.4\textwidth}
+      \begin{tabular}{c c c c}
+ L & A & B & L\\
+ L & A & L & B\\
+ L & B & A & L\\
+ L & B & L & A\\
+ L & L & A & B\\
+ L & L & B & A
+      \end{tabular}
+    \end{columns}
+
+    \pause
+    \begin{itemize}
+      \item number of permutations: $\frac{4!}{2} = 12$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Permutations}
+
+  \begin{example}
+    \begin{itemize}
+      \item arrangements of all letters in ``DATABASES``
+
+      \pause
+      \medskip
+      \item for each arrangement in which the A's are not distinguished,\\
+        there are $3! = 6$ arrangements with the A's distinguished:\\
+        $DA_{1}TA_{2}BA_{3}SES,DA_{1}TA_{3}BA_{2}SES, DA_{2}TA_{1}BA_{3}SES$,\\
+        $DA_{2}TA_{3}BA_{1}SES, DA_{3}TA_{1}BA_{2}SES, DA_{3}TA_{2}BA_{1}SES$
+
+      \pause
+      \item for each of these,\\
+        there are 2 arrangements where the S's are distinguished:\\
+        $DA_{1}TA_{2}BA_{3}S_{1}ES_{2},DA_{1}TA_{2}BA_{3}S_{2}ES_{1}$
+
+      \pause
+      \medskip
+      \item number of arrangements: $\frac{9!}{2! \cdot 3!} = 30,240$
+   \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Generalization}
+  
+  \begin{block}{number of arrangements}
+    \begin{itemize}
+      \item $n$ objects
+      \item $n_1$ indistinguishable objects of $type_1$,\\
+        $n_2$ indistinguishable objects of $type_2$,\\
+        \ldots $n_r$ indistinguishable objects of $type_r$
+      \item $n_1 + n_2 + ... + n_r = n$
+
+      \medskip
+      \item number of linear arrangements of these $n$ objects:
+      \begin{equation*}
+        \frac{n!}{n_1! \cdot n_2! \cdots n_r!}
+      \end{equation*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arrangements}
+
+  \begin{example}
+    \begin{itemize}
+      \item xy-plane from $(2,1)$ to $(7,4)$
+      \item staircase path: each step going one unit to the right ($R$)\\
+        or one unit upwards ($U$)
+      \item for example: $RURRURRU$, $URRRUURR$
+      \item how many such paths?
+
+      \pause
+      \medskip
+      \item each path consists of 5 R's and 3 U's
+      \item number of paths: $\frac{8!}{5! \cdot 3!} = 56$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Circular Arrangements}
+
+  \begin{example}
+    \begin{itemize}
+      \item six people are seated around a round table: $A,B,C,D,E,F$
+      \item how many different circular arrangements?
+      \begin{itemize}
+        \item arrangements are considered to be the same\\
+          when one can be obtained from the other by rotation
+        \item $ABEFCD, DABEFC, CDABEF, FCDABE, EFCDAB, BEFCDA$
+      \end{itemize}
+
+      \pause
+      \medskip
+      \item each circular arrangement (CA) corresponds to\\
+        6 linear arrangements (LA)
+      \item $6 \cdot \#CA = \#LA = 6!$
+      \item number of circular arrangements: $\frac{6!}{6} = 120$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Combinations}
+
+\begin{frame}
+  \frametitle{Combinations}
+
+  \begin{example}
+    \begin{itemize}
+      \item deck of playing cards with 52 cards
+      \item 4 suites: clubs, diamonds, hearts, spades
+      \item 13 ranks in each suite: Ace, 2, 3, \ldots, 10, Jack, Queen, King
+      \item draw 3 cards in succession, without replacement
+      \item how many possible draws?
+    \end{itemize}
+
+    \pause
+    \begin{equation*}
+      52 \cdot 51 \cdot 50 = \frac{52!}{49!} = P(52,3) = 132,600
+    \end{equation*}  
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Combinations}
+
+  \begin{example}
+    \begin{itemize}
+      \item assume one such draw is:\\
+        $AH$ (ace of hearts), $9C$ (9 of clubs), $KD$ (king of diamonds)
+      \item if we select all 3 cards at once, the order doesn't matter
+      \item then, the 6 permutations of $(AH,9C,KD)$\\
+        all correspond to just one selection
+    \end{itemize}
+    \begin{equation*}
+      \frac{52!}{3! \cdot 49!} = 22,100
+    \end{equation*}  
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Combinations}
+
+  \begin{block}{Combinations}
+    \begin{itemize}
+      \item $n$ distinct objects
+      \item each selection, or \alert{combination} of $r$ of these objects,\\
+        with no reference to order,\\
+        corresponds to $r!$ permutations of size $r$
+
+      \pause
+      \medskip
+      \item number of combinations of size $r$ (where $0 \leq r \leq n$):
+      \begin{equation*}
+        C(n,r) = {n \choose r} = \frac{P(n,r)}{r!} = \frac{n!}{r! \cdot (n-r)!}
+      \end{equation*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Combinations}
+
+  \begin{itemize}
+    \item number of combinations of size $r$ (where $0 \leq r \leq n$):
+    \begin{equation*}
+      C(n,r) = {n \choose r} = \frac{P(n,r)}{r!} = \frac{n!}{r! \cdot (n-r)!}
+    \end{equation*}
+
+    \item note that:
+    \begin{eqnarray*}
+      C(n,0) & = 1 = & C(n,n)\\
+      C(n,1) & = n = & C(n,n-1)
+    \end{eqnarray*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Combinations}
+  
+  \begin{example}
+    \begin{itemize}
+      \item Lynn and Patti decide to buy a powerball ticket
+      \item to win, one must match five numbers selected from 1 to 49
+      \item and then must also match the powerball, 1 to 42
+      \item how many possible tickets?
+
+      \pause
+      \medskip
+      \item Lynn selects the five numbers from 1 to 49: $C(49,5)$ ways
+      \item Patti selects the powerball from 1 to 42: $C(42,1)$ ways
+      \item number of possible tickets:
+        ${49 \choose 5}{42 \choose 1} = 80,089,128$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Combinations}
+
+  \begin{example}
+    \begin{itemize}
+      \item for a volleyball team, the gym teacher must select nine girls\\
+        from the junior and senior classes
+      \item 28 junior and 25 senior candidates
+      \item how many different ways?
+
+      \pause
+      \medskip
+      \item if no restrictions: ${53 \choose 9} = 4,431,613,550$
+      \pause
+      \item if two juniors and one senior are the best spikers\\
+        and must be on the team: ${50 \choose 6} = 15,890,700$
+      \pause
+      \item if there has to be four juniors and five seniors:
+        ${28 \choose 4}{25 \choose 5} = 1,087,836,750$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Binomial Theorem}
+
+  \begin{theorem}
+    If $x$ and $y$ are variables and $n$ is a positive integer, then
+    \begin{eqnarray*}
+      (x+y)^n & = & {n\choose 0} x^0 y^n
+                    + {n\choose 1} x^1 y^{n-1}
+                    + {n\choose 2} x^2 y^{n-2} + \cdots\\
+              &   & + {n\choose n-1} x^{n-1} y^1
+                    + {n\choose n} x^n y^0 \\
+              & = & \sum^n_{k=0}{{n\choose k} x^k y^{n-k}}
+    \end{eqnarray*}
+  \end{theorem}
+
+  \pause
+  \begin{itemize}
+    \item ${n\choose k}$ is a \alert{binomial coefficient}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Binomial Theorem}
+
+  \begin{example}
+    \begin{itemize}
+      \item in the expansion of $(x+y)^7$, the coefficient of $x^5 y^2$:\\
+        ${7\choose 5} = {7 \choose 2} = 21$
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item in the expansion of $(2a-3b)^7$, the coefficient of $a^5 b^2$:
+      \item $x=2a, y=-3b$
+      \begin{equation*}
+      {7\choose 5} x^5 y^2 = {7\choose 5} (2a)^5 (-3b)^2
+                           = {7\choose 5} (2)^5 (-3)^2 a^5 b^2 = 6048 a^5 b^2
+      \end{equation*}
+    \end{itemize}
+  \end{example}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Multinomial Theorem}
+
+  \begin{theorem}
+    For positive integers $n, t$, the coefficient of
+    $x_{1}^{n_1} x_{2}^{n_2} x_{3}^{n_3} \cdots x_{t}^{n_t}$\\
+    in the expansion of $(x_1 + x_2 + x_3 + \cdots + x_t)^n$ is
+    \begin{equation*}
+      \frac{n!}{n_1! \cdot n_2! \cdot n_3! \cdots n_t!}
+    \end{equation*}
+    where each $n_i$ is an integer with $0 \leq n_i \leq n$,
+    for all $1 \leq i \leq t$, and\\
+    $n_1 + n_2 + n_3 + ... + n_t = n$
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Multinomial Theorem}
+
+  \begin{example}
+    \begin{itemize}
+      \item in the expansion of $(x+y+z)^7$, the coefficient of $x^2 y^2 z^3$:
+      \begin{equation*}
+        {7 \choose 2,2,3} = \frac{7!}{2! \cdot 2! \cdot 3!} = 210
+      \end{equation*}
+    \end{itemize}
+    \begin{itemize}
+      \item the coefficient of $x y z^5$:
+      \begin{equation*}
+        {7 \choose 1,1,5} = \frac{7!}{1! \cdot 1! \cdot 5!} = 42
+      \end{equation*}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\subsection{Combinations with Repetition}
+
+\begin{frame}
+  \frametitle{Combinations with Repetition}
+
+  \begin{example}
+    \begin{itemize}
+      \item 7 students visit a restaurant
+      \item each of them orders one of the following:\\
+        cheeseburger (c), hot dog (h), taco (t), fish sandwich (f)
+      \item how many different purchases are possible?
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Combinations with Repetition}
+
+  \begin{example}
+    \begin{table}
+      \texttt{
+      \begin{tabular}{|l|l|}\hline
+c c h h t t f & x x | x x | x x | x\\
+c c c c h t f & x x x x | x | x | x\\
+c c c c c c f & x x x x x x | | | x\\
+h t t f f f f & | x | x x | x x x x\\
+t t t t t t t & | | x x x x x x x |\\
+f f f f f f f & | | | x x x x x x x\\\hline
+      \end{tabular}
+      }
+    \end{table}
+
+    \begin{itemize}
+      \item enumerate all arrangements of 10 symbols\\
+        consisting of seven x's and three |'s
+      \item number of different purchases:
+        $\frac{10!}{7! \cdot 3!} = {10 \choose 7} = 120$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Combinations with Repetition}
+
+  \begin{block}{Number of Combinations with Repetition}
+    \begin{itemize}
+      \item select, with repetition, $r$ of $n$ distinct objects
+      \item considering all arrangements of $r$ x's and $n-1$ |'s
+      \begin{equation*}
+        \frac{(n+r-1)!}{r! \cdot (n-1)!} = {n+r-1 \choose r}
+      \end{equation*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Combinations with Repetition}
+
+  \begin{example}
+    \begin{itemize}
+      \item distribute 7 bananas and 6 oranges among 4 children
+      \item each child receives at least one banana
+      \item how many ways?
+
+      \pause
+      \medskip
+      \item step 1: give each child a banana
+      \item step 2: distribute 3 bananas to 4 children
+      \begin{table}
+        \texttt{
+        \begin{tabular}{|l|l|}\hline
+1 1 1 0 & b | b | b |\\
+1 0 2 0 & b | | b b |\\
+0 0 1 2 & | | b | b b\\
+0 0 0 3 & | | | b b b\\\hline
+        \end{tabular}
+        }
+      \end{table}
+
+      \pause
+      \item $C(6,3) = 20$ ways
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Number of Combinations with Repetition}
+
+  \begin{example}
+    \begin{itemize}
+      \item step 3: distribute 6 oranges to 4 children
+      \begin{table}
+        \texttt{
+        \begin{tabular}{|l|l|}\hline
+          1 2 2 1 & o | o o | o o | o\\
+          1 2 0 3 & o | o o | | o o o\\
+          0 3 3 0 & | o o o | o o o |\\
+          0 0 0 6 & | | | o o o o o o\\\hline
+        \end{tabular}
+        }
+      \end{table}
+
+      \pause
+      \item $C(9,6) = 84$ ways
+
+      \pause
+      \medskip
+      \item step 4: by the rule of product: $20 \cdot 84 = 1,680$ ways
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+  \begin{block}{Required Reading: Grimaldi}
+    \begin{itemize}
+      \item Chapter 1: Fundamental Principles of Counting
+      \begin{itemize}
+        \item 1.1. \alert{The Rules of Sum and Product}
+        \item 1.2. \alert{Permutations}
+        \item 1.3. \alert{Combinations}
+        \item 1.4. \alert{Combinations with Repetition}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
