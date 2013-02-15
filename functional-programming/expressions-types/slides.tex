@@ -135,11 +135,13 @@ Prelude> 3.14159 * r * r
   \begin{example}[Scala]
     \begin{pygments}{scala}
 scala> 6 * 7
-res0: Int = 42
-scala> def r = 2.4
-r: Double
+res2: Int = 42
+
+scala> val r = 2.4
+r: Double = 2.4
+
 scala> 3.14159 * r * r
-res1: Double = 18.095558399999998
+res3: Double = 18.095558399999998
     \end{pygments}
   \end{example}
 \end{frame}
@@ -330,12 +332,14 @@ def sum_of_squares(x, y):
 
   \begin{itemize}
     \item \alert{applicative order evaluation}: first evaluate arguments\\
-      and then apply the function to the resulting values
+      and then apply the function to the resulting values\\
+      (a.k.a. eager evaluation, strict evaluation, call by value)
 
     \pause
     \medskip
     \item \alert{normal order evaluation}: do not evaluate arguments\\
-      until their values are needed
+      until their values are needed\\
+      (a.k.a. call by name)
   \end{itemize}
 \end{frame}
 
@@ -455,11 +459,11 @@ first (x, y) = x
 
   \begin{example}[Scala]
     \begin{pygments}{scala}
-def first_app(x: Int, y: Int) = x
+def first(x: Int, y: Int) = x
 
 def first_normal(x: Int, y: => Int) = x
 
-// first_app(1, 1 / 0) -> division by zero
+// first(1, 1 / 0) -> division by zero
 // first_normal(1, 1 / 0) -> 1
     \end{pygments}
   \end{example}
