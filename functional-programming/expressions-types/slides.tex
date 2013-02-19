@@ -555,9 +555,9 @@ first (x, y) = x
 
   \begin{example}[Scala]
     \begin{pygments}{scala}
-def first(x: Int, y: Int) = x
+def first(x: Int, y: Int): Int = x
 
-def first_normal(x: Int, y: => Int) = x
+def first_normal(x: Int, y: => Int): Int = x
 
 // first(1, 1 / 0) -> division by zero
 // first_normal(1, 1 / 0) -> 1
@@ -663,6 +663,11 @@ def absval(x):
     \bigskip
     \pygment{c}{(a >= 0) || (b < 10)}\\
     -- 2nd clause not evaluated if a >= 0
+
+    \pause
+    \bigskip
+    \pygment{c}{(a >= 0) || (b++ < 10)}\\
+    -- dangerous if side effects are allowed
   \end{example}
 \end{frame}
 
@@ -941,7 +946,7 @@ a
       \item static typing:
       \begin{itemize}
         \item more efficient
-        \item more secure
+        \item safer
         \item less flexible
       \end{itemize}
     \end{itemize}
@@ -951,8 +956,8 @@ a
     \begin{itemize}
       \item dynamic typing:
       \begin{itemize}
-        \item requires tags: more memory
-        \item poorer performance
+        \item uses more memory
+        \item slower
         \item potentially unsafe
         \item greater flexibility
       \end{itemize}
@@ -969,7 +974,7 @@ birthYear = 1970
 age = year - birthYear
 if age > 40:
     birth_year = year - 40
-print("I was born in " + birthYear)
+print("I was born in %s." % birthYear)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -997,8 +1002,10 @@ l.add(5);
 l.add(8.7);
 l.add("abc");
 
-for (Object o : l)
-  System.out.println(o + o);    // error
+for (Object o : l) {
+    System.out.println(o);        // this works
+    System.out.println(o + o);    // this is an error
+}
     \end{pygments}
   \end{example}
 \end{frame}
@@ -1014,7 +1021,7 @@ l.append(8.7)
 l.append("abc")
 
 for o in l:
-  print(o + o)
+    print(o + o)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -1069,6 +1076,8 @@ yOrPi (x, y) = if x then 3.14159 else y
 foo (x, y) = if x then y else x + 1
 
 second (x, y) = y
+
+choose (x, y, z) = if x then y else z
     \end{pygments}
   \end{block}
 \end{frame}
@@ -1089,6 +1098,9 @@ foo (x, y) = if x then y else x + 1
 
 second (x, y) = y
 -- second :: (a, b) -> b
+
+choose (x, y, z) = if x then y else z
+-- choose :: (Bool, a, a) -> a
     \end{pygments}
   \end{example}
 \end{frame}
