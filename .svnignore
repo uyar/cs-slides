@@ -1,0 +1,13 @@
+makefile
+*.aux
+*.eps
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.toc
+*.vrb
+*.zip
+*.pytxcode
+pythontex-files-slides
