@@ -137,6 +137,8 @@ Prelude> 6 * 7
 Prelude> let r = 2.4
 Prelude> 3.14159 * r * r
 18.095558399999998
+Prelude> let rate = 0.4 in 120.0 * rate
+48.0
     \end{pygments}
   \end{example}
 \end{frame}
@@ -753,12 +755,30 @@ not_ x = if x then False else True
 (19, "Feb", 2013)
     \end{pygments}
   \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Common Types}
 
   \pause
   \begin{itemize}
     \item \alert{NOTE}: for now, the functions we write in Haskell\\
       take only 1 parameter (which might be a tuple)
+    \item also return only 1 parameter (which might be a tuple)
   \end{itemize}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+roots :: (Double, Double, Double) -> (Double, Double)
+roots (a, b, c) =
+    let
+        disc = b * b - 4 * a * c
+        x1 = (-b + sqrt disc) / (2 * a)
+        x2 = (-b - sqrt disc) / (2 * a)
+    in
+        (x1, x2)
+    \end{pygments}
+  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
