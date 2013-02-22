@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -30,7 +30,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -54,7 +54,7 @@
   \frametitle{Licence}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -117,19 +117,19 @@
   \frametitle{Proposition Examples}
 
   \begin{columns}[t]
-    \column{.55\textwidth}
+    \column{.5\textwidth}
     \begin{example}[proposition]
       \begin{itemize}
-        \item The Moon revolves around\\
-          the Earth.
+        \item The Moon revolves\\
+          around the Earth.
         \item Elephants can fly.
         \item $3+8=11$
       \end{itemize}
     \end{example}
 
     \pause
-    \column{.45\textwidth}
-    \begin{example}[not proposition]
+    \column{.5\textwidth}
+    \begin{example}[not a proposition]
       \begin{itemize}
         \item What time is it?
         \item Ali, throw the ball!
@@ -180,7 +180,7 @@
   \begin{itemize}
     \item \alert{truth table}:\\
       a table that lists the truth value of the compound proposition\\
-      for all possible values of its primitive propositions
+      for all possible values of its proposition variables
   \end{itemize}
 \end{frame}
 
@@ -304,10 +304,10 @@
       \caption{$p \rightarrow q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \rightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$\\\hline
         $T$ & $F$ & $F$\\\hline
         $F$ & $T$ & $T$\\\hline
         $F$ & $F$ & $T$\\\hline
-        $T$ & $T$ & $T$\\\hline
       \end{tabular}
     \end{table}
 
@@ -413,8 +413,8 @@
       \caption{$p \leftrightarrow q$}
       \begin{tabular}{|c|c||c|}\hline
         $p$ & $q$ & $p \leftrightarrow q$\\\hline\hline
-        $T$ & $F$ & $F$\\\hline
         $T$ & $T$ & $T$\\\hline
+        $T$ & $F$ & $F$\\\hline
         $F$ & $T$ & $F$\\\hline
         $F$ & $F$ & $T$\\\hline
       \end{tabular}
@@ -448,15 +448,15 @@
       \medskip
       \item $s$: The child does her homework.
       \item $t$: The child plays computer games.
+      \item what does the parent mean?
 
       \pause
       \medskip
-      \item which one does the parent mean?
-      \begin{itemize}
-        \item $s \rightarrow t$
-        \item $\neg s \rightarrow \neg t$
-        \item $s \leftrightarrow t$
-      \end{itemize}
+      \item $s \rightarrow t$
+      \pause
+      \item $\neg s \rightarrow \neg t$
+      \pause
+      \item $s \leftrightarrow t$
     \end{itemize}
   \end{example}
 \end{frame}
@@ -497,7 +497,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Precedence}
+  \frametitle{Operator Precedence}
 
   \begin{enumerate}
     \item $\neg$
@@ -508,7 +508,7 @@
   \end{enumerate}
 
   \begin{itemize}
-    \item parentheses are used to change precedence
+    \item parentheses are used to change the order of calculation
   \end{itemize}
 \end{frame}
 
@@ -520,22 +520,17 @@
       \item $s$: Phyllis goes out for a walk.
       \item $t$: The Moon is out.
       \item $u$: It is snowing.
-    \end{itemize}
-
-    \medskip
-    \begin{itemize}
       \item what do the following WFFs mean?
 
       \pause
-      \begin{itemize}
-        \item $t \wedge \neg u \rightarrow s$
-        \pause
-        \item $t \rightarrow (\neg u \rightarrow s)$
-        \pause
-        \item $\neg (s \leftrightarrow (u \vee t))$
-        \pause
-        \item $\neg s \leftrightarrow u \vee t$
-      \end{itemize}
+      \medskip
+      \item $t \wedge \neg u \rightarrow s$
+      \pause
+      \item $t \rightarrow (\neg u \rightarrow s)$
+      \pause
+      \item $\neg (s \leftrightarrow (u \vee t))$
+      \pause
+      \item $\neg s \leftrightarrow u \vee t$
     \end{itemize}
   \end{example}
 \end{frame}
@@ -722,9 +717,9 @@
   \frametitle{Formula Attributes}
 
   \begin{enumerate}
-    \item \emph{tautology}: True for all interpretations
-    \item \emph{contradiction}: False for all interpretations
-    \item \emph{valid}: True for some interpretations
+    \item \alert{tautology}: true for all interpretations
+    \item \alert{contradiction}: false for all interpretations
+    \item \emph{valid}: true for some interpretations
   \end{enumerate}
 \end{frame}
 
@@ -892,9 +887,19 @@
 \begin{frame}
   \frametitle{Truth Table Example}
 
-  \begin{example}[$p \rightarrow q$]
+  \begin{itemize}
+    \item $p \rightarrow q$
+    \begin{itemize}
+      \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
+      \item \emph{converse}: $q \rightarrow p$
+      \item \emph{inverse}: $\neg p \rightarrow \neg q$
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{example}
     \begin{center}
-      \begin{tabular}{|c|c||c|c|c|c|}\hline
+      \begin{tabular}{|c|c||c||c||c||c|}\hline
         $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
             & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
         $T$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
@@ -903,17 +908,6 @@
         $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
       \end{tabular}
     \end{center}
-
-    \pause
-    \begin{itemize}
-      \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
-
-      \pause
-      \item \emph{converse}: $q \rightarrow p$
-
-      \pause
-      \item \emph{inverse}: $\neg p \rightarrow \neg q$
-    \end{itemize}
   \end{example}
 \end{frame}
 
