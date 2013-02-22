@@ -90,9 +90,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Programming Paradigms}
+\section{Programming Languages}
 
-\subsection{Programming Languages}
+\subsection{Syntax and Semantics}
 
 \begin{frame}
   \frametitle{Syntax and Semantics}
@@ -118,7 +118,7 @@
   \frametitle{Beyond Syntax and Semantics}
 
   \begin{itemize}
-    \item mastering a programming language is not just knowing its syntax
+    \item mastering a PL is not just knowing its syntax\\
       and understanding its semantics
 
     \bigskip
@@ -129,16 +129,18 @@
     \item style: code formatting, variable/class naming, \ldots
 
     \pause
-    \medskip
-    \item idioms: patterns for using language features
+    \bigskip
+    \item \alert{idioms}: patterns for using language features
   \end{itemize}
 \end{frame}
+
+\subsection{Programming Domains}
 
 \begin{frame}
   \frametitle{Universality}
 
   \begin{itemize}
-    \item a programming language is \alert{universal}\\
+    \item a PL is \alert{universal}
       if it is capable of expressing any computation
   \end{itemize}
 
@@ -151,8 +153,7 @@
 
   \pause
   \begin{itemize}
-    \item any programming language that supports iteration or recursion\\
-      is universal
+    \item any PL that supports iteration or recursion is universal
   \end{itemize}
 \end{frame}
 
@@ -160,40 +161,39 @@
   \frametitle{Programming Domains}
 
   \begin{itemize}
-    \item no programming language is well suited to all kinds of applications
-
-    \bigskip
     \item scientific applications: computation intensive
     \begin{itemize}
       \item floating-point arithmetics, arrays and matrices
     \end{itemize}
-    
+
     \item business applications: input/output intensive
     \begin{itemize}
       \item text, file and database operations, strings, dates, decimals
     \end{itemize}
-    
+
     \item artificial intelligence
     \begin{itemize}
       \item symbolic computations, lists, trees
     \end{itemize}
-      
+
     \item systems programming
     \begin{itemize}
       \item speed, availability, low-level features
     \end{itemize}
-      
+
     \item web applications
     \begin{itemize}
       \item security, reliability, scalability, easy deployment
     \end{itemize}
-      
+
     \item scripting: glueing applications (probably written in different PLs)
     \begin{itemize}
       \item file and text processing, regular expressions
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+\subsection{Evaluation}
 
 \begin{frame}
   \frametitle{Evaluating Programming Languages}
@@ -227,6 +227,10 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+\section{Programming Paradigms}
+
+\subsection{Definition}
 
 \begin{frame}
   \frametitle{Paradigms}
@@ -325,7 +329,7 @@ int gcd(int x, int y)
 
     \column{.6\textwidth}
     \begin{itemize}
-      \item based on $\lambda$-calculus by Alonzo Church
+      \item based on $\lambda$-calculus
       \item a program is a function application
       \item same inputs should produce\\
         same output
@@ -480,7 +484,7 @@ int foo(int n)
 
     \pause
     \bigskip
-    \item modern imperative languages support functional features
+    \item modern imperative PLs support functional features
     \begin{itemize}
       \item Ruby, Python
       \item Java 8, C\# (LINQ)
