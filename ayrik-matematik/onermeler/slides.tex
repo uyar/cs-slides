@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Önermeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -62,7 +62,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -104,7 +104,7 @@
   \frametitle{Önerme}
 
   \begin{tanim}
-    \alert{önerme}: doğru ya da yanlış denebilecek bir bildirim cümlesi
+    \alert{önerme}: doğru ya da yanlış olan bir bildirim cümlesi
   \end{tanim}
 
   \pause
@@ -124,17 +124,18 @@
   \frametitle{Önerme Örnekleri}
 
   \begin{columns}[t]
-    \column{.6\textwidth}
+    \column{.5\textwidth}
     \begin{ornek}[önerme]
       \begin{itemize}
-        \item Ay Yeryüzü'nün çevresinde döner.
+        \item Ay Yeryüzü'nün\\
+          çevresinde döner.
         \item Filler uçabilir.
         \item $3+8=11$
       \end{itemize}
     \end{ornek}
 
     \pause
-    \column{.4\textwidth}
+    \column{.5\textwidth}
     \begin{ornek}[önerme değil]
       \begin{itemize}
         \item Saat kaç?
@@ -186,7 +187,7 @@
   \pause
   \begin{itemize}
     \item \alert{doğruluk tablosu}:\\
-      içerdiği yalın önermelerin olası bütün değerleri için\\
+      önerme değişkenlerinin olası bütün değerleri için\\
       birleşik önermenin sonuçlarını listeleyen tablo
   \end{itemize}
 \end{frame}
@@ -454,15 +455,15 @@
       \medskip
       \item $s$: Çocuk ödevini yapar.
       \item $t$: Çocuk bilgisayar oyunu oynar.
+      \item annenin söylediği hangisi?
 
       \pause
       \medskip
-      \item annenin söylediği hangisi?
-      \begin{itemize}
-        \item $s \rightarrow t$
-        \item $\neg s \rightarrow \neg t$
-        \item $s \leftrightarrow t$
-      \end{itemize}
+      \item $s \rightarrow t$
+      \pause
+      \item $\neg s \rightarrow \neg t$
+      \pause
+      \item $s \leftrightarrow t$
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -472,7 +473,7 @@
 \begin{frame}
   \frametitle{Sağlıklı Formül}
 
-  \begin{block}{Yazım}
+  \begin{block}{yazım}
     \begin{itemize}
       \item birleşik önermeler hangi kurallara göre oluşturulacak?
       \item kurallara uyan formüller: \alert{sağlıklı formül} (SF)
@@ -480,7 +481,7 @@
   \end{block}
 
   \pause
-  \begin{block}{Anlam}
+  \begin{block}{anlam}
     \begin{itemize}
       \item \emph{yorum}: yalın önermelere değer atayarak\\
         birleşik önermenin değerini hesaplama
@@ -502,7 +503,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Öncelik Sırası}
+  \frametitle{İşlem Önceliği}
 
   \begin{enumerate}
     \item $\neg$
@@ -513,34 +514,29 @@
   \end{enumerate}
 
   \begin{itemize}
-    \item önceliği değiştirmek için parantez kullanılır
+    \item hesap sırasını değiştirmek için parantez kullanılır
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Öncelik Sırası Örnekleri}
+  \frametitle{İşlem Önceliği Örnekleri}
 
   \begin{ornek}
     \begin{itemize}
       \item $s$: Filiz gezmeye çıkar.
       \item $t$: Mehtap var.
       \item $u$: Kar yağıyor.
-    \end{itemize}
-
-    \medskip
-    \begin{itemize}
       \item aşağıdaki SF'ler ne anlama gelir?
 
       \pause
-      \begin{itemize}
-        \item $t \wedge \neg u \rightarrow s$
-        \pause
-        \item $t \rightarrow (\neg u \rightarrow s)$
-        \pause
-        \item $\neg (s \leftrightarrow (u \vee t))$
-        \pause
-        \item $\neg s \leftrightarrow u \vee t$
-      \end{itemize}
+      \medskip
+      \item $t \wedge \neg u \rightarrow s$
+      \pause
+      \item $t \rightarrow (\neg u \rightarrow s)$
+      \pause
+      \item $\neg (s \leftrightarrow (u \vee t))$
+      \pause
+      \item $\neg s \leftrightarrow u \vee t$
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -722,7 +718,7 @@
 %   \end{ornek}
 % \end{frame}
 
-\begin{frame}[label=formattr]
+\begin{frame}
   \frametitle{Formül Nitelikleri}
 
   \begin{enumerate}
@@ -870,7 +866,7 @@
   \begin{enumerate}
     \item anlamsal yaklaşım: \emph{doğruluk tabloları}
     \begin{itemize}
-      \item değişken sayısı artınca yönetimi zorlaşıyor
+      \item değişken sayısı artınca yönetimi zorlaşır
     \end{itemize}
 
     \pause
@@ -891,9 +887,19 @@
 \begin{frame}
   \frametitle{Doğruluk Tablosu Örneği}
 
-  \begin{ornek}[$p \rightarrow q$]
+  \begin{itemize}
+    \item $p \rightarrow q$
+    \begin{itemize}
+      \item \emph{kontrapozitif}: $\neg q \rightarrow \neg p$
+      \item \emph{konvers}: $q \rightarrow p$
+      \item \emph{invers}: $\neg p \rightarrow \neg q$
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
     \begin{center}
-      \begin{tabular}{|c|c||c|c|c|c|}\hline
+      \begin{tabular}{|c|c||c||c||c||c|}\hline
         $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
             & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
         $D$ & $D$ & $D$ & $D$ & $D$ & $D$\\\hline
@@ -902,17 +908,6 @@
         $Y$ & $Y$ & $D$ & $D$ & $D$ & $D$\\\hline
       \end{tabular}
     \end{center}
-
-    \pause
-    \begin{itemize}
-      \item \emph{kontrapozitif}: $\neg q \rightarrow \neg p$
-
-      \pause
-      \item \emph{konvers}: $q \rightarrow p$
-
-      \pause
-      \item \emph{invers}: $\neg p \rightarrow \neg q$
-    \end{itemize}
   \end{ornek}
 \end{frame}
 
