@@ -89,7 +89,7 @@
   \tableofcontents
 \end{frame}
 
-\section{Evaluation}
+\section{Expressions and Functions}
 
 \subsection{Expressions}
 
@@ -103,7 +103,7 @@
   \pause
   \medskip
   \begin{itemize}
-    \item primitive expressions: the simplest elements\\
+    \item primitive expressions: elements that can not be decomposed\\
     \begin{itemize}
       \item literals, constants, variables
     \end{itemize}
@@ -123,13 +123,32 @@
 \begin{frame}[fragile]
   \frametitle{Variable Bindings}
 
-  \begin{block}{Haskell (GHCi)}
-    \begin{pygments}{haskell}
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{block}{Haskell (GHCi)}
+      \begin{pygments}{haskell}
 let v = e
-    \end{pygments}
-  \end{block}
+      \end{pygments}
+    \end{block}
 
-  \pause
+    \pause
+    \column{.45\textwidth}
+    \begin{block}{Haskell}
+      \begin{pygments}{haskell}
+let
+  v1 = e1
+  v2 = e2
+  ...
+in
+  e
+      \end{pygments}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Expression Examples}
+
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 Prelude> 6 * 7
@@ -189,7 +208,7 @@ v = e
 \end{frame}
 
 \begin{frame}
-  \frametitle{Evaluating Expressions}
+  \frametitle{Expression Evaluation}
 
   \begin{itemize}
     \item take the operator with the highest precedence
@@ -198,13 +217,12 @@ v = e
 
     \pause
     \medskip
-    \item a name is evaluated by replacing it\\
-      with the right-hand side of its definition
+    \item a name is evaluated by replacing it with its definition
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Evaluating Expressions}
+\begin{frame}
+  \frametitle{Expression Evaluation Example}
 
   \begin{example}
     \pygment{python}{(3.14159 * r) * r}
@@ -229,14 +247,18 @@ v = e
   \frametitle{Functions}
 
   \begin{itemize}
-    \item in imperative languages, the body of a function is a statement
+    \item in imperative PLs, the body of a function is a block
     \begin{itemize}
-      \item special construct for reporting back the result: \alert{return}
+      \item special construct for sending the result back: \alert{return}
     \end{itemize}
 
     \pause
-    \medskip
-    \item in functional languages, the body of a function is an expression
+    \bigskip
+    \item in functional PLs, the body of a function is an expression
+    \begin{itemize}
+      \item in Scala, the function body is a block\\
+        where the last construct is an expression
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -244,8 +266,8 @@ v = e
   \frametitle{Parameters}
 
   \begin{itemize}
-    \item \alert{formal parameter}: an identifier\\
-      through which a function can access an argument
+    \item \alert{formal parameter}: an identifier through which a function\\
+      accesses an argument
     \begin{itemize}
       \item declared at function definition
     \end{itemize}
@@ -265,24 +287,19 @@ v = e
   \begin{block}{Haskell}
     \begin{pygments}{haskell}
 -- function signature
-f :: (t1, t2, ...) -> tr
+f :: t1 -> t2 -> ... -> tn -> tr
 
 -- function body
-f (fp1, fp2, ...) = e
+f fp1 fp2 ... fpn = e
 
 -- function call
-f (ap1, ap2, ...)
+f ap1 ap2 ... apn
     \end{pygments}
   \end{block}
-
-  \pause
-  \begin{itemize}
-    \item convention in slides: if only 1 parameter, do not use parentheses
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Bindings}
+  \frametitle{Function Examples}
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
@@ -292,11 +309,33 @@ square x = x * x
 -- square 21 -> 441
 -- square (2 + 5) -> 49
 
-sum_of_squares :: (Int, Int) -> Int
-sum_of_squares (x, y) = square x + square y
+sum_of_squares :: Int -> Int -> Int
+sum_of_squares x y = square x + square y
 
--- sum_of_squares (3, 4) -> 25
--- sum_of_squares (a + 1, a * 2)
+-- sum_of_squares 3 4 -> 25
+-- sum_of_squares (a + 1) (a * 2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Haskell Prefix - Infix Notations}
+
+  \begin{itemize}
+    \item functions can be called in infix form within backquotes
+    \item operators can be called in prefix form within parentheses
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+Prelude> div 7 2
+3
+Prelude> 7 `div` 2
+3
+Prelude> 7 / 2
+3.5
+Prelude> (/) 7 2
+3.5
     \end{pygments}
   \end{example}
 \end{frame}
@@ -307,16 +346,21 @@ sum_of_squares (x, y) = square x + square y
   \begin{block}{Scala}
     \begin{pygments}{scala}
 // function definition
-def f(fp1: t1, fp2: t2, ...): tr = e
+def f(fp1: t1, fp2: t2, ..., fpn: tn): tr = e
+
+def f(fp1: t1, fp2: t2, ..., fpn: tn): tr = {
+    ...
+    e
+}
 
 // function call
-f(ap1, ap2, ...)
+f(ap1, ap2, ..., apn)
     \end{pygments}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Bindings}
+  \frametitle{Function Examples}
 
   \begin{example}[Scala]
     \begin{pygments}{scala}
@@ -340,18 +384,18 @@ def sumOfSquares(x: Int, y: Int): Int =
   \begin{block}{Python}
     \begin{pygments}{python}
 # function definition
-def f(fp1, fp2, ...):
+def f(fp1, fp2, ..., fpn):
     ...
     return e
 
 # function call
-f(ap1, ap2, ...)
+f(ap1, ap2, ..., apn)
     \end{pygments}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Functions}
+  \frametitle{Function Examples}
 
   \begin{example}[Python]
     \begin{pygments}{python}
@@ -371,7 +415,7 @@ def sum_of_squares(x, y):
 \end{frame}
 
 \begin{frame}
-  \frametitle{Evaluating Functions}
+  \frametitle{Function Evaluation}
 
   \begin{itemize}
     \item evaluate all function arguments (left to right)
@@ -389,8 +433,8 @@ def sum_of_squares(x, y):
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Evaluating Functions}
+\begin{frame}
+  \frametitle{Function Evaluation Example}
 
   \begin{example}
     \pygment{python}{sum_of_squares(3, 2 + 2)}
@@ -429,9 +473,9 @@ def sum_of_squares(x, y):
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item \alert{applicative order evaluation}: first evaluate arguments\\
+    \item \alert{eager evaluation}: first evaluate arguments\\
       and then apply the function to the resulting values\\
-      (a.k.a. ``eager evaluation'', ``call by value'')
+      (a.k.a. ``call by value'')
 
     \pause
     \medskip
@@ -441,8 +485,8 @@ def sum_of_squares(x, y):
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Normal Order Evaluation}
+\begin{frame}
+  \frametitle{Normal Order Evaluation Example}
 
   \begin{example}
     \pygment{python}{sum_of_squares(3, 2 + 2)}
@@ -485,8 +529,8 @@ def sum_of_squares(x, y):
   \frametitle{Church-Rosser Property}
 
   \begin{itemize}
-    \item applicative order and normal order evaluations yield the same result\\
-      as long as:
+    \item eager and normal order evaluations\\
+      yield the same result as long as:
 
     \bigskip
     \item there are no side effects
@@ -498,7 +542,7 @@ def sum_of_squares(x, y):
   \frametitle{Lazy Evaluation}
 
   \begin{itemize}
-    \item applicative order evaluation evaluates arguments only once
+    \item eager evaluation evaluates arguments only once
     \item but it might evaluate arguments which are not needed
 
     \pause
@@ -517,7 +561,7 @@ def sum_of_squares(x, y):
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item most languages use applicative order evaluation
+    \item most languages use eager evaluation
   \end{itemize}
 
   \begin{example}[Python]
@@ -525,7 +569,7 @@ def sum_of_squares(x, y):
 def first(x, y):
     return x
 
-# first(1, 1 / 0) -> division by zero
+# first(1, 1 // 0) -> division by zero
     \end{pygments}
   \end{example}
 \end{frame}
@@ -539,10 +583,10 @@ def first(x, y):
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-first :: (Int, Int) -> Int
-first (x, y) = x
+first :: Int -> Int -> Int
+first x y = x
 
--- first(1, 1 `div` 0) -> 1
+-- first 1 (1 `div` 0) -> 1
     \end{pygments}
   \end{example}
 \end{frame}
@@ -551,7 +595,7 @@ first (x, y) = x
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item Scala uses applicative order evaluation by default
+    \item Scala uses eager evaluation by default
     \item but programmer can specify normal order evaluation
   \end{itemize}
 
@@ -580,7 +624,7 @@ def first_normal(x: Int, y: => Int): Int = x
   \pause
   \begin{block}{C}
     \begin{pygments}{c}
-/* not like: */
+/* not: */
 if (predicate)
     true_block;
 else
@@ -691,7 +735,7 @@ while ((index < listlen) && (list[index] != key))
 \end{frame}
 
 \begin{frame}
-  \frametitle{Short-Circuit Evaluation}
+  \frametitle{Short-Circuit Evaluation Exercise}
 
   \begin{block}{Exercise}
     \begin{itemize}
@@ -701,15 +745,15 @@ while ((index < listlen) && (list[index] != key))
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
-  \frametitle{Short-Circuit Evaluation}
+  \frametitle{Short-Circuit Evaluation Examples}
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-and_ :: (Bool, Bool) -> Bool
-and_ (x, y) = if x then y else False
+and_ :: Bool -> Bool -> Bool
+and_ x y = if x then y else False
 
-or_ :: (Bool, Bool) -> Bool
-or_ (x, y) = if x then True else y
+or_ :: Bool -> Bool -> Bool
+or_ x y = if x then True else y
 
 not_ :: Bool -> Bool
 not_ x = if x then False else True
@@ -717,19 +761,15 @@ not_ x = if x then False else True
   \end{example}
 \end{frame}
 
-\section{Types}
+\section{Type Systems}
 
-\subsection{Basic Types}
+\subsection{Types}
 
 \begin{frame}
   \frametitle{Types}
 
   \begin{definition}
-    \alert{type}:
-    \begin{itemize}
-      \item set of values
-      \item operations on these values
-    \end{itemize}
+    \alert{type}: set of values and the operations on these values
   \end{definition}
 
   \pause
@@ -741,8 +781,14 @@ not_ x = if x then False else True
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Common Types}
+  \frametitle{Lists and Tuples}
 
+  \begin{itemize}
+    \item in Haskell, list elements have to be of the same type
+    \item tuple elements can be of different types
+  \end{itemize}
+
+  \pause
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 -- lists
@@ -758,13 +804,10 @@ not_ x = if x then False else True
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Common Types}
+  \frametitle{Haskell Function Parameters}
 
-  \pause
   \begin{itemize}
-    \item \alert{NOTE}: for now, the functions we write in Haskell\\
-      take only 1 parameter (which might be a tuple)
-    \item also return only 1 parameter (which might be a tuple)
+    \item using multiple parameters is not the same thing as using tuples
   \end{itemize}
 
   \begin{example}[Haskell]
@@ -782,8 +825,17 @@ roots (a, b, c) =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Common Types}
+  \frametitle{Lists and Tuples}
 
+  \begin{itemize}
+    \item in Scala, list elements have to be of the same type
+    \begin{itemize}
+      \item might be automatically reduced if necessary
+    \end{itemize}
+    \item tuple elements can be of different types
+  \end{itemize}
+
+  \pause
   \begin{example}[Scala]
     \begin{pygments}{scala}
 // lists
@@ -799,8 +851,13 @@ List(1, 2, 3, 4, "Monday")  // List[Any]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Common Types}
+  \frametitle{Lists and Tuples}
 
+  \begin{itemize}
+    \item in Python, list and tuple elements can be of different types
+  \end{itemize}
+
+  \pause
   \begin{example}[Python]
     \begin{pygments}{python}
 # lists
@@ -811,7 +868,20 @@ List(1, 2, 3, 4, "Monday")  // List[Any]
 # tuples
 (19, 2, 2013)
 (19, "Feb", 2013)
+    \end{pygments}
+  \end{example}
+\end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Sets and Dictionaries}
+
+  \begin{itemize}
+    \item in Python, sets and dictionaries are built-in data types
+  \end{itemize}
+
+  \pause
+  \begin{example}[Python]
+    \begin{pygments}{python}
 # sets
 {2, 5, 7, 5, 3}         # {2, 3, 5, 7}
 
@@ -846,7 +916,7 @@ b[0] = 0
   \frametitle{Mutable References}
 
   \begin{itemize}
-    \item programmers have to be careful about identities and copies
+    \item programmers have to be careful about references and copies
   \end{itemize}
 
   \begin{example}[Python]
@@ -861,7 +931,7 @@ a
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Mutable References}
+  \frametitle{Mutable Reference Example}
 
   \begin{example}[Python]
     \begin{pyconsole}[pycopy]
@@ -878,8 +948,8 @@ a
   \end{example}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Mutable References}
+\begin{frame}
+  \frametitle{Mutable Reference Example}
 
   \begin{itemize}
     \item after \pyv|b = copy.copy(a)|
@@ -890,8 +960,8 @@ a
   \end{center}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Mutable References}
+\begin{frame}
+  \frametitle{Mutable Reference Example}
 
   \begin{itemize}
     \item after \pyv|b[0] = 7|
@@ -902,8 +972,8 @@ a
   \end{center}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Mutable References}
+\begin{frame}
+  \frametitle{Mutable Reference Example}
 
   \begin{itemize}
     \item after \pyv|b[2][0] = 5|
@@ -914,13 +984,13 @@ a
   \end{center}
 \end{frame}
 
-\subsection{Type Systems}
+\subsection{Type Checking}
 
 \begin{frame}
   \frametitle{Type Checking}
 
   \begin{itemize}
-    \item prevent operations that don't make sense
+    \item type checking aims to prevent operations that don't make sense
     \begin{itemize}
       \item example: does \pygment{python}{True + 15} make sense?
     \end{itemize}
@@ -935,7 +1005,7 @@ a
 \end{frame}
 
 \begin{frame}
-  \frametitle{Static vs Dynamic Typing}
+  \frametitle{Static and Dynamic Typing}
 
   \begin{itemize}
     \item \alert{statically-typed}: check at compile-time
@@ -952,8 +1022,8 @@ a
     \end{itemize}
     \pause
     \item \emph{duck typing principle}:\\
-      If it walks like a duck and it quacks like a duck,\\
-      then it must be a duck.
+      ``If it walks like a duck and it quacks like a duck,\\
+      then it must be a duck.''
   \end{itemize}
 \end{frame}
 
@@ -961,7 +1031,7 @@ a
   \frametitle{Static vs Dynamic Typing}
 
   \begin{columns}[t]
-    \column{.35\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
       \item static typing:
       \begin{itemize}
@@ -972,7 +1042,7 @@ a
     \end{itemize}
 
     \pause
-    \column{.65\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
       \item dynamic typing:
       \begin{itemize}
@@ -986,7 +1056,7 @@ a
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Dynamic Typing Problem}
+  \frametitle{Dynamic Typing Safety Example}
 
   \begin{example}[Python]
     \begin{pygments}{python}
@@ -1015,7 +1085,7 @@ print("I was born in %s." % birthYear)
 \begin{frame}[fragile]
   \frametitle{Polymorphism Example}
 
-  \begin{example}[Java polymorphic list]
+  \begin{example}[Java]
     \begin{pygments}{java}
 List l = new LinkedList();
 l.add(5);
@@ -1033,7 +1103,7 @@ for (Object o : l) {
 \begin{frame}[fragile]
   \frametitle{Polymorphism Example}
 
-  \begin{example}[Python polymorphic list]
+  \begin{example}[Python]
     \begin{pygments}{python}
 l = []
 l.append(5)
@@ -1057,13 +1127,13 @@ for o in l:
 
     \pause
     \medskip
-    \item give every binding/expression a type such that type checking succeeds
-    \item fail if no solution exists
+    \item assign every binding a type such that type checking succeeds
+    \item fail if no such assignment can be found
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Inference}
+  \frametitle{Type Inference Examples}
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
@@ -1074,13 +1144,13 @@ evenMessage n = if even_ n then "even" else "odd"
 -- evenMessage :: Int -> [Char]
 
 evenMixed n = if even_ n then "even" else False
--- fails type inference
+-- type inference fails
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Inference}
+  \frametitle{Type Inference Exercise}
 
   \begin{block}{Exercise}
     \begin{itemize}
@@ -1089,55 +1159,55 @@ evenMixed n = if even_ n then "even" else False
 
     \medskip
     \begin{pygments}{haskell}
-shrink (x, y, z) = if x then y `div` z else y
+shrink x y z = if x then y `div` z else y
 
-yOrPi (x, y) = if x then 3.14159 else y
+yOrPi x y = if x then 3.14159 else y
 
-foo (x, y) = if x then y else x + 1
+foo x y = if x then y else x + 1
 
-second (x, y) = y
+second x y = y
 
-choose (x, y, z) = if x then y else z
+choose x y z = if x then y else z
     \end{pygments}
   \end{block}
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
-  \frametitle{Type Inference}
+  \frametitle{Type Inference Examples}
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-shrink (x, y, z) = if x then y `div` z else y
--- shrink :: (Bool, Int, Int) -> Int
+shrink x y z = if x then y `div` z else y
+-- shrink :: Bool -> Int -> Int -> Int
 
-yOrPi (x, y) = if x then 3.14159 else y
--- shrink :: (Bool, Double) -> Double
+yOrPi x y = if x then 3.14159 else y
+-- yOrPi :: Bool -> Double -> Double
 
-foo (x, y) = if x then y else x + 1
--- fails type inference
+foo x y = if x then y else x + 1
+-- type inference fails
 
-second (x, y) = y
--- second :: (a, b) -> b
+second x y = y
+-- second :: a -> b -> b
 
-choose (x, y, z) = if x then y else z
--- choose :: (Bool, a, a) -> a
+choose x y z = if x then y else z
+-- choose :: Bool -> a -> a -> a
     \end{pygments}
   \end{example}
 \end{frame}
-
-\section*{References}
-
-\begin{frame}
-  \frametitle{References}
-
-  \begin{block}{Required Reading: Abelson, Sussman}
-    \begin{itemize}
-      \item Chapter 1: Building Abstractions with Procedures
-      \begin{itemize}
-        \item 1.1. \alert{The Elements of Programming}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
+% 
+% \section*{References}
+% 
+% \begin{frame}
+%   \frametitle{References}
+% 
+%   \begin{block}{Required Reading: Abelson, Sussman}
+%     \begin{itemize}
+%       \item Chapter 1: Building Abstractions with Procedures
+%       \begin{itemize}
+%         \item 1.1. \alert{The Elements of Programming}
+%       \end{itemize}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
 
 \end{document}
