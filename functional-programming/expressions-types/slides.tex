@@ -136,11 +136,11 @@ let v = e
     \begin{block}{Haskell}
       \begin{pygments}{haskell}
 let
-  v1 = e1
-  v2 = e2
-  ...
+    v1 = e1
+    v2 = e2
+    ...
 in
-  e
+    e
       \end{pygments}
     \end{block}
   \end{columns}
@@ -303,13 +303,13 @@ f ap1 ap2 ... apn
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-square :: Int -> Int
+square :: Integer -> Integer
 square x = x * x
 
 -- square 21 -> 441
 -- square (2 + 5) -> 49
 
-sum_of_squares :: Int -> Int -> Int
+sum_of_squares :: Integer -> Integer -> Integer
 sum_of_squares x y = square x + square y
 
 -- sum_of_squares 3 4 -> 25
@@ -583,7 +583,7 @@ def first(x, y):
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-first :: Int -> Int -> Int
+first :: Integer -> Integer -> Integer
 first x y = x
 
 -- first 1 (1 `div` 0) -> 1
@@ -649,7 +649,7 @@ if predicate then true_expr else false_expr
   \medskip
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-absval :: Int -> Int
+absval :: Integer -> Integer
 absval x = if x < 0 then -x else x
     \end{pygments}
   \end{example}
@@ -1138,10 +1138,10 @@ for o in l:
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 even_ n = n `mod` 2 == 0
--- even_ :: Int -> Bool
+-- even_ :: Integer -> Bool
 
 evenMessage n = if even_ n then "even" else "odd"
--- evenMessage :: Int -> [Char]
+-- evenMessage :: Integer -> [Char]
 
 evenMixed n = if even_ n then "even" else False
 -- type inference fails
@@ -1178,7 +1178,7 @@ choose x y z = if x then y else z
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 shrink x y z = if x then y `div` z else y
--- shrink :: Bool -> Int -> Int -> Int
+-- shrink :: Bool -> Integer -> Integer -> Integer
 
 yOrPi x y = if x then 3.14159 else y
 -- yOrPi :: Bool -> Double -> Double
