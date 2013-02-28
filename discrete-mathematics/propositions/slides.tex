@@ -1160,174 +1160,292 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Basic Rules}
+  \frametitle{Trivial Rules}
 
-  \begin{block}{Identity (ID)}
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{block}{Identity (ID)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p
+          \end{array}
+        }
+        {
+          \therefore p
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{block}{Contradiction (CTR)}
     \[
     \frac
       {
         \begin{array}{c}
-          p
+          F
         \end{array}
       }
       {
         \therefore p
       }
     \]
-  \end{block}
-
-  \pause
-  \begin{block}{Contradiction (CTR)}
-  \[
-  \frac
-    {
-      \begin{array}{c}
-        F
-      \end{array}
-    }
-    {
-      \therefore p
-    }
-  \]
-  \end{block}
+    \end{block}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Basic Rules}
 
-  \begin{block}{Implication Introduction (ImpI)}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p \vdash q
-        \end{array}
-      }
-      {
-        \therefore ~ \vdash p \rightarrow q
-      }
-    \]
-  \end{block}
-
-  \begin{itemize}
-    \item if it can be shown that $q$ is true assuming $p$ is true,\\
-      then $p \rightarrow q$ is true \emph{without assuming $p$ is true}
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{block}{OR Introduction (OrI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p
+          \end{array}
+        }
+        {
+          \therefore p \vee q
+        }
+      \]
+    \end{block}
 
     \pause
-    \medskip
-    \item $p$ is a \alert{provisional assumption} (PA)
-    \item provisional assumptions have to be \alert{discharged} at some point
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Basic Rules}
-
-  \begin{block}{AND Introduction (AndI)}
+    \column{.45\textwidth}
+    \begin{block}{AND Elimination (AndE)}
     \[
     \frac
       {
         \begin{array}{c}
-          p\\
+          p \wedge q
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+    \end{block}
+
+    \pause
+    \begin{block}{AND Introduction (AndI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p\\
+            q
+          \end{array}
+        }
+        {
+          \therefore p \wedge q
+        }
+      \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implication Elimination}
+
+  \begin{columns}[t]
+    \column{.55\textwidth}
+    \begin{block}{Modus Ponens (ImpE)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            p
+          \end{array}
+        }
+        {
+          \therefore q
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.4\textwidth}
+    \begin{block}{Modus Tollens (MT)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            \neg q
+          \end{array}
+        }
+        {
+          \therefore \neg p
+        }
+      \]
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implication Elimination Example}
+
+  \begin{example}[Modus Ponens]
+    \begin{itemize}
+      \item If Ali wins the lottery, he will buy a car.
+      \item Ali has won the lottery.
+
+      \medskip
+      \item Therefore, Ali will buy a car.
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}[Modus Tollens]
+    \begin{itemize}
+      \item If Ali wins the lottery, he will buy a car.
+      \item Ali did not buy a car.
+
+      \medskip
+      \item Therefore, Ali did not win the lottery.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fallacies}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{affirming the conclusion}
+      \[
+      \frac
+        {
+        \begin{array}{c}
+          p \rightarrow q\\
           q
-        \end{array}
-      }
-      {
-        \therefore p \wedge q
-      }
-    \]
-  \end{block}
+          \end{array}
+        }
+        {
+          \therefore p
+        }
+      \]
+    \end{block}
 
-  \pause
-  \begin{block}{AND Elimination (AndE)}
-  \[
-  \frac
-    {
-      \begin{array}{c}
-        p \wedge q
-      \end{array}
-    }
-    {
-      \therefore p
-    }
-  \]
-  \end{block}
+    \begin{itemize}
+      \item $(p \rightarrow q) \wedge q \nRightarrow p$:\\
+        $(F \rightarrow T) \wedge T \rightarrow F$
+    \end{itemize}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{denying the hypothesis}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            \neg p
+          \end{array}
+        }
+        {
+          \therefore \neg q
+        }
+      \]
+    \end{block}
+
+    \begin{itemize}
+      \item $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$:\\
+        $(F \rightarrow T) \wedge T \rightarrow F$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Basic Rules}
+  \frametitle{Fallacy Examples}
 
-  \begin{block}{OR Introduction (OrI)}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p
-        \end{array}
-      }
-      {
-        \therefore p \vee q
-      }
-    \]
-  \end{block}
+  \begin{example}[affirming the conclusion]
+    \begin{itemize}
+      \item If Ali wins the lottery, he will buy a car.
+      \item Ali has bought a car.
+
+      \medskip
+      \item Therefore, Ali has won the lottery.
+    \end{itemize}
+  \end{example}
 
   \pause
-  \begin{block}{OR Elimination (OrE)}
-  \[
-  \frac
-    {
-      \begin{array}{c}
-        p \vee q\\
-        p \vdash r\\
-        q \vdash r
-      \end{array}
-    }
-    {
-      \therefore ~ \vdash r
-    }
-  \]
-  \end{block}
+  \begin{example}[denying the hypothesis]
+    \begin{itemize}
+      \item If Ali wins the lottery, he will buy a car.
+      \item Ali has not won the lottery.
+
+      \medskip
+      \item Therefore, Ali will not buy a car.
+    \end{itemize}
+  \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Basic Rules}
+  \frametitle{Provisional Assumptions}
 
-  \begin{block}{Modus Ponens (Implication Elimination - ImpE)}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p \rightarrow q\\
-          p
-        \end{array}
-      }
-      {
-        \therefore q
-      }
-    \]
-  \end{block}
+  \begin{columns}[t]
+    \column{.65\textwidth}
+    \begin{block}{Implication Introduction (ImpI)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \vdash q
+          \end{array}
+        }
+        {
+          \therefore ~ \vdash p \rightarrow q
+        }
+      \]
+    \end{block}
 
-  \pause
-  \begin{block}{Modus Tollens (MT)}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p \rightarrow q\\
-          \neg q
-        \end{array}
-      }
-      {
-        \therefore \neg p
-      }
-    \]
-  \end{block}
+    \begin{itemize}
+      \item if it can be shown that\\
+        $q$ is true assuming $p$ is true,\\
+        then $p \rightarrow q$ is true\\
+        \emph{without assuming $p$ is true}
+
+      \pause
+      \medskip
+      \item $p$ is a \alert{provisional assumption} (PA)
+      \item PAs have to be \alert{discharged}
+    \end{itemize}
+
+    \pause
+    \column{.35\textwidth}
+    \begin{block}{OR Elimination (OrE)}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \vee q\\
+            p \vdash r\\
+            q \vdash r
+          \end{array}
+        }
+        {
+          \therefore ~ \vdash r
+        }
+      \]
+    \end{block}
+
+    \begin{itemize}
+      \item $p$ and $q$ are PAs
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Modus Tollens}
+  \frametitle{Implication Introduction Example}
 
-  \begin{example}
+  \begin{example}[Modus Tollens]
     \begin{columns}
       \column{.3\textwidth}
       \[
@@ -1346,125 +1464,23 @@
       \pause
       \column{.65\textwidth}
       \begin{eqnarray*}
-        1. & p \rightarrow q           & A\\
+        1. & p                         & PA\\
         \pause
-        2. & \neg q \rightarrow \neg p & 1\\
+        2. & p \rightarrow q           & A\\
         \pause
-        3. & \neg q                    & A\\
+        3. & q                         & ImpE:1,2\\
         \pause
-        4. & \neg p                    & ImpE:2,3\\
+        4. & \neg q                    & A\\
+        \pause
+        5. & q \rightarrow F           & ID:4\\
+        \pause
+        6. & F                         & ImpE:3,5\\
+        \pause
+        7. & p \rightarrow F           & ImpI:1,6\\
+        \pause
+        8. & \neg p                    & ID:7\\
       \end{eqnarray*}
     \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Modus Ponens Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has won the lottery.
-
-      \pause
-      \medskip
-      \item Therefore, Ali will buy a car.
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Modus Tollens Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali did not buy a car.
-
-      \pause
-      \medskip
-      \item Therefore, Ali did not win the lottery.
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fallacies}
-
-  \begin{block}{fallacy of affirming the conclusion}
-    \[
-    \frac
-      {
-      \begin{array}{c}
-        p \rightarrow q\\
-        q
-        \end{array}
-      }
-      {
-        \therefore p
-      }
-    \]
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item $(p \rightarrow q) \wedge q \rightarrow p$ is not a tautology:\\
-      if $p=F,q=T$: $(F \rightarrow T) \wedge T \rightarrow F$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Example of Affirming the Conclusion}
-
-  \begin{example}
-    \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has bought a car.
-
-      \pause
-      \medskip
-      \item Therefore, Ali has won the lottery.
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fallacies}
-
-  \begin{block}{fallacy of denying the hypothesis}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p \rightarrow q\\
-          \neg p
-        \end{array}
-      }
-      {
-        \therefore \neg q
-      }
-    \]
-  \end{block}
-
-  \pause
-  \begin{itemize}
-    \item $(p \rightarrow q) \wedge \neg p \rightarrow \neg q$ is not a tautology:\\
-      if $p=F,q=T$: $(F \rightarrow T) \wedge T \rightarrow F$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Example of Denying the Hyphothesis}
-
-  \begin{example}
-    \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has not won the lottery.
-
-      \pause
-      \medskip
-      \item Therefore, Ali will not buy a car.
-    \end{itemize}
   \end{example}
 \end{frame}
 
@@ -1495,7 +1511,7 @@
       \pause
       2.   & \neg p          & A\\
       \pause
-      3.   & p \rightarrow F & 2\\
+      3.   & p \rightarrow F & ID:2\\
       \pause
       4a1. & p               & PA\\
       \pause
@@ -1553,11 +1569,11 @@
       \pause
       2. & p \rightarrow q & A\\
       \pause
-      3. & q               & ImpE:2,1\\
+      3. & q               & ImpE:1,2\\
       \pause
       4. & q \rightarrow r & A\\
       \pause
-      5. & r               & ImpE:4,3\\
+      5. & r               & ImpE:3,4\\
       \pause
       6. & p \rightarrow r & ImpI:1,5\\
     \end{eqnarray*}
