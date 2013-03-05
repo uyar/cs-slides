@@ -184,7 +184,12 @@ gcd_ 9702 945
 
     \pause
     \medskip
-    \item to rearrange a function to be tail recursive: use accumulators
+    \item to rearrange a function to be tail recursive
+    \begin{itemize}
+      \item define a helper function that takes an \alert{accumulator}
+      \item base case: return accumulator
+      \item recursive case: make recursive call with new accumulator value
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -286,6 +291,49 @@ def fact(n: Int): Int = {
   \end{example}
 \end{frame}
 
+\subsection{Errors}
+
+\begin{frame}[fragile]
+  \frametitle{Generating Errors}
+
+  \begin{block}{Haskell}
+    \begin{itemize}
+      \item an exception can be raised using \pygment{haskell}{error}
+    \end{itemize}
+  \end{block}
+
+  \begin{example}[factorial - Haskell]
+    \begin{pygments}{haskell}
+fact n =
+    if n < 0
+    then error "negative parameter"
+    else if n == 0
+         then 1
+         else n * fact (n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Generating Errors}
+
+  \begin{block}{Scala}
+    \begin{itemize}
+      \item an exception can be raised using \pygment{scala}{throw}
+    \end{itemize}
+  \end{block}
+
+  \begin{example}[factorial - Scala]
+    \begin{pygments}{scala}
+def fact(n: Int): Int =
+    if (n < 0) throw
+        new IllegalArgumentException("negative parameter")
+    else if (n == 0) 1
+         else n * fact(n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
 \section{Lists}
 
 \subsection{Model}
@@ -301,16 +349,16 @@ def fact(n: Int): Int = {
       the sublist of remaining elements is the \alert{tail}
   \end{itemize}
 
-    \pause
-    \medskip
-    \begin{block}{Haskell}
-      \begin{itemize}
-        \item check if empty: \pygment{haskell}{null}
-        \item get the head: \pygment{haskell}{head}
-        \item get the tail: \pygment{haskell}{tail}
-        \item construct a list: \pygment{haskell}{item : sublist}
-      \end{itemize}
-    \end{block}
+  \pause
+  \medskip
+  \begin{block}{Haskell}
+    \begin{itemize}
+      \item check if empty: \pygment{haskell}{null}
+      \item get the head: \pygment{haskell}{head}
+      \item get the tail: \pygment{haskell}{tail}
+      \item construct a list: \pygment{haskell}{item : sublist}
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -318,13 +366,13 @@ def fact(n: Int): Int = {
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-Prelude> head [1, 2, 3, 4]
+Prelude> head [1,2,3,4]
 1
-Prelude> tail [1, 2, 3, 4]
+Prelude> tail [1,2,3,4]
 [2,3,4]
-Prelude> null [1, 2, 3, 4]
+Prelude> null [1,2,3,4]
 False
-Prelude> 1 : [2, 3]
+Prelude> 1 : [2,3]
 [1,2,3]
 Prelude> 1 : (2 : (3 : []))
 [1,2,3]
@@ -489,21 +537,26 @@ countDown upper lower =
 
   \begin{example}
     \begin{itemize}
-      \item a function that finds the maximum of a non-empty list
+      \item a function that finds the maximum of a list
     \end{itemize}
 
     \pause
     \begin{pygments}{haskell}
 max_ xs =
-    if null (tail xs)
-    then head xs
-    else if head xs > max_ (tail xs)
+    if null xs
+    then error "empty list"
+    else if null (tail xs)
          then head xs
-         else max_ (tail xs)
+         else if head xs > max_ (tail xs)
+              then head xs
+              else max_ (tail xs)
     \end{pygments}
   \end{example}
+\end{frame}
 
-  \pause
+\begin{frame}[fragile]
+  \frametitle{List Recursion Exercise}
+
   \begin{block}{Exercise}
     \begin{itemize}
       \item what happens if called as:\\
@@ -520,15 +573,16 @@ max_ xs =
   \begin{example}
     \begin{pygments}{haskell}
 max_ xs =
-    if null (tail xs)
-    then head xs
-    else
-        let
-            maxRest = max_ (tail xs)
-        in
-            if head xs > maxRest
-            then head xs
-            else maxRest
+    if null xs
+    then error "empty list"
+    else if null (tail xs)
+         then head xs
+         else
+             let
+                 maxRest = max_ (tail xs)
+             in
+                 if head xs > maxRest
+                 then head xs
     \end{pygments}
   \end{example}
 \end{frame}
