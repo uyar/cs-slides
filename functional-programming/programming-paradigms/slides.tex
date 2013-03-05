@@ -137,24 +137,21 @@
 \subsection{Programming Domains}
 
 \begin{frame}
-  \frametitle{Universality}
+  \frametitle{Church-Turing Thesis}
 
   \begin{itemize}
     \item a PL is \alert{universal}
       if it is capable of expressing any computation
-  \end{itemize}
-
-  \pause
-  \begin{block}{Church-Turing Thesis (from Wikipedia)}
-    If some method (algorithm) exists to carry out a calculation,\\
-    then the same calculation can also be carried out by a Turing machine\\
-    (as well as by a recursively definable function).
-  \end{block}
-
-  \pause
-  \begin{itemize}
     \item any PL that supports iteration or recursion is universal
   \end{itemize}
+
+  \pause
+  \medskip
+  \begin{block}{Church-Turing thesis (from Wolfram MathWorld)}
+    Any real-world computation can be translated into an equivalent computation
+    involving a Turing machine. It can also be calculated\\
+    using general recursive functions.
+  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -186,7 +183,7 @@
       \item security, reliability, scalability, easy deployment
     \end{itemize}
 
-    \item scripting: glueing applications (probably written in different PLs)
+    \item scripting: glueing applications
     \begin{itemize}
       \item file and text processing, regular expressions
     \end{itemize}
