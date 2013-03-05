@@ -1,0 +1,685 @@
+% Copyright (c) 2013
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Pattern Matching}
+
+\author{H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Pattern Matching}
+
+\subsection{Guards}
+
+\begin{frame}[fragile]
+  \frametitle{Guards}
+
+  \begin{itemize}
+    \item \alert{guard}: check before evaluating function body
+  \end{itemize}
+
+  \begin{block}{Haskell}
+    \begin{pygments}{haskell}
+f fp1 fp2 ...
+  | g1 = e1
+  | g2 = e2
+  | ...
+  | gn = en
+  | otherwise = eo
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Guards Example}
+
+  \begin{example}[factorial]
+    \begin{pygments}{haskell}
+fact n
+  | n < 0 = error "negative parameter"
+  | n == 0 = 1
+  | otherwise = n * fact (n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Guards Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item a function that finds the maximum of a list
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{haskell}
+max_ xs
+  | null xs = error "empty list"
+  | null (tail xs) = head xs
+  | head xs > max_ (tail xs) = head xs
+  | otherwise = max_ (tail xs)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Patterns}
+
+\begin{frame}[fragile]
+  \frametitle{Patterns}
+
+  \begin{itemize}
+    \item \alert{pattern}: check the shape of an expression
+  \end{itemize}
+
+  \begin{block}{Haskell case expressions}
+    \begin{pygments}{haskell}
+case e of
+  p1 -> e1
+  p2 -> e2
+  ...
+  pn -> en
+  _ -> eo
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pattern Example}
+
+  \begin{example}[factorial]
+    \begin{pygments}{haskell}
+fact n =
+    case n of
+      0 -> 1
+      _ -> n * fact (n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Patterns}
+
+  \begin{itemize}
+    \item list patterns:\\
+      \pygment{haskell}{[] x:xs [n] n:[] [n1,n2]}
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item a function that sums up a list
+    \end{itemize}
+
+    \begin{pygments}{haskell}
+sum_ xs =
+    case xs of
+      [] -> 0
+      x:xs' -> x + sum_ xs'
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Pattern Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item a function that finds the maximum of a list
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{haskell}
+max_ xs =
+    case xs of
+      [] -> error "empty list"
+      [i] -> i
+      x:xs' -> if x > max_ xs' then x else max_ xs'
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pattern Wildcard}
+
+  \begin{itemize}
+    \item if binding not needed, use wildcard: \pygment{haskell}{_}
+  \end{itemize}
+
+  \begin{example}
+    \begin{itemize}
+      \item a function that adds the first and third elements of a list
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{haskell}
+first_plus_third xs =
+    case xs of
+      [] -> 0
+      [i] -> i
+      [n1,_] -> n1
+      x1:_:x3:_ -> x1 + x3
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Multiple Patterns}
+
+\begin{frame}[fragile]
+  \frametitle{Multiple Patterns}
+
+  \begin{itemize}
+    \item expressions can be matched over multiple patterns
+  \end{itemize}
+
+  \begin{example}
+    \begin{itemize}
+      \item a function that converts three lists into a list of triples
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{haskell}
+zip3_ xs ys zs =
+    case (xs,ys,zs) of
+      ([],[],[]) -> []
+      (x:xs',y:ys',z:zs') -> (x,y,z) : zip3_ xs' ys' zs'
+      _ -> error "list sizes don't match"
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that converts a list of triples into a triple of
+        lists
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Nested Pattern Example}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+unzip3_ xs =
+    case xs of
+      [] -> ([],[],[])
+      (x1,x2,x3):xs' ->
+          let
+              (xs1,xs2,xs3) = unzip3_ xs'
+          in
+              (x1:xs1,x2:xs2,x3:xs3)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pattern Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that checks whether a list is nondecreasing
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Pattern Example}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+nondecreasing xs =
+    case xs of
+      [] -> True
+      _:[] -> True
+      x1:x2:xs' -> x1 <= x2 && nondecreasing (x2:xs')
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Patterns}
+
+  \begin{block}{function patterns}
+    \begin{pygments}{haskell}
+f p1 = e1
+f p2 = e2
+    \end{pygments}
+  \end{block}
+
+  \pause
+  \begin{example}[factorial]
+    \begin{pygments}{haskell}
+fact 0 = 1
+fact n = n * fact (n - 1)
+
+sum_ [] = 0
+sum_ (x:xs) = x + sum_ xs
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\section{Algebraic Types}
+
+\subsection{Type Definitions}
+
+\begin{frame}[fragile]
+  \frametitle{Type Definitions}
+
+  \begin{block}{Haskell type definition}
+    \begin{pygments}{haskell}
+data TypeConstructor = ValueConstructor1 components1
+                     | ValueConstructor2 components2
+                     | ...
+    \end{pygments}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item can be used to define enumerations, unions (discriminated records)
+    \begin{itemize}
+      \item type constructor $\rightarrow$ type name
+      \item value constructor $\rightarrow$ tag
+      \item getting value $\rightarrow$ projection
+    \end{itemize}
+    \item different value constructors can contain different components
+    \item use pattern matching for tag test and projection
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Definition Examples}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+data Month = Jan | Feb | Mar | Apr | May | Jun
+           | Jul | Aug | Sep | Oct | Nov | Dec
+    \end{pygments}
+
+    \pause
+    \bigskip
+    \bigskip
+    \begin{pygments}{haskell}
+data TaggedNumber = Exact Integer | Inexact Float
+
+rounded num =
+    case num of
+      Exact i -> i
+      Inexact r -> round r
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Definition Example}
+
+  \begin{example}[one-of type example]
+    \begin{pygments}{haskell}
+*Main> let fortytwo = Exact 42
+*Main> rounded fortytwo
+42
+*Main> let p = Inexact 3.1415
+*Main> rounded p
+3
+*Main> :t rounded
+rounded :: TaggedNumber -> Integer
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Unions in C}
+
+  \begin{itemize}
+    \item no tag: \emph{free union}
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}{c}
+union untagged_number {
+    int ival;
+    float rval;
+};
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Unions in C}
+
+  \begin{itemize}
+    \item projection is unsafe $\rightarrow$ use in conjunction with structs
+  \end{itemize}
+
+  \begin{example}
+    \begin{pygments}{c}
+enum accuracy {EXACT, INEXACT};
+
+struct tagged_number {
+    enum accuracy acc;
+    union {
+        int ival;
+        float rval;
+    } val;
+};
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Union Example}
+
+  \begin{example}
+    \begin{pygments}{c}
+int rounded(struct tagged_number n)
+{
+    if (n.acc == EXACT)
+        return (int) n.val.ival;
+    else if (n.acc == INEXACT)
+        return (int) round(n.val.rval);
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Type Aliasing}
+
+\begin{frame}[fragile]
+  \frametitle{Type Aliasing}
+
+  \begin{itemize}
+    \item \alert{type aliasing}: giving an existing type a new name
+  \end{itemize}
+
+  \begin{block}{Haskell type aliasing}
+    \begin{pygments}{haskell}
+type NewName = OldName
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Aliasing Example}
+
+  \begin{example}[playing cards]
+    \begin{pygments}{haskell}
+data Suit = Club | Diamond | Heart | Spade
+            deriving Show
+
+data Rank = Jack | Queen | King | Ace | Number Integer
+            deriving Show
+
+type Card = (Suit, Rank)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Algebraic Type Example}
+
+  \begin{example}[playing cards]
+    \begin{itemize}
+      \item a function that returns the color of a card
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{haskell}
+data Color = Red | Black
+             deriving Show
+
+cardColor :: Card -> Color
+cardColor card =
+    case card of
+      (Club, _) -> Black
+      (Diamond, _) -> Red
+      (Heart, _) -> Red
+      (Spade, _) -> Black
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algebraic Type Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that will return the value of a card
+      \begin{itemize}
+        \item ace: 11, face cards: 10
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Algebraic Type Example}
+
+  \begin{example}[value of playing cards]
+    \begin{pygments}{haskell}
+cardValue card =
+    case card of
+      (_, Ace) -> 11
+      (_, King) -> 10
+      (_, Queen) -> 10
+      (_, Jack) -> 10
+      (_, Number n) -> n
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Parameterized Types}
+
+\begin{frame}[fragile]
+  \frametitle{Parameterized Types}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+type Triple a = (a, a, a)
+
+type Coordinates = Triple Double
+
+distance :: Coordinates -> Double
+distance (x,y,z) = sqrt (x * x + y * y + z * z)
+
+type Date = Triple Integer
+
+year :: Date -> Integer
+year (y,_,_) = y
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uncertainty Types}
+
+  \begin{itemize}
+    \item some type or empty: \pygment{haskell}{Maybe}
+    \item one of two types: \pygment{haskell}{Either}
+  \end{itemize}
+
+  \begin{block}{Haskell}
+    \begin{pygments}{haskell}
+data Maybe a = Nothing | Just a
+
+data Either a b = Left a | Right b
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maybe Type Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that returns the maximum element of a list
+      \begin{itemize}
+        \item if empty: Nothing
+        \item otherwise: Just x
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Maybe Type Example}
+
+  \begin{example}[maximum of a list]
+    \begin{pygments}{haskell}
+max_ xs =
+    let
+       maxIter acc items =
+           case items of
+             [] -> acc
+             item:items' -> if item > acc
+                            then maxIter item items'
+                            else maxIter acc items'
+    in
+        case xs of
+          [] -> Nothing
+          x:xs' -> Just (maxIter x xs')
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+% \subsection{Recursive Types}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Recursive Types}
+% 
+%   \begin{example}[Haskell]
+%     \begin{pygments}{haskell}
+% data List_ a = Empty | Cons a (List_ a)
+%                deriving Show
+%     \end{pygments}
+% 
+%     \pause
+%     \begin{pygments}{haskell}
+% null_ xs =
+%     case xs of
+%       Empty -> True
+%       _ -> False
+% 
+% head_ xs =
+%     case xs of
+%       Empty -> Nothing
+%       Cons x _ -> Just x
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+% 
+% \begin{frame}
+%   \frametitle{Recursive Type Exercise}
+% 
+%   \begin{block}{Exercise}
+%     \begin{itemize}
+%       \item write a function that appends two lists
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+% 
+% \begin{frame}<beamer>[fragile]
+%   \frametitle{Recursive Type Example}
+% 
+%   \begin{example}
+%     \begin{pygments}{haskell}
+% append xs ys =
+%     case xs of
+%       Empty -> ys
+%       Cons x xs' -> Cons x (append xs' ys)
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+% 
+% \section*{References}
+% 
+% \begin{frame}
+%   \frametitle{References}
+% 
+%   \begin{block}{Required Reading: Abelson, Sussman}
+%     \begin{itemize}
+%       \item Chapter 1: Building Abstractions with Procedures
+%       \begin{itemize}
+%         \item 1.1. \alert{The Elements of Programming}
+%       \end{itemize}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\end{document}
