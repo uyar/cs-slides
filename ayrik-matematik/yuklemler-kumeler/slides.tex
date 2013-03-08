@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Yüklemler ve Kümeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -62,7 +62,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -205,7 +205,7 @@
   \frametitle{Niceleyiciler}
 
   \begin{block}{varlık niceleyicisi}
-    $\mathcal{U} = \{x_1,x_2,\cdots,x_n\}$\\
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
     $\exists x~p(x) \equiv p(x_1) \vee p(x_2) \vee \cdots \vee p(x_n)$
 
     \begin{itemize}
@@ -215,7 +215,7 @@
 
   \pause
   \begin{block}{evrensel niceleyici}
-    $\mathcal{U} = \{x_1,x_2,\cdots,x_n\}$\\
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
     $\forall x~p(x) \equiv p(x_1) \wedge p(x_2) \wedge \cdots \wedge p(x_n)$
 
     \begin{itemize}
@@ -448,20 +448,25 @@
 
     \pause
     \medskip
-    \item $S$ bir küme, $a$ bir nesne ise:
+    \item $S$ bir küme, $a$ bir nesne olsun
     \begin{itemize}
-      \item $a \in S$: $a$ nesnesi $S$ kümesinin bir elemanıdır
-      \item $a \notin S$: $a$ nesnesi $S$ kümesinin bir elemanı değildir
+      \item $a \in S$: $a$ nesnesi $S$ kümesinin elemanıdır
+      \item $a \notin S$: $a$ nesnesi $S$ kümesinin elemanı değildir
     \end{itemize}
+
+    \pause
+    \medskip
+    \item $|S|$: eleman sayısı (\alert{kardinalite})
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Açık Gösterilim Örnekleri}
+  \frametitle{Açık Gösterilim Örneği}
 
   \begin{ornek}
     $\{3,8,2,11,5\}$\\
-    $11 \in \{3,8,2,11,5\}$
+    $11 \in \{3,8,2,11,5\}$\\
+    $|\{3,8,2,11,5\}|=5$
   \end{ornek}
 \end{frame}
 
@@ -469,20 +474,20 @@
   \frametitle{Kapalı Gösterilim Örnekleri}
 
   \begin{ornek}
-    $\{ x | x \in \mathbb{Z}^+, 20 < x^3 < 100 \} \equiv \{3,4\}$
+    $\{x | x \in \mathbb{Z}^+, 20 < x^3 < 100\} \equiv \{3,4\}$
 
-    $\{ 2x-1 | x \in \mathbb{Z}^+, 20 < x^3 < 100 \} \equiv \{5,7\}$
+    $\{2x-1 | x \in \mathbb{Z}^+, 20 < x^3 < 100\} \equiv \{5,7\}$
   \end{ornek}
 
   \pause
   \begin{ornek}
-    $A = \{ x | x \in \mathbb{R}, 1 \leq x \leq 5 \}$
+    $A = \{x | x \in \mathbb{R}, 1 \leq x \leq 5\}$
   \end{ornek}
 
   \pause
   \begin{ornek}
-    $E = \{ n | n \in \mathbb{N}, \exists k \in \mathbb{N}~[n=2k] \}$\\
-    $A = \{ x | x \in E, 1 \leq x \leq 5 \}$
+    $E = \{n | n \in \mathbb{N}, \exists k \in \mathbb{N}~[n=2k]\}$\\
+    $A = \{x | x \in E, 1 \leq x \leq 5\}$
   \end{ornek}
 \end{frame}
 
@@ -490,20 +495,21 @@
   \frametitle{Küme İkilemi}
 
   \begin{itemize}
-    \item bir köyde bir berber kendisi traş olmayan herkesi traş ediyor,\\
-      kendisi traş olanları traş etmiyor
+    \item Bir köyde bir berber yaşıyor.\\
+      Kendi traş olmayan herkesi traş ediyor,\\
+      Kendi traş olan kimseyi traş etmiyor.
 
     \begin{quote}
-      bu berber kendisi traş olur mu?
+      Bu berber kendi traş olur mu?
     \end{quote}
 
     \pause
-    \item \emph{olmaz}: kendisi traş olmayan herkesi traş ediyor
-      $\rightarrow$ olur
+    \item evet $\rightarrow$ ama kendi traş olan kimseyi traş etmiyor\\
+      $\rightarrow$ hayır
 
     \pause
-    \item \emph{olur}: kendisi traş olanları traş etmiyor
-      $\rightarrow$ olmaz
+    \item hayır $\rightarrow$ ama kendi traş olmayan herkesi traş ediyor\\
+      $\rightarrow$ evet
   \end{itemize}
 \end{frame}
 
@@ -511,22 +517,19 @@
   \frametitle{Küme İkilemi}
 
   \begin{itemize}
-    \item $S$ bir kümeler kümesi
-
-    \pause
-    \item kendisinin elemanı olmayan kümeler kümesi:\\
-      $S = \{ A | A \notin A \}$
+    \item $S$ kendisinin elemanı olmayan kümeler kümesi olsun\\
+      $S = \{A | A \notin A\}$
 
     \pause
     \begin{quote}
-      $S$ kendisinin elemanı mıdır?
+      $S$ kendinin elemanı mıdır?
     \end{quote}
 
     \pause
-    \item \emph{evet}: yüklemi sağlamaz $\rightarrow$ hayır
+    \item evet $\rightarrow$ ama yüklemi sağlamaz $\rightarrow$ hayır
 
     \pause
-    \item \emph{hayır}: yüklemi sağlar $\rightarrow$ evet
+    \item hayır $\rightarrow$ ama yüklemi sağlar $\rightarrow$ evet
   \end{itemize}
 \end{frame}
 
@@ -592,12 +595,12 @@
 
   \begin{ornek}
     \begin{eqnarray*}
-      \mathcal{P}(\{1,2,3\}) & = \{ &\\
-                             &      & \emptyset\\
-                             &      & \{1\},\{2\},\{3\}\\
-                             &      & \{1,2\},\{1,3\},\{2,3\}\\
-                             &      & \{1,2,3\}\\
-                             &   \} &
+      \mathcal{P}(\{1,2,3\}) = & \{ &\\
+                               &    & \emptyset,\\
+                               &    & \{1\},\{2\},\{3\},\\
+                               &    & \{1,2\},\{1,3\},\{2,3\},\\
+                               &    & \{1,2,3\}\\
+                               & \} &
     \end{eqnarray*}
   \end{ornek}
 \end{frame}
@@ -649,12 +652,19 @@
 
   \begin{tanim}
     \alert{Kartezyen çarpım}:\\
-      $A \times B = \{ (a,b) | a \in A, b \in B \}$
+      $A \times B = \{(a,b) | a \in A, b \in B\}$
 
       \medskip
-      $A \times B \times C \dots \times N =
-        \{ (a,b,\dots,n) | a \in A, b \in B, \dots, n \in N \}$
+      $A \times B \times C \times \dots \times N =
+        \{(a,b,\dots,n) | a \in A, b \in B, \ldots, n \in N\}$
   \end{tanim}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $|A \times B \times C \times \dots \times N| =
+      |A| \cdot |B| \cdot |C| \cdots|N|$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -667,12 +677,12 @@
 
     \medskip
     \begin{eqnarray*}
-      A \times B & = \{ & \\
-                 &      & (a_1,b_1),(a_1,b_2),(a_1,b_3),\\
-                 &      & (a_2,b_1),(a_2,b_2),(a_2,b_3),\\
-                 &      & (a_3,b_1),(a_3,b_2),(a_3,b_3),\\
-                 &      & (a_4,b_1),(a_4,b_2),(a_4,b_3)\\
-                 &  \}  &
+      A \times B = & \{ & \\
+                   &    & (a_1,b_1),(a_1,b_2),(a_1,b_3),\\
+                   &    & (a_2,b_1),(a_2,b_2),(a_2,b_3),\\
+                   &    & (a_3,b_1),(a_3,b_2),(a_3,b_3),\\
+                   &    & (a_4,b_1),(a_4,b_2),(a_4,b_3)\\
+                   & \} &
     \end{eqnarray*}
   \end{ornek}
 \end{frame}
@@ -681,22 +691,22 @@
   \frametitle{Eşdeğerlilikler}
 
   \begin{tabular}{ll}
-    \alert{çifte tümleme} &\\
+    \alert{Çifte Tümleme} &\\
       $\overline{\overline{A}} = A$\\\\
     \pause
-    \alert{değişme} &\\
+    \alert{Değişme} &\\
       $A \cap B = B \cap A$ &
       $A \cup B = B \cup A$\\\\
     \pause
-    \alert{birleşme} &\\
+    \alert{Birleşme} &\\
       $(A \cap B) \cap C = A \cap (B \cap C)$ &
       $(A \cup B) \cup C = A \cup (B \cup C)$\\\\
     \pause
-    \alert{sabit kuvvetlilik} &\\
+    \alert{Sabit Kuvvetlilik} &\\
       $A \cap A = A$ &
       $A \cup A = A$\\\\
     \pause
-    \alert{terslik} &\\
+    \alert{Terslik} &\\
       $A \cap \overline{A} = \emptyset$ &
       $A \cup \overline{A} = \mathcal{U}$\\\\
   \end{tabular}
@@ -706,23 +716,23 @@
   \frametitle{Eşdeğerlilikler}
 
   \begin{tabular}{ll}
-    \alert{etkisizlik} &\\
+    \alert{Etkisizlik} &\\
       $A \cap \mathcal{U} = A$ &
       $A \cup \emptyset = A$\\\\
     \pause
-    \alert{baskınlık} &\\
+    \alert{Baskınlık} &\\
       $A \cap \emptyset = \emptyset$ &
       $A \cup \mathcal{U} = \mathcal{U}$\\\\
     \pause
-    \alert{dağılma} &\\
+    \alert{Dağılma} &\\
       $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ &
       $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$\\\\
     \pause
-    \alert{yutma} &\\
+    \alert{Yutma} &\\
       $A \cap (A \cup B) = A$ &
       $A \cup (A \cap B) = A$\\\\
     \pause
-    \alert{De Morgan} &\\
+    \alert{De Morgan Yasaları} &\\
       $\overline{A \cap B} = \overline{A} \cup \overline{B}$ &
       $\overline{A \cup B} = \overline{A} \cap \overline{B}$\\\\
   \end{tabular}
