@@ -96,7 +96,7 @@
     \item consider two classic examples
   \end{itemize}
 
-  \begin{example}[factorial - Haskell]
+  \begin{example}[factorial]
     \begin{pygments}{haskell}
 fact n =
     if n == 0
@@ -105,12 +105,12 @@ fact n =
     \end{pygments}
   \end{example}
 
-  \begin{example}[greatest common divisor - Haskell]
+  \begin{example}[greatest common divisor]
     \begin{pygments}{haskell}
-gcd_ x y =
+gcd' x y =
     if y == 0
     then x
-    else gcd_ y (x `mod` y)
+    else gcd' y (x `mod` y)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -144,11 +144,11 @@ fact 4
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{example}[gcd\_]
+  \begin{example}[gcd']
     \begin{pygments}{haskell}
-gcd_ x y =
+gcd' x y =
     if y == 0 then x
-    else gcd_ y (x `mod` y)
+    else gcd' y (x `mod` y)
     \end{pygments}
 
     \pause
@@ -198,12 +198,12 @@ gcd_ 9702 945
 
   \begin{example}[factorial]
     \begin{pygments}{haskell}
-factIter acc x =
+fact_iter acc x =
     if x == 0
     then acc
-    else factIter (acc * x) (x - 1)
+    else fact_iter (acc * x) (x - 1)
 
-fact n = factIter 1 n
+fact n = fact_iter 1 n
     \end{pygments}
   \end{example}
 \end{frame}
@@ -213,19 +213,19 @@ fact n = factIter 1 n
 
   \begin{example}[fact - tail recursive]
     \begin{pygments}{haskell}
-factIter acc x =
+fact_iter acc x =
     if x == 0 then acc
-    else factIter (acc * x) (x - 1)
+    else fact_iter (acc * x) (x - 1)
     \end{pygments}
 
     \pause
     \begin{verbatim}
 fact 4
-|- factIter 1 4
-|- factIter 4 3
-|- factIter 12 2
-|- factIter 24 1
-|- factIter 24 0
+|- fact_iter 1 4
+|- fact_iter 4 3
+|- fact_iter 12 2
+|- fact_iter 24 1
+|- fact_iter 24 0
 24
     \end{verbatim}
   \end{example}
@@ -238,28 +238,29 @@ fact 4
 
   \begin{itemize}
     \item functions can be defined locally within other functions
-    \item they can use bindings from the environment in which they are defined
+    \item they can use bindings from the environment\\
+      in which they are defined
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Nested Function Example}
 
-  \begin{example}[factorial - Haskell]
+  \begin{example}[factorial]
     \begin{itemize}
-      \item no need for \pygment{haskell}{factIter} to be visible
+      \item no need for \pygment{haskell}{fact_iter} to be visible
         outside of \pygment{haskell}{fact}
     \end{itemize}
 
     \begin{pygments}{haskell}
 fact n =
     let
-        factIter acc x =
+        fact_iter acc x =
             if x == 0
             then acc
-            else factIter (acc * x) (x - 1)
+            else fact_iter (acc * x) (x - 1)
     in
-        factIter 1 n
+        fact_iter 1 n
     \end{pygments}
   \end{example}
 \end{frame}
@@ -271,7 +272,7 @@ fact n =
     \begin{itemize}
       \item what is the type of \pygment{haskell}{fact}?
       \item what happens if called as \pygment{haskell}{fact 2.4}?
-      \item what if \pygment{haskell}{factIter :: Integer -> Integer -> Integer}?
+      \item what if \pygment{haskell}{fact_iter :: Integer -> Integer -> Integer}?
     \end{itemize}
   \end{block}
 \end{frame}
@@ -294,7 +295,7 @@ def fact(n: Int): Int = {
 \subsection{Errors}
 
 \begin{frame}[fragile]
-  \frametitle{Generating Errors}
+  \frametitle{Errors}
 
   \begin{block}{Haskell}
     \begin{itemize}
@@ -302,7 +303,7 @@ def fact(n: Int): Int = {
     \end{itemize}
   \end{block}
 
-  \begin{example}[factorial - Haskell]
+  \begin{example}[factorial]
     \begin{pygments}{haskell}
 fact n =
     if n < 0
@@ -315,7 +316,7 @@ fact n =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Generating Errors}
+  \frametitle{Errors}
 
   \begin{block}{Scala}
     \begin{itemize}
@@ -323,7 +324,7 @@ fact n =
     \end{itemize}
   \end{block}
 
-  \begin{example}[factorial - Scala]
+  \begin{example}[factorial]
     \begin{pygments}{scala}
 def fact(n: Int): Int =
     if (n < 0) throw
@@ -336,22 +337,19 @@ def fact(n: Int): Int =
 
 \section{Lists}
 
-\subsection{Model}
+\subsection{Representation}
 
 \begin{frame}
-  \frametitle{Model}
+  \frametitle{Representation}
 
   \begin{itemize}
-    \item a list of type \texttt{$\alpha$}
-      consists of an element of type \texttt{$\alpha$},\\
-      followed by a sublist of type \texttt{$\alpha$}
-    \item the first element is the \alert{head},\\
-      the sublist of remaining elements is the \alert{tail}
+    \item a list of consists of an element (\alert{head})\\
+      followed by the sublist of the remaining elements (\alert{tail})
   \end{itemize}
 
   \pause
   \medskip
-  \begin{block}{Haskell}
+  \begin{block}{Haskell list operations}
     \begin{itemize}
       \item check if empty: \pygment{haskell}{null}
       \item get the head: \pygment{haskell}{head}
@@ -383,9 +381,9 @@ Prelude> 1 : 2 : 3 : []
 \end{frame}
 
 \begin{frame}
-  \frametitle{Scala Lists}
+  \frametitle{List Operations}
 
-  \begin{block}{Scala}
+  \begin{block}{Scala list operations}
     \begin{itemize}
       \item check if empty: \pygment{scala}{.isEmpty}
       \item get the head: \pygment{haskell}{.head}
@@ -400,16 +398,12 @@ Prelude> 1 : 2 : 3 : []
 \begin{frame}[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that computes the length of a list
-    \end{itemize}
-    
+  \begin{example}[length of a list]
     \begin{pygments}{haskell}
-length_ xs =
+length' xs =
     if null xs
     then 0
-    else 1 + length_ (tail xs)
+    else 1 + length' (tail xs)
     \end{pygments}
   \end{example}
 
@@ -424,42 +418,38 @@ length_ xs =
 \begin{frame}<beamer>[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
+  \begin{example}[length of a list]
     \begin{pygments}{haskell}
-length_ xs =
+length' xs =
     let
-        lengthIter acc items =
+        length_iter acc items =
             if null items
             then acc
-            else lengthIter (acc + 1) (tail items)
+            else length_iter (acc + 1) (tail items)
     in
-        lengthIter 0 xs
+        length_iter 0 xs
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Recursion Example}
-  \begin{example}
-    \begin{itemize}
-      \item a function that computes the sum of a list
-    \end{itemize}
-
+  \begin{example}[sum of a list]
     \pause
     \begin{pygments}{haskell}
-sum_ xs =
+sum' xs =
     if null xs
     then 0
-    else head xs + sum_ (tail xs)
+    else head xs + sum' (tail xs)
     \end{pygments}
   \end{example}
 
   \pause
   \begin{example}[Scala]
     \begin{pygments}{scala}
-def sum_(xs: List[Int]): Int =
+def sum(xs: List[Int]): Int =
     if (xs.isEmpty) 0
-    else xs.head + sum_(xs.tail)
+    else xs.head + sum(xs.tail)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -467,11 +457,7 @@ def sum_(xs: List[Int]): Int =
 \begin{frame}[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that appends a list at the end of another list
-    \end{itemize}
-
+  \begin{example}[append two lists]
     \pause
     \begin{pygments}{haskell}
 append xs ys =
@@ -490,17 +476,13 @@ append xs ys =
 \begin{frame}[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that generates a list from a lower limit to an upper limit
-    \end{itemize}
-
+  \begin{example}[generate list from lower to upper limit]
     \pause
     \begin{pygments}{haskell}
-countUp lower upper =
+count_up lower upper =
     if lower > upper
     then []
-    else lower : countUp (lower + 1) upper
+    else lower : count_up (lower + 1) upper
     \end{pygments}
   \end{example}
 
@@ -516,16 +498,16 @@ countUp lower upper =
 \begin{frame}<beamer>[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
+  \begin{example}[generate list from upper to lower limit]
     \begin{pygments}{haskell}
-countDown upper lower =
+count_down upper lower =
     let
-        countDownIter acc u =
+        count_down_iter acc u =
             if u < lower
             then acc
-            else countDownIter (acc ++ [u]) (u - 1)
+            else count_down_iter (acc ++ [u]) (u - 1)
     in
-        countDownIter [] upper
+        count_down_iter [] upper
     \end{pygments}
 
 % TODO: note the use of lower
@@ -535,21 +517,17 @@ countDown upper lower =
 \begin{frame}[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that finds the maximum of a list
-    \end{itemize}
-
+  \begin{example}[maximum of a list]
     \pause
     \begin{pygments}{haskell}
-max_ xs =
+max' xs =
     if null xs
     then error "empty list"
     else if null (tail xs)
          then head xs
-         else if head xs > max_ (tail xs)
+         else if head xs > max' (tail xs)
               then head xs
-              else max_ (tail xs)
+              else max' (tail xs)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -560,8 +538,8 @@ max_ xs =
   \begin{block}{Exercise}
     \begin{itemize}
       \item what happens if called as:\\
-        \pygment{haskell}{max_ (countDown 30 1)}\\
-        \pygment{haskell}{max_ (countUp 1 30)}
+        \pygment{haskell}{max' (count_down 30 1)}\\
+        \pygment{haskell}{max' (count_up 1 30)}
       \item fix the problem
    \end{itemize}
   \end{block}
@@ -570,19 +548,20 @@ max_ xs =
 \begin{frame}<beamer>[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
+  \begin{example}[maximum of a list]
     \begin{pygments}{haskell}
-max_ xs =
+max' xs =
     if null xs
     then error "empty list"
     else if null (tail xs)
          then head xs
          else
              let
-                 maxRest = max_ (tail xs)
+                 max_rest = max' (tail xs)
              in
-                 if head xs > maxRest
+                 if head xs > max_rest
                  then head xs
+                 else max_rest
     \end{pygments}
   \end{example}
 \end{frame}
@@ -601,12 +580,12 @@ max_ xs =
 \begin{frame}<beamer>[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
+  \begin{example}[reverse a list]
     \begin{pygments}{haskell}
-reverse_ xs =
+reverse' xs =
     if null xs
     then []
-    else reverse_ (tail xs) ++ [head xs]
+    else reverse' (tail xs) ++ [head xs]
     \end{pygments}
   \end{example}
 \end{frame}
@@ -614,16 +593,16 @@ reverse_ xs =
 \begin{frame}<beamer>[fragile]
   \frametitle{List Recursion Example}
 
-  \begin{example}
+  \begin{example}[reverse a list]
     \begin{pygments}{haskell}
-reverse_ xs =
+reverse' xs =
     let
-        reverseIter acc items =
+        reverse_iter acc items =
             if null items
             then acc
-            else reverseIter (head items : acc) (tail items)
+            else reverse_iter (head items : acc) (tail items)
     in
-        reverseIter [] xs
+        reverse_iter [] xs
     \end{pygments}
   \end{example}
 \end{frame}
