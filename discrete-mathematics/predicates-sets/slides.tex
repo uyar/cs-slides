@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Predicates and Sets}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -53,7 +53,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -98,8 +98,8 @@
     \alert{predicate} (or \alert{open statement}): a declarative sentence which
     \begin{itemize}
       \item contains one or more variables, and
-      \item is not a statement, but
-      \item becomes a statement when the variables in it\\
+      \item is not a proposition, but
+      \item becomes a proposition when the variables in it\\
         are replaced by certain allowable choices
     \end{itemize}
   \end{definition}
@@ -193,7 +193,7 @@
   \frametitle{Quantifiers}
 
   \begin{block}{existential quantifier}
-    $\mathcal{U} = \{x_1,x_2,\cdots,x_n\}$\\
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
     $\exists x~p(x) \equiv p(x_1) \vee p(x_2) \vee \cdots \vee p(x_n)$
 
     \begin{itemize}
@@ -203,7 +203,7 @@
 
   \pause
   \begin{block}{universal quantifier}
-    $\mathcal{U} = \{x_1,x_2,\cdots,x_n\}$\\
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
     $\forall x~p(x) \equiv p(x_1) \wedge p(x_2) \wedge \cdots \wedge p(x_n)$
 
     \begin{itemize}
@@ -438,6 +438,10 @@
       \item $a \in S$: $a$ is an element of set $S$
       \item $a \notin S$: $a$ is not an element of set $S$
     \end{itemize}
+
+    \pause
+    \medskip
+    \item $|S|$: number of elements (\alert{cardinality})
   \end{itemize}
 \end{frame}
 
@@ -446,7 +450,8 @@
 
   \begin{example}
     $\{3,8,2,11,5\}$\\
-    $11 \in \{3,8,2,11,5\}$
+    $11 \in \{3,8,2,11,5\}$\\
+    $|\{3,8,2,11,5\}|=5$
   \end{example}
 \end{frame}
 
@@ -454,9 +459,9 @@
   \frametitle{Implicit Representation Examples}
 
   \begin{example}
-    $\{ x | x \in \mathbb{Z}^+, 20 < x^3 < 100 \} \equiv \{3,4\}$
+    $\{x | x \in \mathbb{Z}^+, 20 < x^3 < 100\} \equiv \{3,4\}$
 
-    $\{ 2x-1 | x \in \mathbb{Z}^+, 20 < x^3 < 100 \} \equiv \{5,7\}$
+    $\{2x-1 | x \in \mathbb{Z}^+, 20 < x^3 < 100\} \equiv \{5,7\}$
   \end{example}
 
   \pause
@@ -476,20 +481,20 @@
 
   \begin{itemize}
     \item There is a barber who lives in a small town.\\
-      He shaves all those men who do not shave themselves.\\
-      He does not shave those men who do shave themselves.
+      He shaves all those men who don't shave themselves.\\
+      He doesn't shave those men who shave themselves.
 
     \begin{quote}
       Does the barber shave himself?
     \end{quote}
 
     \pause
-    \item \emph{no}: he shaves all men who do not shave themselves\\
-      $\rightarrow$ yes, he does
+    \item no $\rightarrow$ but he shaves all men who don't shave themselves\\
+      $\rightarrow$ yes
 
     \pause
-    \item \emph{yes}: he does not shave men who shave themselves\\
-      $\rightarrow$ no, he doesn't
+    \item yes $\rightarrow$ but he doesn't shave men who shave themselves\\
+      $\rightarrow$ no
   \end{itemize}
 \end{frame}
 
@@ -509,10 +514,10 @@
     \end{quote}
 
     \pause
-    \item \emph{yes}: the statement is not valid $\rightarrow$ no
+    \item yes $\rightarrow$ but the predicate is not valid $\rightarrow$ no
 
     \pause
-    \item \emph{no}: the statement is valid $\rightarrow$ yes
+    \item no $\rightarrow$ but the predicate is valid $\rightarrow$ yes
   \end{itemize}
 \end{frame}
 
@@ -563,8 +568,8 @@
 
   \begin{definition}
     \alert{power set}: $\mathcal{P}(S)$\\
-    the set of all subsets of a set,\\
-    including the empty set and the set itself
+    the set of all subsets of a set, including the empty set\\
+    and the set itself
   \end{definition}
 
   \pause
@@ -578,12 +583,12 @@
 
   \begin{example}
     \begin{eqnarray*}
-      \mathcal{P}(\{1,2,3\}) & = \{ &\\
-                             &      & \emptyset\\
-                             &      & \{1\},\{2\},\{3\}\\
-                             &      & \{1,2\},\{1,3\},\{2,3\}\\
-                             &      & \{1,2,3\}\\
-                             &   \} &
+      \mathcal{P}(\{1,2,3\}) = & \{ &\\
+                               &    & \emptyset,\\
+                               &    & \{1\},\{2\},\{3\},\\
+                               &    & \{1,2\},\{1,3\},\{2,3\},\\
+                               &    & \{1,2,3\}\\
+                               & \} &
     \end{eqnarray*}
   \end{example}
 \end{frame}
@@ -635,12 +640,19 @@
 
   \begin{definition}
     \alert{Cartesian product}:\\
-      $A \times B = \{ (a,b) | a \in A, b \in B \}$
+      $A \times B = \{(a,b) | a \in A, b \in B\}$
 
       \medskip
-      $A \times B \times C \dots \times N =
-        \{ (a,b,\dots,n) | a \in A, b \in B, \dots, n \in N \}$
+      $A \times B \times C \times \dots \times N =
+        \{(a,b,\ldots,n) | a \in A, b \in B, \ldots, n \in N\}$
   \end{definition}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $|A \times B \times C \times \dots \times N| =
+      |A| \cdot |B| \cdot |C| \cdots|N|$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -653,12 +665,12 @@
 
     \medskip
     \begin{eqnarray*}
-      A \times B & = \{ & \\
-                 &      & (a_1,b_1),(a_1,b_2),(a_1,b_3),\\
-                 &      & (a_2,b_1),(a_2,b_2),(a_2,b_3),\\
-                 &      & (a_3,b_1),(a_3,b_2),(a_3,b_3),\\
-                 &      & (a_4,b_1),(a_4,b_2),(a_4,b_3)\\
-                 &  \}  &
+      A \times B = & \{ & \\
+                   &    & (a_1,b_1),(a_1,b_2),(a_1,b_3),\\
+                   &    & (a_2,b_1),(a_2,b_2),(a_2,b_3),\\
+                   &    & (a_3,b_1),(a_3,b_2),(a_3,b_3),\\
+                   &    & (a_4,b_1),(a_4,b_2),(a_4,b_3)\\
+                   & \} &
     \end{eqnarray*}
   \end{example}
 \end{frame}
@@ -667,22 +679,22 @@
   \frametitle{Equivalences}
 
   \begin{tabular}{ll}
-    \alert{double complement} &\\
+    \alert{Double Complement} &\\
       $\overline{\overline{A}} = A$\\\\
     \pause
-    \alert{commutative law} &\\
+    \alert{Commutativity} &\\
       $A \cap B = B \cap A$ &
       $A \cup B = B \cup A$\\\\
     \pause
-    \alert{associative law} &\\
+    \alert{Associativity} &\\
       $(A \cap B) \cap C = A \cap (B \cap C)$ &
       $(A \cup B) \cup C = A \cup (B \cup C)$\\\\
     \pause
-    \alert{idempotent law} &\\
+    \alert{Idempotence} &\\
       $A \cap A = A$ &
       $A \cup A = A$\\\\
     \pause
-    \alert{inverse law} &\\
+    \alert{Inverse} &\\
       $A \cap \overline{A} = \emptyset$ &
       $A \cup \overline{A} = \mathcal{U}$\\\\
   \end{tabular}
@@ -692,23 +704,23 @@
   \frametitle{Equivalences}
 
   \begin{tabular}{ll}
-    \alert{identity law} &\\
+    \alert{Identity} &\\
       $A \cap \mathcal{U} = A$ &
       $A \cup \emptyset = A$\\\\
     \pause
-    \alert{dominance law} &\\
+    \alert{Domination} &\\
       $A \cap \emptyset = \emptyset$ &
       $A \cup \mathcal{U} = \mathcal{U}$\\\\
     \pause
-    \alert{distributive law} &\\
+    \alert{Distributivity} &\\
       $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ &
       $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$\\\\
     \pause
-    \alert{absorption law} &\\
+    \alert{Absorption} &\\
       $A \cap (A \cup B) = A$ &
       $A \cup (A \cap B) = A$\\\\
     \pause
-    \alert{DeMorgan's laws} &\\
+    \alert{DeMorgan's Laws} &\\
       $\overline{A \cap B} = \overline{A} \cup \overline{B}$ &
       $\overline{A \cup B} = \overline{A} \cap \overline{B}$\\\\
   \end{tabular}
