@@ -124,18 +124,14 @@ fact n
 \begin{frame}[fragile]
   \frametitle{Guards Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that finds the maximum of a list
-    \end{itemize}
-
+  \begin{example}[maximum of a list]
     \pause
     \begin{pygments}{haskell}
-max_ xs
+max' xs
   | null xs = error "empty list"
   | null (tail xs) = head xs
-  | head xs > max_ (tail xs) = head xs
-  | otherwise = max_ (tail xs)
+  | head xs > max' (tail xs) = head xs
+  | otherwise = max' (tail xs)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -183,16 +179,12 @@ fact n =
   \end{itemize}
 
   \pause
-  \begin{example}
-    \begin{itemize}
-      \item a function that sums up a list
-    \end{itemize}
-
+  \begin{example}[sum of a list]
     \begin{pygments}{haskell}
-sum_ xs =
+sum' xs =
     case xs of
       [] -> 0
-      x:xs' -> x + sum_ xs'
+      x:xs' -> x + sum' xs'
     \end{pygments}
   \end{example}
 \end{frame}
@@ -200,18 +192,14 @@ sum_ xs =
 \begin{frame}[fragile]
   \frametitle{List Pattern Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that finds the maximum of a list
-    \end{itemize}
-
+  \begin{example}[maximum of a list]
     \pause
     \begin{pygments}{haskell}
-max_ xs =
+max' xs =
     case xs of
       [] -> error "empty list"
       [i] -> i
-      x:xs' -> if x > max_ xs' then x else max_ xs'
+      x:xs' -> if x > max' xs' then x else max' xs'
     \end{pygments}
   \end{example}
 \end{frame}
@@ -223,11 +211,7 @@ max_ xs =
     \item if binding not needed, use wildcard: \pygment{haskell}{_}
   \end{itemize}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that adds the first and third elements of a list
-    \end{itemize}
-
+  \begin{example}[add the first and third elements of a list]
     \pause
     \begin{pygments}{haskell}
 first_plus_third xs =
@@ -249,17 +233,13 @@ first_plus_third xs =
     \item expressions can be matched over multiple patterns
   \end{itemize}
 
-  \begin{example}
-    \begin{itemize}
-      \item a function that converts three lists into a list of triples
-    \end{itemize}
-
+  \begin{example}[convert three lists into a list of triples]
     \pause
     \begin{pygments}{haskell}
-zip3_ xs ys zs =
+zip3' xs ys zs =
     case (xs,ys,zs) of
       ([],[],[]) -> []
-      (x:xs',y:ys',z:zs') -> (x,y,z) : zip3_ xs' ys' zs'
+      (x:xs',y:ys',z:zs') -> (x,y,z) : zip3' xs' ys' zs'
       _ -> error "list sizes don't match"
     \end{pygments}
   \end{example}
@@ -276,14 +256,14 @@ zip3_ xs ys zs =
 \begin{frame}<beamer>[fragile]
   \frametitle{Nested Pattern Example}
 
-  \begin{example}
+  \begin{example}[convert a list of triples into a triple of lists]
     \begin{pygments}{haskell}
-unzip3_ xs =
+unzip3' xs =
     case xs of
       [] -> ([],[],[])
       (x1,x2,x3):xs' ->
           let
-              (xs1,xs2,xs3) = unzip3_ xs'
+              (xs1,xs2,xs3) = unzip3' xs'
           in
               (x1:xs1,x2:xs2,x3:xs3)
     \end{pygments}
@@ -303,7 +283,7 @@ unzip3_ xs =
 \begin{frame}<beamer>[fragile]
   \frametitle{Pattern Example}
 
-  \begin{example}
+  \begin{example}[check whether a list is nondecreasing]
     \begin{pygments}{haskell}
 nondecreasing xs =
     case xs of
@@ -494,18 +474,14 @@ type Card = (Suit, Rank)
 \begin{frame}[fragile]
   \frametitle{Algebraic Type Example}
 
-  \begin{example}[playing cards]
-    \begin{itemize}
-      \item a function that returns the color of a card
-    \end{itemize}
-
+  \begin{example}[color of a card]
     \pause
     \begin{pygments}{haskell}
 data Color = Red | Black
              deriving Show
 
-cardColor :: Card -> Color
-cardColor card =
+card_color :: Card -> Color
+card_color card =
     case card of
       (Club, _) -> Black
       (Diamond, _) -> Red
@@ -513,17 +489,11 @@ cardColor card =
       (Spade, _) -> Black
     \end{pygments}
   \end{example}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Algebraic Type Exercise}
-
+  \pause
   \begin{block}{Exercise}
     \begin{itemize}
       \item write a function that will return the value of a card
-      \begin{itemize}
-        \item ace: 11, face cards: 10
-      \end{itemize}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -531,9 +501,9 @@ cardColor card =
 \begin{frame}<beamer>[fragile]
   \frametitle{Algebraic Type Example}
 
-  \begin{example}[value of playing cards]
+  \begin{example}[value of a card]
     \begin{pygments}{haskell}
-cardValue card =
+card_value card =
     case card of
       (_, Ace) -> 11
       (_, King) -> 10
@@ -602,18 +572,18 @@ data Either a b = Left a | Right b
 
   \begin{example}[maximum of a list]
     \begin{pygments}{haskell}
-max_ xs =
+maybe_max xs =
     let
-       maxIter acc items =
+       max_iter acc items =
            case items of
              [] -> acc
              item:items' -> if item > acc
-                            then maxIter item items'
-                            else maxIter acc items'
+                            then max_iter item items'
+                            else max_iter acc items'
     in
         case xs of
           [] -> Nothing
-          x:xs' -> Just (maxIter x xs')
+          x:xs' -> Just (max_iter x xs')
     \end{pygments}
   \end{example}
 \end{frame}
