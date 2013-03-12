@@ -1,5 +1,6 @@
 makefile
 *.aux
+*.backup
 *.eps
 *.log
 *.nav
@@ -10,4 +11,4 @@ makefile
 *.vrb
 *.zip
 *.pytxcode
-pythontex-files-slides
+pythontex-files-*
