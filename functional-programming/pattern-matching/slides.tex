@@ -588,54 +588,129 @@ maybe_max xs =
   \end{example}
 \end{frame}
 
-% \subsection{Recursive Types}
-% 
-% \begin{frame}[fragile]
-%   \frametitle{Recursive Types}
-% 
-%   \begin{example}[Haskell]
-%     \begin{pygments}{haskell}
-% data List_ a = Empty | Cons a (List_ a)
-%                deriving Show
-%     \end{pygments}
-% 
-%     \pause
-%     \begin{pygments}{haskell}
-% null_ xs =
-%     case xs of
-%       Empty -> True
-%       _ -> False
-% 
-% head_ xs =
-%     case xs of
-%       Empty -> Nothing
-%       Cons x _ -> Just x
-%     \end{pygments}
-%   \end{example}
-% \end{frame}
-% 
-% \begin{frame}
-%   \frametitle{Recursive Type Exercise}
-% 
-%   \begin{block}{Exercise}
-%     \begin{itemize}
-%       \item write a function that appends two lists
-%     \end{itemize}
-%   \end{block}
-% \end{frame}
-% 
-% \begin{frame}<beamer>[fragile]
-%   \frametitle{Recursive Type Example}
-% 
-%   \begin{example}
-%     \begin{pygments}{haskell}
-% append xs ys =
-%     case xs of
-%       Empty -> ys
-%       Cons x xs' -> Cons x (append xs' ys)
-%     \end{pygments}
-%   \end{example}
-% \end{frame}
+\subsection{Recursive Types}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Types}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+data List' a = Empty | Cons a (List' a)
+               deriving Show
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+null' xs =
+    case xs of
+      Empty -> True
+      _ -> False
+
+head' xs =
+    case xs of
+      Empty -> Nothing
+      Cons x _ -> Just x
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[append two lists]
+    \pause
+    \begin{pygments}{haskell}
+append' xs ys =
+    case xs of
+      Empty -> ys
+      Cons x xs' -> Cons x (append' xs' ys)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[binary tree]
+    \begin{pygments}{haskell}
+data Tree' a = Nil | Node a (Tree' a) (Tree' a)
+               deriving Show
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+depth' t =
+    case t of
+      Nil -> 0
+      Node _ t1 t2 -> 1 + max (depth' t1) (depth' t2)
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that returns the number of leaves in a tree
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[number of leaves in a tree]
+    \pause
+    \begin{pygments}{haskell}
+leaves t =
+    case t of
+      Nil -> 0
+      Node _ Nil Nil -> 1
+      Node _ t1 t2 -> leaves t1 + leaves t2
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[binary tree]
+    \begin{pygments}{haskell}
+data Tree' a b =
+    Node a (Tree' a b) (Tree' a b)
+  | Leaf b
+  deriving Show
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[expression tree]
+    \begin{pygments}{haskell}
+data Expression = Constant Integer
+                | Negate Expression
+                | Add Expression Expression
+                | Multiply Expression Expression
+                deriving Show
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[evaluate an expression]
+    \pause
+    \begin{pygments}{haskell}
+eval e =
+    case e of
+      Constant c -> c
+      Negate n -> -(eval n)
+      Add a1 a2 -> (eval a1) + (eval a2)
+      Multiply m1 m2 -> (eval m1) * (eval m2)
+    \end{pygments}
+  \end{example}
+\end{frame}
 % 
 % \section*{References}
 % 
