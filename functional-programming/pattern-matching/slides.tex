@@ -92,10 +92,6 @@
 \begin{frame}[fragile]
   \frametitle{Guards}
 
-  \begin{itemize}
-    \item \alert{guard}: check before evaluating function body
-  \end{itemize}
-
   \begin{block}{Haskell}
     \begin{pygments}{haskell}
 f fp1 fp2 ...
@@ -106,6 +102,11 @@ f fp1 fp2 ...
   | otherwise = eo
     \end{pygments}
   \end{block}
+
+  \begin{itemize}
+    \item \alert{guard}: check before evaluating expression
+    \item function result is the expression for the first valid guard
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -141,11 +142,7 @@ max' xs
 \begin{frame}[fragile]
   \frametitle{Patterns}
 
-  \begin{itemize}
-    \item \alert{pattern}: check the shape of an expression
-  \end{itemize}
-
-  \begin{block}{Haskell case expressions}
+  \begin{block}{Haskell}
     \begin{pygments}{haskell}
 case e of
   p1 -> e1
@@ -155,6 +152,11 @@ case e of
   _ -> eo
     \end{pygments}
   \end{block}
+
+  \begin{itemize}
+    \item \alert{pattern}: check the shape of an expression
+    \item expression result is the expression for the first valid pattern
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -171,14 +173,51 @@ fact n =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Patterns}
+  \frametitle{Pattern Bindings}
 
   \begin{itemize}
-    \item list patterns:\\
-      \pygment{haskell}{[] x:xs [n] n:[] [n1,n2]}
+    \item a matched pattern generates bindings
+    \item if binding not needed, use wildcard: \pygment{haskell}{_}
   \end{itemize}
 
   \pause
+  \begin{example}[third component of a triple]
+    \begin{pygments}{haskell}
+third t =
+    case t of
+      (t1,t2,t3) -> t3
+      _ -> error "not a triple"
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+-- BETTER:
+
+third t =
+    case t of
+      (_,_,t3) -> t3
+      _ -> error "not a triple"
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Patterns}
+
+  \begin{itemize}
+    \item empty list: \pygment{haskell}{[]}
+    \item nonempty list: \pygment{haskell}{x:xs}
+    \item list with exactly one element: \pygment{haskell}{[x]} or
+      \pygment{haskell}{x:[]}
+    \item list with exactly two elements: \pygment{haskell}{[x1,x2]} or
+      \pygment{haskell}{x1:x2:[]}
+    \item list with at least two elements: \pygment{haskell}{x1:x2:xs}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Pattern Examples}
+
   \begin{example}[sum of a list]
     \begin{pygments}{haskell}
 sum' xs =
@@ -187,13 +226,9 @@ sum' xs =
       x:xs' -> x + sum' xs'
     \end{pygments}
   \end{example}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{List Pattern Example}
-
+  \pause
   \begin{example}[maximum of a list]
-    \pause
     \begin{pygments}{haskell}
 max' xs =
     case xs of
@@ -205,11 +240,7 @@ max' xs =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Pattern Wildcard}
-
-  \begin{itemize}
-    \item if binding not needed, use wildcard: \pygment{haskell}{_}
-  \end{itemize}
+  \frametitle{List Pattern Example}
 
   \begin{example}[add the first and third elements of a list]
     \pause
@@ -218,7 +249,7 @@ first_plus_third xs =
     case xs of
       [] -> 0
       [i] -> i
-      [n1,_] -> n1
+      [x1,_] -> x1
       x1:_:x3:_ -> x1 + x3
     \end{pygments}
   \end{example}
@@ -261,11 +292,8 @@ zip3' xs ys zs =
 unzip3' xs =
     case xs of
       [] -> ([],[],[])
-      (x1,x2,x3):xs' ->
-          let
-              (xs1,xs2,xs3) = unzip3' xs'
-          in
-              (x1:xs1,x2:xs2,x3:xs3)
+      (x1,x2,x3):xs' -> (x1:xs1,x2:xs2,x3:xs3)
+                        where (xs1,xs2,xs3) = unzip3' xs'
     \end{pygments}
   \end{example}
 \end{frame}
@@ -305,13 +333,13 @@ f p2 = e2
   \end{block}
 
   \pause
-  \begin{example}[factorial]
+  \begin{example}
     \begin{pygments}{haskell}
 fact 0 = 1
 fact n = n * fact (n - 1)
 
-sum_ [] = 0
-sum_ (x:xs) = x + sum_ xs
+sum' [] = 0
+sum' (x:xs) = x + sum' xs
     \end{pygments}
   \end{example}
 \end{frame}
@@ -323,7 +351,7 @@ sum_ (x:xs) = x + sum_ xs
 \begin{frame}[fragile]
   \frametitle{Type Definitions}
 
-  \begin{block}{Haskell type definition}
+  \begin{block}{Haskell}
     \begin{pygments}{haskell}
 data TypeConstructor = ValueConstructor1 components1
                      | ValueConstructor2 components2
@@ -337,7 +365,7 @@ data TypeConstructor = ValueConstructor1 components1
     \begin{itemize}
       \item type constructor $\rightarrow$ type name
       \item value constructor $\rightarrow$ tag
-      \item getting value $\rightarrow$ projection
+      \item getting value (variant) $\rightarrow$ projection
     \end{itemize}
     \item different value constructors can contain different components
     \item use pattern matching for tag test and projection
@@ -345,41 +373,95 @@ data TypeConstructor = ValueConstructor1 components1
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Definition Examples}
+  \frametitle{Algebraic Type Examples}
 
-  \begin{example}
+  \begin{example}[type constructors]
     \begin{pygments}{haskell}
 data Month = Jan | Feb | Mar | Apr | May | Jun
            | Jul | Aug | Sep | Oct | Nov | Dec
-    \end{pygments}
+           deriving Show
 
-    \pause
-    \bigskip
-    \bigskip
-    \begin{pygments}{haskell}
 data TaggedNumber = Exact Integer | Inexact Float
+                    deriving Show
 
-rounded num =
-    case num of
-      Exact i -> i
-      Inexact r -> round r
+data Name = LastName String
+          | FullName String String
+          | MiddleInitial String Char String
+          deriving Show
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Definition Example}
+  \frametitle{Algebraic Type Examples}
 
-  \begin{example}[one-of type example]
+  \begin{example}[value constructors]
     \begin{pygments}{haskell}
-*Main> let fortytwo = Exact 42
-*Main> rounded fortytwo
-42
-*Main> let p = Inexact 3.1415
-*Main> rounded p
-3
-*Main> :t rounded
-rounded :: TaggedNumber -> Integer
+Jan
+Mar
+
+Exact 42
+Inexact 3.14159
+
+LastName "Turing"
+FullName "Alonzo" "Church"
+MiddleInitial "Johnny" 'B' "Goode"
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Algebraic Type Examples}
+
+  \begin{example}[pattern matching]
+    \begin{pygments}{haskell}
+days_in_month m y =
+    case m of
+      Apr -> 30
+      Jun -> 30
+      Sep -> 30
+      Nov -> 30
+      Feb -> if y `mod` 4 == 0 then 29 else 28
+      _ -> 31
+
+-- days_in_month Jan 2013 -> 31
+-- days_in_month Feb 2013 -> 28
+-- days_in_month Feb 2012 -> 29
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Algebraic Type Examples}
+
+  \begin{example}[pattern matching]
+    \begin{pygments}{haskell}
+rounded num =
+    case num of
+      Exact i -> i
+      Inexact r -> round r
+
+-- rounded (Exact 42) -> 42
+-- rounded (Inexact 3.14159) -> 3
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Algebraic Type Examples}
+
+  \begin{example}[pattern matching]
+    \begin{pygments}{haskell}
+name_str n =
+    case n of
+      LastName l -> l
+      FullName f l -> f ++ " " ++ l
+      MiddleInitial f m l -> f ++ " " ++ [m] ++ ". " ++ l
+
+-- name_str (LastName "Turing") -> "Turing"
+-- name_str (FullName "Alonzo" "Church") -> "Alonzo Church"
+-- name_str (MiddleInitial "Johnny" 'B' "Goode")
+--     -> "Johnny B. Goode"
     \end{pygments}
   \end{example}
 \end{frame}
@@ -448,7 +530,7 @@ int rounded(struct tagged_number n)
     \item \alert{type aliasing}: giving an existing type a new name
   \end{itemize}
 
-  \begin{block}{Haskell type aliasing}
+  \begin{block}{Haskell}
     \begin{pygments}{haskell}
 type NewName = OldName
     \end{pygments}
@@ -519,28 +601,13 @@ card_value card =
 \begin{frame}[fragile]
   \frametitle{Parameterized Types}
 
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-type Triple a = (a, a, a)
-
-type Coordinates = Triple Double
-
-distance :: Coordinates -> Double
-distance (x,y,z) = sqrt (x * x + y * y + z * z)
-
-type Date = Triple Integer
-
-year :: Date -> Integer
-year (y,_,_) = y
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Uncertainty Types}
-
   \begin{itemize}
-    \item some type or empty: \pygment{haskell}{Maybe}
+    \item type constructors can be parameterized
+
+    \pause
+    \bigskip
+    \item already defined in Haskell standard library:
+    \item some type or nothing: \pygment{haskell}{Maybe}
     \item one of two types: \pygment{haskell}{Either}
   \end{itemize}
 
@@ -559,10 +626,8 @@ data Either a b = Left a | Right b
   \begin{block}{Exercise}
     \begin{itemize}
       \item write a function that returns the maximum element of a list
-      \begin{itemize}
-        \item if empty: Nothing
-        \item otherwise: Just x
-      \end{itemize}
+      \item if empty: \pygment{haskell}{Nothing}
+      \item if not empty: \pygment{haskell}{Just x}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -593,23 +658,15 @@ maybe_max xs =
 \begin{frame}[fragile]
   \frametitle{Recursive Types}
 
+  \begin{itemize}
+    \item type constructors can refer to themselves
+  \end{itemize}
+
+  \pause
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 data List' a = Empty | Cons a (List' a)
                deriving Show
-    \end{pygments}
-
-    \pause
-    \begin{pygments}{haskell}
-null' xs =
-    case xs of
-      Empty -> True
-      _ -> False
-
-head' xs =
-    case xs of
-      Empty -> Nothing
-      Cons x _ -> Just x
     \end{pygments}
   \end{example}
 \end{frame}
@@ -617,8 +674,25 @@ head' xs =
 \begin{frame}[fragile]
   \frametitle{Recursive Type Example}
 
-  \begin{example}[append two lists]
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+null' xs =
+    case xs of
+      Empty -> True
+      _ -> False
+    \end{pygments}
+
     \pause
+    \smallskip
+    \begin{pygments}{haskell}
+head' xs =
+    case xs of
+      Empty -> Nothing
+      Cons x _ -> Just x
+    \end{pygments}
+
+    \pause
+    \smallskip
     \begin{pygments}{haskell}
 append' xs ys =
     case xs of
@@ -705,9 +779,15 @@ data Expression = Constant Integer
 eval e =
     case e of
       Constant c -> c
-      Negate n -> -(eval n)
-      Add a1 a2 -> (eval a1) + (eval a2)
-      Multiply m1 m2 -> (eval m1) * (eval m2)
+      Negate e -> -(eval e)
+      Add e1 e2 -> (eval e1) + (eval e2)
+      Multiply e1 e2 -> (eval e1) * (eval e2)
+
+-- eval (Constant 4) -> 4
+-- eval (Add (Constant 4) (Constant 5)) -> 9
+-- eval (Negate (Add (Constant 4) (Constant 5))) -> -9
+-- eval (Multiply (Constant 2)
+--         (Negate (Add (Constant 4) (Constant 5)))) -> -18
     \end{pygments}
   \end{example}
 \end{frame}
