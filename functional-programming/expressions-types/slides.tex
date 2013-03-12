@@ -123,49 +123,38 @@
 \begin{frame}[fragile]
   \frametitle{Variable Bindings}
 
-  \begin{block}{Haskell - GHCi}
-    \begin{pygments}{haskell}
-let v = e
-    \end{pygments}
-  \end{block}
-
-  \begin{example}
-    \begin{pygments}{haskell}
-Prelude> 6 * 7
-42
-Prelude> let r = 2.4
-Prelude> 3.14159 * r * r
-18.095558399999998
-Prelude> let r = "Haskell"
-Prelude> r
-"Haskell"
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Variable Bindings}
-
-  \begin{block}{Haskell - source file}
+  \begin{block}{Haskell}
     \begin{pygments}{haskell}
 v = e
     \end{pygments}
   \end{block}
 
+  \begin{itemize}
+    \item redefinition is not allowed
+  \end{itemize}
+
+  \pause
+  \bigskip
   \begin{example}
     \begin{pygments}{haskell}
-i = 0
-i = 1   -- multiple declarations of `i'
+diameter = 4.8
+circumference = 3.14159 * diameter
+diameter = 15.62  -- multiple declarations of `diameter'
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Haskell Local Bindings}
+  \frametitle{Local Bindings}
+
+  \begin{itemize}
+    \item local bindings can be created for use in an expression
+    \item inner bindings can use outer bindings but not vice versa
+  \end{itemize}
 
   \begin{columns}[t]
-    \column{.48\textwidth}
-    \begin{block}{``let'' expressions}
+    \column{.45\textwidth}
+    \begin{block}{Haskell: \pygment{haskell}{let}}
       \begin{pygments}{haskell}
 let v1 = e1
     v2 = e2
@@ -175,9 +164,8 @@ in
       \end{pygments}
     \end{block}
 
-    \pause
-    \column{.48\textwidth}
-    \begin{block}{``where'' expressions}
+    \column{.45\textwidth}
+    \begin{block}{Haskell: \pygment{haskell}{where}}
       \begin{pygments}{haskell}
 e
 where v1 = e1
@@ -186,14 +174,22 @@ where v1 = e1
       \end{pygments}
     \end{block}
   \end{columns}
+\end{frame}
 
-  \begin{example}
+\begin{frame}[fragile]
+  \frametitle{Local Binding Example}
+
+  \begin{example}[Haskell]
     \begin{pygments}{haskell}
-x1 = let disc = b * b - 4 * a * c
-     in (-b + sqrt disc) / (2 * a)
+diameter = 4.8
+area = let r = diameter / 2.0
+       in 3.14159 * r * r
 
-x2 = (-b - sqrt disc) / (2 * a)
-     where disc = b * b - 4 * a * c
+-- OR:
+
+diameter = 4.8
+area = 3.14159 * r * r
+       where r = diameter / 2.0
     \end{pygments}
   \end{example}
 \end{frame}
@@ -207,36 +203,51 @@ val v = e
     \end{pygments}
   \end{block}
 
+  \begin{itemize}
+    \item redefinition is not allowed
+  \end{itemize}
+
+  \pause
+  \bigskip
   \begin{example}
     \begin{pygments}{scala}
-scala> 6 * 7
-res0: Int = 42
-
-scala> val r = 2.4
-r: Double = 2.4
-
-scala> 3.14159 * r * r
-res1: Double = 18.095558399999998
+val diameter = 4.8
+val circumference = 3.14159 * diameter
+val diameter = 15.62    // diameter is already defined
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Variable Bindings}
+  \frametitle{Local Bindings}
 
-  \begin{block}{Python}
-    \begin{pygments}{python}
-v = e
+  \begin{itemize}
+    \item a block can create local bindings
+    \item the last construct has to be an expression
+  \end{itemize}
+
+  \begin{block}{Scala}
+    \begin{pygments}{scala}
+{
+    val v1 = e1
+    val v2 = e2
+    ...
+    e
+}
     \end{pygments}
   \end{block}
+\end{frame}
 
-  \begin{example}
-    \begin{pygments}{python}
->>> 6 * 7
-42
->>> r = 2.4
->>> 3.14159 * r * r
-18.095558399999998
+\begin{frame}[fragile]
+  \frametitle{Local Binding Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+val diameter = 4.8
+val area = {
+    val r = diameter / 2.0
+    3.14159 * r * r
+}
     \end{pygments}
   \end{example}
 \end{frame}
@@ -289,10 +300,6 @@ v = e
     \pause
     \bigskip
     \item in functional PLs, the body of a function is an expression
-    \begin{itemize}
-      \item in Scala, the function body is a block\\
-        where the last construct is an expression
-    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -381,11 +388,6 @@ Prelude> (/) 7 2
     \begin{pygments}{scala}
 // function definition
 def f(fp1: t1, fp2: t2, ..., fpn: tn): tr = e
-
-def f(fp1: t1, fp2: t2, ..., fpn: tn): tr = {
-    ...
-    e
-}
 
 // function call
 f(ap1, ap2, ..., apn)
@@ -629,7 +631,7 @@ first x y = x
 
   \begin{itemize}
     \item Scala uses eager evaluation by default
-    \item but programmer can specify normal order evaluation
+    \item but programmer can force normal order evaluation
   \end{itemize}
 
   \begin{example}[Scala]
@@ -821,19 +823,19 @@ not' x = if x then False else True
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 -- lists
-[1,2,3,4]
-["Monday","Tuesday","Wednesday","Thursday","Friday"]
-[1,2,3,4,"Monday"]  -- invalid
+[1, 2, 3, 4]
+["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+[1, 2, 3, 4, "Monday"]  -- invalid
 
 -- tuples
-(19,2,2013)
-(19,"Feb",2013)
+(19, 2, 2013)
+(19, "Feb", 2013)
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Haskell Tuple Parameters}
+  \frametitle{Tuple Parameters}
 
   \begin{itemize}
     \item tuple parameters are not the same as multiple parameters
@@ -841,14 +843,14 @@ not' x = if x then False else True
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-roots :: (Double,Double,Double) -> (Double,Double)
-roots (a,b,c) =
+roots :: (Double, Double, Double) -> (Double, Double)
+roots (a, b, c) =
     let
         disc = b * b - 4 * a * c
         x1 = (-b + sqrt disc) / (2 * a)
         x2 = (-b - sqrt disc) / (2 * a)
     in
-        (x1,x2)
+        (x1, x2)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -872,8 +874,8 @@ List("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 List(1, 2, 3, 4, "Monday")  // List[Any]
 
 // tuples
-(19,2,2013)
-(19,"Feb",2013)
+(19, 2, 2013)
+(19, "Feb", 2013)
     \end{pygments}
   \end{example}
 \end{frame}
