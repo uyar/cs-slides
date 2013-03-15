@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -26,10 +26,10 @@
 }
 
 \title{Discrete Mathematics}
-\subtitle{Theorem Proving}
+\subtitle{Proofs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -57,7 +57,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -284,7 +284,7 @@
   \pause
   \begin{proof}
     \begin{eqnarray*}
-      3 | (a-2) & \Rightarrow & a-2 = 3k\\\pause
+      3 | (a-2) & \Rightarrow & \exists k \in \mathbb{N}~[a-2 = 3k]\\\pause
                 & \Rightarrow & a+1 = a-2 + 3 = 3k+3 = 3(k+1)\\\pause
                 & \Rightarrow & a^2-1 = (a+1)(a-1) = 3(k+1)(a-1)
     \end{eqnarray*}
@@ -313,7 +313,7 @@
       \item $\neg Q \Leftrightarrow (0 \leq x \leq 5) \wedge (0 \leq y \leq 5)$
 
       \pause
-      \item $0 = 0 \cdot 0 \leq x \cdot y \leq 5 \cdot 5 = 25$
+      \item $x \cdot y \leq 5 \cdot 5 = 25$
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -322,9 +322,10 @@
   \frametitle{Indirect Proof Example}
 
   \begin{theorem}
-    $(\exists k~a,b,k \in \mathbb{N}~[ab=2k]) \Rightarrow
-      (\exists i \in \mathbb{N}~[a=2i]) \vee
-      (\exists j \in \mathbb{N}~[b=2j])$
+    $\forall a,b \in \mathbb{N}$\\
+      $\exists k \in \mathbb{N}~[ab=2k] \Rightarrow
+        (\exists i \in \mathbb{N}~[a=2i]) \vee
+        (\exists j \in \mathbb{N}~[b=2j])$
   \end{theorem}
 
   \pause
@@ -335,12 +336,14 @@
     \end{itemize}
 
     \pause
+    \vspace{-24pt}
     \begin{eqnarray*}
       & \Rightarrow & (\exists x \in \mathbb{N}~[a=2x+1])
                \wedge (\exists y \in \mathbb{N}~[b=2y+1])\\\pause
       & \Rightarrow & ab=(2x+1)(2y+1)\\\pause
-      & \Rightarrow & ab=4xy+2(x+y)+1\\\pause
-      & \Rightarrow & \neg (\exists a,b,k \in \mathbb{N}~[ab=2k])
+      & \Rightarrow & ab=4xy+2x+2y+1\\\pause
+      & \Rightarrow & ab=2(2xy+x+y)+1\\\pause
+      & \Rightarrow & \neg (\exists k \in \mathbb{N}~[ab=2k])
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -375,7 +378,7 @@
 
       \pause
       \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ is not divisible\\
-        by a prime number between $2..S$
+        by a prime number in the range $[2, S]$
       \pause
       \begin{enumerate}
         \item either it is prime itself: $\neg Q$
@@ -701,7 +704,7 @@
 
   \begin{theorem}
     $\forall n \in \mathbb{Z}^+, n \geq 2$\\
-      n can be written as the product of prime numbers
+      n can be written as the product of prime numbers.
   \end{theorem}
 
   \pause
@@ -750,7 +753,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Flawed Induction Examples}
+  \frametitle{Flawed Induction Example}
 
   \begin{theorem}
     $\forall n \in \mathbb{Z}^+~[1+2+3+\cdots+n=\frac{n^2+n+2}{2}]$
@@ -778,7 +781,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Flawed Induction Examples}
+  \frametitle{Flawed Induction Example}
 
   \begin{center}
     \pgfuseimage{error1}
@@ -786,13 +789,13 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Flawed Induction Examples}
+  \frametitle{Flawed Induction Example}
 
   \begin{theorem}
     All horses are of the same color.\\
     \pause
     \bigskip
-    $A(n)$: All horses in sets of $n$ cardinality are of the same color.
+    $A(n)$: All horses in sets of $n$ horses are of the same color.
 
     \medskip
     $\forall n \in \mathbb{N^+}~A(n)$
@@ -800,9 +803,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Flawed Induction Examples}
+  \frametitle{Flawed Induction Example}
 
-  \begin{block}{Flawed induction over $n$}
+  \begin{block}{invalid induction step}
     \begin{itemize}
       \item $n=1$: $A(1)$\\
         All horses in sets of $1$~horse are of the same color.
@@ -815,9 +818,10 @@
       \medskip
       \item $A(k+1)=\{a_1,a_2,\dots,a_k\} \cup \{a_2,a_3,\dots,a_{k+1}\}$
       \begin{itemize}
-        \item All horses in set $\{a_1,a_2,\dots,a_k\}$ are of the same color ($a_2$)
-        \item All horses in set $\{a_2,a_3,\dots,a_{k+1}\}$ are of the same color
-          ($a_2$)
+        \item All horses in set $\{a_1,a_2,\dots,a_k\}$
+          are of the same color ($a_2$).
+        \item All horses in set $\{a_2,a_3,\dots,a_{k+1}\}$
+          are of the same color ($a_2$).
       \end{itemize}
     \end{itemize}
   \end{block}
