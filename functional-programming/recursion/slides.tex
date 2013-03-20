@@ -198,12 +198,12 @@ gcd_ 9702 945
 
   \begin{example}[factorial]
     \begin{pygments}{haskell}
-fact_iter acc x =
+factIter acc x =
     if x == 0
     then acc
-    else fact_iter (acc * x) (x - 1)
+    else factIter (acc * x) (x - 1)
 
-fact n = fact_iter 1 n
+fact n = factIter 1 n
     \end{pygments}
   \end{example}
 \end{frame}
@@ -213,19 +213,19 @@ fact n = fact_iter 1 n
 
   \begin{example}[fact - tail recursive]
     \begin{pygments}{haskell}
-fact_iter acc x =
+factIter acc x =
     if x == 0 then acc
-    else fact_iter (acc * x) (x - 1)
+    else factIter (acc * x) (x - 1)
     \end{pygments}
 
     \pause
     \begin{verbatim}
 fact 4
-|- fact_iter 1 4
-|- fact_iter 4 3
-|- fact_iter 12 2
-|- fact_iter 24 1
-|- fact_iter 24 0
+|- factIter 1 4
+|- factIter 4 3
+|- factIter 12 2
+|- factIter 24 1
+|- factIter 24 0
 24
     \end{verbatim}
   \end{example}
@@ -248,19 +248,19 @@ fact 4
 
   \begin{example}[factorial]
     \begin{itemize}
-      \item no need for \pygment{haskell}{fact_iter} to be visible
+      \item no need for \pygment{haskell}{factIter} to be visible
         outside of \pygment{haskell}{fact}
     \end{itemize}
 
     \begin{pygments}{haskell}
 fact n =
     let
-        fact_iter acc x =
+        factIter acc x =
             if x == 0
             then acc
-            else fact_iter (acc * x) (x - 1)
+            else factIter (acc * x) (x - 1)
     in
-        fact_iter 1 n
+        factIter 1 n
     \end{pygments}
   \end{example}
 \end{frame}
@@ -272,7 +272,7 @@ fact n =
     \begin{itemize}
       \item what is the type of \pygment{haskell}{fact}?
       \item what happens if called as \pygment{haskell}{fact 2.4}?
-      \item what if \pygment{haskell}{fact_iter :: Integer -> Integer -> Integer}?
+      \item what if \pygment{haskell}{factIter :: Integer -> Integer -> Integer}?
     \end{itemize}
   \end{block}
 \end{frame}
@@ -291,49 +291,49 @@ def fact(n: Int): Int = {
     \end{pygments}
   \end{example}
 \end{frame}
-
-\subsection{Errors}
-
-\begin{frame}[fragile]
-  \frametitle{Errors}
-
-  \begin{block}{Haskell}
-    \begin{itemize}
-      \item an exception can be raised using \pygment{haskell}{error}
-    \end{itemize}
-  \end{block}
-
-  \begin{example}[factorial]
-    \begin{pygments}{haskell}
-fact n =
-    if n < 0
-    then error "negative parameter"
-    else if n == 0
-         then 1
-         else n * fact (n - 1)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Errors}
-
-  \begin{block}{Scala}
-    \begin{itemize}
-      \item an exception can be raised using \pygment{scala}{throw}
-    \end{itemize}
-  \end{block}
-
-  \begin{example}[factorial]
-    \begin{pygments}{scala}
-def fact(n: Int): Int =
-    if (n < 0) throw
-        new IllegalArgumentException("negative parameter")
-    else if (n == 0) 1
-         else n * fact(n - 1)
-    \end{pygments}
-  \end{example}
-\end{frame}
+% 
+% \subsection{Errors}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Errors}
+% 
+%   \begin{block}{Haskell}
+%     \begin{itemize}
+%       \item an exception can be raised using \pygment{haskell}{error}
+%     \end{itemize}
+%   \end{block}
+% 
+%   \begin{example}[factorial]
+%     \begin{pygments}{haskell}
+% fact n =
+%     if n < 0
+%     then error "negative parameter"
+%     else if n == 0
+%          then 1
+%          else n * fact (n - 1)
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Errors}
+% 
+%   \begin{block}{Scala}
+%     \begin{itemize}
+%       \item an exception can be raised using \pygment{scala}{throw}
+%     \end{itemize}
+%   \end{block}
+% 
+%   \begin{example}[factorial]
+%     \begin{pygments}{scala}
+% def fact(n: Int): Int =
+%     if (n < 0) throw
+%         new IllegalArgumentException("negative parameter")
+%     else if (n == 0) 1
+%          else n * fact(n - 1)
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
 
 \section{Lists}
 
@@ -422,12 +422,12 @@ length' xs =
     \begin{pygments}{haskell}
 length' xs =
     let
-        length_iter acc items =
+        lengthIter acc items =
             if null items
             then acc
-            else length_iter (acc + 1) (tail items)
+            else lengthIter (acc + 1) (tail items)
     in
-        length_iter 0 xs
+        lengthIter 0 xs
     \end{pygments}
   \end{example}
 \end{frame}
@@ -479,10 +479,10 @@ append xs ys =
   \begin{example}[generate list from lower to upper limit]
     \pause
     \begin{pygments}{haskell}
-count_up lower upper =
+countUp lower upper =
     if lower > upper
     then []
-    else lower : count_up (lower + 1) upper
+    else lower : countUp (lower + 1) upper
     \end{pygments}
   \end{example}
 
@@ -500,14 +500,14 @@ count_up lower upper =
 
   \begin{example}[generate list from upper to lower limit]
     \begin{pygments}{haskell}
-count_down upper lower =
+countDown upper lower =
     let
-        count_down_iter acc u =
+        countDownIter acc u =
             if u < lower
             then acc
-            else count_down_iter (acc ++ [u]) (u - 1)
+            else countDownIter (acc ++ [u]) (u - 1)
     in
-        count_down_iter [] upper
+        countDownIter [] upper
     \end{pygments}
 
 % TODO: note the use of lower
@@ -538,8 +538,8 @@ max' xs =
   \begin{block}{Exercise}
     \begin{itemize}
       \item what happens if called as:\\
-        \pygment{haskell}{max' (count_down 30 1)}\\
-        \pygment{haskell}{max' (count_up 1 30)}
+        \pygment{haskell}{max' (countDown 30 1)}\\
+        \pygment{haskell}{max' (countUp 1 30)}
       \item fix the problem
    \end{itemize}
   \end{block}
@@ -557,11 +557,11 @@ max' xs =
          then head xs
          else
              let
-                 max_rest = max' (tail xs)
+                 maxRest = max' (tail xs)
              in
-                 if head xs > max_rest
+                 if head xs > maxRest
                  then head xs
-                 else max_rest
+                 else maxRest
     \end{pygments}
   \end{example}
 \end{frame}
@@ -597,12 +597,12 @@ reverse' xs =
     \begin{pygments}{haskell}
 reverse' xs =
     let
-        reverse_iter acc items =
+        reverseIter acc items =
             if null items
             then acc
-            else reverse_iter (head items : acc) (tail items)
+            else reverseIter (head items : acc) (tail items)
     in
-        reverse_iter [] xs
+        reverseIter [] xs
     \end{pygments}
   \end{example}
 \end{frame}
