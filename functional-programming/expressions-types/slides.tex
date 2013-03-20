@@ -350,11 +350,11 @@ square x = x * x
 -- square 21 -> 441
 -- square (2 + 5) -> 49
 
-sum_of_squares :: Integer -> Integer -> Integer
-sum_of_squares x y = square x + square y
+sumOfSquares :: Integer -> Integer -> Integer
+sumOfSquares x y = square x + square y
 
--- sum_of_squares 3 4 -> 25
--- sum_of_squares (a + 1) (a * 2)
+-- sumOfSquares 3 4 -> 25
+-- sumOfSquares (a + 1) (a * 2)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -683,8 +683,8 @@ if predicate then true_expr else false_expr
   \medskip
   \begin{example}
     \begin{pygments}{haskell}
-absval :: Integer -> Integer
-absval x = if x < 0 then -x else x
+abs' :: Integer -> Integer
+abs' x = if x < 0 then -x else x
     \end{pygments}
   \end{example}
 \end{frame}
@@ -701,7 +701,7 @@ if (predicate) true_expr else false_expr
   \medskip
   \begin{example}
     \begin{pygments}{scala}
-def absval(x: Int): Int =
+def abs(x: Int): Int =
     if (x < 0) -x else x
     \end{pygments}
   \end{example}
@@ -719,7 +719,7 @@ true_expr if predicate else false_expr
   \medskip
   \begin{example}
     \begin{pygments}{python}
-def absval(x):
+def abs_(x):
     return -x if x < 0 else x
     \end{pygments}
   \end{example}
@@ -758,10 +758,10 @@ def absval(x):
 
   \begin{example}[Java]
     \begin{pygments}{java}
-// find the index of a key in a list
+// find the index of a key item in a list
 index = 0;
-while ((index < listlen) && (list[index] != key))
-    index = index + 1;
+while ((index < items.length) && (items[index] != key))
+    index++;
     \end{pygments}
   \end{example}
 \end{frame}
@@ -823,13 +823,13 @@ not' x = if x then False else True
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
 -- lists
-[1, 2, 3, 4]
-["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-[1, 2, 3, 4, "Monday"]  -- invalid
+[1,2,3,4]
+["Monday","Tuesday","Wednesday","Thursday","Friday"]
+[1,2,3,4,"Monday"]      -- invalid
 
 -- tuples
-(19, 2, 2013)
-(19, "Feb", 2013)
+(19,2,2013)
+(19,"Feb",2013)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -843,14 +843,14 @@ not' x = if x then False else True
 
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-roots :: (Double, Double, Double) -> (Double, Double)
-roots (a, b, c) =
+roots :: (Double,Double,Double) -> (Double,Double)
+roots (a,b,c) =
     let
         disc = b * b - 4 * a * c
         x1 = (-b + sqrt disc) / (2 * a)
         x2 = (-b - sqrt disc) / (2 * a)
     in
-        (x1, x2)
+        (x1,x2)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -1020,7 +1020,7 @@ a
   \begin{itemize}
     \item type checking aims to prevent operations that don't make sense
     \begin{itemize}
-      \item example: does \pygment{python}{True + 15} make sense?
+      \item example: does \pygment{python}{True + 41} make sense?
     \end{itemize}
     \item check type of operands before operation
 
@@ -1115,12 +1115,12 @@ print("I was born in %s." % birthYear)
 
   \begin{example}[Java]
     \begin{pygments}{java}
-List l = new LinkedList();
-l.add(5);
-l.add(8.7);
-l.add("abc");
+List lst = new LinkedList();
+lst.add(5);
+lst.add(8.7);
+lst.add("abc");
 
-for (Object o : l) {
+for (Object o : lst) {
     System.out.println(o);        // this works
     System.out.println(o + o);    // this is an error
 }
@@ -1133,12 +1133,12 @@ for (Object o : l) {
 
   \begin{example}[Python]
     \begin{pygments}{python}
-l = []
-l.append(5)
-l.append(8.7)
-l.append("abc")
+lst = []
+lst.append(5)
+lst.append(8.7)
+lst.append("abc")
 
-for o in l:
+for o in lst:
     print(o + o)
     \end{pygments}
   \end{example}
@@ -1168,10 +1168,10 @@ for o in l:
 even' n = n `mod` 2 == 0
 -- even' :: Integer -> Bool
 
-even_message n = if even' n then "even" else "odd"
--- even_message :: Integer -> [Char]
+evenMessage n = if even' n then "even" else "odd"
+-- evenMessage :: Integer -> [Char]
 
-even_mixed n = if even' n then "even" else False
+evenMixed n = if even' n then "even" else False
 -- type inference fails
     \end{pygments}
   \end{example}
@@ -1189,7 +1189,7 @@ even_mixed n = if even' n then "even" else False
     \begin{pygments}{haskell}
 shrink x y z = if x then y `div` z else y
 
-pi_or_second x y = if x then 3.14159 else y
+piOrSecond x y = if x then 3.14159 else y
 
 foo x y = if x then y else x + 1
 
@@ -1208,8 +1208,8 @@ choose x y z = if x then y else z
 shrink x y z = if x then y `div` z else y
 -- shrink :: Bool -> Integer -> Integer -> Integer
 
-pi_or_second x y = if x then 3.14159 else y
--- pi_or_second :: Bool -> Double -> Double
+piOrSecond x y = if x then 3.14159 else y
+-- piOrSecond :: Bool -> Double -> Double
 
 foo x y = if x then y else x + 1
 -- type inference fails
