@@ -162,12 +162,42 @@ case e of
 \begin{frame}[fragile]
   \frametitle{Pattern Example}
 
-  \begin{example}[factorial]
+  \begin{example}[Haskell]
     \begin{pygments}{haskell}
 fact n =
     case n of
       0 -> 1
       _ -> n * fact (n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Patterns}
+
+  \begin{block}{Scala}
+    \begin{pygments}{scala}
+e match {
+    case p1 => e1
+    case p2 => e2
+    ...
+    case pn => en
+    _ => eo
+}
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pattern Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{haskell}
+def fact(n: Int): Int =
+    n match {
+        case 0 => 1
+        case _ => n * fact(n - 1)
+    }
     \end{pygments}
   \end{example}
 \end{frame}
@@ -185,24 +215,21 @@ fact n =
     \begin{pygments}{haskell}
 third t =
     case t of
-      (t1,t2,t3) -> t3
-      _ -> error "not a triple"
+      (x,y,z) -> z
     \end{pygments}
 
     \pause
     \begin{pygments}{haskell}
 -- BETTER:
-
 third t =
     case t of
-      (_,_,t3) -> t3
-      _ -> error "not a triple"
+      (_,_,z) -> z
     \end{pygments}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Patterns}
+  \frametitle{List Patterns in Haskell}
 
   \begin{itemize}
     \item empty list: \pygment{haskell}{[]}
@@ -216,7 +243,7 @@ third t =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Pattern Examples}
+  \frametitle{List Pattern Examples in Haskell}
 
   \begin{example}[sum of a list]
     \begin{pygments}{haskell}
@@ -240,17 +267,71 @@ max' xs =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Pattern Example}
+  \frametitle{List Pattern Examples in Haskell}
 
   \begin{example}[add the first and third elements of a list]
     \pause
     \begin{pygments}{haskell}
-first_plus_third xs =
+firstPlusThird xs =
     case xs of
       [] -> 0
-      [i] -> i
+      [x1] -> x1
       [x1,_] -> x1
       x1:_:x3:_ -> x1 + x3
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Patterns in Scala}
+
+  \begin{itemize}
+    \item empty list: \pygment{scala}{List()}
+    \item nonempty list: \pygment{scala}{x::xs}
+    \item list with exactly one element: \pygment{scala}{List(x)}
+    \item list with exactly two elements: \pygment{scala}{List(x1, x2)}
+    \item list with at least two elements: \pygment{scala}{x1::x2::xs}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Pattern Examples in Scala}
+
+  \begin{example}[sum of a list]
+    \begin{pygments}{scala}
+def sum(xs: List[Int]): Int =
+    xs match {
+        case List() => 0
+        case y::ys => y + sum(ys)
+    }
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{example}[maximum of a list]
+    \begin{pygments}{scala}
+def max(xs: List[Int]): Int =
+    xs match {
+        case List() => throw ...
+        case List(i) => i
+        case y::ys => if (y > max(ys)) y else max(ys)
+    }
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Pattern Examples in Scala}
+
+  \begin{example}[add the first and third elements of a list]
+    \begin{pygments}{haskell}
+def firstPlusThird(xs: List[Int]): Int =
+    xs match {
+        case List() => 0
+        case List(x1) => x1
+        case List(x1, _) => x1
+        case x1::_::x3::_ => x1 + x3
+    }
     \end{pygments}
   \end{example}
 \end{frame}
@@ -323,9 +404,9 @@ nondecreasing xs =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Patterns}
+  \frametitle{Function Patterns}
 
-  \begin{block}{function patterns}
+  \begin{block}{Haskell}
     \begin{pygments}{haskell}
 f p1 = e1
 f p2 = e2
@@ -340,6 +421,8 @@ fact n = n * fact (n - 1)
 
 sum' [] = 0
 sum' (x:xs) = x + sum' xs
+
+third (_,_,z) = z
     \end{pygments}
   \end{example}
 \end{frame}
@@ -384,10 +467,10 @@ data Month = Jan | Feb | Mar | Apr | May | Jun
 data TaggedNumber = Exact Integer | Inexact Float
                     deriving Show
 
-data Name = LastName String
-          | FullName String String
-          | MiddleInitial String Char String
-          deriving Show
+data PersonName = OnlyLast String
+                | FirstLast String String
+                | FirstMiddleLast String Char String
+                deriving Show
     \end{pygments}
   \end{example}
 \end{frame}
@@ -403,9 +486,9 @@ Mar
 Exact 42
 Inexact 3.14159
 
-LastName "Turing"
-FullName "Alonzo" "Church"
-MiddleInitial "Johnny" 'B' "Goode"
+OnlyLast "Turing"
+FirstLast "Alonzo" "Church"
+FirstMiddleLast "Johnny" 'B' "Goode"
     \end{pygments}
   \end{example}
 \end{frame}
@@ -415,7 +498,7 @@ MiddleInitial "Johnny" 'B' "Goode"
 
   \begin{example}[pattern matching]
     \begin{pygments}{haskell}
-days_in_month m y =
+daysInMonth m y =
     case m of
       Apr -> 30
       Jun -> 30
@@ -424,9 +507,9 @@ days_in_month m y =
       Feb -> if y `mod` 4 == 0 then 29 else 28
       _ -> 31
 
--- days_in_month Jan 2013 -> 31
--- days_in_month Feb 2013 -> 28
--- days_in_month Feb 2012 -> 29
+-- daysInMonth Jan 2013 -> 31
+-- daysInMonth Feb 2013 -> 28
+-- daysInMonth Feb 2012 -> 29
     \end{pygments}
   \end{example}
 \end{frame}
@@ -452,15 +535,15 @@ rounded num =
 
   \begin{example}[pattern matching]
     \begin{pygments}{haskell}
-name_str n =
+fullName n =
     case n of
-      LastName l -> l
-      FullName f l -> f ++ " " ++ l
-      MiddleInitial f m l -> f ++ " " ++ [m] ++ ". " ++ l
+      OnlyLast l -> l
+      FirstLast f l -> f ++ " " ++ l
+      FirstMiddleLast f m l -> f ++ " " ++ [m] ++ ". " ++ l
 
--- name_str (LastName "Turing") -> "Turing"
--- name_str (FullName "Alonzo" "Church") -> "Alonzo Church"
--- name_str (MiddleInitial "Johnny" 'B' "Goode")
+-- fullName (OnlyLast "Turing") -> "Turing"
+-- fullName (FirstLast "Alonzo" "Church") -> "Alonzo Church"
+-- fullName (FirstMiddleLast "Johnny" 'B' "Goode")
 --     -> "Johnny B. Goode"
     \end{pygments}
   \end{example}
@@ -562,13 +645,13 @@ type Card = (Suit, Rank)
 data Color = Red | Black
              deriving Show
 
-card_color :: Card -> Color
-card_color card =
+cardColor :: Card -> Color
+cardColor card =
     case card of
-      (Club, _) -> Black
-      (Diamond, _) -> Red
-      (Heart, _) -> Red
-      (Spade, _) -> Black
+      (Club,_) -> Black
+      (Diamond,_) -> Red
+      (Heart,_) -> Red
+      (Spade,_) -> Black
     \end{pygments}
   \end{example}
 
@@ -585,13 +668,13 @@ card_color card =
 
   \begin{example}[value of a card]
     \begin{pygments}{haskell}
-card_value card =
+cardValue card =
     case card of
-      (_, Ace) -> 11
-      (_, King) -> 10
-      (_, Queen) -> 10
-      (_, Jack) -> 10
-      (_, Number n) -> n
+      (_,Ace) -> 11
+      (_,King) -> 10
+      (_,Queen) -> 10
+      (_,Jack) -> 10
+      (_,Number n) -> n
     \end{pygments}
   \end{example}
 \end{frame}
@@ -637,18 +720,18 @@ data Either a b = Left a | Right b
 
   \begin{example}[maximum of a list]
     \begin{pygments}{haskell}
-maybe_max xs =
+maybeMax xs =
     let
-       max_iter acc items =
+       maxIter acc items =
            case items of
              [] -> acc
              item:items' -> if item > acc
-                            then max_iter item items'
-                            else max_iter acc items'
+                            then maxIter item items'
+                            else maxIter acc items'
     in
         case xs of
           [] -> Nothing
-          x:xs' -> Just (max_iter x xs')
+          x:xs' -> Just (maxIter x xs')
     \end{pygments}
   \end{example}
 \end{frame}
@@ -665,7 +748,7 @@ maybe_max xs =
   \pause
   \begin{example}[Haskell]
     \begin{pygments}{haskell}
-data List' a = Empty | Cons a (List' a)
+data List' a = EmptyList | NonEmptyList a (List' a)
                deriving Show
     \end{pygments}
   \end{example}
@@ -678,7 +761,7 @@ data List' a = Empty | Cons a (List' a)
     \begin{pygments}{haskell}
 null' xs =
     case xs of
-      Empty -> True
+      EmptyList -> True
       _ -> False
     \end{pygments}
 
@@ -687,8 +770,8 @@ null' xs =
     \begin{pygments}{haskell}
 head' xs =
     case xs of
-      Empty -> Nothing
-      Cons x _ -> Just x
+      EmptyList -> Nothing
+      NonEmptyList x _ -> Just x
     \end{pygments}
 
     \pause
@@ -696,8 +779,8 @@ head' xs =
     \begin{pygments}{haskell}
 append' xs ys =
     case xs of
-      Empty -> ys
-      Cons x xs' -> Cons x (append' xs' ys)
+      EmptyList -> ys
+      NonEmptyList x xs' -> NonEmptyList x (append' xs' ys)
     \end{pygments}
   \end{example}
 \end{frame}
@@ -707,16 +790,17 @@ append' xs ys =
 
   \begin{example}[binary tree]
     \begin{pygments}{haskell}
-data Tree' a = Nil | Node a (Tree' a) (Tree' a)
-               deriving Show
+data Tree' a = EmptyTree
+             | NonEmptyTree a (Tree' a) (Tree' a)
+             deriving Show
     \end{pygments}
 
     \pause
     \begin{pygments}{haskell}
 depth' t =
     case t of
-      Nil -> 0
-      Node _ t1 t2 -> 1 + max (depth' t1) (depth' t2)
+      EmptyTree -> 0
+      NonEmptyTree _ t1 t2 -> 1 + max (depth' t1) (depth' t2)
     \end{pygments}
   \end{example}
 
@@ -736,9 +820,9 @@ depth' t =
     \begin{pygments}{haskell}
 leaves t =
     case t of
-      Nil -> 0
-      Node _ Nil Nil -> 1
-      Node _ t1 t2 -> leaves t1 + leaves t2
+      EmptyTree -> 0
+      NonEmptyTree _ EmptyTree EmptyTree -> 1
+      NonEmptyTree _ t1 t2 -> leaves t1 + leaves t2
     \end{pygments}
   \end{example}
 \end{frame}
@@ -746,10 +830,10 @@ leaves t =
 \begin{frame}[fragile]
   \frametitle{Recursive Type Example}
 
-  \begin{example}[binary tree]
+  \begin{example}[binary tree with different types at nodes and leaves]
     \begin{pygments}{haskell}
-data Tree' a b =
-    Node a (Tree' a b) (Tree' a b)
+data LeafNodeTree a b =
+    Node a (LeafNodeTree a b) (LeafNodeTree a b)
   | Leaf b
   deriving Show
     \end{pygments}
