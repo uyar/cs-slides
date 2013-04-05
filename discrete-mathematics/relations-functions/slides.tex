@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Relations and Functions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -60,7 +60,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -102,7 +102,7 @@
   \frametitle{Relation}
 
   \begin{definition}
-    \alert{relation}: $\alpha \subseteq A \times B \times C \dots \times N$
+    \alert{relation}: $\alpha \subseteq A \times B \times C \times \dots \times N$
   \end{definition}
 
   \pause
@@ -113,7 +113,7 @@
     \medskip
     \item $\alpha \subseteq A \times B$: \emph{binary relation}
     \begin{itemize}
-      \item $(a,b) \in \alpha \equiv a \alpha b$
+      \item $a \alpha b$ is the same as $(a,b) \in \alpha$
     \end{itemize}
 
     \pause
@@ -172,13 +172,17 @@
 
   \begin{definition}
     \alert{relation composition}:\\
-      $\alpha \subseteq A \times B \wedge \beta \subseteq B \times C$\\
-      $\Rightarrow \alpha \beta = \{(a,c) | a \in A, c \in C,
-                \exists b \in B [a \alpha b \wedge b \beta c)]\}$
+      let $\alpha \subseteq A \times B$, $\beta \subseteq B \times C$\\
+      $\alpha \beta = \{(a,c)~|~a \in A, c \in C,
+                \exists b \in B~[a \alpha b \wedge b \beta c]\}$
   \end{definition}
 
   \begin{itemize}
     \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
+    \begin{itemize}
+      \item using logical operations:\\
+        $1:T, 0:F, \cdot:\wedge, +:\vee$
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -253,15 +257,15 @@
   \begin{proof}[$(\alpha \beta) \gamma = \alpha (\beta \gamma)$]
     \begin{eqnarray*}
       &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
-      & \Leftrightarrow & \exists c [(a,c) \in \alpha \beta
+      & \Leftrightarrow & \exists c~[(a,c) \in \alpha \beta
                               \wedge (c,d) \in \gamma]\\\pause
-      & \Leftrightarrow & \exists c [\exists b [(a,b) \in \alpha
+      & \Leftrightarrow & \exists c~[\exists b~[(a,b) \in \alpha
                                          \wedge (b,c) \in \beta]
                                          \wedge (c,d) \in \gamma]\\\pause
-      & \Leftrightarrow & \exists b [(a,b) \in \alpha
-                              \wedge \exists c [(b,c) \in \beta
+      & \Leftrightarrow & \exists b~[(a,b) \in \alpha
+                              \wedge \exists c~[(b,c) \in \beta
                               \wedge (c,d) \in \gamma]]\\\pause
-      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+      & \Leftrightarrow & \exists b~[(a,b) \in \alpha
                               \wedge (b,d) \in \beta \gamma]\\\pause
       & \Leftrightarrow & (a,d) \in \alpha (\beta \gamma)
     \end{eqnarray*}
@@ -272,8 +276,8 @@
   \frametitle{Relation Composition Theorems}
 
   \begin{itemize}
-    \item $\alpha , \delta \subseteq A \times B \wedge
-           \beta , \gamma \subseteq B \times C$
+    \item let $\alpha , \delta \subseteq A \times B$, and\\
+          let $\beta , \gamma \subseteq B \times C$
 
     \medskip
     \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
@@ -296,16 +300,16 @@
 
   \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
     \begin{eqnarray*}
-      &                 & (x,y) \in \alpha (\beta \cup \gamma)\\\pause
-      & \Leftrightarrow & \exists z [(x,z) \in \alpha
-                              \wedge (z,y) \in (\beta \cup \gamma)]\\\pause
-      & \Leftrightarrow & \exists z [(x,z) \in \alpha
-                             \wedge ((z,y) \in \beta
-                                \vee (z,y) \in \gamma)]\\\pause
-      & \Leftrightarrow & \exists z [((x,z) \in \alpha \wedge (z,y) \in \beta)\\
-      &                 &     ~~\vee ((x,z) \in \alpha \wedge (z,y) \in \gamma)]\\\pause
-      & \Leftrightarrow & (x,y) \in \alpha \beta \vee (x,y) \in \alpha \gamma\\\pause
-      & \Leftrightarrow & (x,y) \in \alpha \beta \cup \alpha \gamma
+      &                 & (a,c) \in \alpha (\beta \cup \gamma)\\\pause
+      & \Leftrightarrow & \exists b~[(a,b) \in \alpha
+                              \wedge (b,c) \in (\beta \cup \gamma)]\\\pause
+      & \Leftrightarrow & \exists b~[(a,b) \in \alpha
+                             \wedge ((b,c) \in \beta
+                                \vee (b,c) \in \gamma)]\\\pause
+      & \Leftrightarrow & \exists b~[((a,b) \in \alpha \wedge (b,c) \in \beta)\\
+      &                 &     ~~\vee ((a,b) \in \alpha \wedge (b,c) \in \gamma)]\\\pause
+      & \Leftrightarrow & (a,c) \in \alpha \beta \vee (a,c) \in \alpha \gamma\\\pause
+      & \Leftrightarrow & (a,c) \in \alpha \beta \cup \alpha \gamma
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -314,7 +318,7 @@
   \frametitle{Converse Relation}
 
   \begin{definition}
-    $\alpha^{-1} \equiv \{(y,x) | (x,y) \in \alpha \}$
+    $\alpha^{-1} = \{(b,a)~|~(a,b) \in \alpha \}$
   \end{definition}
 
   \begin{itemize}
@@ -327,20 +331,10 @@
 
   \begin{itemize}
     \item $(\alpha^{-1})^{-1} = \alpha$
-
-    \pause
     \item $(\alpha \cup \beta)^{-1} = \alpha^{-1} \cup \beta^{-1}$
-
-    \pause
     \item $(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$
-
-    \pause
     \item $\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$
-
-    \pause
     \item $(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$
-
-    \pause
     \item $\alpha \subset \beta \Rightarrow \alpha^{-1} \subset \beta^{-1}$
   \end{itemize}
 \end{frame}
@@ -350,11 +344,11 @@
 
   \begin{proof}[$\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$]
     \begin{eqnarray*}
-      &                 & (x,y) \in \overline{\alpha}^{-1}\\\pause
-      & \Leftrightarrow & (y,x) \in \overline{\alpha}\\\pause
-      & \Leftrightarrow & (y,x) \notin \alpha\\\pause
-      & \Leftrightarrow & (x,y) \notin \alpha^{-1}\\\pause
-      & \Leftrightarrow & (x,y) \in \overline{\alpha^{-1}}
+      &                 & (b,a) \in \overline{\alpha}^{-1}\\\pause
+      & \Leftrightarrow & (a,b) \in \overline{\alpha}\\\pause
+      & \Leftrightarrow & (a,b) \notin \alpha\\\pause
+      & \Leftrightarrow & (b,a) \notin \alpha^{-1}\\\pause
+      & \Leftrightarrow & (b,a) \in \overline{\alpha^{-1}}
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -364,12 +358,12 @@
 
   \begin{proof}[$(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$]
     \begin{eqnarray*}
-      &                 & (x,y) \in (\alpha \cap \beta)^{-1}\\\pause
-      & \Leftrightarrow & (y,x) \in (\alpha \cap \beta)\\\pause
-      & \Leftrightarrow & (y,x) \in \alpha \wedge (y,x) \in \beta\\\pause
-      & \Leftrightarrow & (x,y) \in \alpha^{-1}
-                   \wedge (x,y) \in \beta^{-1}\\\pause
-      & \Leftrightarrow & (x,y) \in \alpha^{-1} \cap \beta^{-1}
+      &                 & (b,a) \in (\alpha \cap \beta)^{-1}\\\pause
+      & \Leftrightarrow & (a,b) \in (\alpha \cap \beta)\\\pause
+      & \Leftrightarrow & (a,b) \in \alpha \wedge (a,b) \in \beta\\\pause
+      & \Leftrightarrow & (b,a) \in \alpha^{-1}
+                   \wedge (b,a) \in \beta^{-1}\\\pause
+      & \Leftrightarrow & (b,a) \in \alpha^{-1} \cap \beta^{-1}
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -399,10 +393,10 @@
     \begin{eqnarray*}
       &                 & (c,a) \in (\alpha \beta)^{-1}\\\pause
       & \Leftrightarrow & (a,c) \in \alpha \beta\\\pause
-      & \Leftrightarrow & \exists b [(a,b) \in \alpha
+      & \Leftrightarrow & \exists b~[(a,b) \in \alpha
                               \wedge (b,c) \in \beta]\\\pause
-      & \Leftrightarrow & \exists b [(c,b) \in \beta^{-1}
-                              \wedge (b,a) \in \alpha^{-1}]\\\pause
+      & \Leftrightarrow & \exists b~[(b,a) \in \alpha^{-1}
+                              \wedge (c,b) \in \beta^{-1}]\\\pause
       & \Leftrightarrow & (c,a) \in \beta^{-1}\alpha^{-1}
     \end{eqnarray*}
   \end{proof}
@@ -421,14 +415,11 @@
 
     \pause
     \medskip
-    \item $\alpha \alpha \equiv \alpha^2$
-    \begin{itemize}
-      \item $\alpha \alpha \dots \alpha \equiv \alpha^n$
-    \end{itemize}
+    \item let $\alpha^n$ mean $\alpha \alpha \cdots \alpha$
 
     \pause
     \medskip
-    \item \alert{identity relation}: $E = \{(x,x) | x \in A\}$
+    \item \alert{identity relation}: $E = \{(x,x)~|~x \in A\}$
   \end{itemize}
 \end{frame}
 
@@ -445,8 +436,7 @@
     \item $E \subseteq \alpha$
 
     \pause
-    \medskip
-    \item nonreflexive:\\
+        \item nonreflexive:\\
       $\exists a~[\neg (a \alpha a)]$
 
     \pause
@@ -503,7 +493,7 @@
 
   \begin{example}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
     \medskip
     \begin{itemize}
@@ -517,11 +507,11 @@
 
   \begin{block}{symmetric}
     $\alpha \subseteq A \times A$\\
-    $\forall a,b [(a=b) \vee (a \alpha b \wedge b \alpha a)
+    $\forall a,b~[(a=b) \vee (a \alpha b \wedge b \alpha a)
                         \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
 
     \pause
-    $\forall a,b [(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
+    $\forall a,b~[(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
   \end{block}
 
   \pause
@@ -529,15 +519,17 @@
     \item $\alpha^{-1} = \alpha$
 
     \pause
-    \medskip
     \item asymmetric:\\
-      $\exists a,b [(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
+      $\exists a,b~[(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
                                \vee (\neg (a \alpha b) \wedge b \alpha a))]$
 
     \pause
     \item antisymmetric:
+    \vspace{-12pt}
     \begin{eqnarray*}
                       & \forall a,b~
+                    [(a=b) \vee (a \alpha b \rightarrow \neg(b \alpha a))]\\\pause
+      \Leftrightarrow & \forall a,b~
                     [(a=b) \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
       \Leftrightarrow & \forall a,b~
                     [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
@@ -566,7 +558,7 @@
 
   \begin{example}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
     \medskip
     \begin{itemize}
@@ -601,7 +593,6 @@
     \item $\alpha^2 \subseteq \alpha$
 
     \pause
-    \medskip
     \item nontransitive:\\
       $\exists a,b,c~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
 
@@ -630,7 +621,7 @@
 
   \begin{example}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv ab \geq 0$
+    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
     \medskip
     \begin{itemize}
@@ -649,7 +640,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Closure}
+  \frametitle{Closures}
 
   \begin{itemize}
     \item reflexive closure:\\
@@ -663,17 +654,19 @@
     \pause
     \medskip
     \item transitive closure:\\
-      $t_{\alpha} = \bigcup_{i=1 \dots n}~\alpha^i
-        = \alpha \cup \alpha^2 \cup \alpha^3 \cup \cdots \cup \alpha^n$
+      $t_{\alpha} = \bigcup_{i=1,2,3, \ldots}~\alpha^i
+        = \alpha \cup \alpha^2 \cup \alpha^3 \cup \cdots$
   \end{itemize}
 \end{frame}
+
+% TODO: add examples for closures
 
 \begin{frame}
   \frametitle{Special Relations}
 
   \begin{block}{predecessor - successor}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv a-b=1$
+    $\mathcal{R} = \{(a,b)~|~a-b=1\}$
 
     \medskip
     \begin{itemize}
@@ -689,7 +682,7 @@
 
   \begin{block}{adjacency}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv |a-b|=1$
+    $\mathcal{R} = \{(a,b)~|~|a-b|=1\}$
 
     \medskip
     \begin{itemize}
@@ -705,7 +698,7 @@
 
   \begin{block}{strict order}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv a<b$
+    $\mathcal{R} = \{(a,b)~|~a<b\}$
 
     \medskip
     \begin{itemize}
@@ -721,7 +714,7 @@
 
   \begin{block}{partial order}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv a \leq b$
+    $\mathcal{R} = \{(a,b)~|~ a \leq b\}$
 
     \medskip
     \begin{itemize}
@@ -737,7 +730,7 @@
 
   \begin{block}{preorder}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv |a| \leq |b|$
+    $\mathcal{R} = \{(a,b)~|~|a| \leq |b|\}$
 
     \medskip
     \begin{itemize}
@@ -752,8 +745,8 @@
   \frametitle{Special Relations}
 
   \begin{block}{limited difference}
-    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv |a-b| \leq m$
+    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}, m \in \mathbb{Z}^+$\\
+    $\mathcal{R} = \{(a,b)~|~|a-b| \leq m\}$
 
     \medskip
     \begin{itemize}
@@ -769,7 +762,7 @@
 
   \begin{block}{comparability}
     $\mathcal{R} \subseteq \mathbb{U} \times \mathbb{U}$\\
-    $(a,b) \in \mathcal{R} \equiv (a \subseteq b) \vee (b \subseteq a)$
+    $\mathcal{R} = \{(a,b)~|~(a \subseteq b) \vee (b \subseteq a)\}$
 
     \medskip
     \begin{itemize}
@@ -831,13 +824,11 @@
       \column{.45\textwidth}
       \begin{eqnarray*}
         A           & = & \{a_1,a_2,a_3,a_4\}\\
-        \mathcal{R} & = & \{\\
-                    &   & (a_1,a_1),(a_2,a_2),\\
-                    &   & (a_3,a_3),(a_4,a_4),\\
-                    &   & (a_1,a_2),(a_2,a_1),\\
-                    &   & (a_2,a_4),(a_4,a_2),\\
-                    &   & (a_3,a_4),(a_4,a_3)\\
-                    &   & \}
+        \mathcal{R} & = & \{(a_1,a_1),(a_2,a_2),\\
+                    &   & ~~(a_3,a_3),(a_4,a_4),\\
+                    &   & ~~(a_1,a_2),(a_2,a_1),\\
+                    &   & ~~(a_2,a_4),(a_4,a_2),\\
+                    &   & ~~(a_3,a_4),(a_4,a_3)\}
       \end{eqnarray*}
 
       \column{.2\textwidth}
@@ -876,12 +867,12 @@
   \frametitle{Compatibility Relation Example}
 
   \begin{example}[$\alpha \alpha^{-1}$]
-    $A$: persons, $B$: languages
+    $P$: persons, $L$: languages\\
+    $P=\{p_1,p_2,p_3,p_4,p_5,p_6\}$\\
+    $L=\{l_1,l_2,l_3,l_4,l_5\}$\\
 
     \medskip
-    $A=\{a_1,a_2,a_3,a_4,a_5,a_6\}$\\
-    $B=\{b_1,b_2,b_3,b_4,b_5\}$\\
-    $\alpha \subseteq A \times B$
+    $\alpha \subseteq P \times L$
 
     \pause
     \begin{columns}
@@ -917,7 +908,7 @@
   \frametitle{Compatibility Relation Example}
 
   \begin{example}[$\alpha \alpha^{-1}$]
-    $\alpha \alpha^{-1} \subseteq A \times A$
+    $\alpha \alpha^{-1} \subseteq P \times P$
 
     \begin{columns}
       \column{.45\textwidth}
@@ -984,11 +975,9 @@
       \pause
       \medskip
       \begin{eqnarray*}
-        C_\gamma (A) & = & \{\\
-                      &   & \{a_1,a_2,a_4,a_6\},\\
-                      &   & \{a_3,a_4,a_6\},\\
-                      &   & \{a_4,a_5\}\\
-                      &   & \}
+        C_\gamma (A) & = & \{\{a_1,a_2,a_4,a_6\},\\
+                     &   & ~~\{a_3,a_4,a_6\},\\
+                     &   & ~~\{a_4,a_5\}\}
       \end{eqnarray*}
     \end{columns}
   \end{example}
@@ -1021,12 +1010,14 @@
 
   \begin{example}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $(a,b) \in \mathcal{R} \equiv 5~|~|a - b|$
+    $\mathcal{R} = \{(a,b)~|~\exists m \in \mathbb{Z}~[a - b = 5m]\}$
 
     \bigskip
     \begin{itemize}
       \item $\mathcal{R}$ partitions $\mathbb{Z}$ into 5~equivalence classes
     \end{itemize}
+
+% TODO: add drawing
   \end{example}
 \end{frame}
 
@@ -1075,14 +1066,13 @@
 
     \pause
     \medskip
-    \item $(x,y) \in f \equiv y = f(x)$
+    \item $y = f(x)$ is the same as $(x,y) \in f$
     \item $y$ is the \emph{image} of $x$ under $f$
 
     \pause
     \medskip
-    \item \emph{subset image}:\\
-      $f: X \rightarrow Y \wedge X_1 \subseteq X$\\
-      $f(X_1) = \{ f(x) | x \in X_1\}$
+    \item let $f: X \rightarrow Y$, and $X_1 \subseteq X$\\
+      \emph{subset image}: $f(X_1) = \{f(x)~|~x \in X_1\}$
  \end{itemize}
 \end{frame}
 
@@ -1189,7 +1179,7 @@
   \frametitle{Function Composition}
 
   \begin{definition}
-    $f: X \rightarrow Y, g: Y \rightarrow Z$
+    let $f: X \rightarrow Y, g: Y \rightarrow Z$
 
     \medskip
     $g \circ f: X \rightarrow Z$\\
@@ -1231,8 +1221,9 @@
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
-    $f$ is one-to-one $\wedge$ $g$ is one-to-one $\Rightarrow$ $g \circ f$ is one-to-one
+    let $f: X \rightarrow Y, g: Y \rightarrow Z$\\
+    $f$ is one-to-one $\wedge$ $g$ is one-to-one
+      $\Rightarrow$ $g \circ f$ is one-to-one
   \end{theorem}
 
   \pause
@@ -1252,7 +1243,7 @@
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    $f: X \rightarrow Y, g: Y \rightarrow Z$:\\
+    let $f: X \rightarrow Y, g: Y \rightarrow Z$\\
     $f$ is onto $\wedge$ $g$ is onto $\Rightarrow$ $g \circ f$ is onto
   \end{theorem}
 
@@ -1281,7 +1272,8 @@
 
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{invertible}:\\
-      $\exists f^{-1}: Y \rightarrow X~f^{-1} \circ f = 1_X \wedge f \circ f^{-1} = 1_Y$
+      $\exists f^{-1}: Y \rightarrow X~[f^{-1} \circ f = 1_X
+                                      \wedge f \circ f^{-1} = 1_Y]$
 
     \begin{itemize}
       \item $f^{-1}$: \alert{inverse} of function f
@@ -1332,11 +1324,11 @@
 
   \pause
   \begin{proof}
-    $f: X \rightarrow Y$
+    let $f: X \rightarrow Y$
 
     \pause
     \medskip
-    $g,h: Y \rightarrow X$\\
+    let $g,h: Y \rightarrow X$ such that:\\
     $g \circ f = 1_X \wedge f \circ g = 1_Y$\\
     $h \circ f = 1_X \wedge f \circ h = 1_Y$
 
@@ -1418,16 +1410,17 @@
   \frametitle{Pigeonhole Principle}
 
   \begin{definition}
-    \alert{pigeonhole principle} (Dirichlet drawers):\\
-    if $m$ pigeons go into $n$ holes and $m>n$,\\
-    then at least one hole contains more than one pigeon
+    \alert{Pigeonhole Principle} (Dirichlet drawers):\\
+    If $m$ pigeons go into $n$ holes and $m>n$,\\
+    then at least one hole contains more than one pigeon.
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item if $f: X \rightarrow Y \wedge |X|>|Y|$ then $f$ cannot be one-to-one
+    \item let $f: X \rightarrow Y$\\
+      if $|X|>|Y|$ then $f$ cannot be one-to-one
 
-    \item $\exists x_1,x_2 \in X~x_1 \neq x_2 \wedge f(x_1)=f(x_2)$
+    \item $\exists x_1,x_2 \in X~[x_1 \neq x_2 \wedge f(x_1)=f(x_2)]$
   \end{itemize}
 \end{frame}
 
@@ -1436,12 +1429,12 @@
 
   \begin{example}
     \begin{itemize}
-      \item In a room where there are 367 people,\\
-        at least two persons have the same birthday.
+      \item Among 367 people, at least two have the same birthday.
 
       \pause
-      \item How many students should take an exam where the grades are between
-        0 and 100, so that two students have the same grade?
+      \item In an exam where the grades integers between 0 and 100,\\
+        how many students have to take the exam to make sure that\\
+        at least two students will have the same grade?
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1450,15 +1443,15 @@
   \frametitle{Generalized Pigeonhole Principle}
 
   \begin{definition}
-    \alert{generalized pigeonhole principle}:\\
-    if $m$ objects are distributed to $n$ drawers,\\
-    then at least one of the drawers contains $\lceil m / n \rceil$ objects
+    \alert{Generalized Pigeonhole Principle}:\\
+    If $m$ objects are distributed to $n$ drawers,\\
+    then at least one of the drawers contains $\lceil m / n \rceil$ objects.
   \end{definition}
 
   \pause
   \begin{example}
-    In a room with 100 people, at least 9~persons ($\lceil 100 / 12 \rceil$)\\
-    were born in the same month.
+    Among 100 people, at least 9 ($\lceil 100 / 12 \rceil$) were born\\
+    in the same month.
   \end{example}
 \end{frame}
 
@@ -1523,7 +1516,9 @@
   \begin{block}{Proof Method}
     \begin{itemize}
       \item we first show that
-         $\forall n~\exists ! p~(n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+        $\forall n~\exists ! p~
+          [n = 2^r p \wedge r \in \mathbb{N}
+            \wedge \exists t \in \mathbb Z~[p = 2t + 1]]$\\
 
       \item then, by using this theorem we prove the main theorem
     \end{itemize}
@@ -1535,7 +1530,8 @@
 
   \begin{theorem}
     $\forall n~\exists ! p~
-      (n = 2^r p \wedge r \geq 0 \wedge \exists t \in \mathbb Z~p = 2t + 1)$\\
+      [n = 2^r p \wedge r \in \mathbb{N}
+        \wedge \exists t \in \mathbb Z~[p = 2t + 1]]$\\
   \end{theorem}
 
   \pause
@@ -1543,16 +1539,17 @@
     \column{.55\textwidth}
     \begin{proof}[Proof of existence]
       $n = 1$: $r = 0, p = 1$\\
-      $n = 2$: $r = 1, p = 1$
 
       \pause
-      $n \leq k$: $n = 2^r p$
+      $n \leq k$: assume $n = 2^r p$
 
       \pause
       $n = k + 1$:
+      \vspace{-9pt}
       \[
         \begin{array}{ll}
-          n~prime:        & r = 0, p = n\pause\\
+          n=2:            & r = 1, p = 1\pause\\
+          n~prime~(n>2):  & r = 0, p = n\pause\\
           \neg (n~prime): & n = n_1 n_2\pause\\
                           & n = 2^{r_1} p_1 \cdot 2^{r_2} p_2\pause\\
                           & n = 2^{r_1+r_2} \cdot p_1 p_2
@@ -1589,10 +1586,11 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $T=\{t | t \in S, \exists i \in \mathbb{Z}~t=2i+1\}$, $|T|=100$
+      \item $T=\{t~|~t \in S, \exists i \in \mathbb{Z}~[t=2i+1]\}$, $|T|=100$
 
       \pause
-      \item $f: S \rightarrow T, (s, t) \in f \equiv s = 2^r t \wedge r \geq 0$
+      \item $f: S \rightarrow T$, $r \in \mathbb{N}$ olsun\\
+        $s = 2^r t \rightarrow f(s) = t$
       \begin{itemize}
         \item if 101 elements are chosen from $S$, at least two of them\\
           will have the same image in $T$:
@@ -1613,16 +1611,15 @@
   \frametitle{Recursive Functions}
 
   \begin{definition}
-    \alert{recursive function}:\\
-      a function defined in terms of itself
+    \alert{recursive function}: a function defined in terms of itself
 
     \medskip
     $f(n) = h(f(m))$
   \end{definition}
 
   \begin{itemize}
-    \item \emph{inductively defined function}:\\
-      the size is reduced at every step of the recursion
+    \item \emph{inductively defined function}: a recursive function\\
+      where the size is reduced at every step
 
     \medskip
     $f(n) = \left\{
@@ -1635,7 +1632,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Recursive Function Examples}
+  \frametitle{Recursion Examples}
 
   \begin{example}
     $f91(n) = \left\{
@@ -1645,26 +1642,14 @@
       \end{array}
     \right.$
   \end{example}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Inductively Defined Function Examples}
-
+  \pause
+  \medskip
   \begin{example}[factorial]
     $f(n) = \left\{
       \begin{array}{ll}
         1              & n = 0\\
         n \cdot f(n-1) & n > 0
-      \end{array}
-    \right.$
-  \end{example}
-
-  \pause
-  \begin{example}[function power]
-    $f^n = \left\{
-      \begin{array}{ll}
-        f               & n = 1\\
-        f \circ f^{n-1} & n > 1
       \end{array}
     \right.$
   \end{example}
