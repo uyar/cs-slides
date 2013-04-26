@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Graphs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -135,7 +135,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -194,7 +194,6 @@
       \item $v_1$ and $v_2$ are \emph{adjacent}
     \end{itemize}
 
-    \pause
     \item node with no incident edge: \emph{isolated node}
   \end{itemize}
 \end{frame}
@@ -209,7 +208,6 @@
         \pgfuseimage{plain}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       $\begin{array}{lcl}
         V & = & \{a,b,c,d,e,f\}\\
@@ -226,12 +224,11 @@
   \frametitle{Directed Graphs}
 
   \begin{definition}
-    \alert{directed graph} (or \emph{digraph}): edges have directions
+    \alert{directed graph} (or \emph{digraph}): $D=(V,A)$
 
-    \pause
     \begin{itemize}
-      \item directed edge: \alert{arc}
-      \item \alert{origin} and \alert{terminating} nodes
+      \item $A \subseteq V \times V$: \alert{arc} set
+      \item \emph{origin} and \emph{terminating} nodes
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -250,23 +247,17 @@
   \frametitle{Multigraphs}
 
   \begin{definition}
-    \alert{parallel edges}:\\
-    edges between the same node pair
+    \alert{parallel edges}: edges between the same pair of nodes
+
+    \bigskip
+    \alert{loop}: an edge starting and ending in the same node
 
     \pause
     \bigskip
-    \alert{loop}:\\
-    an edge whose ends are incident to the same node
+    \alert{plain graph}: a graph without any loops or parallel edges
 
-    \pause
     \bigskip
-    \alert{plain graph}:\\
-    a graph which does not contain any loops or parallel edges
-
-    \pause
-    \bigskip
-    \alert{multigraph}:\\
-    a graph which is not plain
+    \alert{multigraph}: a graph which is not plain
   \end{definition}
 \end{frame}
 
@@ -289,6 +280,20 @@
       \end{itemize}
     \end{columns}
   \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subgraph}
+
+  \begin{definition}
+    $G'=(V',E')$ is a \alert{subgraph} of $G=(V,E)$:
+
+    \begin{itemize}
+      \item $V' \subseteq V$
+      \item $E' \subseteq E$
+      \item $\forall (v_1,v_2) \in E'~v_1,v_2 \in V'$
+    \end{itemize}
+  \end{definition}
 \end{frame}
 
 \begin{frame}
@@ -394,7 +399,7 @@
 
   \pause
   \begin{theorem}
-    if the degree of node $v_i$ is $d_i$:
+    let $d_i$ be the degree of node $v_i$
 
     \[ |E| = \frac{\sum_i d_i}{2} \]
   \end{theorem}
@@ -403,7 +408,7 @@
 \begin{frame}
   \frametitle{Degree Example}
 
-  \begin{example}[plain]
+  \begin{example}[plain graph]
     \begin{columns}
       \column{.58\textwidth}
       \begin{center}
@@ -470,6 +475,7 @@
     \item node with out-degree  0: \emph{sink}
 
     \pause
+    \bigskip
     \item $\sum_{v \in V} {d_v}^i = \sum_{v \in V} {d_v}^o = |A|$
   \end{itemize}
 \end{frame}
@@ -478,7 +484,8 @@
   \frametitle{Degree}
 
   \begin{theorem}
-    In an undirected graph, the number of nodes with an odd degree is even.
+    In an undirected graph, there is an even number of nodes\\
+    which have an odd degree.
   \end{theorem}
 
   \pause
@@ -505,8 +512,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Regular Graphs}
 
   \begin{definition}
-    \alert{regular graph}:\\
-    all nodes have the same degree
+    \alert{regular} graph: all nodes have the same degree
 
     \begin{itemize}
       \item $n$-regular: all nodes have degree $n$
@@ -515,7 +521,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Regular Graph Example}
+  \frametitle{Regular Graph Examples}
 
   \begin{example}
     \begin{center}
@@ -528,13 +534,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Completely Connected Graphs}
 
   \begin{definition}
-    \alert{completely connected graph}:\\
-    $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
-
+    $G=(V,E)$ is \alert{completely connected}:
     \begin{itemize}
-      \item $K_n$: a complete graph of $n$ nodes
+      \item $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
     \end{itemize}
   \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item there is an edge between every pair of nodes
+    \item $K_n$: the completely connected graph with $n$ nodes
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -561,23 +571,23 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Bipartite Graphs}
 
   \begin{definition}
-    \alert{bipartite graph}:\\
-    $V = V_1 \cup V_2 \wedge V_1 \cap V_2 = \emptyset$\\
-    $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
-
-    \pause
+    $G=(V,E)$ is \alert{bipartite}:
     \begin{itemize}
-      \item \emph{complete bipartite graph}:\\
-      $\forall v_1 \in V_1 \forall v_2 \in V_2~(v_1,v_2) \in E$
-      \begin{itemize}
-        \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
-      \end{itemize}
+      \item $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
+      \item $V_1 \cup V_2 = V$, $V_1 \cap V_2 = \emptyset$
     \end{itemize}
   \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \emph{complete bipartite}:
+      $\forall v_1 \in V_1~\forall v_2 \in V_2~(v_1,v_2) \in E$
+    \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bipartite Graph Examples}
+  \frametitle{Complete Bipartite Graph Examples}
 
   \begin{columns}[t]
     \column{.5\textwidth}
@@ -596,39 +606,20 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
-\subsection{Isomorphism}
-
-\begin{frame}
-  \frametitle{Subgraph}
-
-  \begin{definition}
-    \alert{subgraph}:\\
-      if $G'=(V',E')$ is a subgraph of $G=(V,E)$
-
-    \begin{itemize}
-      \item $V' \subseteq V$
-      \item $E' \subseteq E$
-      \item $\forall (v_1,v_2) \in E'~v_1 \in V' \wedge v_2 \in V'$
-    \end{itemize}
-  \end{definition}
-\end{frame}
-
 \begin{frame}
   \frametitle{Isomorphism}
 
   \begin{definition}
-    \alert{isomorphic graphs}:\\
-    if $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are isomorphic\\
-    $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
-
+    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{isomorphic}:
     \begin{itemize}
+      \item $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
       \item $f$ is bijective
     \end{itemize}
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item can be drawn the same way
+    \item $G$ and $G^\star$ can be drawn the same way
   \end{itemize}
 \end{frame}
 
@@ -672,7 +663,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
     \end{columns}
 
-    \pause
     \bigskip
     \begin{itemize}
       \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
@@ -685,9 +675,11 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Homeomorphism}
 
   \begin{definition}
-    \alert{homeomorphic graph}:\\
-    graph obtained by dividing an edge in an isomorphic graph\\
-    with additional nodes
+    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{homeomorphic}:
+    \begin{itemize}
+      \item $G$ and $G^\star$ are isomorphic except that\\
+        some edges in $E^\star$ are divided with additional nodes
+    \end{itemize}
   \end{definition}
 \end{frame}
 
@@ -715,9 +707,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Walk}
 
   \begin{definition}
-    \alert{walk}:\\
-    a sequence of nodes and edges starting at node ($v_0$) and\\
-    ending at node ($v_n$) in the form
+    \alert{walk}: a sequence of nodes and edges\\
+      from a starting node ($v_0$) to an ending node ($v_n$)
 
     \[
       v_0,e_1,v_1,e_2,v_2,e_3,v_3,\dots,e_{n-1},v_{n-1},e_n,v_n
@@ -732,7 +723,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
     \pause
     \medskip
-    \item \alert{length}: number of edges
+    \item \alert{length}: number of edges in the walk
     \item if $v_0 \neq v_n$ \alert{open}, if $v_0 = v_n$ \alert{closed}
   \end{itemize}
 \end{frame}
@@ -765,14 +756,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{definition}
     \alert{trail}: a walk where edges are not repeated
-
-    \pause
-    \begin{itemize}
-      \item closed trail: \alert{circuit}
-      \item \alert{spanning trail}: a trail that visits all the edges in the
-	graph
-    \end{itemize}
   \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \alert{circuit}: closed trail
+    \item \alert{spanning} trail: a trail that covers all the edges in the
+      graph
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -800,13 +791,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{definition}
     \alert{path}: a walk where nodes are not repeated
-
-    \pause
-    \begin{itemize}
-      \item closed path: \alert{cycle}
-      \item \alert{spanning path}: a path that visits all the nodes in the graph
-    \end{itemize}
   \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item \alert{cycle}: closed path
+    \item \alert{spanning} path: a path that visits all the nodes in the graph
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -833,13 +824,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Connectivity}
 
   \begin{definition}
-    \alert{connected graph}:\\
-    there is a path between all node pairs
+    \alert{connected} graph: there is a path between every pair of nodes
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item a disconnected graph can be separated\\
+    \item a disconnected graph can be divided\\
       into connected components
   \end{itemize}
 \end{frame}
@@ -849,17 +839,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{example}
     \begin{columns}
-      \column{.55\textwidth}
+      \column{.54\textwidth}
       \begin{center}
         \pgfuseimage{disconnected}
       \end{center}
 
-      \column{.43\textwidth}
-      \pause
+      \column{.45\textwidth}
       \begin{itemize}
         \item graph is disconnected:\\
-          no path between\\
-          $a$ and $c$
+          no path between $a$ and $c$
         \item connected components:\\
           $a,d,e$\\
           $b,c$\\
@@ -873,12 +861,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Distance}
 
   \begin{definition}
-    \alert{distance}: length of the shortest path between two nodes
+    the \alert{distance} between nodes $v_i$ and $v_j$:
+    \begin{itemize}
+      \item the length of the shortest path between $v_i$ and $v_j$
+    \end{itemize}
   \end{definition}
 
   \pause
   \begin{definition}
-    \alert{diameter}: largest distance in the graph
+    \alert{diameter}: the largest distance in the graph
   \end{definition}
 \end{frame}
 
@@ -887,12 +878,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{example}
     \begin{columns}
-      \column{.5\textwidth}
+      \column{.48\textwidth}
       \begin{center}
         \pgfuseimage{distance}
       \end{center}
 
-      \column{.5\textwidth}
+      \column{.52\textwidth}
       \pause
       \begin{itemize}
         \item distance between $a$ and $e$: 2\\
@@ -906,15 +897,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Cut-Point}
 
   \begin{definition}
-    \alert{$G - v$}:\\
-    graph obtained by deleting node $v$ and all its incident edges\\
-    from graph $G$
+    \alert{$G - v$}:
+    \begin{itemize}
+      \item the graph obtained by deleting the node $v$\\
+        and all its incident edges from the graph $G$
+    \end{itemize}
   \end{definition}
 
   \pause
   \begin{definition}
-    \alert{cut-point}:\\
-    if $G$ is connected but $G - v$ is disconnected then $v$ is a cut-point
+    $v$ is a \alert{cut-point} for $G$:
+    \begin{itemize}
+      \item $G$ is connected but $G - v$ is disconnected
+    \end{itemize}
   \end{definition}
 \end{frame}
 
@@ -942,10 +937,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Directed Walks}
 
   \begin{itemize}
-    \item similar to undirected graphs
-
-    \pause
-    \item assuming the arcs as undirected edges:\\
+    \item same as in undirected graphs
+    \item ignoring the directions on the arcs:\\
       \emph{semi-walk}, \emph{semi-trail}, \emph{semi-path}
   \end{itemize}
 \end{frame}
@@ -958,7 +951,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \begin{definition}
       \emph{weakly connected}:\\
       there is a semi-path\\
-      between each node pair
+      between every pair of nodes
     \end{definition}
 
     \column{.5\textwidth}
@@ -977,7 +970,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \column{.5\textwidth}
     \begin{definition}
       \emph{unilaterally connected}:\\
-      for each node pair, there is\\
+      for every pair of nodes, there is\\
       a path from one to the other
     \end{definition}
 
@@ -997,8 +990,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \column{.5\textwidth}
     \begin{definition}
       \emph{strongly connected}:\\
-      there is a path\\
-      between each node pair
+      there is a path in both directions\\
+      between every pair of nodes
     \end{definition}
 
     \column{.5\textwidth}
@@ -1009,20 +1002,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{example}
   \end{columns}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Directed Connectivity}
-%
-%   \begin{theorem}
-%     It is necessary and sufficient for a finite and directed graph $D$
-%
-%     \begin{itemize}
-%       \item to contain a spanning semi-walk to be weakly connected.
-%       \item<2-> to contain a spanning open walk to be unilaterally connected.
-%       \item<3-> to contain a spanning closed walk to be strongly connected.
-%     \end{itemize}
-%   \end{theorem}
-% \end{frame}
 
 \begin{frame}
   \frametitle{Bridges of Königsberg}
@@ -1038,20 +1017,24 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Traversable Graph}
+  \frametitle{Traversable Graphs}
 
   \begin{definition}
-    \alert{traversable graph}:\\
-    a graph which contains a spanning trail
+    $G$ is \alert{traversable}: $G$ contains a spanning trail
   \end{definition}
 
-  \begin{itemize}
-    \pause
-    \item an odd-degree node must be either the initial\\
-      or the terminal node of the trail
+  \begin{center}
+    \pgfuseimage{konigsgraph}
+  \end{center}
+\end{frame}
 
-    \pause
-    \item all nodes except the initial and the terminal nodes\\
+\begin{frame}
+  \frametitle{Traversable Graphs}
+
+  \begin{itemize}
+    \item a node with an odd degree must be either the starting node\\
+      or the ending node of the trail
+    \item all nodes except the starting node and the ending node\\
       must have even degrees
   \end{itemize}
 \end{frame}
@@ -1066,12 +1049,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{envelope}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       \begin{itemize}
         \item degrees of $a$, $b$ and $c$ are even
         \item degrees of $d$ and $e$ are odd
+
         \pause
+        \medskip
         \item a spanning trail can be formed\\
           starting from node $d$ and\\
           ending at node $e$ (or vice versa):\\
@@ -1088,9 +1072,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \pgfuseimage{konigsgraph}
   \end{center}
 
-  \pause
   \begin{itemize}
-    \item all node degrees are odd: not traversable
+    \item all node have odd degrees: not traversable
   \end{itemize}
 \end{frame}
 
@@ -1098,14 +1081,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Euler Graphs}
 
   \begin{definition}
-    \alert{Euler graph}:\\
-      a graph which contains a spanning circuit
-
-    \pause
-    \begin{itemize}
-      \item Euler graph $\Leftrightarrow$ degrees of all nodes are even
-    \end{itemize}
+    \alert{Euler graph}: a graph that contains a closed spanning trail
   \end{definition}
+
+  \begin{itemize}
+    \item $G$ is an Euler graph $\Leftrightarrow$
+      the degrees of all nodes in $G$ are even
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1132,8 +1114,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Hamilton Graphs}
 
   \begin{definition}
-    \alert{Hamilton graph}:\\
-      a graph which contains a spanning cycle
+    \alert{Hamilton graph}: a graph that contains a closed spanning path
   \end{definition}
 \end{frame}
 
@@ -1325,14 +1306,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graphs}
 
   \begin{definition}
-    \alert{planar graph}:\\
-    a graph that can be drawn on a plane\\
-    without any intersection of its edges
-
-    \begin{itemize}
-      \item \alert{map}: a planar drawing of a graph
-    \end{itemize}
+    A graph is \alert{planar} if it can be drawn on a plane\\
+    without intersecting its edges.
   \end{definition}
+
+  \begin{itemize}
+    \item a \alert{map} of $G$: a planar drawing of $G$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1357,14 +1337,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Regions}
 
   \begin{itemize}
-    \item a map divides the plane into \emph{regions}
-    \item \emph{degree of a region}:\\
-      length of the circuit surrounding the region
+    \item a map divides the plane into \alert{regions}
+    \item the \emph{degree} of a region:\\
+      the length of the closed trail that surrounds the region
   \end{itemize}
 
   \pause
   \begin{theorem}
-    if the degree of region $r_i$ is $d_{r_i}$:
+    let $d_{r_i}$ be the degree of region $r_i$
 
     \[ |E| = \frac{\sum_i d_{r_i}}{2} \]
   \end{theorem}
@@ -1380,7 +1360,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{region}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       $d_{r_1} = 3$ (abda)\\
       $d_{r_2} = 3$ (bcdb)\\
@@ -1399,7 +1378,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Euler's Formula}
 
   \begin{theorem}[Euler's Formula]
-    In a planar and connected graph $|V| - |E| + |R| = 2$.
+    Let $G=(V,E)$ be a planar, connected graph\\
+    and let $R$ be the set of regions in a map of $G$:
+
+    \[|V| - |E| + |R| = 2\]
   \end{theorem}
 \end{frame}
 
@@ -1416,74 +1398,74 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{itemize}
   \end{example}
 \end{frame}
-
-\begin{frame}
-  \frametitle{Proof of Euler's Formula}
-
-  \begin{block}{Proof}
-    method: induction on $|E|$
-
-    \pause
-    \begin{itemize}
-      \item base step: one node, no edges\\
-        $|V| = 1$, $|E| = 0$, $|R| = 1$
-
-      \pause
-      \item assume it holds for a connected, planar graph with $k$ nodes
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Proof of Euler's Formula}
-
-  \begin{proof}[Induction Step]
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item connect a new node\\
-	  to an existing node:
-
-        \medskip
-        \pgfuseimage{eulerproof1}
-      \end{itemize}
-
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item add an edge between\\
-	  two existing nodes:
-
-        \medskip
-        \pgfuseimage{eulerproof2}
-      \end{itemize}
-    \end{columns}
-
-    \pause
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item $|V|$ is increased by 1,\\
-	  $|E|$ is increased by 1,\\
-          $|R|$ remains the same
-      \end{itemize}
-
-      \pause
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item $|V|$ remains the same,\\
-	  $|E|$ is increased by 1,\\
-          $|R|$ is increased by 1
-      \end{itemize}
-    \end{columns}
-  \end{proof}
-\end{frame}
+% 
+% \begin{frame}
+%   \frametitle{Proof of Euler's Formula}
+% 
+%   \begin{block}{Proof}
+%     method: induction on $|E|$
+% 
+%     \pause
+%     \begin{itemize}
+%       \item base step: one node, no edges\\
+%         $|V| = 1$, $|E| = 0$, $|R| = 1$
+% 
+%       \pause
+%       \item assume it holds for a connected, planar graph with $k$ edges
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+% 
+% \begin{frame}
+%   \frametitle{Proof of Euler's Formula}
+% 
+%   \begin{proof}[Induction Step]
+%     \begin{columns}[t]
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item connect a new node\\
+% 	  to an existing node:
+% 
+%         \medskip
+%         \pgfuseimage{eulerproof1}
+%       \end{itemize}
+% 
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item add an edge between\\
+% 	  two existing nodes:
+% 
+%         \medskip
+%         \pgfuseimage{eulerproof2}
+%       \end{itemize}
+%     \end{columns}
+% 
+%     \pause
+%     \begin{columns}
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item $|V|$ is increased by 1,\\
+% 	  $|E|$ is increased by 1,\\
+%           $|R|$ remains the same
+%       \end{itemize}
+% 
+%       \pause
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item $|V|$ remains the same,\\
+% 	  $|E|$ is increased by 1,\\
+%           $|R|$ is increased by 1
+%       \end{itemize}
+%     \end{columns}
+%   \end{proof}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    In a plain, planar graph:\\
-    $|V| \geq 3 \Rightarrow |E| \leq 3 |V| - 6$
+    Let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
+    $|E| \leq 3 |V| - 6$
   \end{theorem}
 
   \pause
@@ -1516,8 +1498,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    In a connected, plain and planar graph\\
-    $|V| \geq 3 \Rightarrow \exists v \in V~d_v \leq 5$
+    Let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
+    $\exists v \in V~d_v \leq 5$
   \end{theorem}
 
   \pause
@@ -1529,7 +1511,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pause
         $\Rightarrow |E| \geq 3 |V|$\\
         \pause
-        $\Rightarrow |E| > 3 |V| - 6$: \alert{contradiction}
+        $\Rightarrow |E| > 3 |V| - 6$
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -1540,11 +1522,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.45\textwidth}
     \begin{theorem}
+      $K_5$ is not planar.
+
+      \medskip
       \begin{center}
         \pgfuseimage{k5}
       \end{center}
-
-      $K_5$ is not planar.
     \end{theorem}
 
     \pause
@@ -1557,10 +1540,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \item $3 |V| - 6 = 3 \cdot 5 - 6 = 9$
 
         \pause
-        \item so $|E| \leq 9$ \\
+        \item $|E| \leq 9$ should hold
 
         \pause
-        \item but $|E| = 10$: \alert{contradiction}
+        \item but $|E| = 10$
       \end{itemize}
     \end{proof}
   \end{columns}
@@ -1572,11 +1555,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.45\textwidth}
     \begin{theorem}
+      $K_{3,3}$ is not planar.
+
+      \medskip
       \begin{center}
         \pgfuseimage{k33}
       \end{center}
-
-      $K_{3,3}$ is not planar.
     \end{theorem}
 
     \pause
@@ -1593,10 +1577,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
           $\Rightarrow \sum_{r \in R} d_r \geq 20$
 
         \pause
-        \item so $|E| \geq 10$\\
+        \item $|E| \geq 10$ should hold
 
         \pause
-        \item but $|E| = 9$: \alert{contradiction}
+        \item but $|E| = 9$
       \end{itemize}
     \end{proof}
   \end{columns}
@@ -1606,26 +1590,28 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Kuratowski's Theorem}
 
   \begin{theorem}
-    The graph has a subgraph hemeomorphic to $K_5$ or $K_{3,3}$\\
-    $\Leftrightarrow$ the graph is not planar
+    \begin{center}
+      $G$ contains a subgraph homeomorphic to $K_5$ or $K_{3,3}$.\\
+      $\Leftrightarrow$\\
+      $G$ is not planar.
+    \end{center}
   \end{theorem}
 \end{frame}
 
 \begin{frame}
   \frametitle{Platonic Solids}
 
-  \begin{definition}
-    \alert{regular polyhedron}:\\
-    a 3-dimensional solid where the faces are identical regular polygons
-  \end{definition}
-
-  \pause
   \begin{itemize}
+    \item \emph{regular polyhedron}: a 3-dimensional solid\\
+      where the faces are identical regular polygons
+
+    \pause
     \item the projection of a regular polyhedron onto the plane\\
       is a planar graph
     \begin{itemize}
       \item every corner is a node
       \item every side is an edge
+      \item every face is a region
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -1633,7 +1619,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Platonic Solids}
 
-  \begin{example}[cube: regular hexahedron]
+  \begin{example}[cube]
     \begin{center}
       \pgfuseimage{hexahedron}
     \end{center}
@@ -1644,18 +1630,18 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Platonic Solids}
 
   \begin{itemize}
-    \item $v$: number of nodes (corners)
-    \item $e$: number of edges (side)
-    \item $r$: number of regions (face)
-    \item $n$: number of faces incident to a corner = node degree
-    \item $m$: number of edges surrounding a face = region degree
+    \item $v$: number of corners (nodes)
+    \item $e$: number of sides (edges)
+    \item $r$: number of faces (regions)
+    \item $n$: number of faces meeting at a corner (node degree)
+    \item $m$: number of sides of a face (region degree)
   \end{itemize}
 
   \pause
   \begin{itemize}
     \item $m,n \geq 3$
-    \item $2e = m \cdot r$
     \item $2e = n \cdot v$
+    \item $2e = m \cdot r$
   \end{itemize}
 \end{frame}
 
@@ -1665,19 +1651,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \begin{itemize}
       \item from Euler's formula:
       \[
-        0 < 2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
-        = e \Big( \frac{2m-mn+2n}{mn} \Big)
+        2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
+        = e \Big( \frac{2m-mn+2n}{mn} \Big) > 0
       \]
 
       \pause
-      \item Since $e,m,n > 0$:
+      \item $e,m,n > 0$:
       \begin{eqnarray*}
         2m - mn + 2n > 0 \Rightarrow mn - 2m -2n < 0 \\\pause
         \Rightarrow mn - 2m - 2n + 4 < 4 \pause \Rightarrow (m - 2)(n - 2) < 4
       \end{eqnarray*}
 
       \pause
-      \item values satisfying the inequation:
+      \item the values that satisfy this inequation:
       \begin{enumerate}
         \item $m=3, n=3$
         \item $m=4, n=3$
@@ -1707,7 +1693,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Hexahedron - Cube}
+  \frametitle{Hexahedron}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1778,13 +1764,11 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Graph Coloring}
 
   \begin{definition}
-    \alert{proper coloring}:\\
-      assign colors to all nodes in a graph $G=(V,E)$\\
-      so that for each $(v_1,v_2) \in E$ the colors of $v_1$ and $v_2$ are different
-
-    \pause
+    \alert{proper coloring} of $G=(V,E)$: $f: V \rightarrow C$\\
+      where $C$ is a set of colors
     \begin{itemize}
-      \item using the minimum number of colors
+      \item $\forall (v_i,v_j) \in E~f(v_i) \neq f(v_j)$
+      \item minimizing $|C|$
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -1794,9 +1778,9 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{example}
     \begin{itemize}
-      \item a company produce chemical compounds
+      \item a company produces chemical compounds
       \item some compounds cannot be stored together
-      \item such compounds must be placed in different storage areas
+      \item such compounds must be placed in separate storage areas
 
       \pause
       \medskip
@@ -1888,19 +1872,21 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Chromatic Number}
 
   \begin{definition}
-    \alert{chromatic number}:\\
-      Minimum number of colors needed to properly color the graph G: $\chi (G)$
+    \alert{chromatic number} of $G$: $\chi (G)$
+    \begin{itemize}
+      \item the minimum number of colors needed to color the graph G
+    \end{itemize}
   \end{definition}
 
   \pause
   \begin{itemize}
-     \item Calculating $\chi (G)$ is a very difficult problem
-     \item for $n \geq 1$, $\chi (K_n) = n$
+     \item calculating $\chi (G)$ is a very difficult problem
+     \item $\chi (K_n) = n$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example of Chromatic Number}
+  \frametitle{Chromatic Number Example}
 
   \begin{example}[Herschel graph]
     \begin{center}
@@ -1926,15 +1912,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \column{.55\textwidth}
       \begin{itemize}
         \item every cell is a node
-        \item cells of the same row are adjacent
-        \item cells of the same column are adjacent
-        \item cells of the same $3 \times 3$ block are adjacent
+        \item cells of the same row\\
+          are adjacent
+        \item cells of the same column\\
+          are adjacent
+        \item cells of the same $3 \times 3$ block\\
+          are adjacent
         \item every number is a color
       \end{itemize}
 
       \pause
       \begin{itemize}
-        \item problem: properly color a graph that is partially-colored
+        \item problem: properly color a graph\\
+          that is partially colored
       \end{itemize}
     \end{columns}
   \end{example}
@@ -1947,12 +1937,72 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \item coloring a map by assigning different colors to adjacent regions
   \end{itemize}
 
-  \pause
   \medskip
-  \begin{theorem}[4~Color Theorem]
-    The regions in a planar map can be colored using 4 colors.
+  \begin{theorem}[Four~Color Theorem]
+    The regions in a map can be colored using four colors.
   \end{theorem}
 \end{frame}
+
+\subsection{Searching Graphs}
+
+\begin{frame}
+  \frametitle{Searching Graphs}
+
+  \begin{itemize}
+    \item searching nodes of graph $G=(V,E)$ starting from node $v_1$
+
+    \bigskip
+    \item depth-first
+    \item breadth-first
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Depth-First Search}
+
+  \begin{enumerate}
+    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
+
+    \pause
+    \item find smallest $i$ in $2 \leq i \leq |V|$
+      such that $(v,v_i) \in E$ and $v_i \notin D$
+      \begin{itemize}
+        \item if no such $i$ exists: go to step 3
+        \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
+          $v \leftarrow v_i$,\\
+          go to step 2
+      \end{itemize}
+
+    \pause
+    \item if $v=v_1$ then the result is $T$
+
+    \pause
+    \item if $v \neq v_1$ then $v \leftarrow parent(v)$, go to step 2
+% TODO: remove the reference to trees (parent)
+  \end{enumerate}
+\end{frame}
+
+% TODO: add example for depth-first search
+
+\begin{frame}
+  \frametitle{Breadth-First Search}
+
+  \begin{enumerate}
+    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
+
+    \pause
+    \item if $Q$ is empty: the result is $T$
+    \item if $Q$ not empty: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
+      for $2 \leq i \leq |V|$ check the edges $(v,v_i) \in E$:
+    \begin{itemize}
+      \item if $v_i \notin D$ : $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
+        $D=D \cup \{v_i\}$
+       \item go to step 3
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+% TODO: add example for depth-first search
 
 \subsection*{References}
 
@@ -1980,13 +2030,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Tree}
 
   \begin{definition}
-    \alert{tree}: $T=(V,E)$\\
-    a connected graph which contains no cycle
+    \alert{tree}: a connected graph that contains no cycle
   \end{definition}
 
   \pause
   \begin{itemize}
-    \item a graph where the connected components are trees: \emph{forest}
+    \item \emph{forest}: a graph where the connected components are trees
   \end{itemize}
 \end{frame}
 
@@ -2004,12 +2053,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    In a tree, there is a unique path between any two distinct nodes.
+    In a tree, there is one and only one path\\
+    between any two distinct nodes.
   \end{theorem}
 
   \begin{itemize}
-    \item there is a path because the tree is connected
-    \item if there were more than one path, it would cause a cycle:
+    \item there is at least one path because the tree is connected
+    \item if there were more than one path, they would form a cycle
+    \medskip
     \begin{center}
       \pgfuseimage{cycle}
     \end{center}
@@ -2020,7 +2071,9 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    In a tree $T = (V, E)$: $|V| = |E| + 1$
+    Let $T=(V,E)$ be a tree:
+
+    \[|E| = |V| - 1\]
   \end{theorem}
 
   \begin{itemize}
@@ -2031,7 +2084,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Tree Theorems}
 
-  \begin{block}{Proof: Base step}
+  \begin{block}{Proof: base step}
     \begin{itemize}
       \item $|E|=0 \Rightarrow |V|=1$
       \item $|E|=1 \Rightarrow |V|=2$
@@ -2039,7 +2092,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
       \pause
       \medskip
-      \item assume that it is true for $|E| \leq k$
+      \item assume that $|E| = |V| - 1$ for $|E| \leq k$
     \end{itemize}
   \end{block}
 \end{frame}
@@ -2047,7 +2100,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Tree Theorems}
 
-  \begin{proof}[Proof: Induction step]
+  \begin{proof}[Proof: induction step]
     \begin{itemize}
       \item $|E|=k+1$
     \end{itemize}
@@ -2061,7 +2114,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \pause
       \column{.55\textwidth}
       \begin{itemize}
-        \item delete edge $(y,z)$:\\
+        \item let's remove the edge $(y,z)$:\\
           $T_1=(V_1,E_1)$, $T_2=(V_2,E_2)$
       \end{itemize}
       \pause
@@ -2096,7 +2149,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pause
         $\Rightarrow |E| \geq |V| - \frac{1}{2}$
         \pause
-        $> |V| - 1$ \alert{contradiction}
+        $> |V| - 1$
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -2105,30 +2158,32 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    The following statements are equivalent:
-
-    \begin{enumerate}
-      \item $T$ is a tree ($T$ is connected and contains no cycle).
-      \item There is a unique path between every pair of nodes in $T$.
-      \item $T$ is connected, but if any edge is removed\\
-	it will no longer be connected.
-      \item $T$ contains no cycle, but if an edge is added between\\
-	any pair of nodes a unique cycle will be formed.
-    \end{enumerate}
+    \begin{center}
+      $T$ is a tree ($T$ is connected and contains no cycle).\\
+      $\Leftrightarrow$\\
+      There is one and only one path\\
+        between any two distinct nodes in $T$.\\
+      $\Leftrightarrow$\\
+      $T$ is connected, but if any edge is removed\\
+        it will no longer be connected.\\
+      $\Leftrightarrow$\\
+      $T$ contains no cycle, but if an edge is added\\
+        between any pair of nodes one and only one cycle will be formed.
+    \end{center}
   \end{theorem}
 \end{frame}
 
-\begin{frame}[label=theoremset2]
+\begin{frame}
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    The following statements are equivalent:
-
-    \begin{enumerate}
-      \item $T$ is a tree ($T$ is connected and contains no cycle).
-      \item $T$ is connected and $|E| = |V| - 1$.
-      \item $T$ contains no cycle and $|E| = |V| - 1$.
-    \end{enumerate}
+    \begin{center}
+      $T$ is a tree ($T$ is connected and contains no cycle).\\
+      $\Leftrightarrow$\\
+      $T$ is connected and $|E| = |V| - 1$.\\
+      $\Leftrightarrow$\\
+      $T$ contains no cycle and $|E| = |V| - 1$.
+    \end{center}
   \end{theorem}
 \end{frame}
 
@@ -2138,15 +2193,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Rooted Tree}
 
   \begin{itemize}
-    \item there is a hierarchy between nodes
+    \item a hierarchy is defined between nodes
+    \item hierarchy creates a natural direction on edges\\
+      $\Rightarrow$ in and out degrees
 
     \pause
-    \item natural direction on edges $\Rightarrow$ in and out degrees
-    \begin{itemize}
-      \item node with in-degree 0 (top of the hierarchy): \alert{root}
-      \item nodes with out-degree 0: \alert{leaf}
-      \item nodes that are not leaves: \alert{internal node}
-    \end{itemize}
+    \medskip
+    \item node with in-degree 0 (top of the hierarchy): \alert{root}
+    \item nodes with out-degree 0: \alert{leaf}
+    \item nodes that are not leaves: \alert{internal node}
   \end{itemize}
 \end{frame}
 
@@ -2154,14 +2209,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Node Level}
 
   \begin{definition}
-    \alert{level}: distance from the root
+    \alert{level} of a node: the distance of the node from the root
   \end{definition}
 
-  \pause
   \begin{itemize}
-    \item \alert{parent}: nearest node on the path from the root
-    \item \alert{children}: neighboring nodes in the next level
-    \item \alert{sibling}: nodes with the same parent
+    \item \emph{parent}: adjacent node in the next upper level
+    \item \emph{children}: adjacent nodes in the next lower level
+    \item \emph{sibling}: nodes which have the same parent
   \end{itemize}
 \end{frame}
 
@@ -2175,7 +2229,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{rooted}
       \end{center}
 
-      \pause
       \column{.58\textwidth}
       \begin{itemize}
         \item root: $r$
@@ -2192,14 +2245,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Rooted Tree Example}
 
-  \begin{example}[book order]
+  \begin{example}
     \begin{columns}
       \column{.65\textwidth}
       \begin{center}
         \pgfuseimage{book}
       \end{center}
 
-      \pause
       \column{.33\textwidth}
       Book
       \begin{itemize}
@@ -2230,15 +2282,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{itemize}
     \item sibling nodes are ordered from left to right
 
-    \pause
     \medskip
     \item \alert{universal address system}
     \begin{itemize}
       \item assign the address $0$ to the root
-      \item assign the positive integers $1,2,3,\dots$ to the nodes at level 1,\\
+      \item assign the positive integers $1,2,3,\ldots$ to the nodes at level 1,\\
         from left to right
       \item let $v$ be an internal node with address $a$,\\
-        assign the addresses $a.1,a.2,a.3,\dots$ to the children of $v$\\
+        assign the addresses $a.1,a.2,a.3,\ldots$ to the children of $v$\\
         from left to right
     \end{itemize}
   \end{itemize}
@@ -2247,19 +2298,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Lexicographic Order}
 
-  \begin{itemize}
-    \item let $b$ and $c$ be two addresses
-  \end{itemize}
-
   \begin{definition}
-    for \alert{$b < c$}:
+    Let $b$ and $c$ be two addresses.
+
+    $b$ comes before $c$ if one of the following holds:
     \begin{enumerate}
-      \item $b=a_1.a_2. \dots .a_m$\\
-        $c=a_1.a_2. \dots .a_m.a_{m+1} \dots a_n$
+      \item $b=a_1 a_2 \ldots a_m x_1 \ldots$\\
+        $c=a_1 a_2 \ldots a_m x_2 \ldots$\\
+        $x_1$ comes before $x_2$
       \pause
-      \item $b=a_1.a_2. \dots .a_m.x_1 \dots y$\\
-        $c=a_1.a_2. \dots .a_m.x_2 \dots z$\\
-        $x_1 < x_2$
+      \item $b=a_1 a_2 \ldots a_m$\\
+        $c=a_1 a_2 \ldots a_m a_{m+1} \ldots$
     \end{enumerate}
   \end{definition}
 \end{frame}
@@ -2274,7 +2323,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{dictionary}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       \begin{itemize}
         \item 0 - 1 - 1.1 - 1.2\\
@@ -2288,18 +2336,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
+\subsection{Binary Trees}
+
 \begin{frame}
   \frametitle{Binary Trees}
 
   \begin{definition}
-    \alert{binary tree}:\\
-    $\forall v \in V~{d_v}^o \in \{0,1,2\}$
-  \end{definition}
+    $T=(V,E)$ is a \alert{binary tree}: $\forall v \in V~{d_v}^o \in \{0,1,2\}$
 
-  \pause
-  \begin{definition}
-    \alert{complete binary tree}:\\
-    $\forall v \in V~{d_v}^o \in \{0,2\}$
+    \bigskip
+    $T=(V,E)$ is a \emph{complete} binary tree:
+      $\forall v \in V~{d_v}^o \in \{0,2\}$
   \end{definition}
 \end{frame}
 
@@ -2307,18 +2354,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Expression Tree}
 
   \begin{itemize}
-    \item binary operations can be represented by complete binary trees
+    \item a binary operation can be represented as a binary tree
     \begin{itemize}
       \item operator as the root, operands as the children
     \end{itemize}
 
-    \pause
     \medskip
-    \item every mathematical expression can be represented\\
-      as a binary tree
+    \item every mathematical expression can be represented as a tree
     \begin{itemize}
       \item operators at internal nodes, variables and values at the leaves
-      \item \emph{does not have to be a complete binary tree}
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -2390,12 +2434,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \item \alert{inorder traversal}: traverse the left subtree, visit the root,\\
       traverse the right subtree
 
-    \pause
     \medskip
     \item \alert{preorder traversal}: visit the root, traverse the left subtree,\\
       traverse the right subtree
 
-    \pause
     \medskip
     \item \alert{postorder traversal}: traverse the left subtree,\\
       traverse the right subtree, visit the root
@@ -2403,23 +2445,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \item \emph{reverse Polish notation}
     \end{itemize}
   \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Preorder Traversal Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
-    \end{columns}
-  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -2432,9 +2457,24 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{expr}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       $t ~ + ~ u ~ * ~ v ~ / ~ w ~ + ~ x ~ - ~ y ~ \uparrow ~ z$
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Preorder Traversal Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{expr}
+      \end{center}
+
+      \column{.6\textwidth}
+      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
     \end{columns}
   \end{example}
 \end{frame}
@@ -2449,7 +2489,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{expr}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
     \end{columns}
@@ -2460,11 +2499,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Expression Tree Evaluation}
 
   \begin{itemize}
-    \item precedence in an expression tree:
-    \begin{itemize}
-      \item inorder traversal requires parantheses
-      \item preorder and postorder traversals do not require parantheses
-    \end{itemize}
+    \item inorder traversal requires parantheses for precedence
+    \item preorder and postorder traversals do not require parantheses
   \end{itemize}
 \end{frame}
 
@@ -2490,88 +2526,32 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
-\subsection{Searching Graphs}
-
-\begin{frame}
-  \frametitle{Searching Graphs}
-
-  \begin{itemize}
-    \item searching nodes of a graph $G=(V,E)$\\
-     starting from node $v_1$
-    \begin{itemize}
-      \item depth-first
-      \item breadth-first
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Depth-First Search}
-
-  \begin{enumerate}
-    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
-
-    \pause
-    \item find smallest $i$ in $2 \leq i \leq |V|$
-      such that $(v,v_i) \in E$ and $v_i \notin D$
-      \begin{itemize}
-        \item if no such $i$ exists: go to step 3
-        \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
-          $v \leftarrow v_i$,\\
-          go to step 2
-      \end{itemize}
-
-    \pause
-    \item if $v=v_1$ then the result is $T$
-
-    \pause
-    \item if $v \neq v_1$ then $v \leftarrow parent(v)$, go to step 2
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Breadth-First Search}
-
-  \begin{enumerate}
-    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
-
-    \pause
-    \item if $Q$ is empty: the result is $T$
-    \item if $Q$ not empty: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
-      for $2 \leq i \leq |V|$ check the edges $(v,v_i) \in E$:
-    \begin{itemize}
-      \item if $v_i \notin D$ : $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
-        $D=D \cup \{v_i\}$
-       \item go to step 3
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
-
-\subsection{Regular Trees}
-
 \begin{frame}
   \frametitle{Regular Tree}
 
   \begin{definition}
-    \alert{$m$-ary tree}:\\
-    all internal nodes have out-degree $m$
+    $T=(V,E)$ is an \alert{m-ary tree}: $\forall v \in V~{d_v}^o \leq m$
+
+    \bigskip
+    $T=(V,E)$ is a complete m-ary tree:
+      $\forall v \in V~{d_v}^o \in \{0,m\}$
   \end{definition}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Regular Tree Theorems}
+  \frametitle{Regular Tree Theorem}
 
   \begin{theorem}
-    in an $m$-ary tree
+    Let $T=(V,E)$ be a complete $m$-ary tree.
 
     \begin{itemize}
       \item $n$: number of nodes
       \item $l$: number of leaves
-      \item $i$: number of ınternal nodes
+      \item $i$: number of internal nodes
     \end{itemize}
 
-    then
-
+    Then:
+    \pause
     \begin{itemize}
       \item $n = m \cdot i + 1$
 
@@ -2591,16 +2571,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Regular Tree Examples}
 
   \begin{example}
-    How many matches are played in a tennis tournament\\
-    with 27 players?
-
-    \pause
-    \bigskip
     \begin{itemize}
-      \item every player is a leaf: $l = 27$
-      \item every match is an internal node: $m = 2$
+      \item how many matches are played in a tennis tournament\\
+        with 27 players?
 
       \pause
+      \bigskip
+      \item every player is a leaf: $l = 27$
+      \item every match is an internal node: $m = 2$
       \item number of matches: $i = \frac{l - 1}{m - 1} = \frac{27 - 1}{2 - 1} = 26$
     \end{itemize}
   \end{example}
@@ -2610,27 +2588,29 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Regular Tree Examples}
 
   \begin{example}
-    How many extension cords with 4 outlets are required\\
-    to connect 25 computers to a wall socket?
-
-    \pause
-    \bigskip
     \begin{itemize}
-      \item every computer is a leaf: $l = 25$
-      \item every extension cord is an internal node: $m = 4$
+      \item how many extension cords with 4 outlets are required\\
+        to connect 25 computers to a wall socket?
 
       \pause
+      \bigskip
+      \item every computer is a leaf: $l = 25$
+      \item every extension cord is an internal node: $m = 4$
       \item number of cords: $i = \frac{l - 1}{m - 1} = \frac{25 - 1}{4 - 1} = 8$
     \end{itemize}
   \end{example}
 \end{frame}
 
+\subsection{Decision Trees}
+
+% TODO: write an introductory slide, games
+
 \begin{frame}
   \frametitle{Decision Trees}
 
-  \begin{example}[counterfeit coin problem]
+  \begin{example}
     \begin{itemize}
-      \item one of 8 coins is counterfeit (is heavier)
+      \item one of 8 coins is counterfeit (it's heavier)
       \item find the counterfeit coin using a beam balance
     \end{itemize}
   \end{example}
@@ -2656,6 +2636,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
+% TODO: give the decision tree for tic-tac-toe and/or nim
+
 \subsection*{References}
 
 \begin{frame}
@@ -2674,14 +2656,25 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
 \section{Weighted Graphs}
 
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Weighted Graphs}
+
+  \begin{itemize}
+    \item assign labels to edges:\\
+      weight, length, cost, delay, probability, $\ldots$
+  \end{itemize}
+\end{frame}
+
 \subsection{Shortest Path}
 
 \begin{frame}
   \frametitle{Shortest Path}
 
   \begin{itemize}
-    \item Dijkstra's algorithm finds the shortest paths\\
-      from a node to all other nodes
+    \item find the shortest paths from a node to all other nodes:\\
+      Dijkstra's algorithm
   \end{itemize}
 \end{frame}
 
@@ -2717,7 +2710,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[From node $c$ - base distance=$0$]
+  \begin{example}[from node $c$ - base distance=$0$]
     \begin{columns}
       \column{.5\textwidth}
       \begin{center}
@@ -3122,7 +3115,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \item $i \leftarrow i+1$
       \begin{itemize}
         \item $i=n$ $\Rightarrow$: the subgraph $G$ containing the edges\\
-	  $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
+          $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
         \item $i<n$ $\Rightarrow$ go to step 2
 
       \end{itemize}
@@ -3308,6 +3301,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
+% TODO: traveling salesman problem
+
 \subsection*{References}
 
 \begin{frame}
@@ -3319,7 +3314,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \begin{itemize}
         \item 13.1. \alert{Dijkstra's Shortest Path Algorithm}
         \item 13.2. \alert{Minimal Spanning Trees:\\
-			   The Algorithms of Kruskal and Prim}
+                           The Algorithms of Kruskal and Prim}
       \end{itemize}
     \end{itemize}
   \end{block}
