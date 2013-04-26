@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Çizgeler}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -144,7 +144,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -203,7 +203,6 @@
       \item $v_1$ ve $v_2$ düğümleri \emph{bitişik}
     \end{itemize}
 
-    \pause
     \item hiçbir ayrıtın çakışmadığı düğüm: \emph{yalıtılmış düğüm}
   \end{itemize}
 \end{frame}
@@ -218,7 +217,6 @@
         \pgfuseimage{yalin}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       $\begin{array}{lcl}
         V & = & \{a,b,c,d,e,f\}\\
@@ -235,12 +233,11 @@
   \frametitle{Yönlü Çizgeler}
 
   \begin{tanim}
-    \alert{yönlü çizge}: ayrıtlar yönlü
+    \alert{yönlü çizge}:  $D=(V,A)$
 
-    \pause
     \begin{itemize}
-      \item yönlü ayrıt: \alert{yay}
-      \item \alert{başlangıç} ve \alert{bitiş} düğümleri
+      \item $A \subseteq V \times V$: \alert{yay} kümesi
+      \item \emph{başlangıç} ve \emph{bitiş} düğümleri
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -259,23 +256,17 @@
   \frametitle{Çoklu Çizgeler}
 
   \begin{tanim}
-    \alert{koşut bağlı ayrıtlar}:\\
-    aynı iki düğüm arasındaki ayrıtlar
+    \alert{koşut bağlı ayrıtlar}: aynı iki düğüm arasındaki ayrıtlar
+
+    \bigskip
+    \alert{tek-çevre}: aynı düğümde başlayan ve sonlanan ayrıt
 
     \pause
     \bigskip
-    \alert{tek-çevre}:\\
-    iki ucu aynı düğüm olan ayrıt
+    \alert{yalın çizge}: koşut bağlı ayrıt ya da tek-çevre içermeyen çizge
 
-    \pause
     \bigskip
-    \alert{yalın çizge}:\\
-    koşut bağlı ayrıtlar ya da tek-çevre içermeyen çizge
-
-    \pause
-    \bigskip
-    \alert{çoklu çizge}:\\
-    yalın olmayan çizge
+    \alert{çoklu çizge}: yalın olmayan çizge
   \end{tanim}
 \end{frame}
 
@@ -298,6 +289,20 @@
       \end{itemize}
     \end{columns}
   \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Altçizge}
+
+  \begin{tanim}
+    $G'=(V',E')$ çizgesi $G=(V,E)$ çizgesinin bir \alert{altçizgesi}:
+
+    \begin{itemize}
+      \item $V' \subseteq V$
+      \item $E' \subseteq E$
+      \item $\forall (v_1,v_2) \in E'~v_1,v_2 \in V'$
+    \end{itemize}
+  \end{tanim}
 \end{frame}
 
 \begin{frame}
@@ -403,7 +408,7 @@
 
   \pause
   \begin{teorem}
-    $v_i$ düğümünün kertesi $d_i$ ise:
+    $v_i$ düğümünün kertesi $d_i$ olsun
 
     \[ |E| = \frac{\sum_i d_i}{2} \]
   \end{teorem}
@@ -412,7 +417,7 @@
 \begin{frame}
   \frametitle{Kerte Örneği}
 
-  \begin{ornek}[yalın]
+  \begin{ornek}[yalın çizge]
     \begin{columns}
       \column{.58\textwidth}
       \begin{center}
@@ -439,7 +444,7 @@
 \begin{frame}
   \frametitle{Kerte Örneği}
 
-  \begin{ornek}[çoklu]
+  \begin{ornek}[çoklu çizge]
     \begin{columns}
       \column{.58\textwidth}
       \begin{center}
@@ -467,7 +472,7 @@
   \frametitle{Yönlü Çizgelerde Kerte}
 
   \begin{itemize}
-    \item kerte ikiye ayrılıyor
+    \item kerte ikiye ayrılır
     \begin{itemize}
       \item \emph{giriş kertesi}: ${d_v}^i$
       \item \emph{çıkış kertesi}: ${d_v}^o$
@@ -479,6 +484,7 @@
     \item çıkış kertesi 0 olan düğüm: \emph{kuyu}
 
     \pause
+    \bigskip
     \item $\sum_{v \in V} {d_v}^i = \sum_{v \in V} {d_v}^o = |A|$
   \end{itemize}
 \end{frame}
@@ -514,11 +520,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düzenli Çizgeler}
 
   \begin{tanim}
-    \alert{düzenli çizge}:\\
-    bütün düğümlerin kertelerinin aynı olduğu çizge
+    \alert{düzenli} çizge: bütün düğümlerin kertesi aynı
 
     \begin{itemize}
-      \item $n$-düzenli: bütün düğümlerin kerteleri $n$
+      \item $n$-düzenli: bütün düğümlerin kertesi $n$
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -537,13 +542,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Tam Bağlı Çizgeler}
 
   \begin{tanim}
-    \alert{tam bağlı çizge}:\\
-    $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
-
+    $G=(V,E)$ çizgesi \alert{tam bağlı}:
     \begin{itemize}
-      \item $K_n$: $n$ düğümlü tam bağlı çizge
+      \item $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
     \end{itemize}
   \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item her düğüm çifti arasında ayrıt var
+    \item $K_n$: $n$ düğümlü tam bağlı çizge
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -570,23 +579,23 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{İki Parçalı Çizgeler}
 
   \begin{tanim}
-    \alert{iki parçalı çizge}:\\
-    $V = V_1 \cup V_2 \wedge V_1 \cap V_2 = \emptyset$\\
-    $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
-
-    \pause
+    $G=(V,E)$ çizgesi \alert{iki parçalı}:
     \begin{itemize}
-      \item \emph{tam bağlı iki parçalı çizge}:\\
-      $\forall v_1 \in V_1 \forall v_2 \in V_2~(v_1,v_2) \in E$
-      \begin{itemize}
-        \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
-      \end{itemize}
+      \item $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
+      \item $V_1 \cup V_2 = V$, $V_1 \cap V_2 = \emptyset$
     \end{itemize}
   \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item \emph{tam bağlı iki parçalı}:
+      $\forall v_1 \in V_1~\forall v_2 \in V_2~(v_1,v_2) \in E$
+    \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{İki Parçalı Çizge Örnekleri}
+  \frametitle{Tam Bağlı İki Parçalı Çizge Örnekleri}
 
   \begin{columns}[t]
     \column{.5\textwidth}
@@ -605,39 +614,20 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
-\subsection{İzomorfizm}
-
-\begin{frame}
-  \frametitle{Altçizge}
-
-  \begin{tanim}
-    \alert{altçizge}:\\
-      $G'=(V',E')$ çizgesi $G=(V,E)$ çizgesinin altçizgesi ise
-
-    \begin{itemize}
-      \item $V' \subseteq V$
-      \item $E' \subseteq E$
-      \item $\forall (v_1,v_2) \in E'~v_1 \in V' \wedge v_2 \in V'$
-    \end{itemize}
-  \end{tanim}
-\end{frame}
-
 \begin{frame}
   \frametitle{İzomorfizm}
 
   \begin{tanim}
-    \alert{izomorfik çizgeler}:\\
-    $G=(V,E)$ ile $G^\star=(V^\star,E^\star)$ çizgeleri izomorfik ise\\
-    $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
-
+    $G=(V,E)$ ile $G^\star=(V^\star,E^\star)$ çizgeleri \alert{izomorfik}:
     \begin{itemize}
+      \item $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
       \item $f$ birebir ve örten
     \end{itemize}
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item aynı şekilde çizilebilir
+    \item $G$ ile $G^\star$ aynı şekilde çizilebilir
   \end{itemize}
 \end{frame}
 
@@ -681,7 +671,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
     \end{columns}
 
-    \pause
     \bigskip
     \begin{itemize}
       \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
@@ -694,9 +683,11 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Homeomorfizm}
 
   \begin{tanim}
-    \alert{homeomorfik çizge}:\\
-    izomorfik bir çizgedeki bir ayrıtı bölen düğümler ekleyerek\\
-    elde edilen çizge
+    $G=(V,E)$ ile $G^\star=(V^\star,E^\star)$ çizgeleri \alert{homeomorfik}:
+    \begin{itemize}
+      \item $E^\star$ kümesindeki ayrıtlardan bazılarının ek düğümlerle bölünmüş\\
+        olmaları dışında $G$ and $G^\star$ çizgeleri izomorfik
+    \end{itemize}
   \end{tanim}
 \end{frame}
 
@@ -724,14 +715,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Dolaşı}
 
   \begin{tanim}
-    \alert{dolaşı}:\\
-    bir başlangıç düğümünden ($v_0$) bir varış düğümüne ($v_n$)
+    \alert{dolaşı}: bir başlangıç düğümünden ($v_0$) bir varış düğümüne ($v_n$)\\
+      bir düğüm ve ayrıt sekansı
 
     \[
       v_0,e_1,v_1,e_2,v_2,e_3,v_3,\dots,e_{n-1},v_{n-1},e_n,v_n
     \]
 
-    $e_i=(v_{i-1},v_i)$ olacak şekilde düğüm-ayrıt dizisi
+    $e_i=(v_{i-1},v_i)$
   \end{tanim}
 
   \pause
@@ -740,7 +731,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
     \pause
     \medskip
-    \item \alert{uzunluk}: ayrıt sayısı
+    \item \alert{uzunluk}: dolaşıdaki ayrıt sayısı
     \item $v_0 \neq v_n$ ise \alert{açık}, $v_0 = v_n$ ise \alert{kapalı}
   \end{itemize}
 \end{frame}
@@ -773,13 +764,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{tanim}
     \alert{gezi}: ayrıtların yinelenmediği dolaşı
-
-    \pause
-    \begin{itemize}
-      \item kapalı gezi: \alert{devre}
-      \item \alert{kapsayan gezi}: çizgedeki bütün ayrıtlardan geçilen gezi
-    \end{itemize}
   \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item \alert{devre}: kapalı gezi
+    \item \alert{kapsayan} gezi: çizgedeki bütün ayrıtlardan geçen gezi
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -807,13 +798,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{tanim}
     \alert{yol}: düğümlerin yinelenmediği dolaşı
-
-    \pause
-    \begin{itemize}
-      \item kapalı yol: \alert{çevre}
-      \item \alert{kapsayan yol}: çizgedeki bütün düğümlere uğranan yol
-    \end{itemize}
   \end{tanim}
+
+  \pause
+  \begin{itemize}
+    \item \alert{çevre}: kapalı yol
+    \item \alert{kapsayan} yol: çizgedeki bütün düğümlere uğrayan yol
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -840,8 +831,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Bağlılık}
 
   \begin{tanim}
-    \alert{bağlı çizge}:\\
-    seçilebilecek her düğüm çifti arasında bir yol var
+    \alert{bağlı} çizge: her düğüm çifti arasında bir yol var
   \end{tanim}
 
   \pause
@@ -855,13 +845,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{ornek}
     \begin{columns}
-      \column{.55\textwidth}
+      \column{.54\textwidth}
       \begin{center}
         \pgfuseimage{bagsiz}
       \end{center}
 
-      \column{.43\textwidth}
-      \pause
+      \column{.45\textwidth}
       \begin{itemize}
         \item çizge bağlı değil:\\
           $a$ ile $c$ arasında yol yok
@@ -878,7 +867,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Uzaklık}
 
   \begin{tanim}
-    \alert{uzaklık}: iki düğüm arasındaki en kısa yolun uzunluğu
+    $v_i$ ile $v_j$ düğümleri arasındaki \alert{uzaklık}:
+    \begin{itemize}
+      \item $v_i$ ile $v_j$ arasındaki en kısa yolun uzunluğu
+    \end{itemize}
   \end{tanim}
 
   \pause
@@ -892,12 +884,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{ornek}
     \begin{columns}
-      \column{.5\textwidth}
+      \column{.48\textwidth}
       \begin{center}
         \pgfuseimage{uzaklik}
       \end{center}
 
-      \column{.5\textwidth}
+      \column{.52\textwidth}
       \pause
       \begin{itemize}
         \item $a$ ile $e$ düğümlerinin\\
@@ -912,15 +904,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Kesitleme Noktası}
 
   \begin{tanim}
-    \alert{$G - v$}:\\
-    $G$ çizgesinden $v$ düğümü ve ona çakışık bütün ayrıtların çıkarılmasıyla
-    elde edilen çizge
+    \alert{$G - v$}:
+    \begin{itemize}
+      \item $G$ çizgesinden $v$ düğümü ve ona çakışık bütün ayrıtların\\
+        çıkarılmasıyla elde edilen çizge
+    \end{itemize}
   \end{tanim}
 
   \pause
   \begin{tanim}
-    \alert{kesitleme noktası}:\\
-    $G$ bağlı ama $G - v$ bağlı değilse $v$ bir kesitleme noktasıdır
+    $v$ düğümü $G$ çizgesi için bir \alert{kesitleme noktası}:
+    \begin{itemize}
+      \item $G$ bağlı ama $G - v$ bağlı değil
+    \end{itemize}
   \end{tanim}
 \end{frame}
 
@@ -948,10 +944,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Yönlü Dolaşılar}
 
   \begin{itemize}
-    \item yönsüz çizgelere benzer şekilde
-
-    \pause
-    \item yaylar yönsüz varsayarak tanımlanırsa:\\
+    \item yönsüz çizgelerle aynı
+    \item yayların yönleri gözardı edilirse:\\
       \emph{yarı-dolaşı}, \emph{yarı-gezi}, \emph{yarı-yol}
   \end{itemize}
 \end{frame}
@@ -1004,7 +998,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \begin{tanim}
       \emph{güçlü bağlı}:\\
       her düğüm çifti arasında\\
-      bir yol var
+      her iki yönde yol var
     \end{tanim}
 
     \column{.5\textwidth}
@@ -1015,22 +1009,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{ornek}
   \end{columns}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Yönlü Bağlılık}
-%
-%   \begin{teorem}
-%     Sonlu, yönlü bir $D$ çizgesinin
-%
-%     \begin{itemize}
-%       \item zayıf bağlı olması için kapsayan bir yarı-dolaşı içermesi
-%       \item<2-> tek-yönlü bağlı olması için kapsayan bir açık dolaşı içermesi
-%       \item<3-> güçlü bağlı olması için kapsayan bir kapalı dolaşı içermesi
-%     \end{itemize}
-%
-%     gerek ve yeter koşuldur.
-%   \end{teorem}
-% \end{frame}
 
 \begin{frame}
   \frametitle{Königsberg Köprüleri}
@@ -1041,7 +1019,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{itemize}
     \item bütün köprülerden bir kere geçilerek\\
-      başlangıç noktasına dönülecek
+      başlangıç noktasına dönülebilir mi?
   \end{itemize}
 \end{frame}
 
@@ -1049,17 +1027,22 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Geçit Veren Çizge}
 
   \begin{tanim}
-    \alert{geçit veren çizge}:\\
-    üzerinde kapsayan bir gezi düzenlenebilen çizge
+    $G$ \alert{geçit verir}: $G$ üzerinde kapsayan bir gezi düzenlenebilir
   \end{tanim}
 
-  \begin{itemize}
-    \pause
-    \item kertesi tek olan bir düğüm varsa gezinin\\
-      ya başlangıç ya da varış düğümü olmalı
+  \begin{center}
+    \pgfuseimage{konigcizge}
+  \end{center}
+\end{frame}
 
-    \pause
-    \item başlangıç ve varış dışındaki bütün düğümlerin kerteleri çift olmalı
+\begin{frame}
+  \frametitle{Geçit Veren Çizge}
+
+  \begin{itemize}
+    \item kertesi tek olan bir düğüm varsa gezinin\\
+      ya başlangıç düğümü ya da varış düğümü olmalı
+    \item başlangıç düğümü ve varış düğümü dışındaki\\
+      bütün düğümlerin kerteleri çift olmalı
   \end{itemize}
 \end{frame}
 
@@ -1073,14 +1056,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{zarf}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       \begin{itemize}
         \item $a$, $b$ ve $c$ düğümlerinin\\
           kerteleri çift
         \item $d$ ve $e$ düğümlerinin\\
           kerteleri tek
+
         \pause
+        \medskip
         \item $d$ düğümünden başlayıp\\
           $e$ düğümünde biten (ya da tersi)\\
           bir kapsayan gezi oluşturulabilir: $d,b,a,c,e,d,c,b,e$
@@ -1096,7 +1080,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \pgfuseimage{konigcizge}
   \end{center}
 
-  \pause
   \begin{itemize}
     \item bütün düğümlerin kerteleri tek: geçit vermez
   \end{itemize}
@@ -1106,14 +1089,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Euler Çizgeleri}
 
   \begin{tanim}
-    \alert{Euler çizgesi}:\\
-      üzerinde kapalı bir kapsayan gezi düzenlenebilen çizge
-
-    \pause
-    \begin{itemize}
-      \item Euler çizgesi $\Leftrightarrow$ bütün düğümlerin kerteleri çift
-    \end{itemize}
+    \alert{Euler çizgesi}: kapalı, kapsayan bir gezi düzenlenebilen çizge
   \end{tanim}
+
+  \begin{itemize}
+    \item $G$ bir Euler çizgesi $\Leftrightarrow$
+      $G$'deki bütün düğümlerin kerteleri çift
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1140,8 +1122,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Hamilton Çizgeleri}
 
   \begin{tanim}
-    \alert{Hamilton çizgesi}:\\
-      üzerinde kapalı bir kapsayan yol düzenlenebilen çizge
+    \alert{Hamilton çizgesi}: kapalı, kapsayan bir yol düzenlenebilen çizge
   \end{tanim}
 \end{frame}
 
@@ -1333,13 +1314,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düzlemsel Çizgeler}
 
   \begin{tanim}
-    \alert{düzlemsel çizge}:\\
-    ayrıtları kesişmeden bir düzleme çizilebilen çizge
-
-    \begin{itemize}
-      \item \alert{harita}: çizgenin düzlemsel bir çizimi
-    \end{itemize}
+    Ayrıtları kesişmeyecek şekilde bir düzleme çizilebilen\\
+    bir çizge \alert{düzlemseldir}.
   \end{tanim}
+
+  \begin{itemize}
+    \item $G$ çizgesinin bir \alert{haritası}: $G$ çizgesinin düzlemsel bir
+      çizimi
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1364,14 +1346,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Bölgeler}
 
   \begin{itemize}
-    \item bir harita düzlemi \emph{bölgelere} ayırır
-    \item \emph{bölge kertesi}:\\
-      bölgenin sınırı oluşturan dolaşının uzunluğu
+    \item bir harita düzlemi \alert{bölgelere} ayırır
+    \item bir bölgenin \emph{kertesi}:\\
+      bölgeyi çevreleyen kapalı gezinin uzunluğu
   \end{itemize}
 
   \pause
   \begin{teorem}
-    $r_i$ bölgesinin kertesi $d_{r_i}$ ise:
+    $r_i$ bölgesinin kertesi $d_{r_i}$ olsun
 
     \[ |E| = \frac{\sum_i d_{r_i}}{2} \]
   \end{teorem}
@@ -1387,7 +1369,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{bolge}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       $d_{r_1} = 3$ (abda)\\
       $d_{r_2} = 3$ (bcdb)\\
@@ -1406,7 +1387,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Euler Formülü}
 
   \begin{teorem}[Euler Formülü]
-    Bağlı, düzlemsel çizgelerde $|V| - |E| + |R| = 2$.
+    $G=(V,E)$ bağlı, düzlemsel bir çizge olsun\\
+    ve $R$ bu çizgenin bir haritasındaki bölgeler kümesi olsun:
+
+    \[|V| - |E| + |R| = 2\]
   \end{teorem}
 \end{frame}
 
@@ -1423,70 +1407,70 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{itemize}
   \end{ornek}
 \end{frame}
-
-\begin{frame}
-  \frametitle{Euler Formülünün Tanıtı}
-
-  \begin{block}{Tanıt}
-    yöntem: $|E|$ üzerinden tümevarım
-
-    \pause
-    \begin{itemize}
-      \item taban adımı: tek düğüm, ayrıt yok\\
-        $|V| = 1$, $|E| = 0$, $|R| = 1$
-
-      \pause
-      \item $k$ düğümlü, bağlı ve düzlemsel bir çizge için doğru varsayalım
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Euler Formülünün Tanıtı}
-
-  \begin{proof}[Tümevarım Adımı]
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item yeni bir düğümü var olanlardan birine bağla:
-
-        \medskip
-        \pgfuseimage{eulertanit1}
-      \end{itemize}
-
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item var olan iki düğüm arasına bir ayrıt ekle:
-
-        \medskip
-        \pgfuseimage{eulertanit2}
-      \end{itemize}
-    \end{columns}
-
-    \pause
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item $|V|$ 1 artar, $|E|$ 1 artar,\\
-          $|R|$ aynı kalır
-      \end{itemize}
-
-      \pause
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item $|V|$ aynı kalır, $|E|$ 1 artar,\\
-          $|R|$ 1 artar
-      \end{itemize}
-    \end{columns}
-  \end{proof}
-\end{frame}
+% 
+% \begin{frame}
+%   \frametitle{Euler Formülünün Tanıtı}
+% 
+%   \begin{block}{Tanıt}
+%     yöntem: $|E|$ üzerinden tümevarım
+% 
+%     \pause
+%     \begin{itemize}
+%       \item taban adımı: tek düğüm, ayrıt yok\\
+%         $|V| = 1$, $|E| = 0$, $|R| = 1$
+% 
+%       \pause
+%       \item $k$ ayrıtlı, bağlı ve düzlemsel bir çizge için doğru varsayalım
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+% 
+% \begin{frame}
+%   \frametitle{Euler Formülünün Tanıtı}
+% 
+%   \begin{proof}[Tümevarım Adımı]
+%     \begin{columns}[t]
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item yeni bir düğümü var olanlardan birine bağla:
+% 
+%         \medskip
+%         \pgfuseimage{eulertanit1}
+%       \end{itemize}
+% 
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item var olan iki düğüm arasına bir ayrıt ekle:
+% 
+%         \medskip
+%         \pgfuseimage{eulertanit2}
+%       \end{itemize}
+%     \end{columns}
+% 
+%     \pause
+%     \begin{columns}
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item $|V|$ 1 artar, $|E|$ 1 artar,\\
+%           $|R|$ aynı kalır
+%       \end{itemize}
+% 
+%       \pause
+%       \column{.5\textwidth}
+%       \begin{itemize}
+%         \item $|V|$ aynı kalır, $|E|$ 1 artar,\\
+%           $|R|$ 1 artar
+%       \end{itemize}
+%     \end{columns}
+%   \end{proof}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Düzlemsel Çizge Teoremleri}
 
   \begin{teorem}
-    yalın, düzlemsel bir çizgede:\\
-    $|V| \geq 3 \Rightarrow |E| \leq 3 |V| - 6$
+    $G=(V,E)$ bağlı, düzlemsel bir çizge olsun ve $|V| \geq 3$ olsun:\\
+    $|E| \leq 3 |V| - 6$
   \end{teorem}
 
   \pause
@@ -1519,8 +1503,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düzlemsel Çizge Teoremleri}
 
   \begin{teorem}
-    Bağlı, yalın, düzlemsel bir çizgede\\
-    $|V| \geq 3 \Rightarrow \exists v \in V~d_v \leq 5$
+    $G=(V,E)$ bağlı, düzlemsel bir çizge olsun ve $|V| \geq 3$ olsun:\\
+    $\exists v \in V~d_v \leq 5$
   \end{teorem}
 
   \pause
@@ -1532,7 +1516,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pause
         $\Rightarrow |E| \geq 3 |V|$\\
         \pause
-        $\Rightarrow |E| > 3 |V| - 6$: \alert{çelişki}
+        $\Rightarrow |E| > 3 |V| - 6$
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -1543,11 +1527,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.45\textwidth}
     \begin{teorem}
+      $K_5$ düzlemsel değildir.
+
+      \medskip
       \begin{center}
         \pgfuseimage{k5}
       \end{center}
-
-      $K_5$ çizgesi düzlemsel değildir.
     \end{teorem}
 
     \pause
@@ -1563,7 +1548,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \item $|E| \leq 9$ olmalı\\
 
         \pause
-        \item ama $|E| = 10$: \alert{çelişki}
+        \item ama $|E| = 10$
       \end{itemize}
     \end{proof}
   \end{columns}
@@ -1575,11 +1560,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.45\textwidth}
     \begin{teorem}
+      $K_{3,3}$ düzlemsel değildir.
+
+      \medskip
       \begin{center}
         \pgfuseimage{k33}
       \end{center}
-
-      $K_{3,3}$ çizgesi düzlemsel değildir.
     \end{teorem}
 
     \pause
@@ -1599,7 +1585,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \item $|E| \geq 10$ olmalı\\
 
         \pause
-        \item ama $|E| = 9$: \alert{çelişki}
+        \item ama $|E| = 9$
       \end{itemize}
     \end{proof}
   \end{columns}
@@ -1609,26 +1595,28 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Kuratowski Teoremi}
 
   \begin{teorem}
-    çizgenin $K_5$ ya da $K_{3,3}$ çizgelerine homeomorfik bir altçizgesi var\\
-    $\Leftrightarrow$ çizge düzlemsel değil
+    \begin{center}
+      $G$'nin $K_5$ ya da $K_{3,3}$'e homeomorfik bir altçizgesi var.\\
+      $\Leftrightarrow$\\
+      $G$ düzlemsel değil.
+    \end{center}
   \end{teorem}
 \end{frame}
 
 \begin{frame}
   \frametitle{Platon Cisimleri}
 
-  \begin{tanim}
-    \alert{düzgün çokyüzlü}:\\
-    yüzleri birbirinin eşi düzgün çokgenlerden oluşan üç boyutlu cisim
-  \end{tanim}
-
-  \pause
   \begin{itemize}
+    \item \emph{düzgün çokyüzlü}: bütün yüzleri birbirinin eşi\\
+      düzgün çokgenler olan üç boyutlu cisim
+
+    \pause
     \item bir düzgün çokyüzlünün iki boyutlu düzleme izdüşümü\\
       düzlemsel bir çizgedir
     \begin{itemize}
       \item her köşe bir düğüm
       \item her kenar bir ayrıt
+      \item her yüz bir bölge
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -1636,7 +1624,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Platon Cisimleri}
 
-  \begin{ornek}[küp: düzgün 6-yüzlü]
+  \begin{ornek}[küp]
     \begin{center}
       \pgfuseimage{hexahedron}
     \end{center}
@@ -1649,16 +1637,16 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{itemize}
     \item $v$: düğüm (köşe) sayısı
     \item $e$: ayrıt (kenar) sayısı
-    \item $r$: bölge (yüzey) sayısı
-    \item $n$: bir köşede birleşen yüzey sayısı = düğüm kertesi
-    \item $m$: bir yüzeyi çevreleyen ayrıt sayısı = bölge kertesi
+    \item $r$: bölge (yüz) sayısı
+    \item $n$: bir köşede birleşen yüz sayısı (düğüm kertesi)
+    \item $m$: bir yüzü çevreleyen ayrıt sayısı (bölge kertesi)
   \end{itemize}
 
   \pause
   \begin{itemize}
     \item $m,n \geq 3$
-    \item $2e = m \cdot r$
     \item $2e = n \cdot v$
+    \item $2e = m \cdot r$
   \end{itemize}
 \end{frame}
 
@@ -1668,12 +1656,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \begin{itemize}
       \item Euler formülünden:
       \[
-        0 < 2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
-        = e \Big( \frac{2m-mn+2n}{mn} \Big)
+        2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
+        = e \Big( \frac{2m-mn+2n}{mn} \Big) > 0
       \]
 
       \pause
-      \item $e,m,n > 0$ olduğuna göre:
+      \item $e,m,n > 0$:
       \begin{eqnarray*}
         2m - mn + 2n > 0 \Rightarrow mn - 2m -2n < 0 \\\pause
         \Rightarrow mn - 2m - 2n + 4 < 4 \pause \Rightarrow (m - 2)(n - 2) < 4
@@ -1692,7 +1680,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tetrahedron - Düzgün 4 Yüzlü}
+  \frametitle{Tetrahedron - Düzgün Dört Yüzlü}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1710,7 +1698,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Hexahedron - Küp}
+  \frametitle{Hexahedron - Düzgün Altı Yüzlü}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1728,7 +1716,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Octahedron - Düzgün 8 Yüzlü}
+  \frametitle{Octahedron - Düzgün Sekiz Yüzlü}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1746,7 +1734,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dodecahedron - Düzgün 12 Yüzlü}
+  \frametitle{Dodecahedron - Düzgün Oniki Yüzlü}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1764,7 +1752,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Icosahedron - Düzgün 20 Yüzlü}
+  \frametitle{Icosahedron - Düzgün Yirmi Yüzlü}
 
   \begin{columns}
     \column{.7\textwidth}
@@ -1781,13 +1769,11 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Çizge Boyama}
 
   \begin{tanim}
-    \alert{düzgün boyama}:\\
-      $G=(V,E)$ çizgesinde her $(a,b) \in E$ için $a$ ve $b$ düğümlerinin
-      renkleri farklı olacak şekilde bütün düğümlere renk atama
-
-    \pause
+    $G=(V,E)$ çizgesi için bir \alert{düzgün boyama}: $f: V \rightarrow C$\\
+      $C$ bir renk kümesi
     \begin{itemize}
-      \item en az sayıda renk kullanarak
+      \item $\forall (v_i,v_j) \in E~f(v_i) \neq f(v_j)$
+      \item $|C|$ en küçük olacak şekilde
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -1803,7 +1789,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
       \pause
       \medskip
-      \item en az sayıda depo alanı kullanılacak şekilde maddeler depolanacak
+      \item en az sayıda depo alanı kullanılacak şekilde maddeleri depola
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -1891,14 +1877,16 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Kromatik Sayı}
 
   \begin{tanim}
-    \alert{kromatik sayı}:\\
-    G çizgesini düzgün boyamak için gerekli en az renk sayısı: $\chi (G)$
+    $G$ çizgesinin \alert{kromatik sayısı}: $\chi (G)$
+    \begin{itemize}
+      \item $G$ çizgesini boyamak için gerekli en az renk sayısı
+    \end{itemize}
   \end{tanim}
 
   \pause
   \begin{itemize}
-     \item $\chi (G)$'yi hesaplamak çok zor bir problem
-     \item $n \geq 1$ için $\chi (K_n) = n$
+     \item $\chi (G)$'nin hesaplanması çok zor bir problem
+     \item $\chi (K_n) = n$
   \end{itemize}
 \end{frame}
 
@@ -1931,13 +1919,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \item her hücre bir düğüm
         \item aynı satırdaki hücreler bitişik
         \item aynı sütundaki hücreler bitişik
-        \item aynı $3 \times 3$ bloktaki hücreler bitişik
+        \item aynı $3 \times 3$'lük bloktaki hücreler\\
+          bitişik
         \item her rakam bir renk
       \end{itemize}
 
       \pause
       \begin{itemize}
-        \item problem: kısmen boyalı bir çizgeyi tamamen boyamak
+        \item problem: kısmen boyalı\\
+          bir çizgenin düzgün boyanması
       \end{itemize}
     \end{columns}
   \end{ornek}
@@ -1950,11 +1940,67 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \item bir haritayı bitişik bölgelere farklı renkler atayacak şekilde boyama
   \end{itemize}
 
-  \pause
   \medskip
-  \begin{teorem}[4~Renk Teoremi]
-    Düzlemsel bir haritadaki bölgeleri boyamak için 4~renk yeterlidir.
+  \begin{teorem}[Dört~Renk Teoremi]
+    Bir haritadaki bölgeleri boyamak için dört~renk yeterlidir.
   \end{teorem}
+\end{frame}
+
+\subsection{Çizgelerde Arama}
+
+\begin{frame}
+  \frametitle{Çizgelerde Arama}
+
+  \begin{itemize}
+    \item $G=(V,E)$ çizgesinin düğümlerinin\\
+      $v_1$ düğümünden başlanarak aranması
+
+    \bigskip
+    \item derinlemesine
+    \item enlemesine
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Derinlemesine Arama}
+
+  \begin{enumerate}
+    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
+
+    \pause
+    \item $2 \leq i \leq |V|$ içinde $(v,v_i) \in E$ ve $v_i \notin D$
+      olacak şekilde\\
+      en küçük $i$'yi bul
+      \begin{itemize}
+        \item böyle bir $i$ yoksa: 3. adıma git
+        \item varsa: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
+          $v \leftarrow v_i$, 2. adıma git
+      \end{itemize}
+
+    \pause
+    \item $v=v_1$ ise sonuç $T$
+
+    \pause
+    \item $v \neq v_1$ ise $v \leftarrow parent(v)$, 2. adıma git
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Enlemesine Arama}
+
+  \begin{enumerate}
+    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
+
+    \pause
+    \item $Q$ boş ise: sonuç $T$
+    \item $Q$ boş değilse: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
+      $2 \leq i \leq |V|$ için $(v,v_i) \in E$ ayrıtlarına bak:
+    \begin{itemize}
+      \item $v_i \notin D$ ise: $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
+        $D=D \cup \{v_i\}$
+       \item 3. adıma git
+    \end{itemize}
+  \end{enumerate}
 \end{frame}
 
 \subsection*{Kaynaklar}
@@ -1983,13 +2029,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Ağaç}
 
   \begin{tanim}
-    \alert{ağaç}: $T=(V,E)$\\
-    çevre içermeyen bağlı çizge
+    \alert{ağaç}: çevre içermeyen, bağlı çizge
   \end{tanim}
 
   \pause
   \begin{itemize}
-    \item bağlı bileşenleri ağaçlar olan çizge: \emph{orman}
+    \item \emph{orman}: bağlı bileşenleri ağaçlar olan çizge
   \end{itemize}
 \end{frame}
 
@@ -2007,12 +2052,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Ağaç Teoremleri}
 
   \begin{teorem}
-    Bir ağaçta herhangi iki ayrık düğüm arasında bir ve yalnız bir yol vardır.
+    Bir ağaçta herhangi iki farklı düğüm arasında\\
+    bir ve yalnız bir yol vardır.
   \end{teorem}
 
   \begin{itemize}
-    \item bağlı olduğu için bir yol var
-    \item birden fazla yol olsaydı çevre olurdu:
+    \item ağaç bağlı olduğu için en az bir yol vardır
+    \item birden fazla yol olsaydı çevre oluştururlardı
+    \medskip
     \begin{center}
       \pgfuseimage{cevre}
     \end{center}
@@ -2023,7 +2070,9 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Ağaç Teoremleri}
 
   \begin{teorem}
-    $T = (V, E)$ ağacında: $|V| = |E| + 1$
+    $T = (V, E)$ bir ağaç olsun:
+
+    \[|E| = |V| - 1\]
   \end{teorem}
 
   \begin{itemize}
@@ -2034,7 +2083,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Ağaç Teoremleri}
 
-  \begin{block}{Tanıt: Taban adımı.}
+  \begin{block}{Tanıt: taban adımı}
     \begin{itemize}
       \item $|E|=0 \Rightarrow |V|=1$
       \item $|E|=1 \Rightarrow |V|=2$
@@ -2042,7 +2091,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
       \pause
       \medskip
-      \item $|E| \leq k$ için doğru olduğu varsayılsın
+      \item $|E| \leq k$ için $|E| = |V| - 1$ varsayalım
     \end{itemize}
   \end{block}
 \end{frame}
@@ -2050,7 +2099,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Ağaç Teoremleri}
 
-  \begin{proof}[Tanıt: Tümevarım adımı]
+  \begin{proof}[Tanıt: tümevarım adımı]
     \begin{itemize}
       \item $|E|=k+1$
     \end{itemize}
@@ -2064,7 +2113,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \pause
       \column{.55\textwidth}
       \begin{itemize}
-        \item $(y,z)$ çıkarılsın:\\
+        \item $(y,z)$ ayrıtını çıkaralım:\\
           $T_1=(V_1,E_1)$, $T_2=(V_2,E_2)$
       \end{itemize}
       \pause
@@ -2099,7 +2148,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pause
         $\Rightarrow |E| \geq |V| - \frac{1}{2}$
         \pause
-        $> |V| - 1$ \alert{çelişki}
+        $> |V| - 1$
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -2108,181 +2157,30 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Ağaç Teoremleri}
 
   \begin{teorem}
-    Aşağıdaki bildirimler eşdeğerlidir:
-
-    \begin{enumerate}
-      \item $T$ bir ağaçtır (bağlıdır ve çevre içermez).
-      \item $T$'de her düğüm çifti arasında bir ve yalnız bir yol vardır.
-      \item $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.
-      \item $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt eklenirse
+    \begin{center}
+      $T$ bir ağaçtır (bağlıdır ve çevre içermez).\\
+      $\Leftrightarrow$\\
+      $T$'de her düğüm çifti arasında bir ve yalnız bir yol vardır.\\
+      $\Leftrightarrow$\\
+      $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.\\
+      $\Leftrightarrow$\\
+      $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt eklenirse\\
         bir ve yalnız bir çevre oluşur.
-    \end{enumerate}
+    \end{center}
   \end{teorem}
-%
-%   \pause
-%   \begin{itemize}
-%     \item tanıt yöntemi:
-%       $1 \Rightarrow 2 \Rightarrow 3 \Rightarrow 4 \Rightarrow 1$\\
-%       \hyperlink{theoremset2}{\beamergotobutton{tanıtı atla}}
-%   \end{itemize}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{proof}[Tanıt: $1 \Rightarrow 2$]
-%     $T$ bağlıdır ve çevre içermez.\\
-%     $\Rightarrow$ $T$'de her düğüm çifti arasında bir ve yalnız bir yol vardır.
-%
-%     \pause
-%     \begin{itemize}
-%       \item varsayıma göre her düğüm çifti arasında bir yol vardır
-%       \item birden fazla yol olsaydı çevre olurdu
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{proof}[Tanıt: $2 \Rightarrow 3$]
-%     her düğüm çifti arasında bir ve yalnız bir yol vardır\\
-%     $\Rightarrow$ $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa bu özelliğini
-%     yitirir
-%
-%     \pause
-%     \begin{itemize}
-%       \item varsayıma göre yani her düğüm çifti arasında bir yol vardır yani
-%         $T$ bağlıdır
-%
-%       \pause
-%       \item $e = (u,v)$ ayrıtını çizgeden çıkaralım:\\
-%         $e$ ayrıtı $u$ ile $v$ düğümleri arasındaki tek yoldur, çıkarılırsa $T$
-%         bağlı olmaz
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{block}{Tanıt: $3 \Rightarrow 4$}
-%     $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.\\
-%     $\Rightarrow$ $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt
-%     eklenirse bir ve yalnız bir çevre oluşur.
-%
-%     \pause
-%     \begin{enumerate}
-%       \item $T$'nin çevre içermediğinin tanıtı
-%       \item ayrıt eklemeyle çevre oluştuğunun tanıtı
-%       \item ayrıt eklemeyle oluşan çevrenin tek olduğunun tanıtı
-%     \end{enumerate}
-%   \end{block}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{block}{Tanıt: $3 \Rightarrow 4$}
-%     $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.\\
-%     $\Rightarrow$ $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt
-%       eklenirse bir ve yalnız bir çevre oluşur.
-%   \end{block}
-%
-%   \pause
-%   \begin{proof}[Çevre içermediğinin tanıtı]
-%     \begin{itemize}
-%       \item $T$'de bir $C$ çevresi olsun ve $e = (u,v) \in C$ olsun
-%
-%       \pause
-%       \item varsayıma göre $T$ bağlı ama $T-e$ değil\\
-%         $\Rightarrow$ $T-e$ çizgesinde $u$ ile $v$ ayrı bileşenlerde
-%
-%       \pause
-%       \item oysa $u$ ile $v$ arasında $C-e$ yolu var
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{block}{Tanıt: $3 \Rightarrow 4$}
-%     $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.\\
-%     $\Rightarrow$ $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt
-%     eklenirse bir ve yalnız bir çevre oluşur.
-%   \end{block}
-%
-%   \begin{proof}[Ayrıt eklemeyle çevre oluştuğunun tanıtı]
-%     \begin{itemize}
-%       \pause
-%       \item $T$'ye $e = (u,v)$ ayrıtı eklensin
-%
-%       \pause
-%       \item varsayıma göre $u$ ile $v$ arasında bir yol var\\
-%         $\Rightarrow$ $e$ ayrıtı ikinci bir yol oluşturur\\
-%         $\Rightarrow$ çevre oluşur
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{block}{Tanıt: $3 \Rightarrow 4$}
-%     $T$ bağlıdır ama herhangi bir ayrıt çıkarılırsa artık bağlı olmaz.\\
-%     $\Rightarrow$ $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt
-%     eklenirse bir ve yalnız bir çevre oluşur.
-%   \end{block}
-%
-%   \pause
-%   \begin{proof}[Oluşan çevrenin tek olduğunun tanıtı]
-%     \begin{itemize}
-%       \item eklenen ayrıt: $e = (u,v)$
-%
-%       \pause
-%       \item oluşan çevre $C = P \cdot e$ çevresi olsun
-%
-%       \pause
-%       \item ikinci bir çevre daha oluştuğunu varsayalım:
-%         $C' = P' \cdot e$\\
-%         \pause
-%         $\Rightarrow$ $P$ ve $P'$ yolları çevre oluşturur
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Ağaç Teoremleri}
-%
-%   \begin{proof}[Tanıt: $4 \Rightarrow 1$]
-%     $T$ çevre içermez ama herhangi iki düğüm arasına bir ayrıt eklenirse bu
-%     bir ve yalnız bir çevre oluşur.\\
-%     $\Rightarrow$ $T$ bağlıdır ve çevre içermez.
-%
-%     \pause
-%     \begin{itemize}
-%       \item varsayıma göre $T$ çevre içermez
-%
-%       \pause
-%       \item herhangi bir $e = (u,v)$ ayrıtı eklendiğinde çevre oluşuyor\\
-%         $\Rightarrow$ $u$ ile $v$ arasında yol var\\
-%         $\Rightarrow$ $T$ bağlı
-%     \end{itemize}
-%   \end{proof}
-% \end{frame}
 
-\begin{frame}[label=theoremset2]
+\begin{frame}
   \frametitle{Ağaç Teoremleri}
 
   \begin{teorem}
-    Aşağıdaki bildirimler eşdeğerlidir:
-
-    \begin{enumerate}
-      \item $T$ bir ağaçtır ($T$ bağlıdır ve çevre içermez.)
-      \item $T$ bağlıdır ve $|E| = |V| - 1$.
-      \item $T$ çevre içermez ve $|E| = |V| - 1$.
-    \end{enumerate}
+    \begin{center}
+      $T$ bir ağaçtır ($T$ bağlıdır ve çevre içermez.)\\
+      $\Leftrightarrow$\\
+      $T$ bağlıdır ve $|E| = |V| - 1$.\\
+      $\Leftrightarrow$\\
+      $T$ çevre içermez ve $|E| = |V| - 1$.
+    \end{center}
   \end{teorem}
 \end{frame}
 
@@ -2292,15 +2190,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Köklü Ağaç}
 
   \begin{itemize}
-    \item düğümler arasında hiyerarşi var
+    \item düğümler arasında hiyerarşi tanımlanır
+    \item hiyerarşi ayrıtlara doğal bir yön verir\\
+      $\Rightarrow$ giriş ve çıkış kerteleri
 
     \pause
-    \item ayrıtlarda doğal yön $\Rightarrow$ giriş ve çıkış kerteleri
-    \begin{itemize}
-      \item giriş kertesi 0~olan düğüm: \alert{kök}
-      \item çıkış kertesi 0~olan düğümler: \alert{yaprak}
-      \item yaprak olmayan düğümler: \alert{içdüğüm}
-    \end{itemize}
+    \medskip
+    \item giriş kertesi 0~olan düğüm: \alert{kök}
+    \item çıkış kertesi 0~olan düğümler: \alert{yaprak}
+    \item yaprak olmayan düğümler: \alert{içdüğüm}
   \end{itemize}
 \end{frame}
 
@@ -2308,14 +2206,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düğüm Düzeyleri}
 
   \begin{tanim}
-    \alert{düzey}: köke olan uzaklık
+    bir düğümün \alert{düzeyi}: düğümün köke olan uzaklığı
   \end{tanim}
 
-  \pause
   \begin{itemize}
-    \item \alert{anne}: kökle arasındaki yolda en yakın düğüm
-    \item \alert{çocuk}: bir sonraki düzeydeki komşu düğümler
-    \item \alert{kardeş}: aynı annenin çocuğu olan düğümler
+    \item \emph{anne}: bir üst düzeydeki bitişik düğüm
+    \item \emph{çocuk}: bir alt düzeydeki bitişik düğümler
+    \item \emph{kardeş}: aynı annenin çocuğu olan düğümler
   \end{itemize}
 \end{frame}
 
@@ -2329,7 +2226,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{koklu}
       \end{center}
 
-      \pause
       \column{.58\textwidth}
       \begin{itemize}
         \item kök: $r$
@@ -2346,14 +2242,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Köklü Ağaç Örneği}
 
-  \begin{ornek}[kitap düzeni]
+  \begin{ornek}
     \begin{columns}
       \column{.65\textwidth}
       \begin{center}
         \pgfuseimage{kitap}
       \end{center}
 
-      \pause
       \column{.33\textwidth}
       Kitap
       \begin{itemize}
@@ -2382,17 +2277,16 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Sıralı Köklü Ağaç}
 
   \begin{itemize}
-    \item kardeş düğümler soldan sağa doğru sıralı
+    \item kardeş düğümler soldan sağa doğru sıralanır
 
-    \pause
     \medskip
     \item \alert{evrensel adresleme sistemi}
     \begin{itemize}
       \item köke $0$ adresini ver
-      \item 1. düzeydeki düğümlere soldan sağa doğru sırayla $1,2,3,\dots$
-        adreslerini ver
-      \item $v$ düğümünün adresi $a$ ise, $v$ düğümünün çocuklarına soldan sağa
-        doğru sırayla $a.1,a.2,a.3,\dots$ adreslerini ver
+      \item 1. düzeydeki düğümlere soldan sağa doğru\\
+        sırayla $1,2,3,\dots$ adreslerini ver
+      \item $v$ düğümünün adresi $a$ ise, $v$ düğümünün çocuklarına\\
+        soldan sağa doğru sırayla $a.1,a.2,a.3,\dots$ adreslerini ver
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -2400,19 +2294,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Sözlük Sırası}
 
-  \begin{itemize}
-    \item $b$ ve $c$ iki adres olsun
-  \end{itemize}
-
   \begin{tanim}
-    \alert{$b < c$} olması için:
+    $b$ ve $c$ iki adres olsun.
+
+    $b$'nin $c$'den önce gelmesi için aşağıdakilerden biri sağlanmalı:
     \begin{enumerate}
-      \item $b=a_1.a_2. \dots .a_m$\\
-        $c=a_1.a_2. \dots .a_m.a_{m+1} \dots a_n$
+      \item $b=a_1 a_2 \ldots a_m x_1 \ldots$\\
+        $c=a_1 a_2 \ldots a_m x_2 \ldots$\\
+        $x_1$ $x_2$'den önce gelir
       \pause
-      \item $b=a_1.a_2. \dots .a_m.x_1 \dots y$\\
-        $c=a_1.a_2. \dots .a_m.x_2 \dots z$\\
-        $x_1 < x_2$
+      \item $b=a_1 a_2 \ldots a_m$\\
+        $c=a_1 a_2 \ldots a_m a_{m+1} \ldots$
     \end{enumerate}
   \end{tanim}
 \end{frame}
@@ -2427,7 +2319,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{sozluk}
       \end{center}
 
-      \pause
       \column{.4\textwidth}
       \begin{itemize}
         \item 0 - 1 - 1.1 - 1.2\\
@@ -2441,18 +2332,17 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{ornek}
 \end{frame}
 
+\subsection{İkili Ağaçlar}
+
 \begin{frame}
   \frametitle{İkili Ağaçlar}
 
   \begin{tanim}
-    \alert{ikili ağaç}:\\
-    $\forall v \in V~{d_v}^o \in \{0,1,2\}$
-  \end{tanim}
+    $T=(V,E)$ bir \alert{ikili ağaç}: $\forall v \in V~{d_v}^o \in \{0,1,2\}$
 
-  \pause
-  \begin{tanim}
-    \alert{tam ikili ağaç}:\\
-    $\forall v \in V~{d_v}^o \in \{0,2\}$
+    \bigskip
+    $T=(V,E)$ bir \emph{tam} ikili ağaç:
+      $\forall v \in V~{d_v}^o \in \{0,2\}$
   \end{tanim}
 \end{frame}
 
@@ -2460,17 +2350,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{İşlem Ağacı}
 
   \begin{itemize}
-    \item ikili işlem tam ikili ağaçla temsil edilebilir
+    \item bir ikili işlem bir ikili ağaçla temsil edilebilir
     \begin{itemize}
       \item kökte işleç, çocuklarda işlenenler
     \end{itemize}
 
-    \pause
     \medskip
-    \item her işlem ikili ağaçla temsil edilebilir
+    \item her matematiksel ifade bir ağaçla temsil edilebilir
     \begin{itemize}
-      \item içdüğümlerde işleçler, yapraklara değişkenler ve değerler
-      \item \emph{tam ikili ağaç olmayabilir}
+      \item içdüğümlerde işleçler, yapraklarda değişkenler ve değerler
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -2541,34 +2429,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{enumerate}
     \item \alert{içek geçişi}: sol altağacı tara, köke uğra, sağ altağacı tara
 
-    \pause
     \medskip
     \item \alert{önek geçişi}: köke uğra, sol altağacı tara, sağ altağacı tara
 
-    \pause
     \medskip
     \item \alert{sonek geçişi}: sol altağacı tara, sağ altağacı tara, köke uğra
     \begin{itemize}
       \item \emph{ters Polonyalı gösterilimi}
     \end{itemize}
   \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Önek Geçişi Örneği}
-
-  \begin{ornek}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{islem}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
-    \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
@@ -2581,9 +2450,24 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{islem}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       $t ~ + ~ u ~ * ~ v ~ / ~ w ~ + ~ x ~ - ~ y ~ \uparrow ~ z$
+    \end{columns}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Önek Geçişi Örneği}
+
+  \begin{ornek}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{islem}
+      \end{center}
+
+      \column{.6\textwidth}
+      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
     \end{columns}
   \end{ornek}
 \end{frame}
@@ -2598,7 +2482,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \pgfuseimage{islem}
       \end{center}
 
-      \pause
       \column{.6\textwidth}
       $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
     \end{columns}
@@ -2609,11 +2492,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{İşlem Ağacının Değerlendirilmesi}
 
   \begin{itemize}
-    \item işlem ağacında öncelikler:
-    \begin{itemize}
-      \item içek geçişi parantez gerektirir
-      \item önek ve sonek parantez gerektirmez
-    \end{itemize}
+    \item içek geçişinde öncelik için parantez gerekir
+    \item önek ve sonek geçişlerinde parantez gerekmez
   \end{itemize}
 \end{frame}
 
@@ -2639,79 +2519,23 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{ornek}
 \end{frame}
 
-\subsection{Çizgelerde Arama}
-
-\begin{frame}
-  \frametitle{Çizgelerde Arama}
-
-  \begin{itemize}
-    \item $G=(V,E)$ çizgesinin düğümlerinin\\
-      $v_1$ düğümünden başlanarak aranması
-    \begin{itemize}
-      \item derinlemesine
-      \item enlemesine
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Derinlemesine Arama}
-
-  \begin{enumerate}
-    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
-
-    \pause
-    \item $2 \leq i \leq |V|$ içinde $(v,v_i) \in E$ ve $v_i \notin D$
-      olacak şekilde\\
-      en küçük $i$'yi bul
-      \begin{itemize}
-        \item böyle bir $i$ yoksa: 3. adıma git
-        \item varsa: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
-          $v \leftarrow v_i$, 2. adıma git
-      \end{itemize}
-
-    \pause
-    \item $v=v_1$ ise sonuç $T$
-
-    \pause
-    \item $v \neq v_1$ ise $v \leftarrow parent(v)$, 2. adıma git
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Enlemesine Arama}
-
-  \begin{enumerate}
-    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
-
-    \pause
-    \item $Q$ boş ise: sonuç $T$
-    \item $Q$ boş değilse: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
-      $2 \leq i \leq |V|$ için $(v,v_i) \in E$ ayrıtlarına bak:
-    \begin{itemize}
-      \item $v_i \notin D$ ise: $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
-        $D=D \cup \{v_i\}$
-       \item 3. adıma git
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
-
-\subsection{Düzenli Ağaçlar}
-
 \begin{frame}
   \frametitle{Düzenli Ağaç}
 
   \begin{tanim}
-    \alert{$m$'li ağaç}:\\
-    bütün içdüğümlerin çıkış kertesi $m$
+    $T=(V,E)$ bir \alert{m-li ağaç}: $\forall v \in V~{d_v}^o \leq m$
+
+    \bigskip
+    $T=(V,E)$ bir tam m-li ağaç:
+      $\forall v \in V~{d_v}^o \in \{0,m\}$
   \end{tanim}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Düzenli Ağaç Teoremleri}
+  \frametitle{Düzenli Ağaç Teoremi}
 
   \begin{teorem}
-    bir $m$'li ağaçta
+    $T=(V,E)$ bir tam $m$'li ağaç olsun.
 
     \begin{itemize}
       \item $n$: düğüm sayısı
@@ -2719,8 +2543,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \item $i$: içdüğüm sayısı
     \end{itemize}
 
-    ise
-
+    O halde:
+    \pause
     \begin{itemize}
       \item $n = m \cdot i + 1$
 
@@ -2740,16 +2564,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düzenli Ağaç Örnekleri}
 
   \begin{ornek}
-    27~oyuncunun katıldığı bir tenis turnuvasında\\
-    kaç maç oynanır?
-
-    \pause
-    \bigskip
     \begin{itemize}
-      \item her oyuncu bir yaprak: $l = 27$
-      \item her maç bir içdüğüm: $m = 2$
+      \item 27~oyuncunun katıldığı bir tenis turnuvasında kaç maç oynanır?
 
       \pause
+      \bigskip
+      \item her oyuncu bir yaprak: $l = 27$
+      \item her maç bir içdüğüm: $m = 2$
       \item maç sayısı: $i = \frac{l - 1}{m - 1} = \frac{27 - 1}{2 - 1} = 26$
     \end{itemize}
   \end{ornek}
@@ -2759,28 +2580,28 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Düzenli Ağaç Örnekleri}
 
   \begin{ornek}
-    25~adet elektrikli aygıtı 4'lü uzatmalarla tek bir prize bağlamak için\\
-    kaç uzatma gerekir?
-
-    \pause
-    \bigskip
     \begin{itemize}
-      \item her aygıt bir yaprak: $l = 25$
-      \item her uzatma bir içdüğüm: $m = 4$
+      \item 25~adet elektrikli aygıtı 4'lü uzatmalarla tek bir prize\\
+        bağlamak için kaç uzatma gerekir?
 
       \pause
+      \bigskip
+      \item her aygıt bir yaprak: $l = 25$
+      \item her uzatma bir içdüğüm: $m = 4$
       \item uzatma sayısı: $i = \frac{l - 1}{m - 1} = \frac{25 - 1}{4 - 1} = 8$
     \end{itemize}
   \end{ornek}
 \end{frame}
 
+\subsection{Karar Ağaçları}
+
 \begin{frame}
   \frametitle{Karar Ağaçları}
 
-  \begin{ornek}[sahte madeni para problemi]
+  \begin{ornek}
     \begin{itemize}
       \item 8 madeni paranın biri sahte (daha ağır)
-      \item bir teraziyle sahtenin hangisi olduğunu bulunacak
+      \item bir teraziyle sahtenin hangisi olduğu bulunacak
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -2823,14 +2644,25 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
 \section{Ağırlıklı Çizgeler}
 
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Ağırlıklı Çizgeler}
+
+  \begin{itemize}
+    \item ayrıtlara etiket atanabilir:\\
+      ağırlık, uzunluk, maliyet, gecikme, olasılık, $\ldots$
+  \end{itemize}
+\end{frame}
+
 \subsection{En Kısa Yol}
 
 \begin{frame}
   \frametitle{En Kısa Yol}
 
   \begin{itemize}
-    \item Dijkstra algoritması bir düğümden bütün diğer düğümlere\\
-      en kısa yolları bulur
+    \item bir düğümden bütün diğer düğümlere en kısa yolları bulma:\\
+      Dijkstra algoritması
   \end{itemize}
 \end{frame}
 
@@ -3045,7 +2877,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \subsection{En Hafif Kapsayan Ağaç}
 
 \begin{frame}
-  \frametitle{Kapsayan Ağaç}
+  \frametitle{En Hafif Kapsayan Ağaç}
 
   \begin{tanim}
     \alert{kapsayan ağaç}:\\
@@ -3468,7 +3300,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \begin{itemize}
         \item 13.1. \alert{Dijkstra's Shortest Path Algorithm}
         \item 13.2. \alert{Minimal Spanning Trees:\\
-			   The Algorithms of Kruskal and Prim}
+                           The Algorithms of Kruskal and Prim}
       \end{itemize}
     \end{itemize}
   \end{block}

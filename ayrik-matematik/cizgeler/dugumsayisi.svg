@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -8,14 +9,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="dugumsayisi.svg"
-   sodipodi:docbase="/home/uyar/ders/ayrik/sunumlar/11.Agaclar"
-   inkscape:version="0.46"
+   sodipodi:docname="nodecount.svg"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:version="0.32"
    id="svg2"
    height="297mm"
    width="210mm"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs3">
     <inkscape:perspective
@@ -71,20 +72,21 @@
   <sodipodi:namedview
      showgrid="false"
      inkscape:window-y="0"
-     inkscape:window-x="0"
+     inkscape:window-x="380"
      inkscape:window-height="949"
      inkscape:window-width="1272"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      inkscape:cy="791.88345"
-     inkscape:cx="210.07469"
-     inkscape:zoom="5.7255266"
+     inkscape:cx="211.81584"
+     inkscape:zoom="5.6265481"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base" />
+     id="base"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata4">
     <rdf:RDF>
@@ -249,7 +251,7 @@
        d="M 177.10161,198.11762 L 174.30711,226.2373"
        id="path2498" />
     <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:1,2;stroke-dashoffset:0"
        d="M 188.97825,249.64126 L 177.62558,273.56919"
        id="path2500" />
     <path
@@ -289,7 +291,7 @@
        d="M 186.3584,300.11697 L 208.36511,314.08948"
        id="path2518" />
     <path
-       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:1,2;stroke-dashoffset:0"
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
        d="M 209.76236,277.41163 L 248.36143,268.15484"
        id="path2520" />
     <text
@@ -314,27 +316,5 @@
          x="167.54099"
          id="tspan3452"
          sodipodi:role="line">z</tspan></text>
-    <text
-       sodipodi:linespacing="100%"
-       id="text3454"
-       y="241.75465"
-       x="231.9892"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;font-family:Arial"
-       xml:space="preserve"><tspan
-         y="241.75465"
-         x="231.9892"
-         id="tspan3456"
-         sodipodi:role="line">w</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;font-family:Arial"
-       x="267.79376"
-       y="229.70335"
-       id="text3458"
-       sodipodi:linespacing="100%"><tspan
-         sodipodi:role="line"
-         id="tspan3460"
-         x="267.79376"
-         y="229.70335">x</tspan></text>
   </g>
 </svg>
