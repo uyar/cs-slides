@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2012
+% Copyright (c) 2001-2013
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -29,7 +29,7 @@
 \subtitle{Cebirsel Yapılar}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2012}
+\date{2001-2013}
 
 \AtBeginSubsection[]
 {
@@ -69,7 +69,7 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2012 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{tiny}
@@ -112,11 +112,11 @@
 
   \begin{itemize}
     \item \alert{cebirsel yapı}: $<$küme, işlemler, sabitler$>$
-    \begin{itemize}
-      \item taşıyıcı küme
-      \item işlemler: ikili, tekli
-      \item sabitler: etkisiz, yutucu
-    \end{itemize}
+
+    \bigskip
+    \item taşıyıcı küme
+    \item işlemler: ikili, tekli
+    \item sabitler: etkisiz, yutucu
   \end{itemize}
 \end{frame}
 
@@ -146,9 +146,12 @@
   \begin{ornek}
     \begin{itemize}
       \item çıkarma işlemi $\mathbb{Z}$ kümesinde kapalı
+      \item çıkarma işlemi $\mathbb{Z^+}$ kümesinde kapalı değil
 
       \pause
-      \item çıkarma işlemi $\mathbb{Z^+}$ kümesinde kapalı değil
+      \medskip
+      \item bölme işlemi $\mathbb{R}$ kümesinde kapalı
+      \item bölme işlemi $\mathbb{Z}$ kümesinde kapalı değil
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -202,7 +205,7 @@
   \begin{columns}
     \column{.5\textwidth}
     \begin{tanim}
-      \alert{etkisiz eleman}:\\
+      \alert{etkisiz eleman}: $1$\\
       $x \circ 1 = 1 \circ x = x$
 
       \begin{itemize}
@@ -214,7 +217,7 @@
     \pause
     \column{.5\textwidth}
     \begin{tanim}
-      \alert{yutucu eleman}:\\
+      \alert{yutucu eleman}: $0$\\
       $x \circ 0 = 0 \circ x = 0$
 
       \begin{itemize}
@@ -262,7 +265,10 @@
   \begin{columns}
   \column{.5\textwidth}
     \begin{teorem}
-      $\exists 1_l \wedge \exists 1_r \Rightarrow 1_l = 1_r$
+      $1_l$ soldan etkisiz eleman olsun, ve
+      $1_r$ sağdan etkisiz eleman olsun
+
+      \[ 1_l = 1_r \]
     \end{teorem}
 
     \pause
@@ -273,7 +279,10 @@
     \pause
     \column{.5\textwidth}
     \begin{teorem}
-      $\exists 0_l \wedge \exists 0_r \Rightarrow 0_l = 0_r$
+      $0_l$ soldan yutucu eleman olsun, ve
+      $0_r$ sağdan yutucu eleman olsun
+
+      \[ 0_l = 0_r \]
     \end{teorem}
 
     \pause
@@ -286,16 +295,22 @@
 \begin{frame}
   \frametitle{Evrik}
 
+  \begin{definition}
+    $y$ elemanı $x$ elemanının \alert{evriği}:\\
+    $x \circ y = 1$ ve $y \circ x = 1$
+
+    \begin{itemize}
+      \item aynı zamanda, $x$ elemanı $y$ elemanının evriği
+    \end{itemize}
+  \end{definition}
+
+  \pause
   \begin{itemize}
     \item $x \circ y = 1$ ise:
     \begin{itemize}
       \item $x$ elemanı $y$ elemanının \emph{sol evriği}
       \item $y$ elemanı $x$ elemanının \emph{sağ evriği}
     \end{itemize}
-
-    \medskip
-    \item $x \circ y = y \circ x = 1$ ise
-      $x$ ile $y$ \alert{evrik}
   \end{itemize}
 \end{frame}
 
@@ -303,8 +318,9 @@
   \frametitle{Evrik}
 
   \begin{teorem}
-    $\circ$ işlemi birleşme özelliği taşıyorsa:\\
-    $w \circ x = x \circ y = 1 \Rightarrow w = y$
+    $\circ$ birleşme özelliği taşıyan bir işlem olsun
+
+    \[ w \circ x = x \circ y = 1 \Rightarrow w = y \]
   \end{teorem}
 
   \pause
@@ -319,14 +335,22 @@
   \end{proof}
 \end{frame}
 
+\subsection{Cebir Aileleri}
+
 \begin{frame}
   \frametitle{Cebir Ailesi}
 
+  \begin{tanim}
+    \alert{cebir ailesi}: bir cebirsel yapı ve bazı aksiyomlar
+  \end{tanim}
+
   \begin{itemize}
-    \item \alert{cebir ailesi}: cebirsel yapı, aksiyomlar
+    \item aksiyom örnekleri:
     \begin{itemize}
-      \item değişme, birleşme
-      \item evrik elemanlar
+      \item ikili işlemde değişme özelliği
+      \item ikili işlemde birleşme özelliği
+      \item evrik elemanların varlığı
+      \item $\ldots$
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -358,19 +382,19 @@
   \frametitle{Altcebir}
 
   \begin{tanim}
-    \alert{altcebir}:\\
-    $A = <S,\circ,\Delta,k>~\wedge~A' = <S',\circ',\Delta',k'>$ olsun
+    $A = <S,\circ,\Delta,k>$ olsun, ve\\
+    $A' = <S',\circ',\Delta',k'>$ olsun
+
+    \medskip
+    $A'$ cebrinin $A$ cebrinin bir \alert{altcebri}:
 
     \pause
     \medskip
     \begin{itemize}
-      \item $A'$ cebrinin $A$ cebrinin bir altcebri olması için:
-      \begin{itemize}
-        \item $S' \subseteq S$
-        \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
-        \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
-        \item $k' = k$
-      \end{itemize}
+      \item $S' \subseteq S$
+      \item $k' = k$
+      \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
+      \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
     \end{itemize}
   \end{tanim}
 \end{frame}
@@ -381,16 +405,14 @@
   \begin{ornek}
     \begin{itemize}
       \item $<\mathbb{Z}^+,+,0>$ cebri,
-        $<\mathbb{Z},+,0>$ cebrinin bir altcebridir.
+        $<\mathbb{Z},+,0>$ cebrinin bir altcebri
 
       \pause
       \item $<\mathbb{N},-,0>$ cebri,
-        $<\mathbb{Z},-,0>$ cebrinin bir altcebri değildir.
+        $<\mathbb{Z},-,0>$ cebrinin bir altcebri değil
     \end{itemize}
   \end{ornek}
 \end{frame}
-
-\subsection{Gruplar}
 
 \begin{frame}
   \frametitle{Yarıgruplar}
@@ -443,6 +465,8 @@
   \end{ornek}
 \end{frame}
 
+\subsection{Gruplar}
+
 \begin{frame}
   \frametitle{Grup}
 
@@ -467,18 +491,18 @@
 
   \begin{ornek}
     \begin{itemize}
-      \item  $<\mathbb{Z},+,0>$ bir gruptur.
+      \item  $<\mathbb{Z},+,0>$ bir grup
 
       \pause
       \medskip
-      \item $<\mathbb{Q},\cdot,1>$ bir grup değildir.
-      \item $<\mathbb{Q}-\{0\},\cdot,1>$ bir gruptur.
+      \item $<\mathbb{Q},\cdot,1>$ bir grup değil
+      \item $<\mathbb{Q}-\{0\},\cdot,1>$ bir grup
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+  \frametitle{Grup Örneği: Permutasyon}
 
   \begin{itemize}
     \item permutasyon: küme içi bijektif bir fonksiyon
@@ -491,11 +515,15 @@
         p(a_1) & p(a_2) & \dots & p(a_n)
       \end{array}
     \right)\]
+
+    \pause
+    \medskip
+    \item permutasyon bileşkesi: $\diamond$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Permutasyon Örnekleri}
+  \frametitle{Permutasyon Örneği}
 
   \begin{ornek}
     $A = \{1,2,3\}$
@@ -543,7 +571,41 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+  \frametitle{Permutasyon Bileşkesi Örneği}
+
+  \begin{ornek}
+    $A = \{1,2,3\}$
+
+    \medskip
+    $\begin{array}{cc}
+      p_3 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          2 & 1 & 3
+        \end{array}
+      \right) &
+      p_5 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          3 & 1 & 2
+        \end{array}
+      \right)
+    \end{array}$
+
+    \medskip
+    $\begin{array}{c}
+      p_3 \diamond p_5 = \left(
+        \begin{array}{ccc}
+          1 & 2 & 3\\
+          1 & 3 & 2
+        \end{array}
+      \right)
+    \end{array}$
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grup Örneği: Permutasyon}
 
   \begin{itemize}
     \item permutasyon bileşkesi birleşme özelliği gösterir
@@ -557,14 +619,14 @@
 
     \pause
     \medskip
-    \item bir küme üzerindeki permutasyonların kümesi,\\
-      permutasyon bileşkesi işlemi\\
-      ve birim permutasyon bir grup oluşturur
+    \item $Perm(A)$, $A$ kümesindeki elemanların\\
+      bütün permutasyonlarının oluşturduğu küme olsun:\\
+      $<Perm(A), \diamond, 1_A>$ bir grup
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+  \frametitle{Grup Örneği: Permutasyon}
 
   \begin{ornek}[$\{1,2,3,4\}$ kümesindeki permutasyonlar]
     $\begin{array}{c|cccccccccccccccccccccccc}
@@ -593,7 +655,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+  \frametitle{Grup Örneği: Permutasyon}
 
   \begin{ornek}
     \begin{itemize}
@@ -604,15 +666,18 @@
 
       \pause
       \bigskip
-      \item $G_1=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ bir gruptur
+      \item $G_1=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ bir grup
     \end{itemize}
   \end{ornek}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Grup Örneği: Permutasyon Bileşkesi}
+  \frametitle{Grup Örneği: Permutasyon}
 
   \begin{ornek}
+    \begin{itemize}
+      \item $G_2=<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$ olsun
+    \end{itemize}
     \[
       \begin{array}{c||c|c|c|c|c|c}
         \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
@@ -625,10 +690,10 @@
       \end{array}
     \]
 
+    \pause
     \bigskip
     \begin{itemize}
-      \item $<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$
-        $G_1$'in bir altgrubudur
+      \item $G_2,\diamond,1_A>$ $G_1$'in bir altgrubu
     \end{itemize}
   \end{ornek}
 \end{frame}
@@ -659,7 +724,8 @@
   \frametitle{Grupların Temel Teoremi}
 
   \begin{teorem}
-    $a \circ x = b$ denkleminin tek çözümü: $x = a^{-1} \circ b$.
+    $a \circ x = b$ denkleminin tek çözümü:\\
+    $x = a^{-1} \circ b$.
   \end{teorem}
 
   \pause
@@ -672,8 +738,6 @@
     \end{array}$
   \end{proof}
 \end{frame}
-
-\subsection{Halkalar}
 
 \begin{frame}
   \frametitle{Halka}
