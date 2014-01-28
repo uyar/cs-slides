@@ -1,0 +1,807 @@
+% Copyright (c) 2013
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Data Abstraction}
+
+\author{H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Abstract Data Types}
+
+\subsection{Encapsulation}
+
+\begin{frame}
+  \frametitle{Encapsulation}
+
+  \begin{definition}
+    \alert{encapsulation}:\\
+      restricting access to some components of a program unit
+  \end{definition}
+
+  \pause
+  \medskip
+  \begin{example}
+    \begin{itemize}
+      \item working with rational numbers
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Encapsulation Example}
+
+  \begin{example}[Haskell]
+    \begin{itemize}
+      \item use a pair of integers
+    \end{itemize}
+
+    \medskip
+    \begin{pygments}{haskell}
+type Rational' = (Integer, Integer)
+
+addRational r1 r2 =
+    (fst r1 * snd r2 + fst r2 * snd r1, snd r1 * snd r2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Encapsulation Example}
+
+  \begin{example}[Haskell]
+    \begin{itemize}
+      \item use a record
+      \item automatically creates named functions for component access
+    \end{itemize}
+
+    \medskip
+    \begin{pygments}{haskell}
+data Rational' =
+    Rational' {numer :: Integer, denom :: Integer}
+    deriving Show
+
+addRational r1 r2 =
+    Rational' {numer = numer r1 * denom r2 +
+                       numer r2 * denom r1,
+               denom = numer r1 * denom r2}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Encapsulation Example}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item use a class
+    \end{itemize}
+
+    \medskip
+    \begin{pygments}{scala}
+class Rational(x: Int, y: Int) {
+    def numer = x
+    def denom = y
+
+    def add(that: Rational): Rational =
+        new Rational(this.numer * that.denom +
+                         that.numer * this.denom,
+                     this.denom * that.denom)
+
+    override def toString =
+        numer + "/" + denom
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Encapsulation Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+new Rational(1, 2)
+
+val r1 = new Rational(1, 2)
+r1.numer
+r1.denom
+
+val r2 = new Rational(1, 3)
+r1.add(r2)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Encapsulation Exercises}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item \pygment{scala}{neg}: negate a rational
+      \item \pygment{scala}{sub}: subtract a rational from another
+      \item \pygment{scala}{less}: whether a rational is less than another
+      \item \pygment{scala}{max}: find the greater of two rationals
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Encapsulation Examples}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+    def neg: Rational =
+        new Rational(-numer, denom)
+
+    def sub(that: Rational): Rational =
+        this.add(that.neg)
+
+    def less(that: Rational): Boolean =
+        this.numer * that.denom < that.numer * this.denom
+
+    def max(that: Rational): Rational =
+        if (this.less(that)) that else this
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Encapsulation Examples}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item method identifiers can be written as infix
+    \end{itemize}
+
+    \begin{pygments}{scala}
+    def sub(that: Rational): Rational =
+        this add (that.neg)
+
+    def max(that: Rational): Rational =
+        if (this less that) that else this
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Encapsulation Examples}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item operator symbols can be used as method identifiers
+    \end{itemize}
+
+    \begin{pygments}{scala}
+    def + (that: Rational): Rational = ...
+
+    def unary_- : Rational = ...
+
+    def - (that: Rational): Rational =
+        this + (-that)
+
+    def < (that: Rational): Boolean =
+        this.numer * that.denom < that.numer * this.denom
+
+    def max(that: Rational): Rational =
+        if (this < that) that else this
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Information Hiding}
+
+\begin{frame}
+  \frametitle{Information Hiding}
+
+  \begin{definition}
+    \alert{abstract type}:\\
+      private representation equipped with public operations
+  \end{definition}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Information Hiding Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+class Rational(x: Int, y: Int) {
+    private def gcd(a: Int, b: Int): Int =
+        if (b == 0) a else gcd(b, a % b)
+
+    private val g = gcd(x, y)
+    def numer = x / g
+    def denom = y / g
+
+    ...
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Type Example}
+
+  \begin{example}[Scala List class]
+    \begin{itemize}
+      \item \pygment{scala}{xs: List[T]}
+    \end{itemize}
+
+    \begin{pygments}{scala}
+xs.length
+xs.last
+xs take n
+xs drop n
+xs(n)
+xs.reverse
+xs indexOf x
+xs contains x
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Type Example}
+
+  \begin{example}[Scala List class]
+    \begin{itemize}
+      \item \pygment{scala}{remove element at given position}
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{scala}
+def removeAt[T](xs: List[T], n: Int): List[T] =
+    (xs take n) ++ (xs drop (n + 1))
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Type Example}
+
+  \begin{example}[Scala List class]
+    \begin{itemize}
+      \item higher order list functions
+    \end{itemize}
+
+    \begin{pygments}{scala}
+xs map f
+
+xs filter p
+xs filterNot p  // same as: xs filter (x => !p(x))
+xs partition p  // same as: (xs filter p, xs filterNot p)
+xs takeWhile p  // longest prefix of elements that satisfy p
+xs dropWhile p
+xs span p       // same as: (xs takeWhile p, xs dropWhile p)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Type Example}
+
+  \begin{example}[Scala List class]
+    \begin{itemize}
+      \item \pygment{scala}{square all elements}
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{scala}
+def squareList(xs: List[Int]): List[Int] =
+    xs match {
+        case Nil => Nil
+        case y :: ys => y * y :: squareList(ys)
+    }
+
+def squareList(xs: List[Int]): List[Int] =
+    xs map ((x: Int) => x * x)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Type Example}
+
+  \begin{example}[Scala List class]
+    \begin{itemize}
+      \item \pygment{scala}{select positive elements}
+    \end{itemize}
+
+    \pause
+    \begin{pygments}{scala}
+def posElems(xs: List[Int]): List[Int] =
+    xs match {
+        case Nil => Nil
+        case y :: ys => if (y > 0) y :: posElems(ys)
+                        else posElems(ys)
+    }
+
+def posElems(xs: List[Int]): List[Int] =
+    xs filter ((x: Int) => x > 0)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Scala List Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item \pygment{scala}{pack}: pack consecutive duplicates of elements
+        into sublists
+      \item \pygment{scala}{encode}: encode n consecutive duplicates as a pair
+    \end{itemize}
+  \end{block}
+
+  \begin{example}
+    \begin{pygments}{scala}
+val m = List("a", "a", "a", "b", "c", "c", "a")
+pack(m)
+// List(List(a, a, a), List(b), List(c, c), List(a))
+encode(m)
+// List((a, 3), (b, 1), (c, 2), (a, 1))
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Scala List Examples}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def pack[T](xs: List[T]): List[List[T]] =
+    xs match {
+        case Nil => Nil
+        case x :: xs1 => {
+            val (first, rest) = xs span ((y: T) => y == x)
+            first :: pack(rest)
+        }
+    }
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Scala List Examples}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def encode[T](xs: List[T]): List[(T, Int)] =
+    pack(xs) map (ys => (ys.head, ys.length))
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\section{Class Hierarchies}
+
+\subsection{Abstract Classes}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Classes}
+
+  \begin{itemize}
+    \item classes which contain members missing an implementation
+    \item can't be instantiated
+  \end{itemize}
+
+  \pause
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item natural numbers
+    \end{itemize}
+
+    \begin{pygments}{scala}
+abstract class Nat {
+    def isZero: Boolean
+    def predecessor: Nat
+    def successor: Nat
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Class Example}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item a class for zero, a class for nonzero
+    \end{itemize}
+
+    \medskip
+    \begin{pygments}{scala}
+class Zero extends Nat ...
+
+class Succ(n: Nat) extends Nat ...
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Class Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+class Zero extends Nat {
+    def isZero = true
+    def predecessor = throw new Exception(...)
+    def successor = new Succ(this)
+}
+
+class Succ(n: Nat) extends Nat {
+    def isZero = false
+    def predecessor = n
+    def successor = new Succ(this)
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Class Example}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item the \pygment{scala}{successor} definition is the same in both classes
+    \end{itemize}
+
+    \begin{pygments}{scala}
+abstract class Nat {
+    def isZero: Boolean
+    def predecessor: Nat
+    def successor = new Succ(this)
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Singleton Objects}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item Zero is a singleton object
+      \item no need to create multiple instances
+      \item define an \pygment{scala}{object} instead of a \pygment{scala}{class}
+    \end{itemize}
+
+    \pause
+    \medskip
+    \begin{pygments}{scala}
+object Zero extends Nat {
+    def isZero = true
+    def predecessor = throw new Exception(...)
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Class Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item \pygment{scala}{+}: add two natural numbers
+      \item \pygment{scala}{-}: subtract two natural numbers
+    \end{itemize}
+
+    \begin{pygments}{scala}
+// Nat
+def +(that: Nat): Nat
+def -(that: Nat): Nat
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Abstract Class Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+// Zero
+def +(that: Nat) = that
+def -(that: Nat) =
+    if (that.isZero) this
+    else throw new Exception(...)
+
+// Succ(n)
+def +(that: Nat) = new Succ(n + that)
+def -(that: Nat) =
+    if (that.isZero) this
+    else n - that.predecessor
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Multiple Inheritance}
+
+\begin{frame}
+  \frametitle{Multiple Inheritance}
+
+  \begin{itemize}
+    \item \emph{single inheritance}: a class can have at most one superclass
+    \item what if you want to inherit code from multiple classes?
+
+    \pause
+    \medskip
+    \item \pygment{scala}{trait}: like an \pygment{java}{interface} in Java
+    \item classes, objects and traits can inherit from many traits
+    \item traits can contain fields and concrete methods
+    \item traits can not take value parameters
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Trait Example}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item sets of integers
+    \end{itemize}
+
+    \begin{pygments}{scala}
+trait IntSet {
+    def contains(x: Int): Boolean
+    def incl(x: Int): IntSet
+}
+    \end{pygments}
+
+    \pause
+    \begin{itemize}
+      \item an object for the empty set, a class for the nonempty set
+      \item implementation using ordered binary trees
+    \end{itemize}
+
+    \begin{pygments}{scala}
+object Empty extends IntSet ...
+
+class NonEmpty(elem: Int, left: IntSet,
+               right: IntSet) extends IntSet ...
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Trait Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+object Empty extends IntSet {
+    def contains(x: Int): Boolean = false
+
+    def incl(x: Int): IntSet =
+        new NonEmpty(x, new Empty, new Empty)
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Abstract Classes}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+class NonEmpty(elem: Int, left: IntSet,
+               right: IntSet) extends IntSet {
+    def contains(x: Int): Boolean =
+        if (x < elem) left contains x
+        else if (x > elem) right contains x
+        else true
+
+    def incl(x: Int): IntSet =
+         if (x < elem)
+            new NonEmpty(elem, left incl x, right)
+         else if (x > elem)
+            new NonEmpty(elem, left, right incl x)
+         else this
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Abstract Class Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item \pygment{scala}{union}: take the union of two sets
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Abstract Class Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+// IntSet
+def union(that: IntSet): IntSet
+
+// Empty
+def union(that: IntSet): IntSet = that
+
+// NonEmpty(elem, left, right)
+def union(that: IntSet): IntSet =
+    ((left union right) union that) incl elem
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Pattern Matching}
+
+\begin{frame}
+  \frametitle{Limitations of Decomposition}
+
+  \begin{itemize}
+    \item using object oriented decomposition has limitations:
+    \item a new method for an abstract class or trait\\
+      might require implementing it over many classes
+    \item some methods might require nonlocal information
+  \end{itemize}
+
+  \pause
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item an expression tree with an evaluation method
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decomposition Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+trait Expr {
+    def eval: Int
+}
+
+class Number(n: Int) extends Expr {
+    def eval = n
+}
+
+class Sum(e1: Expr, e2: Expr) extends Expr {
+    def eval = e1.eval + e2.eval
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Decomposition Example}
+
+  \begin{example}[Scala]
+    \begin{itemize}
+      \item to add a "show" method requires editing many classes
+      \item how to implement a "simplify" method?
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pattern Matching}
+
+  \begin{itemize}
+    \item pattern matching over types using \pygment{scala}{case class}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pattern Matching Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+trait Expr {
+    def eval: Int
+    def show: String = this match {
+        case Number(n) => n.toString
+        case Sum(e1, e2) => "(" + e1.show + " + " + e2.show + ")"
+    }
+}
+
+case class Number(n: Int) extends Expr {
+    def eval = n
+}
+
+case class Sum(e1: Expr, e2: Expr) extends Expr {
+    def eval = e1.eval + e2.eval
+}
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+%
+% \section*{References}
+%
+% \begin{frame}
+%   \frametitle{References}
+%
+%   \begin{block}{Required Reading: Abelson, Sussman}
+%     \begin{itemize}
+%       \item Chapter 1: Building Abstractions with Procedures
+%       \begin{itemize}
+%         \item 1.1. \alert{The Elements of Programming}
+%       \end{itemize}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\end{document}
