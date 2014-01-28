@@ -26,7 +26,7 @@ images:
 		| grep -v usecolortheme > $@
 
 %.print.pdf: %.handout.pdf
-	pdfnup --no-landscape --nup 2x3 --frame true --paper a4paper --scale 0.91 \
+	pdfnup --nup 2x2 --frame true --paper a4paper --scale 0.91 \
 		--offset "0.1cm 0.1cm" --delta "0.3cm 0.3cm" --outfile $@ $<
 
 zip: slides.pdf slides.print.pdf
