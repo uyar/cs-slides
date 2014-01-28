@@ -93,57 +93,6 @@
 
 \subsection{Expressions}
 
-\begin{frame}
-  \frametitle{Expressions}
-
-  \begin{definition}
-    \alert{expression}: a construct that will be \emph{evaluated} to yield a value
-  \end{definition}
-
-  \pause
-  \medskip
-  \begin{itemize}
-    \item primitive expressions: elements that can not be decomposed\\
-    \begin{itemize}
-      \item literals, constants, variables
-    \end{itemize}
-    \item means of combination: building compound elements from simpler ones\\
-    \begin{itemize}
-      \item operators
-    \end{itemize}
-    \item means of abstraction: naming compound elements\\
-      and manipulating them as units
-    \begin{itemize}
-      \item \alert{binding}: an association between an identifier and an entity
-      \item \emph{environment}: a set of bindings
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Variable Bindings}
-
-  \begin{block}{Haskell}
-    \begin{pygments}{haskell}
-v = e
-    \end{pygments}
-  \end{block}
-
-  \begin{itemize}
-    \item redefinition is not allowed
-  \end{itemize}
-
-  \pause
-  \bigskip
-  \begin{example}
-    \begin{pygments}{haskell}
-diameter = 4.8
-circumference = 3.14159 * diameter
-diameter = 15.62  -- multiple declarations of `diameter'
-    \end{pygments}
-  \end{example}
-\end{frame}
-
 \begin{frame}[fragile]
   \frametitle{Local Bindings}
 
@@ -194,64 +143,6 @@ area = 3.14159 * r * r
   \end{example}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Variable Bindings}
-
-  \begin{block}{Scala}
-    \begin{pygments}{scala}
-val v = e
-    \end{pygments}
-  \end{block}
-
-  \begin{itemize}
-    \item redefinition is not allowed
-  \end{itemize}
-
-  \pause
-  \bigskip
-  \begin{example}
-    \begin{pygments}{scala}
-val diameter = 4.8
-val circumference = 3.14159 * diameter
-val diameter = 15.62    // diameter is already defined
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Local Bindings}
-
-  \begin{itemize}
-    \item a block can create local bindings
-    \item the last construct has to be an expression
-  \end{itemize}
-
-  \begin{block}{Scala}
-    \begin{pygments}{scala}
-{
-    val v1 = e1
-    val v2 = e2
-    ...
-    e
-}
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Local Binding Example}
-
-  \begin{example}[Scala]
-    \begin{pygments}{scala}
-val diameter = 4.8
-val area = {
-    val r = diameter / 2.0
-    3.14159 * r * r
-}
-    \end{pygments}
-  \end{example}
-\end{frame}
-
 \begin{frame}
   \frametitle{Expression Evaluation}
 
@@ -287,168 +178,6 @@ val area = {
 \end{frame}
 
 \subsection{Functions}
-
-\begin{frame}
-  \frametitle{Functions}
-
-  \begin{itemize}
-    \item in imperative PLs, the body of a function is a block
-    \begin{itemize}
-      \item special construct for sending the result back: \alert{return}
-    \end{itemize}
-
-    \pause
-    \bigskip
-    \item in functional PLs, the body of a function is an expression
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Parameters}
-
-  \begin{itemize}
-    \item \alert{formal parameter}: an identifier through which a function\\
-      accesses an argument
-    \begin{itemize}
-      \item declared at function definition
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item \alert{actual parameter}: an expression which yields an argument
-    \begin{itemize}
-      \item defined at function application
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Bindings}
-
-  \begin{block}{Haskell}
-    \begin{pygments}{haskell}
--- function signature
-f :: t1 -> t2 -> ... -> tn -> tr
-
--- function body
-f fp1 fp2 ... fpn = e
-
--- function call
-f ap1 ap2 ... apn
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Examples}
-
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-square :: Integer -> Integer
-square x = x * x
-
--- square 21 -> 441
--- square (2 + 5) -> 49
-
-sumOfSquares :: Integer -> Integer -> Integer
-sumOfSquares x y = square x + square y
-
--- sumOfSquares 3 4 -> 25
--- sumOfSquares (a + 1) (a * 2)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Haskell Prefix - Infix Notations}
-
-  \begin{itemize}
-    \item functions can be called in infix form within backquotes
-    \item operators can be called in prefix form within parentheses
-  \end{itemize}
-
-  \begin{example}
-    \begin{pygments}{haskell}
-Prelude> div 7 2
-3
-Prelude> 7 `div` 2
-3
-Prelude> 7 / 2
-3.5
-Prelude> (/) 7 2
-3.5
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Bindings}
-
-  \begin{block}{Scala}
-    \begin{pygments}{scala}
-// function definition
-def f(fp1: t1, fp2: t2, ..., fpn: tn): tr = e
-
-// function call
-f(ap1, ap2, ..., apn)
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Examples}
-
-  \begin{example}[Scala]
-    \begin{pygments}{scala}
-def square(x: Int): Int = x * x
-
-// square(21) -> 441
-// square(2 + 5) -> 49
-
-def sumOfSquares(x: Int, y: Int): Int =
-    square(x) + square(y)
-
-// sumOfSquares(3, 4) -> 25
-// sumOfSquares(a + 1, a * 2)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Bindings}
-
-  \begin{block}{Python}
-    \begin{pygments}{python}
-# function definition
-def f(fp1, fp2, ..., fpn):
-    ...
-    return e
-
-# function call
-f(ap1, ap2, ..., apn)
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Function Examples}
-
-  \begin{example}[Python]
-    \begin{pygments}{python}
-def square(x):
-    return x * x
-
-# square(21) -> 441
-# square(2 + 5) -> 49
-
-def sum_of_squares(x, y):
-    return square(x) + square(y)
-
-# sum_of_squares(3, 4) -> 25
-# sum_of_squares(a + 1, a * 2)
-    \end{pygments}
-  \end{example}
-\end{frame}
 
 \begin{frame}
   \frametitle{Function Evaluation}
@@ -626,104 +355,7 @@ first x y = x
   \end{example}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Evaluation Strategies}
-
-  \begin{itemize}
-    \item Scala uses eager evaluation by default
-    \item but programmer can force normal order evaluation
-  \end{itemize}
-
-  \begin{example}[Scala]
-    \begin{pygments}{scala}
-def first(x: Int, y: Int): Int = x
-
-def first_normal(x: Int, y: => Int): Int = x
-
-// first(1, 1 / 0) -> division by zero
-// first_normal(1, 1 / 0) -> 1
-    \end{pygments}
-  \end{example}
-\end{frame}
-
 \subsection{Conditional Expressions}
-
-\begin{frame}[fragile]
-  \frametitle{Conditional Expressions}
-
-  \begin{itemize}
-    \item perform different operations depending on the result of a test
-    \item an expression, not a statement
-  \end{itemize}
-
-  \pause
-  \begin{block}{C}
-    \begin{pygments}{c}
-/* not: */
-if (predicate)
-    true_block;
-else
-    false_block;
-
-/* instead: */
-predicate ? true_expr : false_expr
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Conditional Expressions}
-
-  \begin{block}{Haskell}
-    \begin{pygments}{haskell}
-if predicate then true_expr else false_expr
-    \end{pygments}
-  \end{block}
-
-  \medskip
-  \begin{example}
-    \begin{pygments}{haskell}
-abs' :: Integer -> Integer
-abs' x = if x < 0 then -x else x
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Conditional Expressions}
-
-  \begin{block}{Scala}
-    \begin{pygments}{scala}
-if (predicate) true_expr else false_expr
-    \end{pygments}
-  \end{block}
-
-  \medskip
-  \begin{example}
-    \begin{pygments}{scala}
-def abs(x: Int): Int =
-    if (x < 0) -x else x
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Conditional Expressions}
-
-  \begin{block}{Python}
-    \begin{pygments}{python}
-true_expr if predicate else false_expr
-    \end{pygments}
-  \end{block}
-
-  \medskip
-  \begin{example}
-    \begin{pygments}{python}
-def abs_(x):
-    return -x if x < 0 else x
-    \end{pygments}
-  \end{example}
-\end{frame}
 
 \begin{frame}
   \frametitle{Short-Circuit Evaluation}
@@ -1222,12 +854,12 @@ choose x y z = if x then y else z
     \end{pygments}
   \end{example}
 \end{frame}
-% 
+%
 % \section*{References}
-% 
+%
 % \begin{frame}
 %   \frametitle{References}
-% 
+%
 %   \begin{block}{Required Reading: Abelson, Sussman}
 %     \begin{itemize}
 %       \item Chapter 1: Building Abstractions with Procedures
