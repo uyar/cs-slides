@@ -286,11 +286,12 @@ firstPlusThird xs =
   \frametitle{List Patterns in Scala}
 
   \begin{itemize}
-    \item empty list: \pygment{scala}{List()}
-    \item nonempty list: \pygment{scala}{x::xs}
-    \item list with exactly one element: \pygment{scala}{List(x)}
+    \item empty list: \pygment{scala}{Nil} or \pygment{scala}{List()}
+    \item nonempty list: \pygment{scala}{x :: xs}
+    \item list with exactly one element: \pygment{scala}{List(x)} or
+       \pygment{scala}{x :: Nil}
     \item list with exactly two elements: \pygment{scala}{List(x1, x2)}
-    \item list with at least two elements: \pygment{scala}{x1::x2::xs}
+    \item list with at least two elements: \pygment{scala}{x1 :: x2 :: xs}
   \end{itemize}
 \end{frame}
 
@@ -301,8 +302,8 @@ firstPlusThird xs =
     \begin{pygments}{scala}
 def sum(xs: List[Int]): Int =
     xs match {
-        case List() => 0
-        case y::ys => y + sum(ys)
+        case Nil => 0
+        case y :: ys => y + sum(ys)
     }
     \end{pygments}
   \end{example}
@@ -312,9 +313,9 @@ def sum(xs: List[Int]): Int =
     \begin{pygments}{scala}
 def max(xs: List[Int]): Int =
     xs match {
-        case List() => throw ...
+        case Nil => throw ...
         case List(i) => i
-        case y::ys => if (y > max(ys)) y else max(ys)
+        case y :: ys => if (y > max(ys)) y else max(ys)
     }
     \end{pygments}
   \end{example}
@@ -327,10 +328,10 @@ def max(xs: List[Int]): Int =
     \begin{pygments}{haskell}
 def firstPlusThird(xs: List[Int]): Int =
     xs match {
-        case List() => 0
+        case Nil => 0
         case List(x1) => x1
         case List(x1, _) => x1
-        case x1::_::x3::_ => x1 + x3
+        case x1 :: _ :: x3 :: _ => x1 + x3
     }
     \end{pygments}
   \end{example}
