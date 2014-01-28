@@ -130,7 +130,7 @@
 \begin{frame}[fragile]
   \frametitle{Function Definitions}
 
-  \begin{block}{function definitions (Haskell)}
+  \begin{block}{}
     \begin{pygments}{haskell}
 -- function definition
 name :: t1 -> t2 -> ... -> tk -> t
@@ -224,6 +224,29 @@ maxThree x y z
   | otherwise           = z
     \end{pygments}
   \end{exampleblock}
+\end{frame}
+
+\subsection{Errors}
+
+\begin{frame}[fragile]
+  \frametitle{Errors}
+
+  \begin{block}{Haskell}
+    \begin{itemize}
+      \item an exception can be raised using \pygment{haskell}{error}
+    \end{itemize}
+  \end{block}
+
+  \begin{example}[factorial]
+    \begin{pygments}{haskell}
+fact n =
+    if n < 0
+    then error "negative parameter"
+    else if n == 0
+         then 1
+         else n * fact (n - 1)
+    \end{pygments}
+  \end{example}
 \end{frame}
 
 \section{Recursion}
@@ -416,29 +439,6 @@ fact n =
       \item what if \pygment{haskell}{factIter :: Integer -> Integer -> Integer}?
     \end{itemize}
   \end{block}
-\end{frame}
-
-\subsection{Errors}
-
-\begin{frame}[fragile]
-  \frametitle{Errors}
-
-  \begin{block}{Haskell}
-    \begin{itemize}
-      \item an exception can be raised using \pygment{haskell}{error}
-    \end{itemize}
-  \end{block}
-
-  \begin{example}[factorial]
-    \begin{pygments}{haskell}
-fact n =
-    if n < 0
-    then error "negative parameter"
-    else if n == 0
-         then 1
-         else n * fact (n - 1)
-    \end{pygments}
-  \end{example}
 \end{frame}
 
 \section*{References}
