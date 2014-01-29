@@ -289,10 +289,10 @@ def gcd(x, y):
     \column{.35\textwidth}
     \begin{verbatim}
 gcd 9702 945
-`- gcd 945 252
-   `- gcd 252 189
-      `- gcd 189 63
-         `- gcd 63 0
+|- gcd 945 252
+   |- gcd 252 189
+      |- gcd 189 63
+         |- gcd 63 0
             63
          63
       63
@@ -584,6 +584,91 @@ area =
   \end{columns}
 \end{frame}
 
+\subsection{Functions}
+
+\begin{frame}
+  \frametitle{Functions}
+
+  \begin{itemize}
+    \item in imperative languages, the body of a function is a block
+    \begin{itemize}
+      \item special construct for sending back the result: \alert{return}
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item in functional languages, the body of a function is an expression
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Function Parameters}
+
+  \begin{itemize}
+    \item \alert{formal parameter}: an identifier through which a function\\
+      accesses an argument
+    \begin{itemize}
+      \item declared at function definition
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item \alert{actual parameter}: an expression which yields an argument
+    \begin{itemize}
+      \item defined at function application
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Definitions}
+
+  \begin{block}{}
+    \begin{pygments}{haskell}
+-- function definition
+name :: t1 -> t2 -> ... -> tk -> t
+name x1 x2 ... xk = expression
+
+-- function application
+name e1 e2 ... ek
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+square :: Integer -> Integer
+square x = x * x
+
+-- square 21 -> 441
+-- square (2 + 5) -> 49
+
+sumOfSquares :: Integer -> Integer -> Integer
+sumOfSquares x y = square x + square y
+
+-- sumOfSquares 3 4 -> 25
+-- sumOfSquares (a + 1) (a * 2)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sumOfCubes :: Integer -> Integer -> Integer
+sumOfCubes x y =
+    cube x + cube y
+      where
+        cube n = n * n * n
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
 \section*{References}
 
 \begin{frame}
@@ -591,11 +676,8 @@ area =
 
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
-      \item Chapter 1: Introducing functional programming
-      \begin{itemize}
-        \item 1.1. \alert{Computers and modelling}
-        \item 1.11. \alert{The essence of Haskell programming}
-      \end{itemize}
+      \item Chapter 1: \alert{Introducing functional programming}
+      \item Chapter 2: \alert{Getting started with Haskell and GHCi}
     \end{itemize}
   \end{block}
 \end{frame}
