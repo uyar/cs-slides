@@ -91,34 +91,42 @@
 
 \section{Functions}
 
-\subsection{Function Definition}
+\subsection{Infix and Prefix}
 
 \begin{frame}[fragile]
-  \frametitle{Function Definitions}
+  \frametitle{Infix Functions}
 
   \begin{itemize}
-    \item functions can be called in infix form within backquotes
-    \item operators can be called in prefix form within parentheses
+    \item function calls can be written in infix notation within backquotes
   \end{itemize}
+
+  \begin{exampleblock}{example: the \pygment{haskell}{mod} function}
+    \begin{pygments}{haskell}
+even1a :: Integer -> Bool
+even1a n = mod n 2 == 0
+
+even1b :: Integer -> Bool
+even1b n = n `mod` 2 == 0
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Examples}
+  \frametitle{Prefix Operators}
 
-  \begin{exampleblock}{}
+  \begin{itemize}
+    \item operator calls can be written in prefix notation within parentheses
+  \end{itemize}
+
+  \begin{exampleblock}{example: the \pygment{haskell}{/} operator}
     \begin{pygments}{haskell}
-even1a :: Integer -> Bool
-even1a n = n `mod` 2 == 0
-
-even1b :: Integer -> Bool
-even1b n = mod n 2 == 0
-
 even2a :: Integer -> Bool
 even2a n = (floor ((fromInteger n) / 2)) * 2 == n
 
 even2b :: Integer -> Bool
 even2b n = (floor ((/) (fromInteger n) 2)) * 2 == n
 
+-- also prefix the * and == operators
 even2c :: Integer -> Bool
 even2c n =
     (==) ((*) (floor ((/) (fromInteger n) 2)) 2) n
@@ -132,6 +140,7 @@ even2c n =
   \frametitle{Guards}
 
   \begin{itemize}
+    \item writing conditional expressions can become complicated
     \item \alert{guards}: Boolean expressions to check cases
       in function definitions
   \end{itemize}
@@ -154,9 +163,9 @@ name x1 x2 ... xk
     \begin{pygments}{haskell}
 maxThree :: Integer -> Integer -> Integer -> Integer
 maxThree x y z
-  | x >= y && x >= z    = x
-  | y >= z              = y
-  | otherwise           = z
+  | x >= y && x >= z = x
+  | y >= z           = y
+  | otherwise        = z
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -166,11 +175,9 @@ maxThree x y z
 \begin{frame}[fragile]
   \frametitle{Errors}
 
-  \begin{block}{Haskell}
-    \begin{itemize}
-      \item an exception can be raised using \pygment{haskell}{error}
-    \end{itemize}
-  \end{block}
+  \begin{itemize}
+    \item an exception can be raised using \pygment{haskell}{error}
+  \end{itemize}
 
   \begin{example}[factorial]
     \begin{pygments}{haskell}
@@ -195,36 +202,62 @@ fact n =
     \item consider two classic examples
   \end{itemize}
 
-  \begin{example}[factorial]
+  \begin{exampleblock}{greatest common divisor}
     \begin{pygments}{haskell}
-fact n =
-    if n == 0
-    then 1
-    else n * fact (n - 1)
+gcd' :: Integer -> Integer -> Integer
+gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 
-  \begin{example}[greatest common divisor]
+  \pause
+  \begin{exampleblock}{factorial}
     \begin{pygments}{haskell}
-gcd' x y =
-    if y == 0
-    then x
-    else gcd' y (x `mod` y)
+fact :: Integer -> Integer
+fact n
+  | n < 0     = error "negative parameter"
+  | n == 0    = 1
+  | otherwise = n * fact (n - 1)
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{example}[fact]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-fact n =
-    if n == 0 then 1
-    else n * fact (n - 1)
+gcd' :: Integer -> Integer -> Integer
+gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
     \end{pygments}
 
     \pause
+    \begin{verbatim}
+gcd' 9702 945
+|- gcd' 945 252
+   |- gcd' 252 189
+      |- gcd' 189 63
+         |- gcd' 63 0
+            63
+         63
+      63
+   63
+63
+    \end{verbatim}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Stack Frame Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+fact :: Integer -> Integer
+fact n
+  | n < 0     = error "negative parameter"
+  | n == 0    = 1
+  | otherwise = n * fact (n - 1)
+    \end{pygments}
+
     \begin{verbatim}
 fact 4
 |- 4 * fact 3
@@ -237,32 +270,7 @@ fact 4
        6
 24
     \end{verbatim}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Stack Frame Example}
-
-  \begin{example}[gcd']
-    \begin{pygments}{haskell}
-gcd' x y =
-    if y == 0 then x
-    else gcd' y (x `mod` y)
-    \end{pygments}
-
-    \pause
-    \begin{verbatim}
-gcd_ 9702 945
-|- gcd_ 945 252
-   |- gcd_ 252 189
-      |- gcd_ 189 63
-         |- gcd_ 63 0
-         63
-      63
-   63
-63
-    \end{verbatim}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Tail Recursion}
@@ -271,8 +279,8 @@ gcd_ 9702 945
   \frametitle{Tail Recursion}
 
   \begin{itemize}
-    \item if the result of the recursive call is also the result of the caller\\
-      the function is said to be \alert{tail recursive}
+    \item if the result of the recursive call is also the result of the caller,\\
+      then the function is said to be \alert{tail recursive}
     \item the recursive function call is the last action:\\
       nothing left for the caller to do
 
@@ -280,44 +288,74 @@ gcd_ 9702 945
     \medskip
     \item no need to keep the stack frame around\\
       $\rightarrow$ reuse the frame of the caller
+  \end{itemize}
+\end{frame}
 
-    \pause
+\begin{frame}[fragile]
+  \frametitle{Stack Frame Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+gcd' :: Integer -> Integer -> Integer
+gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
+    \end{pygments}
+
+    \begin{verbatim}
+gcd' 9702 945
+gcd' 945 252
+gcd' 252 189
+gcd' 189 63
+gcd' 63 0
+63
+    \end{verbatim}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tail Recursion}
+
+  \begin{itemize}
+    \item to rearrange a function to be tail recursive:
+
     \medskip
-    \item to rearrange a function to be tail recursive
-    \begin{itemize}
-      \item define a helper function that takes an \alert{accumulator}
-      \item base case: return accumulator
-      \item recursive case: make recursive call with new accumulator value
-    \end{itemize}
+    \item define a helper function that takes an \alert{accumulator}
+    \item base case: return accumulator
+    \item recursive case: make recursive call with new accumulator value
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tail Recursion Example}
 
-  \begin{example}[factorial]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
+factIter :: Integer -> Integer -> Integer
 factIter acc x =
     if x == 0
-    then acc
-    else factIter (acc * x) (x - 1)
+        then acc
+        else factIter (acc * x) (x - 1)
 
-fact n = factIter 1 n
+fact' :: Integer -> Integer
+fact' n
+  | n < 0     = error "negative parameter"
+  | n == 0    = 1
+  | otherwise = factIter 1 n
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{example}[fact - tail recursive]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
+factIter :: Integer -> Integer -> Integer
 factIter acc x =
-    if x == 0 then acc
-    else factIter (acc * x) (x - 1)
+    if x == 0
+        then acc
+        else factIter (acc * x) (x - 1)
     \end{pygments}
 
-    \pause
     \begin{verbatim}
 fact 4
 |- factIter 1 4
@@ -325,55 +363,76 @@ fact 4
 |- factIter 12 2
 |- factIter 24 1
 |- factIter 24 0
+   24
 24
     \end{verbatim}
-  \end{example}
-\end{frame}
-
-\subsection{Nested Functions}
-
-\begin{frame}
-  \frametitle{Nested Functions}
-
-  \begin{itemize}
-    \item functions can be defined locally within other functions
-    \item they can use bindings from the environment\\
-      in which they are defined
-  \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Nested Function Example}
+  \frametitle{Tail Recursion Example}
 
-  \begin{example}[factorial]
-    \begin{itemize}
-      \item no need for \pygment{haskell}{factIter} to be visible
-        outside of \pygment{haskell}{fact}
-    \end{itemize}
-
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-fact n =
-    let
+fact' :: Integer -> Integer
+fact' n
+  | n < 0     = error "negative parameter"
+  | n == 0    = 1
+  | otherwise = factIter 1 n
+      where
+        factIter :: Integer -> Integer -> Integer
         factIter acc x =
             if x == 0
-            then acc
-            else factIter (acc * x) (x - 1)
-    in
-        factIter 1 n
+                then acc
+                else factIter (acc * x) (x - 1)
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Tree Recursion}
+
+\begin{frame}[fragile]
+  \frametitle{Tree Recursion}
+
+  \begin{itemize}
+    \item another classic example: the Fibonacci sequence
+    \begin{equation*}
+      f_n = \left\{
+        \begin{array}{ll}
+          1                 & n = 1 \vee n = 2\\
+          f_{n-2} + f_{n-1} & n > 2
+        \end{array}\right.
+    \end{equation*}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+fib :: Integer -> Integer
+fib n
+  | (n == 1) || (n == 2) = 1
+  | otherwise            = fib (n - 2) + fib (n - 1)
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Exercise}
+  \frametitle{Stack Frame Example}
 
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item what is the type of \pygment{haskell}{fact}?
-      \item what happens if called as \pygment{haskell}{fact 2.4}?
-      \item what if \pygment{haskell}{factIter :: Integer -> Integer -> Integer}?
-    \end{itemize}
-  \end{block}
+  \begin{verbatim}
+               fib 5
+                 |
+         ------------------
+         |                |
+       fib 3            fib 4
+         |                |
+  -------------      -------------
+  |           |      |           |
+fib 1       fib 2  fib 2       fib 3
+                                 |
+                           -------------
+                           |           |
+                         fib 1       fib 2
+  \end{verbatim}
 \end{frame}
 
 \section*{References}
@@ -383,7 +442,8 @@ fact n =
 
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
-      \item Chapter 3: Basic types and definitions
+      \item Chapter 3: \alert{Basic types and definitions}
+      \item Chapter 4: \alert{Designing and writing programs}
     \end{itemize}
   \end{block}
 \end{frame}
