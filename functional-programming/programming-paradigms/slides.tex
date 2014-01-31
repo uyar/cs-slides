@@ -562,12 +562,14 @@ diameter = 15.62       -- multiple declarations
     \column{.53\textwidth}
     \begin{block}{}
       \begin{pygments}{haskell}
-name =
-    expression
-      where
-        name1 = expression1
-        name2 = expression2
-        ...
+name = expression
+  where
+    name1 :: type1
+    name1 = expression1
+
+    name2 :: type2
+    name2 = expression2
+    ...
       \end{pygments}
     \end{block}
 
@@ -575,10 +577,10 @@ name =
     \column{.46\textwidth}
     \begin{exampleblock}{example}
       \begin{pygments}{haskell}
-area =
-    3.14159 * r * r
-      where
-        r = diameter / 2
+area = 3.14159 * r * r
+  where
+    r :: Float
+    r = diameter / 2
       \end{pygments}
     \end{exampleblock}
   \end{columns}
@@ -661,10 +663,10 @@ sumOfSquares x y = square x + square y
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 sumOfCubes :: Integer -> Integer -> Integer
-sumOfCubes x y =
-    cube x + cube y
-      where
-        cube n = n * n * n
+sumOfCubes x y = cube x + cube y
+  where
+    cube :: Integer -> Integer
+    cube n = n * n * n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
