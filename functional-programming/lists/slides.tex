@@ -23,7 +23,7 @@
 }
 
 \title{Functional Programming}
-\subtitle{Tuples and Lists}
+\subtitle{Data Types and Pattern Matching}
 
 \author{H. Turgut Uyar}
 \date{2013-2014}
@@ -89,125 +89,20 @@
   \tableofcontents
 \end{frame}
 
-\section{Tuples}
-
-\section{Lists}
-
-\subsection{Model}
-
-\begin{frame}
-  \frametitle{Model}
-
-  \begin{itemize}
-    \item a list of consists of an element (\alert{head})\\
-      followed by the sublist of the remaining elements (\alert{tail})
-  \end{itemize}
-
-  \pause
-  \medskip
-  \begin{block}{Haskell list operations}
-    \begin{itemize}
-      \item check if empty: \pygment{haskell}{null}
-      \item get the head: \pygment{haskell}{head}
-      \item get the tail: \pygment{haskell}{tail}
-      \item construct a list: \pygment{haskell}{item : sublist}
-    \end{itemize}
-  \end{block}
-\end{frame}
+\subsection{List Patterns}
 
 \begin{frame}[fragile]
-  \frametitle{List Operation Examples}
+  \frametitle{List Pattern Examples}
 
-  \begin{example}[Haskell]
+  \begin{exampleblock}{maximum of a list}
     \begin{pygments}{haskell}
-Prelude> head [1,2,3,4]
-1
-Prelude> tail [1,2,3,4]
-[2,3,4]
-Prelude> null [1,2,3,4]
-False
-Prelude> 1 : [2,3]
-[1,2,3]
-Prelude> 1 : (2 : (3 : []))
-[1,2,3]
-Prelude> 1 : 2 : 3 : []
-[1,2,3]
+max' :: [Integer] -> Integer
+max' [] = error "empty list"
+max' [i] = i
+max' (x:xs') = if x > maxRest then x else maxRest
+  where maxRest = max' xs'
     \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{List Operations}
-
-  \begin{block}{Scala list operations}
-    \begin{itemize}
-      \item check if empty: \pygment{scala}{.isEmpty}
-      \item get the head: \pygment{haskell}{.head}
-      \item get the tail: \pygment{haskell}{.tail}
-      \item construct a list: \pygment{haskell}{item :: sublist}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\subsection{List Recursion}
-
-\begin{frame}[fragile]
-  \frametitle{List Recursion Example}
-
-  \begin{example}[length of a list]
-    \begin{pygments}{haskell}
-length' xs =
-    if null xs
-    then 0
-    else 1 + length' (tail xs)
-    \end{pygments}
-  \end{example}
-
-  \pause
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write a tail recursive version
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{List Recursion Example}
-
-  \begin{example}[length of a list]
-    \begin{pygments}{haskell}
-length' xs =
-    let
-        lengthIter acc items =
-            if null items
-            then acc
-            else lengthIter (acc + 1) (tail items)
-    in
-        lengthIter 0 xs
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{List Recursion Example}
-  \begin{example}[sum of a list]
-    \pause
-    \begin{pygments}{haskell}
-sum' xs =
-    if null xs
-    then 0
-    else head xs + sum' (tail xs)
-    \end{pygments}
-  \end{example}
-
-  \pause
-  \begin{example}[Scala]
-    \begin{pygments}{scala}
-def sum(xs: List[Int]): Int =
-    if (xs.isEmpty) 0
-    else xs.head + sum(xs.tail)
-    \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -363,8 +258,6 @@ reverse' xs =
   \end{example}
 \end{frame}
 
-\end{document}
-
 \section*{References}
 
 \begin{frame}
@@ -372,8 +265,7 @@ reverse' xs =
 
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
-      \item Chapter 1: Introducing functional programming
-      \item Chapter 3: Basic types and definitions
+      \item Chapter 5: \alert{Data types, tuples and lists}
     \end{itemize}
   \end{block}
 \end{frame}
