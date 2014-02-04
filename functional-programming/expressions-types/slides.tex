@@ -377,51 +377,6 @@ not' x = if x then False else True
 
 \section{Type Systems}
 
-\subsection{Types}
-
-\begin{frame}[fragile]
-  \frametitle{Lists and Tuples}
-
-  \begin{itemize}
-    \item in Haskell, list elements have to be of the same type
-    \item tuple elements can be of different types
-  \end{itemize}
-
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
--- lists
-[1,2,3,4]
-["Monday","Tuesday","Wednesday","Thursday","Friday"]
-[1,2,3,4,"Monday"]      -- invalid
-
--- tuples
-(19,2,2013)
-(19,"Feb",2013)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Tuple Parameters}
-
-  \begin{itemize}
-    \item tuple parameters are not the same as multiple parameters
-  \end{itemize}
-
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-roots :: (Double,Double,Double) -> (Double,Double)
-roots (a,b,c) =
-    let
-        disc = b * b - 4 * a * c
-        x1 = (-b + sqrt disc) / (2 * a)
-        x2 = (-b - sqrt disc) / (2 * a)
-    in
-        (x1,x2)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
 \subsection{Type Inference}
 
 \begin{frame}
