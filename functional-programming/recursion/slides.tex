@@ -327,10 +327,10 @@ gcd' 63 0
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 factIter :: Integer -> Integer -> Integer
-factIter acc n'
-  | n' < 0    = error "negative parameter"
-  | n' == 0   = acc
-  | otherwise = factIter (acc * n') (n' - 1)
+factIter acc n
+  | n < 0     = error "negative parameter"
+  | n == 0    = acc
+  | otherwise = factIter (acc * n) (n - 1)
 
 fact' :: Integer -> Integer
 fact' n = factIter 1 n
@@ -343,10 +343,10 @@ fact' n = factIter 1 n
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-factIter acc n'
-  | n' < 0    = error "negative parameter"
-  | n' == 0   = acc
-  | otherwise = factIter (acc * n') (n' - 1)
+factIter acc n
+  | n < 0     = error "negative parameter"
+  | n == 0    = acc
+  | otherwise = factIter (acc * n) (n - 1)
     \end{pygments}
 
     \begin{verbatim}
