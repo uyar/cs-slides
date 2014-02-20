@@ -1,16 +1,12 @@
-% Copyright (c) 2001-2013
+% Copyright (c) 2001-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -19,6 +15,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -30,7 +27,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2013}
+\date{2001-2014}
 
 \AtBeginSubsection[]
 {
@@ -42,7 +39,7 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \begin{document}
 
@@ -51,36 +48,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Licence}
+  \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -167,12 +171,13 @@
   \frametitle{Compound Propositions}
 
   \begin{itemize}
-    \item \alert{compound propositions} are obtained by
+    \item \alert{compound propositions} are obtained
     \begin{itemize}
-      \item negating a proposition, or
-      \item combining two or more propositions using \alert{logical connectives}
+      \item by negating a proposition, or
+      \item by combining two or more propositions using
+        \alert{logical connectives}
     \end{itemize}
-    \item \alert{primitive propositions} can not be decomposed\\
+    \item \alert{primitive propositions} can not be decomposed
       into smaller units
   \end{itemize}
 
@@ -311,20 +316,20 @@
       \end{tabular}
     \end{table}
 
-    \pause
     \column{.6\textwidth}
     \begin{itemize}
-      \item $p$: \alert{hypothesis}
-      \item $q$: \alert{conclusion}
-
-      \item read:
+      \item if $p$ then $q$
       \begin{itemize}
-        \item if $p$ then $q$
         \item $p$ is sufficient for $q$
         \item $q$ is necessary for $p$
       \end{itemize}
 
+      \medskip
+      \item $p$: \alert{hypothesis}
+      \item $q$: \alert{conclusion}
+
       \pause
+      \medskip
       \item $\neg p \vee q$
     \end{itemize}
   \end{columns}
@@ -335,8 +340,7 @@
 
   \begin{example}
     \begin{itemize}
-      \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$
-      \item $p_7$: The Sun revolves around the Earth.
+      \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$, $p_7$: $8<6$
     \end{itemize}
 
     \pause
@@ -355,13 +359,12 @@
       \pause
       \column{.5\textwidth}
         \begin{itemize}
-          \item $p_2 \rightarrow p_1$: If elephants can fly then the Moon
-            revolves around the Earth.\\
+          \item $p_6 \rightarrow p_4$: If 3 is less than 2,
+            then 3 is less than 8.\\
             $F \rightarrow T$: \emph{True}
           \pause
-          \item $p_2 \rightarrow p_7$: If elephants can fly then the Sun
-            revolves around the Earth.
-            \\
+          \item $p_6 \rightarrow p_7$: If 3 is less than 2,
+            then 8 is less than 6.\\
             $F \rightarrow F$: \emph{True}
         \end{itemize}
     \end{columns}
@@ -420,16 +423,15 @@
       \end{tabular}
     \end{table}
 
-    \pause
     \column{.6\textwidth}
     \begin{itemize}
-      \item read:
+      \item $p$ if and only if $q$
       \begin{itemize}
-        \item $p$ if and only if $q$
         \item $p$ is necessary and sufficient for $q$
       \end{itemize}
 
       \pause
+      \medskip
       \item $(p \rightarrow q) \wedge (q \rightarrow p)$
       \item $\neg (p \veebar q)$
     \end{itemize}
@@ -476,8 +478,8 @@
   \pause
   \begin{block}{semantics}
     \begin{itemize}
-      \item \emph{interpretation}: calculating the value\\
-        of a compound proposition\\
+      \item \emph{interpretation}: calculating the value of a
+        compound proposition\\
         by assigning values to its primitive propositions
       \item truth table: all interpretations of a proposition
     \end{itemize}
@@ -509,6 +511,8 @@
 
   \begin{itemize}
     \item parentheses are used to change the order of calculation
+    \item implication associates from the right:\\
+      $p \rightarrow q \rightarrow r$ means $p \rightarrow (q \rightarrow r)$
   \end{itemize}
 \end{frame}
 
@@ -713,14 +717,62 @@
 %   \end{example}
 % \end{frame}
 
-\begin{frame}
-  \frametitle{Formula Attributes}
+\subsection{Metalanguage}
 
-  \begin{enumerate}
-    \item \alert{tautology}: true for all interpretations
-    \item \alert{contradiction}: false for all interpretations
-    \item \emph{valid}: true for some interpretations
-  \end{enumerate}
+\begin{frame}
+  \frametitle{Metalanguage}
+
+  \begin{definition}
+    \alert{target language}:\\
+      the language being worked on
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    \alert{metalanguage}:\\
+      the language used when talking \emph{about} the properties\\
+      of the target language
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metalanguage Examples}
+
+  \begin{example}
+    \begin{itemize}
+      \item a native Turkish speaker learning English
+      \begin{itemize}
+        \item target language: English
+        \item metalanguage: Turkish
+      \end{itemize}
+    \end{itemize}
+  \end{example}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item a student learning programming
+      \begin{itemize}
+        \item target language: C, Python, Java, \ldots
+        \item metalanguage: English, Turkish, \ldots
+      \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Formula Properties}
+
+  \begin{itemize}
+    \item a formula that is true for all interpretations is a \alert{tautology}
+    \item a formula that is false for all interpretations is a
+      \alert{contradiction}
+    \item a formula that is true for some interpretations is valid
+
+    \pause
+    \bigskip
+    \item these are concepts of the metalanguage
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -756,55 +808,6 @@
         $F$ & $F$ & $T$ & $F$ & $F$\\\hline
       \end{tabular}
     \end{table}
-  \end{example}
-\end{frame}
-
-\subsection{Metalanguage}
-
-\begin{frame}
-  \frametitle{Metalanguage}
-
-  \begin{definition}
-    \alert{target language}:\\
-      the language being worked on
-  \end{definition}
-
-  \pause
-  \begin{definition}
-    \alert{metalanguage}:\\
-      the language used when talking about the properties\\
-      of the target language
-  \end{definition}
-
-  \pause
-  \begin{itemize}
-    \item validity, contradiction and tautology are defined\\
-      in the metalanguage
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Metalanguage Examples}
-
-  \begin{example}
-    \begin{itemize}
-      \item a native Turkish speaker learning English
-      \begin{itemize}
-        \item target language: English
-        \item metalanguage: Turkish
-      \end{itemize}
-    \end{itemize}
-  \end{example}
-
-  \pause
-  \begin{example}
-    \begin{itemize}
-      \item a student learning programming
-      \begin{itemize}
-        \item target language: C, Python, Java, \ldots
-        \item metalanguage: English, Turkish, \ldots
-      \end{itemize}
-    \end{itemize}
   \end{example}
 \end{frame}
 
@@ -849,17 +852,22 @@
   \frametitle{Gödel's Theorem}
 
   \begin{itemize}
-    \item Propositional logic is consistent and complete.
+    \item propositional logic is consistent and complete
   \end{itemize}
 
   \pause
   \begin{block}{Gödel's Theorem}
     \begin{itemize}
-      \item Any logical system that is powerful enough\\
-        to express ordinary arithmetic\\
+      \item Any logical system that is powerful enough to express arithmetic\\
         must be either inconsistent or incomplete.
     \end{itemize}
   \end{block}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item liar's paradox: ``This statement is false.''
+  \end{itemize}
 \end{frame}
 
 \section{Propositional Calculus}
@@ -867,7 +875,7 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Approaches in Propositional Calculus}
+  \frametitle{Propositional Calculus}
 
   \begin{enumerate}
     \item semantic approach: \emph{truth tables}
@@ -876,16 +884,16 @@
     \end{itemize}
 
     \pause
+    \item axiomatic approach: \emph{Boolean algebra}
+    \begin{itemize}
+      \item substituting equivalent formulas in equations
+    \end{itemize}
+
+    \pause
     \item syntactic approach: \emph{rules of inference}
     \begin{itemize}
       \item obtaining new propositions from existing propositions\\
         using logical implications
-    \end{itemize}
-
-    \pause
-    \item axiomatic approach: \emph{Boolean algebra}
-    \begin{itemize}
-      \item substituting equivalent formulas in equations
     \end{itemize}
   \end{enumerate}
 \end{frame}
