@@ -1,23 +1,19 @@
-% Copyright (c) 2013
+% Copyright (c) 2013-2014
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{textcomp}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -26,10 +22,10 @@
 }
 
 \title{Discrete Mathematics}
-\subtitle{Principles of Counting}
+\subtitle{Counting}
 
 \author{Ayşegül Gençata Yayımlı \and H. Turgut Uyar}
-\date{2013}
+\date{2013-2014}
 
 \AtBeginSubsection[]
 {
@@ -39,9 +35,7 @@
   \end{frame}
 }
 
-%\beamerdefaultoverlayspecification{<+->}
-
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \begin{document}
 
@@ -50,36 +44,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Licence}
+  \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2013 A. Yayımlı, T. Uyar
+  \copyright~2013-2014 A. Yayımlı, T. Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share — to copy, distribute and transmit the work
-      \item to Remix — to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution — You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial — You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike — If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -95,9 +96,8 @@
   \frametitle{Basic Principles}
 
   \begin{itemize}
-    \item counting = enumeration
+    \item counting: enumeration
 
-    \pause
     \medskip
     \item two basic principles of counting:
     \begin{itemize}
@@ -105,15 +105,16 @@
       \item the rule of product
     \end{itemize}
 
+    \medskip
     \item decompose more complex problems into smaller ones
     \item piece together partial solutions to arrive at the final answer
   \end{itemize}
 \end{frame}
 
-\subsection{Rule of Sum}
+\subsection{The Rule of Sum}
 
 \begin{frame}
-  \frametitle{Rule of Sum}
+  \frametitle{The Rule of Sum}
 
   \begin{block}{The Rule of Sum}
     \begin{itemize}
@@ -121,9 +122,10 @@
       \item a second task can be performed in $n$ (distinct) ways
       \item the two tasks cannot be performed simultaneously
 
+      \pause
       \medskip
-      \item performing either task can be accomplished\\
-    in any one of $m+n$ ways
+      \item performing either task can be accomplished in any one of\\
+        $m+n$ ways
     \end{itemize}
   \end{block}
 \end{frame}
@@ -153,7 +155,7 @@
       \item the other colleague has 5 such textbooks
 
       \medskip
-      \item $n$: maximum number of different books\\
+      \item let $n$ be the maximum number of different books\\
         that the instructor can borrow
       \item since both colleagues may own copies of the same book:\\
         $5 \leq n \leq 8$
@@ -161,10 +163,10 @@
   \end{example}
 \end{frame}
 
-\subsection{Rule of Product}
+\subsection{The Rule of Product}
 
 \begin{frame}
-  \frametitle{Rule of Product}
+  \frametitle{The Rule of Product}
 
   \begin{block}{The Rule of Product}
     \begin{itemize}
@@ -173,6 +175,7 @@
       \item for each of these outcomes,\\
         there are $n$ possible outcomes for the second stage
 
+      \pause
       \medskip
       \item the total procedure can be carried out in $m \cdot n$ ways
     \end{itemize}
@@ -200,7 +203,7 @@
   \begin{example}
     \begin{itemize}
       \item license plates consist of 2 letters, followed by 4 digits
-      \item how many plates?
+      \item how many possible plates?
 
       \pause
       \medskip
@@ -243,10 +246,9 @@
   \begin{example}
     \begin{itemize}
       \item a class has 10 students: $A, B, C, \ldots, I, J$
-      \item 5 students are to be chosen and seated in a row for a picture:
-      \begin{itemize}
-        \item $BCEFI, CEFIB, ABCFG, \ldots$
-      \end{itemize}
+      \item 5 students are to be chosen and seated in a row for a picture:\\
+        \smallskip
+        $BCEFI, CEFIB, ABCFG, \ldots$
       \item how many such linear arrangements are possible?
 
       \pause
@@ -262,11 +264,11 @@
 
   \begin{example}
     \begin{eqnarray*}
-    10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 & = &
-      10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot
-      \frac{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}
-      {5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}\\\pause
-    & = & \frac{10!}{5!}
+      10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 & = &
+        10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot
+        \frac{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}
+        {5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}\\\pause
+      & = & \frac{10!}{5!}
     \end{eqnarray*}
   \end{example}
 \end{frame}
@@ -338,14 +340,16 @@
 
       \pause
       \medskip
-      \item for each arrangement in which the A's are not distinguished,\\
-        there are $3! = 6$ arrangements with the A's distinguished:\\
+      \item for each arrangement where the A's are not distinguished,\\
+        there are $3! = 6$ arrangements where the A's are distinguished:\\
+        \smallskip
         $DA_{1}TA_{2}BA_{3}SES,DA_{1}TA_{3}BA_{2}SES, DA_{2}TA_{1}BA_{3}SES$,\\
         $DA_{2}TA_{3}BA_{1}SES, DA_{3}TA_{1}BA_{2}SES, DA_{3}TA_{2}BA_{1}SES$
 
       \pause
       \item for each of these,\\
         there are 2 arrangements where the S's are distinguished:\\
+        \smallskip
         $DA_{1}TA_{2}BA_{3}S_{1}ES_{2},DA_{1}TA_{2}BA_{3}S_{2}ES_{1}$
 
       \pause
@@ -361,9 +365,10 @@
   \begin{block}{number of arrangements}
     \begin{itemize}
       \item $n$ objects
-      \item $n_1$ indistinguishable objects of $type_1$,\\
-        $n_2$ indistinguishable objects of $type_2$,\\
-        \ldots $n_r$ indistinguishable objects of $type_r$
+      \item $n_1$ indistinguishable objects of $type_1$\\
+        $n_2$ indistinguishable objects of $type_2$\\
+        \ldots\\
+        $n_r$ indistinguishable objects of $type_r$
       \item $n_1 + n_2 + ... + n_r = n$
 
       \medskip
@@ -401,18 +406,16 @@
   \begin{example}
     \begin{itemize}
       \item six people are seated around a round table: $A,B,C,D,E,F$
+      \item arrangements are considered to be the same\\
+        when one can be obtained from the other by rotation:\\
+        \smallskip
+        $ABEFCD, DABEFC, CDABEF, FCDABE, EFCDAB, BEFCDA$
       \item how many different circular arrangements?
-      \begin{itemize}
-        \item arrangements are considered to be the same\\
-          when one can be obtained from the other by rotation
-        \item $ABEFCD, DABEFC, CDABEF, FCDABE, EFCDAB, BEFCDA$
-      \end{itemize}
 
       \pause
       \medskip
-      \item each circular arrangement (CA) corresponds to\\
-        6 linear arrangements (LA)
-      \item $6 \cdot \#CA = \#LA = 6!$
+      \item each circular arrangement corresponds to\\
+        6 linear arrangements
       \item number of circular arrangements: $\frac{6!}{6} = 120$
     \end{itemize}
   \end{example}
@@ -427,7 +430,7 @@
 
   \begin{example}
     \begin{itemize}
-      \item deck of playing cards with 52 cards
+      \item a deck of 52 playing cards
       \item 4 suits: clubs, diamonds, hearts, spades
       \item 13 ranks in each suit: Ace, 2, 3, \ldots, 10, Jack, Queen, King
       \item draw 3 cards in succession, without replacement
@@ -449,6 +452,8 @@
       \item assume one such draw is:\\
         $AH$ (ace of hearts), $9C$ (9 of clubs), $KD$ (king of diamonds)
       \item if we select all 3 cards at once, the order doesn't matter
+
+      \pause
       \item then, the 6 permutations of $(AH,9C,KD)$\\
         all correspond to just one selection
     \end{itemize}
@@ -542,7 +547,7 @@
   \frametitle{Binomial Theorem}
 
   \begin{theorem}
-    If $x$ and $y$ are variables and $n$ is a positive integer, then
+    if $x$ and $y$ are variables and $n$ is a positive integer, then:
     \begin{eqnarray*}
       (x+y)^n & = & {n\choose 0} x^0 y^n
                     + {n\choose 1} x^1 y^{n-1}
@@ -594,7 +599,7 @@
     \end{equation*}
     where each $n_i$ is an integer with $0 \leq n_i \leq n$,
     for all $1 \leq i \leq t$, and\\
-    $n_1 + n_2 + n_3 + ... + n_t = n$
+    $n_1 + n_2 + n_3 + ... + n_t = n$.
   \end{theorem}
 \end{frame}
 
