@@ -1,16 +1,12 @@
-% Copyright (c) 2001-2013
+% Copyright (c) 2001-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -18,6 +14,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -29,7 +26,7 @@
 \subtitle{Predicates and Sets}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2013}
+\date{2001-2014}
 
 \AtBeginSubsection[]
 {
@@ -41,7 +38,7 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \begin{document}
 
@@ -53,33 +50,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -99,8 +103,8 @@
     \begin{itemize}
       \item contains one or more variables, and
       \item is not a proposition, but
-      \item becomes a proposition when the variables in it\\
-        are replaced by certain allowable choices
+      \item becomes a proposition when the variables in it are replaced\\
+        by certain allowable choices
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -435,13 +439,13 @@
     \medskip
     \item let $S$ be a set, and $a$ be an element
     \begin{itemize}
-      \item $a \in S$: $a$ is an element of set $S$
-      \item $a \notin S$: $a$ is not an element of set $S$
+      \item $a \in S$: $a$ is an element of $S$
+      \item $a \notin S$: $a$ is not an element of $S$
     \end{itemize}
 
     \pause
     \medskip
-    \item $|S|$: number of elements (\alert{cardinality})
+    \item $|S|$: number of elements in $S$ (\alert{cardinality})
   \end{itemize}
 \end{frame}
 
@@ -518,7 +522,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Subset}
+% \subsection{Subset}
 
 \begin{frame}
   \frametitle{Subset}
@@ -565,11 +569,10 @@
 
   \begin{definition}
     \alert{power set}: $\mathcal{P}(S)$\\
-    the set of all subsets of a set, including the empty set\\
-    and the set itself
+    the set of all subsets of a set,\\
+    including the empty set and the set itself
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item if a set has $n$ elements, its power set has $2^n$ elements
   \end{itemize}
@@ -902,6 +905,90 @@
       \item number of primes: $(100 - 78) + 4 - 1 = 25$
     \end{itemize}
   \end{example}
+\end{frame}
+
+\subsection{Infinite Sets}
+
+\begin{frame}
+  \frametitle{Subset Cardinality}
+
+  \begin{itemize}
+    \item $A \subset B \Rightarrow |A| < |B|$
+
+    \pause
+    \item this doesn't necessarily hold for infinite sets
+  \end{itemize}
+
+  \begin{example}
+$\mathbb{Z}^+ \subset \mathbb{N}$
+
+\smallskip
+but
+
+\smallskip
+$|\mathbb{Z}^+| = |\mathbb{N}|$
+  \end{example}
+
+  \pause
+  \begin{itemize}
+    \item how can we compare the cardinalities of infinite sets?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Infinite Sets}
+
+  \begin{itemize}
+    \item in order to compare the cardinalities two sets,\\
+      let's pair off the elements of the sets
+    \item if every element can be paired,\\
+      then they have the same cardinality
+  \end{itemize}
+
+  \pause
+  \begin{example}
+    \begin{tabular}{lcccccccc}
+      $\mathbb{Z}^+$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & \ldots\\
+      $\mathbb{N}$   & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & \ldots\\
+    \end{tabular}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Infinite Sets}
+
+  \begin{footnotesize}
+  \begin{example}[$|\mathbb{Z}^+| \stackrel{?}{=} |\mathbb{Q}|$]
+    \[
+    \begin{array}{l|ccccccc|}
+             &  $1$   &  $2$   &  $3$   &  $4$   &  $5$   & \ldots\\\hline
+      $1$    & $1/1$  & $2/1$  & $3/1$  & $4/1$  & $5/1$  & \ldots\\
+      $2$    & $1/2$  &        & $3/2$  &        & $5/2$  & \ldots\\
+      $3$    & $1/3$  & $2/3$  &        & $4/3$  & $5/3$  & \ldots\\
+      $4$    & $1/4$  &        & $3/4$  &        & $5/4$  & \ldots\\
+      $5$    & $1/5$  & $2/5$  & $3/5$  & $4/5$  &        & \ldots\\
+      \vdots & \vdots & \vdots & \vdots & \vdots & \vdots &
+    \end{array}
+    \]
+
+    \begin{itemize}
+      \item pair off row-wise:\\
+      \begin{tabular}{llllll}
+        $1/1 \rightarrow 1$ & $2/1 \rightarrow 2$ & $3/1 \rightarrow 3$
+                            & $4/1 \rightarrow 4$ & $5/1 \rightarrow 5$ & \ldots\\
+      \end{tabular}
+
+      \pause
+      \item pair off diagonally:\\
+      \begin{tabular}{llllll}
+        $1/1 \rightarrow 1$ & $2/1 \rightarrow 2$ & $1/2 \rightarrow 3$
+                            & $3/1 \rightarrow 4$ & $1/3 \rightarrow 5$ & \\
+        $4/1 \rightarrow 6$ & $3/2 \rightarrow 7$ & $2/3 \rightarrow 8$
+                            & $1/4 \rightarrow 9$ & $5/1 \rightarrow 10$ & \ldots
+      \end{tabular}
+    \end{itemize}
+  \end{example}
+  \end{footnotesize}
 \end{frame}
 
 \subsection*{References}
