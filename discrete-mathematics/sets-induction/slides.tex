@@ -730,19 +730,19 @@ $|\mathbb{Z}^+| = |\mathbb{N}|$
   \end{itemize}
 
   \pause
-  \begin{example}
+  \begin{block}{$|\mathbb{Z}^+| = |\mathbb{N}|$}
     \begin{tabular}{lcccccccc}
       $\mathbb{Z}^+$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & \ldots\\
       $\mathbb{N}$   & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & \ldots\\
     \end{tabular}
-  \end{example}
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Infinite Sets}
 
   \begin{footnotesize}
-  \begin{example}[$|\mathbb{Z}^+| \stackrel{?}{=} |\mathbb{Q}|$]
+  \begin{block}{$|\mathbb{Z}^+| = |\mathbb{Q}|$}
     \[
     \begin{array}{l|ccccccc|}
              &  $1$   &  $2$   &  $3$   &  $4$   &  $5$   & \ldots\\\hline
@@ -771,8 +771,72 @@ $|\mathbb{Z}^+| = |\mathbb{N}|$
                             & $1/4 \rightarrow 9$ & $5/1 \rightarrow 10$ & \ldots
       \end{tabular}
     \end{itemize}
-  \end{example}
+  \end{block}
   \end{footnotesize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Infinite Sets}
+
+  \begin{block}{$|\mathbb{Z}^+| \stackrel{?}{=} |\mathbb{R}|$}
+    \begin{itemize}
+      \item consider the set $\{x | x \in \mathbb{R}, 0 < x \leq 1\}$
+      \item no element is represented by an expansion that terminates:\\
+        $0.4999...$ instead of $0.5$
+    \end{itemize}
+
+    \vspace{-2em}
+    \begin{columns}[t]
+      \column{.42\textwidth}
+      \[
+      \begin{array}{lcl}
+        0.a_{11}a_{12}a_{13}a_{14}\cdots & \rightarrow & 1\\
+        0.a_{21}a_{22}a_{23}a_{24}\cdots & \rightarrow & 2\\
+        0.a_{31}a_{32}a_{33}a_{34}\cdots & \rightarrow & 3\\
+        \vdots                           &             &\\
+        0.a_{n1}a_{n2}a_{n3}a_{n4}\cdots & \rightarrow & n\\
+        \vdots                           &             &
+      \end{array}
+      \]
+
+      \pause
+      \column{.55\textwidth}
+      \begin{itemize}
+        \item consider the number\\
+          $0.b_1b_2b_3\cdots$ where
+        \begin{equation*}
+          b_k = \left\{
+            \begin{array}{ll}
+              3 & if~a_{kk} \neq 3\\
+              7 & if~a_{kk} = 3
+            \end{array}\right.
+        \end{equation*}
+
+        \pause
+        \item $\forall k \in \mathbb{Z}^+~r \neq r_k$
+        \item \emph{Cantor's Diagonal Construction}
+      \end{itemize}
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Infinite Sets}
+
+  \begin{itemize}
+    \item result: $|\mathbb{N}| < |\mathbb{R}|$
+
+    \pause
+    \medskip
+    \item let $C$ be the set of all possible computer programs
+    \item let $P$ be the set of all possible problems
+    \item $|C| = |\mathbb{N}|$
+    \item $|P| = |\mathbb{R}|$
+
+    \pause
+    \medskip
+    \item there are problems which cannot be solved using computers
+  \end{itemize}
 \end{frame}
 
 \subsection*{References}
@@ -792,6 +856,8 @@ $|\mathbb{Z}^+| = |\mathbb{N}|$
       \begin{itemize}
         \item 8.1. \alert{The Principle of Inclusion and Exclusion}
       \end{itemize}
+
+      \item Appendix 3: \alert{Countable and Uncountable Sets}
     \end{itemize}
   \end{block}
 
