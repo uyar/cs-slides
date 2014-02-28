@@ -110,7 +110,6 @@
       a proposition cannot be partially true or partially false
   \end{itemize}
 
-  \pause
   \begin{itemize}
     \item \alert{law of contradiction}:\\
       a proposition cannot be both true and false
@@ -122,7 +121,7 @@
 
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[proposition]
+    \begin{example}[propositions]
       \begin{itemize}
         \item The Moon revolves\\
           around the Earth.
@@ -133,10 +132,10 @@
 
     \pause
     \column{.5\textwidth}
-    \begin{example}[not a proposition]
+    \begin{example}[not propositions]
       \begin{itemize}
         \item What time is it?
-        \item Ali, throw the ball!
+        \item Exterminate!
         \item $x<43$
       \end{itemize}
     \end{example}
@@ -144,15 +143,11 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Proposition Variable}
+  \frametitle{Propositional Variable}
 
   \begin{definition}
-    \alert{proposition variable}:\\
+    \alert{propositional variable}:\\
       a name that represents the proposition
-
-    \begin{itemize}
-      \item can take on the values \emph {True} ($T$) or \emph{False} ($F$)
-    \end{itemize}
   \end{definition}
 
   \pause
@@ -177,8 +172,6 @@
       \item by combining two or more propositions using
         \alert{logical connectives}
     \end{itemize}
-    \item \alert{primitive propositions} can not be decomposed
-      into smaller units
   \end{itemize}
 
   \pause
@@ -207,10 +200,11 @@
     \column{.7\textwidth}
     \begin{example}
       \begin{itemize}
-        \item $\neg p_1$: The Moon does not revolve around the Earth.\\
-          $\neg T$: \emph{False}
+        \item $\neg p_1$: The Moon does not revolve\\
+          around the Earth.\\
+          $\neg T : F$
         \item $\neg p_2$: Elephants cannot fly.\\
-          $\neg F$: \emph{True}
+          $\neg F : T$
       \end{itemize}
     \end{example}
   \end{columns}
@@ -238,7 +232,7 @@
       \begin{itemize}
         \item $p_1 \wedge p_2$: The Moon revolves around the Earth and elephants
           can fly.\\
-          $T \wedge F$: \emph{False}
+          $T \wedge F : F$
       \end{itemize}
     \end{example}
   \end{columns}
@@ -266,7 +260,7 @@
       \begin{itemize}
         \item $p_1 \vee p_2$: The Moon revolves around the Earth or elephants
           can fly.\\
-          $T \vee F$: \emph{True}
+          $T \vee F : T$
       \end{itemize}
     \end{example}
   \end{columns}
@@ -294,7 +288,7 @@
       \begin{itemize}
         \item $p_1 \veebar p_2$: Either the Moon revolves around the Earth or
           elephants can fly.\\
-          $T \veebar F$: \emph{True}
+          $T \veebar F : T$
       \end{itemize}
     \end{example}
   \end{columns}
@@ -345,27 +339,27 @@
 
     \pause
     \begin{columns}[t]
-      \column{.48\textwidth}
+      \column{.49\textwidth}
         \begin{itemize}
-          \item $p_4 \rightarrow p_5$: If 3 is less than 8,\\
-            then 3 is less than 14.\\
-            $T \rightarrow T$: \emph{True}
+          \item $p_4 \rightarrow p_5$:\\
+            ~~if $3 < 8$, then $3 < 14$\\
+            ~~$T \rightarrow T : T$
           \pause
-          \item $p_4 \rightarrow p_6$: If 3 is less than 8,\\
-            then 3 is less than 2.\\
-            $T \rightarrow F$: \emph{False}
+          \item $p_4 \rightarrow p_6$:\\
+            ~~if $3 < 8$, then $3 < 2$\\
+            ~~$T \rightarrow F : F$
         \end{itemize}
 
       \pause
-      \column{.5\textwidth}
+      \column{.49\textwidth}
         \begin{itemize}
-          \item $p_6 \rightarrow p_4$: If 3 is less than 2,
-            then 3 is less than 8.\\
-            $F \rightarrow T$: \emph{True}
+          \item $p_6 \rightarrow p_4$:\\
+          ~~if $3 < 2$, then $3 < 8$\\
+          ~~$F \rightarrow T : T$
           \pause
-          \item $p_6 \rightarrow p_7$: If 3 is less than 2,
-            then 8 is less than 6.\\
-            $F \rightarrow F$: \emph{True}
+          \item $p_6 \rightarrow p_7$:\\
+          ~~if $3 < 2$, then $8 < 6$\\
+          ~~$F \rightarrow F : T$
         \end{itemize}
     \end{columns}
   \end{example}
@@ -463,15 +457,15 @@
   \end{example}
 \end{frame}
 
-\subsection{Well-Formed Formulas}
+\subsection{Propositional Logic Language}
 
 \begin{frame}
-  \frametitle{Well-Formed Formula}
+  \frametitle{Propositional Logic Language}
 
   \begin{block}{syntax}
     \begin{itemize}
       \item which rules will be used to form compound propositions?
-      \item formula that obeys these rules: \alert{well-formed formula} (WFF)
+      \item a formula that obeys these rules: \alert{well-formed formula} (WFF)
     \end{itemize}
   \end{block}
 
@@ -480,7 +474,7 @@
     \begin{itemize}
       \item \emph{interpretation}: calculating the value of a
         compound proposition\\
-        by assigning values to its primitive propositions
+        by assigning values to its propositional variables
       \item truth table: all interpretations of a proposition
     \end{itemize}
   \end{block}
@@ -512,7 +506,8 @@
   \begin{itemize}
     \item parentheses are used to change the order of calculation
     \item implication associates from the right:\\
-      $p \rightarrow q \rightarrow r$ means $p \rightarrow (q \rightarrow r)$
+      $p \rightarrow q \rightarrow r$ \hspace{2em} means
+      \hspace{2em} $p \rightarrow (q \rightarrow r)$
   \end{itemize}
 \end{frame}
 
@@ -816,12 +811,14 @@
 
   \begin{itemize}
     \item $P_1,P_2,\dots,P_n \vdash Q$\\
+      \smallskip
       There is a proof which infers the conclusion $Q$\\
       from the assumptions $P_1,P_2,\dots,P_n$.
 
     \pause
     \medskip
     \item $P_1,P_2,\dots,P_n \vDash Q$\\
+      \smallskip
       $Q$ must be true if $P_1,P_2,\dots,P_n$ are all true.
   \end{itemize}
 \end{frame}
@@ -829,23 +826,17 @@
 \begin{frame}
   \frametitle{Formal Systems}
 
-  \begin{definition}
-    \alert{consistent}: for all well-formed formulas $P$ and $Q$\\
+  \begin{itemize}
+    \item a formal system is \alert{consistent} if for all WFFs $P$ and $Q$:\\
       if $P \vdash Q$ then $P \vDash Q$
+    \item if every provable proposition is actually true
 
-    \begin{itemize}
-      \item each provable proposition is actually true
-    \end{itemize}
-  \end{definition}
-
-  \pause
-  \begin{definition}
-    \alert{complete}: for all well-formed formulas $P$ and $Q$\\
-      if $P \vDash Q$ then $P \vdash Q$
-    \begin{itemize}
-      \item every true proposition can be proven
-    \end{itemize}
-  \end{definition}
+    \pause
+    \bigskip
+    \item a formal system is \alert{complete} if for all WFFs $P$ and $Q$:\\
+        if $P \vDash Q$ then $P \vdash Q$
+    \item if every true proposition can be proven
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -884,12 +875,14 @@
     \end{itemize}
 
     \pause
+    \medskip
     \item axiomatic approach: \emph{Boolean algebra}
     \begin{itemize}
-      \item substituting equivalent formulas in equations
+      \item substituting logically equivalent formulas for one another
     \end{itemize}
 
     \pause
+    \medskip
     \item syntactic approach: \emph{rules of inference}
     \begin{itemize}
       \item obtaining new propositions from existing propositions\\
@@ -922,6 +915,11 @@
         $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
       \end{tabular}
     \end{center}
+
+    \begin{itemize}
+      \item an implication and its contrapositive are equivalent
+      \item the converse and the inverse of an implication are equivalent
+    \end{itemize}
   \end{example}
 \end{frame}
 
@@ -1261,7 +1259,7 @@
   \frametitle{Implication Elimination}
 
   \begin{columns}[t]
-    \column{.55\textwidth}
+    \column{.5\textwidth}
     \begin{block}{Modus Ponens (ImpE)}
       \[
       \frac
@@ -1278,7 +1276,7 @@
     \end{block}
 
     \pause
-    \column{.4\textwidth}
+    \column{.5\textwidth}
     \begin{block}{Modus Tollens (MT)}
       \[
       \frac
@@ -1301,22 +1299,22 @@
 
   \begin{example}[Modus Ponens]
     \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has won the lottery.
+      \item If Lydia wins the lottery, she will buy a car.
+      \item Lydia has won the lottery.
 
       \medskip
-      \item Therefore, Ali will buy a car.
+      \item Therefore, Lydia will buy a car.
     \end{itemize}
   \end{example}
 
   \pause
   \begin{example}[Modus Tollens]
     \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali did not buy a car.
+      \item If Lydia wins the lottery, she will buy a car.
+      \item Lydia did not buy a car.
 
       \medskip
-      \item Therefore, Ali did not win the lottery.
+      \item Therefore, Lydia did not win the lottery.
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1343,7 +1341,8 @@
 
     \begin{itemize}
       \item $(p \rightarrow q) \wedge q \nRightarrow p$:\\
-        $(F \rightarrow T) \wedge T \rightarrow F$
+        \smallskip
+        $(F \rightarrow T) \wedge T \rightarrow F : F$
     \end{itemize}
 
     \pause
@@ -1365,7 +1364,8 @@
 
     \begin{itemize}
       \item $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$:\\
-        $(F \rightarrow T) \wedge T \rightarrow F$
+        \smallskip
+        $(F \rightarrow T) \wedge T \rightarrow F : F$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -1375,22 +1375,22 @@
 
   \begin{example}[affirming the conclusion]
     \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has bought a car.
+      \item If Lydia wins the lottery, she will buy a car.
+      \item Lydia has bought a car.
 
       \medskip
-      \item Therefore, Ali has won the lottery.
+      \item Therefore, Lydia has won the lottery.
     \end{itemize}
   \end{example}
 
   \pause
   \begin{example}[denying the hypothesis]
     \begin{itemize}
-      \item If Ali wins the lottery, he will buy a car.
-      \item Ali has not won the lottery.
+      \item If Lydia wins the lottery, she will buy a car.
+      \item Lydia has not won the lottery.
 
       \medskip
-      \item Therefore, Ali will not buy a car.
+      \item Therefore, Lydia will not buy a car.
     \end{itemize}
   \end{example}
 \end{frame}
@@ -1480,13 +1480,13 @@
         \pause
         4. & \neg q                    & A\\
         \pause
-        5. & q \rightarrow F           & ID:4\\
+        5. & q \rightarrow F           & EQ:4\\
         \pause
         6. & F                         & ImpE:3,5\\
         \pause
         7. & p \rightarrow F           & ImpI:1,6\\
         \pause
-        8. & \neg p                    & ID:7\\
+        8. & \neg p                    & EQ:7\\
       \end{eqnarray*}
     \end{columns}
   \end{example}
@@ -1495,9 +1495,39 @@
 \begin{frame}
   \frametitle{Disjunctive Syllogism}
 
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{block}{Disjunctive Syllogism (DS)}
+  \begin{block}{Disjunctive Syllogism (DS)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vee q\\
+          \neg p
+        \end{array}
+      }
+      {
+        \therefore q
+      }
+    \]
+  \end{block}
+
+  \pause
+  \begin{example}
+    \begin{itemize}
+      \item Bart's wallet is either in his pocket or on his desk.
+      \item Bart's wallet is not in his pocket.
+
+      \medskip
+      \item Therefore, Bart's wallet is on his desk.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Disjunctive Syllogism}
+
+  \begin{example}
+    \begin{columns}
+      \column{.5\textwidth}
       \[
       \frac
         {
@@ -1510,44 +1540,29 @@
           \therefore q
         }
       \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{eqnarray*}
-      1.   & p \vee q        & A\\
-      \pause
-      2.   & \neg p          & A\\
-      \pause
-      3.   & p \rightarrow F & ID:2\\
-      \pause
-      4a1. & p               & PA\\
-      \pause
-      4a2. & F               & ImpE:3,4a1\\
-      \pause
-      4a.  & q               & CTR:4a2\\
-      \pause
-      4b1. & q               & PA\\
-      \pause
-      4b.  & q               & ID:4b1\\
-      \pause
-      5.   & q               & OrE:1,4a,4b
-    \end{eqnarray*}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Disjunctive Syllogism Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item Ali's wallet is either in his pocket or on his desk.
-      \item Ali's wallet is not in his pocket.
 
       \pause
-      \medskip
-      \item Therefore, Ali's wallet is on his desk.
-    \end{itemize}
+      \column{.5\textwidth}
+      \begin{eqnarray*}
+        1.   & p \vee q        & A\\
+        \pause
+        2.   & \neg p          & A\\
+        \pause
+        3.   & p \rightarrow F & EQ:2\\
+        \pause
+        4a1. & p               & PA\\
+        \pause
+        4a2. & F               & ImpE:3,4a1\\
+        \pause
+        4a.  & q               & CTR:4a2\\
+        \pause
+        4b1. & q               & PA\\
+        \pause
+        4b.  & q               & ID:4b1\\
+        \pause
+        5.   & q               & OrE:1,4a,4b
+      \end{eqnarray*}
+    \end{columns}
   \end{example}
 \end{frame}
 
