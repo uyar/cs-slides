@@ -292,6 +292,7 @@ length1 xs
   \begin{itemize}
     \item exercise: write a tail recursive version
     \item exercise: sum of elements
+    \item exercise: sum of the first two elements
   \end{itemize}
 \end{frame}
 
@@ -320,6 +321,20 @@ sum' :: [Integer] -> Integer
 sum' xs
   | null xs   = 0
   | otherwise = head xs + sum' (tail xs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{List Example}
+
+  \begin{exampleblock}{sum of first two elements}
+    \begin{pygments}{haskell}
+firstPlusSecond :: [Integer] -> Integer
+firstPlusSecond xs
+  | null xs        = 0
+  | null (tail xs) = head xs
+  | otherwise      = head xs + head (tail xs)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -688,6 +703,7 @@ case v of
 
   \begin{example}[number of days in a month]
     \begin{pygments}{haskell}
+daysInMonth :: Month -> Integer -> Integer
 daysInMonth m y =
     case m of
       Apr -> 30
