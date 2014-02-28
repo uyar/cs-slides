@@ -87,23 +87,6 @@
 
 \section{Pattern Matching}
 
-\subsection{Guards}
-
-\begin{frame}[fragile]
-  \frametitle{Guards Example}
-
-  \begin{example}[maximum of a list]
-    \pause
-    \begin{pygments}{haskell}
-max' xs
-  | null xs = error "empty list"
-  | null (tail xs) = head xs
-  | head xs > max' (tail xs) = head xs
-  | otherwise = max' (tail xs)
-    \end{pygments}
-  \end{example}
-\end{frame}
-
 \subsection{Multiple Patterns}
 
 \begin{frame}[fragile]
@@ -367,20 +350,5 @@ eval e =
     \end{pygments}
   \end{example}
 \end{frame}
-% 
-% \section*{References}
-% 
-% \begin{frame}
-%   \frametitle{References}
-% 
-%   \begin{block}{Required Reading: Abelson, Sussman}
-%     \begin{itemize}
-%       \item Chapter 1: Building Abstractions with Procedures
-%       \begin{itemize}
-%         \item 1.1. \alert{The Elements of Programming}
-%       \end{itemize}
-%     \end{itemize}
-%   \end{block}
-% \end{frame}
 
 \end{document}

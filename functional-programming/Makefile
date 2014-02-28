@@ -11,13 +11,13 @@ images:
 %.pdf: %.tex
 	make images
 	pdflatex $<
-	pythontex $<
+	python3tex $<
 	pdflatex $<
 
 %.handout.pdf: %.handout.tex
 	make images
 	pdflatex $<
-	pythontex $<
+	python3tex $<
 	pdflatex $<
 
 %.handout.tex: %.tex
