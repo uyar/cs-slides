@@ -23,7 +23,7 @@
 }
 
 \title{Discrete Mathematics}
-\subtitle{Sets and Induction}
+\subtitle{Sets}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
 \date{2001-2014}
@@ -39,10 +39,6 @@
 %\beamerdefaultoverlayspecification{<+->}
 
 \pgfdeclareimage[height=1cm]{license}{../license}
-
-\pgfdeclareimage{induction}{induction}
-\pgfdeclareimage{error1}{error1}
-\pgfdeclareimage{error2}{error2}
 
 \begin{document}
 
@@ -204,19 +200,20 @@
       $S = \{A | A \notin A\}$
 
     \pause
+    \smallskip
     \begin{quote}
-      Is $S$ an element of itself?
+      $S \stackrel{?}{\in} S$
     \end{quote}
 
     \pause
-    \item yes $\rightarrow$ but the predicate is not valid $\rightarrow$ no
+    \item $S \in S$ $\rightarrow$ but the predicate is not valid $\rightarrow$ no
 
     \pause
-    \item no $\rightarrow$ but the predicate is valid $\rightarrow$ yes
+    \item $S \notin S$ $\rightarrow$ but the predicate is valid $\rightarrow$ yes
   \end{itemize}
 \end{frame}
 
-% \subsection{Subset}
+\subsection{Subsets}
 
 \begin{frame}
   \frametitle{Subset}
@@ -230,7 +227,6 @@
     \item \alert{set equality}:\\
       $A = B \Leftrightarrow (A \subseteq B) \wedge (B \subseteq A)$
 
-    \pause
     \item \alert{proper subset}:\\
       $A \subset B \Leftrightarrow (A \subseteq B) \wedge (A \neq B)$
 
@@ -242,7 +238,7 @@
 \begin{frame}
   \frametitle{Subset}
 
-  \begin{block}{not a subset}
+  \begin{block}{$A \nsubseteq B$}
     \begin{eqnarray*}
       A \nsubseteq B & \Leftrightarrow
                      & \neg \forall x~[x \in A \rightarrow x \in B]\\\pause
@@ -317,16 +313,17 @@
   \begin{block}{difference}
     $A - B = \{ x | (x \in A) \wedge (x \notin B) \}$
 
-    \pause
     \begin{itemize}
       \item $A-B = A \cap \overline{B}$
-
-      \pause
-      \item \emph{symmetric difference}:\\
-        $A \bigtriangleup B = \{ x | (x \in A \cup B)
-                              \wedge (x \notin A \cap B) \}$
     \end{itemize}
   \end{block}
+
+  \pause
+  \begin{itemize}
+    \item \emph{symmetric difference}:\\
+      $A \bigtriangleup B = \{ x | (x \in A \cup B)
+                            \wedge (x \notin A \cap B) \}$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -420,9 +417,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{DeMorgan's Laws}
+  \frametitle{DeMorgan's Law}
 
+  \begin{theorem}
+    $\overline{A \cap B} = \overline{A} \cup \overline{B}$
+  \end{theorem}
+
+  \pause
   \begin{proof}
+    \vspace{-2em}
     \begin{eqnarray*}
       \overline{A \cap B} & = & \{x | x \notin (A \cap B)\}\\\pause
                           & = & \{x | \neg (x \in (A \cap B))\}\\\pause
@@ -437,17 +440,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example of Equivalence}
+  \frametitle{Example}
 
   \begin{theorem}
     $A \cap (B-C) = (A \cap B) - (A \cap C)$
   \end{theorem}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Equivalence Example}
-
+  \pause
   \begin{proof}
+    \vspace{-2em}
     \begin{eqnarray*}
       (A \cap B) - (A \cap C)
           & = & (A \cap B) \cap \overline{(A \cap C)}\\\pause
@@ -462,7 +463,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Equivalence Proof Example}
+  \frametitle{Example}
 
   \begin{theorem}
     \begin{eqnarray*}
@@ -475,7 +476,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Equivalence Proof Example}
+  \frametitle{Example}
 
   \begin{proof}[$A \subseteq B \Rightarrow A \cup B = B$]
     $A \cup B = B \Leftrightarrow
@@ -500,7 +501,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Equivalence Proof Example}
+  \frametitle{Example}
 
   \begin{proof}[$A \cup B = B \Rightarrow A \cap B = A$]
     $A \cap B = A \Leftrightarrow
@@ -526,7 +527,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Equivalence Proof Example}
+  \frametitle{Example}
 
   \begin{proof}[$A \cap B = A \Rightarrow \overline{B} \subseteq \overline{A}$]
     \begin{eqnarray*}
@@ -540,7 +541,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Equivalence Proof Example}
+  \frametitle{Example}
 
   \begin{proof}[$\overline{B} \subseteq \overline{A} \Rightarrow A \subseteq B$]
     \begin{eqnarray*}
@@ -552,7 +553,7 @@
   \end{proof}
 \end{frame}
 
-\subsection{Inclusion-Exclusion}
+\subsection{Principle of Inclusion-Exclusion}
 
 \begin{frame}
   \frametitle{Principle of Inclusion-Exclusion}
@@ -690,6 +691,35 @@
     \end{itemize}
   \end{example}
 \end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Grimaldi}
+    \begin{itemize}
+      \item Chapter 3: Set Theory
+      \begin{itemize}
+        \item 3.1. \alert{Sets and Subsets}
+        \item 3.2. \alert{Set Operations and the Laws of Set Theory}
+      \end{itemize}
+
+      \item Chapter 8: The Principle of Inclusion and Exclusion
+      \begin{itemize}
+        \item 8.1. \alert{The Principle of Inclusion and Exclusion}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 8: Set Theory
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Counting Sets}
 
 \subsection{Infinite Sets}
 
@@ -846,300 +876,7 @@ $|\mathbb{Z}^+| = |\mathbb{N}|$
 
   \begin{block}{Required Reading: Grimaldi}
     \begin{itemize}
-      \item Chapter 3: Set Theory
-      \begin{itemize}
-        \item 3.1. \alert{Sets and Subsets}
-        \item 3.2. \alert{Set Operations and the Laws of Set Theory}
-      \end{itemize}
-
-      \item Chapter 8: The Principle of Inclusion and Exclusion
-      \begin{itemize}
-        \item 8.1. \alert{The Principle of Inclusion and Exclusion}
-      \end{itemize}
-
       \item Appendix 3: \alert{Countable and Uncountable Sets}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
-    \begin{itemize}
-      \item Chapter 8: Set Theory
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\section{Induction}
-
-\subsection{Introduction}
-
-\begin{frame}
-  \frametitle{Induction}
-
-  \begin{definition}
-    $S(n)$: a predicate defined on $n \in \mathbb{Z}^+$
-
-    \pause
-    \medskip
-    $S(n_0) \wedge (\forall k \geq n_0~[S(k) \Rightarrow S(k+1)])
-      \Rightarrow \forall n \geq n_0~S(n)$
-  \end{definition}
-
-  \pause
-  \medskip
-  \begin{itemize}
-    \item $S(n_0)$: \emph{base step}
-    \item $\forall k \geq n_0~[S(k) \Rightarrow S(k+1)]$: \emph{induction step}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Induction}
-
-  \begin{center}
-    \pgfuseimage{induction}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+~[1+3+5+\cdots+(2n-1)=n^2]$
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $n=1$: $1=1^2$
-
-      \pause
-      \item $n=k$: assume $1+3+5+\cdots+(2k-1)=k^2$
-
-      \pause
-      \item $n=k+1$:
-      \begin{eqnarray*}
-        &   & 1+3+5+\cdots+(2k-1)+(2k+1)\\\pause
-        & = & k^2+2k+1\\\pause
-        & = & (k+1)^2
-      \end{eqnarray*}
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+, n \geq 4~[2^n < n!]$
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $n=4$: $2^4=16<24=4!$
-
-      \pause
-      \item $n=k$: assume $2^k < k!$
-
-      \pause
-      \item $n=k+1$:\\
-        $2^{k+1} = 2 \cdot 2^k < 2 \cdot k! < (k+1) \cdot k! = (k+1)!$
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+, n \geq 14~\exists i,j \in \mathbb{N}~[n=3i+8j]$
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $n=14$: $14=3 \cdot 2 + 8 \cdot 1$
-
-      \pause
-      \item $n=k$: assume $k=3i+8j$
-
-      \pause
-      \item $n=k+1$:
-      \begin{itemize}
-        \item $k=3i+8j, j>0 \Rightarrow k+1=k-8+3 \cdot 3$\\
-          $\Rightarrow k+1=3(i+3)+8(j-1)$
-        \item $k=3i+8j, j=0, i \geq 5 \Rightarrow k+1=k-5 \cdot 3+2 \cdot 8$\\
-          $\Rightarrow k+1=3(i-5)+8(j+2)$
-      \end{itemize}
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\subsection{Strong Induction}
-
-\begin{frame}
-  \frametitle{Strong Induction}
-
-  \begin{definition}
-    $S(n_0) \wedge
-      (\forall k \geq n_0~[(\forall i \leq k~S(i)) \Rightarrow S(k+1)])
-      \Rightarrow \forall n \geq n_0~S(n)$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Strong Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+, n \geq 2$\\
-      n can be written as the product of prime numbers.
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $n=2$: $2=2$
-
-      \pause
-      \item assume that the theorem is true for $\forall i \leq k$
-
-      \pause
-      \item $n=k+1$:
-      \begin{enumerate}
-        \item if prime: $n=n$
-
-        \pause
-        \item if not prime: $n=u \cdot v$\\
-          $u < k \wedge v < k \Rightarrow$ both $u$ and $v$ can be written\\
-          as the product of prime numbers
-      \end{enumerate}
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Strong Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+, n \geq 14~\exists i,j \in \mathbb{N}~[n=3i+8j]$
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $n=14$: $14=3 \cdot 2 + 8 \cdot 1$\\
-        $n=15$: $15=3 \cdot 5 + 8 \cdot 0$\\
-        $n=16$: $16=3 \cdot 0 + 8 \cdot 2$
-
-      \pause
-      \item $n \leq k$: assume $k=3i+8j$
-
-      \pause
-      \item $n=k+1$: $k+1=(k-2)+3$
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Flawed Induction Example}
-
-  \begin{theorem}
-    $\forall n \in \mathbb{Z}^+~[1+2+3+\cdots+n=\frac{n^2+n+2}{2}]$
-  \end{theorem}
-
-  \pause
-  \begin{block}{invalid base step}
-    \begin{itemize}
-      \item $n=k$: assume $1+2+3+\cdots+k=\frac{k^2+k+2}{2}$
-
-      \pause
-      \item $n=k+1$:
-      \begin{eqnarray*}
-        &   & 1+2+3+\cdots+k+(k+1)\\\pause
-        & = & \frac{k^2+k+2}{2}+k+1
-          =   \frac{k^2+k+2}{2}+\frac{2k+2}{2}\\\pause
-        & = & \frac{k^2+3k+4}{2}
-          =   \frac{(k+1)^2+(k+1)+2}{2}
-      \end{eqnarray*}
-
-      \pause
-      \item $n=1$: $1 \neq \frac{1^2+1+2}{2}=2$
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Flawed Induction Example}
-
-  \begin{center}
-    \pgfuseimage{error1}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Flawed Induction Example}
-
-  \begin{theorem}
-    All horses are of the same color.\\
-    \pause
-    \bigskip
-    $A(n)$: All horses in sets of $n$ horses are of the same color.
-
-    \medskip
-    $\forall n \in \mathbb{N^+}~A(n)$
-  \end{theorem}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Flawed Induction Example}
-
-  \begin{block}{invalid induction step}
-    \begin{itemize}
-      \item $n=1$: $A(1)$\\
-        All horses in sets of $1$~horse are of the same color.
-
-      \pause
-      \medskip
-      \item $n=k$: assume $A(k)$ is true\\
-        All horses in sets of $k$~horses are of the same color.
-      \pause
-      \medskip
-      \item $A(k+1)=\{a_1,a_2,\dots,a_k\} \cup \{a_2,a_3,\dots,a_{k+1}\}$
-      \begin{itemize}
-        \item All horses in set $\{a_1,a_2,\dots,a_k\}$
-          are of the same color ($a_2$).
-        \item All horses in set $\{a_2,a_3,\dots,a_{k+1}\}$
-          are of the same color ($a_2$).
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Flawed Induction Examples}
-
-  \begin{center}
-    \pgfuseimage{error2}
-  \end{center}
-\end{frame}
-
-\section*{References}
-
-\begin{frame}
-  \frametitle{References}
-
-  \begin{block}{Required Reading: Grimaldi}
-    \begin{itemize}
-      \item Chapter 4: Properties of Integers: Mathematical Induction
-      \begin{itemize}
-        \item 4.1. \alert{The Well-Ordering Principle: Mathematical Induction}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
-    \begin{itemize}
-      \item Chapter 4: Induction
     \end{itemize}
   \end{block}
 \end{frame}
