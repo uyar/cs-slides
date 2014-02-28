@@ -1,0 +1,808 @@
+% Copyright (c) 2001-2014
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
+%       Emre Harmancı <harmanci@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \setbeamercovered{transparent}
+}
+
+\title{Discrete Mathematics}
+\subtitle{Predicates and Proofs}
+
+\author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
+\date{2001-2014}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Predicates}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Predicate}
+
+  \begin{definition}
+    \alert{predicate} (or \alert{open statement}): a declarative sentence which
+    \begin{itemize}
+      \item contains one or more variables, and
+      \item is not a proposition, but
+      \item becomes a proposition when the variables in it are replaced\\
+        by certain allowable choices
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universe of Discourse}
+
+  \begin{definition}
+    \alert{universe of discourse}: $\mathcal{U}$\\
+    set of allowable choices
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item examples:
+    \begin{itemize}
+      \item $\mathbb{Z}$: integers
+      \item $\mathbb{N}$: natural numbers
+      \item $\mathbb{Z}^+$: positive integers
+      \item $\mathbb{Q}$: rational numbers
+      \item $\mathbb{R}$: real numbers
+      \item $\mathbb{C}$: complex numbers
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Predicate Examples}
+
+  \begin{example}
+    $\mathcal{U} = \mathbb{N}$\\
+    $p(x)$: $x+2$ is an even integer
+
+    \bigskip
+    $p(5)$: $F$\\
+    $p(8)$: $T$
+
+    \pause
+    \bigskip
+    $\neg p(x)$: $x+2$ is not an even integer
+  \end{example}
+
+  \pause
+  \begin{example}
+    $\mathcal{U} = \mathbb{N}$\\
+    $q(x,y)$: $x+y$ and $x-2y$ are even integers
+
+    \bigskip
+    $q(11,3)$: $F$, $q(14,4)$: $T$
+  \end{example}
+\end{frame}
+
+\subsection{Quantifiers}
+
+\begin{frame}
+  \frametitle{Quantifiers}
+
+  \begin{columns}[t]
+    \column{.48\textwidth}
+    \begin{definition}
+      \alert{existential quantifier}:\\
+        predicate is true for some values
+
+      \begin{itemize}
+        \item symbol: $\exists$
+        \item read: \emph{there exists}
+
+        \pause
+        \medskip
+        \item symbol: $\exists!$
+        \item read: \emph{there exists only one}
+      \end{itemize}
+    \end{definition}
+
+    \pause
+    \column{.48\textwidth}
+    \begin{definition}
+      \alert{universal quantifier}:\\
+        predicate is true for all values
+
+      \begin{itemize}
+        \item symbol: $\forall$
+        \item read: \emph{for all}
+      \end{itemize}
+    \end{definition}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Quantifiers}
+
+  \begin{block}{existential quantifier}
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
+    $\exists x~p(x) \equiv p(x_1) \vee p(x_2) \vee \cdots \vee p(x_n)$
+
+    \begin{itemize}
+      \item \emph{$p(x)$ is true for some $x$}
+    \end{itemize}
+  \end{block}
+
+  \pause
+  \begin{block}{universal quantifier}
+    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
+    $\forall x~p(x) \equiv p(x_1) \wedge p(x_2) \wedge \cdots \wedge p(x_n)$
+
+    \begin{itemize}
+      \item \emph{$p(x)$ is true for all $x$}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Quantifier Examples}
+
+  \begin{example}
+    \begin{columns}[t]
+      \column{.53\textwidth}
+      $\mathcal{U} = \mathbb{R}$\\
+
+      \begin{itemize}
+        \item $p(x): x \geq 0$
+        \item $q(x): x^2 \geq 0$
+        \item $r(x): (x-4) (x+1) = 0$
+        \item $s(x): x^2 -3 > 0$
+      \end{itemize}
+
+      are the following expressions true?
+
+      \column{.4\textwidth}
+      \begin{itemize}
+        \pause
+        \item $\exists x~[p(x) \wedge r(x)]$
+
+        \pause
+        \item $\forall x~[p(x) \rightarrow q(x)]$
+
+        \pause
+        \item $\forall x~[q(x) \rightarrow s(x)]$
+
+        \pause
+        \item $\forall x~[r(x) \vee s(x)]$
+
+        \pause
+        \item $\forall x~[r(x) \rightarrow p(x)]$
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Negating Quantifiers}
+
+  \begin{itemize}
+    \item replace $\forall$ with $\exists$, and $\exists$ with $\forall$
+    \item negate the predicate
+  \end{itemize}
+
+  \pause
+  \begin{eqnarray*}
+    \neg \exists x~p(x)      & \Leftrightarrow & \forall x~\neg p(x)\\
+    \neg \exists x~\neg p(x) & \Leftrightarrow & \forall x~p(x)\\
+    \neg \forall x~p(x)      & \Leftrightarrow & \exists x~\neg p(x)\\
+    \neg \forall x~\neg p(x) & \Leftrightarrow & \exists x~p(x)
+  \end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Negating Quantifiers}
+
+  \begin{theorem}
+    $\neg \exists x~p(x) \Leftrightarrow \forall x~\neg p(x)$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{eqnarray*}
+      \neg \exists x~p(x) & \equiv          & \neg [p(x_1) \vee p(x_2) \vee \cdots
+                                              \vee p(x_n)]\\\pause
+                          & \Leftrightarrow & \neg p(x_1) \wedge \neg p(x_2) \wedge \cdots
+                                              \wedge \neg p(x_n)\\\pause
+                          & \equiv          & \forall x~\neg p(x)
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Predicate Equivalences}
+
+  \begin{theorem}
+    $\exists x~[p(x) \vee q(x)]
+      \Leftrightarrow \exists x~p(x) \vee \exists x~q(x)$
+  \end{theorem}
+
+  \pause
+  \begin{theorem}
+    $\forall x~[p(x) \wedge q(x)]
+      \Leftrightarrow \forall x~p(x) \wedge \forall x~q(x)$
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Predicate Implications}
+
+  \begin{theorem}
+    $\forall x~p(x) \Rightarrow \exists x~p(x)$
+  \end{theorem}
+
+  \pause
+  \begin{theorem}
+    $\exists x~[p(x) \wedge q(x)]
+      \Rightarrow \exists x~p(x) \wedge \exists x~q(x)$
+  \end{theorem}
+
+  \pause
+  \begin{theorem}
+    $\forall x~p(x) \vee \forall x~q(x)
+      \Rightarrow \forall x~[p(x) \vee q(x)]$
+  \end{theorem}
+\end{frame}
+
+\subsection{Multiple Quantifiers}
+
+\begin{frame}
+  \frametitle{Multiple Quantifiers}
+
+  \begin{itemize}
+    \item $\exists x \exists y~p(x,y)$
+    \item $\forall x \exists y~p(x,y)$
+    \item $\exists x \forall y~p(x,y)$
+    \item $\forall x \forall y~p(x,y)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Multiple Quantifier Examples}
+
+  \begin{example}
+    $\mathcal{U}=\mathbb{Z}$\\
+    $p(x,y): x+y=17$
+
+    \begin{itemize}
+      \pause
+      \item $\forall x \exists y~p(x,y)$:\\
+        for every $x$ there exists a $y$ such that $x+y=17$
+
+      \pause
+      \item $\exists y \forall x~p(x,y)$:\\
+        there exists a $y$ so that for all $x$,  $x+y=17$
+
+      \pause
+      \bigskip
+      \item what if $\mathcal{U}=\mathbb{N}$?
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Multiple Quantifiers}
+
+  \begin{example}
+    $\mathcal{U}_x = \{1,2\} \wedge \mathcal{U}_y = \{A,B\}$
+
+    \pause
+    \begin{eqnarray*}
+      \exists x \exists y~p(x,y) & \equiv & [p(1,A) \vee p(1,B)]
+                                       \vee [p(2,A) \vee p(2,B)]\\\pause
+      \exists x \forall y~p(x,y) & \equiv & [p(1,A) \wedge p(1,B)]
+                                       \vee [p(2,A) \wedge p(2,B)]\\\pause
+      \forall x \exists y~p(x,y) & \equiv & [p(1,A) \vee p(1,B)]
+                                     \wedge [p(2,A) \vee p(2,B)]\\\pause
+      \forall x \forall y~p(x,y) & \equiv & [p(1,A) \wedge p(1,B)]
+                                     \wedge [p(2,A) \wedge p(2,B)]
+    \end{eqnarray*}
+  \end{example}
+\end{frame}
+
+\section{Proofs}
+
+\subsection{Basic Principles}
+
+\begin{frame}
+  \frametitle{Method of Exhaustion}
+
+  \begin{itemize}
+    \item examining all possible cases one by one
+  \end{itemize}
+
+  \pause
+  \begin{theorem}
+    Every even number between $2$ and $26$ can be written\\
+    as the sum of at most 3 square numbers.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{tabular}{lll}
+      2 = 1+1   & 10 = 9+1    & 20 = 16+4\\
+      4 = 4     & 12 = 4+4+4  & 22 = 9+9+4\\
+      6 = 4+1+1 & 14 = 9+4+1  & 24 = 16+4+4\\
+      8 = 4+4   & 16 = 16     & 26 = 25+1\\
+                & 18 = 9+9    &
+    \end{tabular}\\
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Rules}
+
+  \begin{block}{Universal Specification (US)}
+    $\forall x~p(x) \Rightarrow p(a)$
+  \end{block}
+
+  \pause
+  \begin{block}{Universal Generalization (UG)}
+    $p(a)$ for an \alert{arbitrarily chosen} $a$
+      $\Rightarrow$ $\forall x~p(x)$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universal Specification Example}
+
+  \begin{example}
+    \begin{quote}
+      All humans are mortal. Socrates is human.\\
+      Therefore, Socrates is mortal.
+    \end{quote}
+
+    \pause
+    \begin{itemize}
+      \item $\mathcal{U}$: all humans
+      \item $p(x)$: $x$ is mortal
+      \item $\forall x~p(x)$: All humans are mortal.
+      \item $a$: Socrates, $a \in \mathcal{U}$: Socrates is human.
+      \item therefore, $p(a)$: Socrates is mortal.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universal Specification Example}
+
+  \begin{small}
+  \begin{example}
+    \begin{columns}
+      \column{.4\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)]\\
+            p(m)
+          \end{array}
+        }
+        {
+          \therefore \neg s(m)
+        }
+      \]
+
+      \pause
+      \column{.55\textwidth}
+      \begin{eqnarray*}
+        1. & \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)] & A\\\pause
+        2. & p(m)                                             & A\\\pause
+        3. & j(m) \vee s(m) \rightarrow \neg p(m)             & US:1\\\pause
+        4. & \neg (j(m) \vee s(m))                            & MT:3,2\\\pause
+        5. & \neg j(m) \wedge \neg s(m)                       & DM:4\\\pause
+        6. & \neg s(m)                                        & AndE:5
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universal Generalization Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.35\textwidth}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            \forall x~[p(x) \rightarrow q(x)]\\
+            \forall x~[q(x) \rightarrow r(x)]
+          \end{array}
+        }
+        {
+          \therefore \forall x~[p(x) \rightarrow r(x)]
+        }
+      \]
+
+      \pause
+      \column{.6\textwidth}
+      \begin{eqnarray*}
+        1. & \forall x~[p(x) \rightarrow q(x)] & A\\\pause
+        2. & p(c) \rightarrow q(c)             & US:1\\\pause
+        3. & \forall x~[q(x) \rightarrow r(x)] & A\\\pause
+        4. & q(c) \rightarrow r(c)             & US:3\\\pause
+        5. & p(c) \rightarrow r(c)             & HS:2,4\\\pause
+        6. & \forall x~[p(x) \rightarrow r(x)] & UG:5
+      \end{eqnarray*}
+    \end{columns}
+  \end{example}
+\end{frame}
+%
+% \begin{frame}
+%   \frametitle{Vacuous Proof}
+%
+%   \begin{block}{vacuous proof}
+%     to prove $P \Rightarrow Q$, show that $P$ is false
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Vacuous Proof Example}
+%
+%   \begin{theorem}
+%     $\forall S~[\emptyset \subseteq S]$
+%   \end{theorem}
+%
+%   \pause
+%   \begin{proof}
+%     $\emptyset \subseteq S \Leftrightarrow
+%       \forall x~[x \in \emptyset \rightarrow x \in S]$\\\pause
+%     $\forall x~[x \notin \emptyset]$
+%   \end{proof}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Trivial Proof}
+%
+%   \begin{block}{trivial proof}
+%     to prove $P \Rightarrow Q$, show that $Q$ is true
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Trivial Proof Example}
+%
+%   \begin{theorem}
+%     $\forall x \in \mathbb{R}~[x \geq 0 \Rightarrow x^2 \geq 0]$
+%   \end{theorem}
+%
+%   \pause
+%   \begin{proof}
+%     $\forall x \in \mathbb{R}~[x^2 \geq 0]$
+%   \end{proof}
+% \end{frame}
+%
+% \subsection{Direct Proof}
+
+\begin{frame}
+  \frametitle{Direct Proof}
+
+  \begin{block}{direct proof}
+    to prove $P \Rightarrow Q$, show that $P \vdash Q$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Direct Proof Example}
+
+  \begin{theorem}
+    $\forall a \in \mathbb{Z}~[3~|~(a-2) \Rightarrow 3~|~(a^2-1)]$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{eqnarray*}
+      3~|~(a-2) & \Rightarrow & \exists k \in \mathbb{N}~[a-2 = 3k]\\\pause
+                & \Rightarrow & a+1 = a-2 + 3 = 3k+3 = 3(k+1)\\\pause
+                & \Rightarrow & a^2-1 = (a+1)(a-1) = 3(k+1)(a-1)
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\subsection{Indirect Proof}
+
+\begin{frame}
+  \frametitle{Indirect Proof}
+
+  \begin{block}{indirect proof}
+    to prove $P \Rightarrow Q$, show that $\neg Q \vdash \neg P$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indirect Proof Example}
+
+  \begin{theorem}
+    $\forall x,y \in \mathbb{N}~[x \cdot y > 25
+      \Rightarrow (x > 5) \vee (y > 5)]$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{itemize}
+      \item $\neg Q \Leftrightarrow (0 \leq x \leq 5) \wedge (0 \leq y \leq 5)$
+
+      \pause
+      \item $x \cdot y \leq 5 \cdot 5 = 25$
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indirect Proof Example}
+
+  \begin{theorem}
+    $\forall a,b \in \mathbb{N}$\\
+      $\exists k \in \mathbb{N}~[ab=2k] \Rightarrow
+        (\exists i \in \mathbb{N}~[a=2i]) \vee
+        (\exists j \in \mathbb{N}~[b=2j])$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{itemize}
+      \item $\neg Q \Leftrightarrow (\neg \exists i \in \mathbb{N}~[a=2i])
+                          \wedge (\neg \exists j \in \mathbb{N}~[b=2j])$
+    \end{itemize}
+
+    \pause
+    \vspace{-24pt}
+    \begin{eqnarray*}
+      & \Rightarrow & (\exists x \in \mathbb{N}~[a=2x+1])
+               \wedge (\exists y \in \mathbb{N}~[b=2y+1])\\\pause
+      & \Rightarrow & ab=(2x+1)(2y+1)\\\pause
+      & \Rightarrow & ab=4xy+2x+2y+1\\\pause
+      & \Rightarrow & ab=2(2xy+x+y)+1\\\pause
+      & \Rightarrow & \neg (\exists k \in \mathbb{N}~[ab=2k])
+    \end{eqnarray*}
+  \end{proof}
+\end{frame}
+
+\subsection{Proof by Contradiction}
+
+\begin{frame}
+  \frametitle{Proof by Contradiction}
+
+  \begin{block}{proof by contradiction}
+    to prove $P$, show that $\neg P \vdash F$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proof by Contradiction Example}
+
+  \begin{theorem}
+    There is no largest prime number.
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{itemize}
+      \item $\neg P$: There is a largest prime number.
+
+      \pause
+      \item $Q$: The largest prime number is $S$.
+
+      \pause
+      \item prime numbers: $2,3,5,7,11,\dots,S$
+
+      \pause
+      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ is not divisible\\
+        by a prime number in the range $[2, S]$
+      \pause
+      \begin{enumerate}
+        \item either it is prime itself: $\neg Q$
+
+        \pause
+        \item or it is divisible by a prime number greater than $S$: $\neg Q$
+      \end{enumerate}
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proof by Contradiction Example}
+
+  \begin{theorem}
+    $\neg \exists a,b \in \mathbb{Z}^+~[\sqrt{2}=\frac{a}{b}]$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    \begin{itemize}
+      \item $\neg P$: $\exists a,b \in \mathbb{Z}^+~[\sqrt{2}=\frac{a}{b}]$
+      \item $Q$: $gcd(a,b)=1$
+    \end{itemize}
+
+    \pause
+    \vspace{-0.7cm}
+    \begin{columns}[t]
+      \column{.5\textwidth}
+      \begin{eqnarray*}
+        & \Rightarrow & 2 = \frac{a^2}{b^2}\\\pause
+        & \Rightarrow & a^2 = 2b^2\\\pause
+        & \Rightarrow & \exists i \in \mathbb{Z}^+~[a^2=2i]\\\pause
+        & \Rightarrow & \exists j \in \mathbb{Z}^+~[a=2j]
+      \end{eqnarray*}
+
+      \pause
+      \column{.5\textwidth}
+      \begin{eqnarray*}
+        & \Rightarrow & 4j^2 = 2b^2\\\pause
+        & \Rightarrow & b^2 = 2j^2\\\pause
+        & \Rightarrow & \exists k \in \mathbb{Z}^+~[b^2=2k]\\\pause
+        & \Rightarrow & \exists l \in \mathbb{Z}^+~[b=2l]\\\pause
+        & \Rightarrow & gcd(a,b) \geq 2: \neg Q
+      \end{eqnarray*}
+    \end{columns}
+  \end{proof}
+\end{frame}
+
+\subsection{Proof of Equivalence}
+
+\begin{frame}
+  \frametitle{Proof of Equivalence}
+
+  \begin{itemize}
+    \item to prove $P \Leftrightarrow Q$, both $P \Rightarrow Q$ and
+      $Q \Rightarrow P$ must be proven
+
+    \pause
+    \medskip
+    \item a method to prove
+      $P_1 \Leftrightarrow P_2 \Leftrightarrow \cdots \Leftrightarrow P_n$:\\
+      $P_1 \Rightarrow P_2 \Rightarrow \cdots \Rightarrow P_n \Rightarrow P_1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Proof Example}
+
+  \begin{theorem}
+    $a,b,n,q_1,r_1,q_2,r_2 \in \mathbb{Z}^+$\\
+    $a = q_1 \cdot n + r_1$\\
+    $b = q_2 \cdot n + r_2$\\
+
+    \bigskip
+    $r_1 = r_2 \Leftrightarrow n | (a - b)$
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalence Proof Example}
+
+  \begin{columns}[t]
+    \column{.55\textwidth}
+    \begin{proof}[$r_1 = r_2 \Rightarrow n | (a - b)$]
+      \begin{eqnarray*}
+        a - b & = & (q_1 \cdot n + r_1)\\
+              &   & -(q_2 \cdot n + r_2)\\\pause
+              & = & (q_1 - q_2) \cdot n\\
+              &   & + (r_1 - r_2)\\\pause
+        r_1 = r_2 & \Rightarrow & r_1 - r_2 = 0\\\pause
+                  & \Rightarrow & a - b = (q_1 - q_2) \cdot n
+      \end{eqnarray*}
+    \end{proof}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{proof}[$n | (a - b) \Rightarrow r_1 = r_2$]
+      \begin{eqnarray*}
+        a - b & = & (q_1 \cdot n + r_1)\\
+              &   & -(q_2 \cdot n + r_2)\\\pause
+              & = & (q_1 - q_2) \cdot n\\
+              &   & + (r_1 - r_2)\\\pause
+        n | (a - b) & \Rightarrow & r_1 - r_2 = 0\\\pause
+                    & \Rightarrow & r_1 = r_2
+      \end{eqnarray*}
+    \end{proof}
+  \end{columns}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Grimaldi}
+    \begin{itemize}
+      \item Chapter 2: Fundamentals of Logic
+      \begin{itemize}
+        \item 2.4. \alert{The Use of Quantifiers}
+        \item 2.5. \alert{Quantifiers, Definitions, and the Proofs of Theorems}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
+    \begin{itemize}
+      \item Chapter 7: Predicate Logic
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
