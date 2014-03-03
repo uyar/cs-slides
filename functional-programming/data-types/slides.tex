@@ -171,6 +171,7 @@ gcd_lcm x y = (g, l)
       | b == 0    = a
       | otherwise = gcd' b (a `mod` b)
 
+    g, l :: Integer
     g = gcd' x y
     l = (x * y) `div` g
     \end{pygments}
@@ -688,8 +689,9 @@ area hole    -- 28.274311
 type Rational1 = (Integer, Integer)
 
 simplify1 :: Rational1 -> Rational1
-simplify1 (n, d) = (n `div` g, d `div` g)
+simplify1 (n,d) = (n `div` g,d `div` g)
   where
+    g :: Integer
     g = gcd n d
 
 type DayInYear = (Integer, Integer)
@@ -713,6 +715,7 @@ simplify2 :: Rational2 -> Rational2
 simplify2 (Rational n d) =
   Rational (n `div` g) (d `div` g)
     where
+      g :: Integer
       g = gcd n d
     \end{pygments}
   \end{exampleblock}
