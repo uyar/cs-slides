@@ -23,7 +23,7 @@
 }
 
 \title{Functional Programming}
-\subtitle{Data Types and Pattern Matching}
+\subtitle{Lists}
 
 \author{H. Turgut Uyar}
 \date{2013-2014}
@@ -89,173 +89,461 @@
   \tableofcontents
 \end{frame}
 
-\subsection{List Patterns}
+\section{List Expressions}
+
+\subsection{Strings}
 
 \begin{frame}[fragile]
-  \frametitle{List Pattern Examples}
+  \frametitle{Strings}
 
-  \begin{exampleblock}{maximum of a list}
+  \begin{itemize}
+    \item a string is a list of characters
+  \end{itemize}
+
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-max' :: [Integer] -> Integer
-max' [] = error "empty list"
-max' [i] = i
-max' (x:xs') = if x > maxRest then x else maxRest
-  where maxRest = max' xs'
+type String = [Char]
+
+head "abc"              -- 'a'
+tail "abc"              -- "bc"
+null "abc"              -- False
+null ""                 -- True
+length "abc"            -- 3
+"abc" ++ "defg"         -- "abcdefg"
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{List Operators}
+
+\begin{frame}[fragile]
+  \frametitle{List Indexing}
+
+  \begin{exampleblock}{get the nth element of a list}
+    \begin{pygments}{haskell}
+getNth [] _ = error "empty list"
+getNth (x:xs) 0 = x
+getNth (x:xs) n = getNth xs (n - 1)
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item Haskell operator: \pygment{haskell}{!!}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Appending Lists}
+
+  \begin{exampleblock}{append two lists}
+    \begin{pygments}{haskell}
+append :: [a] -> [a] -> [a]
+append xs ys =
+    case xs of
+      [] -> ys
+      x:xs' -> x : append xs' ys
+
+-- OR:
+append [] ys = ys
+append (x:xs) ys = x : append xs ys
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item Haskell operator: \pygment{haskell}{++}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Constructing Ranges}
+
+  \begin{exampleblock}{construct a list from a lower limit to an upper limit}
+    \begin{pygments}{haskell}
+countUp :: Integer -> Integer -> [Integer]
+countUp lower upper
+  | lower > upper = []
+  | otherwise     = lower : countUp (lower + 1) upper
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item write a tail recursive \pygment{haskell}{countDown}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Range Construction Example}
+
+  \begin{footnotesize}
+    \begin{exampleblock}{construct a list from an upper limit to a lower limit}
+      \begin{pygments}{haskell}
+countDown :: Integer -> Integer -> [Integer]
+countDown upper lower = countDownIter [] upper lower
+  where
+    countDownIter :: [Integer] -> Integer -> Integer -> [Integer]
+    countDownIter acc upper' lower'
+      | upper' < lower' = acc
+      | otherwise       = countDownIter (acc ++ [upper'])
+                                        (upper' - 1) lower'
+    \end{pygments}
+    \end{exampleblock}
+  \end{footnotesize}
+
+  \pause
+  \begin{itemize}
+    \item can any of the parameters be removed?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Range Expressions}
+
+  \begin{itemize}
+    \item \pygment{haskell}{[n .. m]}: range with increment 1
+    \item \pygment{haskell}{[n,p .. m]}: range with increment \texttt{p-n}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+[2 .. 7]          -- [2,3,4,5,6,7]
+[3.1 .. 7.0]      -- [3.1,4.1,5.1,6.1,7.1]
+['a' .. 'm']      -- "abcdefghijklm"
+
+[7,6 .. 3]        -- [7,6,5,4,3]
+[0.0,0.3 .. 1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
+['a','c' .. 'n']  -- "acegikm"
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{List Comprehension}
+
+\begin{frame}[fragile]
+  \frametitle{List Comprehension}
+
+  \begin{itemize}
+    \item describe a list in terms of the elements of another list
+    \item generate, test, transform
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+[2 * n | n <- [2,4,7]]  -- [4,8,14]
+[even n | n <- [2,4,7]] -- [True,True,False]
+[2 * n | n <- [2,4,7], even n, n > 3]   -- [8]
+[m + n | (m,n) <- [(2,3),(2,1),(7,8)]]  -- [5,3,15]
+[(x,y,z) | x <- [1 .. 5],
+           y <- [1 .. 5],
+           z <- [1 .. 5],
+           x * x + y * y == z * z]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Recursion Example}
+  \frametitle{List Comprehension}
 
-  \begin{example}[append two lists]
-    \pause
-    \begin{pygments}{haskell}
-append xs ys =
-    if null xs
-    then ys
-    else head xs : append (tail xs) ys
+  \begin{exampleblock}{Python}
+    \begin{pygments}{python}
+[2 * n for n in [2,4,7]]
+[even(n) for n in [2,4,7]]
+[2 * n for n in [2,4,7] if even(n) and (n > 3)]
+[m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
+[(x, y, z) for x in range(1, 6)
+           for y in range(1, 6)
+           for z in range(1, 6)
+           if x * x + y * y == z * z]
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Comprehension Example}
+
+  \begin{exampleblock}{Quicksort}
+    \begin{pygments}{haskell}
+quickSort :: [Integer] -> [Integer]
+quickSort [] = []
+quickSort (pivot:xs) =
+    quickSort [x | x <- xs, x <= pivot]
+    ++ [pivot]
+    ++ quickSort [x | x <- xs, x > pivot]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section{List Functions}
+
+\subsection{Prelude Functions}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{last element of a list}
+    \begin{pygments}{haskell}
+last' :: [a] -> a
+last' [] = error "empty list"
+last' [x] = x
+last' (x:xs) = last' xs
+    \end{pygments}
+  \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item Haskell list append operator: \pygment{haskell}{++}
+    \item exercise: write a function that will give all elements\\
+      but the last of a list
+  \end{itemize}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{all elements but the last of a list}
+    \begin{pygments}{haskell}
+init' :: [a] -> [a]
+init' [] = error "empty list"
+init' [x] = []
+init' (x:xs) = x : init' xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item exercise: make a list of n copies of an item\\
+      \pygment{haskell}{replicate 3 'c'} $\rightsquigarrow$
+      \pygment{haskell}{"ccc"}
+    \item exercise: take n elements from the front of a list\\
+      \pygment{haskell}{take 3 "Peccary"} $\rightsquigarrow$
+      \pygment{haskell}{"Pec"}
+    \item exercise: drop n elements from the front of a list\\
+      \pygment{haskell}{drop 3 "Peccary"} $\rightsquigarrow$
+      \pygment{haskell}{"cary"}
+    \item exercise: split a list at a given position\\
+      \pygment{haskell}{splitAt 3 "Peccary"} $\rightsquigarrow$
+      \pygment{haskell}{("Pec","cary")}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{make a list of n copies of an item}
+    \begin{pygments}{haskell}
+replicate' :: Integer -> a -> [a]
+replicate' 0 _ = []
+replicate' n x = x : replicate' (n - 1) x
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{split a list at a given position}
+    \begin{pygments}{haskell}
+splitAt' :: Integer -> [a] -> ([a], [a])
+splitAt' n xs = (take' n xs,drop' n xs)
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: write a tail recursive version that works in one pass
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item exercise: write a primitive recursive function\\
+      that will reverse a list
+    \item exercise: write a tail recursive function that will reverse a list
+  \end{itemize}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{reverse a list (primitive recursive)}
+    \begin{pygments}{haskell}
+reverse1 :: [a] -> [a]
+reverse1 [] = []
+reverse1 (x:xs) = (reverse1 xs) ++ [x]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{exampleblock}{reverse a list (tail recursive)}
+    \begin{pygments}{haskell}
+reverse2 :: [a] -> [a]
+reverse2 xs = reverseIter [] xs
+  where
+    reverseIter :: [a] -> [a] -> [a]
+    reverseIter acc [] = acc
+    reverseIter acc (x:xs') = reverseIter (x : acc) xs'
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item convert a list of lists into a list\\
+      \pygment{haskell}{concat [[2,3],[],[4]} $\rightsquigarrow$
+      \pygment{haskell}{[2,3,4]}
+  \end{itemize}
+
+  \begin{exampleblock}{convert a list of lists into a list}
+    \begin{pygments}{haskell}
+concat' :: [[a]] -> [a]
+concat' [] = []
+concat' (x:xs) = x ++ concat' xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item convert two lists into a list of pairs\\
+      \pygment{haskell}{zip [1,2] [3,4]} $\rightsquigarrow$
+      \pygment{haskell}{[(1,3),(2,4)]}
+  \end{itemize}
+
+  \begin{exampleblock}{convert two lists into a list of pairs}
+    \begin{pygments}{haskell}
+zip' :: [a] -> [b] -> [(a, b)]
+zip' [] [] = []
+zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item what if called as:\\
+      \pygment{haskell}{zip' [1,2] [3,4,5]}
+    \item result should be: \pygment{haskell}{[(1,3),(2,4)]}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Recursion Example}
+  \frametitle{Prelude Functions}
 
-  \begin{example}[generate list from lower to upper limit]
-    \pause
-    \begin{pygments}{haskell}
-countUp lower upper =
-    if lower > upper
-    then []
-    else lower : countUp (lower + 1) upper
-    \end{pygments}
-  \end{example}
+  \begin{itemize}
+    \item convert three lists into a list of triples\\
+      \pygment{haskell}{zip3 [1,2] [3,4] [5,6]} $\rightsquigarrow$
+      \pygment{haskell}{[(1,3,5),(2,4,6)]}
+    \item using a \pygment{haskell}{case} expression
+  \end{itemize}
 
   \pause
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write a tail recursive version that generates the list\\
-        from an upper limit down to a lower limit
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{List Recursion Example}
-
-  \begin{example}[generate list from upper to lower limit]
+  \begin{exampleblock}{convert three lists into a list of triples}
     \begin{pygments}{haskell}
-countDown upper lower =
-    let
-        countDownIter acc u =
-            if u < lower
-            then acc
-            else countDownIter (acc ++ [u]) (u - 1)
-    in
-        countDownIter [] upper
+zip3' :: [a] -> [b] -> [c] -> [(a, b, c)]
+zip3' xs ys zs =
+    case (xs,ys,zs) of
+      (x:xs',y:ys',z:zs') ->
+          (x,y,z) : zip3' xs' ys' zs'
+      _ -> []
     \end{pygments}
-
-% TODO: note the use of lower
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Recursion Example}
+  \frametitle{Prelude Functions}
 
-  \begin{example}[maximum of a list]
-    \pause
+  \begin{itemize}
+    \item convert a list of pairs into a pair of lists\\
+      \pygment{haskell}{unzip [(1,3),(2,4)]} $\rightsquigarrow$
+      \pygment{haskell}{([1,2],[3,4])}
+  \end{itemize}
+
+  \begin{exampleblock}{convert a list of pairs into a pair of lists}
     \begin{pygments}{haskell}
-max' xs =
-    if null xs
-    then error "empty list"
-    else if null (tail xs)
-         then head xs
-         else if head xs > max' (tail xs)
-              then head xs
-              else max' (tail xs)
+unzip' :: [(a,b)] -> ([a], [b])
+unzip' [] = ([],[])
+unzip' ((x,y):xys) = (x:xs,y:ys)
+  where
+    (xs,ys) = unzip' xys
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{List Recursion Exercise}
+\subsection{List Recursion}
 
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item what happens if called as:\\
-        \pygment{haskell}{max' (countDown 30 1)}\\
-        \pygment{haskell}{max' (countUp 1 30)}
-      \item fix the problem
-   \end{itemize}
-  \end{block}
+\begin{frame}[fragile]
+  \frametitle{List Maximum}
+
+  \begin{exampleblock}{maximum of a list}
+    \begin{pygments}{haskell}
+maxList1 :: [Integer] -> Integer
+maxList1 [] = error "empty list"
+maxList1 [x] = x
+maxList1 (x:xs)
+  | x > maxList1 xs = x
+  | otherwise       = maxList1 xs
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item what happens if called as:\\
+      \pygment{haskell}{maxList1 [30,29 .. 1]}\\
+      \pygment{haskell}{maxList1 [1 .. 30]}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
-  \frametitle{List Recursion Example}
+  \frametitle{List Maximum}
 
-  \begin{example}[maximum of a list]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-max' xs =
-    if null xs
-    then error "empty list"
-    else if null (tail xs)
-         then head xs
-         else
-             let
-                 maxRest = max' (tail xs)
-             in
-                 if head xs > maxRest
-                 then head xs
-                 else maxRest
+maxList2 :: [Integer] -> Integer
+maxList2 [] = error "empty list"
+maxList2 [x] = x
+maxList2 (x:xs)
+  | x > maxTail = x
+  | otherwise   = maxTail
+  where
+    maxTail :: Integer
+    maxTail = maxList2 xs
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{List Recursion Exercises}
+  \frametitle{Pattern Exercise}
 
-  \begin{block}{Exercises}
-    \begin{itemize}
-      \item write a function that will reverse a list
-      \item write a tail recursive function that will reverse a list
-    \end{itemize}
-  \end{block}
+  \begin{itemize}
+    \item exercise: write a function that checks\\
+      whether a list is nondecreasing
+  \end{itemize}
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
-  \frametitle{List Recursion Example}
+  \frametitle{Pattern Example}
 
-  \begin{example}[reverse a list]
+  \begin{exampleblock}{check whether a list is nondecreasing}
     \begin{pygments}{haskell}
-reverse' xs =
-    if null xs
-    then []
-    else reverse' (tail xs) ++ [head xs]
+nondecreasing :: [Integer] -> Bool
+nondecreasing [] = True
+nondecreasing [_] = True
+nondecreasing (x1:x2:xs) = x1 <= x2
+                        && nondecreasing (x2 : xs)
     \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{List Recursion Example}
-
-  \begin{example}[reverse a list]
-    \begin{pygments}{haskell}
-reverse' xs =
-    let
-        reverseIter acc items =
-            if null items
-            then acc
-            else reverseIter (head items : acc) (tail items)
-    in
-        reverseIter [] xs
-    \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \section*{References}
@@ -265,7 +553,8 @@ reverse' xs =
 
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
-      \item Chapter 5: \alert{Data types, tuples and lists}
+      \item Chapter 6: \alert{Programming with lists}
+      \item Chapter 7: \alert{Defining functions over lists}
     \end{itemize}
   \end{block}
 \end{frame}
