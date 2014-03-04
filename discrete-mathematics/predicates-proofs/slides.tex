@@ -515,50 +515,52 @@
     \end{columns}
   \end{example}
 \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Vacuous Proof}
-%
-%   \begin{block}{vacuous proof}
-%     to prove $P \Rightarrow Q$, show that $P$ is false
-%   \end{block}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Vacuous Proof Example}
-%
-%   \begin{theorem}
-%     $\forall S~[\emptyset \subseteq S]$
-%   \end{theorem}
-%
-%   \pause
-%   \begin{proof}
-%     $\emptyset \subseteq S \Leftrightarrow
-%       \forall x~[x \in \emptyset \rightarrow x \in S]$\\\pause
-%     $\forall x~[x \notin \emptyset]$
-%   \end{proof}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Trivial Proof}
-%
-%   \begin{block}{trivial proof}
-%     to prove $P \Rightarrow Q$, show that $Q$ is true
-%   \end{block}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Trivial Proof Example}
-%
-%   \begin{theorem}
-%     $\forall x \in \mathbb{R}~[x \geq 0 \Rightarrow x^2 \geq 0]$
-%   \end{theorem}
-%
-%   \pause
-%   \begin{proof}
-%     $\forall x \in \mathbb{R}~[x^2 \geq 0]$
-%   \end{proof}
-% \end{frame}
+
+\begin{frame}
+  \frametitle{Trivial Proofs}
+
+  \begin{block}{vacuous proof}
+    \begin{tabular}{ll}
+      to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
+      show:     & $\forall x~\neg p(x)$
+    \end{tabular}
+  \end{block}
+
+  \medskip
+  \begin{block}{trivial proof}
+    \begin{tabular}{ll}
+      to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
+      show:     & $\forall x~q(x)$
+    \end{tabular}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Trivial Proof Examples}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{theorem}
+      $\forall x \in \mathbb{N}~[x < 0 \rightarrow \sqrt{x} < 0]$
+    \end{theorem}
+
+    \pause
+    \begin{proof}
+      $\forall x \in \mathbb{N}~[x \nless 0]$
+    \end{proof}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{theorem}
+      $\forall x \in \mathbb{R}~[x \geq 0 \rightarrow x^2 \geq 0]$
+    \end{theorem}
+
+    \pause
+    \begin{proof}
+      $\forall x \in \mathbb{R}~[x^2 \geq 0]$
+    \end{proof}
+  \end{columns}
+\end{frame}
 %
 % \subsection{Direct Proof}
 
@@ -566,7 +568,10 @@
   \frametitle{Direct Proof}
 
   \begin{block}{direct proof}
-    to prove $P \Rightarrow Q$, show that $P \vdash Q$
+    \begin{tabular}{ll}
+      to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
+      show:     & $\forall x~[p(x) \vdash q(x)]$
+    \end{tabular}
   \end{block}
 \end{frame}
 
@@ -574,13 +579,14 @@
   \frametitle{Direct Proof Example}
 
   \begin{theorem}
-    $\forall a \in \mathbb{Z}~[3~|~(a-2) \Rightarrow 3~|~(a^2-1)]$
+    $\forall a \in \mathbb{Z}~[3~|~(a-2) \rightarrow 3~|~(a^2-1)]$\\
+    where $x~|~y$ means $y~mod~x = 0$
   \end{theorem}
 
   \pause
   \begin{proof}
     \begin{eqnarray*}
-      3~|~(a-2) & \Rightarrow & \exists k \in \mathbb{N}~[a-2 = 3k]\\\pause
+      3~|~(a-2) & \Rightarrow & \exists k \in \mathbb{Z}~[a-2 = 3k]\\\pause
                 & \Rightarrow & a+1 = a-2 + 3 = 3k+3 = 3(k+1)\\\pause
                 & \Rightarrow & a^2-1 = (a+1)(a-1) = 3(k+1)(a-1)
     \end{eqnarray*}
@@ -593,7 +599,10 @@
   \frametitle{Indirect Proof}
 
   \begin{block}{indirect proof}
-    to prove $P \Rightarrow Q$, show that $\neg Q \vdash \neg P$
+    \begin{tabular}{ll}
+      to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
+      show:     & $\forall x~[\neg q(x) \vdash \neg p(x)]$
+    \end{tabular}
   \end{block}
 \end{frame}
 
@@ -602,7 +611,7 @@
 
   \begin{theorem}
     $\forall x,y \in \mathbb{N}~[x \cdot y > 25
-      \Rightarrow (x > 5) \vee (y > 5)]$
+      \rightarrow (x > 5) \vee (y > 5)]$
   \end{theorem}
 
   \pause
@@ -621,7 +630,7 @@
 
   \begin{theorem}
     $\forall a,b \in \mathbb{N}$\\
-      $\exists k \in \mathbb{N}~[ab=2k] \Rightarrow
+      $\exists k \in \mathbb{N}~[ab=2k] \rightarrow
         (\exists i \in \mathbb{N}~[a=2i]) \vee
         (\exists j \in \mathbb{N}~[b=2j])$
   \end{theorem}
@@ -652,7 +661,10 @@
   \frametitle{Proof by Contradiction}
 
   \begin{block}{proof by contradiction}
-    to prove $P$, show that $\neg P \vdash F$
+    \begin{tabular}{ll}
+      to prove: & $P$\\
+      show:     & $\neg P \vdash Q \wedge \neg Q \Leftrightarrow F$
+    \end{tabular}
   \end{block}
 \end{frame}
 
@@ -735,7 +747,7 @@
 
   \pause
   \begin{columns}[t]
-    \column{.32\textwidth}
+    \column{.3\textwidth}
     \begin{proof}
       \begin{itemize}
         \item $1 = \frac{1}{3} + \frac{1}{3} + \frac{1}{3}$
@@ -746,7 +758,7 @@
     \end{proof}
 
     \pause
-    \column{.32\textwidth}
+    \column{.3\textwidth}
     \begin{proof}
       \begin{itemize}
         \item $x = 0.999...$
@@ -757,12 +769,13 @@
     \end{proof}
 
     \pause
-    \column{.32\textwidth}
+    \column{.36\textwidth}
     \begin{proof}
       \begin{itemize}
-        \item $\neg P$: $1 \neq 0.999...$
-        \item $Q$: $x= \frac{0.999... + 1}{2}$
+        \item assume $1 \neq 0.999...$
+        \item $x = \frac{0.999... + 1}{2}$
         \item $0.999... < x < 1$
+        \item digit other than $9$?
       \end{itemize}
     \end{proof}
   \end{columns}
@@ -839,7 +852,7 @@
 
     \pause
     \medskip
-    $S(n_0) \wedge (\forall k \geq n_0~[S(k) \Rightarrow S(k+1)])
+    $S(n_0) \wedge (\forall k \geq n_0~[S(k) \rightarrow S(k+1)])
       \Rightarrow \forall n \geq n_0~S(n)$
   \end{definition}
 
@@ -847,7 +860,7 @@
   \medskip
   \begin{itemize}
     \item $S(n_0)$: \emph{base step}
-    \item $\forall k \geq n_0~[S(k) \Rightarrow S(k+1)]$: \emph{induction step}
+    \item $\forall k \geq n_0~[S(k) \rightarrow S(k+1)]$: \emph{induction step}
   \end{itemize}
 \end{frame}
 
@@ -939,7 +952,7 @@
 
   \begin{definition}
     $S(n_0) \wedge
-      (\forall k \geq n_0~[(\forall i \leq k~S(i)) \Rightarrow S(k+1)])
+      (\forall k \geq n_0~[(\forall i \leq k~S(i)) \rightarrow S(k+1)])
       \Rightarrow \forall n \geq n_0~S(n)$
   \end{definition}
 \end{frame}
@@ -996,7 +1009,7 @@
     \end{itemize}
   \end{proof}
 \end{frame}
-%
+
 % \begin{frame}
 %   \frametitle{Flawed Induction Example}
 %
@@ -1071,14 +1084,14 @@
 %     \end{itemize}
 %   \end{block}
 % \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Flawed Induction Examples}
-%
-%   \begin{center}
-%     \pgfuseimage{error2}
-%   \end{center}
-% \end{frame}
+
+\begin{frame}
+  \frametitle{Flawed Induction Examples}
+
+  \begin{center}
+    \pgfuseimage{error2}
+  \end{center}
+\end{frame}
 
 \subsection*{References}
 
