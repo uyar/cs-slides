@@ -109,7 +109,6 @@ tail "abc"              -- "bc"
 null "abc"              -- False
 null ""                 -- True
 length "abc"            -- 3
-"abc" ++ "defg"         -- "abcdefg"
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -119,22 +118,32 @@ length "abc"            -- 3
 \begin{frame}[fragile]
   \frametitle{List Indexing}
 
+  \begin{itemize}
+    \item Haskell operator: \pygment{haskell}{!!}
+  \end{itemize}
+
   \begin{exampleblock}{get the nth element of a list}
     \begin{pygments}{haskell}
+getNth :: [a] -> Integer -> a
+getNth xs n
+  | null xs   = error "empty list"
+  | n == 0    = head xs
+  | otherwise = getNth (tail xs) (n - 1)
+
+-- OR:
 getNth [] _ = error "empty list"
 getNth (x:xs) 0 = x
 getNth (x:xs) n = getNth xs (n - 1)
     \end{pygments}
   \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item Haskell operator: \pygment{haskell}{!!}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Appending Lists}
+
+  \begin{itemize}
+    \item Haskell operator: \pygment{haskell}{++}
+  \end{itemize}
 
   \begin{exampleblock}{append two lists}
     \begin{pygments}{haskell}
@@ -149,11 +158,27 @@ append [] ys = ys
 append (x:xs) ys = x : append xs ys
     \end{pygments}
   \end{exampleblock}
+\end{frame}
 
-  \pause
+\begin{frame}[fragile]
+  \frametitle{Range Expressions}
+
   \begin{itemize}
-    \item Haskell operator: \pygment{haskell}{++}
+    \item \pygment{haskell}{[n .. m]}: range with increment 1
+    \item \pygment{haskell}{[n,p .. m]}: range with increment \texttt{p-n}
   \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+[2 .. 7]          -- [2,3,4,5,6,7]
+[3.1 .. 7.0]      -- [3.1,4.1,5.1,6.1,7.1]
+['a' .. 'm']      -- "abcdefghijklm"
+
+[7,6 .. 3]        -- [7,6,5,4,3]
+[0.0,0.3 .. 1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
+['a','c' .. 'n']  -- "acegikm"
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -196,27 +221,6 @@ countDown upper lower = countDownIter [] upper lower
   \begin{itemize}
     \item can any of the parameters be removed?
   \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Range Expressions}
-
-  \begin{itemize}
-    \item \pygment{haskell}{[n .. m]}: range with increment 1
-    \item \pygment{haskell}{[n,p .. m]}: range with increment \texttt{p-n}
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-[2 .. 7]          -- [2,3,4,5,6,7]
-[3.1 .. 7.0]      -- [3.1,4.1,5.1,6.1,7.1]
-['a' .. 'm']      -- "abcdefghijklm"
-
-[7,6 .. 3]        -- [7,6,5,4,3]
-[0.0,0.3 .. 1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
-['a','c' .. 'n']  -- "acegikm"
-    \end{pygments}
-  \end{exampleblock}
 \end{frame}
 
 \subsection{List Comprehension}
@@ -282,6 +286,12 @@ quickSort (pivot:xs) =
 \begin{frame}[fragile]
   \frametitle{Prelude Functions}
 
+  \begin{itemize}
+    \item last element of a list\\
+      \pygment{haskell}{last "word"} $\rightsquigarrow$
+      \pygment{haskell}{'d'}
+  \end{itemize}
+
   \begin{exampleblock}{last element of a list}
     \begin{pygments}{haskell}
 last' :: [a] -> a
@@ -294,7 +304,9 @@ last' (x:xs) = last' xs
   \pause
   \begin{itemize}
     \item exercise: write a function that will give all elements\\
-      but the last of a list
+      but the last of a list\\
+      \pygment{haskell}{init "word"} $\rightsquigarrow$
+      \pygment{haskell}{"wor"}
   \end{itemize}
 \end{frame}
 
@@ -472,16 +484,16 @@ zip3' xs ys zs =
 
   \begin{exampleblock}{convert a list of pairs into a pair of lists}
     \begin{pygments}{haskell}
-unzip' :: [(a,b)] -> ([a], [b])
+unzip' :: [(a, b)] -> ([a], [b])
 unzip' [] = ([],[])
-unzip' ((x,y):xys) = (x:xs,y:ys)
+unzip' ((x,y):xys) = (x : xs,y : ys)
   where
     (xs,ys) = unzip' xys
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
-\subsection{List Recursion}
+\subsection{Examples}
 
 \begin{frame}[fragile]
   \frametitle{List Maximum}
@@ -523,17 +535,8 @@ maxList2 (x:xs)
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Pattern Exercise}
-
-  \begin{itemize}
-    \item exercise: write a function that checks\\
-      whether a list is nondecreasing
-  \end{itemize}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{Pattern Example}
+\begin{frame}[fragile]
+  \frametitle{List Order}
 
   \begin{exampleblock}{check whether a list is nondecreasing}
     \begin{pygments}{haskell}
@@ -541,7 +544,7 @@ nondecreasing :: [Integer] -> Bool
 nondecreasing [] = True
 nondecreasing [_] = True
 nondecreasing (x1:x2:xs) = x1 <= x2
-                        && nondecreasing (x2 : xs)
+                           && nondecreasing (x2 : xs)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
