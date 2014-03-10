@@ -121,18 +121,32 @@
     set of allowable choices
   \end{definition}
 
-  \pause
-  \begin{itemize}
-    \item examples:
+  \begin{columns}[t]
+    \column{.55\textwidth}
     \begin{itemize}
-      \item $\mathbb{Z}$: integers
-      \item $\mathbb{N}$: natural numbers
-      \item $\mathbb{Z}^+$: positive integers
-      \item $\mathbb{Q}$: rational numbers
-      \item $\mathbb{R}$: real numbers
-      \item $\mathbb{C}$: complex numbers
+      \item set notation: $\{a_1,a_2,\dots,a_n\}$
+      \item let $S$ be a set, and\\
+        $a$ be an element
+      \begin{itemize}
+        \item $a \in S$: $a$ is an element of $S$
+        \item $a \notin S$: $a$ is not an element of $S$
+      \end{itemize}
     \end{itemize}
-  \end{itemize}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item some important sets:
+      \begin{itemize}
+        \item $\mathbb{Z}$: integers
+        \item $\mathbb{N}$: natural numbers
+        \item $\mathbb{Z}^+$: positive integers
+        \item $\mathbb{Q}$: rational numbers
+        \item $\mathbb{R}$: real numbers
+        \item $\mathbb{C}$: complex numbers
+      \end{itemize}
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -585,10 +599,15 @@
 
   \pause
   \begin{proof}
+    \begin{itemize}
+      \item assume: $3~|~(a-2)$
+    \end{itemize}
+
+    \vspace{-2em}
     \begin{eqnarray*}
-      3~|~(a-2) & \Rightarrow & \exists k \in \mathbb{Z}~[a-2 = 3k]\\\pause
-                & \Rightarrow & a+1 = a-2 + 3 = 3k+3 = 3(k+1)\\\pause
-                & \Rightarrow & a^2-1 = (a+1)(a-1) = 3(k+1)(a-1)
+      & \Rightarrow & \exists k \in \mathbb{Z}~[a-2 = 3k]\\\pause
+      & \Rightarrow & a+1 = a-2 + 3 = 3k+3 = 3(k+1)\\\pause
+      & \Rightarrow & a^2-1 = (a+1)(a-1) = 3(k+1)(a-1)
     \end{eqnarray*}
   \end{proof}
 \end{frame}
@@ -617,11 +636,14 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $\neg Q \Leftrightarrow (0 \leq x \leq 5) \wedge (0 \leq y \leq 5)$
-
-      \pause
-      \item $x \cdot y \leq 5 \cdot 5 = 25$
+      \item assume: $\neg ((x > 5) \vee (y > 5))$
     \end{itemize}
+
+    \vspace{-2em}
+    \begin{eqnarray*}
+      & \Rightarrow & (0 \leq x \leq 5) \wedge (0 \leq y \leq 5)\\\pause
+      & \Rightarrow & x \cdot y \leq 5 \cdot 5 = 25
+    \end{eqnarray*}
   \end{proof}
 \end{frame}
 
@@ -638,15 +660,14 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $\neg Q \Leftrightarrow (\neg \exists i \in \mathbb{N}~[a=2i])
+      \item assume: $(\neg \exists i \in \mathbb{N}~[a=2i])
                           \wedge (\neg \exists j \in \mathbb{N}~[b=2j])$
     \end{itemize}
 
-    \pause
-    \vspace{-24pt}
+    \vspace{-2em}
     \begin{eqnarray*}
       & \Rightarrow & (\exists x \in \mathbb{N}~[a=2x+1])
-               \wedge (\exists y \in \mathbb{N}~[b=2y+1])\\\pause
+                          \wedge (\exists y \in \mathbb{N}~[b=2y+1])\\\pause
       & \Rightarrow & ab=(2x+1)(2y+1)\\\pause
       & \Rightarrow & ab=4xy+2x+2y+1\\\pause
       & \Rightarrow & ab=2(2xy+x+y)+1\\\pause
@@ -678,23 +699,23 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $\neg P$: There is a largest prime number.
+      \item assume: There is a largest prime number.
 
       \pause
-      \item $Q$: The largest prime number is $S$.
+      \item $Q$: The largest prime number is $s$.
 
       \pause
-      \item prime numbers: $2,3,5,7,11,\dots,S$
+      \item prime numbers: $2,3,5,7,11,\dots,s$
 
       \pause
-      \item $2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots S + 1$ is not divisible\\
-        by a prime number in the range $[2, S]$
+      \item let $z = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots s + 1$\\
+      \item $z$ is not divisible by a prime number in the range $[2, s]$
       \pause
       \begin{enumerate}
-        \item either it is prime itself: $\neg Q$
+        \item either $z$ is a prime number (note that $z > s$): $\neg Q$
 
         \pause
-        \item or it is divisible by a prime number greater than $S$: $\neg Q$
+        \item or $z$ is divisible by a prime number $t$ where $t > s$: $\neg Q$
       \end{enumerate}
     \end{itemize}
   \end{proof}
@@ -710,7 +731,7 @@
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $\neg P$: $\exists a,b \in \mathbb{Z}^+~[\sqrt{2}=\frac{a}{b}]$
+      \item assume: $\exists a,b \in \mathbb{Z}^+~[\sqrt{2}=\frac{a}{b}]$
       \item $Q$: $gcd(a,b)=1$
     \end{itemize}
 
@@ -739,46 +760,21 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Proof Examples}
+  \frametitle{Proof by Contradiction Example}
 
   \begin{theorem}
-    $1 = 0.999...$
+    $0.\overline{9} = 1$
   \end{theorem}
 
   \pause
-  \begin{columns}[t]
-    \column{.3\textwidth}
-    \begin{proof}
-      \begin{itemize}
-        \item $1 = \frac{1}{3} + \frac{1}{3} + \frac{1}{3}$
-        \item $1 = 0.333...$\\
-        ~~$+~0.333...$\\
-        ~~$+~0.333...$
-      \end{itemize}
-    \end{proof}
-
-    \pause
-    \column{.3\textwidth}
-    \begin{proof}
-      \begin{itemize}
-        \item $x = 0.999...$
-        \item $10x = 9.999...$
-        \item $9x = 9$
-        \item $x = 1$
-      \end{itemize}
-    \end{proof}
-
-    \pause
-    \column{.36\textwidth}
-    \begin{proof}
-      \begin{itemize}
-        \item assume $1 \neq 0.999...$
-        \item $x = \frac{0.999... + 1}{2}$
-        \item $0.999... < x < 1$
-        \item digit other than $9$?
-      \end{itemize}
-    \end{proof}
-  \end{columns}
+  \begin{proof}
+    \begin{itemize}
+      \item assume: $0.\overline{9} < 1$
+      \item let $x = \frac{0.\overline{9} + 1}{2}$
+      \item $Q$: $0.\overline{9} < x < 1$
+      \item what digit other than $9$ can $x$ contain?
+    \end{itemize}
+  \end{proof}
 \end{frame}
 %
 % \subsection{Proof of Equivalence}
@@ -976,12 +972,15 @@
       \pause
       \item $n=k+1$:
       \begin{enumerate}
-        \item if prime: $n=n$
+        \item if $n$ is prime: $n=n$
 
         \pause
-        \item if not prime: $n=u \cdot v$\\
-          $u \leq k \wedge v \leq k \Rightarrow$ both $u$ and $v$ can be written\\
-          as the product of prime numbers
+        \item if $n$ is not prime: $n = u \cdot v$\\
+          $u \leq k \Rightarrow$ $u = u_1 \cdot u_2 \cdots$
+            ~~~where $u_1, u_2, \ldots$ are prime\\
+          $v \leq k \Rightarrow$ $v = v_1 \cdot v_2 \cdots$
+            ~~~where $v_1, v_2, \ldots$ are prime\\
+          $n = u_1 \cdot u_2 \cdots v_1 \cdot v_2 \cdots$
       \end{enumerate}
     \end{itemize}
   \end{proof}
