@@ -165,18 +165,18 @@ append (x:xs) ys = x : append xs ys
 
   \begin{itemize}
     \item \pygment{haskell}{[n .. m]}: range with increment 1
-    \item \pygment{haskell}{[n,p .. m]}: range with increment \texttt{p-n}
+    \item \pygment{haskell}{[n, p .. m]}: range with increment \texttt{p - n}
   \end{itemize}
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-[2 .. 7]          -- [2,3,4,5,6,7]
-[3.1 .. 7.0]      -- [3.1,4.1,5.1,6.1,7.1]
-['a' .. 'm']      -- "abcdefghijklm"
+[2 .. 7]           -- [2,3,4,5,6,7]
+[3.1 .. 7.0]       -- [3.1,4.1,5.1,6.1,7.1]
+['a' .. 'm']       -- "abcdefghijklm"
 
-[7,6 .. 3]        -- [7,6,5,4,3]
-[0.0,0.3 .. 1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
-['a','c' .. 'n']  -- "acegikm"
+[7,6 .. 3]         -- [7,6,5,4,3]
+[0.0, 0.3 .. 1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
+['a', 'c' .. 'n']  -- "acegikm"
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -235,10 +235,13 @@ countDown upper lower = countDownIter [] upper lower
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-[2 * n | n <- [2,4,7]]  -- [4,8,14]
-[even n | n <- [2,4,7]] -- [True,True,False]
-[2 * n | n <- [2,4,7], even n, n > 3]   -- [8]
-[m + n | (m,n) <- [(2,3),(2,1),(7,8)]]  -- [5,3,15]
+[2 * n | n <- [2, 4, 7]]  -- [4, 8, 14]
+[even n | n <- [2, 4, 7]] -- [True, True, False]
+[2 * n | n <- [2, 4, 7], even n, n > 3]  -- [8]
+
+[m + n | (m,n) <- [(2, 3), (2, 1), (7, 8)]]
+-- [5, 3, 15]
+
 [(x,y,z) | x <- [1 .. 5],
            y <- [1 .. 5],
            z <- [1 .. 5],
@@ -252,9 +255,9 @@ countDown upper lower = countDownIter [] upper lower
 
   \begin{exampleblock}{Python}
     \begin{pygments}{python}
-[2 * n for n in [2,4,7]]
-[even(n) for n in [2,4,7]]
-[2 * n for n in [2,4,7] if even(n) and (n > 3)]
+[2 * n for n in [2, 4, 7]]
+[even(n) for n in [2, 4, 7]]
+[2 * n for n in [2, 4, 7] if even(n) and (n > 3)]
 [m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
 [(x, y, z) for x in range(1, 6)
            for y in range(1, 6)
@@ -360,7 +363,7 @@ replicate' n x = x : replicate' (n - 1) x
   \begin{exampleblock}{split a list at a given position}
     \begin{pygments}{haskell}
 splitAt' :: Integer -> [a] -> ([a], [a])
-splitAt' n xs = (take' n xs,drop' n xs)
+splitAt' n xs = (take' n xs, drop' n xs)
     \end{pygments}
   \end{exampleblock}
 
@@ -412,8 +415,8 @@ reverse2 xs = reverseIter [] xs
 
   \begin{itemize}
     \item convert a list of lists into a list\\
-      \pygment{haskell}{concat [[2,3],[],[4]} $\rightsquigarrow$
-      \pygment{haskell}{[2,3,4]}
+      \pygment{haskell}{concat [[2, 3], [], [4]} $\rightsquigarrow$
+      \pygment{haskell}{[2, 3, 4]}
   \end{itemize}
 
   \begin{exampleblock}{convert a list of lists into a list}
@@ -430,23 +433,23 @@ concat' (x:xs) = x ++ concat' xs
 
   \begin{itemize}
     \item convert two lists into a list of pairs\\
-      \pygment{haskell}{zip [1,2] [3,4]} $\rightsquigarrow$
-      \pygment{haskell}{[(1,3),(2,4)]}
+      \pygment{haskell}{zip [1, 2] [3, 4]} $\rightsquigarrow$
+      \pygment{haskell}{[(1, 3), (2, 4)]}
   \end{itemize}
 
   \begin{exampleblock}{convert two lists into a list of pairs}
     \begin{pygments}{haskell}
 zip' :: [a] -> [b] -> [(a, b)]
 zip' [] [] = []
-zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
+zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
     \end{pygments}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item what if called as:\\
-      \pygment{haskell}{zip' [1,2] [3,4,5]}
-    \item result should be: \pygment{haskell}{[(1,3),(2,4)]}
+      \pygment{haskell}{zip' [1, 2] [3, 4, 5]}
+    \item result should be: \pygment{haskell}{[(1, 3), (2, 4)]}
   \end{itemize}
 \end{frame}
 
@@ -455,8 +458,8 @@ zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
 
   \begin{itemize}
     \item convert three lists into a list of triples\\
-      \pygment{haskell}{zip3 [1,2] [3,4] [5,6]} $\rightsquigarrow$
-      \pygment{haskell}{[(1,3,5),(2,4,6)]}
+      \pygment{haskell}{zip3 [1, 2] [3, 4] [5, 6]} $\rightsquigarrow$
+      \pygment{haskell}{[(1, 3, 5), (2, 4, 6)]}
     \item using a \pygment{haskell}{case} expression
   \end{itemize}
 
@@ -465,9 +468,9 @@ zip' (x:xs) (y:ys) = (x,y) : zip' xs ys
     \begin{pygments}{haskell}
 zip3' :: [a] -> [b] -> [c] -> [(a, b, c)]
 zip3' xs ys zs =
-    case (xs,ys,zs) of
-      (x:xs',y:ys',z:zs') ->
-          (x,y,z) : zip3' xs' ys' zs'
+    case (xs, ys, zs) of
+      (x:xs', y:ys', z:zs') ->
+          (x, y, z) : zip3' xs' ys' zs'
       _ -> []
     \end{pygments}
   \end{exampleblock}
@@ -478,17 +481,17 @@ zip3' xs ys zs =
 
   \begin{itemize}
     \item convert a list of pairs into a pair of lists\\
-      \pygment{haskell}{unzip [(1,3),(2,4)]} $\rightsquigarrow$
-      \pygment{haskell}{([1,2],[3,4])}
+      \pygment{haskell}{unzip [(1, 3), (2, 4)]} $\rightsquigarrow$
+      \pygment{haskell}{([1, 2], [3, 4])}
   \end{itemize}
 
   \begin{exampleblock}{convert a list of pairs into a pair of lists}
     \begin{pygments}{haskell}
 unzip' :: [(a, b)] -> ([a], [b])
-unzip' [] = ([],[])
-unzip' ((x,y):xys) = (x : xs,y : ys)
+unzip' [] = ([], [])
+unzip' ((x, y):xys) = (x : xs, y : ys)
   where
-    (xs,ys) = unzip' xys
+    (xs, ys) = unzip' xys
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -512,7 +515,7 @@ maxList1 (x:xs)
   \pause
   \begin{itemize}
     \item what happens if called as:\\
-      \pygment{haskell}{maxList1 [30,29 .. 1]}\\
+      \pygment{haskell}{maxList1 [30, 29 .. 1]}\\
       \pygment{haskell}{maxList1 [1 .. 30]}
   \end{itemize}
 \end{frame}

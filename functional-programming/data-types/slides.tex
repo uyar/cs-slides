@@ -105,7 +105,7 @@
     \begin{block}{}
       \begin{pygments}{haskell}
 name :: (t1, t2, ..., tn)
-name = (v1,v2,...,vn)
+name = (v1, v2, ..., vn)
       \end{pygments}
     \end{block}
 
@@ -121,7 +121,7 @@ name = (v1,v2,...,vn)
   \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
     \begin{pygments}{haskell}
 term1 :: (Float, Integer)
-term1 = (2.4,2)
+term1 = (2.4, 2)
 
 coeff1 = fst term1     -- 2.4
 degree1 = snd term1    -- 2
@@ -147,8 +147,8 @@ gcd1 x y
 gcd2 :: (Integer, Integer) -> Integer
 gcd2 a
   | snd a == 0 = fst a
-  | otherwise  = gcd2 (snd a,(fst a) `mod` (snd a))
--- call as: gcd2 (9702,945)
+  | otherwise  = gcd2 (snd a, (fst a) `mod` (snd a))
+-- call as: gcd2 (9702, 945)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -189,7 +189,7 @@ gcd_lcm x y = (g, l)
     \begin{block}{}
       \begin{pygments}{haskell}
 name :: [t]
-name = [v1,v2,...,vn]
+name = [v1, v2, ..., vn]
       \end{pygments}
     \end{block}
   \end{itemize}
@@ -202,15 +202,15 @@ name = [v1,v2,...,vn]
     \begin{pygments}{haskell}
 -- second degree polynomial
 p1 :: (Float, Float, Float)
-p1 = (2.4,1.8,-4.6)
+p1 = (2.4, 1.8, -4.6)
 
 -- any degree polynomial, coefficients ordered
 p2 :: [Float]
-p2 = [2.4,1.8,-4.6]
+p2 = [2.4, 1.8, -4.6]
 
 -- any degree polynomial
 p3 :: [(Float, Integer)]
-p3 = [(1.8,1),(-4.6,0),(2.4,2)]
+p3 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -230,7 +230,7 @@ type Term = (Float, Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
-p4 = [(1.8,1),(-4.6,0),(2.4,2)]
+p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -259,20 +259,20 @@ p4 = [(1.8,1),(-4.6,0),(2.4,2)]
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 -- null :: [a] -> Bool
-null []        -- True
-null [1,2,3,4] -- False
+null []            -- True
+null [1, 2, 3, 4]  -- False
 
 -- head :: [a] -> a
-head [1,2,3,4] -- 1
-head []        -- error
+head [1, 2, 3, 4]  -- 1
+head []            -- error
 
 -- tail :: [a] -> [a]
-tail [1,2,3,4] -- [2,3,4]
-tail []        -- error
-tail [1]       -- []
+tail [1, 2, 3, 4]  -- [2, 3, 4]
+tail []            -- error
+tail [1]           -- []
 
 -- (:) :: a -> [a] -> [a]
-1 : [2,3]      -- [1,2,3]
+1 : [2, 3]         -- [1, 2, 3]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -515,11 +515,11 @@ gcd3 x y = gcd3 y (x `mod` y)
 gcd2 :: (Integer, Integer) -> Integer
 gcd2 a
   | snd a == 0 = fst a
-  | otherwise  = gcd2 (snd a,(fst a) `mod` (snd a))
+  | otherwise  = gcd2 (snd a, (fst a) `mod` (snd a))
 
 gcd4 :: (Integer, Integer) -> Integer
-gcd4 (x,0) = x
-gcd4 (x,y) = gcd4 (y,x `mod` y)
+gcd4 (x, 0) = x
+gcd4 (x, y) = gcd4 (y, x `mod` y)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -529,14 +529,14 @@ gcd4 (x,y) = gcd4 (y,x `mod` y)
 
   \begin{exampleblock}{efficient Fibonacci calculation}
     \begin{pygments}{haskell}
--- fibPair n = (fib n,fib (n + 1))
+-- fibPair n = (fib n, fib (n + 1))
 
 fibStep :: (Integer, Integer) -> (Integer, Integer)
-fibStep (u,v) = (v,u+v)
+fibStep (u, v) = (v, u + v)
 
 fibPair :: Integer -> (Integer, Integer)
 fibPair n
-  | n == 1    = (1,1)
+  | n == 1    = (1, 1)
   | otherwise = fibStep (fibPair (n - 1))
 
 fastFib n = fst (fibPair n)
@@ -555,7 +555,7 @@ fastFib n = fst (fibPair n)
     \begin{pygments}{haskell}
 shift :: ((Integer, Integer), Integer)
             -> (Integer, (Integer, Integer))
-shift ((x,y),z) = (x,(y,z))
+shift ((x, y), z) = (x, (y, z))
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -572,10 +572,10 @@ shift ((x,y),z) = (x,(y,z))
 third :: (a, b, c) -> c
 
 -- instead of the following:
-third (x,y,z) = z
+third (x, y, z) = z
 
 -- write the following:
-third (_,_,z) = z
+third (_, _, z) = z
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -621,7 +621,7 @@ length2 (x:xs) = 1 + length2 xs
 firstPlusThird :: [Integer] -> Integer
 firstPlusThird [] = 0
 firstPlusThird [x1] = x1
-firstPlusThird [x1,_] = x1
+firstPlusThird [x1, _] = x1
 firstPlusThird (x1:_:x3:_) = x1 + x3
     \end{pygments}
   \end{exampleblock}
@@ -689,7 +689,7 @@ area hole    -- 28.274311
 type Rational1 = (Integer, Integer)
 
 simplify1 :: Rational1 -> Rational1
-simplify1 (n,d) = (n `div` g,d `div` g)
+simplify1 (n, d) = (n `div` g, d `div` g)
   where
     g :: Integer
     g = gcd n d
@@ -697,8 +697,8 @@ simplify1 (n,d) = (n `div` g,d `div` g)
 type DayInYear = (Integer, Integer)
 
 mar12 :: DayInYear
-mar12 = (12,3)
--- simplify1 mar12: (4,1)
+mar12 = (12, 3)
+-- simplify1 mar12: (4, 1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -792,10 +792,10 @@ data Color = Red | Black
 cardColor :: Card -> Color
 cardColor card =
     case card of
-      (Club,_) -> Black
-      (Diamond,_) -> Red
-      (Heart,_) -> Red
-      (Spade,_) -> Black
+      (Club, _) -> Black
+      (Diamond, _) -> Red
+      (Heart, _) -> Red
+      (Spade, _) -> Black
     \end{pygments}
   \end{exampleblock}
 
@@ -813,11 +813,11 @@ cardColor card =
 cardValue :: Card -> Integer
 cardValue card =
     case card of
-      (_,Ace) -> 11
-      (_,King) -> 10
-      (_,Queen) -> 10
-      (_,Jack) -> 10
-      (_,Number n) -> n
+      (_, Ace) -> 11
+      (_, King) -> 10
+      (_, Queen) -> 10
+      (_, Jack) -> 10
+      (_, Number n) -> n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
