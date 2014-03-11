@@ -121,18 +121,17 @@ even1b n = n `mod` 2 == 0
     \item operator calls can be written in prefix notation within parentheses
   \end{itemize}
 
-  \begin{exampleblock}{example: the \pygment{haskell}{/} operator}
+  \begin{exampleblock}{example: the \pygment{haskell}{*} operator}
     \begin{pygments}{haskell}
 even2a :: Integer -> Bool
-even2a n = (floor ((fromInteger n) / 2)) * 2 == n
+even2a n = (n `div` 2 ) * 2 == n
 
 even2b :: Integer -> Bool
-even2b n = (floor ((/) (fromInteger n) 2)) * 2 == n
+even2b n = (*) (div n 2) 2 == n
 
--- also prefix the * and == operators
+-- also prefix the == operator
 even2c :: Integer -> Bool
-even2c n =
-    (==) ((*) (floor ((/) (fromInteger n) 2)) 2) n
+even2c n = (==) ((*) (div n 2) 2) n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -459,9 +458,9 @@ pow x y
     \begin{equation*}
       x^y = \left\{
         \begin{array}{ll}
-          1               & y = 0\\
-          {(x^{y/2})}^2   & y~is~even\\
-          x \cdot x^{y-1} & y~is~odd
+          1               & if~y = 0\\
+          {(x^{y/2})}^2   & if~y~is~even\\
+          x \cdot x^{y-1} & if~y~is~odd
         \end{array}\right.
     \end{equation*}
   \end{exampleblock}
