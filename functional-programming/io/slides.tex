@@ -1,0 +1,389 @@
+% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \useinnertheme{rounded}
+  \usecolortheme{seahorse}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Input/Output}
+
+\author{H. Turgut Uyar}
+\date{2013-2014}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\begin{document}
+
+\setpythontexfv[]{frame=single}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2013-2014 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free to:
+    \begin{itemize}
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.\\
+        You may do so in any reasonable manner, but not in any way
+        that suggests the licensor endorses you or your use.
+
+      \item Noncommercial -- You may not use the material for commercial
+        purposes.
+
+      \item Share Alike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions\\
+        under the same license as the original.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  \begin{small}
+    Legal code (the full license):\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Input/Output}
+
+\subsection{I/O Model}
+
+\begin{frame}
+  \frametitle{I/O Model}
+
+  \begin{itemize}
+    \item definitions associate a name with a fixed value
+    \item how can I/O fit into this model?
+
+    \pause
+    \bigskip
+    \item a function that reads an integer from the input?\\
+      \smallskip
+      \pygment{haskell}{inputInt :: Integer}
+
+    \pause
+    \item breaks reasoning:\\
+      \smallskip
+      \pygment{haskell}{inputDiff = inputInt - inputInt}
+    \item any function might be affected:\\
+      \smallskip
+      \pygment{haskell}{foo :: Integer -> Integer}\\
+      \pygment{haskell}{foo n = inputInt + n}\\
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{I/O Model}
+
+  \begin{itemize}
+    \item I/O consists of \alert{actions} happening in a sequence
+
+    \medskip
+    \item type: \pygment{haskell}{IO a}\\
+      a program which will do some I/O and return a value of type \texttt{a}
+    \item small imperative programming language for I/O
+
+    \pause
+    \medskip
+    \item instead of:\\
+      \smallskip
+      \pygment{haskell}{getLine :: String}
+    \item we have:\\
+      \smallskip
+      \pygment{haskell}{getLine :: IO String}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{I/O Model}
+
+  \begin{itemize}
+    \item if the result of the I/O is not significant: \pygment{haskell}{IO ()}
+
+    \medskip
+    \item output:\\
+      \smallskip
+      \pygment{haskell}{putStr :: String -> IO ()}\\
+      \pygment{haskell}{putStrLn :: String -> IO ()}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Main Function}
+
+  \begin{itemize}
+    \item entry point of the program: \pygment{haskell}{main}
+  \end{itemize}
+
+  \begin{exampleblock}{Hello, world!}
+    \begin{pygments}{haskell}
+main :: IO ()
+main = putStrLn "Hello, world!"
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Conversions}
+
+  \begin{itemize}
+    \item to convert a type to string: \pygment{haskell}{show}
+    \item to convert a string to another type: \pygment{haskell}{read}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+show 42    -- "42"
+show 3.14  -- "3.14"
+
+read "42" :: Integer  -- 42
+read "42" :: Float    -- 42.0
+read "3.14" :: Float  -- 3.14
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Action Sequences}
+
+\begin{frame}[fragile]
+  \frametitle{Action Sequences}
+
+  \begin{itemize}
+    \item for sequencing actions: \pygment{haskell}{do}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+put4times :: String -> IO ()
+put4times str = do
+    putStrLn str
+    putStrLn str
+    putStrLn str
+    putStrLn str
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Capturing Values}
+
+  \begin{itemize}
+    \item capturing value read from input: \pygment{haskell}{<-}
+    \item can only be used within \pygment{haskell}{do}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+reverseLine :: IO ()
+reverseLine = do
+    line <- getLine
+    putStrLn (reverse line)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Local Definitions}
+
+  \begin{itemize}
+    \item local definitions: \pygment{haskell}{let}
+    \item can only be used within \pygment{haskell}{do}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+reverse2lines :: IO ()
+reverse2lines = do
+    line1 <- getLine
+    line2 <- getLine
+    let rev1 = reverse line1
+    let rev2 = reverse line2
+    putStrLn rev2
+    putStrLn rev1
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Returning Values}
+
+  \begin{itemize}
+    \item returning result of sequence: \pygment{haskell}{return}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+getInteger :: IO Integer
+getInteger = do
+    line <- getLine
+    return (read line :: Integer)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursion in Sequence}
+
+  \begin{exampleblock}{copy input to output indefinitely}
+    \begin{pygments}{haskell}
+copy :: IO ()
+copy = do
+    line <- getLine
+    putStrLn line
+    copy
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursion in Sequence}
+
+  \begin{exampleblock}{copy n times}
+    \begin{pygments}{haskell}
+copyN :: Integer -> IO ()
+copyN n =
+    if n <= 0
+        then return ()
+        else do
+            line <- getLine
+            putStrLn line
+            copyN (n - 1)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursion in Sequence}
+
+  \begin{exampleblock}{copy until input line is empty}
+    \begin{pygments}{haskell}
+copyEmpty :: IO ()
+copyEmpty = do
+    line <- getLine
+    if line == ""
+        then return ()
+        else do
+            putStrLn line
+            copyEmpty
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Example}
+
+\begin{frame}[fragile]
+  \frametitle{I/O Example}
+
+  \begin{itemize}
+    \item two players repeatedly play Rock - Paper - Scissors
+  \end{itemize}
+
+  \begin{exampleblock}{data types}
+    \begin{pygments}{haskell}
+data Move = Rock | Paper | Scissors
+            deriving Show
+
+type Match = ([Move], [Move])
+
+-- ex: ([Rock, Rock, Paper], [Scissors, Paper, Rock])
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{I/O Example}
+
+  \begin{itemize}
+    \item a strategy selects a move based on the previous moves\\
+      of the opponent:\\
+      \smallskip
+      \pygment{haskell}{[Move] -> Move}
+  \end{itemize}
+
+  \begin{exampleblock}{cycle through the possibilities}
+    \begin{pygments}{haskell}
+cycle' :: [Move] -> Move
+cycle' moves =
+    case (length moves) `mod` 3 of
+      0 -> Rock
+      1 -> Paper
+      2 -> Scissors
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{I/O Example}
+
+  \begin{itemize}
+    \item strategy: play whatever the opponent played last
+    \item keep the previous moves in reverse order (latest first)
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+echo :: [Move] -> Move
+echo (latest:rest) = latest
+echo [] = Rock
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Thompson}
+    \begin{itemize}
+      \item Chapter 8: \alert{Playing the game: I/O in Haskell}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
