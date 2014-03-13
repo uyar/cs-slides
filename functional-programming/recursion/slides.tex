@@ -105,11 +105,12 @@
 
   \begin{exampleblock}{example: the \pygment{haskell}{mod} function}
     \begin{pygments}{haskell}
-even1a :: Integer -> Bool
-even1a n = mod n 2 == 0
+even1 :: Integer -> Bool
+even1 n = mod n 2 == 0
 
-even1b :: Integer -> Bool
-even1b n = n `mod` 2 == 0
+-- OR:
+even1 :: Integer -> Bool
+even1 n = n `mod` 2 == 0
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -123,15 +124,16 @@ even1b n = n `mod` 2 == 0
 
   \begin{exampleblock}{example: the \pygment{haskell}{*} operator}
     \begin{pygments}{haskell}
-even2a :: Integer -> Bool
-even2a n = (n `div` 2 ) * 2 == n
+even2 :: Integer -> Bool
+even2 n = (n `div` 2 ) * 2 == n
 
-even2b :: Integer -> Bool
-even2b n = (*) (div n 2) 2 == n
+-- OR:
+even2 :: Integer -> Bool
+even2 n = (*) (div n 2) 2 == n
 
--- also prefix the == operator
-even2c :: Integer -> Bool
-even2c n = (==) ((*) (div n 2) 2) n
+-- OR:
+even2 :: Integer -> Bool
+even2 n = (==) ((*) (div n 2) 2) n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -392,14 +394,14 @@ fact' n = factIter 1 n
 
   \begin{itemize}
     \item another classic example: the Fibonacci sequence
-    \begin{equation*}
-      fib_n = \left\{
-        \begin{array}{ll}
-          1                     & if~n = 1\\
-          1                     & if~n = 2\\
-          fib_{n-2} + fib_{n-1} & if~n > 2
-        \end{array}\right.
-    \end{equation*}
+    \[
+      fib_n =
+        \begin{cases}
+          1                     & \mbox{if } n = 1\\
+          1                     & \mbox{if } n = 2\\
+          fib_{n-2} + fib_{n-1} & \mbox{if } n > 2
+        \end{cases}
+    \]
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -455,14 +457,14 @@ pow x y
     \begin{itemize}
       \item let's use the following:
     \end{itemize}
-    \begin{equation*}
-      x^y = \left\{
-        \begin{array}{ll}
-          1               & if~y = 0\\
-          {(x^{y/2})}^2   & if~y~is~even\\
-          x \cdot x^{y-1} & if~y~is~odd
-        \end{array}\right.
-    \end{equation*}
+    \[
+      x^y =
+        \begin{cases}
+          1               & \mbox{if y = 0}\\
+          {(x^{y/2})}^2   & \mbox{if y is even}\\
+          x \cdot x^{y-1} & \mbox{if y is odd}
+        \end{cases}
+    \]
   \end{exampleblock}
 \end{frame}
 
@@ -503,6 +505,49 @@ fastPow x y
       1.4142   & ...                 & ...
       \end{tabular}
     \end{center}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Recursion Example}
+
+  \begin{itemize}
+    \item goal: $guess = \sqrt x$
+    \item if guess is good enough: $|guess \cdot guess - x| < \epsilon$
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{check whether the guess is good enough}
+    \begin{pygments}{haskell}
+isGoodEnough :: Float -> Float -> Bool
+isGoodEnough guess x =
+    abs (guess * guess - x) < 0.001
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{exampleblock}{improve the guess}
+    \begin{pygments}{haskell}
+improve :: Float -> Float -> Float
+improve guess x = (guess + (x / guess)) / 2.0
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Recursion Example}
+
+  \begin{exampleblock}{iterative computation}
+    \begin{pygments}{haskell}
+newtonIter :: Float -> Float -> Float
+newtonIter guess x =
+    if isGoodEnough guess x
+        then guess
+        else newtonIter (improve guess x) x
+
+newton :: Float -> Float
+newton x = newtonIter 1.0 x
+    \end{pygments}
   \end{exampleblock}
 \end{frame}
 
