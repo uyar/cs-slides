@@ -123,8 +123,8 @@ name = (v1, v2, ..., vn)
 term1 :: (Float, Integer)
 term1 = (2.4, 2)
 
-coeff1 = fst term1     -- 2.4
-degree1 = snd term1    -- 2
+fst term1  -- 2.4
+snd term1  -- 2
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -164,16 +164,16 @@ gcd2 a
                             and least common multiple}
     \begin{pygments}{haskell}
 gcd_lcm :: Integer -> Integer -> (Integer, Integer)
-gcd_lcm x y = (g, l)
+gcd_lcm x y = (d, m)
   where
     gcd' :: Integer -> Integer -> Integer
     gcd' a b
       | b == 0    = a
       | otherwise = gcd' b (a `mod` b)
 
-    g, l :: Integer
-    g = gcd' x y
-    l = (x * y) `div` g
+    d, m :: Integer
+    d = gcd' x y
+    m = (x * y) `div` d
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -307,7 +307,7 @@ length1' xs = lengthIter 0 xs
   where
     lengthIter :: Integer -> [a] -> Integer
     lengthIter acc xs'
-      | null xs' = acc
+      | null xs'  = acc
       | otherwise = lengthIter (acc + 1) (tail xs')
     \end{pygments}
   \end{exampleblock}
@@ -397,18 +397,14 @@ currentMonth = Feb
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Pioneer = Person String Integer
-               deriving Show
--- constructor: Person
--- components: name (String), birth year (Integer)
-
-church :: Pioneer
-church = Person "Alonzo Church" 1903
-
 type Name = String
-type BirthYear = Integer
-data Pioneer = Person Name BirthYear
-               deriving Show
+type Year = Integer
+
+data Human = Person Name Year
+             deriving Show
+
+church :: Human
+church = Person "Alonzo Church" 1903
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -422,124 +418,84 @@ data Pioneer = Person Name BirthYear
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Shape = Point |
-             Circle Float |
-             Rectangle Float Float
+type Coords = (Float, Float)
+type Length = Float
+
+data Shape = Point Coords |
+             Circle Coords Length |
+             Rectangle Coords Length Length
              deriving Show
 
-center, hole, box :: Shape
-center = Point
-hole = Circle 3.0
-box = Rectangle 45.9 87.6
+-- Point (0.0, 0.0)
+-- Circle (0.0, 0.0) 1.0
+-- Rectangle (45.9, 87.6) 5.75 2.3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
 \section{Pattern Matching}
 
-\subsection{Function Parameters}
+\subsection{Patterns}
 
 \begin{frame}[fragile]
-  \frametitle{Pattern Matching}
+  \frametitle{Patterns}
 
   \begin{itemize}
-    \item formal parameters are patterns
-    \item components of the pattern will be matched\\
-      with the components of the actual parameters
-    \item a matched pattern generates bindings
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-gcd1 :: Integer -> Integer -> Integer
-gcd1 x y
-  | y == 0    = x
-  | otherwise = gcd1 y (x `mod` y)
-
--- if called as: gcd1 9702 945
--- bindings: x <-> 9702, y <-> 945
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Multiple Patterns}
-
-  \begin{itemize}
-    \item in case of multiple patterns, the first match will be selected
-    \item patterns can contain literals
+    \item expressions can be checked against patterns
+    \item the result is the expression for the first matched pattern
   \end{itemize}
 
   \begin{block}{}
     \begin{pygments}{haskell}
-name p1 = e1
-name p2 = e2
-...
+case expr of
+  p1 -> e1
+  p2 -> e2
+  ...
+  pn -> en
+  _  -> e
     \end{pygments}
   \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Multiple Pattern Examples}
+  \frametitle{Patterns}
+
+  \begin{itemize}
+    \item simplest pattern: literal value
+  \end{itemize}
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-fact :: Integer -> Integer
-fact 0 = 1
-fact n = n * fact (n - 1)
-
-gcd3 :: Integer -> Integer -> Integer
-gcd3 x 0 = x
-gcd3 x y = gcd3 y (x `mod` y)
-
--- if called as: gcd3 9702 945
--- second pattern, bindings: x <-> 9702, y <-> 945
-
--- if called as: gcd3 63 0
--- first pattern, bindings: x <-> 63
+gcd1 :: Integer -> Integer -> Integer
+gcd1 x y =
+    case y of
+      0 -> x
+      _ -> gcd1 y (x `mod` y)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tuple Patterns}
+  \frametitle{Pattern Bindings}
 
   \begin{itemize}
-    \item tuple selector functions work only with pairs
-    \item pattern matching works with any tuple
-    \item it is also more readable
+    \item a matched pattern can generate bindings
+    \item for tuples, pattern matching is better than selector functions
   \end{itemize}
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 gcd2 :: (Integer, Integer) -> Integer
-gcd2 a
-  | snd a == 0 = fst a
-  | otherwise  = gcd2 (snd a, (fst a) `mod` (snd a))
+gcd2 a =
+    case a of
+      (x, 0) -> x
+      (x, y) -> gcd2 (y, x `mod` y)
 
-gcd4 :: (Integer, Integer) -> Integer
-gcd4 (x, 0) = x
-gcd4 (x, y) = gcd4 (y, x `mod` y)
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
+-- if a = (9702, 945)
+-- second pattern, bindings: x <-> 9702, y <-> 945
 
-\begin{frame}<beamer>[fragile]
-  \frametitle{Tuple Pattern Example}
-
-  \begin{exampleblock}{efficient Fibonacci calculation}
-    \begin{pygments}{haskell}
--- fibPair n = (fib n, fib (n + 1))
-
-fibStep :: (Integer, Integer) -> (Integer, Integer)
-fibStep (u, v) = (v, u + v)
-
-fibPair :: Integer -> (Integer, Integer)
-fibPair n
-  | n == 1    = (1, 1)
-  | otherwise = fibStep (fibPair (n - 1))
-
-fastFib n = fst (fibPair n)
+-- if a = (63, 0)
+-- first pattern, bindings: x <-> 63
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -553,9 +509,10 @@ fastFib n = fst (fibPair n)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-shift :: ((Integer, Integer), Integer)
-            -> (Integer, (Integer, Integer))
-shift ((x, y), z) = (x, (y, z))
+shift :: ((a, b), c) -> (a, (b, c))
+shift s =
+    case s of
+      ((x, y), z) -> (x, (y, z))
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -570,12 +527,14 @@ shift ((x, y), z) = (x, (y, z))
   \begin{exampleblock}{third component of a triple}
     \begin{pygments}{haskell}
 third :: (a, b, c) -> c
+third t =
+    case t of
+      (x, y, z) -> z
 
--- instead of the following:
-third (x, y, z) = z
-
--- write the following:
-third (_, _, z) = z
+-- BETTER:
+third t =
+    case t of
+      (_, _, z) -> z
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -594,7 +553,7 @@ third (_, _, z) = z
       \pygment{haskell}{[x]}\\
       \pygment{haskell}{x:[]}
     \item list with exactly two elements:\\
-      \pygment{haskell}{[x1,x2]}\\
+      \pygment{haskell}{[x1, x2]}\\
       \pygment{haskell}{x1:x2:[]}
     \item list with at least two elements:\\
       \pygment{haskell}{x1:x2:xs}
@@ -607,8 +566,10 @@ third (_, _, z) = z
   \begin{exampleblock}{number of elements}
     \begin{pygments}{haskell}
 length2 :: [a] -> Integer
-length2 [] = 0
-length2 (x:xs) = 1 + length2 xs
+length2 xs =
+    case xs of
+      []    -> 0
+      x:xs' -> 1 + length2 xs'
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -619,10 +580,12 @@ length2 (x:xs) = 1 + length2 xs
   \begin{exampleblock}{add the first and third elements of a list}
     \begin{pygments}{haskell}
 firstPlusThird :: [Integer] -> Integer
-firstPlusThird [] = 0
-firstPlusThird [x1] = x1
-firstPlusThird [x1, _] = x1
-firstPlusThird (x1:_:x3:_) = x1 + x3
+firstPlusThird xs =
+    case xs of
+      []        -> 0
+      [x1]      -> x1
+      [x1, _]   -> x1
+      x1:_:x3:_ -> x1 + x3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -633,21 +596,43 @@ firstPlusThird (x1:_:x3:_) = x1 + x3
   \frametitle{Algebraic Type Patterns}
 
   \begin{itemize}
-    \item pattern matching to get values out of algebraic types
+    \item use patterns to match algebraic types
   \end{itemize}
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Pioneer = Person String Integer
-               deriving Show
+daysInMonth :: Month -> Integer -> Integer
+daysInMonth m y =
+    case m of
+      Apr -> 30
+      Jun -> 30
+      Sep -> 30
+      Nov -> 30
+      Feb -> if y `mod` 4 == 0 then 29 else 28
+      _   -> 31
 
-birthYear :: Pioneer -> Integer
-birthYear (Person _ y) = y
+daysInMonth Jan 2014 -- 31
+daysInMonth Feb 2014 -- 28
+daysInMonth Feb 2016 -- 29
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
 
-church :: Pioneer
-church = Person "Alonzo Church" 1903
+\begin{frame}[fragile]
+  \frametitle{Algebraic Type Patterns}
 
-birthYear church    -- 1903
+  \begin{itemize}
+    \item use pattern matching to get values out of algebraic types
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+birthYear :: Human -> Year
+birthYear p =
+    case p of
+      Person _ y -> y
+
+birthYear (Person "Alonzo Church" 1903)  -- 1903
 -- binding: y <-> 1903
     \end{pygments}
   \end{exampleblock}
@@ -658,31 +643,163 @@ birthYear church    -- 1903
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Shape = Point |
-             Circle Float |
-             Rectangle Float Float
-             deriving Show
-
 area :: Shape -> Float
-area Point = 0.0
-area (Circle r) = 3.14159 * r * r
-area (Rectangle h w) = h * w
+area s =
+    case s of
+      Point _ -> 0.0
+      Circle _ r -> 3.14159 * r * r
+      Rectangle _ h w -> h * w
 
-hole :: Shape
-hole = Circle 3.0
-
-area hole    -- 28.274311
+area (Circle (0.0, 0.0) 3.0)  -- 28.274311
 -- second pattern, binding: r <-> 3.0
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Function Parameters}
+
+\begin{frame}[fragile]
+  \frametitle{Pattern Matching}
+
+  \begin{itemize}
+    \item formal parameters are patterns
+    \item components of the pattern will be matched\\
+      with the components of the actual parameters
+    \item in case of multiple patterns, the first match will be selected
+  \end{itemize}
+
+  \begin{block}{}
+    \begin{pygments}{haskell}
+name p1 = e1
+name p2 = e2
+...
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+gcd1 :: Integer -> Integer -> Integer
+gcd1 x y =
+    case y of
+      0 -> x
+      _ -> gcd1 y (x `mod` y)
+
+-- BETTER:
+gcd1 x 0 = x
+gcd1 x y = gcd1 y (x `mod` y)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+gcd2 :: (Integer, Integer) -> Integer
+gcd2 a =
+    case a of
+      (x, 0) -> x
+      (x, y) -> gcd2 (y, x `mod` y)
+
+-- BETTER:
+gcd2 (x, 0) = x
+gcd2 (x, y) = gcd2 (y, x `mod` y)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+shift :: ((a, b), c) -> (a, (b, c))
+shift s =
+    case s of
+      ((x, y), z) -> (x, (y, z))
+
+-- BETTER:
+shift ((x, y), z) = (x, (y, z))
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+third :: (a, b, c) -> c
+third t =
+    case t of
+      (_, _, z) -> z
+
+-- BETTER:
+third (_, _, z) = z
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+length2 :: [a] -> Integer
+length2 xs =
+    case xs of
+      []    -> 0
+      x:xs' -> 1 + length2 xs'
+
+-- BETTER:
+length2 []     = 0
+length2 (x:xs) = 1 + length2 xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Pattern Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+birthYear :: Human -> Year
+birthYear p =
+    case p of
+      Person _ y -> y
+
+-- BETTER:
+birthYear (Person _ y) = y
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Example}
+
+  \begin{exampleblock}{efficient Fibonacci calculation}
+    \begin{pygments}{haskell}
+fibStep :: (Integer, Integer) -> (Integer, Integer)
+fibStep (u, v) = (v, u + v)
+
+-- fibPair n = (fib n, fib (n + 1))
+
+fibPair :: Integer -> (Integer, Integer)
+fibPair 1 = (1, 1)
+fibPair n = fibStep (fibPair (n - 1))
+
+fastFib n = fst (fibPair n)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuples or Algebraic Types?}
-
-  \begin{itemize}
-    \item algebraic types give you better type checking
-  \end{itemize}
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
@@ -706,6 +823,10 @@ mar12 = (12, 3)
 \begin{frame}[fragile]
   \frametitle{Tuples or Algebraic Types?}
 
+  \begin{itemize}
+    \item algebraic types give you better type checking
+  \end{itemize}
+
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 data Rational2 = Rational Integer Integer
@@ -717,107 +838,6 @@ simplify2 (Rational n d) =
     where
       g :: Integer
       g = gcd n d
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
-
-\subsection{Case Expressions}
-
-\begin{frame}[fragile]
-  \frametitle{Pattern Matching}
-
-  \begin{itemize}
-    \item patterns can also be handled in case expressions
-    \item the result is the expression for the first matched pattern
-  \end{itemize}
-
-  \begin{block}{}
-    \begin{pygments}{haskell}
-case v of
-  p1 -> e1
-  p2 -> e2
-  ...
-  pn -> en
-  _ -> e
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Case Expression Examples}
-
-  \begin{example}[number of days in a month]
-    \begin{pygments}{haskell}
-daysInMonth :: Month -> Integer -> Integer
-daysInMonth m y =
-    case m of
-      Apr -> 30
-      Jun -> 30
-      Sep -> 30
-      Nov -> 30
-      Feb -> if y `mod` 4 == 0 then 29 else 28
-      _ -> 31
-
-daysInMonth Jan 2014 -- 31
-daysInMonth Feb 2014 -- 28
-daysInMonth Feb 2016 -- 29
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Case Expression Example}
-
-  \begin{exampleblock}{playing cards}
-    \begin{pygments}{haskell}
-data Suit = Club | Diamond | Heart | Spade
-            deriving Show
-
-data Rank = Jack | Queen | King | Ace | Number Integer
-            deriving Show
-
-type Card = (Suit, Rank)
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Case Expression Example}
-
-  \begin{exampleblock}{color of a card}
-    \begin{pygments}{haskell}
-data Color = Red | Black
-             deriving Show
-
-cardColor :: Card -> Color
-cardColor card =
-    case card of
-      (Club, _) -> Black
-      (Diamond, _) -> Red
-      (Heart, _) -> Red
-      (Spade, _) -> Black
-    \end{pygments}
-  \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item exercise: write a function that will return the value of a card
-  \end{itemize}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{Algebraic Type Example}
-
-  \begin{exampleblock}{value of a card}
-    \begin{pygments}{haskell}
-cardValue :: Card -> Integer
-cardValue card =
-    case card of
-      (_, Ace) -> 11
-      (_, King) -> 10
-      (_, Queen) -> 10
-      (_, Jack) -> 10
-      (_, Number n) -> n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
