@@ -104,11 +104,11 @@
     \begin{pygments}{haskell}
 type String = [Char]
 
-head "abc"              -- 'a'
-tail "abc"              -- "bc"
-null "abc"              -- False
-null ""                 -- True
-length "abc"            -- 3
+head "abc"      -- 'a'
+tail "abc"      -- "bc"
+null "abc"      -- False
+null ""         -- True
+length "abc"    -- 3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -124,14 +124,14 @@ length "abc"            -- 3
 
   \begin{exampleblock}{get the nth element of a list}
     \begin{pygments}{haskell}
-getNth :: [a] -> Integer -> a
+getNth :: [a] -> Int -> a
 getNth xs n
   | null xs   = error "empty list"
   | n == 0    = head xs
   | otherwise = getNth (tail xs) (n - 1)
 
 -- OR:
-getNth [] _ = error "empty list"
+getNth [] _     = error "empty list"
 getNth (x:xs) 0 = x
 getNth (x:xs) n = getNth xs (n - 1)
     \end{pygments}
@@ -150,11 +150,11 @@ getNth (x:xs) n = getNth xs (n - 1)
 append :: [a] -> [a] -> [a]
 append xs ys =
     case xs of
-      [] -> ys
+      []    -> ys
       x:xs' -> x : append xs' ys
 
 -- OR:
-append [] ys = ys
+append []     ys = ys
 append (x:xs) ys = x : append xs ys
     \end{pygments}
   \end{exampleblock}
@@ -203,8 +203,8 @@ countUp lower upper
   \frametitle{Range Construction Example}
 
   \begin{footnotesize}
-    \begin{exampleblock}{construct a list from an upper limit to a lower limit}
-      \begin{pygments}{haskell}
+  \begin{exampleblock}{construct a list from an upper limit to a lower limit}
+    \begin{pygments}{haskell}
 countDown :: Integer -> Integer -> [Integer]
 countDown upper lower = countDownIter [] upper lower
   where
@@ -214,7 +214,7 @@ countDown upper lower = countDownIter [] upper lower
       | otherwise       = countDownIter (acc ++ [upper'])
                                         (upper' - 1) lower'
     \end{pygments}
-    \end{exampleblock}
+  \end{exampleblock}
   \end{footnotesize}
 
   \pause
@@ -239,13 +239,13 @@ countDown upper lower = countDownIter [] upper lower
 [even n | n <- [2, 4, 7]] -- [True, True, False]
 [2 * n | n <- [2, 4, 7], even n, n > 3]  -- [8]
 
-[m + n | (m,n) <- [(2, 3), (2, 1), (7, 8)]]
+[m + n | (m, n) <- [(2, 3), (2, 1), (7, 8)]]
 -- [5, 3, 15]
 
-[(x,y,z) | x <- [1 .. 5],
-           y <- [1 .. 5],
-           z <- [1 .. 5],
-           x * x + y * y == z * z]
+[(x, y, z) | x <- [1 .. 5],
+             y <- [1 .. 5],
+             z <- [1 .. 5],
+             x * x + y * y == z * z]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -290,12 +290,30 @@ quickSort (pivot:xs) =
   \frametitle{Prelude Functions}
 
   \begin{itemize}
+    \item check whether an element is in a list\\
+      \pygment{haskell}{elem 'r' "word"} $\rightsquigarrow$
+      \pygment{haskell}{True}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+elem' :: Char -> [Char] -> Bool
+elem' _ [] = False
+elem' x (c:cs) = if x == c then True else elem' x cs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
     \item last element of a list\\
       \pygment{haskell}{last "word"} $\rightsquigarrow$
       \pygment{haskell}{'d'}
   \end{itemize}
 
-  \begin{exampleblock}{last element of a list}
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 last' :: [a] -> a
 last' [] = error "empty list"
@@ -341,7 +359,7 @@ init' (x:xs) = x : init' xs
       \pygment{haskell}{"cary"}
     \item exercise: split a list at a given position\\
       \pygment{haskell}{splitAt 3 "Peccary"} $\rightsquigarrow$
-      \pygment{haskell}{("Pec","cary")}
+      \pygment{haskell}{("Pec", "cary")}
   \end{itemize}
 \end{frame}
 
@@ -350,7 +368,7 @@ init' (x:xs) = x : init' xs
 
   \begin{exampleblock}{make a list of n copies of an item}
     \begin{pygments}{haskell}
-replicate' :: Integer -> a -> [a]
+replicate' :: Int -> a -> [a]
 replicate' 0 _ = []
 replicate' n x = x : replicate' (n - 1) x
     \end{pygments}
@@ -362,7 +380,7 @@ replicate' n x = x : replicate' (n - 1) x
 
   \begin{exampleblock}{split a list at a given position}
     \begin{pygments}{haskell}
-splitAt' :: Integer -> [a] -> ([a], [a])
+splitAt' :: Int -> [a] -> ([a], [a])
 splitAt' n xs = (take' n xs, drop' n xs)
     \end{pygments}
   \end{exampleblock}
@@ -373,12 +391,25 @@ splitAt' n xs = (take' n xs, drop' n xs)
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Prelude Functions}
 
   \begin{itemize}
-    \item exercise: write a primitive recursive function\\
-      that will reverse a list
+    \item reverse a list\\
+      \pygment{haskell}{reverse "word"} $\rightsquigarrow$
+      \pygment{haskell}{"drow"}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = (reverse' xs) ++ [x]
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
     \item exercise: write a tail recursive function that will reverse a list
   \end{itemize}
 \end{frame}
@@ -386,22 +417,10 @@ splitAt' n xs = (take' n xs, drop' n xs)
 \begin{frame}<beamer>[fragile]
   \frametitle{Prelude Functions}
 
-  \begin{exampleblock}{reverse a list (primitive recursive)}
-    \begin{pygments}{haskell}
-reverse1 :: [a] -> [a]
-reverse1 [] = []
-reverse1 (x:xs) = (reverse1 xs) ++ [x]
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{Prelude Functions}
-
   \begin{exampleblock}{reverse a list (tail recursive)}
     \begin{pygments}{haskell}
-reverse2 :: [a] -> [a]
-reverse2 xs = reverseIter [] xs
+reverse'' :: [a] -> [a]
+reverse'' xs = reverseIter [] xs
   where
     reverseIter :: [a] -> [a] -> [a]
     reverseIter acc [] = acc
@@ -419,7 +438,7 @@ reverse2 xs = reverseIter [] xs
       \pygment{haskell}{[2, 3, 4]}
   \end{itemize}
 
-  \begin{exampleblock}{convert a list of lists into a list}
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 concat' :: [[a]] -> [a]
 concat' [] = []
@@ -433,11 +452,11 @@ concat' (x:xs) = x ++ concat' xs
 
   \begin{itemize}
     \item convert two lists into a list of pairs\\
-      \pygment{haskell}{zip [1, 2] [3, 4]} $\rightsquigarrow$
-      \pygment{haskell}{[(1, 3), (2, 4)]}
+      \pygment{haskell}{zip [1, 2] ['a', 'b']} $\rightsquigarrow$
+      \pygment{haskell}{[(1, 'a'), (2, 'b')]}
   \end{itemize}
 
-  \begin{exampleblock}{convert two lists into a list of pairs}
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 zip' :: [a] -> [b] -> [(a, b)]
 zip' [] [] = []
@@ -447,31 +466,20 @@ zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
 
   \pause
   \begin{itemize}
-    \item what if called as:\\
-      \pygment{haskell}{zip' [1, 2] [3, 4, 5]}
-    \item result should be: \pygment{haskell}{[(1, 3), (2, 4)]}
+    \item what if called as given below?\\
+      \pygment{haskell}{zip' [1, 2] ['a', 'b', 'c']}
+    \item result should be: \pygment{haskell}{[(1, 'a'), (2, 'b')]}
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}<beamer>[fragile]
   \frametitle{Prelude Functions}
 
-  \begin{itemize}
-    \item convert three lists into a list of triples\\
-      \pygment{haskell}{zip3 [1, 2] [3, 4] [5, 6]} $\rightsquigarrow$
-      \pygment{haskell}{[(1, 3, 5), (2, 4, 6)]}
-    \item using a \pygment{haskell}{case} expression
-  \end{itemize}
-
-  \pause
-  \begin{exampleblock}{convert three lists into a list of triples}
+  \begin{exampleblock}{convert two lists into a list of pairs}
     \begin{pygments}{haskell}
-zip3' :: [a] -> [b] -> [c] -> [(a, b, c)]
-zip3' xs ys zs =
-    case (xs, ys, zs) of
-      (x:xs', y:ys', z:zs') ->
-          (x, y, z) : zip3' xs' ys' zs'
-      _ -> []
+zip'' :: [a] -> [b] -> [(a, b)]
+zip'' (x:xs) (y:ys) = (x, y) : zip'' xs ys
+zip'' _ _ = []
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -485,7 +493,7 @@ zip3' xs ys zs =
       \pygment{haskell}{([1, 2], [3, 4])}
   \end{itemize}
 
-  \begin{exampleblock}{convert a list of pairs into a pair of lists}
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 unzip' :: [(a, b)] -> ([a], [b])
 unzip' [] = ([], [])
@@ -503,37 +511,37 @@ unzip' ((x, y):xys) = (x : xs, y : ys)
 
   \begin{exampleblock}{maximum of a list}
     \begin{pygments}{haskell}
-maxList1 :: [Integer] -> Integer
-maxList1 [] = error "empty list"
-maxList1 [x] = x
-maxList1 (x:xs)
-  | x > maxList1 xs = x
-  | otherwise       = maxList1 xs
+maxList :: [Integer] -> Integer
+maxList [] = error "empty list"
+maxList [x] = x
+maxList (x:xs)
+  | x > maxList xs = x
+  | otherwise      = maxList xs
     \end{pygments}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item what happens if called as:\\
-      \pygment{haskell}{maxList1 [30, 29 .. 1]}\\
-      \pygment{haskell}{maxList1 [1 .. 30]}
+    \item what if called as given below?\\
+      \pygment{haskell}{maxList [30, 29 .. 1]}\\
+      \pygment{haskell}{maxList [1 .. 30]}
   \end{itemize}
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
   \frametitle{List Maximum}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{maximum of a list}
     \begin{pygments}{haskell}
-maxList2 :: [Integer] -> Integer
-maxList2 [] = error "empty list"
-maxList2 [x] = x
-maxList2 (x:xs)
+maxList' :: [Integer] -> Integer
+maxList' [] = error "empty list"
+maxList' [x] = x
+maxList' (x:xs)
   | x > maxTail = x
   | otherwise   = maxTail
   where
     maxTail :: Integer
-    maxTail = maxList2 xs
+    maxTail = maxList' xs
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -546,8 +554,40 @@ maxList2 (x:xs)
 nondecreasing :: [Integer] -> Bool
 nondecreasing [] = True
 nondecreasing [_] = True
-nondecreasing (x1:x2:xs) = x1 <= x2
-                           && nondecreasing (x2 : xs)
+nondecreasing (x1:x2:xs) =
+    x1 <= x2 && nondecreasing (x2 : xs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Merging Lists}
+
+  \begin{exampleblock}{merge two ordered lists}
+    \begin{pygments}{haskell}
+merge :: [Integer] -> [Integer] -> [Integer]
+merge xs [] = xs
+merge [] ys = ys
+merge (x:xs) (y:ys)
+  | x <= y    = x : merge xs (y : ys)
+  | otherwise = y : merge (x : xs) ys
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Merging Lists}
+
+  \begin{exampleblock}{merge two ordered lists}
+    \begin{pygments}{haskell}
+merge' :: [Integer] -> [Integer] -> [Integer]
+merge' xs ys =
+    case (xs, ys) of
+      (_, [])        -> xs
+      ([], _)        -> ys
+      (x:xs', y:ys') -> if x <= y
+                            then x : merge' xs' ys
+                            else y : merge' xs ys'
     \end{pygments}
   \end{exampleblock}
 \end{frame}
