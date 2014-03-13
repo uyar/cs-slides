@@ -393,11 +393,11 @@ fact' n = factIter 1 n
   \begin{itemize}
     \item another classic example: the Fibonacci sequence
     \begin{equation*}
-      f_n = \left\{
+      fib_n = \left\{
         \begin{array}{ll}
-          1                 & n = 1\\
-          1                 & n = 2\\
-          f_{n-2} + f_{n-1} & n > 2
+          1                     & if~n = 1\\
+          1                     & if~n = 2\\
+          fib_{n-2} + fib_{n-1} & if~n > 2
         \end{array}\right.
     \end{equation*}
   \end{itemize}
