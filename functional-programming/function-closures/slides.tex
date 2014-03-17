@@ -1,0 +1,515 @@
+% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \useinnertheme{rounded}
+  \usecolortheme{seahorse}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Higher Order Functions}
+
+\author{H. Turgut Uyar}
+\date{2013-2014}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\begin{document}
+
+\setpythontexfv[]{frame=single}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2013-2014 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free to:
+    \begin{itemize}
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.\\
+        You may do so in any reasonable manner, but not in any way
+        that suggests the licensor endorses you or your use.
+
+      \item Noncommercial -- You may not use the material for commercial
+        purposes.
+
+      \item Share Alike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions\\
+        under the same license as the original.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  \begin{small}
+    Legal code (the full license):\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Function Closures}
+
+\subsection{Returning Functions}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+maxOrMin p = if p then max else min
+
+(maxOrMin True) 1 2   -- 2
+(maxOrMin False) 1 2  -- 1
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+-- what is the type of maxOrMin?
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+-- maxOrMin :: Bool -> (Integer -> Integer -> Integer)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def max(x: Int, y: Int): Int = if (x > y) x else y
+
+def min(x: Int, y: Int): Int = if (x < y) x else y
+
+def maxOrMin(p: Boolean): (Int, Int) => Int =
+    if (p) max else min
+
+maxOrMin(true)(1, 2)          // 2
+maxOrMin(false)(1, 2)         // 1
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def max_or_min(p):
+    return max if p else min
+
+max_or_min(True)([1, 2])        # 2
+max_or_min(False)([1, 2])       # 1
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Function Closures}
+
+\begin{frame}[fragile]
+  \frametitle{Function Closure}
+
+  \begin{itemize}
+    \item a function value has two parts:
+    \begin{itemize}
+      \item the code
+      \item the environment that was current when the function was defined
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+sumFunc f =
+    let
+        sumF a b =
+            if a > b
+            then 0
+            else f a + sumF (a + 1) b
+    in
+        sumF
+
+sumCubes = sumFunc (\x -> x * x * x)
+
+sumFactorials = sumFunc factorial
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Scala]
+    \begin{pygments}{scala}
+def sum(f: Int => Int): (Int, Int) => Int = {
+    def sumF(a: Int, b: Int): Int =
+        if (a > b) 0
+        else f(a) + sumF(a + 1, b)
+    sumF
+}
+
+def sumCubes = sum(x => x * x * x)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function as Result Example}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def sum_func(f):
+    def sum_f(a, b):
+        total = 0.0
+        while a <= b:
+            total += f(a)
+            a += 1
+        return total
+    return sum_f
+
+def sum_cubes():
+    return sum_func(lambda x: x * x * x)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorators}
+
+  \begin{block}{Python}
+    \begin{itemize}
+      \item a decorator returns a transformed version of its function parameter
+    \end{itemize}
+  \end{block}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def entry_exit(f):
+    def wrapped(x):
+        print("Entering function with parameter: %s" % x)
+        result = f(x)
+        print("Exiting function with result: %s" % result)
+        return result
+    return wrapped
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{example}[Python]
+    \begin{pygments}{python}
+def fact(n):
+    return 1 if n == 0 else n * fact(n - 1)
+
+entry_exit(fact)(5)
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{python}
+@entry_exit
+def fact(n):
+    return 1 if n == 0 else n * fact(n - 1)
+
+fact(5)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{example}[Fibonacci series]
+    \begin{pygments}{python}
+def fibonacci(n):
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return fibonacci(n - 2) + fibonacci(n - 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{example}[memoization]
+    \begin{pygments}{python}
+def memoize(f):
+    cache = {}
+    def wrapped(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+    return wrapped
+
+@memoize
+def fibonacci(n):
+    ...
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Currying}
+
+\begin{frame}
+  \frametitle{Currying}
+
+  \begin{itemize}
+    \item a function which takes two parameters can be thought of as\\
+      a function which takes one parameter\\
+      and returns a function which takes one parameter
+    \item generalize for n parameters: \alert{currying}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying Example}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+add x y = x + y
+-- add :: Integer -> Integer -> Integer
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{haskell}
+increment = add 1
+-- increment :: Integer -> Integer
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{haskell}
+increment 7
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying Example}
+
+  \begin{example}
+    \begin{pygments}{haskell}
+productFunc f a b =
+    if a > b then 1 else f a * productFunc f (a + 1) b
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{haskell}
+productAbs = productFunc abs
+
+productIntegers = productFunc id
+
+factorial = productFunc id 1
+-- or: factorial = productIntegers 1
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying Example}
+
+  \begin{example}
+    \begin{pygments}{scala}
+def sum(f: Int => Int)(a: Int, b: Int) =
+    if (a > b) 0
+    else f(a) + sum(f)(a + 1, b)
+
+sum(cube)(1, 8)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Function Composition}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition}
+
+  \begin{block}{Haskell}
+    \begin{pygments}{haskell}
+f . g
+    \end{pygments}
+  \end{block}
+
+  \pause
+  \begin{example}
+    \begin{pygments}{haskell}
+even' = not . odd
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+-- what is the type of (.)?
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+(.) : (b -> c) -> (a -> b) -> a -> c
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item \pygment{haskell}{second'}: second element of a list
+      \item \pygment{haskell}{last'}: last element of a list
+      \item \pygment{haskell}{length'}: length of a list
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Function Composition Examples}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+second' = head . tail
+last' = head . reverse
+length' = sum . map (\_ -> 1)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{example}[finding fixed points]
+    \begin{itemize}
+      \item $x$ is a \emph{fixed point} of $f$: $f(x)=x$
+      \item find fixed point by repeatedly applying $f$ until value doesn't change:\\
+        $x,f(x),f(f(x)),f(f(f(x))),\ldots$
+
+      \medskip
+      \item $y = \sqrt{x} \Rightarrow y * y = x \Rightarrow y = x / y$
+      \item fixed point of the function $f(y) = x / y$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{example}[fixed point]
+    \begin{pygments}{haskell}
+fixedPoint f firstGuess =
+    let
+        isCloseEnough x y = (abs (x - y) / x) < 0.001
+
+        fpIter guess =
+            let
+                next = f guess
+            in
+                if isCloseEnough guess next
+                then next
+                else fpIter next
+    in
+        fpIter firstGuess
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{example}[fixed point]
+    \begin{pygments}{haskell}
+newton x = fixedPoint (\y -> x / y) 1.0
+    \end{pygments}
+
+    \pause
+    \begin{itemize}
+      \item this doesn't converge (try with $y = 2$)
+      \item average successive values (average damping)
+    \end{itemize}
+    \begin{pygments}{haskell}
+newton x = fixedPoint (\y -> (y + x / y) / 2.0) 1.0
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{example}[fixed point]
+    \begin{itemize}
+      \item a general function for average damping
+    \end{itemize}
+    \begin{pygments}{haskell}
+averageDamp f x = (x + f x) / 2.0
+
+newton x = fixedPoint (averageDamp (\y -> x / y)) 1.0
+    \end{pygments}
+  \end{example}
+\end{frame}
+%
+% \section*{References}
+%
+% \begin{frame}
+%   \frametitle{References}
+%
+%   \begin{block}{Required Reading: Abelson, Sussman}
+%     \begin{itemize}
+%       \item Chapter 1: Building Abstractions with Procedures
+%       \begin{itemize}
+%         \item 1.1. \alert{The Elements of Programming}
+%       \end{itemize}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\end{document}
