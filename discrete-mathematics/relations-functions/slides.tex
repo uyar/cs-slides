@@ -1,16 +1,12 @@
-% Copyright (c) 2001-2013
+% Copyright (c) 2001-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -18,6 +14,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -29,7 +26,7 @@
 \subtitle{Relations and Functions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2013}
+\date{2001-2014}
 
 \AtBeginSubsection[]
 {
@@ -41,7 +38,7 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \pgfdeclareimage{relation}{relation}
 \pgfdeclareimage{composite1}{composite1}
@@ -60,33 +57,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -105,24 +109,15 @@
     \alert{relation}: $\alpha \subseteq A \times B \times C \times \dots \times N$
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item \alert{tuple}: an element of a relation
+  \end{itemize}
 
-    \pause
-    \medskip
+  \pause
+  \medskip
+  \begin{itemize}
     \item $\alpha \subseteq A \times B$: \emph{binary relation}
-    \begin{itemize}
-      \item $a \alpha b$ is the same as $(a,b) \in \alpha$
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item representations:
-    \begin{itemize}
-      \item by drawing
-      \item by matrix
-    \end{itemize}
+    \item $a \alpha b$ is the same as $(a,b) \in \alpha$
   \end{itemize}
 \end{frame}
 
@@ -177,18 +172,6 @@
                 \exists b \in B~[a \alpha b \wedge b \beta c]\}$
   \end{definition}
 
-  \begin{itemize}
-    \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
-    \begin{itemize}
-      \item using logical operations:\\
-        $1:T, 0:F, \cdot:\wedge, +:\vee$
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Relation Composition Example}
-
   \begin{example}
     \begin{columns}
       \column{.45\textwidth}
@@ -205,8 +188,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Relation Composition Matrix Example}
+  \frametitle{Relation Composition}
 
+  \begin{itemize}
+    \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
+    \item using logical operations:\\
+      $1:T~~~~0:F~~~~\cdot:\wedge~~~~+:\vee$
+  \end{itemize}
+
+  \pause
   \begin{example}
     \begin{columns}
       \column{.28\textwidth}
@@ -249,12 +239,8 @@
 \begin{frame}
   \frametitle{Relation Composition Associativity}
 
-  \begin{itemize}
-    \item relation composition is associative
-  \end{itemize}
-
-  \pause
   \begin{proof}[$(\alpha \beta) \gamma = \alpha (\beta \gamma)$]
+    \pause
     \begin{eqnarray*}
       &                 & (a,d) \in (\alpha \beta)\gamma\\\pause
       & \Leftrightarrow & \exists c~[(a,c) \in \alpha \beta
@@ -299,6 +285,7 @@
   \frametitle{Relation Composition Theorems}
 
   \begin{proof}[$\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$]
+    \pause
     \begin{eqnarray*}
       &                 & (a,c) \in \alpha (\beta \cup \gamma)\\\pause
       & \Leftrightarrow & \exists b~[(a,b) \in \alpha
@@ -343,6 +330,7 @@
   \frametitle{Converse Relation Theorems}
 
   \begin{proof}[$\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$]
+    \pause
     \begin{eqnarray*}
       &                 & (b,a) \in \overline{\alpha}^{-1}\\\pause
       & \Leftrightarrow & (a,b) \in \overline{\alpha}\\\pause
@@ -357,6 +345,7 @@
   \frametitle{Converse Relation Theorems}
 
   \begin{proof}[$(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$]
+    \pause
     \begin{eqnarray*}
       &                 & (b,a) \in (\alpha \cap \beta)^{-1}\\\pause
       & \Leftrightarrow & (a,b) \in (\alpha \cap \beta)\\\pause
@@ -372,6 +361,7 @@
   \frametitle{Converse Relation Theorems}
 
   \begin{proof}[$(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$]
+    \pause
     \begin{eqnarray*}
       (\alpha - \beta)^{-1} & = & (\alpha \cap \overline{\beta})^{-1}\\\pause
                             & = & \alpha^{-1} \cap \overline{\beta}^{-1}\\\pause
@@ -436,7 +426,7 @@
     \item $E \subseteq \alpha$
 
     \pause
-        \item nonreflexive:\\
+    \item nonreflexive:\\
       $\exists a~[\neg (a \alpha a)]$
 
     \pause
@@ -520,7 +510,7 @@
 
     \pause
     \item asymmetric:\\
-      $\exists a,b~[(a \neq b) \wedge (a \alpha b \wedge \neg(b \alpha a))
+      $\exists a,b~[(a \neq b) \wedge ((a \alpha b \wedge \neg(b \alpha a))
                                \vee (\neg (a \alpha b) \wedge b \alpha a))]$
 
     \pause
@@ -967,17 +957,17 @@
       \pause
       \column{.65\textwidth}
       \begin{itemize}
-        \item $C_1=\{a_4,a_6\}$
-        \item $C_2=\{a_2,a_4,a_6\}$
-        \item $C_3=\{a_1,a_2,a_4,a_6\}$ (MCB)
+        \item $C_1=\{p_4,p_6\}$
+        \item $C_2=\{p_2,p_4,p_6\}$
+        \item $C_3=\{p_1,p_2,p_4,p_6\}$ (MCB)
       \end{itemize}
 
       \pause
       \medskip
       \begin{eqnarray*}
-        C_\gamma (A) & = & \{\{a_1,a_2,a_4,a_6\},\\
-                     &   & ~~\{a_3,a_4,a_6\},\\
-                     &   & ~~\{a_4,a_5\}\}
+        C_\gamma & = & \{\{p_1,p_2,p_4,p_6\},\\
+                 &   & ~~\{p_3,p_4,p_6\},\\
+                 &   & ~~\{p_4,p_5\}\}
       \end{eqnarray*}
     \end{columns}
   \end{example}
