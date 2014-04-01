@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="bileske.svg"
-   sodipodi:docbase="/home/uyar/ders/ayrik/sunumlar/05.Bagintilar"
-   inkscape:version="0.45"
+   sodipodi:docname="composite1.svg"
+   inkscape:version="0.48.4 r9939"
    sodipodi:version="0.32"
    id="svg2"
    height="297mm"
    width="210mm"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:modified="true"
+   version="1.1">
   <defs
      id="defs3">
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path3840"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
     <marker
        style="overflow:visible"
        id="TriangleOutM"
@@ -64,21 +78,22 @@
   </defs>
   <sodipodi:namedview
      showgrid="false"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
+     inkscape:window-y="39"
+     inkscape:window-x="336"
      inkscape:window-height="949"
      inkscape:window-width="1272"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      inkscape:cy="864.03282"
-     inkscape:cx="164.9584"
+     inkscape:cx="137.18757"
      inkscape:zoom="6.1215302"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base" />
+     id="base"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata4">
     <rdf:RDF>
@@ -144,7 +159,7 @@
          sodipodi:cy="185.15698"
          sodipodi:rx="1.9960333"
          sodipodi:ry="1.497025"
-         d="M 122.32833 185.15698 A 1.9960333 1.497025 0 1 1  118.33626,185.15698 A 1.9960333 1.497025 0 1 1  122.32833 185.15698 z"
+         d="m 122.32833,185.15698 c 0,0.82679 -0.89365,1.49703 -1.99603,1.49703 -1.10238,0 -1.99604,-0.67024 -1.99604,-1.49703 0,-0.82678 0.89366,-1.49702 1.99604,-1.49702 1.10238,0 1.99603,0.67024 1.99603,1.49702 z"
          transform="matrix(1.750993,0,0,2.337977,-90.539681,-230.59182)" />
       <g
          transform="translate(9.7357856,27.087903)"
@@ -222,7 +237,7 @@
          sodipodi:cy="185.15698"
          sodipodi:rx="1.9960333"
          sodipodi:ry="1.497025"
-         d="M 122.32833 185.15698 A 1.9960333 1.497025 0 1 1  118.33626,185.15698 A 1.9960333 1.497025 0 1 1  122.32833 185.15698 z"
+         d="m 122.32833,185.15698 c 0,0.82679 -0.89365,1.49703 -1.99603,1.49703 -1.10238,0 -1.99604,-0.67024 -1.99604,-1.49703 0,-0.82678 0.89366,-1.49702 1.99604,-1.49702 1.10238,0 1.99603,0.67024 1.99603,1.49702 z"
          transform="matrix(1.750993,0,0,2.337977,-0.5732647,-230.59182)" />
       <g
          id="g2315">
@@ -261,7 +276,7 @@
          sodipodi:cy="185.15698"
          sodipodi:rx="1.9960333"
          sodipodi:ry="1.497025"
-         d="M 122.32833 185.15698 A 1.9960333 1.497025 0 1 1  118.33626,185.15698 A 1.9960333 1.497025 0 1 1  122.32833 185.15698 z"
+         d="m 122.32833,185.15698 c 0,0.82679 -0.89365,1.49703 -1.99603,1.49703 -1.10238,0 -1.99604,-0.67024 -1.99604,-1.49703 0,-0.82678 0.89366,-1.49702 1.99604,-1.49702 1.10238,0 1.99603,0.67024 1.99603,1.49702 z"
          transform="matrix(1.750993,0,0,2.337977,-46.266656,-270.98022)" />
       <g
          transform="translate(-7.3151174,1.8229819)"
@@ -295,7 +310,7 @@
        transform="translate(0.7236608,0)">
       <path
          transform="matrix(1.750993,0,0,2.337977,-46.305197,-230.59182)"
-         d="M 122.32833 185.15698 A 1.9960333 1.497025 0 1 1  118.33626,185.15698 A 1.9960333 1.497025 0 1 1  122.32833 185.15698 z"
+         d="m 122.32833,185.15698 c 0,0.82679 -0.89365,1.49703 -1.99603,1.49703 -1.10238,0 -1.99604,-0.67024 -1.99604,-1.49703 0,-0.82678 0.89366,-1.49702 1.99604,-1.49702 1.10238,0 1.99603,0.67024 1.99603,1.49702 z"
          sodipodi:ry="1.497025"
          sodipodi:rx="1.9960333"
          sodipodi:cy="185.15698"
@@ -331,24 +346,24 @@
       </g>
     </g>
     <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Send);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 121.63671,162.22527 L 160.0258,161.73519"
        id="path2329" />
     <path
        id="path3300"
        d="M 166.48515,162.22527 L 204.87424,161.73519"
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Send);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Send);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 166.40263,202.38863 L 204.79172,201.89855"
        id="path3302" />
     <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Send);stroke-miterlimit:4;stroke-dasharray:none"
        d="M 122.35503,163.20541 L 160.90748,199.14414"
        id="path3304" />
     <path
        id="path4275"
        d="M 122.35503,199.659 L 160.90748,163.72027"
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Send);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>

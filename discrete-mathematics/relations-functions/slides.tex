@@ -398,18 +398,15 @@
   \frametitle{Relation Properties}
 
   \begin{itemize}
-    \item $\alpha \subseteq A \times A$
-    \begin{itemize}
-      \item \emph{binary relation on $A$}
-    \end{itemize}
+    \item let $\alpha \subseteq A \times A$
 
     \pause
     \medskip
-    \item let $\alpha^n$ mean $\alpha \alpha \cdots \alpha$
+    \item $\alpha^n$: $\alpha \alpha \cdots \alpha$
 
     \pause
     \medskip
-    \item \alert{identity relation}: $E = \{(x,x)~|~x \in A\}$
+    \item \alert{identity relation}: $E = \{(a,a)~|~a \in A\}$
   \end{itemize}
 \end{frame}
 
@@ -776,7 +773,7 @@
     \pause
     \medskip
     \begin{itemize}
-      \item how can a relation be symmetric, transitive and nonreflexive?
+      \item can a relation be symmetric, transitive and irreflexive?
     \end{itemize}
   \end{block}
 \end{frame}
@@ -1047,7 +1044,7 @@
   \begin{definition}
     \alert{function}: $f: X \rightarrow Y$\\
     $\forall x \in X~\forall y_1,y_2 \in Y~
-      (x,y_1),(x,y_2) \in f \Rightarrow y_1=y_2$
+      [(x,y_1),(x,y_2) \in f \rightarrow y_1=y_2]$
   \end{definition}
 
   \medskip
@@ -1087,13 +1084,13 @@
 
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{one-to-one} (or \alert{injective}):\\
-      $\forall x_1,x_2 \in X~f(x_1)=f(x_2) \Rightarrow x_1=x_2$
+      $\forall x_1,x_2 \in X~[f(x_1)=f(x_2) \rightarrow x_1=x_2]$
   \end{definition}
 
   \pause
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{onto} (or \alert{surjective}):\\
-    $\forall y \in Y~\exists x \in X~f(x)=y$
+    $\forall y \in Y~\exists x \in X~[f(x)=y]$
 
     \begin{itemize}
       \item $f(X)=Y$
@@ -1169,7 +1166,7 @@
   \frametitle{Function Composition}
 
   \begin{definition}
-    let $f: X \rightarrow Y, g: Y \rightarrow Z$
+    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$
 
     \medskip
     $g \circ f: X \rightarrow Z$\\
@@ -1211,7 +1208,7 @@
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    let $f: X \rightarrow Y, g: Y \rightarrow Z$\\
+    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$\\
     $f$ is one-to-one $\wedge$ $g$ is one-to-one
       $\Rightarrow$ $g \circ f$ is one-to-one
   \end{theorem}
@@ -1233,7 +1230,7 @@
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    let $f: X \rightarrow Y, g: Y \rightarrow Z$\\
+    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$\\
     $f$ is onto $\wedge$ $g$ is onto $\Rightarrow$ $g \circ f$ is onto
   \end{theorem}
 
@@ -1400,7 +1397,7 @@
   \frametitle{Pigeonhole Principle}
 
   \begin{definition}
-    \alert{Pigeonhole Principle} (Dirichlet drawers):\\
+    \alert{pigeonhole principle} (Dirichlet drawers):\\
     If $m$ pigeons go into $n$ holes and $m>n$,\\
     then at least one hole contains more than one pigeon.
   \end{definition}
@@ -1408,7 +1405,7 @@
   \pause
   \begin{itemize}
     \item let $f: X \rightarrow Y$\\
-      if $|X|>|Y|$ then $f$ cannot be one-to-one
+      $|X|>|Y| \Rightarrow f \mbox{ is not one-to-one}$
 
     \item $\exists x_1,x_2 \in X~[x_1 \neq x_2 \wedge f(x_1)=f(x_2)]$
   \end{itemize}
@@ -1433,7 +1430,7 @@
   \frametitle{Generalized Pigeonhole Principle}
 
   \begin{definition}
-    \alert{Generalized Pigeonhole Principle}:\\
+    \alert{generalized pigeonhole principle}:\\
     If $m$ objects are distributed to $n$ drawers,\\
     then at least one of the drawers contains $\lceil m / n \rceil$ objects.
   \end{definition}
@@ -1579,7 +1576,7 @@
       \item $T=\{t~|~t \in S, \exists i \in \mathbb{Z}~[t=2i+1]\}$, $|T|=100$
 
       \pause
-      \item $f: S \rightarrow T$, $r \in \mathbb{N}$ olsun\\
+      \item let $f: S \rightarrow T \mbox{ and }r \in \mathbb{N}$\\
         $s = 2^r t \rightarrow f(s) = t$
       \begin{itemize}
         \item if 101 elements are chosen from $S$, at least two of them\\
@@ -1612,12 +1609,13 @@
       where the size is reduced at every step
 
     \medskip
-    $f(n) = \left\{
-      \begin{array}{ll}
-        k         & n = 0\\
-        h(f(n-1)) & n > 0
-      \end{array}
-    \right.$
+    \[
+      f(n) =
+        \begin{cases}
+          k         & \mbox{if } n = 0\\
+          h(f(n-1)) & \mbox{if } n > 0
+        \end{cases}
+    \]
   \end{itemize}
 \end{frame}
 
@@ -1625,23 +1623,25 @@
   \frametitle{Recursion Examples}
 
   \begin{example}
-    $f91(n) = \left\{
-      \begin{array}{ll}
-        n - 10         & n > 100\\
-        f91(f91(n+11)) & n \leq 100
-      \end{array}
-    \right.$
+    \[
+      f91(n) =
+        \begin{cases}
+          n - 10         & \mbox{if } n > 100\\
+          f91(f91(n+11)) & \mbox{if } n \leq 100
+        \end{cases}
+    \]
   \end{example}
 
   \pause
   \medskip
   \begin{example}[factorial]
-    $f(n) = \left\{
-      \begin{array}{ll}
-        1              & n = 0\\
-        n \cdot f(n-1) & n > 0
-      \end{array}
-    \right.$
+    \[
+    f(n) =
+      \begin{cases}
+        1              & \mbox{if } n = 0\\
+        n \cdot f(n-1) & \mbox{if } n > 0
+      \end{cases}
+    \]
   \end{example}
 \end{frame}
 
@@ -1649,12 +1649,13 @@
   \frametitle{Euclid Algorithm}
 
   \begin{example}[greatest common divisor]
-    $gcd(a,b) = \left\{
-      \begin{array}{ll}
-        b              & b | a\\
-        gcd(b,a~mod~b) & b \nmid a
-      \end{array}
-    \right.$
+    \[
+    gcd(a,b) =
+      \begin{cases}
+        b              & \mbox{if } b~|~a\\
+        gcd(b,a~mod~b) & \mbox{if } b \nmid a
+      \end{cases}
+    \]
 
     \pause
     \medskip
@@ -1672,13 +1673,14 @@
   \frametitle{Fibonacci Series}
 
   \begin{block}{Fibonacci series}
-    $F_n = fib(n) = \left\{
-      \begin{array}{ll}
-        1                   & n = 1\\
-        1                   & n = 2\\
-        fib(n-1) + fib(n-2) & n > 2
-      \end{array}
-    \right.$
+    \[
+    F_n = fib(n) =
+      \begin{cases}
+        1                   & \mbox{if } n = 1\\
+        1                   & \mbox{if } n = 2\\
+        fib(n-2) + fib(n-1) & \mbox{if } n > 2
+      \end{cases}
+    \]
   \end{block}
 
   \bigskip
@@ -1722,13 +1724,14 @@
   \frametitle{Ackermann Function}
 
   \begin{block}{Ackermann function}
-    $ack(x,y) = \left\{
-      \begin{array}{ll}
-        y+1                 & x = 0\\
-        ack(x-1, 1)         & y = 0\\
-        ack(x-1,ack(x,y-1)) & x > 0 \wedge y > 0
-      \end{array}
-    \right.$
+    \[
+    ack(x,y) =
+      \begin{cases}
+        y+1                 & \mbox{if } x = 0\\
+        ack(x-1, 1)         & \mbox{if } y = 0\\
+        ack(x-1,ack(x,y-1)) & \mbox{if } x > 0 \wedge y > 0
+      \end{cases}
+    \]
   \end{block}
 \end{frame}
 
