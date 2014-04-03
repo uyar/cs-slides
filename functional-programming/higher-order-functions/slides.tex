@@ -89,9 +89,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Introduction}
+\section{Functions as Parameter}
 
-\subsection{First Class Values}
+\subsection{Function Order}
 
 \begin{frame}
   \frametitle{First Class Values}
@@ -105,64 +105,9 @@
       \item returned as function results
     \end{itemize}
 
-    \pause
-    \bigskip
-    \item \emph{type completeness principle}:\\
-      No operation should be arbitrarily restricted\\
-      in the types of its operands.
+    \medskip
+    \item in functional programming, functions are first class values
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{First Class Values}
-
-  \begin{block}{C}
-    \begin{table}
-      \begin{tabular}{l||c|c|c|c}
-                & primitive & structure &  array  & function\\\hline\hline
-        assign  &  $\surd$  &  $\surd$  &   $?$   &    $?$  \\\hline
-        compose &  $\surd$  &  $\surd$  & $\surd$ &    $?$  \\\hline
-        pass    &  $\surd$  &  $\surd$  &   $?$   &    $?$  \\\hline
-        return  &  $\surd$  &  $\surd$  &   $?$   &    $?$
-      \end{tabular}
-    \end{table}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{First Class Values}
-
-  \begin{block}{Pascal}
-    \begin{table}
-      \begin{tabular}{l||c|c|c|c}
-                & primitive & record  &  array  & function \\\hline\hline
-        assign  &  $\surd$  & $\surd$ & $\surd$ & $\times$ \\\hline
-        compose &  $\surd$  & $\surd$ & $\surd$ & $\times$ \\\hline
-        pass    &  $\surd$  & $\surd$ & $\surd$ & $\surd$  \\\hline
-        return  &  $\surd$  &   $?$   &   $?$   & $\times$
-      \end{tabular}
-    \end{table}
-  \end{block}
-
-  \begin{itemize}
-    \item type definition needed for arrays and records to be returned
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{First Class Values}
-
-  \begin{block}{Haskell, Python}
-    \begin{table}
-      \begin{tabular}{l||c|c|c|c}
-                & primitive &  tuple  &  list   & function\\\hline\hline
-        assign  &  $\surd$  & $\surd$ & $\surd$ & $\surd$ \\\hline
-        compose &  $\surd$  & $\surd$ & $\surd$ & $\surd$ \\\hline
-        pass    &  $\surd$  & $\surd$ & $\surd$ & $\surd$ \\\hline
-        return  &  $\surd$  & $\surd$ & $\surd$ & $\surd$
-      \end{tabular}
-    \end{table}
-  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -183,8 +128,6 @@
     \end{itemize}
   \end{definition}
 \end{frame}
-
-\subsection{Functions as Parameters}
 
 \begin{frame}[fragile]
   \frametitle{First Order Function Examples}
@@ -432,8 +375,6 @@ quickSort before (pivot:xs) =
   \frametitle{Higher Order Function Examples}
 
   \begin{itemize}
-
-    \medskip
     \item exercise: parameterize the \pygment{haskell}{generateMatch} function\\
       in Rock - Paper - Scissors regarding both strategies
     \item exercise: parameterize the \pygment{haskell}{playInteractive} function\\
@@ -513,215 +454,923 @@ sorted(pairs, key=lambda p: p[1])
   \end{example}
 \end{frame}
 
-\section{Higher Order List Functions}
-
-\subsection{Mapping}
+\subsection{Higher Order List Functions}
 
 \begin{frame}[fragile]
-  \frametitle{map}
+  \frametitle{Mapping}
 
   \begin{itemize}
-    \item \pygment{haskell}{map}: apply a function to each element
+    \item transforming all elements of a list
   \end{itemize}
 
-  \pause
-  \begin{example}[Haskell]
+  \begin{exampleblock}{floors of all elements of a list}
     \begin{pygments}{haskell}
-map sqrt [16.0,9.0,121.0]     -- [4.0,3.0,11.0]
+-- [5.7, 9.0, 2.3] -> [5, 9, 2]
+floorAll :: [Float] -> [Integer]
 
--- what is the type of map?
+-- primitive recursive
+floorAll []     = []
+floorAll (x:xs) = floor x : floorAll xs
+
+-- list comprehension
+floorAll xs = [floor x | x <- xs]
     \end{pygments}
-
-    \pause
-    \begin{pygments}{haskell}
-map :: (a -> b) -> [a] -> [b]
-    \end{pygments}
-  \end{example}
-
-  \pause
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write your own version of map
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{map}
-
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-map' f xs =
-    case xs of
-      [] -> []
-      x:xs' -> f x : map' f xs'
-    \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{map}
+  \frametitle{Mapping}
 
-  \begin{example}[Python]
+  \begin{itemize}
+    \item \pygment{haskell}{map}: apply a function to all elements of a list
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+-- primitive recursive
+map' f []     = []
+map' f (x:xs) = f x : map' f xs
+
+-- list comprehension
+map' f xs = [f x | x <- xs]
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item what is the type of \pygment{haskell}{map}?
+  \end{itemize}
+
+  \begin{pygments}{haskell}
+map :: (a -> b) -> [a] -> [b]
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mapping}
+
+  \begin{exampleblock}{floors of all elements of a list}
+    \begin{pygments}{haskell}
+floorAll :: [Float] -> [Integer]
+floorAll xs = map floor xs
+    \end{pygments}
+  \end{exampleblock}
+
+  \bigskip
+  \begin{exampleblock}{Python}
     \begin{pygments}{python}
 import math
-map(math.sqrt, [16.0, 9.0, 121.0])
+
+map(math.floor, [5.7, 9.0, 2.3])
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\subsection{Filtering}
+\begin{frame}[fragile]
+  \frametitle{Filtering}
+
+  \begin{itemize}
+    \item selecting all the elements of a list with a given property
+  \end{itemize}
+
+  \begin{exampleblock}{all odd elements of a list}
+    \begin{pygments}{haskell}
+-- [4, 1, 3, 2] -> [1, 3]
+allOdds :: [Integer] -> [Integer]
+
+-- primitive recursive
+allOdds []     = []
+allOdds (x:xs)
+  | odd x      = x : allOdds xs
+  | otherwise  = allOdds xs
+
+-- list comprehension
+allOdds xs = [x | x <- xs, odd x]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{filter}
+  \frametitle{Filtering}
 
   \begin{itemize}
     \item \pygment{haskell}{filter}: select elements that satisfy a predicate
   \end{itemize}
 
-  \pause
-  \begin{example}[Haskell]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-filter odd [4,1,3,2]                    -- [1,3]
-filter (\n -> n % 2 == 0) [4,1,3,2]     -- [4,2]
+-- primitive recursive
+filter' f []     = []
+filter' f (x:xs)
+  | f x       = x : filter' f xs
+  | otherwise = filter' f xs
 
--- what is the type of filter?
+-- list comprehension
+filter' f xs = [x | x <- xs, f x]
     \end{pygments}
+  \end{exampleblock}
 
-    \pause
-    \begin{pygments}{haskell}
+  \pause
+  \begin{itemize}
+    \item what is the type of \pygment{haskell}{filter}?
+  \end{itemize}
+
+  \begin{pygments}{haskell}
 filter :: (a -> Bool) -> [a] -> [a]
-    \end{pygments}
-  \end{example}
-
-  \pause
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write your own version of filter
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{filter}
-
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-filter' f xs =
-    case xs of
-      [] -> []
-      x:xs' -> if f x
-               then x : filter' f xs'
-               else filter' f xs'
-    \end{pygments}
-  \end{example}
+  \end{pygments}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{filter}
+  \frametitle{Filtering}
 
-  \begin{example}[Python]
+  \begin{exampleblock}{all odd elements of a list}
+    \begin{pygments}{haskell}
+allOdds :: [Integer] -> [Integer]
+allOdds xs = filter odd xs
+    \end{pygments}
+  \end{exampleblock}
+
+  \bigskip
+  \begin{exampleblock}{Python}
     \begin{pygments}{python}
 def odd(n):
     return n % 2 == 1
 
 filter(odd, [4, 1, 3, 2])
-filter(lambda n: n % 2 == 0, [4, 1, 3, 2])
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\subsection{Folding}
-
 \begin{frame}[fragile]
-  \frametitle{fold}
+  \frametitle{Folding}
 
   \begin{itemize}
-    \item fold: reduce a list to a value over a function
-    \begin{itemize}
-      \item left and right variants
-    \end{itemize}
+    \item combining the elements of a list to a single value
+    \item \pygment{haskell}{foldr1}: reduce a list to a value over a function
+  \end{itemize}
 
-    \medskip
-    \item \pygment{haskell}{foldl f acc [x1,x2,x3,x4]}:\\
-      \pygment{haskell}{f(f(f(f(acc,x1),x2),x3),x4)}
-    \item \pygment{haskell}{foldr f acc [x1,x2,x3,x4]}:\\
-      \pygment{haskell}{f(x1,f(x2,f(x3,f(x4,acc))))}
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldr1 (+) [3, 98, 1]                -- 102
+foldr1 (++) ["Alan", " ", "Turing"]  -- "Alan Turing"
+foldr1 (*) [1 .. 6]                  -- 720
+foldr1 min [6, 11, 2, 8]             -- 2
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding}
+
+  \begin{block}{}
+    \begin{pygments}{haskell}
+foldr1 f [e1, e2, ..., ej, ek]
+    = e1 `f` (e2 `f` (... (ej `f` ek)...)
+    = e1 `f` (foldr1 f [e2, ..., ej, ek])
+    = f e1 (foldr1 f [e2, ..., ej, ek])
+    \end{pygments}
+  \end{block}
+
+  \pause
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldr1' f [x]    = x
+foldr1' f (x:xs) = f x (foldr1' f xs)
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item what is the type of \pygment{haskell}{foldr1}?
   \end{itemize}
 
   \pause
-  \begin{example}[Haskell]
-    \begin{pygments}{haskell}
-foldl (\x y -> x + y) 0 [1,2,3,4]   -- 10
-foldl (*) 1 [1..7]                  -- 5040
-foldl (/) 1.0 [1.0,2.0,3.0]         -- 0.1666666
-foldr (/) 1.0 [1.0,2.0,3.0]         -- 1.5
-    \end{pygments}
-  \end{example}
+  \begin{pygments}{haskell}
+foldr1 :: (a -> a -> a) -> [a] -> a
+  \end{pygments}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{fold}
+  \frametitle{Folding}
 
-  \begin{example}[Haskell]
+  \begin{itemize}
+    \item \pygment{haskell}{foldr1} doesn't work on empty lists
+
+    \pause
+    \medskip
+    \item add a parameter as initial value for empty list:
+      \pygment{haskell}{foldr}
+  \end{itemize}
+
+  \begin{block}{}
     \begin{pygments}{haskell}
--- what are the types of foldl and foldr?
+foldr f s [e1, e2, ..., ej, ek]
+    = e1 `f` (e2 `f` (... (ej `f` (ek `f` s))...)
+    = e1 `f` (foldr f s [e2, ..., ej, ek])
+    = f e1 (foldr f s [e2, ..., ej, ek])
     \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldr' f s []     = s
+foldr' f s (x:xs) = f x (foldr' f s xs)
+    \end{pygments}
+
+    \begin{itemize}
+      \item what is the type of \pygment{haskell}{foldr}?
+    \end{itemize}
 
     \pause
     \begin{pygments}{haskell}
-foldl :: (a -> b -> a) -> a -> [b] -> a
 foldr :: (a -> b -> b) -> b -> [a] -> b
     \end{pygments}
-  \end{example}
-
-  \pause
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write your own versions of foldl and foldr
-    \end{itemize}
-  \end{block}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
-  \frametitle{fold}
+\begin{frame}[fragile]
+  \frametitle{Folding}
 
-  \begin{example}[Haskell]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-foldl' f acc xs =
-    case xs of
-      [] -> acc
-      x:xs' -> foldl' f (f acc x) xs'
+sum' :: [Integer] -> Integer
+sum' xs = foldr (+) 0 xs
 
-foldr' f acc xs =
-    case xs of
-      [] -> acc
-      x:xs' -> foldr' f (f x acc) xs'
+fact :: [Integer] -> Integer
+fact n = foldr (*) 1 [1 .. n]
+
+and' :: [Bool] -> Bool
+and' xs = foldr (&&) True xs
     \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Left}
+
+  \begin{block}{}
+    \begin{pygments}{haskell}
+foldl f s [e1, e2, ..., ej, ek]
+    = (...((s `f` e1) `f` e2) `f` ... ej) `f` ek
+    = foldl f (s `f` e1) [e2, ..., ej, ek]
+    = foldl f (f s e1) [e2, ..., ej, ek]
+    \end{pygments}
+  \end{block}
+
+  \pause
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldl' f s []     = s
+foldl' f s (x:xs) = foldl' f (f s x) xs
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item what is the type of \pygment{haskell}{foldl}?
+  \end{itemize}
+
+  \begin{pygments}{haskell}
+foldl :: (a -> b -> a) -> a -> [b] -> a
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Left}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldl (*) 1 [1 .. 7]           -- 5040
+foldl (/) 1.0 [1.0, 2.0, 3.0]  -- 0.1666666
+foldr (/) 1.0 [1.0, 2.0, 3.0]  -- 1.5
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Examples}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item convert a list of lists into a list\\
+      \pygment{haskell}{concat [[2, 3], [], [4]} $\rightsquigarrow$
+      \pygment{haskell}{[2, 3, 4]}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+concat' :: [[a]] -> [a]
+concat' xs = foldr (++) [] xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item make a list of n copies of an item\\
+      \pygment{haskell}{replicate 3 'c'} $\rightsquigarrow$
+      \pygment{haskell}{"ccc"}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+replicate' :: Integer -> a -> [a]
+replicate' n i = map (\x -> i) [1 .. n]
+
+-- OR:
+replicate' n i = map (\_ -> i) [1 .. n]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prelude Functions}
+
+  \begin{itemize}
+    \item combine elements of two lists using a function\\
+      \pygment{haskell}{zipWith (+) [1, 2] [3, 4]} $\rightsquigarrow$
+      \pygment{haskell}{[4, 6]}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' f xs ys = map (\(x, y) -> f x y) (zip xs ys)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{itemize}
+    \item sum of squares in a range
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sumSquares :: Integer -> Integer -> Integer
+sumSquares m n =
+    foldr (+) 0 (map (\x -> x * x) [m .. n])
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{exampleblock}{insertion sort}
+    \begin{pygments}{haskell}
+ins :: Integer -> [Integer] -> [Integer]
+ins i []      = [i]
+ins i (x:xs)
+  | i <= x    = i : x : xs
+  | otherwise = x : ins i xs
+
+iSort :: [Integer] -> [Integer]
+iSort []     = []
+iSort (x:xs) = ins x (iSort xs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Higher Order Function Example}
+
+  \begin{exampleblock}{insertion sort}
+    \begin{pygments}{haskell}
+iSort :: [Integer] -> [Integer]
+iSort []     = []
+iSort (x:xs) = ins x (iSort xs)
+
+-- can be written in infix form:
+iSort []     = []
+iSort (x:xs) = x `ins` (iSort xs)
+
+-- equivalent to:
+iSort (x:xs) = foldr ins [] xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section{Functions as Result}
+
+\subsection{Function Closures}
+
+\begin{frame}
+  \frametitle{Returning Functions}
+
+  \begin{itemize}
+    \item higher order functions can return functions as result
+  \end{itemize}
+
+  \begin{example}[body surface area]
+    \begin{itemize}
+      \item $h$: height ($cm$), $w$: weight ($kg$), result: area ($m^2$)
+      \smallskip
+      \item Du Bois formula:
+        $0.007184 \cdot h^{0.725} \cdot w^{0.425}$\\
+      \smallskip
+      \item Boyd formula:
+        $0.0333 \cdot h^{0.3} \cdot w^{0.6157 - 0.0188~log_{10}~w}$
+      \smallskip
+      \item Boyd formula is more accurate in infants
+    \end{itemize}
   \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{fold Exercise}
+  \frametitle{Returning Functions}
 
-  \begin{block}{Exercise}
-    \begin{itemize}
-      \item write a function that finds the maximum of a list using fold
-    \end{itemize}
+  \begin{exampleblock}{body surface area}
+    \begin{pygments}{haskell}
+duBois :: Float -> Float -> Float
+duBois h w = 0.007184 * (h ** 0.725) * (w ** 0.425)
+
+boyd :: Float -> Float -> Float
+boyd h w = 0.0333 * (h ** 0.3) *
+           (w ** (0.6157 - 0.0188 * (logBase 10 w)))
+
+bsa :: Integer -> (Float -> Float -> Float)
+bsa age = if age < 3 then boyd else duBois
+
+(bsa 20) 180 75  -- 1.9424062
+(bsa 2) 86 13    -- 0.58253276
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Closure}
+
+  \begin{itemize}
+    \item a function value has two parts:
+
+    \medskip
+    \item the code
+    \item the environment that was current when the function was defined
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Closure Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+stepRange :: Integer ->
+                (Integer -> Integer -> [Integer])
+stepRange step = getRange
+  where
+    getRange :: Integer -> Integer -> [Integer]
+    getRange m n = [m, m + step .. n]
+
+step1 :: Integer -> Integer -> [Integer]
+step1 = stepRange 1
+-- step1 3 7 -> [3, 4, 5, 6, 7]
+
+step5 :: Integer -> Integer -> [Integer]
+step5 = stepRange 5
+-- step5 9 20 -> [9, 14, 19]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Closure Example}
+
+  \begin{exampleblock}{Python}
+    \begin{pygments}{python}
+def step_range(step):
+    def get_range(m, n):
+        return range(m, n + 1, step)
+    return get_range
+
+step1 = step_range(1)
+step1(3, 7)            # [3, 4, 5, 6, 7]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorators}
+
+  \begin{itemize}
+    \item in Python, a decorator returns a transformed version\\
+      of its function parameter
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{python}
+def entry_exit(f):
+    def wrapped(x):
+        print("Entering with parameter: %s" % x)
+        result = f(x)
+        print("Exiting with result: %s" % result)
+        return result
+    return wrapped
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{python}
+def fact(n):
+    return 1 if n == 0 else n * fact(n - 1)
+
+entry_exit(fact)(5)
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{python}
+@entry_exit
+def fact(n):
+    return 1 if n == 0 else n * fact(n - 1)
+
+fact(5)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{exampleblock}{memoization}
+    \begin{pygments}{python}
+def memoize(f):
+    cache = {}
+    def wrapped(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+    return wrapped
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Decorator Example}
+
+  \begin{exampleblock}{Fibonacci sequence}
+    \begin{pygments}{python}
+@memoize
+def fib(n):
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return fib(n - 2) + fib(n - 1)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Currying}
+
+\begin{frame}
+  \frametitle{Currying}
+
+  \begin{itemize}
+    \item a function which takes two parameters can be thought of\\
+      as a function which takes one parameter\\
+      and returns a function which takes one parameter
+    \item generalize for $n$ parameters: \alert{currying}
+
+    \pause
+    \bigskip
+    \item \alert{partial application}: call with fewer paratemers,\\
+      obtain a function that expects the remaining parameters
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+add :: Integer -> Integer -> Integer
+add x y = x + y
+
+-- same as: add :: Integer -> (Integer -> Integer)
+    \end{pygments}
+
+    \pause
+    \medskip
+    \begin{pygments}{haskell}
+increment :: Integer -> Integer
+increment = add 1
+
+increment 7
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+floorAll :: [Float] -> [Integer]
+floorAll xs = map floor xs
+
+allOdds :: [Integer] -> [Integer]
+allOdds xs = filter odd xs
+
+-- same as:
+floorAll :: [Float] -> [Integer]
+floorAll = map floor
+
+allOdds :: [Integer] -> [Integer]
+allOdds = filter odd
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying Example}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+stepRange' :: Integer -> Integer -> Integer ->
+                  [Integer]
+stepRange' step m n = [m, m + step .. n]
+
+step1' :: Integer -> Integer -> [Integer]
+-- step1' m n = stepRange' 1 m n
+step1' = stepRange' 1
+
+naturals :: Integer -> [Integer]
+-- naturals n = stepRange' 1 0 n
+naturals = stepRange' 1 0
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying vs Tupling}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+add1 :: Integer -> Integer -> Integer
+add1 x y = x + y
+
+add2 :: (Integer, Integer) -> Integer
+add2 (x, y) = x + y
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Currying vs Tupling}
+
+  \begin{itemize}
+    \item a function that will convert a function that takes two parameters\\
+      into an equivalent function that takes a pair
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+uncurry' :: (a -> b -> c) -> ((a, b) -> c)
+uncurry' f = \(x, y) -> f x y
+
+(uncurry' add1) (5, 8)
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item note that \pygment{haskell}{f = \x -> e}\\
+      is equivalent to: \pygment{haskell}{f x = e}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+uncurry' :: (a -> b -> c) -> ((a, b) -> c)
+uncurry' f (x, y) = f x y
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operator Sections}
+
+  \begin{itemize}
+    \item operators can be partially applied
+    \item a function that expects the missing argument
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+(+2) 5                      -- 7
+(>2) 5                      -- True
+(2>) 5                      -- False
+filter (4>) [5, 2, 3, 7]    -- [2, 3]
+map (`div` 2) [5, 2, 3, 7]  -- [2, 1, 1, 3]
+(map (*2) . filter ((==1) . (`mod` 2))) [5, 2, 3, 6]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Function Operators}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition}
+
+  \begin{block}{function composition}
+    \begin{pygments}{haskell}
+(f . g) = f (g x)
+    \end{pygments}
   \end{block}
+
+  \pause
+  \begin{itemize}
+    \item what is the type of \pygment{haskell}{(.)}?
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+(.) : (b -> c) -> (a -> b) -> a -> c
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition Example}
+
+  \begin{exampleblock}{test whether number is even}
+    \begin{pygments}{haskell}
+even' :: Integer -> Bool
+even' = not . odd
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{exampleblock}{second element of a list}
+    \begin{pygments}{haskell}
+second :: [a] -> a
+second = head . tail
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition Example}
+
+  \begin{exampleblock}{last element of a list}
+    \begin{pygments}{haskell}
+last' :: [a] -> a
+last' = head . reverse
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{exampleblock}{length of a list}
+    \begin{pygments}{haskell}
+length' :: [a] -> Integer
+length' = sum . map (\_ -> 1)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Application}
+
+  \begin{block}{function application}
+    \begin{pygments}{haskell}
+f $ x = f x
+    \end{pygments}
+  \end{block}
+
+  \begin{itemize}
+    \item less parentheses, more readable
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sum (filter odd (map (floor . sqrt) [1 .. 100]))
+
+-- same as:
+sum $ filter odd $ map (floor . sqrt) [1 .. 100]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Application}
+
+  \begin{itemize}
+    \item needed in some cases
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+zipWith ($) [sum, product] [[1, 2], [3, 4]]
+-- [3, 12]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Examples}
+
+\begin{frame}
+  \frametitle{Finding Fixed Points}
+
+  \begin{itemize}
+    \item $x$ is a \emph{fixed point} of $f$: $f(x)=x$
+    \item repeatedly apply $f$ until value doesn't change:\\
+      $x,f(x),f(f(x)),f(f(f(x))),\ldots$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Finding Fixed Points}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+fixedPoint :: (Float -> Float) -> Float -> Float
+fixedPoint f firstGuess = fixedPointIter firstGuess
+  where
+    isCloseEnough :: Float -> Float -> Bool
+    isCloseEnough x y = (abs (x - y) / x) < 0.001
+
+    fixedPointIter :: Float -> Float
+    fixedPointIter guess
+      | isCloseEnough guess next = next
+      | otherwise                = fixedPointIter next
+      where
+        next :: Float
+        next = f guess
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Square Roots}
+
+  \begin{itemize}
+    \item use the fixed point algorithm for computing square roots
+    \item $y = \sqrt{x} \Rightarrow y * y = x \Rightarrow y = x / y$
+    \item fixed point of the function $f(y) = x / y$
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sqrt' :: Float -> Float
+sqrt' x = fixedPoint (\y -> x / y) 1.0
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item this doesn't converge (try with $y = 2$)
+    \item average successive values (average damping)
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sqrt' x = fixedPoint (\y -> (y + x / y) / 2.0) 1.0
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}<beamer>[fragile]
-  \frametitle{fold Example}
+  \frametitle{Average Damping}
 
-  \begin{example}[maximum of a list]
+  \begin{itemize}
+    \item a general function for average damping
+  \end{itemize}
+
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-max' xs =
-    case xs of
-      [] -> error "empty list"
-      x:xs' -> foldl' (\m n -> if m > n then m else n) x xs'
+averageDamp :: (Float -> Float) -> Float -> Float
+averageDamp f x = (x + f x) / 2.0
+
+sqrt' :: Float -> Float
+sqrt' x = fixedPoint (averageDamp (\y -> x / y)) 1.0
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
+\end{frame}
+
+% TODO: rock-paper-scissors strategy combinators (alternate)
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Thompson}
+    \begin{itemize}
+      \item Chapter 10: \alert{Generalization: patterns of computation}
+      \item Chapter 11: \alert{Higher-order functions}
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \end{document}
