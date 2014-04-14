@@ -829,12 +829,12 @@ mar12 = (12, 3)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Rational2 = Rational Integer Integer
+data Rational2 = Fraction Integer Integer
                  deriving Show
 
 simplify2 :: Rational2 -> Rational2
-simplify2 (Rational n d) =
-  Rational (n `div` g) (d `div` g)
+simplify2 (Fraction n d) =
+  Fraction (n `div` g) (d `div` g)
     where
       g :: Integer
       g = gcd n d
