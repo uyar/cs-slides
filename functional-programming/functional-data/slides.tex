@@ -1,0 +1,287 @@
+% Copyright (c) 2013
+%       H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% These notes are licensed using the
+% "Creative Commons Attribution-NonCommercial-ShareAlike License".
+% You are free to copy, distribute and transmit the work, and to adapt the work
+% as long as you attribute the authors, do not use it for commercial purposes,
+% and any derivative work is under the same or a similar license.
+%
+% Read the full legal code at:
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Pattern Matching}
+
+\author{H. Turgut Uyar}
+\date{2013}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright 2013 T. Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free:
+    \begin{itemize}
+      \item to Share -- to copy, distribute and transmit the work
+      \item to Remix -- to adapt the work
+    \end{itemize}
+
+    Under the following conditions:
+    \begin{itemize}
+      \item Attribution -- You must attribute the work in the manner specified by
+        the author or licensor (but not in any way that suggests that they
+        endorse you or your use of the work).
+
+      \item Noncommercial -- You may not use this work for commercial purposes.
+
+      \item Share Alike -- If you alter, transform, or build upon this work, you
+        may distribute the resulting work only under the same or similar license
+        to this one.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  Legal code (the full license):\\
+  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Pattern Matching}
+
+\subsection{Parameterized Types}
+
+\begin{frame}[fragile]
+  \frametitle{Parameterized Types}
+
+  \begin{itemize}
+    \item type constructors can be parameterized
+
+    \pause
+    \bigskip
+    \item already defined in Haskell standard library:
+    \item some type or nothing: \pygment{haskell}{Maybe}
+    \item one of two types: \pygment{haskell}{Either}
+  \end{itemize}
+
+  \begin{block}{Haskell}
+    \begin{pygments}{haskell}
+data Maybe a = Nothing | Just a
+
+data Either a b = Left a | Right b
+    \end{pygments}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maybe Type Exercise}
+
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that returns the maximum element of a list
+      \item if empty: \pygment{haskell}{Nothing}
+      \item if not empty: \pygment{haskell}{Just x}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Maybe Type Example}
+
+  \begin{example}[maximum of a list]
+    \begin{pygments}{haskell}
+maybeMax xs =
+    let
+       maxIter acc items =
+           case items of
+             [] -> acc
+             item:items' -> if item > acc
+                            then maxIter item items'
+                            else maxIter acc items'
+    in
+        case xs of
+          [] -> Nothing
+          x:xs' -> Just (maxIter x xs')
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\subsection{Recursive Types}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Types}
+
+  \begin{itemize}
+    \item type constructors can refer to themselves
+  \end{itemize}
+
+  \pause
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+data List' a = EmptyList | NonEmptyList a (List' a)
+               deriving Show
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[Haskell]
+    \begin{pygments}{haskell}
+null' xs =
+    case xs of
+      EmptyList -> True
+      _ -> False
+    \end{pygments}
+
+    \pause
+    \smallskip
+    \begin{pygments}{haskell}
+head' xs =
+    case xs of
+      EmptyList -> Nothing
+      NonEmptyList x _ -> Just x
+    \end{pygments}
+
+    \pause
+    \smallskip
+    \begin{pygments}{haskell}
+append' xs ys =
+    case xs of
+      EmptyList -> ys
+      NonEmptyList x xs' -> NonEmptyList x (append' xs' ys)
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[binary tree]
+    \begin{pygments}{haskell}
+data Tree' a = EmptyTree
+             | NonEmptyTree a (Tree' a) (Tree' a)
+             deriving Show
+    \end{pygments}
+
+    \pause
+    \begin{pygments}{haskell}
+depth' t =
+    case t of
+      EmptyTree -> 0
+      NonEmptyTree _ t1 t2 -> 1 + max (depth' t1) (depth' t2)
+    \end{pygments}
+  \end{example}
+
+  \pause
+  \begin{block}{Exercise}
+    \begin{itemize}
+      \item write a function that returns the number of leaves in a tree
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[number of leaves in a tree]
+    \pause
+    \begin{pygments}{haskell}
+leaves t =
+    case t of
+      EmptyTree -> 0
+      NonEmptyTree _ EmptyTree EmptyTree -> 1
+      NonEmptyTree _ t1 t2 -> leaves t1 + leaves t2
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[binary tree with different types at nodes and leaves]
+    \begin{pygments}{haskell}
+data LeafNodeTree a b =
+    Node a (LeafNodeTree a b) (LeafNodeTree a b)
+  | Leaf b
+  deriving Show
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[expression tree]
+    \begin{pygments}{haskell}
+data Expression = Constant Integer
+                | Negate Expression
+                | Add Expression Expression
+                | Multiply Expression Expression
+                deriving Show
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Type Example}
+
+  \begin{example}[evaluate an expression]
+    \pause
+    \begin{pygments}{haskell}
+eval e =
+    case e of
+      Constant c -> c
+      Negate e -> -(eval e)
+      Add e1 e2 -> (eval e1) + (eval e2)
+      Multiply e1 e2 -> (eval e1) * (eval e2)
+
+-- eval (Constant 4) -> 4
+-- eval (Add (Constant 4) (Constant 5)) -> 9
+-- eval (Negate (Add (Constant 4) (Constant 5))) -> -9
+-- eval (Multiply (Constant 2)
+--         (Negate (Add (Constant 4) (Constant 5)))) -> -18
+    \end{pygments}
+  \end{example}
+\end{frame}
+
+\end{document}
