@@ -104,11 +104,11 @@
     \begin{pygments}{haskell}
 type String = [Char]
 
-head "abc"      -- 'a'
-tail "abc"      -- "bc"
-null "abc"      -- False
-null ""         -- True
-length "abc"    -- 3
+head "abc"    -- 'a'
+tail "abc"    -- "bc"
+null "abc"    -- False
+null ""       -- True
+length "abc"  -- 3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -131,7 +131,7 @@ getNth xs n
   | otherwise = getNth (tail xs) (n - 1)
 
 -- OR:
-getNth [] _     = error "empty list"
+getNth []     _ = error "empty list"
 getNth (x:xs) 0 = x
 getNth (x:xs) n = getNth xs (n - 1)
     \end{pygments}
@@ -273,7 +273,7 @@ countDown upper lower = countDownIter [] upper lower
   \begin{exampleblock}{Quicksort}
     \begin{pygments}{haskell}
 quickSort :: [Integer] -> [Integer]
-quickSort [] = []
+quickSort []         = []
 quickSort (pivot:xs) =
     quickSort [x | x <- xs, x <= pivot]
     ++ [pivot]
@@ -316,8 +316,8 @@ elem' x (c:cs) = if x == c then True else elem' x cs
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 last' :: [a] -> a
-last' [] = error "empty list"
-last' [x] = x
+last' []     = error "empty list"
+last' [x]    = x
 last' (x:xs) = last' xs
     \end{pygments}
   \end{exampleblock}
@@ -337,8 +337,8 @@ last' (x:xs) = last' xs
   \begin{exampleblock}{all elements but the last of a list}
     \begin{pygments}{haskell}
 init' :: [a] -> [a]
-init' [] = error "empty list"
-init' [x] = []
+init' []     = error "empty list"
+init' [x]    = []
 init' (x:xs) = x : init' xs
     \end{pygments}
   \end{exampleblock}
@@ -403,7 +403,7 @@ splitAt' n xs = (take' n xs, drop' n xs)
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 reverse' :: [a] -> [a]
-reverse' [] = []
+reverse' []     = []
 reverse' (x:xs) = (reverse' xs) ++ [x]
     \end{pygments}
   \end{exampleblock}
@@ -423,7 +423,7 @@ reverse'' :: [a] -> [a]
 reverse'' xs = reverseIter [] xs
   where
     reverseIter :: [a] -> [a] -> [a]
-    reverseIter acc [] = acc
+    reverseIter acc []      = acc
     reverseIter acc (x:xs') = reverseIter (x : acc) xs'
     \end{pygments}
   \end{exampleblock}
@@ -441,7 +441,7 @@ reverse'' xs = reverseIter [] xs
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 concat' :: [[a]] -> [a]
-concat' [] = []
+concat' []     = []
 concat' (x:xs) = x ++ concat' xs
     \end{pygments}
   \end{exampleblock}
@@ -459,7 +459,7 @@ concat' (x:xs) = x ++ concat' xs
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 zip' :: [a] -> [b] -> [(a, b)]
-zip' [] [] = []
+zip' []     []     = []
 zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
     \end{pygments}
   \end{exampleblock}
@@ -479,7 +479,7 @@ zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
     \begin{pygments}{haskell}
 zip'' :: [a] -> [b] -> [(a, b)]
 zip'' (x:xs) (y:ys) = (x, y) : zip'' xs ys
-zip'' _ _ = []
+zip'' _      _      = []
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -496,7 +496,7 @@ zip'' _ _ = []
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 unzip' :: [(a, b)] -> ([a], [b])
-unzip' [] = ([], [])
+unzip' []           = ([], [])
 unzip' ((x, y):xys) = (x : xs, y : ys)
   where
     (xs, ys) = unzip' xys
@@ -512,8 +512,8 @@ unzip' ((x, y):xys) = (x : xs, y : ys)
   \begin{exampleblock}{maximum of a list}
     \begin{pygments}{haskell}
 maxList :: [Integer] -> Integer
-maxList [] = error "empty list"
-maxList [x] = x
+maxList []     = error "empty list"
+maxList [x]    = x
 maxList (x:xs)
   | x > maxList xs = x
   | otherwise      = maxList xs
@@ -534,8 +534,8 @@ maxList (x:xs)
   \begin{exampleblock}{maximum of a list}
     \begin{pygments}{haskell}
 maxList' :: [Integer] -> Integer
-maxList' [] = error "empty list"
-maxList' [x] = x
+maxList' []     = error "empty list"
+maxList' [x]    = x
 maxList' (x:xs)
   | x > maxTail = x
   | otherwise   = maxTail
@@ -552,8 +552,8 @@ maxList' (x:xs)
   \begin{exampleblock}{check whether a list is nondecreasing}
     \begin{pygments}{haskell}
 nondecreasing :: [Integer] -> Bool
-nondecreasing [] = True
-nondecreasing [_] = True
+nondecreasing []         = True
+nondecreasing [_]        = True
 nondecreasing (x1:x2:xs) =
     x1 <= x2 && nondecreasing (x2 : xs)
     \end{pygments}
@@ -566,8 +566,8 @@ nondecreasing (x1:x2:xs) =
   \begin{exampleblock}{merge two ordered lists}
     \begin{pygments}{haskell}
 merge :: [Integer] -> [Integer] -> [Integer]
-merge xs [] = xs
-merge [] ys = ys
+merge xs     []     = xs
+merge []     ys     = ys
 merge (x:xs) (y:ys)
   | x <= y    = x : merge xs (y : ys)
   | otherwise = y : merge (x : xs) ys
@@ -583,8 +583,8 @@ merge (x:xs) (y:ys)
 merge' :: [Integer] -> [Integer] -> [Integer]
 merge' xs ys =
     case (xs, ys) of
-      (_, [])        -> xs
-      ([], _)        -> ys
+      (_,     [])    -> xs
+      ([],    _)     -> ys
       (x:xs', y:ys') -> if x <= y
                             then x : merge' xs' ys
                             else y : merge' xs ys'
