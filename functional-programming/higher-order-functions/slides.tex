@@ -339,7 +339,7 @@ sorted(pairs, key=value)   # [(1, 3), (3, 2), (2, 1)]
     \begin{pygments}{haskell}
 quickSort :: (Integer -> Integer -> Bool)
                  -> [Integer] -> [Integer]
-quickSort before [] = []
+quickSort before []         = []
 quickSort before (pivot:xs) =
     quickSort before [x | x <- xs, x `before` pivot]
     ++ [pivot]
@@ -361,7 +361,7 @@ quickSort before (pivot:xs) =
   \begin{exampleblock}{Quicksort}
     \begin{pygments}{haskell}
 quickSort :: (a -> a -> Bool) -> [a] -> [a]
-quickSort before [] = []
+quickSort before []         = []
 quickSort before (pivot:xs) =
     quickSort before [x | x <- xs, x `before` pivot]
     ++ [pivot]
@@ -391,7 +391,7 @@ type Strategy = [Move] -> Move
 
 generateMatch :: Strategy -> Strategy
                      -> Integer -> Match
-generateMatch _ _ 0 = ([], [])
+generateMatch _         _         0 = ([], [])
 generateMatch strategyA strategyB n =
     step (generateMatch strategyA strategyB (n - 1))
       where

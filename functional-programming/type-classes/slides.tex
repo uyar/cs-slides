@@ -1,0 +1,174 @@
+% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \useinnertheme{rounded}
+  \usecolortheme{seahorse}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Type Classes}
+
+\author{H. Turgut Uyar}
+\date{2013-2014}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\begin{document}
+
+\setpythontexfv[]{frame=single}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2013-2014 H. Turgut Uyar
+
+  \vfill
+  \begin{tiny}
+    You are free to:
+    \begin{itemize}
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.\\
+        You may do so in any reasonable manner, but not in any way
+        that suggests the licensor endorses you or your use.
+
+      \item Noncommercial -- You may not use the material for commercial
+        purposes.
+
+      \item Share Alike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions\\
+        under the same license as the original.
+    \end{itemize}
+  \end{tiny}
+
+  \vfill
+  \begin{small}
+    Legal code (the full license):\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Type Classes}
+
+\subsection{Introduction}
+
+\begin{frame}[fragile]
+  \frametitle{Overloading}
+
+  \begin{itemize}
+    \item check whether an item is an element of a list
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+elem' :: Char -> [Char] -> Bool
+elem' _ []     = False
+elem' x (c:cs) = if x == c then True else elem' x cs
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item a different function for every type?
+    \item better to write it as:\\
+      \pygment{haskell}{a -> [a] -> Bool}
+    \item the type has to support equality checking
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Classes}
+
+  \begin{itemize}
+    \item \alert{type class}: a collection of types\\
+      over which some functions are defined
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+class Eq a where
+  (==) :: a -> a -> Bool
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item every type belonging to the class has to implement the functions
+    \item members of a type class are called its \alert{instances}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Classes}
+
+  \begin{itemize}
+    \item basic types like \pygment{haskell}{Bool}, \pygment{haskell}{Char},
+      \pygment{haskell}{Integer}, \pygment{haskell}{Float} are instances\\
+      of the type class \pygment{haskell}{Eq}
+    \item tuples and lists are also instances of \pygment{haskell}{Eq}
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ []     = False
+elem' x (c:cs) = if x == c then True else elem' x cs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Thompson}
+    \begin{itemize}
+      \item Chapter 13: \alert{Overloading, type classes and type checking}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
