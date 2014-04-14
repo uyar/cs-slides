@@ -646,8 +646,8 @@ birthYear (Person "Alonzo Church" 1903)  -- 1903
 area :: Shape -> Float
 area s =
     case s of
-      Point _ -> 0.0
-      Circle _ r -> 3.14159 * r * r
+      Point     _     -> 0.0
+      Circle    _ r   -> 3.14159 * r * r
       Rectangle _ h w -> h * w
 
 area (Circle (0.0, 0.0) 3.0)  -- 28.274311
