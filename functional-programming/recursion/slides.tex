@@ -520,8 +520,7 @@ fastPow x y
   \begin{exampleblock}{check whether the guess is good enough}
     \begin{pygments}{haskell}
 isGoodEnough :: Float -> Float -> Bool
-isGoodEnough guess x =
-    abs (guess * guess - x) < 0.001
+isGoodEnough guess x = abs (guess * guess - x) < 0.001
     \end{pygments}
   \end{exampleblock}
 
@@ -540,10 +539,10 @@ improve guess x = (guess + (x / guess)) / 2.0
   \begin{exampleblock}{iterative computation}
     \begin{pygments}{haskell}
 newtonIter :: Float -> Float -> Float
-newtonIter guess x =
-    if isGoodEnough guess x
-        then guess
-        else newtonIter (improve guess x) x
+newtonIter guess x
+  | isGoodEnough guess x = guess
+  | otherwise            =
+        newtonIter (improve guess x) x
 
 newton :: Float -> Float
 newton x = newtonIter 1.0 x
@@ -567,10 +566,10 @@ newton x = newtonIter 1.0 x
     improve guess x' = (guess + (x' / guess)) / 2.0
 
     newtonIter :: Float -> Float -> Float
-    newtonIter guess x' =
-        if isGoodEnough guess x'
-            then guess
-            else newtonIter (improve guess x') x'
+    newtonIter guess x'
+      | isGoodEnough guess x' = guess
+      | otherwise             =
+          newtonIter (improve guess x') x'
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -613,10 +612,9 @@ newton x = newtonIter 1.0
     improve guess = (guess + (x / guess)) / 2.0
 
     newtonIter :: Float -> Float
-    newtonIter guess =
-        if isGoodEnough guess
-            then guess
-            else newtonIter (improve guess)
+    newtonIter guess
+      | isGoodEnough guess = guess
+      | otherwise          = newtonIter (improve guess)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
