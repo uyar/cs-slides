@@ -1,16 +1,12 @@
-% Copyright (c) 2001-2013
+% Copyright (c) 2001-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -18,6 +14,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -29,7 +26,7 @@
 \subtitle{Graphs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2013}
+\date{2001-2014}
 
 \AtBeginSubsection[]
 {
@@ -41,44 +38,44 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[width=6cm]{plain}{plain}
 \pgfdeclareimage[width=4cm]{directed}{directed}
 \pgfdeclareimage[width=6cm]{multi}{multi}
 \pgfdeclareimage[width=4cm]{matrix}{matrix}
-\pgfdeclareimage[height=4.5cm]{regular}{regular}
-\pgfdeclareimage[width=4cm]{k4}{k4}
-\pgfdeclareimage[width=4cm]{k5}{k5}
-\pgfdeclareimage[width=4cm]{k23}{k23}
-\pgfdeclareimage[width=4cm]{k33}{k33}
 \pgfdeclareimage[height=4cm]{isomorphicf}{isomorphicf}
 \pgfdeclareimage[height=4cm]{isomorphict}{isomorphict}
 \pgfdeclareimage[height=3.5cm]{petersen1}{petersen1}
 \pgfdeclareimage[height=3.5cm]{petersen2}{petersen2}
 \pgfdeclareimage[height=4cm]{homeomorphict}{homeomorphict}
+\pgfdeclareimage[height=4.5cm]{regular}{regular}
+\pgfdeclareimage[width=4cm]{k4}{k4}
+\pgfdeclareimage[width=4cm]{k5}{k5}
+\pgfdeclareimage[width=4cm]{k23}{k23}
+\pgfdeclareimage[width=4cm]{k33}{k33}
 \pgfdeclareimage[width=6cm]{disconnected}{disconnected}
 \pgfdeclareimage[width=5cm]{distance}{distance}
 \pgfdeclareimage[width=5cm]{cutpoint}{cutpoint}
 \pgfdeclareimage[width=4cm]{weak}{weak}
 \pgfdeclareimage[width=4cm]{unilateral}{unilateral}
 \pgfdeclareimage[width=4cm]{strong}{strong}
+\pgfdeclareimage[width=5cm]{warshall}{warshall}
+\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
+\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
+\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
 \pgfdeclareimage{konigsberg}{konigsberg}
 \pgfdeclareimage[width=3cm]{envelope}{envelope}
 \pgfdeclareimage{konigsgraph}{konigsgraph}
 \pgfdeclareimage[width=3.5cm]{euler}{euler}
 \pgfdeclareimage[width=3.5cm]{hamilton}{hamilton}
-\pgfdeclareimage[width=5cm]{warshall}{warshall}
-\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
-\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
-\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
 \pgfdeclareimage[width=4.5cm]{k4planar}{k4planar}
 \pgfdeclareimage[width=6cm]{region}{region}
 \pgfdeclareimage[width=3cm]{eulerproof1}{eulerproof1}
 \pgfdeclareimage[width=3cm]{eulerproof2}{eulerproof2}
-\pgfdeclareimage[width=5cm]{hexahedron}{hexahedron}
 \pgfdeclareimage{tetrahedron}{tetrahedron}
 \pgfdeclareimage{planartetra}{planartetra}
+\pgfdeclareimage[width=5cm]{hexahedron}{hexahedron}
 \pgfdeclareimage{planarhexa}{planarhexa}
 \pgfdeclareimage{octahedron}{octahedron}
 \pgfdeclareimage{planarocta}{planarocta}
@@ -97,34 +94,6 @@
 \pgfdeclareimage[width=4cm]{sudoku}{sudoku}
 \pgfdeclareimage[width=6cm]{dijkstra}{dijkstra}
 
-\pgfdeclareimage{tree}{tree}
-\pgfdeclareimage{cycle}{cycle}
-\pgfdeclareimage{nodecount}{nodecount}
-\pgfdeclareimage[height=5cm]{rooted}{rooted}
-\pgfdeclareimage[height=4cm]{book}{book}
-\pgfdeclareimage{dictionary}{dictionary}
-\pgfdeclareimage{expr1a}{expr1a}
-\pgfdeclareimage{expr1b}{expr1b}
-\pgfdeclareimage{expr2a}{expr2a}
-\pgfdeclareimage{expr2b}{expr2b}
-\pgfdeclareimage{expr3}{expr3}
-\pgfdeclareimage{expr}{expr}
-\pgfdeclareimage{scale1}{scale1}
-\pgfdeclareimage{scale2}{scale2}
-\pgfdeclareimage[height=4cm]{spanning}{spanning}
-\pgfdeclareimage[height=4cm]{kruskal1}{kruskal1}
-\pgfdeclareimage[height=4cm]{kruskal2}{kruskal2}
-\pgfdeclareimage[height=4cm]{kruskal3}{kruskal3}
-\pgfdeclareimage[height=4cm]{kruskal4}{kruskal4}
-\pgfdeclareimage[height=4cm]{kruskal5}{kruskal5}
-\pgfdeclareimage[height=4cm]{kruskal}{kruskal}
-\pgfdeclareimage[height=4cm]{prim1}{prim1}
-\pgfdeclareimage[height=4cm]{prim2}{prim2}
-\pgfdeclareimage[height=4cm]{prim3}{prim3}
-\pgfdeclareimage[height=4cm]{prim4}{prim4}
-\pgfdeclareimage[height=4cm]{prim5}{prim5}
-\pgfdeclareimage[height=4cm]{prim}{prim}
-
 \begin{document}
 
 \begin{frame}
@@ -135,33 +104,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -227,10 +203,18 @@
     \alert{directed graph} (or \emph{digraph}): $D=(V,A)$
 
     \begin{itemize}
+      \item $V$: node set
       \item $A \subseteq V \times V$: \alert{arc} set
-      \item \emph{origin} and \emph{terminating} nodes
     \end{itemize}
   \end{definition}
+
+  \begin{itemize}
+    \item if $a=(v_1,v_2) \in A$:
+    \begin{itemize}
+      \item $v_1$: \emph{origin} node of $a$
+      \item $v_2$: \emph{terminating} node of $a$
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -244,21 +228,26 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Weighted Graphs}
+
+  \begin{itemize}
+    \item in a weighted graph, labels are assigned to edges:\\
+      weight, length, cost, delay, probability, $\ldots$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Multigraphs}
 
-  \begin{definition}
-    \alert{parallel edges}: edges between the same pair of nodes
-
-    \bigskip
-    \alert{loop}: an edge starting and ending in the same node
+  \begin{itemize}
+    \item \alert{parallel edges}: edges between the same pair of nodes
+    \item \alert{loop}: an edge starting and ending in the same node
 
     \pause
     \bigskip
-    \alert{plain graph}: a graph without any loops or parallel edges
-
-    \bigskip
-    \alert{multigraph}: a graph which is not plain
-  \end{definition}
+    \item \alert{plain} graph: a graph without any loops or parallel edges
+    \item \alert{multigraph}: a graph which is not plain
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -289,8 +278,8 @@
     $G'=(V',E')$ is a \alert{subgraph} of $G=(V,E)$:
 
     \begin{itemize}
-      \item $V' \subseteq V$
-      \item $E' \subseteq E$
+      \item $V' \subseteq V$, and
+      \item $E' \subseteq E$, and
       \item $\forall (v_1,v_2) \in E'~v_1,v_2 \in V'$
     \end{itemize}
   \end{definition}
@@ -300,18 +289,21 @@
   \frametitle{Representation}
 
   \begin{itemize}
-    \item \emph{incidence matrix}:
+    \item incidence matrix
     \begin{itemize}
       \item rows represent nodes, columns represent edges
       \item cell: 1 if the edge is incident to the node, 0 otherwise
     \end{itemize}
 
-    \pause
     \medskip
-    \item \emph{adjacency matrix}:
+    \item adjacency matrix
     \begin{itemize}
       \item rows and columns represent nodes
-      \item cells represent the number of edges between the nodes
+      \item cell: 1 if the nodes are adjacent, 0 otherwise
+      \item in a multigraph, the cells can represent\\
+        the number of edges between the nodes
+      \item in a weighted graph, the cells can represent\\
+        the labels assigned to the edges
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -399,7 +391,7 @@
 
   \pause
   \begin{theorem}
-    let $d_i$ be the degree of node $v_i$
+    let $d_i$ be the degree of node $v_i$:
 
     \[ |E| = \frac{\sum_i d_i}{2} \]
   \end{theorem}
@@ -497,7 +489,7 @@
 $2|E| = \sum_i d_i = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
 
 \pause
-$2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + \dots + 2t_3 + 4t_5 + \dots$
+$2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + t_5 + \dots + 2t_3 + 4t_5 + \dots$
 
 \pause
 $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
@@ -506,6 +498,104 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \item since the left-hand side is even, the right-hand side is also even
     \end{itemize}
   \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Isomorphism}
+
+  \begin{definition}
+    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{isomorphic}:
+    \begin{itemize}
+      \item $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
+      \item $f$ is bijective
+    \end{itemize}
+  \end{definition}
+
+  \pause
+  \begin{itemize}
+    \item $G$ and $G^\star$ can be drawn the same way
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Isomorphism Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{isomorphicf}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{isomorphict}
+      \end{center}
+    \end{columns}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item $f = (a \mapsto d, b \mapsto e, c \mapsto b, d \mapsto c,
+        e \mapsto a)$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Isomorphism Example}
+
+  \begin{example}[Petersen graph]
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen1}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{center}
+        \pgfuseimage{petersen2}
+      \end{center}
+    \end{columns}
+
+    \bigskip
+    \begin{itemize}
+      \item $f = (a \mapsto q, b \mapsto v, c \mapsto u, d \mapsto y,
+          e \mapsto r,$\\
+        $~~~~~~~f \mapsto w, g \mapsto x, h \mapsto t, i \mapsto z,
+          j \mapsto s)$
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorphism}
+
+  \begin{definition}
+    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{homeomorphic}:
+    \begin{itemize}
+      \item $G$ and $G^\star$ are isomorphic except that\\
+        some edges in $E^\star$ are divided with additional nodes
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Homeomorphism Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{isomorphict}
+      \end{center}
+
+      \column{.5\textwidth}
+      \begin{center}
+        \pgfuseimage{homeomorphict}
+      \end{center}
+    \end{columns}
+  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -606,101 +696,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Isomorphism}
-
-  \begin{definition}
-    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{isomorphic}:
-    \begin{itemize}
-      \item $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
-      \item $f$ is bijective
-    \end{itemize}
-  \end{definition}
-
-  \pause
-  \begin{itemize}
-    \item $G$ and $G^\star$ can be drawn the same way
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Isomorphism Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphicf}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphict}
-      \end{center}
-    \end{columns}
-
-    \pause
-    \bigskip
-    \begin{itemize}
-      \item $f = \{(a,d),(b,e),(c,b),(d,c),(e,a)\}$
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Isomorphism Example}
-
-  \begin{example}[Petersen graph]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen1}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen2}
-      \end{center}
-    \end{columns}
-
-    \bigskip
-    \begin{itemize}
-      \item $f = \{(a,q),(b,v),(c,u),(d,y),(e,r),$\\
-        $~~~~~~~(f,w),(g,x),(h,t),(i,z),(j,s)\}$
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Homeomorphism}
-
-  \begin{definition}
-    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{homeomorphic}:
-    \begin{itemize}
-      \item $G$ and $G^\star$ are isomorphic except that\\
-        some edges in $E^\star$ are divided with additional nodes
-    \end{itemize}
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Homeomorphism Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphict}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{homeomorphict}
-      \end{center}
-    \end{columns}
-  \end{example}
-\end{frame}
-
 \subsection{Connectivity}
 
 \begin{frame}
@@ -711,7 +706,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       from a starting node ($v_0$) to an ending node ($v_n$)
 
     \[
-      v_0,e_1,v_1,e_2,v_2,e_3,v_3,\dots,e_{n-1},v_{n-1},e_n,v_n
+      v_0 \xrightarrow{e_1} v_1 \xrightarrow{e_2} v_2 \xrightarrow{e_3} v_3
+      \xrightarrow{} \cdots \xrightarrow{} v_{n-1} \xrightarrow{e_n} v_n
     \]
 
     where $e_i=(v_{i-1},v_i)$
@@ -721,7 +717,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{itemize}
     \item no need to write the edges
 
-    \pause
     \medskip
     \item \alert{length}: number of edges in the walk
     \item if $v_0 \neq v_n$ \alert{open}, if $v_0 = v_n$ \alert{closed}
@@ -739,11 +734,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
 
       \column{.4\textwidth}
-      $(c,b),(b,a),(a,d),(d,e),$\\
-      $(e,f),(f,a),(a,b)$
+      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
+      $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f \xrightarrow{(f,a)} a$\\
+      $~~\xrightarrow{(a,b)} b$
 
       \medskip
-      $c,b,a,d,e,f,a,b$
+      $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e$\\
+      $~~\rightarrow f \rightarrow a \rightarrow b$
 
       \bigskip
       length: 7
@@ -758,7 +755,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \alert{trail}: a walk where edges are not repeated
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item \alert{circuit}: closed trail
     \item \alert{spanning} trail: a trail that covers all the edges in the
@@ -777,11 +773,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
 
       \column{.4\textwidth}
-      $(c,b),(b,a),(a,e),(e,d),$\\
-      $(d,a),(a,f)$
+      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,e)} e$\\
+      $~~\xrightarrow{(e,d)} d \xrightarrow{(d,a)} a \xrightarrow{(a,f)} f$
 
       \medskip
-      $c,b,a,e,d,a,f$
+      $c \rightarrow a \rightarrow e \rightarrow d \rightarrow a
+         \rightarrow f$
     \end{columns}
   \end{example}
 \end{frame}
@@ -793,7 +790,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \alert{path}: a walk where nodes are not repeated
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item \alert{cycle}: closed path
     \item \alert{spanning} path: a path that visits all the nodes in the graph
@@ -811,11 +807,11 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
 
       \column{.4\textwidth}
-      $(c,b),(b,a),(a,d),(d,e),$\\
-      $(e,f)$
+      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
+      $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f$
 
       \medskip
-      $c,b,a,d,e,f$
+      $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e \rightarrow f$
     \end{columns}
   \end{example}
 \end{frame}
@@ -824,10 +820,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Connectivity}
 
   \begin{definition}
-    \alert{connected} graph: there is a path between every pair of nodes
+    \alert{connected} graph:\\
+    there is a path between every pair of nodes
   \end{definition}
 
-  \pause
   \begin{itemize}
     \item a disconnected graph can be divided\\
       into connected components
@@ -861,16 +857,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Distance}
 
   \begin{definition}
-    the \alert{distance} between nodes $v_i$ and $v_j$:
-    \begin{itemize}
-      \item the length of the shortest path between $v_i$ and $v_j$
-    \end{itemize}
+    \alert{distance} between nodes $v_i$ and $v_j$:\\
+    the length of the shortest path between $v_i$ and $v_j$
   \end{definition}
 
-  \pause
-  \begin{definition}
-    \alert{diameter}: the largest distance in the graph
-  \end{definition}
+  \begin{itemize}
+    \item \alert{diameter}: the largest distance in the graph
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -884,7 +877,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{center}
 
       \column{.52\textwidth}
-      \pause
       \begin{itemize}
         \item distance between $a$ and $e$: 2\\
         \item diameter: 3
@@ -894,22 +886,16 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cut-Point}
+  \frametitle{Cut-Points}
 
-  \begin{definition}
-    \alert{$G - v$}:
     \begin{itemize}
-      \item the graph obtained by deleting the node $v$\\
+      \item the graph \alert{$G - v$} is obtained by deleting the node $v$\\
         and all its incident edges from the graph $G$
     \end{itemize}
-  \end{definition}
 
-  \pause
   \begin{definition}
-    $v$ is a \alert{cut-point} for $G$:
-    \begin{itemize}
-      \item $G$ is connected but $G - v$ is disconnected
-    \end{itemize}
+    $v$ is a \alert{cut-point} for $G$:\\
+      $G$ is connected but $G - v$ is not
   \end{definition}
 \end{frame}
 
@@ -949,7 +935,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.5\textwidth}
     \begin{definition}
-      \emph{weakly connected}:\\
+      \alert{weakly} connected:\\
       there is a semi-path\\
       between every pair of nodes
     \end{definition}
@@ -969,7 +955,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.5\textwidth}
     \begin{definition}
-      \emph{unilaterally connected}:\\
+      \alert{unilaterally} connected:\\
       for every pair of nodes, there is\\
       a path from one to the other
     \end{definition}
@@ -989,7 +975,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{columns}
     \column{.5\textwidth}
     \begin{definition}
-      \emph{strongly connected}:\\
+      \alert{strongly} connected:\\
       there is a path in both directions\\
       between every pair of nodes
     \end{definition}
@@ -1004,159 +990,20 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bridges of Königsberg}
-
-  \begin{center}
-    \pgfuseimage{konigsberg}
-  \end{center}
-
-  \begin{itemize}
-    \item cross each bridge exactly once\\
-      and return to the starting point
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Traversable Graphs}
-
-  \begin{definition}
-    $G$ is \alert{traversable}: $G$ contains a spanning trail
-  \end{definition}
-
-  \begin{center}
-    \pgfuseimage{konigsgraph}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Traversable Graphs}
-
-  \begin{itemize}
-    \item a node with an odd degree must be either the starting node\\
-      or the ending node of the trail
-    \item all nodes except the starting node and the ending node\\
-      must have even degrees
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Traversable Graph Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{envelope}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item degrees of $a$, $b$ and $c$ are even
-        \item degrees of $d$ and $e$ are odd
-
-        \pause
-        \medskip
-        \item a spanning trail can be formed\\
-          starting from node $d$ and\\
-          ending at node $e$ (or vice versa):\\
-          $d,b,a,c,e,d,c,b,e$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Bridges of Königsberg}
-
-  \begin{center}
-    \pgfuseimage{konigsgraph}
-  \end{center}
-
-  \begin{itemize}
-    \item all node have odd degrees: not traversable
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Euler Graphs}
-
-  \begin{definition}
-    \alert{Euler graph}: a graph that contains a closed spanning trail
-  \end{definition}
-
-  \begin{itemize}
-    \item $G$ is an Euler graph $\Leftrightarrow$
-      the degrees of all nodes in $G$ are even
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Euler Graph Examples}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{example}[Euler graph]
-      \begin{center}
-        \pgfuseimage{euler}
-      \end{center}
-    \end{example}
-
-    \column{.5\textwidth}
-    \begin{example}[not an Euler graph]
-      \begin{center}
-        \pgfuseimage{hamilton}
-      \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Hamilton Graphs}
-
-  \begin{definition}
-    \alert{Hamilton graph}: a graph that contains a closed spanning path
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Hamilton Graph Examples}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{example}[Hamilton graph]
-      \begin{center}
-        \pgfuseimage{hamilton}
-      \end{center}
-    \end{example}
-
-    \column{.5\textwidth}
-    \begin{example}[not a Hamilton graph]
-      \begin{center}
-        \pgfuseimage{euler}
-      \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
   \frametitle{Connectivity Matrix}
 
   \begin{itemize}
-    \item if the adjacency matrix of the graph is $A$,\\
-      the $(i,j)$ element of $A^k$ shows the number of walks of length $k$\\
-      between the nodes $i$ and $j$
+    \item let $A$ be the adjacency matrix of an undirected graph $G=(V,E)$
+    \item $A^k_{ij}$: number of walks of length $k$
+      between nodes $i$ and $j$
 
-    \pause
-    \item in an undirected graph with $n$ nodes,\\
-      the distance between two nodes is at most $n-1$
+    \item the distance between two nodes is at most $|V|-1$
 
     \pause
     \medskip
-    \item \alert{connectivity matrix}:\\
-      $C = A^1 + A^2 + A^3 + \dots + A^{n-1}$
-    \begin{itemize}
-      \item if all elements are non-zero, then the graph is connected
-    \end{itemize}
+    \item connectivity matrix:\\
+      $C = A^1 + A^2 + A^3 + \dots + A^{|V|-1}$
+    \item if all elements of $C$ are non-zero, then $G$ is connected
   \end{itemize}
 \end{frame}
 
@@ -1165,7 +1012,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{itemize}
     \item it is easier to find whether there is a walk between two nodes\\
-      instead of finding the number of walks
+      rather than finding the number of walks
 
     \pause
     \medskip
@@ -1300,14 +1147,152 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
+\subsection{Traversable Graphs}
+
+\begin{frame}
+  \frametitle{Bridges of Königsberg}
+
+  \begin{center}
+    \pgfuseimage{konigsberg}
+  \end{center}
+
+  \begin{itemize}
+    \item cross each bridge exactly once\\
+      and return to the starting point
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Traversable Graphs}
+
+  \begin{definition}
+    $G$ is \alert{traversable}: $G$ contains a spanning trail
+  \end{definition}
+
+  \begin{center}
+    \pgfuseimage{konigsgraph}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Traversable Graphs}
+
+  \begin{itemize}
+    \item a node with an odd degree must be either the starting node\\
+      or the ending node of the trail
+    \item all nodes except the starting node and the ending node\\
+      must have even degrees
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Traversable Graph Example}
+
+  \begin{example}
+    \begin{columns}
+      \column{.4\textwidth}
+      \begin{center}
+        \pgfuseimage{envelope}
+      \end{center}
+
+      \column{.6\textwidth}
+      \begin{itemize}
+        \item degrees of $a$, $b$ and $c$ are even
+        \item degrees of $d$ and $e$ are odd
+
+        \pause
+        \medskip
+        \item a spanning trail can be formed\\
+          starting from node $d$ and\\
+          ending at node $e$ (or vice versa):\\
+          $d \rightarrow b \rightarrow a \rightarrow c \rightarrow e$
+          $~~\rightarrow d \rightarrow c \rightarrow b \rightarrow e$
+      \end{itemize}
+    \end{columns}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bridges of Königsberg}
+
+  \begin{center}
+    \pgfuseimage{konigsgraph}
+  \end{center}
+
+  \begin{itemize}
+    \item all node have odd degrees: not traversable
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Graphs}
+
+  \begin{definition}
+    \alert{Euler graph}: a graph that contains a closed spanning trail
+  \end{definition}
+
+  \begin{itemize}
+    \item $G$ is an Euler graph $\Leftrightarrow$
+      all nodes in $G$ have even degrees
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Euler Graph Examples}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{example}[Euler graph]
+      \begin{center}
+        \pgfuseimage{euler}
+      \end{center}
+    \end{example}
+
+    \column{.5\textwidth}
+    \begin{example}[not an Euler graph]
+      \begin{center}
+        \pgfuseimage{hamilton}
+      \end{center}
+    \end{example}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamilton Graphs}
+
+  \begin{definition}
+    \alert{Hamilton graph}: a graph that contains a closed spanning path
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamilton Graph Examples}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{example}[Hamilton graph]
+      \begin{center}
+        \pgfuseimage{hamilton}
+      \end{center}
+    \end{example}
+
+    \column{.5\textwidth}
+    \begin{example}[not a Hamilton graph]
+      \begin{center}
+        \pgfuseimage{euler}
+      \end{center}
+    \end{example}
+  \end{columns}
+\end{frame}
+
 \subsection{Planar Graphs}
 
 \begin{frame}
   \frametitle{Planar Graphs}
 
   \begin{definition}
-    A graph is \alert{planar} if it can be drawn on a plane\\
-    without intersecting its edges.
+    $G$ is \alert{planar}:\\
+    $G$ can be drawn on a plane without intersecting its edges
   \end{definition}
 
   \begin{itemize}
@@ -1338,13 +1323,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{itemize}
     \item a map divides the plane into \alert{regions}
-    \item the \emph{degree} of a region:\\
-      the length of the closed trail that surrounds the region
+    \item degree of a region:\\
+      length of the closed trail that surrounds the region
   \end{itemize}
 
   \pause
   \begin{theorem}
-    let $d_{r_i}$ be the degree of region $r_i$
+    let $d_{r_i}$ be the degree of region $r_i$:
 
     \[ |E| = \frac{\sum_i d_{r_i}}{2} \]
   \end{theorem}
@@ -1378,8 +1363,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Euler's Formula}
 
   \begin{theorem}[Euler's Formula]
-    Let $G=(V,E)$ be a planar, connected graph\\
-    and let $R$ be the set of regions in a map of $G$:
+    let $G=(V,E)$ be a planar, connected graph, and\\
+    let $R$ be the set of regions in a map of $G$:
 
     \[|V| - |E| + |R| = 2\]
   \end{theorem}
@@ -1464,14 +1449,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    Let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
+    let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
     $|E| \leq 3 |V| - 6$
   \end{theorem}
 
   \pause
   \begin{proof}
     \begin{itemize}
-      \item the sum of region degrees: $2 |E|$
+      \item sum of region degrees: $2 |E|$
 
       \pause
       \item degree of a region is at least $3$\\
@@ -1498,7 +1483,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    Let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
+    let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
     $\exists v \in V~d_v \leq 5$
   \end{theorem}
 
@@ -1760,6 +1745,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
+\section{Graph Problems}
+
+\subsection{Graph Coloring}
+
 \begin{frame}
   \frametitle{Graph Coloring}
 
@@ -1872,15 +1861,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Chromatic Number}
 
   \begin{definition}
-    \alert{chromatic number} of $G$: $\chi (G)$
-    \begin{itemize}
-      \item the minimum number of colors needed to color the graph G
-    \end{itemize}
+    \alert{chromatic number} of $G$: $\chi (G)$\\
+    minimum number of colors needed to color G
   \end{definition}
 
-  \pause
   \begin{itemize}
-     \item calculating $\chi (G)$ is a very difficult problem
+     \item finding $\chi (G)$ is a very difficult problem
      \item $\chi (K_n) = n$
   \end{itemize}
 \end{frame}
@@ -1943,737 +1929,14 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{theorem}
 \end{frame}
 
-\subsection{Searching Graphs}
-
-\begin{frame}
-  \frametitle{Searching Graphs}
-
-  \begin{itemize}
-    \item searching nodes of graph $G=(V,E)$ starting from node $v_1$
-
-    \bigskip
-    \item depth-first
-    \item breadth-first
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Depth-First Search}
-
-  \begin{enumerate}
-    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
-
-    \pause
-    \item find smallest $i$ in $2 \leq i \leq |V|$
-      such that $(v,v_i) \in E$ and $v_i \notin D$
-      \begin{itemize}
-        \item if no such $i$ exists: go to step 3
-        \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
-          $v \leftarrow v_i$,\\
-          go to step 2
-      \end{itemize}
-
-    \pause
-    \item if $v=v_1$ then the result is $T$
-
-    \pause
-    \item if $v \neq v_1$ then $v \leftarrow parent(v)$, go to step 2
-% TODO: remove the reference to trees (parent)
-  \end{enumerate}
-\end{frame}
-
-% TODO: add example for depth-first search
-
-\begin{frame}
-  \frametitle{Breadth-First Search}
-
-  \begin{enumerate}
-    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
-
-    \pause
-    \item if $Q$ is empty: the result is $T$
-    \item if $Q$ not empty: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
-      for $2 \leq i \leq |V|$ check the edges $(v,v_i) \in E$:
-    \begin{itemize}
-      \item if $v_i \notin D$ : $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
-        $D=D \cup \{v_i\}$
-       \item go to step 3
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
-
-% TODO: add example for depth-first search
-
-\subsection*{References}
-
-\begin{frame}
-  \frametitle{References}
-
-  \begin{block}{Required Reading: Grimaldi}
-    \begin{itemize}
-      \item Chapter 11: \alert{An Introduction to Graph Theory}
-
-      \item Chapter 7: Relations: The Second Time Around
-      \begin{itemize}
-        \item 7.2. \alert{Computer Recognition: Zero-One Matrices\\
-                          and Directed Graphs}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\section{Trees}
-
-\subsection{Introduction}
-
-\begin{frame}
-  \frametitle{Tree}
-
-  \begin{definition}
-    \alert{tree}: a connected graph that contains no cycle
-  \end{definition}
-
-  \pause
-  \begin{itemize}
-    \item \emph{forest}: a graph where the connected components are trees
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Examples}
-
-  \begin{example}
-    \begin{center}
-      \pgfuseimage{tree}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    In a tree, there is one and only one path\\
-    between any two distinct nodes.
-  \end{theorem}
-
-  \begin{itemize}
-    \item there is at least one path because the tree is connected
-    \item if there were more than one path, they would form a cycle
-    \medskip
-    \begin{center}
-      \pgfuseimage{cycle}
-    \end{center}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    Let $T=(V,E)$ be a tree:
-
-    \[|E| = |V| - 1\]
-  \end{theorem}
-
-  \begin{itemize}
-    \item proof method: induction on the number of edges
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{block}{Proof: base step}
-    \begin{itemize}
-      \item $|E|=0 \Rightarrow |V|=1$
-      \item $|E|=1 \Rightarrow |V|=2$
-      \item $|E|=2 \Rightarrow |V|=3$
-
-      \pause
-      \medskip
-      \item assume that $|E| = |V| - 1$ for $|E| \leq k$
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{proof}[Proof: induction step]
-    \begin{itemize}
-      \item $|E|=k+1$
-    \end{itemize}
-
-    \begin{columns}[t]
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{nodecount}
-      \end{center}
-
-      \pause
-      \column{.55\textwidth}
-      \begin{itemize}
-        \item let's remove the edge $(y,z)$:\\
-          $T_1=(V_1,E_1)$, $T_2=(V_2,E_2)$
-      \end{itemize}
-      \pause
-      \begin{eqnarray*}
-        |V| & = & |V_1|+|V_2|\\\pause
-            & = & |E_1|+1+|E_2|+1\\\pause
-            & = & (|E_1|+|E_2|+1)+1\\\pause
-            & = & |E|+1
-      \end{eqnarray*}
-    \end{columns}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    In a tree, there are at least two nodes with degree 1.
-  \end{theorem}
-
-  \pause
-  \begin{proof}
-    \begin{itemize}
-      \item $2 |E| = \sum_{v \in V} d_v$
-
-      \pause
-      \item assume that there is only 1 node with degree 1:\\
-        \pause
-        $\Rightarrow 2 |E| \geq 2 (|V| - 1) + 1$\\
-        \pause
-        $\Rightarrow 2 |E| \geq 2 |V| - 1$\\
-        \pause
-        $\Rightarrow |E| \geq |V| - \frac{1}{2}$
-        \pause
-        $> |V| - 1$
-    \end{itemize}
-  \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    \begin{center}
-      $T$ is a tree ($T$ is connected and contains no cycle).\\
-      $\Leftrightarrow$\\
-      There is one and only one path\\
-        between any two distinct nodes in $T$.\\
-      $\Leftrightarrow$\\
-      $T$ is connected, but if any edge is removed\\
-        it will no longer be connected.\\
-      $\Leftrightarrow$\\
-      $T$ contains no cycle, but if an edge is added\\
-        between any pair of nodes one and only one cycle will be formed.
-    \end{center}
-  \end{theorem}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    \begin{center}
-      $T$ is a tree ($T$ is connected and contains no cycle).\\
-      $\Leftrightarrow$\\
-      $T$ is connected and $|E| = |V| - 1$.\\
-      $\Leftrightarrow$\\
-      $T$ contains no cycle and $|E| = |V| - 1$.
-    \end{center}
-  \end{theorem}
-\end{frame}
-
-\subsection{Rooted Trees}
-
-\begin{frame}
-  \frametitle{Rooted Tree}
-
-  \begin{itemize}
-    \item a hierarchy is defined between nodes
-    \item hierarchy creates a natural direction on edges\\
-      $\Rightarrow$ in and out degrees
-
-    \pause
-    \medskip
-    \item node with in-degree 0 (top of the hierarchy): \alert{root}
-    \item nodes with out-degree 0: \alert{leaf}
-    \item nodes that are not leaves: \alert{internal node}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Node Level}
-
-  \begin{definition}
-    \alert{level} of a node: the distance of the node from the root
-  \end{definition}
-
-  \begin{itemize}
-    \item \emph{parent}: adjacent node in the next upper level
-    \item \emph{children}: adjacent nodes in the next lower level
-    \item \emph{sibling}: nodes which have the same parent
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Rooted Tree Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{rooted}
-      \end{center}
-
-      \column{.58\textwidth}
-      \begin{itemize}
-        \item root: $r$
-        \item leaves: $x ~ y ~ z ~ u ~ v$
-        \item internal nodes: $r ~ p ~ n ~ t ~ s ~ q ~ w$
-        \item parent of $y$: $w$\\
-          children of $w$: $y$ and $z$\\
-	\item $y$ and $z$ are siblings
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Rooted Tree Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.65\textwidth}
-      \begin{center}
-        \pgfuseimage{book}
-      \end{center}
-
-      \column{.33\textwidth}
-      Book
-      \begin{itemize}
-        \item C1
-        \begin{itemize}
-          \item S1.1
-          \item S1.2
-        \end{itemize}
-        \item C2
-        \item C3
-        \begin{itemize}
-          \item S3.1
-          \item S3.2
-          \begin{itemize}
-            \item S3.2.1
-            \item S3.2.2
-          \end{itemize}
-          \item S3.3
-        \end{itemize}
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ordered Rooted Tree}
-
-  \begin{itemize}
-    \item sibling nodes are ordered from left to right
-
-    \medskip
-    \item \alert{universal address system}
-    \begin{itemize}
-      \item assign the address $0$ to the root
-      \item assign the positive integers $1,2,3,\ldots$ to the nodes at level 1,\\
-        from left to right
-      \item let $v$ be an internal node with address $a$,\\
-        assign the addresses $a.1,a.2,a.3,\ldots$ to the children of $v$\\
-        from left to right
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Lexicographic Order}
-
-  \begin{definition}
-    Let $b$ and $c$ be two addresses.
-
-    $b$ comes before $c$ if one of the following holds:
-    \begin{enumerate}
-      \item $b=a_1 a_2 \ldots a_m x_1 \ldots$\\
-        $c=a_1 a_2 \ldots a_m x_2 \ldots$\\
-        $x_1$ comes before $x_2$
-      \pause
-      \item $b=a_1 a_2 \ldots a_m$\\
-        $c=a_1 a_2 \ldots a_m a_{m+1} \ldots$
-    \end{enumerate}
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Lexicographic Order Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.57\textwidth}
-      \begin{center}
-        \pgfuseimage{dictionary}
-      \end{center}
-
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item 0 - 1 - 1.1 - 1.2\\
-          - 1.2.1 - 1.2.2 - 1.2.3\\
-          - 1.2.3.1 - 1.2.3.2\\
-          - 1.3 - 1.4 - 2\\
-          - 2.1 - 2.2 - 2.2.1\\
-          - 3 - 3.1 - 3.2
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\subsection{Binary Trees}
-
-\begin{frame}
-  \frametitle{Binary Trees}
-
-  \begin{definition}
-    $T=(V,E)$ is a \alert{binary tree}: $\forall v \in V~{d_v}^o \in \{0,1,2\}$
-
-    \bigskip
-    $T=(V,E)$ is a \emph{complete} binary tree:
-      $\forall v \in V~{d_v}^o \in \{0,2\}$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree}
-
-  \begin{itemize}
-    \item a binary operation can be represented as a binary tree
-    \begin{itemize}
-      \item operator as the root, operands as the children
-    \end{itemize}
-
-    \medskip
-    \item every mathematical expression can be represented as a tree
-    \begin{itemize}
-      \item operators at internal nodes, variables and values at the leaves
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Examples}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{example}[$7-a$]
-      \begin{center}
-        \pgfuseimage{expr1a}
-      \end{center}
-    \end{example}
-
-    \column{.5\textwidth}
-    \begin{example}[$a+b$]
-      \begin{center}
-        \pgfuseimage{expr1b}
-      \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Examples}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{example}[$(7-a)/5$]
-      \begin{center}
-        \pgfuseimage{expr2a}
-      \end{center}
-    \end{example}
-
-    \column{.5\textwidth}
-    \begin{example}[$(a+b) \uparrow 3$]
-      \begin{center}
-        \pgfuseimage{expr2b}
-      \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Examples}
-
-  \begin{example}[$((7-a)/5)*((a+b) \uparrow 3)$]
-    \begin{center}
-      \pgfuseimage{expr3}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Examples}
-
-  \begin{example}[$t+(u*v)/(w+x-y \uparrow z)$]
-    \begin{center}
-      \pgfuseimage{expr}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Traversals}
-
-  \begin{enumerate}
-    \item \alert{inorder traversal}: traverse the left subtree, visit the root,\\
-      traverse the right subtree
-
-    \medskip
-    \item \alert{preorder traversal}: visit the root, traverse the left subtree,\\
-      traverse the right subtree
-
-    \medskip
-    \item \alert{postorder traversal}: traverse the left subtree,\\
-      traverse the right subtree, visit the root
-    \begin{itemize}
-      \item \emph{reverse Polish notation}
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inorder Traversal Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
-
-      \column{.6\textwidth}
-      $t ~ + ~ u ~ * ~ v ~ / ~ w ~ + ~ x ~ - ~ y ~ \uparrow ~ z$
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Preorder Traversal Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
-
-      \column{.6\textwidth}
-      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Postorder Traversal Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
-
-      \column{.6\textwidth}
-      $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Expression Tree Evaluation}
-
-  \begin{itemize}
-    \item inorder traversal requires parantheses for precedence
-    \item preorder and postorder traversals do not require parantheses
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Postorder Evaluation Example}
-
-  \begin{example}[$t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$]
-    $4 ~ 2 ~ 3 ~ * ~ 1 ~ 9 ~ 2 ~ 3 ~ \uparrow ~ - ~ + ~ / ~ +$
-
-    \pause
-    \medskip
-    \[
-      \begin{array}{ccccccc}
-  4 & \pause 2 & \pause 3 & \pause * &          &          &                \\
-  4 &        6 & \pause 1 & \pause 9 & \pause 2 & \pause 3 & \pause \uparrow\\
-  4 &        6 &        1 &        9 &        8 & \pause - &                \\
-  4 &        6 &        1 &        1 & \pause + &          &                \\
-  4 &        6 &        2 & \pause / &          &          &                \\
-  4 &        3 & \pause + &          &          &          &                \\
-  7 &          &          &          &          &          &                \\
-      \end{array}
-    \]
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regular Tree}
-
-  \begin{definition}
-    $T=(V,E)$ is an \alert{m-ary tree}: $\forall v \in V~{d_v}^o \leq m$
-
-    \bigskip
-    $T=(V,E)$ is a complete m-ary tree:
-      $\forall v \in V~{d_v}^o \in \{0,m\}$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regular Tree Theorem}
-
-  \begin{theorem}
-    Let $T=(V,E)$ be a complete $m$-ary tree.
-
-    \begin{itemize}
-      \item $n$: number of nodes
-      \item $l$: number of leaves
-      \item $i$: number of internal nodes
-    \end{itemize}
-
-    Then:
-    \pause
-    \begin{itemize}
-      \item $n = m \cdot i + 1$
-
-      \pause
-      \item  $l = n - i = \pause m \cdot i + 1 - i
-        \pause = (m - 1) \cdot i + 1$
-
-      \pause
-      \[
-        i = \frac{l - 1}{m - 1}
-      \]
-    \end{itemize}
-  \end{theorem}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regular Tree Examples}
-
-  \begin{example}
-    \begin{itemize}
-      \item how many matches are played in a tennis tournament\\
-        with 27 players?
-
-      \pause
-      \bigskip
-      \item every player is a leaf: $l = 27$
-      \item every match is an internal node: $m = 2$
-      \item number of matches: $i = \frac{l - 1}{m - 1} = \frac{27 - 1}{2 - 1} = 26$
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regular Tree Examples}
-
-  \begin{example}
-    \begin{itemize}
-      \item how many extension cords with 4 outlets are required\\
-        to connect 25 computers to a wall socket?
-
-      \pause
-      \bigskip
-      \item every computer is a leaf: $l = 25$
-      \item every extension cord is an internal node: $m = 4$
-      \item number of cords: $i = \frac{l - 1}{m - 1} = \frac{25 - 1}{4 - 1} = 8$
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\subsection{Decision Trees}
-
-% TODO: write an introductory slide, games
-
-\begin{frame}
-  \frametitle{Decision Trees}
-
-  \begin{example}
-    \begin{itemize}
-      \item one of 8 coins is counterfeit (it's heavier)
-      \item find the counterfeit coin using a beam balance
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Decision Trees}
-
-  \begin{example}[in 3 weighings]
-    \begin{center}
-      \pgfuseimage{scale1}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Decision Trees}
-
-  \begin{example}[in 2 weighings]
-    \begin{center}
-      \pgfuseimage{scale2}
-    \end{center}
-  \end{example}
-\end{frame}
-
-% TODO: give the decision tree for tic-tac-toe and/or nim
-
-\subsection*{References}
-
-\begin{frame}
-  \frametitle{References}
-
-  \begin{block}{Required Reading: Grimaldi}
-    \begin{itemize}
-      \item Chapter 12: Trees
-      \begin{itemize}
-        \item 12.1. \alert{Definitions and Examples}
-        \item 12.2. \alert{Rooted Trees}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\section{Weighted Graphs}
-
-\subsection{Introduction}
-
-\begin{frame}
-  \frametitle{Weighted Graphs}
-
-  \begin{itemize}
-    \item assign labels to edges:\\
-      weight, length, cost, delay, probability, $\ldots$
-  \end{itemize}
-\end{frame}
-
 \subsection{Shortest Path}
 
 \begin{frame}
   \frametitle{Shortest Path}
 
   \begin{itemize}
-    \item find the shortest paths from a node to all other nodes:\\
+    \item finding the shortest paths from a starting node\\
+      to all other nodes:
       Dijkstra's algorithm
   \end{itemize}
 \end{frame}
@@ -2886,435 +2149,86 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{example}
 \end{frame}
 
-\subsection{Minimum Spanning Tree}
+\subsection{Searching Graphs}
 
 \begin{frame}
-  \frametitle{Spanning Tree}
+  \frametitle{Searching Graphs}
 
-  \begin{definition}
-    \alert{spanning tree}:\\
-    a subgraph which is a tree and contains all the nodes of the graph
-  \end{definition}
+  \begin{itemize}
+    \item searching nodes of graph $G=(V,E)$ starting from node $v_1$
 
-  \pause
-  \begin{definition}
-    \alert{minimum spanning tree}:\\
-    a spanning tree for which the total weight of edges is minimal
-  \end{definition}
+    \bigskip
+    \item depth-first
+    \item breadth-first
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kruskal's Algorithm}
+  \frametitle{Depth-First Search}
 
-  \begin{block}{Kruskal's algorithm}
-    \begin{enumerate}
-      \item $i \leftarrow 1$, $e_1 \in E$, $wt(e_1)$ is minimal
+  \begin{enumerate}
+    \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
 
-      \pause
-      \item for $1 \leq i \leq n-2$:\\
-        the selected edges are $e_1,e_2,\dots,e_i$\\
-        select a new edge $e_{i+1}$ from the remaining edges such that:
+    \pause
+    \item find smallest $i$ in $2 \leq i \leq |V|$
+      such that $(v,v_i) \in E$ and $v_i \notin D$
       \begin{itemize}
-        \item $wt(e_{i+1})$ is minimal
-        \item $e_1,e_2,\dots,e_i,e_{i+1}$ contains no cycle
+        \item if no such $i$ exists: go to step 3
+        \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
+          $v \leftarrow v_i$,\\
+          go to step 2
       \end{itemize}
 
-      \pause
-      \item $i \leftarrow i+1$
-      \begin{itemize}
-        \item $i=n-1$ $\Rightarrow$ the subgraph $G$ containing the edges\\
-         $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
-        \item $i<n-1$ $\Rightarrow$ go to step 2
-      \end{itemize}
-    \end{enumerate}
-  \end{block}
+    \pause
+    \item if $v=v_1$ then the result is $T$
+
+    \pause
+    \item if $v \neq v_1$ then $v \leftarrow backtrack(v)$, go to step 2
+  \end{enumerate}
 \end{frame}
+
+% TODO: add example for depth-first search
 
 \begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
+  \frametitle{Breadth-First Search}
 
-  \begin{example}[initialization]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
+  \begin{enumerate}
+    \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $i \leftarrow 1$
-        \item minimum weight: $1$\\
-          $(e,g)$
-
-        \pause
-        \item $T = \{ (e,g) \}$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \item if $Q$ is empty: the result is $T$
+    \item if $Q$ not empty: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
+      for $2 \leq i \leq |V|$ check the edges $(v,v_i) \in E$:
+    \begin{itemize}
+      \item if $v_i \notin D$ : $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
+        $D=D \cup \{v_i\}$
+       \item go to step 3
+    \end{itemize}
+  \end{enumerate}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$1 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal1}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(d,e), (d,f), (f,g)$
-
-        \pause
-        \item $T = \{ (e,g), (d,f) \}$
-        \item $i \leftarrow 2$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$2 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal2}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(d,e), (f,g)$
-
-        \pause
-        \item $T = \{ (e,g), (d,f), (d,e) \}$
-        \item $i \leftarrow 3$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$3 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal3}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(f,g)$ forms a cycle
-
-        \pause
-        \item minimum weight: $3$\\
-          $(c,e), (c,g), (d,g)$\\
-          $(d,g)$ forms a cycle
-
-        \pause
-        \item $T = \{ (e,g), (d,f), (d,e), (c,e) \}$
-        \item $i \leftarrow 4$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$4 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal4}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(e,g), (d,f), (d,e),$\\
-          $~~(c,e), (b,e)$\\
-          $\}$
-        \item $i \leftarrow 5$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$5 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal5}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(e,g), (d,f), (d,e),$\\
-          $~~(c,e), (b,e), (a,b)$\\
-          $\}$
-        \item $i \leftarrow 6$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kruskal's Algorithm Example}
-
-  \begin{example}[$6 \nless 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item total weight: $17$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm}
-
-  \begin{block}{Prim's algorithm}
-    \begin{enumerate}
-      \item $i \leftarrow 1$, $v_1 \in V$, $P=\{v_1\}$, $N=V-\{v_1\}$,
-        $T=\emptyset$
-
-      \pause
-      \item for $1 \leq i \leq n-1$:\\
-        $P=\{v_1,v_2,\dots,v_i\}$, $T=\{e_1,e_2,\dots,e_{i-1}\}$, $N=V-P$\\
-        select a node $v_{i+1} \in N$ such that for a node $x \in P$\\
-        $e=(x,v_{i+1}) \notin T$, $wt(e)$ is minimal\\
-        $P \leftarrow P+\{v_{i+1}\}$, $N \leftarrow N-\{v_{i+1}\}$,
-        $T \leftarrow T+\{e\}$
-
-      \pause
-      \item $i \leftarrow i+1$
-      \begin{itemize}
-        \item $i=n$ $\Rightarrow$: the subgraph $G$ containing the edges\\
-          $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
-        \item $i<n$ $\Rightarrow$ go to step 2
-
-      \end{itemize}
-    \end{enumerate}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[initialization]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $i \leftarrow 1$
-        \item $P = \{ a \}$
-        \item $N = \{ b, c, d, e, f, g \}$
-        \item $T = \emptyset$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$1 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b) \}$
-        \item $P = \{ a, b \}$
-        \item $N = \{ c, d, e, f, g \}$
-        \item $i \leftarrow 2$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$2 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim1}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e) \}$
-        \item $P = \{ a, b, e \}$
-        \item $N = \{ c, d, f, g \}$
-        \item $i \leftarrow 3$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$3 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim2}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e), (e,g) \}$
-        \item $P = \{ a, b, e, g \}$
-        \item $N = \{ c, d, f \}$
-        \item $i \leftarrow 4$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$4 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim3}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e), (e,g), (d,e) \}$
-        \item $P = \{ a, b, e, g, d \}$
-        \item $N = \{ c, f \}$
-        \item $i \leftarrow 5$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$5 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim4}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(a,b), (b,e), (e,g),$\\
-          $~~(d,e), (f,g)$\\
-          $\}$
-        \item $P = \{ a, b, e, g, d, f \}$
-        \item $N = \{ c \}$
-        \item $i \leftarrow 6$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$6 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim5}
-      \end{center}
-
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(a,b), (b,e), (e,g),$\\
-          $~~(d,e), (f,g), (c,g)$\\
-          $\}$
-        \item $P = \{ a, b, e, g, d, f, c \}$
-        \item $N = \emptyset$
-        \item $i \leftarrow 7$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Prim's Algorithm Example}
-
-  \begin{example}[$7 \nless 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item total weight: $17$
-      \end{itemize}
-    \end{columns}
-  \end{example}
-\end{frame}
+% TODO: add example for depth-first search
 
 % TODO: traveling salesman problem
 
-\subsection*{References}
+\section*{References}
 
 \begin{frame}
   \frametitle{References}
 
   \begin{block}{Required Reading: Grimaldi}
     \begin{itemize}
+      \item Chapter 11: \alert{An Introduction to Graph Theory}
+
+      \item Chapter 7: Relations: The Second Time Around
+      \begin{itemize}
+        \item 7.2. \alert{Computer Recognition: Zero-One Matrices\\
+                          and Directed Graphs}
+      \end{itemize}
+
       \item Chapter 13: Optimization and Matching
       \begin{itemize}
         \item 13.1. \alert{Dijkstra's Shortest Path Algorithm}
-        \item 13.2. \alert{Minimal Spanning Trees:\\
-                           The Algorithms of Kruskal and Prim}
       \end{itemize}
     \end{itemize}
   \end{block}
