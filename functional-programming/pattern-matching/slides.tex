@@ -656,7 +656,7 @@ area (Circle (0.0, 0.0) 3.0)  -- 28.274311
   \end{exampleblock}
 \end{frame}
 
-\subsection{Function Parameters}
+\subsection{Function Patterns}
 
 \begin{frame}[fragile]
   \frametitle{Pattern Matching}
@@ -757,7 +757,7 @@ length2 xs =
       x:xs' -> 1 + length2 xs'
 
 -- BETTER:
-length2 [] = 0
+length2 []     = 0
 length2 (x:xs) = 1 + length2 xs
     \end{pygments}
   \end{exampleblock}
