@@ -356,17 +356,30 @@ firstPlusSecond xs
 
   \begin{block}{}
     \begin{pygments}{haskell}
-data Name = Constructor_1 t_1_1 t_1_2 ... |
-            Constructor_2 t_2_1 t_2_2 ... |
-            ...
-            Constructor_n t_n_1 t_n_2 ...
+data TypeName = Constructor_1 t_1_1 t_1_2 ... t_1_k1 |
+                Constructor_2 t_2_1 t_2_2 ... t_2_k2 |
+                ...
+                Constructor_n t_n_1 t_n_2 ... t_n_kn
     \end{pygments}
   \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Constructors}
 
   \begin{itemize}
     \item value construction:\\
-      \pygment{haskell}{Constructor_i v_i_1 v_i_2 ...}
+      \pygment{haskell}{Constructor_i v_i_1 v_i_2 ... v_i_n}
+
+    \medskip
+    \item constructors are functions
   \end{itemize}
+
+  \begin{block}{}
+    \begin{pygments}{haskell}
+Constructor_i :: t_i_1 -> ... -> t_i_kn -> TypeName
+    \end{pygments}
+  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
