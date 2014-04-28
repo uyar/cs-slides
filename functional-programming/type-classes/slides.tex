@@ -91,7 +91,7 @@
 
 \section{Type Classes}
 
-\subsection{Introduction}
+\subsection{Overloading}
 
 \begin{frame}[fragile]
   \frametitle{Overloading}
@@ -117,6 +117,8 @@ elem' x (c:cs) = if x == c then True else elem' x cs
   \end{itemize}
 \end{frame}
 
+\subsection{Type Classes}
+
 \begin{frame}[fragile]
   \frametitle{Type Classes}
 
@@ -134,7 +136,7 @@ class Eq a where
 
   \pause
   \begin{itemize}
-    \item every type belonging to the class has to implement the functions
+    \item every type belonging to the class has to implement its functions
     \item members of a type class are called its \alert{instances}
   \end{itemize}
 \end{frame}
@@ -159,6 +161,483 @@ elem' x (c:cs) = if x == c then True else elem' x cs
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Defining Instances}
+
+  \begin{exampleblock}{rock - paper - scissors}
+    \begin{pygments}{haskell}
+data Move = Rock | Paper | Scissors
+
+instance Eq Move where
+  (==) Rock     Rock     = True
+  (==) Paper    Paper    = True
+  (==) Scissors Scissors = True
+  (==) _        _        = False
+
+elem' Paper [Rock, Paper, Rock]    -- True
+elem' Scissors [Rock, Paper, Rock] -- False
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Defining Instances}
+
+  \begin{itemize}
+    \item using the infix notation
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+instance Eq Move where
+  Rock     == Rock     = True
+  Paper    == Paper    = True
+  Scissors == Scissors = True
+  _        == _        = False
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Default Definitions}
+
+  \begin{itemize}
+    \item classes can contain default definitions for functions
+    \item they can be overridden by instances
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+class Eq a where
+  (==), (/=) :: a -> a -> Bool
+  x /= y = not (x == y)
+  x == y = not (x /= y)
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item defining either \pygment{haskell}{==} or \pygment{haskell}{/=}
+      is enough
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Derived Instances}
+
+  \begin{itemize}
+    \item default equality checker: derive from \pygment{haskell}{Eq}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Move = Rock | Paper | Scissors
+            deriving Eq
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item default string conversion: derive from \pygment{haskell}{Show}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+class Show a where
+  show :: a -> String
+
+data Move = Rock | Paper | Scissors
+            deriving (Eq, Show)
+   \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Class Example}
+
+  \begin{exampleblock}{rational numbers}
+    \begin{pygments}{haskell}
+data Rational' = Fraction Integer Integer
+
+instance Eq Rational' where
+  Fraction n1 d1 == Fraction n2 d2 =
+      n1 * d2 == n2 * d1
+
+instance Show Rational' where
+  show (Fraction n d) = show n ++ "/" ++ show d
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Derived Classes}
+
+\begin{frame}[fragile]
+  \frametitle{Derived Classes}
+
+  \begin{itemize}
+    \item type classes can depend on other type classes
+  \end{itemize}
+
+  \begin{exampleblock}{ordering}
+    \begin{pygments}{haskell}
+class Eq a => Ord a where
+  (<), (<=), (>), (>=) :: a -> a -> Bool
+
+  x <= y = (x < y || x == y)
+  x >  y = y < x
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Class Example}
+
+  \begin{exampleblock}{rational numbers}
+    \begin{pygments}{haskell}
+instance Ord Rational' where
+  Fraction n1 d1 < Fraction n2 d2 = n1 * d2 < n2 * d1
+
+quickSort :: Ord a => [a] -> [a]
+quickSort []         = []
+quickSort (pivot:xs) =
+    quickSort [x | x <- xs, x <= pivot]
+    ++ [pivot]
+    ++ quickSort [x | x <- xs, x > pivot]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ordering}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Ordering = LT | EQ | GT
+
+class Eq a => Ord a where
+  (<), (<=), (>), (>=) :: a -> a -> Bool
+  max, min             :: a -> a -> a
+  compare              :: a -> a -> Ordering
+
+  compare x y
+    | x == y    = EQ
+    | x <= y    = LT
+    | otherwise = GT
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item define either \pygment{haskell}{compare} or \pygment{haskell}{<=}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ordering Default Definitions}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+class Eq a => Ord a where
+
+  x <= y = compare x y /= GT
+  x < y  = compare x y == LT
+  x >= y = compare x y /= LT
+  x > y  = compare x y == GT
+
+  max x y
+    | x <= y    = y
+    | otherwise = x
+
+  min x y
+    | x < y     = x
+    | otherwise = y
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Numeric Type Class}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+class (Eq a, Show a) => Num a where
+  (+), (-), (*) :: a -> a -> a
+  negate        :: a -> a
+  abs, signum   :: a -> a
+  fromInteger   :: Integer -> a
+
+  x - y = x + negate y
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item exercise: make \pygment{haskell}{Rational'} an instance of
+      \pygment{haskell}{Num}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Numeric Type Class}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+instance Num Rational' where
+  Fraction n1 d1 + Fraction n2 d2 =
+      Fraction (n1 * d2 + n2 * d1) (d1 * d2)
+  Fraction n1 d1 * Fraction n2 d2 =
+      Fraction (n1 * n2) (d1 * d2)
+
+  negate (Fraction n d) = Fraction (-n) d
+  abs (Fraction n d)    = Fraction (abs n) (abs d)
+  signum (Fraction n d)
+    | n < 0     = Fraction (-1) 1
+    | otherwise = Fraction 1 1
+
+  fromInteger n = Fraction n 1
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Type Inference}
+
+\begin{frame}
+  \frametitle{Type Inference}
+
+  \begin{itemize}
+    \item type of entity not explicitly stated
+    \item inferred by the language processor
+
+    \pause
+    \medskip
+    \item assign every binding a type such that type checking succeeds
+    \item fail if no such assignment can be found
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Inference Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+even' n = n `mod` 2 == 0
+-- even' :: Integral a => a -> Bool
+
+evenMessage n = if even' n then "even" else "odd"
+-- evenMessage :: Integral a => a  -> [Char]
+
+shrink x y z = if x then y `div` z else y
+-- shrink :: Integral a => Bool -> a -> a -> a
+
+foo1 x y = if x then y else x + 1
+-- type inference fails
+
+foo2 f g x = (f x, g x)
+-- (t2 -> t) -> (t2 -> t1) -> t2 -> (t, t1)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}<beamer>[fragile]
+  \frametitle{Type Inference Examples}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+f (x, y) = (x, ['a' .. y])
+-- (t, Char) -> (t, [Char])
+
+g (m, zs) = m + length zs
+-- g :: (Int, [a]) -> Int
+
+h = g . f
+-- h :: (Int, Char) -> Int
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section{Algebraic Types}
+
+\subsection{Recursive Algebraic Types}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Algebraic Types}
+
+  \begin{itemize}
+    \item types can be described in terms of themselves
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Expr = Lit Integer |
+            Add Expr Expr |
+            Mul Expr Expr
+            deriving Show
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Algebraic Types}
+
+  \begin{exampleblock}{evaluation}
+    \begin{pygments}{haskell}
+eval :: Expr -> Integer
+eval e =
+  case e of
+     Lit n     -> n
+     Add e1 e2 -> (eval e1) + (eval e2)
+     Mul e1 e2 -> (eval e1) * (eval e2)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Algebraic Types}
+
+  \begin{exampleblock}{string conversion}
+    \begin{pygments}{haskell}
+instance Show Expr where
+  show e =
+    case e of
+      Lit n     -> show n
+      Add e1 e2 -> show e1 ++ "+" ++ show e2
+      Mul e1 e2 -> show e1 ++ "*" ++ show e2
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item incorrect:
+      \pygment{haskell}{Mul (Add (Lit 2) (Lit 3)) (Lit 5)}
+    \item exercise: write a correct implementation\\
+      using the least number of parentheses
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Recursive Algebraic Types}
+
+  \begin{exampleblock}{binary integer tree}
+    \begin{pygments}{haskell}
+data IntTree = NilT | NodeT Integer IntTree IntTree
+
+sumTree :: IntTree -> Integer
+sumTree NilT            = 0
+sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
+
+depth :: IntTree -> Integer
+depth NilT            = 0
+depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Polymorphic Algebraic Types}
+
+\begin{frame}[fragile]
+  \frametitle{Polymorphic Algebraic Types}
+
+  \begin{itemize}
+    \item generalize the tree type
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Tree a = NilT | NodeT a (Tree a) (Tree a)
+
+sumTree :: Integral a => Tree a -> a
+sumTree NilT            = 0
+sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
+
+depth :: Tree a -> Integer
+depth NilT            = 0
+depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Error Types}
+
+\begin{frame}[fragile]
+  \frametitle{The Maybe Type}
+
+  \begin{itemize}
+    \item returning an error value
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Maybe a = Nothing | Just a
+               deriving (Eq, Ord, Read, Show)
+
+
+errDiv :: Integer -> Integer -> Maybe Integer
+errDiv n m
+  | m /= 0    = Just (n `div` m)
+  | otherwise = Nothing
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{The Maybe Type}
+
+  \begin{exampleblock}{maximum of a list}
+    \begin{pygments}{haskell}
+maxListMaybe :: Ord a => [a] -> Maybe a
+maxListMaybe []     = Nothing
+maxListMaybe (x:xs) = Just (foldl max x xs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{The Maybe Type}
+
+  \begin{itemize}
+    \item transmitting an error through a function
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+mapMaybe :: (a -> b) -> Maybe a -> Maybe b
+mapMaybe g Nothing  = Nothing
+mapMaybe g (Just x) = Just (g x)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{The Maybe Type}
+
+  \begin{itemize}
+    \item trapping an error
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+maybe' :: b -> (a -> b) -> Maybe a -> b
+maybe' n f Nothing  = n
+maybe' n f (Just x) = f x
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{The Either Type}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Either a b = Left a | Right b
+                  deriving (Eq, Ord, Read, Show)
+
+either' :: (a -> c) -> (b -> c) -> Either a b -> c
+either' f g (Left x)  = f x
+either' f g (Right y) = g y
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+% TODO: join exercise (14.20 p. 336) from the book
+
 \section*{References}
 
 \begin{frame}
@@ -167,6 +646,7 @@ elem' x (c:cs) = if x == c then True else elem' x cs
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
       \item Chapter 13: \alert{Overloading, type classes and type checking}
+      \item Chapter 14: \alert{Algebraic types}
     \end{itemize}
   \end{block}
 \end{frame}
