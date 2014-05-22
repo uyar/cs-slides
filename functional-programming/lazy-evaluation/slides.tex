@@ -1,14 +1,9 @@
-% Copyright (c) 2013
-%       H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -17,18 +12,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
-  \usetheme{Boadilla}
+  \usetheme{default}
+  \useinnertheme{rounded}
+  \usecolortheme{seahorse}
   \setbeamercovered{transparent}
 }
 
 \title{Functional Programming}
-\subtitle{Expressions and Types}
+\subtitle{Lazy Evaluation}
 
 \author{H. Turgut Uyar}
-\date{2013}
+\date{2013-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -39,11 +37,7 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
-
-\pgfdeclareimage[width=9.5cm]{shallow1}{shallow1}
-\pgfdeclareimage[width=9.5cm]{shallow2}{shallow2}
-\pgfdeclareimage[width=9.5cm]{shallow3}{shallow3}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \begin{document}
 
@@ -89,9 +83,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Expressions and Functions}
+\section{Expression Evaluation}
 
-\subsection{Expressions}
+\subsection{Strategies}
 
 \begin{frame}
   \frametitle{Expression Evaluation}
@@ -101,7 +95,6 @@
     \item evaluate its operands (note the recursion)
     \item apply the operator to the operands
 
-    \pause
     \medskip
     \item a name is evaluated by replacing it with its definition
   \end{itemize}
@@ -110,7 +103,7 @@
 \begin{frame}
   \frametitle{Expression Evaluation Example}
 
-  \begin{example}
+  \begin{exampleblock}{}
     \pygment{python}{(3.14159 * r) * r}
 
     \pause
@@ -124,10 +117,8 @@
     \pause
     \medskip
     \pygment{python}{18.095558399999998}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
-
-\subsection{Functions}
 
 \begin{frame}
   \frametitle{Function Evaluation}
@@ -151,7 +142,7 @@
 \begin{frame}
   \frametitle{Function Evaluation Example}
 
-  \begin{example}
+  \begin{exampleblock}{}
     \pygment{python}{sum_of_squares(3, 2 + 2)}
 
     \pause
@@ -181,15 +172,15 @@
     \pause
     \medskip
     \pygment{python}{25}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item \alert{eager evaluation}: first evaluate arguments\\
-      and then apply the function to the resulting values\\
+    \item \alert{eager evaluation}: first evaluate arguments,\\
+      then apply the function to the resulting values\\
       (a.k.a. ``call by value'')
 
     \pause
@@ -203,7 +194,7 @@
 \begin{frame}
   \frametitle{Normal Order Evaluation Example}
 
-  \begin{example}
+  \begin{exampleblock}{}
     \pygment{python}{sum_of_squares(3, 2 + 2)}
 
     \pause
@@ -237,7 +228,7 @@
     \pause
     \medskip
     \pygment{python}{25}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -278,14 +269,14 @@
     \item most languages use eager evaluation
   \end{itemize}
 
-  \begin{example}[Python]
+  \begin{exampleblock}{Python}
     \begin{pygments}{python}
 def first(x, y):
     return x
 
 # first(1, 1 // 0) -> division by zero
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -295,40 +286,40 @@ def first(x, y):
     \item Haskell uses lazy evaluation by default
   \end{itemize}
 
-  \begin{example}[Haskell]
+  \begin{exampleblock}{Haskell}
     \begin{pygments}{haskell}
 first :: Integer -> Integer -> Integer
 first x y = x
 
 -- first 1 (1 `div` 0) -> 1
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\subsection{Conditional Expressions}
+\subsection{Short-Circuit Evaluation}
 
 \begin{frame}
   \frametitle{Short-Circuit Evaluation}
 
-  \begin{definition}
-    \alert{short-circuit evaluation}: evaluation stops
-      as soon as result is determined
-  \end{definition}
+  \begin{itemize}
+    \item \alert{short-circuit evaluation}:\\
+      evaluation stops as soon as the result is determined
+  \end{itemize}
 
   \pause
-  \begin{example}
+  \begin{exampleblock}{C}
     \pygment{c}{(a >= 0) && (b < 10)}\\
-    -- 2nd clause not evaluated if a < 0
+    \pygment{c}{// 2nd clause not evaluated if a < 0}
 
     \bigskip
     \pygment{c}{(a >= 0) || (b < 10)}\\
-    -- 2nd clause not evaluated if a >= 0
+    \pygment{c}{// 2nd clause not evaluated if a >= 0}
 
     \pause
     \bigskip
     \pygment{c}{(a >= 0) || (b++ < 10)}\\
-    -- dangerous if side effects are allowed
-  \end{example}
+    \pygment{c}{// dangerous if side effects are allowed}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -338,30 +329,20 @@ first x y = x
     \item code might depend on short-circuit evaluation
   \end{itemize}
 
-  \begin{example}[Java]
+  \begin{exampleblock}{Java}
     \begin{pygments}{java}
 // find the index of a key item in a list
 index = 0;
 while ((index < items.length) && (items[index] != key))
     index++;
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Short-Circuit Evaluation Exercise}
+\begin{frame}[fragile]
+  \frametitle{Short-Circuit Evaluation Example}
 
-  \begin{block}{Exercise (Haskell)}
-    \begin{itemize}
-      \item express short-circuited Boolean operators in terms of conditionals
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}<beamer>[fragile]
-  \frametitle{Short-Circuit Evaluation Examples}
-
-  \begin{example}[Haskell]
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 and' :: Bool -> Bool -> Bool
 and' x y = if x then y else False
@@ -372,7 +353,198 @@ or' x y = if x then True else y
 not' :: Bool -> Bool
 not' x = if x then False else True
     \end{pygments}
-  \end{example}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Strictness}
+
+\begin{frame}[fragile]
+  \frametitle{Space Behaviour}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+fact 0 = 1
+fact n = n * fact (n - 1)
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item creates new stack frames
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Space Behaviour}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+factIter acc 0 = acc
+factIter acc n = factIter (acc * n) (n - 1)
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item doesn't compute the multiplication until the last moment\\
+      because of lazy evaluation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Space Behaviour}
+
+  \begin{itemize}
+    \item possible solution: make the value needed
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+factIter acc 0 = acc
+factIter acc n
+  | acc == acc = factIter (acc * n) (n - 1)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Strictness}
+
+  \begin{itemize}
+    \item function to force the evaluation of a parameter:
+      \pyv[haskell]{seq}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+seq :: a -> b -> b
+seq x y -- evaluate x and return y
+
+factIter' acc 0 = acc
+factIter' acc n = seq acc (factIter' (acc * n) (n - 1))
+
+strict :: (a -> b) -> a -> b
+strict f x = seq x (f x)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section{Infinite Lists}
+
+\subsection{Introduction}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite Lists}
+
+  \begin{itemize}
+    \item lazy evaluation makes it possible to define infinite data structures
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+ones = 1 : ones
+
+addFirstTwo :: [Integer] -> Integer
+addFirstTwo (x1:x2:xs) = x1 + x2
+-- addFirstTwo ones -> 2
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite Lists}
+
+  \begin{itemize}
+    \item lazy evaluation makes it possible to define infinite data structures
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+from :: Integer -> [Integer]
+from n = n : from (n + 1)
+
+-- from 5 -> [5, 6, 7, 8, ...]
+-- OR: [5 ..]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite List Example}
+
+  \begin{exampleblock}{sieve of Eratosthenes}
+    \begin{pygments}{haskell}
+sieve :: [Integer] -> [Integer]
+sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
+
+-- sieve [2 ..] -> [2, 3, 5, 7, 11, ...]
+
+isPrime :: Integer -> Bool
+isPrime n = elem n (sieve [2 ..])
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite List Example}
+
+  \begin{exampleblock}{Fibonacci sequence}
+    \begin{pygments}{haskell}
+fibs :: [Integer]
+fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Generators}
+
+\subsection{Folding}
+
+\begin{frame}[fragile]
+  \frametitle{Folding}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldr f st []     = st
+foldr f st (x:xs) = f x (foldr f st xs)
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item not tail recursive
+    \item if f is lazy on its second argument, prefer foldr
+    \item \pyv[haskell]{foldr (&&) False (repeat False) -- False}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+foldl f st []     = st
+foldl f st (x:xs) = foldl f (f st x) xs
+    \end{pygments}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item tail recursive
+    \item \pyv[haskell]{foldl (&&) False (repeat False) -- never terminates}
+  \end{itemize}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Thompson}
+    \begin{itemize}
+      \item Chapter 17: \alert{Lazy programming}
+      \item Chapter 20: Time and space behaviour
+      \begin{itemize}
+        \item 20.5: \alert{Folding revisited}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \end{document}
