@@ -1,15 +1,12 @@
-% Copyright (c) 2001-2013
+% Copyright (c) 2001-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -17,6 +14,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -25,10 +23,10 @@
 }
 
 \title{Discrete Mathematics}
-\subtitle{Algebraic Structures}
+\subtitle{Trees}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2013}
+\date{2001-2014}
 
 \AtBeginSubsection[]
 {
@@ -38,7 +36,9 @@
   \end{frame}
 }
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+%\beamerdefaultoverlayspecification{<+->}
+
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage{hasse2418}{hasse2418}
 \pgfdeclareimage{enumeration}{enumeration}
@@ -57,33 +57,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2001-2013 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -96,7 +103,7 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Algebraic Structure}
+  \frametitle{Algebraic Structures}
 
   \begin{itemize}
     \item \alert{algebraic structure}: $<$set, operations, constants$>$
@@ -109,7 +116,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Operation}
+  \frametitle{Operations}
 
   \begin{itemize}
     \item every operation is a function
@@ -117,8 +124,6 @@
     \medskip
     \item binary operation:\\
       $\circ: S \times S \rightarrow T$
-
-    \medskip
     \item unary operation:\\
       $\Delta: S \rightarrow T$
 
@@ -126,65 +131,12 @@
     \medskip
     \item \alert{closed}: $T \subseteq S$
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Closed Operation Examples}
-
   \begin{example}
     \begin{itemize}
       \item subtraction is closed on $\mathbb{Z}$
       \item subtraction is not closed on $\mathbb{Z^+}$
-
-      \pause
-      \medskip
-      \item division is closed on $\mathbb{R}$
-      \item division is not closed on $\mathbb{Z}$
     \end{itemize}
   \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Binary Operation Properties}
-
-  \begin{definition}
-    \alert{commutativity}:\\
-    $\forall a,b \in S~a \circ b = b \circ a$
-  \end{definition}
-
-  \begin{definition}
-    \alert{associativity}:\\
-    $\forall a,b,c \in S~(a \circ b) \circ c = a \circ (b \circ c)$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Binary Operation Example}
-
-  \begin{example}
-    $\circ: \mathbb{Z} \times \mathbb{Z} \rightarrow \mathbb{Z}$\\
-    $a \circ b = a + b - 3ab$
-
-    \pause
-    \medskip
-    \begin{itemize}
-      \item commutative:\\
-        $a \circ b = a + b - 3ab \pause
-                   = b + a - 3ba \pause
-                   = b \circ a$
-
-      \pause
-      \medskip
-      \item associative:\\
-        $\begin{array}{rcl}
-          (a \circ b) \circ c & = & (a + b - 3ab) + c - 3 (a + b - 3ab) c\\ \pause
-                              & = & a + b - 3ab + c - 3ac - 3bc + 9abc\\ \pause
-                              & = & a + b + c - 3ab - 3ac - 3bc + 9abc\\ \pause
-                              & = & a + (b + c - 3bc) - 3 a (b + c - 3bc)\\ \pause
-                              & = & a \circ (b \circ c)
-        \end{array}$
-     \end{itemize}
- \end{example}
 \end{frame}
 
 \begin{frame}
@@ -286,10 +238,6 @@
   \begin{definition}
     $y$ is an \alert{inverse} of $x$:\\
     $x \circ y = y \circ x = 1$
-
-    \begin{itemize}
-      \item also, $x$ is an inverse of $y$
-    \end{itemize}
   \end{definition}
 
   \pause
@@ -487,13 +435,56 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Group Example}
+
+  \begin{example}
+    let $a \circ b = a + b + ab$\\
+    is $<\mathbb{Z}, \circ>$ a group?
+
+    \pause
+    \begin{itemize}
+      \item is $\circ$ associative?
+        \[ \begin{array}{rcl}
+          (a \circ b) \circ c & = & (a + b + ab) + c + (a + b + ab) \cdot c\\\pause
+                              & = & a + b + ab + c + ac + bc + abc\\\pause
+                              & = & a + b + c + bc + ab + ac + abc\\\pause
+                              & = & a + (b + c + bc) + a \cdot (b + c + bc)\\\pause
+                              & = & a \circ (b \circ c)
+        \end{array} \]
+     \end{itemize}
+ \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Group Example}
+
+  \begin{example}
+    \begin{itemize}
+      \item is there an identity element?
+        \[ a \circ 0 = a + 0 + a \cdot 0 = a \]
+
+      \pause
+      \item does every element have an inverse?
+        \[ \begin{array}{crcl}
+                      & a \circ a^{-1} & = & 0\\\pause
+          \Rightarrow & a + a^{-1} + a \cdot a^{-1} & = & 0\\\pause
+          \Rightarrow & a + a^{-1} \cdot (1 + a) & = & 0\\\pause
+          \Rightarrow & a^{-1} & = & -\frac{a}{1 + a}\\\pause
+        \end{array} \]\\
+        -1 doesn't have an inverse, not a group
+     \end{itemize}
+ \end{example}
+\end{frame}
+
+\begin{frame}
   \frametitle{Group Example: Permutations}
 
   \begin{itemize}
     \item permutation: a bijective function on a set
 
     \medskip
-    \item representation:
+    \item representation:\\
+    let $A = \{a_1, a_2, \dots, a_n\}$
     \[\left(
       \begin{array}{cccc}
          a_1   &  a_2   & \dots &  a_n\\
