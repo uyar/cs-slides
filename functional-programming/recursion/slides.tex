@@ -39,6 +39,8 @@
 
 \pgfdeclareimage[height=1cm]{license}{../license}
 
+\pgfdeclareimage[height=6cm]{fib}{fib}
+
 \begin{document}
 
 \setpythontexfv[]{frame=single}
@@ -105,12 +107,12 @@
 
   \begin{exampleblock}{example: the \pygment{haskell}{mod} function}
     \begin{pygments}{haskell}
-even1 :: Integer -> Bool
-even1 n = mod n 2 == 0
+even :: Integer -> Bool
+even n = mod n 2 == 0
 
 -- OR:
-even1 :: Integer -> Bool
-even1 n = n `mod` 2 == 0
+even :: Integer -> Bool
+even n = n `mod` 2 == 0
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -124,16 +126,16 @@ even1 n = n `mod` 2 == 0
 
   \begin{exampleblock}{example: the \pygment{haskell}{*} operator}
     \begin{pygments}{haskell}
-even2 :: Integer -> Bool
-even2 n = (n `div` 2 ) * 2 == n
+even :: Integer -> Bool
+even n = (n `div` 2 ) * 2 == n
 
 -- OR:
-even2 :: Integer -> Bool
-even2 n = (*) (div n 2) 2 == n
+even :: Integer -> Bool
+even n = (*) (div n 2) 2 == n
 
 -- OR:
-even2 :: Integer -> Bool
-even2 n = (==) ((*) (div n 2) 2) n
+even :: Integer -> Bool
+even n = (==) ((*) (div n 2) 2) n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -182,7 +184,7 @@ maxThree x y z
   \frametitle{Errors}
 
   \begin{itemize}
-    \item an exception can be raised using \pygment{haskell}{error}
+    \item errors can be reported using \pygment{haskell}{error}
   \end{itemize}
 
   \begin{exampleblock}{example: reciprocal (multiplicative inverse)}
@@ -202,25 +204,21 @@ reciprocal x
 \begin{frame}[fragile]
   \frametitle{Recursion Examples}
 
-  \begin{itemize}
-    \item consider two classic examples:
-  \end{itemize}
-
   \begin{exampleblock}{greatest common divisor}
     \begin{pygments}{haskell}
-gcd' :: Integer -> Integer -> Integer
-gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
+gcd :: Integer -> Integer -> Integer
+gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{pygments}
   \end{exampleblock}
 
   \pause
   \begin{exampleblock}{factorial}
     \begin{pygments}{haskell}
-fact :: Integer -> Integer
-fact n
+fac :: Integer -> Integer
+fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fact (n - 1)
+  | otherwise = n * fac (n - 1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -230,22 +228,20 @@ fact n
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
+gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{pygments}
 
     \pause
-    \begin{verbatim}
-gcd' 9702 945
-|- gcd' 945 252
-   |- gcd' 252 189
-      |- gcd' 189 63
-         |- gcd' 63 0
-            63
-         63
-      63
-   63
-63
-    \end{verbatim}
+    \pygment{haskell}{gcd 9702 945}\\
+    $\rightsquigarrow$ \pygment{haskell}{gcd 945 252}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{gcd 252 189}\\
+    \hspace{32pt}$\rightsquigarrow$ \pygment{haskell}{gcd 189 63}\\
+    \hspace{48pt}$\rightsquigarrow$ \pygment{haskell}{gcd 63 0}\\
+    \hspace{64pt}$\rightsquigarrow$ \pygment{haskell}{63}\\
+    \hspace{48pt}$\rightsquigarrow$ \pygment{haskell}{63}\\
+    \hspace{32pt}$\rightsquigarrow$ \pygment{haskell}{63}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{63}\\
+    $\rightsquigarrow$ \pygment{haskell}{63}\\
   \end{exampleblock}
 \end{frame}
 
@@ -254,24 +250,22 @@ gcd' 9702 945
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-fact n
+fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fact (n - 1)
+  | otherwise = n * fac (n - 1)
     \end{pygments}
 
-    \begin{verbatim}
-fact 4
-|- 4 * fact 3
-       |- 3 * fact 2
-              |- 2 * fact 1
-                     |- 1 * fact 0
-                            1
-                     1
-              2
-       6
-24
-    \end{verbatim}
+    \pygment{haskell}{fac 4}\\
+    $\rightsquigarrow$ \pygment{haskell}{4 * fac 3}\\
+    \hspace{38pt}$\rightsquigarrow$ \pygment{haskell}{3 * fac 2}\\
+    \hspace{76pt}$\rightsquigarrow$ \pygment{haskell}{2 * fac 1}\\
+    \hspace{114pt}$\rightsquigarrow$ \pygment{haskell}{1 * fac 0}\\
+    \hspace{152pt}$\rightsquigarrow$ \pygment{haskell}{1}\\
+    \hspace{114pt}$\rightsquigarrow$ \pygment{haskell}{1}\\
+    \hspace{76pt}$\rightsquigarrow$ \pygment{haskell}{2}\\
+    \hspace{38pt}$\rightsquigarrow$ \pygment{haskell}{6}\\
+    $\rightsquigarrow$ \pygment{haskell}{24}\\
   \end{exampleblock}
 \end{frame}
 
@@ -298,17 +292,15 @@ fact 4
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd' x y = if y == 0 then x else gcd' y (x `mod` y)
+gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{pygments}
 
-    \begin{verbatim}
-gcd' 9702 945
-gcd' 945 252
-gcd' 252 189
-gcd' 189 63
-gcd' 63 0
-63
-    \end{verbatim}
+    \pygment{haskell}{gcd 9702 945}\\
+    $\rightsquigarrow$ \pygment{haskell}{gcd 945 252}\\
+    $\rightsquigarrow$ \pygment{haskell}{gcd 252 189}\\
+    $\rightsquigarrow$ \pygment{haskell}{gcd 189 63}\\
+    $\rightsquigarrow$ \pygment{haskell}{gcd 63 0}\\
+    $\rightsquigarrow$ \pygment{haskell}{63}\\
   \end{exampleblock}
 \end{frame}
 
@@ -330,14 +322,14 @@ gcd' 63 0
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-factIter :: Integer -> Integer -> Integer
-factIter acc n
+facIter :: Integer -> Integer -> Integer
+facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = factIter (acc * n) (n - 1)
+  | otherwise = facIter (acc * n) (n - 1)
 
-fact' :: Integer -> Integer
-fact' n = factIter 1 n
+fac :: Integer -> Integer
+fac n = facIter 1 n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -347,22 +339,20 @@ fact' n = factIter 1 n
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-factIter acc n
+facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = factIter (acc * n) (n - 1)
+  | otherwise = facIter (acc * n) (n - 1)
     \end{pygments}
 
-    \begin{verbatim}
-fact 4
-|- factIter 1 4
-|- factIter 4 3
-|- factIter 12 2
-|- factIter 24 1
-|- factIter 24 0
-   24
-24
-    \end{verbatim}
+    \pygment{haskell}{fac 4}\\
+    $\rightsquigarrow$ \pygment{haskell}{facIter 1 4}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{facIter 4 3}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{facIter 12 2}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{facIter 24 1}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{facIter 24 0}\\
+    \hspace{16pt}$\rightsquigarrow$ \pygment{haskell}{24}\\
+    $\rightsquigarrow$ \pygment{haskell}{24}\\
   \end{exampleblock}
 \end{frame}
 
@@ -375,14 +365,15 @@ fact 4
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-fact' :: Integer -> Integer
-fact' n = factIter 1 n
-  where
-    factIter :: Integer -> Integer -> Integer
-    factIter acc n'
-      | n' < 0    = error "negative parameter"
-      | n' == 0   = acc
-      | otherwise = factIter (acc * n') (n' - 1)
+fac :: Integer -> Integer
+fac n
+  | n < 0     = error "negative parameter"
+  | otherwise = facIter 1 n
+      where
+        facIter :: Integer -> Integer -> Integer
+        facIter acc n'
+          | n' == 0   = acc
+          | otherwise = factter (acc * n') (n' - 1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -418,21 +409,9 @@ fib n
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{verbatim}
-               fib 5
-                 |
-         ------------------
-         |                |
-       fib 3            fib 4
-         |                |
-  -------------      -------------
-  |           |      |           |
-fib 1       fib 2  fib 2       fib 3
-                                 |
-                           -------------
-                           |           |
-                         fib 1       fib 2
-  \end{verbatim}
+  \begin{center}
+    \pgfuseimage{fib}
+  \end{center}
 \end{frame}
 
 \subsection{Examples}
@@ -455,7 +434,7 @@ pow x y
 
     \pause
     \begin{itemize}
-      \item let's use the following:
+      \item use the following definition:
     \end{itemize}
     \[
       x^y =
@@ -468,7 +447,7 @@ pow x y
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{exampleblock}{fast exponentiation}
@@ -508,7 +487,7 @@ fastPow x y
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{itemize}
@@ -533,7 +512,7 @@ improve guess x = (guess + (x / guess)) / 2.0
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{exampleblock}{iterative computation}
@@ -550,7 +529,7 @@ newton x = newtonIter 1.0 x
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{exampleblock}{}
@@ -574,7 +553,7 @@ newton x = newtonIter 1.0 x
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{exampleblock}{}
@@ -591,7 +570,7 @@ isGoodEnough guess x' =
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Recursion Example}
 
   \begin{exampleblock}{}
