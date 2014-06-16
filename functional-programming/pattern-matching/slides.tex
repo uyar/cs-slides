@@ -104,8 +104,8 @@
       of fixed types
     \begin{block}{}
       \begin{pygments}{haskell}
-name :: (t1, t2, ..., tn)
-name = (v1, v2, ..., vn)
+name :: (t1,t2,...,tn)
+name = (v1,v2,...,vn)
       \end{pygments}
     \end{block}
 
@@ -120,8 +120,8 @@ name = (v1, v2, ..., vn)
 
   \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
     \begin{pygments}{haskell}
-term1 :: (Float, Integer)
-term1 = (2.4, 2)
+term1 :: (Float,Integer)
+term1 = (2.4,2)
 
 fst term1  -- 2.4
 snd term1  -- 2
@@ -138,17 +138,17 @@ snd term1  -- 2
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd1 :: Integer -> Integer -> Integer
-gcd1 x y
+gcd :: Integer -> Integer -> Integer
+gcd x y
   | y == 0    = x
-  | otherwise = gcd1 y (x `mod` y)
--- call as: gcd1 9702 945
+  | otherwise = gcd y (x `mod` y)
+-- call as: gcd 9702 945
 
-gcd2 :: (Integer, Integer) -> Integer
-gcd2 a
+gcd' :: (Integer,Integer) -> Integer
+gcd' a
   | snd a == 0 = fst a
-  | otherwise  = gcd2 (snd a, (fst a) `mod` (snd a))
--- call as: gcd2 (9702, 945)
+  | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
+-- call as: gcd' (9702, 945)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -163,16 +163,16 @@ gcd2 a
   \begin{exampleblock}{example: greatest common divisor
                             and least common multiple}
     \begin{pygments}{haskell}
-gcd_lcm :: Integer -> Integer -> (Integer, Integer)
-gcd_lcm x y = (d, m)
+gcd_lcm :: Integer -> Integer -> (Integer,Integer)
+gcd_lcm x y = (d,m)
   where
-    gcd' :: Integer -> Integer -> Integer
-    gcd' a b
+    gcd :: Integer -> Integer -> Integer
+    gcd a b
       | b == 0    = a
-      | otherwise = gcd' b (a `mod` b)
+      | otherwise = gcd b (a `mod` b)
 
     d, m :: Integer
-    d = gcd' x y
+    d = gcd x y
     m = (x * y) `div` d
     \end{pygments}
   \end{exampleblock}
@@ -189,7 +189,7 @@ gcd_lcm x y = (d, m)
     \begin{block}{}
       \begin{pygments}{haskell}
 name :: [t]
-name = [v1, v2, ..., vn]
+name = [v1,v2,...,vn]
       \end{pygments}
     \end{block}
   \end{itemize}
@@ -198,19 +198,19 @@ name = [v1, v2, ..., vn]
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{representing polynomials}
+  \begin{exampleblock}{representing polynomials: $2.4x^2 + 1.8x - 4.6$}
     \begin{pygments}{haskell}
 -- second degree polynomial
-p1 :: (Float, Float, Float)
-p1 = (2.4, 1.8, -4.6)
+p1 :: (Float,Float,Float)
+p1 = (2.4,1.8,-4.6)
 
 -- any degree polynomial, coefficients ordered
 p2 :: [Float]
-p2 = [2.4, 1.8, -4.6]
+p2 = [2.4,1.8,-4.6]
 
--- any degree polynomial
-p3 :: [(Float, Integer)]
-p3 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
+-- any degree polynomial, coefficients unordered
+p3 :: [(Float,Integer)]
+p3 = [(1.8,1), (-4.6,0), (2.4,2)]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -226,11 +226,11 @@ type newName = oldName
 
   \begin{exampleblock}{example: representing polynomials}
     \begin{pygments}{haskell}
-type Term = (Float, Integer)
+type Term = (Float,Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
-p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
+p4 = [(1.8,1), (-4.6,0), (2.4,2)]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -259,20 +259,21 @@ p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
 -- null :: [a] -> Bool
-null []            -- True
-null [1, 2, 3, 4]  -- False
+null []         -- True
+null [1,2,3,4]  -- False
 
 -- head :: [a] -> a
-head [1, 2, 3, 4]  -- 1
-head []            -- error
+head [1,2,3,4]  -- 1
+head []         -- error
+head [1]        -- 1
 
 -- tail :: [a] -> [a]
-tail [1, 2, 3, 4]  -- [2, 3, 4]
-tail []            -- error
-tail [1]           -- []
+tail [1,2,3,4]  -- [2,3,4]
+tail []         -- error
+tail [1]        -- []
 
 -- (:) :: a -> [a] -> [a]
-1 : [2, 3]         -- [1, 2, 3]
+1 : [2,3]       -- [1,2,3]
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -282,51 +283,44 @@ tail [1]           -- []
 
   \begin{exampleblock}{number of elements}
     \begin{pygments}{haskell}
-length1 :: [a] -> Integer
-length1 xs
+length :: [a] -> Integer
+length xs
   | null xs   = 0
-  | otherwise = 1 + length1 (tail xs)
+  | otherwise = 1 + length (tail xs)
     \end{pygments}
   \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item exercise: write a tail recursive version
-    \item exercise: sum of elements
-    \item exercise: sum of the first two elements
-  \end{itemize}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{number of elements}
+  \begin{exampleblock}{number of elements (tail recursive)}
     \begin{pygments}{haskell}
-length1' :: [a] -> Integer
-length1' xs = lengthIter 0 xs
+length :: [a] -> Integer
+length xs = lengthIter 0 xs
   where
     lengthIter :: Integer -> [a] -> Integer
     lengthIter acc xs'
       | null xs'  = acc
-      | otherwise = lengthIter (acc + 1) (tail xs')
+      | otherwise = lengthIter (acc+1) (tail xs')
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{List Example}
 
   \begin{exampleblock}{sum of elements}
     \begin{pygments}{haskell}
-sum' :: [Integer] -> Integer
-sum' xs
+sum :: [Integer] -> Integer
+sum xs
   | null xs   = 0
-  | otherwise = head xs + sum' (tail xs)
+  | otherwise = head xs + sum (tail xs)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{List Example}
 
   \begin{exampleblock}{sum of first two elements}
@@ -431,7 +425,7 @@ church = Person "Alonzo Church" 1903
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-type Coords = (Float, Float)
+type Coords = (Float,Float)
 type Length = Float
 
 data Shape = Point Coords |
@@ -439,9 +433,9 @@ data Shape = Point Coords |
              Rectangle Coords Length Length
              deriving Show
 
--- Point (0.0, 0.0)
--- Circle (0.0, 0.0) 1.0
--- Rectangle (45.9, 87.6) 5.75 2.3
+Point (0.0,0.0)
+Circle (0.0,0.0) 1.0
+Rectangle (45.9,87.6) 5.75 2.3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -479,11 +473,11 @@ case expr of
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd1 :: Integer -> Integer -> Integer
-gcd1 x y =
+gcd :: Integer -> Integer -> Integer
+gcd x y =
     case y of
       0 -> x
-      _ -> gcd1 y (x `mod` y)
+      _ -> gcd y (x `mod` y)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -498,16 +492,16 @@ gcd1 x y =
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd2 :: (Integer, Integer) -> Integer
-gcd2 a =
+gcd' :: (Integer,Integer) -> Integer
+gcd' a =
     case a of
-      (x, 0) -> x
-      (x, y) -> gcd2 (y, x `mod` y)
+      (x,0) -> x
+      (x,y) -> gcd' (y, x `mod` y)
 
--- if a = (9702, 945)
+gcd' (9702,945)
 -- second pattern, bindings: x <-> 9702, y <-> 945
 
--- if a = (63, 0)
+gcd' (63,0)
 -- first pattern, bindings: x <-> 63
     \end{pygments}
   \end{exampleblock}
@@ -522,10 +516,10 @@ gcd2 a =
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-shift :: ((a, b), c) -> (a, (b, c))
+shift :: ((a,b), c) -> (a, (b,c))
 shift s =
     case s of
-      ((x, y), z) -> (x, (y, z))
+      ((x,y), z) -> (x, (y,z))
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -539,15 +533,15 @@ shift s =
 
   \begin{exampleblock}{third component of a triple}
     \begin{pygments}{haskell}
-third :: (a, b, c) -> c
+third :: (a,b,c) -> c
 third t =
     case t of
-      (x, y, z) -> z
+      (x,y,z) -> z
 
 -- BETTER:
 third t =
     case t of
-      (_, _, z) -> z
+      (_,_,z) -> z
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -566,7 +560,7 @@ third t =
       \pygment{haskell}{[x]}\\
       \pygment{haskell}{x:[]}
     \item list with exactly two elements:\\
-      \pygment{haskell}{[x1, x2]}\\
+      \pygment{haskell}{[x1,x2]}\\
       \pygment{haskell}{x1:x2:[]}
     \item list with at least two elements:\\
       \pygment{haskell}{x1:x2:xs}
@@ -578,11 +572,11 @@ third t =
 
   \begin{exampleblock}{number of elements}
     \begin{pygments}{haskell}
-length2 :: [a] -> Integer
-length2 xs =
+length :: [a] -> Integer
+length xs =
     case xs of
       []    -> 0
-      x:xs' -> 1 + length2 xs'
+      x:xs' -> 1 + length xs'
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -590,14 +584,14 @@ length2 xs =
 \begin{frame}[fragile]
   \frametitle{List Pattern Examples}
 
-  \begin{exampleblock}{add the first and third elements of a list}
+  \begin{exampleblock}{sum of the first and third elements of a list}
     \begin{pygments}{haskell}
 firstPlusThird :: [Integer] -> Integer
 firstPlusThird xs =
     case xs of
       []        -> 0
       [x1]      -> x1
-      [x1, _]   -> x1
+      [x1,_]    -> x1
       x1:_:x3:_ -> x1 + x3
     \end{pygments}
   \end{exampleblock}
@@ -663,7 +657,7 @@ area s =
       Circle    _ r   -> 3.14159 * r * r
       Rectangle _ h w -> h * w
 
-area (Circle (0.0, 0.0) 3.0)  -- 28.274311
+area (Circle (0.0,0.0) 3.0) -- 28.274311
 -- second pattern, binding: r <-> 3.0
     \end{pygments}
   \end{exampleblock}
@@ -695,15 +689,16 @@ name p2 = e2
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd1 :: Integer -> Integer -> Integer
-gcd1 x y =
+gcd :: Integer -> Integer -> Integer
+gcd x y =
     case y of
       0 -> x
-      _ -> gcd1 y (x `mod` y)
+      _ -> gcd y (x `mod` y)
 
 -- BETTER:
-gcd1 x 0 = x
-gcd1 x y = gcd1 y (x `mod` y)
+gcd :: Integer -> Integer -> Integer
+gcd x 0 = x
+gcd x y = gcd y (x `mod` y)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -713,15 +708,16 @@ gcd1 x y = gcd1 y (x `mod` y)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-gcd2 :: (Integer, Integer) -> Integer
-gcd2 a =
+gcd' :: (Integer,Integer) -> Integer
+gcd' a =
     case a of
-      (x, 0) -> x
-      (x, y) -> gcd2 (y, x `mod` y)
+      (x,0) -> x
+      (x,y) -> gcd' (y, x `mod` y)
 
 -- BETTER:
-gcd2 (x, 0) = x
-gcd2 (x, y) = gcd2 (y, x `mod` y)
+gcd' :: (Integer,Integer) -> Integer
+gcd' (x,0) = x
+gcd' (x,y) = gcd' (y, x `mod` y)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -731,13 +727,14 @@ gcd2 (x, y) = gcd2 (y, x `mod` y)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-shift :: ((a, b), c) -> (a, (b, c))
+shift :: ((a,b), c) -> (a, (b,c))
 shift s =
     case s of
-      ((x, y), z) -> (x, (y, z))
+      ((x,y), z) -> (x, (y,z))
 
 -- BETTER:
-shift ((x, y), z) = (x, (y, z))
+shift :: ((a,b), c) -> (a, (b,c))
+shift ((x,y), z) = (x, (y,z))
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -747,13 +744,14 @@ shift ((x, y), z) = (x, (y, z))
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-third :: (a, b, c) -> c
+third :: (a,b,c) -> c
 third t =
     case t of
-      (_, _, z) -> z
+      (_,_,z) -> z
 
 -- BETTER:
-third (_, _, z) = z
+third :: (a,b,c) -> c
+third (_,_,z) = z
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -763,15 +761,16 @@ third (_, _, z) = z
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-length2 :: [a] -> Integer
-length2 xs =
+length :: [a] -> Integer
+length xs =
     case xs of
       []    -> 0
-      x:xs' -> 1 + length2 xs'
+      x:xs' -> 1 + length xs'
 
 -- BETTER:
-length2 []     = 0
-length2 (x:xs) = 1 + length2 xs
+length :: [a] -> Integer
+length []     = 0
+length (x:xs) = 1 + length xs
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -787,24 +786,24 @@ birthYear p =
       Person _ y -> y
 
 -- BETTER:
+birthYear :: Human -> Year
 birthYear (Person _ y) = y
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Example}
 
   \begin{exampleblock}{efficient Fibonacci calculation}
     \begin{pygments}{haskell}
-fibStep :: (Integer, Integer) -> (Integer, Integer)
-fibStep (u, v) = (v, u + v)
+fibStep :: (Integer,Integer) -> (Integer,Integer)
+fibStep (u,v) = (v,u+v)
 
--- fibPair n = (fib n, fib (n + 1))
-
-fibPair :: Integer -> (Integer, Integer)
-fibPair 1 = (1, 1)
-fibPair n = fibStep (fibPair (n - 1))
+-- fibPair n = (fib n, fib (n+1))
+fibPair :: Integer -> (Integer,Integer)
+fibPair 1 = (1,1)
+fibPair n = fibStep (fibPair (n-1))
 
 fastFib n = fst (fibPair n)
     \end{pygments}
@@ -816,19 +815,19 @@ fastFib n = fst (fibPair n)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-type Rational1 = (Integer, Integer)
+type Rational = (Integer,Integer)
 
-simplify1 :: Rational1 -> Rational1
-simplify1 (n, d) = (n `div` g, d `div` g)
+simplify :: Rational -> Rational
+simplify (n,d) = (n `div` g, d `div` g)
   where
     g :: Integer
     g = gcd n d
 
-type DayInYear = (Integer, Integer)
+type DayInYear = (Integer,Integer)
 
 mar12 :: DayInYear
-mar12 = (12, 3)
--- simplify1 mar12: (4, 1)
+mar12 = (12,3)
+simplify mar12 -- (4,1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -842,11 +841,11 @@ mar12 = (12, 3)
 
   \begin{exampleblock}{}
     \begin{pygments}{haskell}
-data Rational2 = Fraction Integer Integer
+data Rational' = Fraction Integer Integer
                  deriving Show
 
-simplify2 :: Rational2 -> Rational2
-simplify2 (Fraction n d) =
+simplify' :: Rational' -> Rational'
+simplify' (Fraction n d) =
   Fraction (n `div` g) (d `div` g)
     where
       g :: Integer
