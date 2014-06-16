@@ -151,7 +151,7 @@
 
   \pause
   \medskip
-  \begin{block}{Church-Turing Thesis (from Wolfram MathWorld)}
+  \begin{block}{Church-Turing thesis (from Wolfram MathWorld)}
     Any real-world computation can be translated into\\
     an equivalent computation involving a Turing machine.\\
     \medskip
@@ -192,9 +192,9 @@
 \begin{frame}[fragile]
   \frametitle{Imperative Programming Example}
 
-  \begin{columns}
-    \column{.55\textwidth}
-    \begin{exampleblock}{greatest common divisor (Python)}
+  \begin{exampleblock}{greatest common divisor (Python)}
+    \begin{columns}
+      \column{.55\textwidth}
       \begin{pygments}{python}
 def gcd(x, y):
     r = 0
@@ -204,21 +204,21 @@ def gcd(x, y):
         y = r
     return x
       \end{pygments}
-    \end{exampleblock}
 
-    \column{.35\textwidth}
-    \begin{verbatim}
-   x    y    r
---------------
-9702  945    0
- 945  252  252
- 252  189  189
- 189   63   63
-  63    0    0
+      \column{.35\textwidth}
+      \begin{tabular}{|r|r|r|}\hline
+   x &   y &   r\\\hline\hline
+9702 & 945 &   0\\\hline
+ 945 & 252 & 252\\\hline
+ 252 & 189 & 189\\\hline
+ 189 &  63 &  63\\\hline
+  63 &   0 &   0\\\hline
+      \end{tabular}
 
-63
-    \end{verbatim}
-  \end{columns}
+      \medskip
+      $\rightsquigarrow$ 63
+    \end{columns}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -277,9 +277,9 @@ def gcd(x, y):
 \begin{frame}[fragile]
   \frametitle{Functional Programming Example}
 
-  \begin{columns}
-    \column{.55\textwidth}
-    \begin{exampleblock}{greatest common divisor (Python)}
+  \begin{exampleblock}{greatest common divisor (Python)}
+    \begin{columns}[t]
+      \column{.55\textwidth}
       \begin{pygments}{python}
 def gcd(x, y):
     if y == 0:
@@ -287,22 +287,20 @@ def gcd(x, y):
     else:
         return gcd(y, x % y)
       \end{pygments}
-    \end{exampleblock}
 
-    \column{.35\textwidth}
-    \begin{verbatim}
-gcd 9702 945
-|- gcd 945 252
-   |- gcd 252 189
-      |- gcd 189 63
-         |- gcd 63 0
-            63
-         63
-      63
-   63
-63
-    \end{verbatim}
-  \end{columns}
+      \column{.4\textwidth}
+\pygment{python}{gcd(9702, 945)}\\
+$\rightsquigarrow$ \pygment{python}{gcd(945, 252)}\\
+~~~~$\rightsquigarrow$ \pygment{python}{gcd(252, 189)}\\
+~~~~~~~~$\rightsquigarrow$ \pygment{python}{gcd(189, 63)}\\
+~~~~~~~~~~~~$\rightsquigarrow$ \pygment{python}{gcd(63, 0)}\\
+~~~~~~~~~~~~~~~~$\rightsquigarrow$ 63\\
+~~~~~~~~~~~~$\rightsquigarrow$ 63\\
+~~~~~~~~$\rightsquigarrow$ 63\\
+~~~~$\rightsquigarrow$ 63\\
+$\rightsquigarrow$ 63\\
+    \end{columns}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
