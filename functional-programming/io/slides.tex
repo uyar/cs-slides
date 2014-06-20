@@ -91,7 +91,7 @@
 
 \section{I/O Model}
 
-\subsection{The Problem}
+\subsection{Introduction}
 
 \begin{frame}
   \frametitle{I/O Model}
@@ -110,6 +110,8 @@
     \item breaks reasoning:\\
       \smallskip
       \pygment{haskell}{inputDiff = inputInt - inputInt}
+
+    \medskip
     \item any function might be affected:\\
       \smallskip
       \pygment{haskell}{foo :: Integer -> Integer}\\
@@ -144,7 +146,7 @@
   \frametitle{I/O Type}
 
   \begin{itemize}
-    \item if the result of the I/O is not significant: \pygment{haskell}{IO ()}
+    \item if I/O doesn't produce a result: \pygment{haskell}{IO ()}
 
     \medskip
     \item output:\\
@@ -234,7 +236,7 @@ put4times str = do putStrLn str
   \frametitle{Capturing Values}
 
   \begin{itemize}
-    \item capturing value read from input: \pygment{haskell}{<-}
+    \item capturing value produced by the program: \pygment{haskell}{<-}
     \item can only be used within \pygment{haskell}{do}
   \end{itemize}
 
@@ -252,7 +254,7 @@ reverseLine = do line <- getLine
 
   \begin{itemize}
     \item local definitions: \pygment{haskell}{let}
-    \item can only be used within \pygment{haskell}{do}
+    \item can only be used within the action sequence
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -300,7 +302,7 @@ copy = do line <- getLine
 \begin{frame}[fragile]
   \frametitle{Conditional in Sequence}
 
-  \begin{exampleblock}{copy n times}
+  \begin{exampleblock}{copy a number of times}
     \begin{pygments}{haskell}
 copyN :: Integer -> IO ()
 copyN n =
@@ -308,7 +310,7 @@ copyN n =
         then return ()
         else do line <- getLine
                 putStrLn line
-                copyN (n - 1)
+                copyN (n-1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -328,7 +330,7 @@ copyEmpty = do line <- getLine
   \end{exampleblock}
 \end{frame}
 
-\section{Example: Rock - Paper - Scissors}
+\section{Example: Rock-Paper-Scissors}
 
 \subsection{Data Types}
 
@@ -336,7 +338,7 @@ copyEmpty = do line <- getLine
   \frametitle{Data Types}
 
   \begin{itemize}
-    \item two players repeatedly play Rock - Paper - Scissors
+    \item two players repeatedly play Rock-Paper-Scissors
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -344,19 +346,19 @@ copyEmpty = do line <- getLine
 data Move = Rock | Paper | Scissors
             deriving Show
 
-type Match = ([Move], [Move])
+type Match = ([Move],[Move])
 
--- ex: ([Rock, Rock, Paper], [Scissors, Paper, Rock])
+-- ex: ([Rock,Rock,Paper], [Scissors,Paper,Rock])
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Rock - Paper - Scissors}
+  \frametitle{Outcome}
 
   \begin{itemize}
-    \item a function that will determine the outcome of one round:\\
-      $1$ if player A wins, $-1$ if player B wins, $0$ if tied
+    \item determine the outcome of one round\\
+      player A wins $\mapsto$ 1, player B wins $\mapsto$ -1, tied $\mapsto$ 0
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -364,39 +366,54 @@ type Match = ([Move], [Move])
 outcome :: Move -> Move -> Integer
 outcome moveA moveB =
     case (moveA, moveB) of
-      (Rock,     Scissors) -> 1
-      (Scissors, Paper)    -> 1
-      (Paper,    Rock)     -> 1
-      (Rock,     Paper)    -> -1
-      (Paper,    Scissors) -> -1
+      (Rock,     Scissors) ->  1
       (Scissors, Rock)     -> -1
-      _                    -> 0
+      (Paper,    Rock)     ->  1
+      (Rock,     Paper)    -> -1
+      (Scissors, Paper)    ->  1
+      (Paper,    Scissors) -> -1
+      _                    ->  0
     \end{pygments}
   \end{exampleblock}
 
-  \pause
   \begin{itemize}
-    \item exercise: write a function to determine the outcome of a match
+    \item exercise: determine the outcome of a match\\
+      \pygment{haskell}{matchOutcome [Rock,Paper] [Paper,Scissors]}
+      $\rightsquigarrow$ \pygment{haskell}{-2}
   \end{itemize}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
-  \frametitle{Rock - Paper - Scissors}
+\begin{frame}[fragile]
+  \frametitle{String Conversions}
 
-  \begin{exampleblock}{outcome of a match}
+  \begin{itemize}
+    \item moves in a round as a string
+  \end{itemize}
+
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
-matchOutcome :: Match -> Integer
-matchOutcome ([],           [])           = 0
-matchOutcome (moveA:movesA, moveB:movesB) =
-    outcome moveA moveB + matchOutcome (movesA, movesB)
+showRound :: (Move,Move) -> String
+showRound (moveA,moveB) =
+    "A plays: " ++ show moveA ++
+    ", B plays: " ++ show moveB
     \end{pygments}
   \end{exampleblock}
+
+  \begin{itemize}
+    \item exercise: match result as a string\\
+      \pygment{haskell}{showResult [Rock,Paper] [Paper,Scissors]}\\
+      $\rightsquigarrow$ \pygment{haskell}{"Player B wins by 2"}
+
+      \smallskip
+      \pygment{haskell}{showResult [Rock,Paper] [Paper,Rock]}\\
+      $\rightsquigarrow$ \pygment{haskell}{"It's a tie"}
+  \end{itemize}
 \end{frame}
 
 \subsection{Strategies}
 
 \begin{frame}[fragile]
-  \frametitle{Rock - Paper - Scissors}
+  \frametitle{Strategies}
 
   \begin{itemize}
     \item a strategy is a function that selects a move\\
@@ -406,10 +423,23 @@ matchOutcome (moveA:movesA, moveB:movesB) =
   \end{itemize}
 
   \pause
+  \begin{exampleblock}{always play the same move}
+    \begin{pygments}{haskell}
+rock, paper, scissors :: [Move] -> Move
+rock     _ = Rock
+paper    _ = Paper
+scissors _ = Scissors
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Strategies}
+
   \begin{exampleblock}{cycle through the possibilities}
     \begin{pygments}{haskell}
-cycle' :: [Move] -> Move
-cycle' moves =
+cycle :: [Move] -> Move
+cycle moves =
     case (length moves) `mod` 3 of
       0 -> Rock
       1 -> Paper
@@ -419,106 +449,75 @@ cycle' moves =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Rock - Paper - Scissors}
+  \frametitle{Strategies}
 
-  \begin{itemize}
-    \item strategy: play whatever the opponent played last
-    \item keep the previous moves in reverse order (latest first)
-  \end{itemize}
-
-  \begin{exampleblock}{}
+  \begin{exampleblock}{play whatever the opponent played last}
     \begin{pygments}{haskell}
+-- opponent moves kept in reverse order
 echo :: [Move] -> Move
 echo []            = Rock
 echo (latest:rest) = latest
     \end{pygments}
   \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item exercise: write the strategies where the player\\
-      always plays the same move
-  \end{itemize}
 \end{frame}
 
 \subsection{Game Play}
 
 \begin{frame}[fragile]
-  \frametitle{Rock - Paper - Scissors}
+  \frametitle{Game Play}
 
   \begin{itemize}
-    \item write a function that will let the user play the game interactively
-    \item let the computer play the ``echo'' strategy
+    \item play the game interactively
   \end{itemize}
 
-  \pause
-  \begin{exampleblock}{}
+  \begin{exampleblock}{convert a character into a move}
     \begin{pygments}{haskell}
-playInteractive :: Match -> IO ()
-playInteractive (movesA, movesB) =
-    do ch <- getChar
-       if not (ch `elem` "rpsRPS")
-           then putStrLn (showResult (movesA, movesB))
-           else do let moveA = echo movesB
-                   let moveB = convertMove ch
-                   putStrLn ("\nA plays: " ++
-                             show moveA ++
-                             ", B plays: " ++
-                             show moveB)
-                   playInteractive (moveA : movesA,
-                                    moveB : movesB)
+convertMove :: Char -> Move
+convertMove c
+  | c `elem` "rR" = Rock
+  | c `elem` "pP" = Paper
+  | c `elem` "sS" = Scissors
+  | otherwise     = error "unknown move"
     \end{pygments}
   \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Rock - Paper - Scissors}
-
-  \begin{itemize}
-    \item write a function to represent the outcome of a match:\\
-      \smallskip
-      \pygment{haskell}{showResult :: Match -> String}
-    \item write a function to convert a character into a move:\\
-      \smallskip
-      \pygment{haskell}{convertMove :: Char -> Move}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Rock - Paper - Scissors}
+  \frametitle{Game Play}
 
-  \begin{itemize}
-    \item write a function that will let computer play the ``cycle'' strategy\\
-      versus the ``echo'' strategy for a number of times
-  \end{itemize}
-
-  \pause
-  \begin{exampleblock}{}
+  \begin{exampleblock}{computer plays \pygment{haskell}{echo}}
     \begin{pygments}{haskell}
-generateMatchCycleVsEcho :: Integer -> Match
-generateMatchCycleVsEcho 0 = ([], [])
-generateMatchCycleVsEcho n =
-    step (generateMatchCycleVsEcho (n - 1))
-      where
-        step :: Match -> Match
-        step (movesA, movesB) =
-            (cycle' movesB : movesA,
-             echo movesA : movesB)
+play :: Match -> IO ()
+play (movesA,movesB) =
+    do ch <- getChar
+       putStrLn ""
+       if ch == '.'
+           then putStrLn (showResult (movesA,movesB))
+           else do let moveA = echo movesB
+                   let moveB = convertMove ch
+                   putStrLn (showRound (moveA,moveB))
+                   play (moveA:movesA, moveB:movesB)
+
+playInteractive :: IO ()
+playInteractive = play ([],[])
     \end{pygments}
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Rock - Paper - Scissors}
+\begin{frame}[fragile]
+  \frametitle{Automatic Play}
 
-  \begin{itemize}
-    \item write a function to represent all moves in a match:\\
-      \smallskip
-      \pygment{haskell}{showMoves :: Match -> String}
-    \item write a function to represent the moves and result of a match:\\
-      \smallskip
-      \pygment{haskell}{showMatch :: Match -> String}
-  \end{itemize}
+  \begin{exampleblock}{\pygment{haskell}{cycle} versus \pygment{haskell}{echo}}
+    \begin{pygments}{haskell}
+generateMatch :: Integer -> Match
+generateMatch 0 = ([],[])
+generateMatch n = step (generateMatch (n-1))
+  where
+    step :: Match -> Match
+    step (movesA,movesB) = (cycle movesB : movesA,
+                            echo movesA : movesB)
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \section*{References}
