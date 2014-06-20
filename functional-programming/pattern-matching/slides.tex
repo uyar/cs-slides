@@ -166,14 +166,8 @@ gcd' a
 gcd_lcm :: Integer -> Integer -> (Integer,Integer)
 gcd_lcm x y = (d,m)
   where
-    gcd :: Integer -> Integer -> Integer
-    gcd a b
-      | b == 0    = a
-      | otherwise = gcd b (a `mod` b)
-
-    d, m :: Integer
     d = gcd x y
-    m = (x * y) `div` d
+    m = (x*y) `div` d
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -819,9 +813,7 @@ type Rational = (Integer,Integer)
 
 simplify :: Rational -> Rational
 simplify (n,d) = (n `div` g, d `div` g)
-  where
-    g :: Integer
-    g = gcd n d
+  where g = gcd n d
 
 type DayInYear = (Integer,Integer)
 
@@ -847,12 +839,12 @@ data Rational' = Fraction Integer Integer
 simplify' :: Rational' -> Rational'
 simplify' (Fraction n d) =
   Fraction (n `div` g) (d `div` g)
-    where
-      g :: Integer
-      g = gcd n d
+    where g = gcd n d
     \end{pygments}
   \end{exampleblock}
 \end{frame}
+
+% TODO: add example for using case expression over function pattern
 
 \section*{References}
 
