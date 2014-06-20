@@ -428,7 +428,69 @@ sorted(pairs, key=lambda p: p[0] / p[1])
   \end{example}
 \end{frame}
 
-\section{Higher Order List Functions}
+\subsection{Example: Fixed Points}
+
+\begin{frame}
+  \frametitle{Finding Fixed Points}
+
+  \begin{itemize}
+    \item $x$ is a \emph{fixed point} of $f$: $f(x)=x$
+    \item repeatedly apply $f$ until value doesn't change:\\
+      $x \rightarrow f(x) \rightarrow f(f(x)) \rightarrow f(f(f(x)))
+      \rightarrow \ldots$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Finding Fixed Points}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+fixedPoint :: (Float -> Float) -> Float -> Float
+fixedPoint f firstGuess = fixedPointIter firstGuess
+  where
+    isCloseEnough :: Float -> Float -> Bool
+    isCloseEnough x y = (abs (x - y) / x) < 0.001
+
+    fixedPointIter :: Float -> Float
+    fixedPointIter guess
+      | isCloseEnough guess next = next
+      | otherwise                = fixedPointIter next
+      where next = f guess
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Square Roots}
+
+  \begin{itemize}
+    \item use the fixed point algorithm for computing square roots
+    \item $y = \sqrt{x} \Rightarrow y * y = x \Rightarrow y = x / y$
+    \item fixed point of the function $f(y) = x / y$
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sqrt :: Float -> Float
+sqrt x = fixedPoint (\y -> x / y) 1.0
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item this doesn't converge (try with $y = 2$)
+    \item average successive values (average damping)
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+sqrt x = fixedPoint (\y -> (y + x / y) / 2.0) 1.0
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\section{List Operations}
 
 \subsection{Map}
 
@@ -606,6 +668,45 @@ filter(odd, [4, 1, 3, 2])
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Splitting Lists}
+
+  \begin{itemize}
+    \item take elements from the front of a list while a predicate is true\\
+      \pygment{haskell}{takeWhile even [8,2,4,5,6]} $\rightsquigarrow$
+      \pygment{haskell}{[8,2,4]}
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+takeWhile :: (a -> Bool) -> [a] -> [a]
+takeWhile p []     = []
+takeWhile p (x:xs)
+  | p x       = x : takeWhile p xs
+  | otherwise = []
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: drop elements from the front of a list\\
+      while a predicate is true\\
+      \pygment{haskell}{dropWhile even [8,2,4,5,6]} $\rightsquigarrow$
+      \pygment{haskell}{[5,6]}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fold Example}
+
+  \begin{exampleblock}{how many elements in a list are above a threshold?}
+    \begin{pygments}{haskell}
+howManyAbove :: Float -> [Float] -> Integer
+howManyAbove t xs = length (filter (\x -> x > t) xs)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
 \subsection{Fold}
 
 \begin{frame}[fragile]
@@ -773,6 +874,18 @@ maxList xs = foldr1 max xs
 \begin{frame}[fragile]
   \frametitle{Fold Example}
 
+  \begin{exampleblock}{how many elements in a list are above a threshold?}
+    \begin{pygments}{haskell}
+howManyAbove :: Float -> [Float] -> Integer
+howManyAbove t xs =
+    foldr (\x n -> if x > t then n+1 else n) 0 xs
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fold Example}
+
   \begin{exampleblock}{insertion sort}
     \begin{pygments}{haskell}
 ins :: Integer -> [Integer] -> [Integer]
@@ -834,7 +947,7 @@ foldr (/) 1.0 [1.0,2.0,3.0]  -- 1.5
   \end{exampleblock}
 \end{frame}
 
-% TODO: rock-paper-scissors strategy combinators (alternate)
+% TODO: edit distance
 
 \section*{References}
 
@@ -844,7 +957,6 @@ foldr (/) 1.0 [1.0,2.0,3.0]  -- 1.5
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
       \item Chapter 10: \alert{Generalization: patterns of computation}
-      \item Chapter 11: \alert{Higher-order functions}
     \end{itemize}
   \end{block}
 \end{frame}
