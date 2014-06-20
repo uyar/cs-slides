@@ -555,7 +555,7 @@ diameter = 15.62       -- multiple declarations
 
   \medskip
   \begin{itemize}
-    \item a \alert{local} definition can be used only within the expression\\
+    \item a \alert{local definition} can be used only within the expression\\
       where it is defined
   \end{itemize}
 
@@ -581,10 +581,27 @@ name = expression
 area = 3.14159 * r * r
   where
     r :: Float
-    r = diameter / 2
+    r = diameter / 2.0
       \end{pygments}
     \end{exampleblock}
   \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Inference}
+
+  \medskip
+  \begin{itemize}
+    \item Haskell can infer types (more on that later)
+    \item we will leave out type declarations for data in local definitions
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{pygments}{haskell}
+area = 3.14159 * r * r
+  where r = diameter / 2.0
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Functions}
@@ -646,8 +663,8 @@ name e1 e2 ... ek
 sqr :: Integer -> Integer
 sqr x = x * x
 
-sqr 21      -- 441
-sqr (2 + 5) -- 49
+sqr 21    -- 441
+sqr (2+5) -- 49
 
 sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = sqr x + sqr y
