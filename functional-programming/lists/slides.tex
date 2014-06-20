@@ -314,6 +314,7 @@ last (x:xs) = last xs
     \begin{pygments}{haskell}
 take :: Integer -> [a] -> [a]
 take 0 _      = []
+take _ []     = []
 take n (x:xs) = x : take (n-1) xs
     \end{pygments}
   \end{exampleblock}
@@ -510,6 +511,47 @@ merge xs@(x:xs') ys@(y:ys')
   | otherwise = y : merge xs  ys'
     \end{pygments}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{itemize}
+    \item convert an integer to Roman numerals
+    \item adapted from the book ``Dive into Python'' by Mark Pilgrim
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+romanNumerals =
+  [("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
+   ("C",  100), ("XC",  90), ("L",  50), ("XL",  40),
+   ("X",   10), ("IX",   9), ("V",   5), ("IV",   4),
+   ("I",    1)]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{convert an integer to Roman numerals}
+    \begin{pygments}{haskell}
+toRoman :: Integer -> String
+toRoman n = tR n romanNumerals
+  where
+    tR :: Integer -> [(String,Integer)] -> String
+    tR n []             = ""
+    tR n xs@((s,k):xs')
+      | n >= k    = s ++ tR (n-k) xs
+      | otherwise = tR n xs'
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: convert a Roman numeral string into an integer
+  \end{itemize}
 \end{frame}
 
 \section*{References}
