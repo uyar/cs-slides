@@ -535,7 +535,23 @@ romanNumerals =
 \begin{frame}[fragile]
   \frametitle{Roman Numeral Conversion}
 
-  \begin{exampleblock}{convert an integer to Roman numerals}
+  \begin{exampleblock}{Python}
+    \begin{pygments}{python}
+def toRoman(n):
+    result = ""
+    for numeral, integer in romanNumerals:
+        while n >= integer:
+            result += numeral
+            n -= integer
+    return result
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{}
     \begin{pygments}{haskell}
 toRoman :: Integer -> String
 toRoman n = tR n romanNumerals
@@ -552,6 +568,23 @@ toRoman n = tR n romanNumerals
   \begin{itemize}
     \item exercise: convert a Roman numeral string into an integer
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{Python}
+    \begin{pygments}{python}
+def fromRoman(s):
+    result = 0
+    index = 0
+    for numeral, integer in romanNumerals:
+        while s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    return result
+    \end{pygments}
+  \end{exampleblock}
 \end{frame}
 
 \section*{References}
