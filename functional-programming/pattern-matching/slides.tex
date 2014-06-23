@@ -165,9 +165,8 @@ gcd' a
     \begin{pygments}{haskell}
 gcd_lcm :: Integer -> Integer -> (Integer,Integer)
 gcd_lcm x y = (d,m)
-  where
-    d = gcd x y
-    m = (x*y) `div` d
+  where d = gcd x y
+        m = (x*y) `div` d
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -586,7 +585,7 @@ firstPlusThird xs =
       []        -> 0
       [x1]      -> x1
       [x1,_]    -> x1
-      x1:_:x3:_ -> x1 + x3
+      x1:_:x3:_ -> x1+x3
     \end{pygments}
   \end{exampleblock}
 \end{frame}
