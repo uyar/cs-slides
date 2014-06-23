@@ -96,7 +96,7 @@
 
 \section{Functions}
 
-\subsection{Infix and Prefix Notations}
+\subsection{Infix - Prefix}
 
 \begin{frame}[fragile]
   \frametitle{Infix Functions}
@@ -105,7 +105,7 @@
     \item function calls can be written in infix notation within backquotes
   \end{itemize}
 
-  \begin{exampleblock}{example: the \pygment{haskell}{mod} function}
+  \begin{exampleblock}{example: \pygment{haskell}{mod} function}
     \begin{pygments}{haskell}
 even :: Integer -> Bool
 even n = mod n 2 == 0
@@ -124,7 +124,7 @@ even n = n `mod` 2 == 0
     \item operator calls can be written in prefix notation within parentheses
   \end{itemize}
 
-  \begin{exampleblock}{example: the \pygment{haskell}{*} operator}
+  \begin{exampleblock}{example: \pygment{haskell}{*} operator}
     \begin{pygments}{haskell}
 even :: Integer -> Bool
 even n = (n `div` 2 ) * 2 == n
@@ -204,6 +204,10 @@ reciprocal x
 \begin{frame}[fragile]
   \frametitle{Recursion Examples}
 
+  \begin{itemize}
+    \item two classic examples
+  \end{itemize}
+
   \begin{exampleblock}{greatest common divisor}
     \begin{pygments}{haskell}
 gcd :: Integer -> Integer -> Integer
@@ -218,7 +222,7 @@ fac :: Integer -> Integer
 fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fac (n - 1)
+  | otherwise = n * fac (n-1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -253,7 +257,7 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
 fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fac (n - 1)
+  | otherwise = n * fac (n-1)
     \end{pygments}
 
     \pygment{haskell}{fac 4}\\
@@ -326,7 +330,7 @@ facIter :: Integer -> Integer -> Integer
 facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = facIter (acc * n) (n - 1)
+  | otherwise = facIter (acc*n) (n-1)
 
 fac :: Integer -> Integer
 fac n = facIter 1 n
@@ -342,7 +346,7 @@ fac n = facIter 1 n
 facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = facIter (acc * n) (n - 1)
+  | otherwise = facIter (acc*n) (n-1)
     \end{pygments}
 
     \pygment{haskell}{fac 4}\\
@@ -360,7 +364,7 @@ facIter acc n
   \frametitle{Tail Recursion Example}
 
   \begin{itemize}
-    \item the helper function doesn't need to be visible
+    \item helper function doesn't need to be visible
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -373,7 +377,7 @@ fac n
         facIter :: Integer -> Integer -> Integer
         facIter acc n'
           | n' == 0   = acc
-          | otherwise = factter (acc * n') (n' - 1)
+          | otherwise = factter (acc*n') (n'-1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -401,7 +405,7 @@ fib :: Integer -> Integer
 fib n
   | n == 1    = 1
   | n == 2    = 1
-  | otherwise = fib (n - 2) + fib (n - 1)
+  | otherwise = fib (n-2) + fib (n-1)
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -429,7 +433,7 @@ fib n
 pow :: Integer -> Integer -> Integer
 pow x y
   | y == 0    = 1
-  | otherwise = x * pow x (y - 1)
+  | otherwise = x * pow x (y-1)
     \end{pygments}
 
     \pause
@@ -456,10 +460,10 @@ fastPow :: Integer -> Integer -> Integer
 fastPow x y
   | y == 0    = 1
   | even y    = sqr (fastPow x (y `div` 2))
-  | otherwise = x * fastPow x (y - 1)
+  | otherwise = x * fastPow x (y-1)
   where
     sqr :: Integer -> Integer
-    sqr n = n * n
+    sqr n = n*n
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -499,7 +503,7 @@ fastPow x y
   \begin{exampleblock}{check whether the guess is good enough}
     \begin{pygments}{haskell}
 isGoodEnough :: Float -> Float -> Bool
-isGoodEnough guess x = abs (guess * guess - x) < 0.001
+isGoodEnough guess x = abs (guess*guess - x) < 0.001
     \end{pygments}
   \end{exampleblock}
 
@@ -507,7 +511,7 @@ isGoodEnough guess x = abs (guess * guess - x) < 0.001
   \begin{exampleblock}{improve the guess}
     \begin{pygments}{haskell}
 improve :: Float -> Float -> Float
-improve guess x = (guess + (x / guess)) / 2.0
+improve guess x = (guess + x/guess) / 2.0
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -539,10 +543,10 @@ newton x = newtonIter 1.0 x
   where
     isGoodEnough :: Float -> Float -> Bool
     isGoodEnough guess x' =
-        abs (guess * guess - x') < 0.001
+        abs (guess*guess - x') < 0.001
 
     improve :: Float -> Float -> Float
-    improve guess x' = (guess + (x' / guess)) / 2.0
+    improve guess x' = (guess + x'/guess) / 2.0
 
     newtonIter :: Float -> Float -> Float
     newtonIter guess x'
@@ -565,7 +569,7 @@ newton x = newtonIter 1.0 x
     \smallskip
     \begin{pygments}{haskell}
 isGoodEnough guess x' =
-    (abs (guess * guess - x')) / x' < 0.001
+    (abs (guess*guess - x')) / x' < 0.001
     \end{pygments}
   \end{exampleblock}
 \end{frame}
@@ -585,10 +589,10 @@ newton x = newtonIter 1.0
   where
     isGoodEnough :: Float -> Bool
     isGoodEnough guess =
-        (abs (guess * guess - x)) / x < 0.001
+        (abs (guess*guess - x)) / x < 0.001
 
     improve :: Float -> Float
-    improve guess = (guess + (x / guess)) / 2.0
+    improve guess = (guess + x/guess) / 2.0
 
     newtonIter :: Float -> Float
     newtonIter guess
