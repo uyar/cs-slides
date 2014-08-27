@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -9,14 +10,14 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docbase="/home/uyar/ders/vtys/sunumlar/01.Giris"
    sodipodi:docname="architecture2.svg"
    height="297mm"
    width="210mm"
-   inkscape:version="0.46"
+   inkscape:version="0.48.5 r10040"
    sodipodi:version="0.32"
    id="svg1"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs3">
     <inkscape:perspective
@@ -3678,18 +3679,20 @@
      inkscape:guide-bbox="true"
      showguides="true"
      inkscape:window-y="0"
-     inkscape:window-x="0"
+     inkscape:window-x="496"
      inkscape:window-height="951"
-     inkscape:window-width="1031"
+     inkscape:window-width="1379"
      inkscape:cy="788.6783"
      inkscape:cx="191.68346"
-     inkscape:zoom="3.9746723"
+     inkscape:zoom="4.8680178"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base">
+     id="base"
+     inkscape:object-nodes="true"
+     inkscape:window-maximized="0">
     <inkscape:grid
        id="GridFromPre046Settings"
        type="xygrid"
@@ -3714,19 +3717,16 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <path
-     id="path2540"
-     d="M 192.41309,202.65724 L 192.35447,259.37974"
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.3409065;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
   <g
      transform="translate(238.8592,248.8424)"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1" />
   <path
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.3157865;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
-     d="M 192.02220,277.07045 L 191.96358,304.96862"
-     id="path28792" />
+     style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+     d="m 192.0222,277.07045 -0.0586,27.89817"
+     id="path28792"
+     inkscape:connector-curvature="0" />
   <rect
      style="opacity:1.0000000;fill:#00f200;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#000000;stroke-width:0.37702894;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
      id="rect1978"
@@ -3959,22 +3959,6 @@
      width="53.209450"
      id="rect6186"
      style="opacity:1.0000000;fill:#00f200;fill-opacity:1.0000000;fill-rule:nonzero;stroke:#000000;stroke-width:0.37702894;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
-  <path
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-     d="M 130.75863,204.71507 L 130.75863,228.69700 L 191.33858,228.41150"
-     id="path6192" />
-  <path
-     id="path6194"
-     d="M 130.75863,204.71507 L 130.75863,228.69700 L 191.33858,228.41150"
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
-  <path
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-     d="M 130.75863,204.71507 L 130.75863,228.69700 L 191.33858,228.41150"
-     id="path6196" />
-  <path
-     id="path6198"
-     d="M 253.33858,204.71507 L 253.33858,228.69700 L 192.75863,228.41150"
-     style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
   <text
      sodipodi:linespacing="125%"
      id="text2902"
@@ -4019,4 +4003,19 @@
        x="179.29869"
        id="tspan2916"
        sodipodi:role="line">Server</tspan></text>
+  <path
+     id="path3504"
+     d="m 192.0222,203.9869 -0.0586,54.98172"
+     style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 135.60866,204.99673 46.54472,54.3441"
+     id="path3508"
+     inkscape:connector-curvature="0" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path3514"
+     d="m 250.15338,204.99673 -46.54472,54.3441"
+     style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 </svg>

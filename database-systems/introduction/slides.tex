@@ -1,15 +1,11 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -17,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -29,7 +26,7 @@
 \subtitle{Introduction}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -40,14 +37,13 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \pgfdeclareimage{records}{records}
 \pgfdeclareimage{dbms}{dbms}
 \pgfdeclareimage{sparc}{sparc}
 \pgfdeclareimage{architecture1}{architecture1}
 \pgfdeclareimage{architecture2}{architecture2}
-\pgfdeclareimage{architecture3}{architecture3}
 
 \begin{document}
 
@@ -59,33 +55,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -93,31 +96,31 @@
   \tableofcontents
 \end{frame}
 
-\section{Data Processing}
+\section{Problem Definition}
 
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Data Processing}
+  \frametitle{Problem Definition}
 
   \begin{itemize}
-    \item storing and processing large amounts of data effectively
+    \item aim: store and process large amounts of data effectively
 
     \pause
     \medskip
-    \item basic functions
+    \item basic operations:
     \begin{itemize}
-      \item adding new data
-      \item changing existing data
-      \item deleting data
-      \item querying: planned - ad hoc
+      \item add new data
+      \item change existing data
+      \item delete data
+      \item query data: planned - ad hoc
     \end{itemize}
     \item \alert{CRUD}: create - read - update - delete
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Data Types}
+  \frametitle{Data}
 
   \begin{itemize}
     \item \emph{persistent data}:\\
@@ -161,9 +164,9 @@
 \begin{frame}
   \frametitle{Application Example}
 
-  \begin{example}[student data]
+  \begin{example}[university student data]
     \begin{columns}[t]
-      \begin{column}<1->{5.1cm}
+      \begin{column}<1->{.47\textwidth}
       \begin{itemize}
         \item Student Affairs:\\
           student name, number,
@@ -172,7 +175,7 @@
       \end{itemize}
       \end{column}
 
-      \begin{column}<2->{5.1cm}
+      \begin{column}<2->{.47\textwidth}
       \begin{itemize}
         \item common data:\\
           student name, number,\\
@@ -182,25 +185,23 @@
     \end{columns}
 
     \begin{columns}[t]
-      \begin{column}<1->{5.1cm}
-      \begin{itemize}
-        \item Library:\\
-          student name, number,\\
-          department, books lent, etc.
-      \end{itemize}
+      \begin{column}<1->{.47\textwidth}
+        \begin{itemize}
+          \item Library:\\
+            student name, number,\\
+            department, books lent, etc.
+        \end{itemize}
       \end{column}
 
-      \begin{column}<2->{5.1cm}
-      \begin{itemize}
-        \item application specific data:\\
-          courses, internships, books, etc.
-      \end{itemize}
+      \begin{column}<2->{.47\textwidth}
+        \begin{itemize}
+          \item application specific data:\\
+            courses, internships, books, etc.
+        \end{itemize}
       \end{column}
     \end{columns}
   \end{example}
 \end{frame}
-
-\subsection{Record Files}
 
 \begin{frame}
   \frametitle{Record Files}
@@ -219,6 +220,8 @@
     \end{itemize}
   \end{columns}
 \end{frame}
+
+\subsection{Problems}
 
 \begin{frame}
   \frametitle{Redundancy}
@@ -444,7 +447,7 @@
   \begin{example}[conceptual - external]
     \begin{itemize}
       \item present the student number\\
-        as a string to the Student Affairs application and\\
+        as a string to the Student Affairs application, and\\
         as a number to the Library application
     \end{itemize}
   \end{example}
@@ -554,39 +557,10 @@
 
     \pause
     \bigskip
-    \begin{example}[Bank]
-      \begin{itemize}
-        \item server in the computer centre
-        \item clients in branches
-      \end{itemize}
-    \end{example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Multiple Clients / Multiple Servers}
-
-  \begin{columns}
-    \column{.45\textwidth}
-    \begin{center}
-      \pgfuseimage{architecture3}
-    \end{center}
-
-    \column{.55\textwidth}
     \begin{itemize}
-      \item servers can be distributed too
+      \item server is a bottleneck
+      \item replication
     \end{itemize}
-
-    \pause
-    \bigskip
-    \begin{example}[Bank]
-      \begin{itemize}
-        \item each branch is the server\\
-          (and client) for its own accounts
-        \item each branch is a client\\
-          for other branches' accounts
-      \end{itemize}
-    \end{example}
   \end{columns}
 \end{frame}
 
