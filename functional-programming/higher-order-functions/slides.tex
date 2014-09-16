@@ -947,7 +947,66 @@ foldr (/) 1.0 [1.0,2.0,3.0]  -- 1.5
   \end{exampleblock}
 \end{frame}
 
-% TODO: edit distance
+\subsection{Example: Edit Distance}
+
+\begin{frame}[fragile]
+  \frametitle{Edit Distance}
+
+  \begin{itemize}
+    \item transform a source string into a destination string
+    \item operations: copy, insert, delete, change
+    \item use the minimum number of operations
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+data Edit = Copy | Insert Char | Delete | Change Char
+            deriving (Eq,Show)
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Edit Distance}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+transform :: String -> String -> [Edit]
+transform []     []     = []
+transform xs     []     = map (\_ -> Delete) xs
+transform []     ys     = map Insert ys
+transform (x:xs) (y:ys)
+  | x == y    = Copy : transform xs ys
+  | otherwise = best [Insert y : transform (x:xs) ys,
+                      Delete   : transform xs (y:ys),
+                      Change y : transform xs ys]
+    \end{pygments}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Edit Distance}
+
+  \begin{exampleblock}{}
+    \begin{pygments}{haskell}
+best :: [[Edit]] -> [Edit]
+best [x]    = x
+best (x:xs)
+  | cost x <= cost b = x
+  | otherwise        = b
+  where b = best xs
+
+cost :: [Edit] -> Integer
+cost xs = length (filter (\x -> x /= Copy) xs)
+    \end{pygments}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: implement \pygment{haskell}{best} using
+      \pygment{haskell}{fold}
+  \end{itemize}
+\end{frame}
 
 \section*{References}
 
