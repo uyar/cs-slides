@@ -547,12 +547,12 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
     \end{itemize}
 
     \medskip
-    \item every relation must have a primary key
+    \item any attribute that is part of the primary key\\
+      can not be empty in any tuple
 
     \pause
     \medskip
-    \item any attribute that is part of the primary key\\
-      can not be empty in any tuple
+    \item every relation must have a primary key
   \end{itemize}
 \end{frame}
 
@@ -577,9 +577,11 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 \subsection{Referential Integrity}
 
 \begin{frame}
-  \frametitle{Scalarity}
+  \frametitle{Scalarity Example}
 
-  \begin{example}[how to store actor data?]
+  \begin{itemize}
+    \item how to store actor data?
+
     \begin{footnotesize}
     \begin{table}
       \caption{MOVIE}
@@ -594,39 +596,37 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
     \end{footnotesize}
 
     \pause
-    \begin{picture}(0,0)(-180,-30)
+    \begin{picture}(0,0)(-170,-25)
       \color[rgb]{1,0.2,0.1}
       \thicklines
       \only<2->{
         \put(0,0){\line(1,0){125}}
       }
     \end{picture}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Scalarity}
+  \frametitle{Scalarity Example}
 
   \begin{itemize}
     \item to meet the scalarity requirement,
       tuples have to be repeated
   \end{itemize}
 
-  \begin{example}[how to store actor data?]
-    \begin{footnotesize}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|r|l|c|l|}\hline
+  \begin{footnotesize}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|c|l|}\hline
 MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       6 & Usual Suspects       & ... & Gabriel Byrne \\\hline
     ... & ...                  & ... & ...           \\\hline
      70 & Being John Malkovich & ... & Cameron Diaz  \\\hline
      70 & Being John Malkovich & ... & John Malkovich\\\hline
     ... & ...                  & ... & ...           \\\hline
-      \end{tabular}
-    \end{table}
-    \end{footnotesize}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -923,10 +923,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \begin{itemize}
     \item defining a new type:
     \begin{lstlisting}
-TYPE type_name POSSREP {
-  field_name field_type
-  [, ...]
-};
+TYPE type_name POSSREP
+  { field_name field_type
+    [, ...]
+    [ CONSTRAINT condition ] };
     \end{lstlisting}
 
     \item deleting a type:
@@ -940,11 +940,19 @@ DROP TYPE type_name;
   \frametitle{Type Definition Examples}
 
   \begin{lstlisting}
-TYPE MOVIE# POSSREP { VALUE INTEGER };
+TYPE PERSON# POSSREP
+  { VALUE INTEGER };
 
-TYPE YEAR POSSREP { VALUE INTEGER };
+TYPE MOVIE# POSSREP
+  { VALUE INTEGER };
 
-TYPE SCORE POSSREP { VALUE RATIONAL };
+TYPE YEAR POSSREP
+  { VALUE INTEGER };
+
+TYPE SCORE POSSREP
+  { VALUE RATIONAL
+    CONSTRAINT (VALUE >= 1.0)
+           AND (VALUE <= 10.0) };
   \end{lstlisting}
 \end{frame}
 
@@ -1009,56 +1017,6 @@ CAST_AS_RATIONAL(VOTES)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Operations}
-
-  \begin{itemize}
-    \item renaming an attribute:
-    \begin{lstlisting}
-RENAME (attribute_name AS new_name)
-    \end{lstlisting}
-  \end{itemize}
-
-  \begin{example}
-    \begin{itemize}
-      \item renaming the \texttt{MOVIE\#} attribute:
-      \begin{lstlisting}
-RENAME (MOVIE# AS MOVIENO)
-      \end{lstlisting}
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Value Constraints}
-
-  \begin{itemize}
-    \item defining a value constraint:
-    \begin{lstlisting}
-TYPE type_name POSSREP {
-  field_name field_type
-  [, ...]
-  CONSTRAINT condition
-};
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Value Constraint Example}
-
-  \begin{itemize}
-    \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
-    \begin{lstlisting}
-TYPE SCORE POSSREP {
-  VALUE RATIONAL
-  CONSTRAINT
-    (VALUE >= 1.0) AND (VALUE <= 10.0)
-};
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
   \frametitle{Relation Definition}
 
   \begin{itemize}
@@ -1080,7 +1038,7 @@ RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
     YEAR YEAR,
-    DIRECTOR CHAR,
+    DIRECTOR PERSON#,
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# }
@@ -1106,17 +1064,36 @@ DROP VAR relvar_name;
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Relation Variable Example}
+  \frametitle{Relation Variable Examples}
 
   \begin{lstlisting}
 VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
     YEAR YEAR,
-    DIRECTOR CHAR,
+    DIRECTOR PERSON#,
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# };
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Relation Variable Examples}
+
+  \begin{lstlisting}
+VAR PERSON BASE RELATION
+  { PERSON# PERSON#,
+    NAME CHAR }
+  KEY { PERSON# };
+  \end{lstlisting}
+
+  \begin{lstlisting}
+VAR CASTING BASE RELATION
+  { MOVIE# MOVIE#,
+    ACTOR# PERSON#,
+    ORD INTEGER }
+  KEY { MOVIE#, ACTOR# };
   \end{lstlisting}
 \end{frame}
 
@@ -1126,22 +1103,30 @@ VAR MOVIE BASE RELATION
   \begin{itemize}
     \item generating a tuple:
     \begin{lstlisting}
-TUPLE {
-  attribute_name attribute_value
-  [, ...]
-}
+TUPLE
+  { attribute_name attribute_value
+    [, ...] }
     \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tuple Generation Example}
+  \frametitle{Tuple Generation Examples}
 
   \begin{lstlisting}
-TUPLE { MOVIE# MOVIE#(6),
-  TITLE "Usual Suspects",
-  YEAR YEAR(1995), DIRECTOR "Bryan Singer",
-  SCORE SCORE(8.7), VOTES 35027 }
+TUPLE
+  { MOVIE# MOVIE#(6),
+    TITLE "Usual Suspects",
+    YEAR YEAR(1995),
+    DIRECTOR# PERSON#(639),
+    SCORE SCORE(8.7),
+    VOTES 35027 }
+  \end{lstlisting}
+
+  \begin{lstlisting}
+TUPLE
+  { PERSON# PERSON#(639),
+    NAME "Bryan Singer" }
   \end{lstlisting}
 \end{frame}
 
@@ -1151,10 +1136,10 @@ TUPLE { MOVIE# MOVIE#(6),
   \begin{itemize}
     \item generating a relation:
     \begin{lstlisting}
-RELATION {
-  TUPLE { ... }
-  [, ...]
-}
+RELATION
+  { TUPLE
+      { ... }
+    [, ...] }
     \end{lstlisting}
 
     \item assigning a relation to a relation variable:
@@ -1168,16 +1153,17 @@ relvar_name := RELATION { ... };
   \frametitle{Relation Assignment Example}
 
   \begin{lstlisting}
-MOVIE := RELATION {
-  TUPLE { MOVIE# MOVIE#(6),
-    TITLE "Usual Suspects",
-    YEAR YEAR(1995), DIRECTOR "Bryan Singer",
-    SCORE SCORE(8.7), VOTES 35027 },
-  TUPLE { MOVIE# MOVIE#(70),
-    TITLE "Being John Malkovich",
-    YEAR YEAR(1999), DIRECTOR "Spike Jonze",
-    SCORE SCORE(8.3), VOTES 13809 }
-};
+MOVIE := RELATION
+  { TUPLE
+      { MOVIE# MOVIE#(6),
+        TITLE "Usual Suspects",
+        YEAR YEAR(1995), DIRECTOR# PERSON#(639),
+        SCORE SCORE(8.7), VOTES 35027 },
+    TUPLE
+      { MOVIE# MOVIE#(70),
+        TITLE "Being John Malkovich",
+        YEAR YEAR(1999), DIRECTOR# PERSON#(1485),
+        SCORE SCORE(8.3), VOTES 13809 } };
   \end{lstlisting}
 \end{frame}
 
@@ -1187,10 +1173,9 @@ MOVIE := RELATION {
   \begin{itemize}
     \item inserting tuples:
     \begin{lstlisting}
-INSERT relvar_name RELATION {
-  TUPLE { ... }
-  [, ...]
-};
+INSERT relvar_name RELATION
+  { TUPLE { ... }
+    [, ...] };
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -1199,13 +1184,14 @@ INSERT relvar_name RELATION {
   \frametitle{Tuple Insertion Example}
 
   \begin{lstlisting}
-INSERT MOVIE RELATION {
-  TUPLE { MOVIE# MOVIE#(6),
-    TITLE "Suspiria",
-    YEAR YEAR(1977),
-    DIRECTOR "Dario Argento",
-    SCORE SCORE(7.1), VOTES 1004 }
-};
+INSERT MOVIE RELATION
+  { TUPLE
+    { MOVIE# MOVIE#(6),
+      TITLE "Suspiria",
+      YEAR YEAR(1977),
+      DIRECTOR# PERSON#(2259),
+      SCORE SCORE(7.1),
+      VOTES 1004 } };
   \end{lstlisting}
 \end{frame}
 
@@ -1273,6 +1259,26 @@ UPDATE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Attribute Renaming}
+
+  \begin{itemize}
+    \item renaming an attribute:
+    \begin{lstlisting}
+RENAME (attribute_name AS new_name)
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{example}
+    \begin{itemize}
+      \item renaming the \texttt{DIRECTOR\#} attribute:
+      \begin{lstlisting}
+RENAME (DIRECTOR# AS PERSON#)
+      \end{lstlisting}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Foreign Key Definition}
 
   \begin{itemize}
@@ -1290,15 +1296,8 @@ CONSTRAINT constraint_name
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Foreign Key Example}
+  \frametitle{Foreign Key Examples}
 
-  \begin{lstlisting}
-CONSTRAINT CASTING_FKEY_MOVIE
-  CASTING { MOVIE# }
-    <= MOVIE { MOVIE# };
-  \end{lstlisting}
-
-  \pause
   \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
     MOVIE { DIRECTOR# }
@@ -1308,72 +1307,15 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example Database}
-
-  \begin{lstlisting}
-TYPE MOVIE# POSSREP { VALUE INTEGER };
-
-TYPE YEAR POSSREP { VALUE INTEGER };
-
-TYPE SCORE POSSREP { VALUE RATIONAL
-  CONSTRAINT (VALUE >= 1.0)
-         AND (VALUE <= 10.0) };
-
-TYPE PERSON# POSSREP { VALUE INTEGER };
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example Database}
-
-  \begin{lstlisting}
-VAR MOVIE BASE RELATION
-  { MOVIE# MOVIE#, TITLE CHAR, YEAR YEAR,
-    SCORE SCORE, VOTES INTEGER,
-    DIRECTOR# PERSON# }
-  KEY { MOVIE# };
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example Database}
-
-  \begin{lstlisting}
-VAR PERSON BASE RELATION
-    { PERSON# PERSON#, NAME CHAR }
-    KEY { PERSON# };
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example Database}
-
-  \begin{lstlisting}
-VAR CASTING BASE RELATION
-    { MOVIE# MOVIE#, ACTOR# PERSON#,
-      ORD INTEGER }
-    KEY { MOVIE#, ACTOR# };
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example Database}
-
-  \begin{lstlisting}
-CONSTRAINT MOVIE_FKEY_DIRECTOR
-  MOVIE { DIRECTOR# }
-      RENAME (DIRECTOR# AS PERSON#)
-    <= PERSON { PERSON# };
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example Database}
+  \frametitle{Foreign Key Examples}
 
   \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
-  CASTING { MOVIE# } <= MOVIE { MOVIE# };
+  CASTING { MOVIE# }
+    <= MOVIE { MOVIE# };
+  \end{lstlisting}
 
+  \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_ACTOR
   CASTING { ACTOR# }
       RENAME (ACTOR# AS PERSON#)
