@@ -1,15 +1,11 @@
-% Copyright (c) 2002-2013
+% Copyright (c) 2002-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -17,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 \usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
@@ -25,11 +22,6 @@
                 CONSTRAINT, DELETE, DIVIDEBY, DROP, INSERT, INTEGER, INTERSECT,
                 JOIN, KEY, MINUS, OR, PER, POSSREP, RATIONAL, RELATION, RENAME,
                 THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
-}
-\lstdefinelanguage{FullSQL}[]{SQL}{
-  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
-                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
-                START, TO, TYPE, VACUUM}
 }
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
 
@@ -44,7 +36,7 @@
 \subtitle{Relational Model}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2013}
+\date{2002-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -55,7 +47,7 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \begin{document}
 
@@ -67,41 +59,46 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2013 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
   \frametitle{Topics}
   \tableofcontents
 \end{frame}
-
-\lstset{language=TutorialD}
 
 \section{Relational Model}
 
@@ -142,7 +139,7 @@
 
     \pause
     \medskip
-    \item relations are assigned to \alert{relation variables} (\alert{relvar})
+    \item relations are assigned to \alert{relation variables} (relvar)
     \item each element of a relation is a \alert{tuple}
     \item each piece of data of an element is an \alert{attribute}
 
@@ -157,57 +154,53 @@
 \begin{frame}
   \frametitle{Relation Example}
 
-  \begin{example}[movie relation]
-    \begin{tiny}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|l|r|l|c|r|r|}\hline
+  \begin{footnotesize}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|l|r|l|r|r|}\hline
 TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
 Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
 Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
 Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 ...                  &  ... & ...           &   ... &   ...\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
 
-    \begin{itemize}
-      \item the name of the relation variable is \texttt{MOVIE}
-      \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
-        is a tuple of the movie relation
-      \item \texttt{YEAR} is an attribute of the movie relation
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item the name of the relation variable is \texttt{MOVIE}
+    \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
+      is a tuple
+    \item \texttt{YEAR} is an attribute
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Relation Structure}
 
-  \begin{block}{relation header}
     \begin{itemize}
-      \item the set of attributes of the relation
-      \item affected by data definition language statements
-    \end{itemize}
-  \end{block}
+      \item relation header:
+      \begin{itemize}
+        \item the set of attributes of the relation
+        \item affected by data definition language statements
+      \end{itemize}
 
-  \pause
-  \begin{block}{relation body}
-    \begin{itemize}
-      \item the set of tuples in the relation
-      \item affected by data manipulation language statements
+      \pause
+      \medskip
+      \item relation body:
+      \begin{itemize}
+        \item the set of tuples in the relation
+        \item affected by data manipulation language statements
+      \end{itemize}
     \end{itemize}
-  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Relation Predicate}
 
-  \begin{definition}
-    \alert{relation predicate}:\\
-      the sentence expressing the "meaning" of the relation
-  \end{definition}
-
   \begin{itemize}
+    \item \alert{relation predicate}:\\
+      the sentence expressing the "meaning" of the relation
     \item each tuple is either \emph{True} or \emph{False} according to the
       predicate
   \end{itemize}
@@ -216,21 +209,17 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 \begin{frame}
   \frametitle{Relation Predicate Example}
 
-  \begin{example}[movie relation predicate]
-    \begin{itemize}
-      \item The movie with the title \texttt{TITLE} was filmed in the year
-	\texttt{YEAR},\\
-        by the director \texttt{DIRECTOR}; the average of \texttt{VOTES} votes\\
-        is \texttt{SCORE}.
+  \begin{itemize}
+    \item The movie with the title \texttt{TITLE} was released in the year
+      \texttt{YEAR}.\\
+      It was directed by the director \texttt{DIRECTOR}.\\
+      The average of \texttt{VOTES} votes is \texttt{SCORE}.
 
-      \pause
-      \medskip
-      \item the tuple \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)}\\
-        is True
-      \item the tuple \texttt{(Suspiria, 1978, Dario Argento, 1004, 7.1)}\\
-        is False
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)} is True
+    \item \texttt{(Suspiria, 1978, Dario Argento, 1004, 7.1)} is False
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -247,7 +236,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
 
     \begin{columns}
       \column{.5\textwidth}
-      \begin{tiny}
+      \begin{footnotesize}
       \begin{table}
         %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
@@ -257,10 +246,10 @@ Suspiria             & ...\\\hline
 Being John Malkovich & ...\\\hline
         \end{tabular}
       \end{table}
-      \end{tiny}
+      \end{footnotesize}
 
       \column{.5\textwidth}
-      \begin{tiny}
+      \begin{footnotesize}
       \begin{table}
         %\caption{MOVIE}
         \begin{tabular}{|l|l|}\hline
@@ -270,7 +259,7 @@ Being John Malkovich & ...\\\hline
 Usual Suspects       & ...\\\hline
         \end{tabular}
       \end{table}
-      \end{tiny}
+      \end{footnotesize}
     \end{columns}
   \end{example}
 \end{frame}
@@ -288,33 +277,103 @@ Usual Suspects       & ...\\\hline
     \end{itemize}
 
     \begin{columns}
-      \column{.5\textwidth}
-      \begin{tiny}
+      \column{.4\textwidth}
+      \begin{footnotesize}
       \begin{table}
         %\caption{MOVIE}
         \begin{tabular}{|l|r|l|}\hline
-TITLE                & YEAR & ...\\\hline\hline
-Usual Suspects       & 1995 & ...\\\hline
-Suspiria             & 1977 & ...\\\hline
-Being John Malkovich & 1999 & ...\\\hline
+TITLE          & YEAR & ...\\\hline\hline
+Usual Suspects & 1995 & ...\\\hline
+Suspiria       & 1977 & ...\\\hline
         \end{tabular}
       \end{table}
-      \end{tiny}
+      \end{footnotesize}
 
-      \column{.5\textwidth}
-      \begin{tiny}
+      \column{.4\textwidth}
+      \begin{footnotesize}
       \begin{table}
         %\caption{MOVIE}
         \begin{tabular}{|r|l|l|}\hline
 YEAR & TITLE                & ...\\\hline\hline
 1995 & Usual Suspects       & ...\\\hline
 1977 & Suspiria             & ...\\\hline
-1999 & Being John Malkovich & ...\\\hline
         \end{tabular}
       \end{table}
-      \end{tiny}
+      \end{footnotesize}
     \end{columns}
   \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Duplicate Tuples}
+
+  \begin{itemize}
+    \item there can not be duplicate tuples in a relation
+    \item each tuple must be uniquely identifiable
+  \end{itemize}
+
+  \begin{example}
+    \begin{footnotesize}
+    \begin{table}
+      %\caption{MOVIE}
+      \begin{tabular}{|l|r|l|r|r|}\hline
+TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
+Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
+Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
+Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
+...                  &  ... & ...           &   ... &   ...\\\hline
+Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
+...                  &  ... & ...           &   ... &   ...\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{example}
+
+  \begin{picture}(20,40)(27,-70)
+    \color[rgb]{1,0.2,0.1}
+    \put(20,25){\vector(3,-2){25}}
+    \put(20,25){\vector(3,2){25}}
+  \end{picture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Domains}
+
+  \begin{itemize}
+    \item all values for the same attribute have to be selected\\
+      from the same domain
+    \begin{itemize}
+      \item comparison only makes sense between values\\
+        chosen from the same domain
+    \end{itemize}
+
+    \medskip
+    \item in practice, data types are used instead
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Domain Example}
+
+  \begin{itemize}
+    \item \texttt{TITLE} from the titles domain, \texttt{YEAR} from the years
+      domain,\\
+      \texttt{DIRECTOR} from the directors domain, ...
+
+    \pause
+    \item if data types are used:\\
+      \texttt{TITLE} string, \texttt{YEAR} integer, \texttt{DIRECTOR} string,
+        ...
+
+    \begin{itemize}
+      \item assigning the value \texttt{"Usual Suspects"} to the attribute
+        \texttt{DIRECTOR} is correct in terms of data types\\
+        but it doesn't make sense
+
+      \item \texttt{YEAR} and \texttt{VOTES} are integers\\
+        but it doesn't make sense to compare them
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -326,24 +385,24 @@ YEAR & TITLE                & ...\\\hline\hline
   \end{itemize}
 
   \begin{example}[multiple directors]
-    \begin{tiny}
+    \begin{footnotesize}
     \begin{table}
-      %\caption{MOVIE}
-      \begin{tabular}{|l|c|l|c|}\hline
-TITLE  & ... & DIRECTORS                      & ...\\\hline\hline
-...    & ... & ...                            & ...\\\hline
-Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
-...    & ... & ...                            & ...\\\hline
+%       \caption{MOVIE}
+      \begin{tabular}{|l|l|l|l|}\hline
+TITLE      & ... & DIRECTORS                      & ...\\[2pt]\hline\hline
+...        & ... & ...                            & ...\\\hline
+The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
+...        & ... & ...                            & ...\\\hline
       \end{tabular}
     \end{table}
-    \end{tiny}
+    \end{footnotesize}
 
     \pause
-    \begin{picture}(90,5)(-123,-29)
+    \begin{picture}(0,0)(-120,-30)
       \color[rgb]{1,0.2,0.1}
       \thicklines
       \only<2->{
-        \put(0,0){\line(1,0){90}}
+        \put(0,0){\line(1,0){135}}
       }
     \end{picture}
   \end{example}
@@ -398,37 +457,7 @@ Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \end{example}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Duplicate Tuples}
-
-  \begin{itemize}
-    \item there can not be duplicate tuples in a relation
-    \item each tuple must be uniquely identifiable
-  \end{itemize}
-
-  \begin{example}
-    \begin{tiny}
-    \begin{table}
-      %\caption{MOVIE}
-      \begin{tabular}{|l|r|l|c|r|r|}\hline
-TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
-Usual Suspects       & 1995 & Bryan Singer  &   8.7 &  3502\\\hline
-Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
-Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
-...                  &  ... & ...           &   ... &   ...\\\hline
-Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
-...                  &  ... & ...           &   ... &   ...\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-
-  \begin{picture}(20,40)(0,-63)
-    \color[rgb]{1,0.2,0.1}
-    \put(20,20){\vector(2,-1){25}}
-    \put(20,20){\vector(2,1){25}}
-  \end{picture}
-\end{frame}
+\subsection{Keys}
 
 \begin{frame}
   \frametitle{Keys}
@@ -452,22 +481,20 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
 \end{frame}
 
 \begin{frame}
-  \frametitle{Candidate Key Example}
+  \frametitle{Candidate Key Examples}
 
-  \begin{example}[candidate keys for movie relation]
-    \begin{itemize}
-      \item \texttt{\{TITLE\}}
+  \begin{itemize}
+    \item \texttt{\{TITLE\}}
 
-      \pause
-      \item \texttt{\{TITLE, YEAR\}}
+    \pause
+    \item \texttt{\{TITLE, YEAR\}}
 
-      \pause
-      \item \texttt{\{TITLE, DIRECTOR\}}
+    \pause
+    \item \texttt{\{TITLE, DIRECTOR\}}
 
-      \pause
-      \item \texttt{\{TITLE, YEAR, DIRECTOR\}}
-    \end{itemize}
-  \end{example}
+    \pause
+    \item \texttt{\{TITLE, YEAR, DIRECTOR\}}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -488,26 +515,24 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
 \begin{frame}
   \frametitle{Surrogate Key Example}
 
-  \begin{example}
-    \begin{tiny}
+    \begin{footnotesize}
     \begin{table}
       %\caption{MOVIE}
-      \begin{tabular}{|r|l|r|l|c|r|r|}\hline
+      \begin{tabular}{|r|l|r|l|r|r|}\hline
 MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hline
-    ... & ...                  &  ... & ...           & ...   &   ...\\\hline
-      6 & Usual Suspects       & 1995 & Bryan Singer  & ...   &   ...\\\hline
-   1512 & Suspiria             & 1977 & Dario Argento & ...   &   ...\\\hline
-     70 & Being John Malkovich & 1999 & Spike Jonze   & ...   &   ...\\\hline
-    ... & ...                  &  ... & ...           & ...   &   ...\\\hline
+    ... & ...                  &  ... & ...           &   ... &   ...\\\hline
+      6 & Usual Suspects       & 1995 & Bryan Singer  &   ... &   ...\\\hline
+   1512 & Suspiria             & 1977 & Dario Argento &   ... &   ...\\\hline
+     70 & Being John Malkovich & 1999 & Spike Jonze   &   ... &   ...\\\hline
+    ... & ...                  &  ... & ...           &   ... &   ...\\\hline
       \end{tabular}
     \end{table}
-    \end{tiny}
+    \end{footnotesize}
 
     \begin{itemize}
       \item \texttt{\{MOVIE\#\}} is a candidate key
       \item \texttt{\{MOVIE\#, TITLE\}} is not a candidate key
     \end{itemize}
-  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -518,6 +543,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
       one of them is selected as the \alert{primary key}
     \begin{itemize}
       \item the others are alternate keys
+      \item the names of the attributes in the primary key are underlined
     \end{itemize}
 
     \medskip
@@ -531,72 +557,354 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 \end{frame}
 
 \begin{frame}
-  \frametitle{Primary Key Notation}
+  \frametitle{Primary Key Example}
 
-  \begin{itemize}
-    \item the names of the attributes in the primary key are underlined
-  \end{itemize}
-
-  \begin{example}
-    \begin{tiny}
-    \begin{table}
-      %\caption{MOVIE}
-      \begin{tabular}{|r|l|r|l|c|r|r|}\hline
+  \begin{footnotesize}
+  \begin{table}
+    %\caption{MOVIE}
+    \begin{tabular}{|r|l|r|l|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & DIRECTOR      & SCORE & VOTES\\[2pt]\hline\hline
  ... & ...                  &  ... & ...           &   ... &   ...\\\hline
    6 & Usual Suspects       & 1995 & Bryan Singer  &   ... &   ...\\\hline
 1512 & Suspiria             & 1977 & Dario Argento &   ... &   ...\\\hline
   70 & Being John Malkovich & 1999 & Spike Jonze   &   ... &   ...\\\hline
  ... & ...                  &  ... & ...           &   ... &   ...\\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
+\end{frame}
+
+\subsection{Referential Integrity}
+
+\begin{frame}
+  \frametitle{Scalarity}
+
+  \begin{example}[how to store actor data?]
+    \begin{footnotesize}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|l|}\hline
+\underline{MOVIE\#} & TITLE    & ... & ACTORS                      \\[2pt]\hline\hline
+      6 & Usual Suspects       & ... & Gabriel Byrne               \\\hline
+    ... & ...                  & ... & ...                         \\\hline
+     70 & Being John Malkovich & ... & Cameron Diaz, John Malkovich\\\hline
+    ... & ...                  & ... & ...                         \\\hline
       \end{tabular}
     \end{table}
-    \end{tiny}
+    \end{footnotesize}
+
+    \pause
+    \begin{picture}(0,0)(-180,-30)
+      \color[rgb]{1,0.2,0.1}
+      \thicklines
+      \only<2->{
+        \put(0,0){\line(1,0){125}}
+      }
+    \end{picture}
   \end{example}
 \end{frame}
 
-\subsection{Data Types}
-
 \begin{frame}
-  \frametitle{Data Types}
+  \frametitle{Scalarity}
 
   \begin{itemize}
-    \item all values for the same attribute have to be selected\\
-      from the same domain
-    \begin{itemize}
-      \item comparison only makes sense between values\\
-        chosen from the same domain
-    \end{itemize}
+    \item to meet the scalarity requirement,
+      tuples have to be repeated
+  \end{itemize}
 
-    \medskip
-    \item in practice, data types are used instead
+  \begin{example}[how to store actor data?]
+    \begin{footnotesize}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|l|}\hline
+MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
+      6 & Usual Suspects       & ... & Gabriel Byrne \\\hline
+    ... & ...                  & ... & ...           \\\hline
+     70 & Being John Malkovich & ... & Cameron Diaz  \\\hline
+     70 & Being John Malkovich & ... & John Malkovich\\\hline
+    ... & ...                  & ... & ...           \\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scalarity Example}
+
+  \begin{footnotesize}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|c|}\hline
+\underline{MOVIE\#} & TITLE                & ...\\[2pt]\hline\hline
+                  6 & Usual Suspects       & ...\\\hline
+               1512 & Suspiria             & ...\\\hline
+                 70 & Being John Malkovich & ...\\\hline
+                ... & ...                  & ...\\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
+
+  \vspace{-12pt}
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{ACTOR}
+      \begin{tabular}{|r|l|}\hline
+\underline{ACTOR\#} & NAME          \\[2pt]\hline\hline
+                308 & Gabriel Byrne \\\hline
+                282 & Cameron Diaz  \\\hline
+                503 & John Malkovich\\\hline
+                ... & ...           \\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
+                  6 &                 308 &   2\\\hline
+                 70 &                 282 &   2\\\hline
+                 70 &                 503 &  14\\\hline
+                ... &                 ... & ...\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scalarity Example}
+
+  \vspace{-12pt}
+  \begin{footnotesize}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|c|r|}\hline
+\underline{MOVIE\#} & TITLE                & ... & DIRECTOR\#\\[2pt]\hline\hline
+                  6 & Usual Suspects       & ... &        639\\\hline
+               1512 & Suspiria             & ... &       2259\\\hline
+                 70 & Being John Malkovich & ... &       1485\\\hline
+                ... & ...                  & ... &        ...\\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
+
+  \vspace{-24pt}
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{PERSON\#} & NAME          \\[2pt]\hline\hline
+                 308 & Gabriel Byrne \\\hline
+                1485 & Spike Jonze   \\\hline
+                 639 & Bryan Singer  \\\hline
+                 282 & Cameron Diaz  \\\hline
+                2259 & Dario Argento \\\hline
+                 503 & John Malkovich\\\hline
+                 ... & ...           \\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
+                  6 &                 308 &   2\\\hline
+                 70 &                 282 &   2\\\hline
+                 70 &                 503 &  14\\\hline
+                ... &                 ... & ...\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Foreign Keys}
+
+  \begin{itemize}
+    \item \alert{foreign key}: an attribute of a relation\\
+      that is a candidate key of another relation
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Domain Example}
+  \frametitle{Foreign Key Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{TITLE} from the titles domain, \texttt{YEAR} from the years
-        domain,\\
-       \texttt{DIRECTOR} from the directors domain, ...
+  \vspace{-12pt}
+  \begin{footnotesize}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|c|r|}\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
+   6 & Usual Suspects       & ... &        639\\\hline
+1512 & Suspiria             & ... &       2259\\\hline
+  70 & Being John Malkovich & ... &       1485\\\hline
+ ... & ...                  & ... &        ...\\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
 
-      \pause
-      \item if data types are used:\\
-        \texttt{TITLE} string, \texttt{YEAR} integer, \texttt{DIRECTOR} string,
-          ...
+  \vspace{-6pt}
+  \begin{footnotesize}
+  \begin{table}
+    \caption{PERSON}
+    \begin{tabular}{|r|l|}\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
+ 308 & Gabriel Byrne \\\hline
+1485 & Spike Jonze   \\\hline
+ 639 & Bryan Singer  \\\hline
+ 282 & Cameron Diaz  \\\hline
+2259 & Dario Argento \\\hline
+ 503 & John Malkovich\\\hline
+ ... & ...           \\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
 
-      \begin{itemize}
-        \item assigning the value \texttt{"Usual Suspects"} to the attribute
-          \texttt{DIRECTOR} is correct in terms of data types\\
-          but incorrect according to predicate
-
-        \item \texttt{YEAR} and \texttt{VOTES} are integers\\
-          but it does not make sense to compare them
-      \end{itemize}
-    \end{itemize}
-  \end{example}
+%   \begin{picture}(100,50)(-140,-90)
+%     \color[rgb]{0.1,0.6,0.1}
+%     \thicklines
+%     \only<2->{
+%       \put(22,22){\oval(20,8)}       % movie.director#=2259
+%       \put(101,0){\oval(20,8)}       % person.person#=2259
+%       \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
+%     }
+%     \only<3->{
+%       \put(10,41){\oval(45,9)}       % movie.director#
+%       \put(92,41){\oval(36,9)}       % person.person#
+%       \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
+%     }
+%   \end{picture}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Foreign Key Examples}
+
+  \begin{columns}
+    \column{.63\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
+         6 & Usual Suspects & ... &        639\\\hline
+      1512 & Suspiria       & ... &       2259\\\hline
+       ... & ...            & ... &        ...\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+
+    \column{.37\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
+        308 & Gabriel Byrne\\\hline
+       1485 & Spike Jonze  \\\hline
+        ... & ...          \\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
+
+  \begin{footnotesize}
+  \begin{table}
+    \caption{CASTING}
+    \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
+                  6 &                 308 &   2\\\hline
+                 70 &                 282 &   2\\\hline
+                ... &                 ... & ...\\\hline
+    \end{tabular}
+  \end{table}
+  \end{footnotesize}
+
+%   \begin{picture}(240,80)(-42,-138)
+%     \color[rgb]{0.1,0.6,0.1}
+%     \thicklines
+%     \only<2->{
+%       \put(116,78){\oval(45,9)}        % movie.director#
+%       \put(211,78){\oval(36,9)}        % person.person#
+%       \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
+%     }
+%     \only<3->{
+%       \put(97,4){\oval(33,9)}          % casting.movie#
+%       \put(3,77){\oval(33,9)}          % movie.movie#
+%       \put(96,9){\vector(-4,3){83}}    % casting.movie#->movie.movie#
+%     }
+%     \only<4->{
+%       \put(136,4){\oval(35,9)}         % casting.actor#
+%       \put(150,9){\vector(3,4){48}}    % casting.actor#->person.person#
+%     }
+%   \end{picture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Referential Integrity}
+
+  \begin{itemize}
+    \item \alert{referential integrity}:\\
+      all values of a foreign key attribute must be present\\
+      in the corresponding attribute of the referenced relation
+
+    \medskip
+    \item prevent requests that break referential integrity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Referential Integrity Examples}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
+\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
+             ... & ...      & ... &        ...\\\hline
+            1512 & Suspiria & ... &       2259\\\hline
+             ... & ...      & ... &        ...\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{PERSON\#} & NAME\\[2pt]\hline\hline
+        ... & ...          \\\hline
+       2259 & Dario Argento\\\hline
+        ... & ...          \\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
+
+  \begin{itemize}
+    \item delete the tuple \texttt{(2259, Dario Argento)}
+    \item update the tuple \texttt{(2259, Dario Argento)}\\
+      as \texttt{(2871,Dario Argento)}
+  \end{itemize}
+\end{frame}
+
+\subsection{TutorialD}
+
+\lstset{language=TutorialD}
 
 \begin{frame}
   \frametitle{Tutorial D Data Types}
@@ -612,43 +920,39 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 \begin{frame}[fragile]
   \frametitle{Type Definition}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining a new type:
     \begin{lstlisting}
 TYPE type_name POSSREP {
   field_name field_type
   [, ...]
 };
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item deleting types:
-      \begin{lstlisting}
+    \item deleting a type:
+    \begin{lstlisting}
 DROP TYPE type_name;
-      \end{lstlisting}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Type Definition Examples}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 TYPE MOVIE# POSSREP { VALUE INTEGER };
 
 TYPE YEAR POSSREP { VALUE INTEGER };
 
 TYPE SCORE POSSREP { VALUE RATIONAL };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Type Operations}
 
   \begin{itemize}
-    \item generating a value for a derived type:
+    \item generating a value for a type:
     \begin{lstlisting}
 type_name(base_value [, ...])
     \end{lstlisting}
@@ -727,7 +1031,8 @@ RENAME (MOVIE# AS MOVIENO)
 \begin{frame}[fragile]
   \frametitle{Value Constraints}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining a value constraint:
     \begin{lstlisting}
 TYPE type_name POSSREP {
   field_name field_type
@@ -735,17 +1040,14 @@ TYPE type_name POSSREP {
   CONSTRAINT condition
 };
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Value Constraint Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
-    \end{itemize}
-
+  \begin{itemize}
+    \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
     \begin{lstlisting}
 TYPE SCORE POSSREP {
   VALUE RATIONAL
@@ -753,29 +1055,27 @@ TYPE SCORE POSSREP {
     (VALUE >= 1.0) AND (VALUE <= 10.0)
 };
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
-
-\subsection{Relation Definition}
 
 \begin{frame}[fragile]
   \frametitle{Relation Definition}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining a new relation:
     \begin{lstlisting}
 RELATION
   { attribute_name attribute_type
     [, ...] }
   KEY { attribute_name [, ...] }
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Relation Definition Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
@@ -784,24 +1084,21 @@ RELATION
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Relation Variables}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining a new relation variable
     \begin{lstlisting}
 VAR relvar_name BASE RELATION
   { ... }
   KEY { ... };
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-   \item deleting relation variables:
+    \item deleting a relation variable:
     \begin{lstlisting}
 DROP VAR relvar_name;
     \end{lstlisting}
@@ -811,8 +1108,7 @@ DROP VAR relvar_name;
 \begin{frame}[fragile]
   \frametitle{Relation Variable Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
@@ -821,47 +1117,47 @@ VAR MOVIE BASE RELATION
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuple Generation}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item generating a tuple:
     \begin{lstlisting}
 TUPLE {
   attribute_name attribute_value
   [, ...]
 }
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
+\end{frame}
 
-  \pause
-  \begin{example}
-    \begin{lstlisting}
+\begin{frame}[fragile]
+  \frametitle{Tuple Generation Example}
+
+  \begin{lstlisting}
 TUPLE { MOVIE# MOVIE#(6),
   TITLE "Usual Suspects",
   YEAR YEAR(1995), DIRECTOR "Bryan Singer",
   SCORE SCORE(8.7), VOTES 35027 }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Relation Generation}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item generating a relation:
     \begin{lstlisting}
 RELATION {
   TUPLE { ... }
   [, ...]
 }
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
-    \item assigning relations to relation variables:
+    \item assigning a relation to a relation variable:
     \begin{lstlisting}
 relvar_name := RELATION { ... };
     \end{lstlisting}
@@ -871,8 +1167,7 @@ relvar_name := RELATION { ... };
 \begin{frame}[fragile]
   \frametitle{Relation Assignment Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 MOVIE := RELATION {
   TUPLE { MOVIE# MOVIE#(6),
     TITLE "Usual Suspects",
@@ -883,30 +1178,27 @@ MOVIE := RELATION {
     YEAR YEAR(1999), DIRECTOR "Spike Jonze",
     SCORE SCORE(8.3), VOTES 13809 }
 };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
-
-\subsection{Data Modification}
 
 \begin{frame}[fragile]
   \frametitle{Tuple Insertion}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item inserting tuples:
     \begin{lstlisting}
 INSERT relvar_name RELATION {
   TUPLE { ... }
   [, ...]
 };
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuple Insertion Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 INSERT MOVIE RELATION {
   TUPLE { MOVIE# MOVIE#(6),
     TITLE "Suspiria",
@@ -914,21 +1206,19 @@ INSERT MOVIE RELATION {
     DIRECTOR "Dario Argento",
     SCORE SCORE(7.1), VOTES 1004 }
 };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuple Deletion}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item deleting tuples:
     \begin{lstlisting}
 DELETE relvar_name
   [ WHERE condition ];
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item if no condition is specified, all tuples will be deleted
   \end{itemize}
 \end{frame}
@@ -936,32 +1226,28 @@ DELETE relvar_name
 \begin{frame}[fragile]
   \frametitle{Tuple Deletion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item delete movies with scores less than 3.0 and votes more than 4
-    \end{itemize}
-
+  \begin{itemize}
+    \item delete movies with scores less than 3.0 and votes more than 4
     \begin{lstlisting}
 DELETE MOVIE
   WHERE ((SCORE < SCORE(3.0))
      AND (VOTES > 4));
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuple Update}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item updating tuples:
     \begin{lstlisting}
 UPDATE relvar_name
   [ WHERE condition ]
   ( attribute_name := attribute_value
     [, ...] );
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item if no condition is specified, all tuples will be updated
   \end{itemize}
 \end{frame}
@@ -969,11 +1255,8 @@ UPDATE relvar_name
 \begin{frame}[fragile]
   \frametitle{Tuple Update Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item register a new vote (9) for the movie "Suspiria"
-    \end{itemize}
-
+  \begin{itemize}
+    \item register a new vote (9) for the movie "Suspiria"
     \begin{lstlisting}
 UPDATE MOVIE
   WHERE (TITLE = "Suspiria") (
@@ -986,349 +1269,14 @@ UPDATE MOVIE
     VOTES := VOTES + 1
   );
     \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\subsection{Referential Integrity}
-
-\begin{frame}
-  \frametitle{Scalarity}
-
-  \begin{itemize}
-    \item to meet the scalarity requirement,
-      tuples have to be repeated
   \end{itemize}
-
-  \begin{example}[how to store actor data?]
-    \begin{tiny}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|r|l|c|l|}\hline
-\underline{MOVIE\#} & TITLE    & ... & ACTORS                      \\[2pt]\hline\hline
-      6 & Usual Suspects       & ... & Gabriel Byrne               \\\hline
-    ... & ...                  & ... & ...                         \\\hline
-     70 & Being John Malkovich & ... & Cameron Diaz, John Malkovich\\\hline
-    ... & ...                  & ... & ...                         \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-
-    \pause
-    \begin{picture}(90,5)(-173,-29)
-      \color[rgb]{1,0.2,0.1}
-      \thicklines
-      \only<2->{
-        \put(0,0){\line(1,0){90}}
-      }
-    \end{picture}
-
-    \pause
-    \vspace{-25pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|r|l|c|l|}\hline
-MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
-      6 & Usual Suspects       & ... & Gabriel Byrne \\\hline
-    ... & ...                  & ... & ...           \\\hline
-     70 & Being John Malkovich & ... & Cameron Diaz  \\\hline
-     70 & Being John Malkovich & ... & John Malkovich\\\hline
-    ... & ...                  & ... & ...           \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Scalarity}
-
-  \begin{example}[movies and actors]
-    \begin{tiny}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|r|l|c|}\hline
-\underline{MOVIE\#} & TITLE                & ...\\[2pt]\hline\hline
-                  6 & Usual Suspects       & ...\\\hline
-               1512 & Suspiria             & ...\\\hline
-                 70 & Being John Malkovich & ...\\\hline
-                ... & ...                  & ...\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-
-    \vspace{-12pt}
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{ACTOR}
-        \begin{tabular}{|r|l|}\hline
-\underline{ACTOR\#} & NAME          \\[2pt]\hline\hline
-                308 & Gabriel Byrne \\\hline
-                282 & Cameron Diaz  \\\hline
-                503 & John Malkovich\\\hline
-                ... & ...           \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{CASTING}
-        \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
-                  6 &                 308 &   2\\\hline
-                 70 &                 282 &   2\\\hline
-                 70 &                 503 &  14\\\hline
-                ... &                 ... & ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Scalarity}
-
-  \begin{example}[how to store director data?]
-    \begin{tiny}
-    \begin{table}
-      \caption{MOVIE}
-      \begin{tabular}{|r|l|c|r|}\hline
-\underline{MOVIE\#} & TITLE                & ... & DIRECTOR\#\\[2pt]\hline\hline
-                  6 & Usual Suspects       & ... &        639\\\hline
-               1512 & Suspiria             & ... &       2259\\\hline
-                 70 & Being John Malkovich & ... &       1485\\\hline
-                ... & ...                  & ... &        ...\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-
-    \vspace{-12pt}
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
-\underline{PERSON\#} & NAME          \\[2pt]\hline\hline
-                 308 & Gabriel Byrne \\\hline
-                1485 & Spike Jonze   \\\hline
-                 639 & Bryan Singer  \\\hline
-                 282 & Cameron Diaz  \\\hline
-                2259 & Dario Argento \\\hline
-                 503 & John Malkovich\\\hline
-                 ... & ...           \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{CASTING}
-        \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
-                  6 &                 308 &   2\\\hline
-                 70 &                 282 &   2\\\hline
-                 70 &                 503 &  14\\\hline
-                ... &                 ... & ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Foreign Keys}
-
-  \begin{definition}
-    \alert{foreign key}: an attribute of a relation\\
-      that is a candidate key of another relation
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Foreign Key Examples}
-
-  \begin{example}[\texttt{MOVIE.DIRECTOR\#}]
-    \begin{columns}[t]
-      \column{.63\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{MOVIE}
-        \begin{tabular}{|r|l|c|r|}\hline
-\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects       & ... &        639\\\hline
-1512 & Suspiria             & ... &       2259\\\hline
-  70 & Being John Malkovich & ... &       1485\\\hline
- ... & ...                  & ... &        ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.37\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
-\underline{PERSON\#} & NAME\\[2pt]\hline\hline
- 308 & Gabriel Byrne \\\hline
-1485 & Spike Jonze   \\\hline
- 639 & Bryan Singer  \\\hline
- 282 & Cameron Diaz  \\\hline
-2259 & Dario Argento \\\hline
- 503 & John Malkovich\\\hline
- ... & ...           \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
-
-  \begin{picture}(100,50)(-140,-90)
-    \color[rgb]{0.1,0.6,0.1}
-    \thicklines
-    \only<2->{
-      \put(22,22){\oval(20,8)}       % movie.director#=2259
-      \put(101,0){\oval(20,8)}       % person.person#=2259
-      \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
-    }
-    \only<3->{
-      \put(10,41){\oval(45,9)}       % movie.director#
-      \put(92,41){\oval(36,9)}       % person.person#
-      \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
-    }
-  \end{picture}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Foreign Key Example}
-
-  \begin{example}[foreign keys in the movie database]
-    \begin{columns}
-      \column{.63\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{MOVIE}
-        \begin{tabular}{|r|l|c|r|}\hline
-\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
-         6 & Usual Suspects & ... &        639\\\hline
-      1512 & Suspiria       & ... &       2259\\\hline
-       ... & ...            & ... &        ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.37\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
-\underline{PERSON\#} & NAME\\[2pt]\hline\hline
-        308 & Gabriel Byrne\\\hline
-       1485 & Spike Jonze  \\\hline
-        ... & ...          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-
-    \begin{tiny}
-    \begin{table}
-      \caption{CASTING}
-      \begin{tabular}{|r|r|r|}\hline
-\underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
-                  6 &                 308 &   2\\\hline
-                 70 &                 282 &   2\\\hline
-                ... &                 ... & ...\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
-
-  \begin{picture}(210,80)(-25,-126)
-    \color[rgb]{0.1,0.6,0.1}
-    \thicklines
-    \only<2->{
-      \put(116,78){\oval(45,9)}        % movie.director#
-      \put(211,78){\oval(36,9)}        % person.person#
-      \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
-    }
-    \only<3->{
-      \put(97,4){\oval(33,9)}          % casting.movie#
-      \put(3,77){\oval(33,9)}          % movie.movie#
-      \put(96,9){\vector(-4,3){83}}    % casting.movie#->movie.movie#
-    }
-    \only<4->{
-      \put(136,4){\oval(35,9)}         % casting.actor#
-      \put(150,9){\vector(3,4){48}}    % casting.actor#->person.person#
-    }
-  \end{picture}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Referential Integrity}
-
-  \begin{definition}
-    \alert{referential integrity}:\\
-      all values of a foreign key attribute must be present\\
-      in the corresponding attribute of the referenced relation
-  \end{definition}
-
-  \begin{itemize}
-    \item prevent requests that break referential integrity
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Referential Integrity Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{MOVIE}
-        \begin{tabular}{|r|l|c|r|}\hline
-\underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
-             ... & ...      & ... &        ...\\\hline
-            1512 & Suspiria & ... &       2259\\\hline
-             ... & ...      & ... &        ...\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
-\underline{PERSON\#} & NAME\\[2pt]\hline\hline
-        ... & ...          \\\hline
-       2259 & Dario Argento\\\hline
-        ... & ...          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-
-    \begin{itemize}
-      \item delete the tuple \texttt{(2259, Dario Argento)}
-      \item update the tuple \texttt{(2259, Dario Argento)}\\
-        as \texttt{(2871,Dario Argento)}
-    \end{itemize}
-  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Foreign Key Definition}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining a foreign key
     \begin{lstlisting}
 CONSTRAINT constraint_name
   referencing_relvar_name
@@ -1336,110 +1284,93 @@ CONSTRAINT constraint_name
     <= referenced_relvar_name
         { attribute_name };
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item attribute names have to match (rename if necessary)
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Foreign Key Definition Example}
+  \frametitle{Foreign Key Example}
 
-  \begin{example}[\texttt{CASTING.MOVIE\#}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# }
     <= MOVIE { MOVIE# };
-    \end{lstlisting}
-  \end{example}
-\end{frame}
+  \end{lstlisting}
 
-\begin{frame}[fragile]
-  \frametitle{Foreign Key Definition Example}
-
-  \begin{example}[\texttt{MOVIE.DIRECTOR\#}]
-    \begin{lstlisting}
+  \pause
+  \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
     MOVIE { DIRECTOR# }
         RENAME (DIRECTOR# AS PERSON#)
       <= PERSON { PERSON# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[types]
-    \begin{lstlisting}
+  \begin{lstlisting}
 TYPE MOVIE# POSSREP { VALUE INTEGER };
+
 TYPE YEAR POSSREP { VALUE INTEGER };
+
 TYPE SCORE POSSREP { VALUE RATIONAL
   CONSTRAINT (VALUE >= 1.0)
          AND (VALUE <= 10.0) };
+
 TYPE PERSON# POSSREP { VALUE INTEGER };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{MOVIE}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#, TITLE CHAR, YEAR YEAR,
     SCORE SCORE, VOTES INTEGER,
     DIRECTOR# PERSON# }
   KEY { MOVIE# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{PERSON}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 VAR PERSON BASE RELATION
     { PERSON# PERSON#, NAME CHAR }
     KEY { PERSON# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{CASTING}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 VAR CASTING BASE RELATION
     { MOVIE# MOVIE#, ACTOR# PERSON#,
       ORD INTEGER }
     KEY { MOVIE#, ACTOR# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{MOVIE} foreign keys]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
   MOVIE { DIRECTOR# }
       RENAME (DIRECTOR# AS PERSON#)
     <= PERSON { PERSON# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{CASTING} foreign keys]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
   CASTING { MOVIE# } <= MOVIE { MOVIE# };
 
@@ -1447,11 +1378,10 @@ CONSTRAINT CASTING_FKEY_ACTOR
   CASTING { ACTOR# }
       RENAME (ACTOR# AS PERSON#)
     <= PERSON { PERSON# };
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
-\lstset{language=FullSQL}
+% \lstset{language=FullSQL}
 
 \section{SQL}
 
