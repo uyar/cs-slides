@@ -24,6 +24,12 @@
                 THE_, TUPLE, TYPE, UNION, UPDATE, VAR, WHERE}
 }
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
+                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
+                START, TO, TYPE, VACUUM}
+}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
 
 \mode<presentation>
 {
@@ -99,6 +105,8 @@
   \frametitle{Topics}
   \tableofcontents
 \end{frame}
+
+\lstset{language=TutorialD}
 
 \section{Relational Model}
 
@@ -861,6 +869,12 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 
     \medskip
     \item prevent requests that break referential integrity
+    \begin{itemize}
+      \item don't allow
+      \item reflect the change to affected tuples
+      \item assign null value
+      \item assign default value
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -874,9 +888,9 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
       \caption{MOVIE}
       \begin{tabular}{|r|l|c|r|}\hline
 \underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
-             ... & ...      & ... &        ...\\\hline
-            1512 & Suspiria & ... &       2259\\\hline
-             ... & ...      & ... &        ...\\\hline
+                ... & ...      & ... &        ...\\\hline
+               1512 & Suspiria & ... &       2259\\\hline
+                ... & ...      & ... &        ...\\\hline
       \end{tabular}
     \end{table}
     \end{footnotesize}
@@ -903,8 +917,6 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \end{frame}
 
 \subsection{TutorialD}
-
-\lstset{language=TutorialD}
 
 \begin{frame}
   \frametitle{Tutorial D Data Types}
@@ -1264,7 +1276,7 @@ UPDATE MOVIE
   \begin{itemize}
     \item renaming an attribute:
     \begin{lstlisting}
-RENAME (attribute_name AS new_name)
+RENAME { attribute_name AS new_name }
     \end{lstlisting}
   \end{itemize}
 
@@ -1272,7 +1284,7 @@ RENAME (attribute_name AS new_name)
     \begin{itemize}
       \item renaming the \texttt{DIRECTOR\#} attribute:
       \begin{lstlisting}
-RENAME (DIRECTOR# AS PERSON#)
+RENAME { DIRECTOR# AS PERSON# }
       \end{lstlisting}
     \end{itemize}
   \end{example}
@@ -1282,7 +1294,7 @@ RENAME (DIRECTOR# AS PERSON#)
   \frametitle{Foreign Key Definition}
 
   \begin{itemize}
-    \item defining a foreign key
+    \item defining a foreign key:
     \begin{lstlisting}
 CONSTRAINT constraint_name
   referencing_relvar_name
@@ -1301,7 +1313,7 @@ CONSTRAINT constraint_name
   \begin{lstlisting}
 CONSTRAINT MOVIE_FKEY_DIRECTOR
     MOVIE { DIRECTOR# }
-        RENAME (DIRECTOR# AS PERSON#)
+        RENAME { DIRECTOR# AS PERSON# }
       <= PERSON { PERSON# };
   \end{lstlisting}
 \end{frame}
@@ -1318,12 +1330,12 @@ CONSTRAINT CASTING_FKEY_MOVIE
   \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_ACTOR
   CASTING { ACTOR# }
-      RENAME (ACTOR# AS PERSON#)
+      RENAME { ACTOR# AS PERSON# }
     <= PERSON { PERSON# };
   \end{lstlisting}
 \end{frame}
 
-% \lstset{language=FullSQL}
+\lstset{language=FullSQL}
 
 \section{SQL}
 
@@ -1429,16 +1441,14 @@ CONSTRAINT CASTING_FKEY_ACTOR
 \begin{frame}[fragile]
   \frametitle{Domain Creation}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item creating a domain:
     \begin{lstlisting}
 CREATE DOMAIN domain_name [ AS ] base_type
   [ DEFAULT default_value ]
   [ { CHECK ( condition ) } [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \medskip
-  \begin{itemize}
     \item deleting domains:
     \begin{lstlisting}
 DROP DOMAIN domain_name [, ...]
@@ -1449,12 +1459,13 @@ DROP DOMAIN domain_name [, ...]
 \begin{frame}[fragile]
   \frametitle{Domain Example}
 
-  \begin{example}[a domain for valid \texttt{SCORE} values]
+  \begin{itemize}
+    \item a domain for valid \texttt{SCORE} values:
     \begin{lstlisting}
 CREATE DOMAIN SCORES AS FLOAT
   CHECK ((VALUE >= 1.0) AND (VALUE <= 10.0))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Table Management}
@@ -1462,17 +1473,15 @@ CREATE DOMAIN SCORES AS FLOAT
 \begin{frame}[fragile]
   \frametitle{Table Creation}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item creating a table:
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type }
   [, ... ]
 )
     \end{lstlisting}
-  \end{block}
 
-  \medskip
-  \begin{itemize}
     \item deleting tables:
     \begin{lstlisting}
 DROP TABLE table_name [, ... ]
@@ -1481,9 +1490,25 @@ DROP TABLE table_name [, ... ]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Null and Default Values}
+  \frametitle{Table Creation Example}
 
-  \begin{block}{Syntax}
+  \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER,
+  TITLE VARCHAR(80),
+  YR NUMERIC(4),
+  DIRECTOR VARCHAR(40),
+  SCORE FLOAT,
+  VOTES INTEGER
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Nullable Columns and Default Values}
+
+  \begin{itemize}
+    \item defining nullable columns and default values:
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type
@@ -1492,18 +1517,32 @@ CREATE TABLE table_name (
   [, ... ]
 )
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item \texttt{NULL}: the attribute is allowed to be empty (default)
     \item \texttt{NOT NULL}: the attribute is not allowed to be empty
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Primary Key Definition}
+  \frametitle{Table Creation Example}
 
-  \begin{block}{Syntax}
+  \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER,
+  TITLE VARCHAR(80) NOT NULL,
+  YR NUMERIC(4),
+  DIRECTOR VARCHAR(40),
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primary Keys}
+
+  \begin{itemize}
+    \item defining primary keys:
     \begin{lstlisting}
 CREATE TABLE table_name (
   { column_name data_type
@@ -1513,22 +1552,19 @@ CREATE TABLE table_name (
   [ PRIMARY KEY ( column_name [, ...] ) ]
 )
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item if the primary key consists of a single column,\\
       it can be specified in column definition:
-      \begin{lstlisting}
+    \begin{lstlisting}
 column_name data_type PRIMARY KEY
-      \end{lstlisting}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Table Creation Example}
+  \frametitle{Primary Key Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
   TITLE VARCHAR(80) NOT NULL,
@@ -1538,22 +1574,19 @@ CREATE TABLE MOVIE (
   VOTES INTEGER DEFAULT 0,
   PRIMARY KEY (ID)
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Table Creation Example}
+  \frametitle{Primary Key Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   ...
   VOTES INTEGER DEFAULT 0
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1575,7 +1608,8 @@ CREATE TABLE MOVIE (
 \begin{frame}[fragile]
   \frametitle{Value Constraints}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining constraints on values:
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1584,17 +1618,14 @@ CREATE TABLE table_name (
   ...
 )
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Value Constraint Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
-    \end{itemize}
-
+  \begin{itemize}
+    \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
@@ -1604,13 +1635,14 @@ CREATE TABLE MOVIE (
   CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
 )
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uniqueness Definition}
+  \frametitle{Uniqueness}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining columns as unique:
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1619,25 +1651,20 @@ CREATE TABLE table_name (
   ...
 )
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item if the uniqueness constraint consists of a single column,\\
       it can be specified in the column definition:
-      \begin{lstlisting}
+    \begin{lstlisting}
 column_name data_type UNIQUE
-      \end{lstlisting}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uniqueness Definition Example}
+  \frametitle{Uniqueness Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{\{TITLE\}} and \texttt{\{DIRECTOR, YR\}} are unique
-    \end{itemize}
-
+  \begin{itemize}
+    \item \texttt{\{TITLE\}} and \texttt{\{DIRECTOR, YR\}} are unique
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
@@ -1649,18 +1676,19 @@ CREATE TABLE MOVIE (
   UNIQUE (DIRECTOR, YR)
 )
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Renaming Tables}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item renaming a table:
     \begin{lstlisting}
 ALTER TABLE table_name
   RENAME TO new_name
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 
   \medskip
   \begin{example}
@@ -1674,14 +1702,15 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Adding Columns}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item adding columns to an existing table:
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ COLUMN ] column_name data_type
                  [ NULL | NOT NULL ]
                  [ DEFAULT default_value ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 
   \medskip
   \begin{example}
@@ -1695,12 +1724,13 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Deleting Columns}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item deleting columns from a table:
     \begin{lstlisting}
 ALTER TABLE table_name
   DROP [ COLUMN ] column_name
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 
   \medskip
   \begin{example}
@@ -1714,12 +1744,13 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Renaming Columns}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item renaming a column:
     \begin{lstlisting}
 ALTER TABLE table_name
   RENAME [ COLUMN ] column_name TO new_name
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 
   \medskip
   \begin{example}
@@ -1731,38 +1762,37 @@ ALTER TABLE MOVIE
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Column Default Value}
+  \frametitle{Column Defaults}
 
-  \begin{block}{Setting Column Default Value}
+  \begin{itemize}
+    \item setting a default value for a column:
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
   SET DEFAULT default_value
     \end{lstlisting}
-  \end{block}
 
-  \begin{block}{Removing Column Default Value}
+    \item removing the default value from a column:
     \begin{lstlisting}
 ALTER TABLE table_name
   ALTER [ COLUMN ] column_name
   DROP DEFAULT
     \end{lstlisting}
-  \end{block}
-  \medskip
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Adding Constraints}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item adding a new constraint to a table:
     \begin{lstlisting}
 ALTER TABLE table_name
   ADD [ CONSTRAINT constraint_name ]
     constraint_definition
     \end{lstlisting}
-  \end{block}
-  \begin{itemize}
-   \item removing constraints:
+
+   \item removing a constraint from a table:
     \begin{lstlisting}
 ALTER TABLE table_name
   DROP [ CONSTRAINT ] constraint_name
@@ -1776,26 +1806,22 @@ ALTER TABLE table_name
 \begin{frame}[fragile]
   \frametitle{Constraint Addition Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item \texttt{YR} values can not be less than 1888
-    \end{itemize}
-
+  \begin{itemize}
+    \item \texttt{YR} values can not be less than 1888
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ADD CONSTRAINT MINIMUM_YEAR
     CHECK (YR >= 1888)
     \end{lstlisting}
+  \end{itemize}
 
-    \begin{itemize}
-      \item drop the minimum year constraint
-    \end{itemize}
-
+  \begin{itemize}
+    \item drop the minimum year constraint
     \begin{lstlisting}
 ALTER TABLE MOVIE
   DROP CONSTRAINT MINIMUM_YEAR
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Data Modification}
@@ -1803,16 +1829,15 @@ ALTER TABLE MOVIE
 \begin{frame}[fragile]
   \frametitle{Row Insertion}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item inserting a row to a table:
     \begin{lstlisting}
 INSERT INTO table_name
   [ ( column_name [, ...] ) ]
   VALUES ( column_value [, ...] )
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \pause
     \item the order of values must match the order of columns
     \item if the column names are not specified,\\
       values must be written in the order used at table creation
@@ -1824,8 +1849,7 @@ INSERT INTO table_name
 \begin{frame}[fragile]
   \frametitle{Row Insertion Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 INSERT INTO MOVIE VALUES (
   6,
   'Usual Suspects',
@@ -1834,73 +1858,66 @@ INSERT INTO MOVIE VALUES (
   8.7,
   35027
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Row Insertion Example}
 
-  \begin{example}
-    \begin{lstlisting}
+  \begin{lstlisting}
 INSERT INTO MOVIE (YR, TITLE) VALUES (
   1995,
   'Usual Suspects'
 )
-    \end{lstlisting}
+  \end{lstlisting}
 
-    \begin{itemize}
-      \item the \texttt{ID} value will be automatically generated
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item value for \texttt{ID} will be automatically generated
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Row Deletion}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item deleting rows:
     \begin{lstlisting}
 DELETE FROM table_name
   [ WHERE condition ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Row Deletion Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item delete movies with scores less than 3.0 and votes more than 4
-    \end{itemize}
-
+  \begin{itemize}
+    \item delete movies with scores less than 3.0 and votes more than 4:
     \begin{lstlisting}
 DELETE FROM MOVIE
   WHERE ((SCORE < 3.0) AND (VOTES > 4))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Row Update}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item updating rows:
     \begin{lstlisting}
 UPDATE table_name
   SET { column_name = column_value } [, ...]
   [ WHERE condition ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Row Update Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item register a new vote (9) for the movie "Suspiria"
-    \end{itemize}
-
+  \begin{itemize}
+    \item register a new vote (9) for the movie "Suspiria"
     \begin{lstlisting}
 UPDATE MOVIE
   SET SCORE = (SCORE * VOTES + 9)
@@ -1908,15 +1925,16 @@ UPDATE MOVIE
       VOTES = VOTES + 1
   WHERE (TITLE = 'Suspiria')
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Referential Integrity}
 
 \begin{frame}[fragile]
-  \frametitle{Foreign Key Definition}
+  \frametitle{Foreign Keys}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item defining foreign keys:
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1928,7 +1946,7 @@ CREATE TABLE table_name (
   ...
 )
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1997,10 +2015,9 @@ CREATE TABLE table_name (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Foreign Key Definition Example}
+  \frametitle{Foreign Key Example}
 
-  \begin{example}[\texttt{MOVIE.DIRECTORID}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   ...
@@ -2010,12 +2027,11 @@ CREATE TABLE MOVIE (
     ON DELETE RESTRICT
     ON UPDATE CASCADE
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Foreign Key Definition}
+  \frametitle{Foreign Keys}
 
   \begin{itemize}
     \item if the foreign key corresponds to the primary key\\
@@ -2035,8 +2051,7 @@ column_name data_type
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{MOVIE}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
@@ -2045,36 +2060,31 @@ CREATE TABLE MOVIE (
   VOTES INTEGER DEFAULT 0,
   DIRECTORID INTEGER REFERENCES PERSON
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{PERSON}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE PERSON (
   ID INTEGER PRIMARY KEY,
   NAME VARCHAR(40) UNIQUE NOT NULL
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example Database}
 
-  \begin{example}[\texttt{CASTING}]
-    \begin{lstlisting}
+  \begin{lstlisting}
 CREATE TABLE CASTING (
   MOVIEID INTEGER REFERENCES MOVIE,
   ACTORID INTEGER REFERENCES PERSON,
   ORD INTEGER,
   PRIMARY KEY (MOVIEID, ACTORID)
 )
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \section*{References}
