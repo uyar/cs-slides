@@ -492,16 +492,16 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \frametitle{Candidate Key Examples}
 
   \begin{itemize}
-    \item \texttt{\{TITLE\}}
+    \item \texttt{\{TITLE\}} ?
 
     \pause
-    \item \texttt{\{TITLE, YEAR\}}
+    \item \texttt{\{TITLE, YEAR\}} ?
 
     \pause
-    \item \texttt{\{TITLE, DIRECTOR\}}
+    \item \texttt{\{TITLE, DIRECTOR\}} ?
 
     \pause
-    \item \texttt{\{TITLE, YEAR, DIRECTOR\}}
+    \item \texttt{\{TITLE, YEAR, DIRECTOR\}} ?
   \end{itemize}
 \end{frame}
 
@@ -554,11 +554,11 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
       \item the names of the attributes in the primary key are underlined
     \end{itemize}
 
+    \pause
     \medskip
     \item any attribute that is part of the primary key\\
       can not be empty in any tuple
 
-    \pause
     \medskip
     \item every relation must have a primary key
   \end{itemize}
@@ -618,8 +618,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \frametitle{Scalarity Example}
 
   \begin{itemize}
-    \item to meet the scalarity requirement,
-      tuples have to be repeated
+    \item to meet the scalarity requirement, tuples have to be repeated
   \end{itemize}
 
   \begin{footnotesize}
@@ -749,25 +748,26 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \begin{frame}
   \frametitle{Foreign Key Example}
 
-  \vspace{-12pt}
-  \begin{footnotesize}
-  \begin{table}
-    \caption{MOVIE}
-    \begin{tabular}{|r|l|c|r|}\hline
+  \begin{columns}[t]
+    \column{.63\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
 \underline{MOVIE\#} & TITLE & ... & DIRECTOR\#\\[2pt]\hline\hline
    6 & Usual Suspects       & ... &        639\\\hline
 1512 & Suspiria             & ... &       2259\\\hline
   70 & Being John Malkovich & ... &       1485\\\hline
  ... & ...                  & ... &        ...\\\hline
-    \end{tabular}
-  \end{table}
-  \end{footnotesize}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-  \vspace{-6pt}
-  \begin{footnotesize}
-  \begin{table}
-    \caption{PERSON}
-    \begin{tabular}{|r|l|}\hline
+    \column{.37\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
 \underline{PERSON\#} & NAME\\[2pt]\hline\hline
  308 & Gabriel Byrne \\\hline
 1485 & Spike Jonze   \\\hline
@@ -776,24 +776,25 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 2259 & Dario Argento \\\hline
  503 & John Malkovich\\\hline
  ... & ...           \\\hline
-    \end{tabular}
-  \end{table}
-  \end{footnotesize}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 
-%   \begin{picture}(100,50)(-140,-90)
-%     \color[rgb]{0.1,0.6,0.1}
-%     \thicklines
-%     \only<2->{
-%       \put(22,22){\oval(20,8)}       % movie.director#=2259
-%       \put(101,0){\oval(20,8)}       % person.person#=2259
-%       \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
-%     }
-%     \only<3->{
-%       \put(10,41){\oval(45,9)}       % movie.director#
-%       \put(92,41){\oval(36,9)}       % person.person#
-%       \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
-%     }
-%   \end{picture}
+  \begin{picture}(100,50)(-148,-82)
+    \color[rgb]{0.1,0.6,0.1}
+    \thicklines
+    \only<2->{
+      \put(22,22){\oval(20,8)}       % movie.director#=2259
+      \put(101,0){\oval(20,8)}       % person.person#=2259
+      \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
+    }
+    \only<3->{
+      \put(10,41){\oval(45,9)}       % movie.director#
+      \put(92,41){\oval(36,9)}       % person.person#
+      \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
+    }
+  \end{picture}
 \end{frame}
 
 \begin{frame}
@@ -801,7 +802,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 
   \begin{columns}
     \column{.63\textwidth}
-    \begin{footnotesize}
+    \begin{tiny}
     \begin{table}
       \caption{MOVIE}
       \begin{tabular}{|r|l|c|r|}\hline
@@ -811,10 +812,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
        ... & ...            & ... &        ...\\\hline
       \end{tabular}
     \end{table}
-    \end{footnotesize}
+    \end{tiny}
 
     \column{.37\textwidth}
-    \begin{footnotesize}
+    \begin{tiny}
     \begin{table}
       \caption{PERSON}
       \begin{tabular}{|r|l|}\hline
@@ -824,10 +825,10 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
         ... & ...          \\\hline
       \end{tabular}
     \end{table}
-    \end{footnotesize}
+    \end{tiny}
   \end{columns}
 
-  \begin{footnotesize}
+  \begin{tiny}
   \begin{table}
     \caption{CASTING}
     \begin{tabular}{|r|r|r|}\hline
@@ -837,26 +838,26 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
                 ... &                 ... & ...\\\hline
     \end{tabular}
   \end{table}
-  \end{footnotesize}
+  \end{tiny}
 
-%   \begin{picture}(240,80)(-42,-138)
-%     \color[rgb]{0.1,0.6,0.1}
-%     \thicklines
-%     \only<2->{
-%       \put(116,78){\oval(45,9)}        % movie.director#
-%       \put(211,78){\oval(36,9)}        % person.person#
-%       \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
-%     }
-%     \only<3->{
-%       \put(97,4){\oval(33,9)}          % casting.movie#
-%       \put(3,77){\oval(33,9)}          % movie.movie#
-%       \put(96,9){\vector(-4,3){83}}    % casting.movie#->movie.movie#
-%     }
-%     \only<4->{
-%       \put(136,4){\oval(35,9)}         % casting.actor#
-%       \put(150,9){\vector(3,4){48}}    % casting.actor#->person.person#
-%     }
-%   \end{picture}
+  \begin{picture}(210,80)(-33,-108)
+    \color[rgb]{0.1,0.6,0.1}
+    \thicklines
+    \only<2->{
+      \put(116,78){\oval(45,9)}        % movie.director#
+      \put(211,78){\oval(36,9)}        % person.person#
+      \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
+    }
+    \only<3->{
+      \put(97,9){\oval(33,9)}          % casting.movie#
+      \put(3,77){\oval(33,9)}          % movie.movie#
+      \put(96,14){\vector(-4,3){78}}   % casting.movie#->movie.movie#
+    }
+    \only<4->{
+      \put(136,9){\oval(35,9)}         % casting.actor#
+      \put(150,14){\vector(3,4){45}}   % casting.actor#->person.person#
+    }
+  \end{picture}
 \end{frame}
 
 \begin{frame}
@@ -881,8 +882,8 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
 \begin{frame}
   \frametitle{Referential Integrity Examples}
 
-  \begin{columns}
-    \column{.5\textwidth}
+  \begin{columns}[t]
+    \column{.55\textwidth}
     \begin{footnotesize}
     \begin{table}
       \caption{MOVIE}
@@ -895,7 +896,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{table}
     \end{footnotesize}
 
-    \column{.5\textwidth}
+    \column{.4\textwidth}
     \begin{footnotesize}
     \begin{table}
       \caption{PERSON}
@@ -912,7 +913,7 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \begin{itemize}
     \item delete the tuple \texttt{(2259, Dario Argento)}
     \item update the tuple \texttt{(2259, Dario Argento)}\\
-      as \texttt{(2871,Dario Argento)}
+      as \texttt{(2871, Dario Argento)}
   \end{itemize}
 \end{frame}
 
@@ -1422,19 +1423,22 @@ CONSTRAINT CASTING_FKEY_ACTOR
 
   \begin{itemize}
     \item arbitrary length objects
-    \item can not be used in queries
 
-    \bigskip
-    \item text: \texttt{CHARACTER LARGE OBJECT (n)}
-    \begin{itemize}
-      \item \texttt{CLOB}
-    \end{itemize}
-
+    \medskip
     \item binary: \texttt{BINARY LARGE OBJECT (n)}
     \begin{itemize}
       \item \texttt{BLOB}
       \item picture, audio, etc.
     \end{itemize}
+
+    \item text: \texttt{CHARACTER LARGE OBJECT (n)}
+    \begin{itemize}
+      \item \texttt{CLOB}
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \item can not be used in queries
   \end{itemize}
 \end{frame}
 
@@ -1449,6 +1453,7 @@ CREATE DOMAIN domain_name [ AS ] base_type
   [ { CHECK ( condition ) } [, ...] ]
     \end{lstlisting}
 
+    \pause
     \item deleting domains:
     \begin{lstlisting}
 DROP DOMAIN domain_name [, ...]
@@ -1468,7 +1473,7 @@ CREATE DOMAIN SCORES AS FLOAT
   \end{itemize}
 \end{frame}
 
-\subsection{Table Management}
+\subsection{Data Definition}
 
 \begin{frame}[fragile]
   \frametitle{Table Creation}
@@ -1492,20 +1497,40 @@ DROP TABLE table_name [, ... ]
 \begin{frame}[fragile]
   \frametitle{Table Creation Example}
 
-  \begin{lstlisting}
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER,
   TITLE VARCHAR(80),
   YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
+  DIRECTORID INTEGER,
   SCORE FLOAT,
   VOTES INTEGER
 )
-  \end{lstlisting}
+    \end{lstlisting}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item using a domain:
+    \end{itemize}
+
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER,
+  TITLE VARCHAR(80),
+  YR NUMERIC(4),
+  DIRECTORID INTEGER,
+  SCORE SCORES,
+  VOTES INTEGER
+)
+    \end{lstlisting}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Nullable Columns and Default Values}
+  \frametitle{Null and Default Values}
 
   \begin{itemize}
     \item defining nullable columns and default values:
@@ -1518,8 +1543,8 @@ CREATE TABLE table_name (
 )
     \end{lstlisting}
 
-    \item \texttt{NULL}: the attribute is allowed to be empty (default)
-    \item \texttt{NOT NULL}: the attribute is not allowed to be empty
+    \item \texttt{NULL}: the column is allowed to be empty (default)
+    \item \texttt{NOT NULL}: the column is not allowed to be empty
   \end{itemize}
 \end{frame}
 
@@ -1531,11 +1556,45 @@ CREATE TABLE MOVIE (
   ID INTEGER,
   TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
+  DIRECTORID INTEGER,
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0
 )
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Value Constraints}
+
+  \begin{itemize}
+    \item defining constraints on values:
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  { column_name data_type
+              [ NULL | NOT NULL ]
+              [ DEFAULT default_value ] }
+  [ { CHECK ( condition ) }
+    [, ...] ]
+)
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Value Constraint Example}
+
+  \begin{itemize}
+    \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER,
+  ...,
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
+)
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1552,12 +1611,6 @@ CREATE TABLE table_name (
   [ PRIMARY KEY ( column_name [, ...] ) ]
 )
     \end{lstlisting}
-
-    \item if the primary key consists of a single column,\\
-      it can be specified in column definition:
-    \begin{lstlisting}
-column_name data_type PRIMARY KEY
-    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -1569,7 +1622,7 @@ CREATE TABLE MOVIE (
   ID INTEGER,
   TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
+  DIRECTORID INTEGER,
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
   PRIMARY KEY (ID)
@@ -1578,63 +1631,44 @@ CREATE TABLE MOVIE (
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Primary Key Example}
+  \frametitle{Primary Keys}
 
-  \begin{lstlisting}
+  \begin{itemize}
+    \item if the primary key consists of a single column,\\
+      it can be specified in column definition:
+    \begin{lstlisting}
+column_name data_type PRIMARY KEY
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{example}
+    \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
   ...
   VOTES INTEGER DEFAULT 0
 )
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Automatically Incremented Values}
 
   \begin{itemize}
-    \item product-specific definitions
+    \item no standard on defining automatically incremented values
 
     \bigskip
-    \item PostgreSQL: \texttt{SERIAL} data type:\\
+    \item PostgreSQL: \texttt{SERIAL} data type\\
       \lstinline!ID SERIAL PRIMARY KEY!
 
     \smallskip
     \item MySQL: \texttt{AUTO\_INCREMENT} property\\
       \lstinline!ID INTEGER PRIMARY KEY AUTO_INCREMENT!
-  \end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Value Constraints}
-
-  \begin{itemize}
-    \item defining constraints on values:
-    \begin{lstlisting}
-CREATE TABLE table_name (
-  ...
-  [ { CHECK ( condition ) }
-    [, ...] ]
-  ...
-)
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Value Constraint Example}
-
-  \begin{itemize}
-    \item \texttt{SCORE} values must be between \texttt{1.0} and \texttt{10.0}
-    \begin{lstlisting}
-CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  ...,
-  SCORE FLOAT,
-  VOTES INTEGER DEFAULT 0,
-  CHECK ((SCORE >= 1.0) AND (SCORE <= 10.0))
-)
-    \end{lstlisting}
+    \smallskip
+    \item SQLite: \texttt{AUTOINCREMENT} property\\
+      \lstinline!ID INTEGER PRIMARY KEY AUTOINCREMENT!
   \end{itemize}
 \end{frame}
 
@@ -1642,7 +1676,7 @@ CREATE TABLE MOVIE (
   \frametitle{Uniqueness}
 
   \begin{itemize}
-    \item defining columns as unique:
+    \item defining unique columns:
     \begin{lstlisting}
 CREATE TABLE table_name (
   ...
@@ -1652,11 +1686,7 @@ CREATE TABLE table_name (
 )
     \end{lstlisting}
 
-    \item if the uniqueness constraint consists of a single column,\\
-      it can be specified in the column definition:
-    \begin{lstlisting}
-column_name data_type UNIQUE
-    \end{lstlisting}
+    \item null values are ignored
   \end{itemize}
 \end{frame}
 
@@ -1664,19 +1694,41 @@ column_name data_type UNIQUE
   \frametitle{Uniqueness Example}
 
   \begin{itemize}
-    \item \texttt{\{TITLE\}} and \texttt{\{DIRECTOR, YR\}} are unique
+    \item titles and (director, year) pairs are unique:
     \begin{lstlisting}
 CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
-  TITLE VARCHAR(80) UNIQUE NOT NULL,
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
-  DIRECTOR VARCHAR(40),
+  DIRECTORID INTEGER,
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
+  UNIQUE (TITLE),
   UNIQUE (DIRECTOR, YR)
 )
     \end{lstlisting}
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Uniqueness}
+
+  \begin{itemize}
+    \item if the uniqueness constraint consists of a single column,\\
+      it can be specified in the column definition:
+    \begin{lstlisting}
+column_name data_type UNIQUE
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{example}[person names are unique]
+    \begin{lstlisting}
+CREATE TABLE PERSON (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  NAME VARCHAR(40) UNIQUE NOT NULL
+)
+    \end{lstlisting}
+  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1824,7 +1876,7 @@ ALTER TABLE MOVIE
   \end{itemize}
 \end{frame}
 
-\subsection{Data Modification}
+\subsection{Data Manipulation}
 
 \begin{frame}[fragile]
   \frametitle{Row Insertion}
@@ -1841,7 +1893,9 @@ INSERT INTO table_name
     \item the order of values must match the order of columns
     \item if the column names are not specified,\\
       values must be written in the order used at table creation
-    \item unspecified attributes will take their default values
+
+    \pause
+    \item unspecified columns will take their default values
     \item automatically generated columns should not be specified
   \end{itemize}
 \end{frame}
@@ -1854,7 +1908,7 @@ INSERT INTO MOVIE VALUES (
   6,
   'Usual Suspects',
   1995,
-  'Bryan Singer',
+  639,
   8.7,
   35027
 )
@@ -1885,6 +1939,8 @@ INSERT INTO MOVIE (YR, TITLE) VALUES (
 DELETE FROM table_name
   [ WHERE condition ]
     \end{lstlisting}
+
+    \item if no condition is specified, all rows will be deleted
   \end{itemize}
 \end{frame}
 
@@ -1910,6 +1966,9 @@ UPDATE table_name
   SET { column_name = column_value } [, ...]
   [ WHERE condition ]
     \end{lstlisting}
+
+    \item if no condition is specified, all rows will be updated
+    \item the order column assignments isn't significant
   \end{itemize}
 \end{frame}
 
@@ -1940,6 +1999,98 @@ CREATE TABLE table_name (
   ...
   [ { FOREIGN KEY ( column_name [, ...] )
         REFERENCES table_name
+          [ ( column_name [, ...] ) ] }
+    [, ...] ]
+  ...
+)
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Foreign Key Example}
+
+  \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  TITLE VARCHAR(80) NOT NULL,
+  YR NUMERIC(4),
+  SCORE FLOAT,
+  VOTES INTEGER DEFAULT 0,
+  DIRECTORID INTEGER,
+  FOREIGN KEY DIRECTORID REFERENCES PERSON (ID)
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Foreign Keys}
+
+  \begin{itemize}
+    \item if the foreign key consists of only one column,\\
+      it can be specified in the column definition:
+    \begin{lstlisting}
+column_name data_type
+  REFERENCES table_name [ ( column_name ) ]
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{example}
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ...
+  VOTES INTEGER DEFAULT 0,
+  DIRECTORID INTEGER REFERENCES PERSON (ID)
+)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Foreign Keys}
+
+  \begin{itemize}
+    \item if the foreign key corresponds to the primary key,\\
+      the referred column doesn't have to be specified
+  \end{itemize}
+
+  \begin{example}
+    \begin{lstlisting}
+CREATE TABLE MOVIE (
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  ...
+  VOTES INTEGER DEFAULT 0,
+  DIRECTORID INTEGER REFERENCES PERSON
+)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Integrity Violation Options}
+
+  \begin{itemize}
+    \item what to do if referential integrity will be broken?
+
+    \medskip
+    \item don't allow if used: \texttt{RESTRICT}, \texttt{NO\_ACTION}
+    \item reflect the change to affected tuples: \texttt{CASCADE}
+    \item assign null value: \texttt{SET NULL}
+    \item assign default value: \texttt{SET DEFAULT}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Foreign Keys}
+
+  \begin{itemize}
+    \item integrity violation options:
+    \begin{lstlisting}
+CREATE TABLE table_name (
+  ...
+  [ { FOREIGN KEY ( column_name [, ...] )
+        REFERENCES table_name
           [ ( column_name [, ...] ) ]
         [ ON DELETE option ]
         [ ON UPDATE option ] } [, ...] ]
@@ -1949,77 +2100,12 @@ CREATE TABLE table_name (
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Referential Integrity Options}
-
-  \begin{itemize}
-    \item what to do if referential integrity will be broken?
-
-    \medskip
-    \item don't allow: \texttt{RESTRICT}, \texttt{NO\_ACTION}
-    \item reflect the change to affected tuples: \texttt{CASCADE}
-    \item assign null value: \texttt{SET NULL}
-    \item assign default value: \texttt{SET DEFAULT}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Referential Integrity Examples}
-
-  \begin{example}[restrict when deleting]
-    \begin{itemize}
-      \item if the \texttt{ID} attribute of the director to be deleted\\
-        from the \texttt{PERSON} relation is present among the current values\\
-        of the \texttt{DIRECTORID} attribute of the \texttt{MOVIE} relation,\\
-        do not allow deleting
-    \end{itemize}
-  \end{example}
-
-  \pause
-  \begin{example}[cascade when updating]
-    \begin{itemize}
-      \item when the \texttt{ID} attribute value of a director has been
-        updated\\
-        in the \texttt{PERSON} relation, also update the \texttt{DIRECTORID}
-        attribute\\
-        of the corresponding tuples in the \texttt{MOVIE} relation
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Referential Integrity Example}
-
-  \begin{example}[cascade when deleting]
-    \begin{itemize}
-      \item delete a person from the \texttt{PERSON} relation
-
-      \pause
-      \item delete all tuples from the \texttt{CASTING} relation\\
-        where the \texttt{ACTORID} attribute has the same value\\
-        as the \texttt{ID} attribute of the deleted person
-
-      \pause
-      \item delete all tuples from the \texttt{MOVIE} relation\\
-        where the \texttt{DIRECTORID} attribute has the same value\\
-        as the \texttt{ID} attribute of the deleted person
-
-      \pause
-      \item for each deleted \texttt{MOVIE} tuple in the previous step,\\
-        delete all tuples from the \texttt{CASTING} relation\\
-        where the \texttt{MOVIEID} attribute has the same value\\
-        as the \texttt{ID} attribute of the deleted movie
-
-    \end{itemize}
-  \end{example}
-\end{frame}
-
 \begin{frame}[fragile]
   \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
   ...
   DIRECTORID INTEGER,
   FOREIGN KEY DIRECTORID
@@ -2030,21 +2116,156 @@ CREATE TABLE MOVIE (
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Foreign Keys}
+\begin{frame}
+  \frametitle{Referential Integrity Example}
 
   \begin{itemize}
-    \item if the foreign key corresponds to the primary key\\
-      in the referenced table, it does not have to be specified\\
-      in the \texttt{REFERENCES} part
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
+  \end{itemize}
 
-    \medskip
-    \item if the foreign key consists of only one column,\\
-      it can be specified in the column definition:
-    \begin{lstlisting}
-column_name data_type
-  REFERENCES table_name [ ( column_name ) ]
-    \end{lstlisting}
+  \begin{columns}
+    \column{.63\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
+\underline{ID} & TITLE             & ... & DIRECTORID\\[2pt]\hline\hline
+          6 & Usual Suspects       & ... &        639\\\hline
+         70 & Being John Malkovich & ... &       1485\\\hline
+        107 & Batman \& Robin      & ... &        105\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.37\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{ID} & NAME\\[2pt]\hline\hline
+           308 & Gabriel Byrne\\\hline
+          1485 & Spike Jonze  \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
+
+  \begin{itemize}
+    \item delete Spike Jonze from PERSON: not allowed
+    \pause
+    \item delete Gabriel Byrne from PERSON: allowed
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Referential Integrity Example}
+
+  \begin{itemize}
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
+  \end{itemize}
+
+  \vspace{-24pt}
+  \begin{columns}
+    \column{.63\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
+\underline{ID} & TITLE             & ... & DIRECTORID\\[2pt]\hline\hline
+          6 & Usual Suspects       & ... &        639\\\hline
+         70 & Being John Malkovich & ... &       1485\\\hline
+        107 & Batman \& Robin      & ... &        105\\\hline
+        112 & Three Kings          & ... &       1070\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.37\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{ID} & NAME\\[2pt]\hline\hline
+           308 & Gabriel Byrne\\\hline
+          1485 & Spike Jonze  \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
+
+  \vspace{-12pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{CASTING}
+    \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
+                  6 &                 308 &   2\\\hline
+                 70 &                 282 &   2\\\hline
+                112 &                1485 &   4\\\hline
+    \end{tabular}
+  \end{table}
+  \end{tiny}
+
+  \begin{itemize}
+    \item delete Spike Jonze from PERSON: which rows get deleted?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Referential Integrity Example}
+
+  \begin{itemize}
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
+    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
+  \end{itemize}
+
+  \vspace{-24pt}
+  \begin{columns}
+    \column{.63\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{MOVIE}
+      \begin{tabular}{|r|l|c|r|}\hline
+\underline{ID} & TITLE             & ... & DIRECTORID\\[2pt]\hline\hline
+          6 & Usual Suspects       & ... &        639\\\hline
+         70 & Being John Malkovich & ... &       1485\\\hline
+        107 & Batman \& Robin      & ... &        105\\\hline
+        112 & Three Kings          & ... &       1070\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.37\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
+\underline{ID} & NAME\\[2pt]\hline\hline
+           308 & Gabriel Byrne\\\hline
+          1485 & Spike Jonze  \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
+
+  \vspace{-12pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{CASTING}
+    \begin{tabular}{|r|r|r|}\hline
+\underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
+                  6 &                 308 &   2\\\hline
+                 70 &                 282 &   2\\\hline
+                112 &                1485 &   4\\\hline
+    \end{tabular}
+  \end{table}
+  \end{tiny}
+
+  \begin{itemize}
+    \item delete Spike Jonze from PERSON: which rows get deleted?
   \end{itemize}
 \end{frame}
 
@@ -2053,7 +2274,7 @@ column_name data_type
 
   \begin{lstlisting}
 CREATE TABLE MOVIE (
-  ID INTEGER PRIMARY KEY,
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
   TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
   SCORE FLOAT,
@@ -2068,7 +2289,7 @@ CREATE TABLE MOVIE (
 
   \begin{lstlisting}
 CREATE TABLE PERSON (
-  ID INTEGER PRIMARY KEY,
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
   NAME VARCHAR(40) UNIQUE NOT NULL
 )
   \end{lstlisting}
