@@ -1,15 +1,11 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
@@ -17,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 \usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
@@ -44,7 +41,7 @@
 \subtitle{Relational Algebra}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -55,7 +52,7 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \begin{document}
 
@@ -67,33 +64,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -110,25 +114,22 @@
 \begin{frame}
   \frametitle{Closure}
 
-  \begin{definition}
-    \alert{closure}: the input and output of all operations are relations
-  \end{definition}
-
-  \pause
   \begin{itemize}
+    \item \alert{closure}: the input and output of all operations are relations
+
+    \medskip
     \item the output of one operation can be the input of another
     \item operations can be nested
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example Relations}
+  \frametitle{Example Database}
 
-  \begin{example}[MOVIE]
-    \begin{tiny}
-    \begin{table}
-      %\caption{MOVIE}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
+  \begin{tiny}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE           & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
    6 & Usual Suspects                 & 1995 &   8.7 & 35027 &        639\\\hline
   70 & Being John Malkovich           & 1999 &   8.3 & 13809 &       1485\\\hline
@@ -150,19 +151,17 @@
     \end{tabular}
   \end{table}
   \end{tiny}
-  \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example Relations}
+  \frametitle{Example Database}
 
-  \begin{example}[PERSON]
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
 \underline{PERSON\#} & NAME\\[2pt]\hline\hline
    9 & Arnold Schwarzenegger\\\hline
   26 & Johnny Depp          \\\hline
@@ -180,14 +179,14 @@
  302 & Benicio Del Toro     \\\hline
  308 & Gabriel Byrne        \\\hline
  350 & Jennifer Jason Leigh \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|l|}\hline
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|l|}\hline
  364 & John Waters          \\\hline
  406 & Patricia Arquette    \\\hline
  503 & John Malkovich       \\\hline
@@ -203,23 +202,21 @@
 2557 & Rupert Wainwright    \\\hline
 2861 & Stephen Norrington   \\\hline
 3578 & Traci Lords          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
   \end{columns}
-  \end{example}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example Relations}
+  \frametitle{Example Database}
 
-  \begin{example}[CASTING]
-    \begin{columns}[b]
-      \column{.3\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{CASTING}
-        \begin{tabular}{|r|r|r|}\hline
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
       6 &     308 &   2\\\hline
       6 &     302 &   3\\\hline
@@ -235,19 +232,19 @@
     151 &     243 &   2\\\hline
     151 &     793 &   3\\\hline
     213 &     745 &   6\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|r|}\hline
     213 &    3578 &   8\\\hline
     228 &      26 &   1\\\hline
     228 &     406 &   4\\\hline
     251 &       9 &   1\\\hline
     251 &     308 &   2\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|r|r|}\hline
     251 &     745 &  10\\\hline
     281 &     243 &   7\\\hline
     281 &     503 &   2\\\hline
@@ -255,14 +252,6 @@
     373 &     187 &   6\\\hline
     373 &     282 &   8\\\hline
     373 &     302 &   2\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|r|}\hline
     432 &     308 &   2\\\hline
     432 &     406 &   1\\\hline
     433 &     350 &   1\\\hline
@@ -275,11 +264,10 @@
    1539 &      26 &   1\\\hline
    1539 &    1641 &   5\\\hline
    1539 &    3578 &   7\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \subsection{Selection}
@@ -287,19 +275,13 @@
 \begin{frame}[fragile]
   \frametitle{Selection}
 
-  \begin{definition}
-    \alert{selection}: selecting tuples that satisfy a condition
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item \alert{selection}: selecting tuples that satisfy a condition
     \begin{lstlisting}
 relation WHERE condition
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = input header
   \end{itemize}
 \end{frame}
@@ -307,78 +289,64 @@ relation WHERE condition
 \begin{frame}[fragile]
   \frametitle{Selection Examples - 1}
 
-  \begin{example}
-    \begin{itemize}
-      \item the movies with more than 10000 votes (\texttt{S1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the movies with more than 10000 votes (\texttt{S1})
     \begin{lstlisting}
 MOVIE WHERE (VOTES > 10000)
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{S1}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{S1}
+    \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
   6 & Usual Suspects        & 1995 &   8.7 & 35027 &        639\\\hline
  70 & Being John Malkovich  & 1999 &   8.3 & 13809 &       1485\\\hline
 107 & Batman \& Robin       & 1997 &   3.5 & 10577 &        105\\\hline
 110 & Sleepy Hollow         & 1999 &   7.5 & 10514 &        148\\\hline
 112 & Three Kings           & 1999 &   7.7 & 10319 &       1070\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Selection Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item the movies older than 1992, with scores higher than 7.5
-        (\texttt{S2})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the movies older than 1992, with scores higher than 7.5
+      (\texttt{S2})
     \begin{lstlisting}
 MOVIE WHERE ((YEAR < YEAR(1992))
          AND (SCORE > SCORE(7.5)))
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{S2}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{S2}
+    \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
    281 & Dangerous Liaisons & 1988 &   7.7 &  5651 &        292\\\hline
   1468 & Europa             & 1991 &   7.6 &  1042 &        615\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection}
 
-  \begin{definition}
-    \alert{projection}: selecting a set of attributes
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item \alert{projection}: selecting a set of attributes
     \begin{lstlisting}
 relation { attribute_name [, ...] }
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = attribute list
   \end{itemize}
 \end{frame}
@@ -386,23 +354,20 @@ relation { attribute_name [, ...] }
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 1}
 
-  \begin{example}
-    \begin{itemize}
+  \begin{itemize}
       \item the titles of all movies (\texttt{P1})
-    \end{itemize}
-
     \begin{lstlisting}
 MOVIE { TITLE }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{P1}
-        \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{P1}
+      \begin{tabular}{|l|}\hline
 \underline{TITLE}             \\[2pt]\hline\hline
 Usual Suspects                \\\hline
 Being John Malkovich          \\\hline
@@ -413,14 +378,14 @@ Gattaca                       \\\hline
 Blade                         \\\hline
 Ed Wood                       \\\hline
 End of Days                   \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|}\hline
 Dangerous Liaisons            \\\hline
 Fear and Loathing in Las Vegas\\\hline
 Stigmata                      \\\hline
@@ -429,33 +394,29 @@ Dead Man                      \\\hline
 Europa                        \\\hline
 Suspiria                      \\\hline
 Cry-Baby                      \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles and years of all movies (\texttt{P2})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the titles and years of all movies (\texttt{P2})
     \begin{lstlisting}
 MOVIE { TITLE, YEAR }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{P2}
-        \begin{tabular}{|l|r|}\hline
+  \vspace{-10pt}
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{P2}
+      \begin{tabular}{|l|r|}\hline
 \underline{TITLE}              & \underline{YEAR}\\[2pt]\hline\hline
 Batman \& Robin                & 1997\\\hline
 Being John Malkovich           & 1999\\\hline
@@ -466,14 +427,14 @@ Dead Man                       & 1995\\\hline
 Ed Wood                        & 1994\\\hline
 End of Days                    & 1999\\\hline
 Europa                         & 1991\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|r|}\hline
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|r|}\hline
 Fear and Loathing in Las Vegas & 1998\\\hline
 Gattaca                        & 1997\\\hline
 Sleepy Hollow                  & 1999\\\hline
@@ -482,31 +443,27 @@ Suspiria                       & 1977\\\hline
 Three Kings                    & 1999\\\hline
 Usual Suspects                 & 1995\\\hline
 eXistenZ                       & 1999\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 3}
 
-  \begin{example}
-    \begin{itemize}
-      \item the years of all movies (\texttt{P3})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the years of all movies (\texttt{P3})
     \begin{lstlisting}
 MOVIE { YEAR }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{P3}
-      \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{P3}
+    \begin{tabular}{|r|}\hline
 \underline{YEAR}\\[2pt]\hline\hline
             1995\\\hline
             1999\\\hline
@@ -517,52 +474,46 @@ MOVIE { YEAR }
             1991\\\hline
             1977\\\hline
             1990\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}
   \frametitle{Projection Examples - 4}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of movies with votes more than 5000\\
-        and scores higher than 7.0 (\texttt{P4})
-    \end{itemize}
+  \begin{itemize}
+    \item the titles of movies with votes more than 5000\\
+      and scores higher than 7.0 (\texttt{P4})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the movies with votes more than 5000\\
+      and scores higher than 7.0 (\texttt{P4A})
 
     \pause
-    \begin{enumerate}
-      \item the movies with votes more than 5000\\
-        and scores higher than 7.0 (\texttt{P4A})
-
-      \pause
-      \item the titles in \texttt{P4A} (\texttt{P4})
-    \end{enumerate}
-  \end{example}
+    \item the titles in \texttt{P4A} (\texttt{P4})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 4}
 
-  \begin{example}
-    \begin{itemize}
-      \item the movies with votes more than 5000\\
-        and scores higher than 7.0 (\texttt{P4A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the movies with votes more than 5000\\
+      and scores higher than 7.0 (\texttt{P4A})
     \begin{lstlisting}
 MOVIE WHERE ((VOTES > 5000)
          AND (SCORE > SCORE(7.0)))
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{P4A}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{P4A}
+    \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
    6 & Usual Suspects       & 1995 &   8.7 & 35027 &        639\\\hline
   70 & Being John Malkovich & 1999 &   8.3 & 13809 &       1485\\\hline
@@ -571,30 +522,26 @@ MOVIE WHERE ((VOTES > 5000)
  151 & Gattaca              & 1997 &   7.4 &  8388 &       2020\\\hline
  228 & Ed Wood              & 1994 &   7.8 &  6587 &        148\\\hline
  281 & Dangerous Liaisons   & 1988 &   7.7 &  5651 &        292\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 4}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles in \texttt{P4A} (\texttt{P4})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the titles in \texttt{P4A} (\texttt{P4})
     \begin{lstlisting}
 P4A { TITLE }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{P4}
-      \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{P4}
+    \begin{tabular}{|l|}\hline
 \underline{TITLE}   \\[2pt]\hline\hline
 Being John Malkovich\\\hline
 Dangerous Liaisons  \\\hline
@@ -603,28 +550,24 @@ Gattaca             \\\hline
 Sleepy Hollow       \\\hline
 Three Kings         \\\hline
 Usual Suspects      \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Projection Examples - 4}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of movies with votes more than 5000\\
-        and scores higher than 7.0 (\texttt{P4})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the titles of movies with votes more than 5000\\
+      and scores higher than 7.0 (\texttt{P4})
     \begin{lstlisting}
 ( MOVIE
     WHERE ((VOTES > 5000)
        AND (SCORE > SCORE(7.0))) )
   { TITLE }
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Join}
@@ -632,10 +575,22 @@ Usual Suspects      \\\hline
 \begin{frame}[fragile]
   \frametitle{Join}
 
-  \begin{definition}
-    \alert{join}: matching tuples of two relations\\
+  \begin{itemize}
+    \item \alert{join}: matching tuples of two relations\\
       over common values of one or more attributes
-  \end{definition}
+    \begin{lstlisting}
+relation1 JOIN relation2
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \item \alert{natural join}: over common values of all the attributes\\
+      with the same name
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Join}
 
   \begin{itemize}
     \item from the Cartesian product of the two relations,\\
@@ -643,23 +598,7 @@ Usual Suspects      \\\hline
       for the given attributes
     \item matching attributes are not repeated in the output
 
-    \pause
-    \item \alert{natural join}: over common values of all the attributes\\
-      with the same name
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Join}
-
-  \begin{block}{Statement}
-    \begin{lstlisting}
-relation1 JOIN relation2
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = relation1 header $\cup$ relation2 header
   \end{itemize}
 \end{frame}
@@ -667,41 +606,36 @@ relation1 JOIN relation2
 \begin{frame}
   \frametitle{Join Examples - 1}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of all movies and the names of their directors
-        (\texttt{J1})
-    \end{itemize}
+  \begin{itemize}
+    \item the titles of all movies and the names of their directors
+      (\texttt{J1})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item all movies and their directors (\texttt{J1A})
 
     \pause
-    \begin{enumerate}
-      \item all movies and their directors (\texttt{J1A})
-
-      \pause
-      \item the movie titles and director names in \texttt{J1A} (\texttt{J1})
-    \end{enumerate}
-  \end{example}
+    \item the movie titles and director names in \texttt{J1A} (\texttt{J1})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 1}
 
-  \begin{example}
-    \begin{itemize}
-      \item all movies and their directors (\texttt{J1A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item all movies and their directors (\texttt{J1A})
     \begin{lstlisting}
 MOVIE JOIN
-  (PERSON RENAME (PERSON# AS DIRECTOR#))
+  (PERSON RENAME { PERSON# AS DIRECTOR# })
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J1A}
-      \begin{tabular}{|r|l|c|r|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J1A}
+    \begin{tabular}{|r|l|c|r|l|}\hline
 \underline{MOVIE\#} & TITLE & ... & DIRECTOR\# & NAME            \\[2pt]\hline\hline
    6 & Usual Suspects       & ... &       639  & Bryan Singer    \\\hline
   70 & Being John Malkovich & ... &      1485  & Spike Jonze     \\\hline
@@ -710,31 +644,27 @@ MOVIE JOIN
 1468 & Europa               & ... &       615  & Lars von Trier  \\\hline
 1512 & Suspiria             & ... &      2259  & Dario Argento   \\\hline
 1539 & Cry-Baby             & ... &       364  & John Waters     \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 1}
 
-  \begin{example}
-    \begin{itemize}
-      \item the movie titles and director names in \texttt{J1A}
-        (\texttt{J1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the movie titles and director names in \texttt{J1A}
+      (\texttt{J1})
     \begin{lstlisting}
 J1A { TITLE, NAME }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J1}
-      \begin{tabular}{|l|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J1}
+    \begin{tabular}{|l|l|}\hline
 \underline{TITLE}    & \underline{NAME}\\[2pt]\hline\hline
 Batman \& Robin      & Joel Schumacher \\\hline
 Being John Malkovich & Spike Jonze     \\\hline
@@ -743,53 +673,47 @@ Blade                & Stephen Norrington\\\hline
 Three Kings          & Spike Jonze     \\\hline
 Usual Suspects       & Bryan Singer    \\\hline
 eXistenZ             & David Cronenberg\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}
   \frametitle{Join Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of all movies and the names of their actors,\\
-        along with their ordinal numbers (\texttt{J2})
-    \end{itemize}
+  \begin{itemize}
+    \item the titles of all movies and the names of their actors,\\
+      along with their ordinal numbers (\texttt{J2})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item all movies and their casting data (\texttt{J2A})
 
     \pause
-    \begin{enumerate}
-      \item all movies and their casting data (\texttt{J2A})
+    \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
 
-      \pause
-      \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
-
-      \pause
-      \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
-        (\texttt{J2})
-    \end{enumerate}
-  \end{example}
+    \pause
+    \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
+      (\texttt{J2})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item all movies and their casting data (\texttt{J2A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item all movies and their casting data (\texttt{J2A})
     \begin{lstlisting}
 MOVIE JOIN CASTING
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J2A}
-      \begin{tabular}{|r|l|c|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J2A}
+    \begin{tabular}{|r|l|c|r|r|}\hline
 \underline{MOVIE\#} & TITLE & ... & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
    6 & Usual Suspects       & ... &                 302 &   3\\\hline
    6 & Usual Suspects       & ... &                 308 &   2\\\hline
@@ -799,30 +723,27 @@ MOVIE JOIN CASTING
 1539 & Cry-Baby             & ... &                  26 &   1\\\hline
 1539 & Cry-Baby             & ... &                1641 &   5\\\hline
 1539 & Cry-Baby             & ... &                3578 &   7\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
-    \end{itemize}
-
+  \begin{itemize}
+    \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
     \begin{lstlisting}
-J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
+J2A JOIN
+  (PERSON RENAME { PERSON# AS ACTOR# })
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J2B}
-      \begin{tabular}{|r|l|c|r|r|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J2B}
+    \begin{tabular}{|r|l|c|r|r|l|}\hline
 \underline{MOVIE\#} & TITLE & ... & \underline{ACTOR\#} & ORD & NAME\\[2pt]\hline\hline
    6 & Usual Suspects       & ... &     302 &   3 & Benicio Del Toro\\\hline
    6 & Usual Suspects       & ... &     308 &   2 & Gabriel Byrne   \\\hline
@@ -832,31 +753,27 @@ J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
 1539 & Cry-Baby             & ... &      26 &   1 & Johnny Depp     \\\hline
 1539 & Cry-Baby             & ... &    1641 &   5 & Iggy Pop        \\\hline
 1539 & Cry-Baby             & ... &    3578 &   7 & Traci Lords     \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 2}
 
-  \begin{example}
-    \begin{itemize}
-      \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
-        (\texttt{J2})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
+      (\texttt{J2})
     \begin{lstlisting}
 J2B { TITLE, NAME, ORD }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J2}
-      \begin{tabular}{|l|l|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J2}
+    \begin{tabular}{|l|l|r|}\hline
 \underline{TITLE}    & \underline{NAME} & \underline{ORD}\\[2pt]\hline\hline
 Usual Suspects       & Benicio Del Toro &   3\\\hline
 Usual Suspects       & Gabriel Byrne    &   2\\\hline
@@ -866,85 +783,75 @@ Being John Malkovich & John Malkovich   &  14\\\hline
 Cry-Baby             & Johnny Depp      &   1\\\hline
 Cry-Baby             & Iggy Pop         &   5\\\hline
 Cry-Baby             & Traci Lords      &   7\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}
   \frametitle{Join Examples - 3}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of the actors in Johnny Depp's movies (\texttt{J3})
-    \end{itemize}
+  \begin{itemize}
+    \item the names of the actors in Johnny Depp's movies (\texttt{J3})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the identifiers of Johnny Depp's movies (\texttt{J3A})
 
     \pause
-    \begin{enumerate}
-      \item the identifiers of Johnny Depp's movies (\texttt{J3A})
+    \item the identifiers of the actors in the movies in \texttt{J3A}
+      (\texttt{J3B})
 
-      \pause
-      \item the identifiers of the actors in the movies in \texttt{J3A}
-        (\texttt{J3B})
-
-      \pause
-      \item the names of the actors in \texttt{J3B} (\texttt{J3})
-    \end{enumerate}
-  \end{example}
+    \pause
+    \item the names of the actors in \texttt{J3B} (\texttt{J3})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers of Johnny Depp's movies (\texttt{J3A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers of Johnny Depp's movies (\texttt{J3A})
     \begin{lstlisting}
-(((PERSON RENAME (PERSON# AS ACTOR#))
+(((PERSON RENAME { PERSON# AS ACTOR# })
     JOIN CASTING)
-  WHERE (NAME = 'Johnny Depp')) { MOVIE# }
-  \end{lstlisting}
+  WHERE (NAME = "Johnny Depp")) { MOVIE# }
+    \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J3A}
-      \begin{tabular}{|r|l|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J3A}
+    \begin{tabular}{|r|l|r|r|}\hline
 \underline{MOVIE\#}\\[2pt]\hline\hline
                 110\\\hline
                 228\\\hline
                 373\\\hline
                 573\\\hline
                1539\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers of the actors in the movies in \texttt{J3A}
-        (\texttt{J3B})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers of the actors in the movies in \texttt{J3A}
+      (\texttt{J3B})
     \begin{lstlisting}
 (J3A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J3B}
-      \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J3B}
+    \begin{tabular}{|r|}\hline
 \underline{ACTOR\#}\\[2pt]\hline\hline
                  26\\\hline
                 187\\\hline
@@ -954,31 +861,27 @@ Cry-Baby             & Traci Lords      &   7\\\hline
                 406\\\hline
                1641\\\hline
                3578\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Examples - 3}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of the actors in \texttt{J3B} (\texttt{J3})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the names of the actors in \texttt{J3B} (\texttt{J3})
     \begin{lstlisting}
-((J3B RENAME (ACTOR# AS PERSON#))
+((J3B RENAME { ACTOR# AS PERSON# })
     JOIN PERSON) { NAME }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{J3}
-      \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{J3}
+    \begin{tabular}{|l|}\hline
 \underline{NAME} \\[2pt]\hline\hline
 Johnny Depp      \\\hline
 Christina Ricci  \\\hline
@@ -988,197 +891,156 @@ Gabriel Byrne    \\\hline
 Patricia Arquette\\\hline
 Iggy Pop         \\\hline
 Traci Lords      \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
-% 
-% \begin{frame}
-%   \frametitle{Join}
-% 
-%   \begin{itemize}
-%     \item what if the relation headers are distinct?
-%     \item what if the relation headers are identical?
-%   \end{itemize}
-% 
-%   \pause
-%   \begin{example}
-%     \begin{itemize}
-%       \item what is the result of "\lstinline!P3 JOIN P4!"?
-%       \item what is the result of "\lstinline!S1 JOIN P4A!"?
-%     \end{itemize}
-%   \end{example}
-% \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Division}
 
-  \begin{definition}
-    \alert{division}: from the tuples of the first relation,\\
+  \begin{itemize}
+    \item \alert{division}: from the tuples of the first relation,\\
       selecting the ones that match all the tuples\\
       of the second relation in a mediating relation
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
     \begin{lstlisting}
 relation1 DIVIDEBY relation2
   PER (relation3)
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Division Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of the movies in which both Johnny Depp\\
-        and Christina Ricci played (\texttt{V1})
-    \end{itemize}
+  \begin{itemize}
+    \item the titles of the movies in which both Johnny Depp\\
+      and Christina Ricci played (\texttt{V1})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
 
     \pause
-    \begin{enumerate}
-      \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
+    \item the identities of the movies with all the actors in \texttt{V1A}
+      (\texttt{V1B})
 
-      \pause
-      \item the identities of the movies with all the actors in \texttt{V1A}
-        (\texttt{V1B})
-
-      \pause
-      \item the titles of the movies in \texttt{V1B} (\texttt{V1})
-    \end{enumerate}
-  \end{example}
+    \pause
+    \item the titles of the movies in \texttt{V1B} (\texttt{V1})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
     \begin{lstlisting}
 (PERSON
     WHERE ((NAME = "Johnny Depp")
         OR (NAME = "Christina Ricci")))
   { PERSON# }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{V1A}
-      \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{V1A}
+    \begin{tabular}{|r|}\hline
 \underline{PERSON\#}\\[2pt]\hline\hline
-                  26\\\hline
-                 187\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+                26\\\hline
+                187\\\hline
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identities of movies with all the actors in \texttt{V1A}
-        (\texttt{V1B})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identities of movies with all the actors in \texttt{V1A}
+      (\texttt{V1B})
     \begin{lstlisting}
 (MOVIE { MOVIE# })
-    DIVIDEBY (V1A RENAME (PERSON# AS ACTOR#))
-      PER (CASTING { MOVIE#, ACTOR# })
+    DIVIDEBY
+(V1A RENAME { PERSON# AS ACTOR# })
+    PER (CASTING { MOVIE#, ACTOR# })
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{V1B}
-      \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{V1B}
+    \begin{tabular}{|r|}\hline
 \underline{MOVIE\#}\\[2pt]\hline\hline
                 110\\\hline
                 373\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Division Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the titles of the movies in \texttt{V1B} (\texttt{V1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the titles of the movies in \texttt{V1B} (\texttt{V1})
     \begin{lstlisting}
 (V1B JOIN MOVIE) { TITLE }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{V1}
-      \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{V1}
+    \begin{tabular}{|l|}\hline
 \underline{TITLE}             \\[2pt]\hline\hline
 Fear and Loathing in Las Vegas\\\hline
 Sleepy Hollow                 \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
-% 
-% \begin{frame}[fragile]
-%   \frametitle{Division Example}
-% 
-%   \begin{example}[product - division relationship]
-%     \lstinline!V1B JOIN V1A! $\subseteq$ \lstinline!CASTING { MOVIE#, ACTOR# }!
-% 
-%     \pause
-%     \begin{tiny}
-%     \begin{table}
-%       \caption{$V1B \times V1A$}
-%       \begin{tabular}{|r|r|}\hline
-% \underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
-%                 110 &                  26\\\hline
-%                 110 &                 187\\\hline
-%                 373 &                  26\\\hline
-%                 373 &                 187\\\hline
-%       \end{tabular}
-%     \end{table}
-%     \end{tiny}
-%   \end{example}
-% \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Division Example}
+
+  \begin{itemize}
+    \item product - division relationship:\\
+      \lstinline!V1B JOIN V1A! $\subseteq$
+      \lstinline!CASTING { MOVIE#, ACTOR# }!
+  \end{itemize}
+
+  \begin{tiny}
+  \begin{table}
+    \begin{tabular}{|r|r|}\hline
+\underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
+                110 &                  26\\\hline
+                110 &                 187\\\hline
+                373 &                  26\\\hline
+                373 &                 187\\\hline
+    \end{tabular}
+  \end{table}
+  \end{tiny}
+\end{frame}
 
 \subsection{Set Operations}
 
 \begin{frame}[fragile]
   \frametitle{Intersection}
 
-  \begin{definition}
-    \alert{intersection}: selecting the tuples found in both relations
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item \alert{intersection}: selecting the tuples found in both relations
     \begin{lstlisting}
 relation1 INTERSECT relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
@@ -1186,93 +1048,77 @@ relation1 INTERSECT relation2
 \begin{frame}
   \frametitle{Intersection Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all directors who also acted (\texttt{I1})
-    \end{itemize}
+  \begin{itemize}
+    \item the names of all directors who also acted (\texttt{I1})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the identifiers of all directors who also acted (\texttt{I1A})
 
     \pause
-    \begin{enumerate}
-      \item the identifiers of all directors who also acted (\texttt{I1A})
-
-      \pause
-      \item the names of all the persons in \texttt{I1A} (\texttt{I1})
-    \end{enumerate}
-  \end{example}
+    \item the names of all the persons in \texttt{I1A} (\texttt{I1})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Intersection Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers of all directors who also acted (\texttt{I1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers of all directors who also acted (\texttt{I1})
     \begin{lstlisting}
 (MOVIE { DIRECTOR# }
-      RENAME (DIRECTOR# AS PERSON#))
+      RENAME { DIRECTOR# AS PERSON# })
   INTERSECT
 (CASTING { ACTOR# }
-      RENAME (ACTOR# AS PERSON#))
+      RENAME { ACTOR# AS PERSON# })
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{I1A}
-      \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{I1A}
+    \begin{tabular}{|r|}\hline
 \underline{PERSON\#}\\[2pt]\hline\hline
                 1485\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Intersection Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all the persons in \texttt{I1A} (\texttt{I1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the names of all the persons in \texttt{I1A} (\texttt{I1})
     \begin{lstlisting}
 (I1A JOIN PERSON) { NAME }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{I1}
-      \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{I1}
+    \begin{tabular}{|l|}\hline
 \underline{NAME}\\[2pt]\hline\hline
 Spike Jonze     \\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Union}
 
-  \begin{definition}
-    \alert{union}: selecting the tuples found in at least one of two relations
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item \alert{union}: selecting the tuples found in at least one of two relations
     \begin{lstlisting}
 relation1 UNION relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
@@ -1280,51 +1126,46 @@ relation1 UNION relation2
 \begin{frame}
   \frametitle{Union Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all the directors and actors of all movies\\
-        newer than 1997 (\texttt{U1})
-    \end{itemize}
+  \begin{itemize}
+    \item the names of all the directors and actors of all movies\\
+      newer than 1997 (\texttt{U1})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the identifiers and director identifiers of all movies\\
+      newer than 1997 (\texttt{U1A})
 
     \pause
-    \begin{enumerate}
-      \item the identifiers and director identifiers of all movies\\
-        newer than 1997 (\texttt{U1A})
+    \item the identifiers of all the actors in the movies in \texttt{U1A}
+      (\texttt{U1B})
 
-      \pause
-      \item the identifiers of all the actors in the movies in \texttt{U1A}
-        (\texttt{U1B})
+    \pause
+    \item the identifiers of the directors and actors in at least one of\\
+      \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
 
-      \pause
-      \item the identifiers of the directors and actors in at least one of\\
-        \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
-
-      \pause
-      \item the names of all the persons in \texttt{U1C} (\texttt{U1})
-    \end{enumerate}
-  \end{example}
+    \pause
+    \item the names of all the persons in \texttt{U1C} (\texttt{U1})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers and director identifiers of all movies\\
-        newer than 1997 (\texttt{U1A})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers and director identifiers of all movies\\
+      newer than 1997 (\texttt{U1A})
     \begin{lstlisting}
 (MOVIE WHERE (YEAR > YEAR(1997)))
   { MOVIE#, DIRECTOR# }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{tiny}
-    \begin{table}
-      \caption{U1A}
-      \begin{tabular}{|r|r|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{U1A}
+    \begin{tabular}{|r|r|}\hline
 \underline{MOVIE\#} & DIRECTOR\#\\[2pt]\hline\hline
  70 &       1485\\\hline
 110 &        148\\\hline
@@ -1334,33 +1175,29 @@ relation1 UNION relation2
 373 &         59\\\hline
 432 &       2557\\\hline
 433 &         97\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers of all the actors in the movies in \texttt{U1A}
-        (\texttt{U1B})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers of all the actors in the movies in \texttt{U1A}
+      (\texttt{U1B})
     \begin{lstlisting}
 (U1A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{U1B}
-        \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{U1B}
+      \begin{tabular}{|r|}\hline
 \underline{ACTOR\#}\\[2pt]\hline\hline
                   9\\\hline
                  26\\\hline
@@ -1369,14 +1206,14 @@ relation1 UNION relation2
                 282\\\hline
                 302\\\hline
                 308\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|}\hline
                 350\\\hline
                 406\\\hline
                 503\\\hline
@@ -1384,36 +1221,32 @@ relation1 UNION relation2
                 793\\\hline
                1485\\\hline
                3578\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the identifiers of the directors and actors in at least one of\\
-        \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the identifiers of the directors and actors in at least one of\\
+      \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
     \begin{lstlisting}
 (U1A { DIRECTOR# }
-      RENAME (DIRECTOR# AS PERSON#))
-UNION (U1B RENAME (ACTOR# AS PERSON#))
+      RENAME { DIRECTOR# AS PERSON# })
+UNION (U1B RENAME { ACTOR# AS PERSON# })
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{U1C}
-        \begin{tabular}{|r|}\hline
+  \vspace{-10pt}
+  \begin{columns}[b]
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{U1C}
+      \begin{tabular}{|r|}\hline
 \underline{PERSON\#}\\[2pt]\hline\hline
                   9\\\hline
                  26\\\hline
@@ -1421,72 +1254,60 @@ UNION (U1B RENAME (ACTOR# AS PERSON#))
                  97\\\hline
                 103\\\hline
                 138\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                 148\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|}\hline
                 187\\\hline
                 282\\\hline
                 302\\\hline
                 308\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                 350\\\hline
                 406\\\hline
                 503\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|}\hline
                 745\\\hline
                 793\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                1070\\\hline
                1485\\\hline
                2557\\\hline
                2861\\\hline
                3578\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Union Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all the persons in \texttt{U1C} (\texttt{U1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the names of all the persons in \texttt{U1C} (\texttt{U1})
     \begin{lstlisting}
 (U1C JOIN PERSON) { NAME }
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{U1}
-        \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{columns}[b]
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{U1}
+      \begin{tabular}{|l|}\hline
 \underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 Benicio Del Toro     \\\hline
@@ -1494,69 +1315,54 @@ Cameron Diaz         \\\hline
 Christina Ricci      \\\hline
 David Cronenberg     \\\hline
 David O. Russell     \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.15\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Gabriel Byrne        \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|}\hline
 George Clooney       \\\hline
 Jennifer Jason Leigh \\\hline
 John Malkovich       \\\hline
 Johnny Depp          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.15\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Jude Law             \\\hline
 Patricia Arquette    \\\hline
 Peter Hyams          \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|}\hline
 Rupert Wainwright    \\\hline
 Spike Jonze          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Stephen Norrington   \\\hline
 Terry Gilliam        \\\hline
 Tim Burton           \\\hline
 Traci Lords          \\\hline
 Udo Kier             \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Difference}
 
-  \begin{definition}
-    \alert{difference}: selecting the tuples which are found in the first\\
+  \begin{itemize}
+    \item \alert{difference}: selecting the tuples which are found in the first\\
       but not in the second relation
-  \end{definition}
-
-  \pause
-  \begin{block}{Statement}
     \begin{lstlisting}
 relation1 MINUS relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
     \item output header = relation1 header = relation2 header
   \end{itemize}
 \end{frame}
@@ -1564,67 +1370,50 @@ relation1 MINUS relation2
 \begin{frame}
   \frametitle{Difference Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all the actors who have not played\\
-        in Johnny Depp's movies (\texttt{D1})
-    \end{itemize}
+  \begin{itemize}
+    \item the names of all the actors who have not played\\
+      in Johnny Depp's movies (\texttt{D1})
+  \end{itemize}
+
+  \pause
+  \begin{enumerate}
+    \item the identities of all the actors who played\\
+      in Johnny Depp's movies (\texttt{J3B})
 
     \pause
-    \begin{enumerate}
-      \item the identities of all the actors who played\\
-        in Johnny Depp's movies (\texttt{J3B})
-
-      \pause
-      \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
-    \end{enumerate}
-  \end{example}
+    \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Difference Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
-    \end{itemize}
-
+  \begin{itemize}
+    \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
     \begin{lstlisting}
 (((CASTING { ACTOR# } MINUS J3B)
-      RENAME (ACTOR# AS PERSON#))
+      RENAME { ACTOR# AS PERSON# })
   JOIN PERSON) {NAME}
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
-    \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{D1}
-        \begin{tabular}{|l|}\hline
+  \vspace{-10pt}
+  \begin{tiny}
+  \begin{table}
+    \caption{D1}
+    \begin{tabular}{|l|}\hline
 \underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 George Clooney       \\\hline
 Jennifer Jason Leigh \\\hline
 John Malkovich       \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Jude Law             \\\hline
 Spike Jonze          \\\hline
 Udo Kier             \\\hline
 Uma Thurman          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{example}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \subsection*{References}
@@ -1649,23 +1438,24 @@ Uma Thurman          \\\hline
 \subsection{Introduction}
 
 \begin{frame}[fragile]
-  \frametitle{Simple Queries}
+  \frametitle{Projection}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item selecting columns from a table:
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] column_name [, ...]
   FROM table_name
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \pause
+    \medskip
     \item duplicate rows are allowed
     \begin{itemize}
         \item \lstinline!ALL!: preserve duplicate rows (default)
         \item \lstinline!DISTINCT!: take only one of duplicate rows
     \end{itemize}
 
+    \medskip
     \item \lstinline!*!: all columns
   \end{itemize}
 \end{frame}
@@ -1673,42 +1463,40 @@ SELECT [ ALL | DISTINCT ] column_name [, ...]
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[all data of all movies]
+  \begin{itemize}
+    \item all data of all movies
     \begin{lstlisting}
 SELECT * FROM MOVIE
     \end{lstlisting}
-  \end{example}
 
-  \pause
-  \begin{example}[titles and years of all movies]
+    \pause
+    \item titles and years of all movies
     \begin{lstlisting}
 SELECT TITLE, YR FROM MOVIE
     \end{lstlisting}
-  \end{example}
 
-  \pause
-  \begin{example}[years when movies were filmed]
+    \pause
+    \item years when movies were released
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sorting Results}
+  \frametitle{Ordering Results}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item ordering the rows in the result
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] column_name [, ...]
   FROM table_name
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item sort order:
+    \medskip
+    \item ordering direction:
     \begin{itemize}
       \item \lstinline!ASC!: ascending (default)
       \item \lstinline!DESC!: descending
@@ -1719,26 +1507,40 @@ SELECT [ ALL | DISTINCT ] column_name [, ...]
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[years when movies were filmed, in ascending order]
+  \begin{itemize}
+    \item years when movies were released, in ascending order
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
   ORDER BY YR
     \end{lstlisting}
-  \end{example}
 
-  \pause
-  \begin{example}[years when movies were filmed, in descending order]
+    \pause
+    \item years when movies were released, in descending order
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
   ORDER BY YR DESC
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Expressions}
+  \frametitle{Query Examples}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item all data of movies ordered first by descending years\\
+      then by ascending titles
+    \begin{lstlisting}
+SELECT * FROM MOVIE
+  ORDER BY YR DESC, TITLE ASC
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Column Expressions}
+
+  \begin{itemize}
+    \item evaluating expressions over columns
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1746,31 +1548,31 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item the new column can be named
-    \item the name or order of the column can be used for sorting
+    \medskip
+    \item new columns can be named: \lstinline!AS!
+    \item name or index of the column can be used for ordering
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles and total scores of all movies]
+  \begin{itemize}
+    \item titles and total scores of all movies
     \begin{lstlisting}
 SELECT TITLE, SCORE * VOTES
   FROM MOVIE
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles and total scores of all movies,\\
-                  in descending order of total scores]
+  \begin{itemize}
+    \item titles and total scores of all movies,\\
+      in descending order of total scores
     \begin{lstlisting}
 SELECT TITLE, SCORE * VOTES AS POINTS
   FROM MOVIE
@@ -1783,13 +1585,14 @@ SELECT TITLE, SCORE * VOTES
   FROM MOVIE
   ORDER BY 2 DESC
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Selecting Rows}
+  \frametitle{Selection}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item selecting rows from a table
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1798,22 +1601,27 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
+\end{frame}
 
-  \pause
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item comparison operators:\\
-        \lstinline!= < > <= >= <>!
-    \end{itemize}
+\begin{frame}[fragile]
+  \frametitle{Query Examples}
 
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item connectives:\\
-        \lstinline!NOT AND OR!
-    \end{itemize}
-  \end{columns}
+  \begin{itemize}
+    \item year of "Citizen Kane"
+    \begin{lstlisting}
+SELECT YR FROM MOVIE
+  WHERE (TITLE = 'Citizen Kane')
+    \end{lstlisting}
+
+    \pause
+    \item titles of movies with scores less than 3\\
+      and votes more than 10
+    \begin{lstlisting}
+SELECT TITLE FROM MOVIE
+  WHERE ((SCORE < 3) AND (VOTES > 10))
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1837,7 +1645,8 @@ column_name IN (value_set)
 column_name LIKE pattern
     \end{lstlisting}
     \begin{itemize}
-      \item in the pattern, \lstinline!%! can substitute any symbol group
+      \item in the pattern, \lstinline!%! can match any group of symbols\\
+        including the empty string
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -1845,57 +1654,39 @@ column_name LIKE pattern
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[years of movies with the title "Citizen Kane"]
-    \begin{lstlisting}
-SELECT YR FROM MOVIE
-  WHERE (TITLE = 'Citizen Kane')
-    \end{lstlisting}
-  \end{example}
-
-  \pause
-  \begin{example}[titles of movies with scores less than 3\\
-                  and votes more than 10]
-    \begin{lstlisting}
-SELECT TITLE FROM MOVIE
-  WHERE ((SCORE < 3) AND (VOTES > 10))
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Query Examples}
-
-  \begin{example}[titles of movies with unknown year]
+  \begin{itemize}
+    \item titles of movies with unknown year
     \begin{lstlisting}
 SELECT TITLE FROM MOVIE
   WHERE (YR IS NULL)
     \end{lstlisting}
-  \end{example}
 
-  \pause
-  \begin{example}[titles of movies in years 1967, 1954 and 1988]
+    \pause
+    \item titles and years of movies in the years 1967, 1954 and 1988
     \begin{lstlisting}
 SELECT TITLE, YR FROM MOVIE
   WHERE (YR IN (1967, 1954, 1988))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles and scores of "Police Academy" movies]
+  \begin{itemize}
+    \item titles and scores of "Police Academy" movies
     \begin{lstlisting}
 SELECT TITLE, SCORE FROM MOVIE
   WHERE (TITLE LIKE 'Police Academy%')
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Grouping}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item grouping selected rows
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1906,12 +1697,10 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item selected rows can be grouped
-    \item groups can be filtered
+    \medskip
+    \item result contains one row per group
+    \item groups can be filtered: \lstinline!HAVING!
   \end{itemize}
 \end{frame}
 
@@ -1919,24 +1708,24 @@ SELECT [ ALL | DISTINCT ]
   \frametitle{Processing Order}
 
   \begin{itemize}
-    \item the rows that satisfy the \lstinline!WHERE! condition are selected
+    \item select the rows that satisfy the \lstinline!WHERE! condition
 
     \pause
-    \item selected rows are grouped using the columns specified\\
-      in the \lstinline!GROUP BY! clause
+    \item group the selected rows using the columns\\
+      specified in the \lstinline!GROUP BY! clause
     \begin{itemize}
       \item if no group, the entire result is one group
     \end{itemize}
 
     \pause
-    \item the groups that satisfy the \lstinline!HAVING! condition are selected
+    \item select the groups that satisfy the \lstinline!HAVING! condition
 
     \pause
-    \item the expressions given in the column list are calculated
+    \item calculate the expressions in the column list
 
     \pause
-    \item the result is sorted on the column list specified\\
-      in the \lstinline!ORDER BY! clause
+    \item order the result on the columns
+      specified in the \lstinline!ORDER BY! clause
   \end{itemize}
 \end{frame}
 
@@ -1951,8 +1740,8 @@ SELECT [ ALL | DISTINCT ]
     \end{itemize}
 
     \pause
-    \item aggregate functions:\\
-      \lstinline!COUNT SUM AVG MAX MIN!
+    \medskip
+    \item aggregate functions: \lstinline!COUNT SUM AVG MAX MIN!
     \begin{itemize}
       \item column name as parameter
       \item null values are ignored
@@ -1963,46 +1752,47 @@ SELECT [ ALL | DISTINCT ]
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[for every year, the number of movies\\
-                  with score greater than 8.5 in that year]
+  \begin{itemize}
+    \item for every year, the number of movies\\
+      with score greater than 8.5 in that year
     \begin{lstlisting}
-SELECT YR, COUNT(*) FROM MOVIE
+SELECT YR, COUNT(ID) FROM MOVIE
   WHERE (SCORE > 8.5)
   GROUP BY YR
     \end{lstlisting}
-  \end{example}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Query Examples}
-
-  \begin{example}[score of the favorite movie of every year,\\
-                  in ascending order of years]
+    \pause
+    \item score of the favorite movie of every year,\\
+      in ascending order of years
     \begin{lstlisting}
 SELECT YR, MAX(SCORE) FROM MOVIE
   GROUP BY YR
   ORDER BY YR
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[total number of votes]
+  \begin{itemize}
+    \item total number of votes
     \begin{lstlisting}
 SELECT SUM(VOTES) FROM MOVIE
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[averages of movie scores which were filmed in the years\\
-                  where there are at least 25 movies\\
-                  for which more than 40 people have voted,\\
-                  in ascending order of years]
+  \begin{itemize}
+    \item averages of movie scores\\
+      in the years where there are at least 25 movies\\
+      for which more than 40 people have voted,\\
+      in ascending order of years
+
+\medskip
 \lstinline!SELECT! \uncover<5->{\lstinline!YR, AVG(SCORE)!\\}
 ~~~~\lstinline!FROM MOVIE!\\
 \pause
@@ -2013,7 +1803,7 @@ SELECT SUM(VOTES) FROM MOVIE
 ~~~~\lstinline!HAVING (COUNT(ID) >= 25)!\\
 \pause\pause
 ~~~~\lstinline!ORDER BY YR!
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Join}
@@ -2029,10 +1819,11 @@ SELECT SUM(VOTES) FROM MOVIE
     \end{itemize}
 
     \pause
+    \medskip
     \item processing order:
     \begin{itemize}
-      \item the Cartesian product of the tables is taken
-      \item the rows that satisfy the \lstinline!WHERE! condition are selected
+      \item take the Cartesian product of the tables
+      \item select the rows that satisfy the \lstinline!WHERE! condition
       \item ...
     \end{itemize}
   \end{itemize}
@@ -2041,21 +1832,22 @@ SELECT SUM(VOTES) FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[names of the directors of the movies\\
-                  with the title "Star Wars"]
+  \begin{itemize}
+    \item name of the director of "Star Wars"
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON
   WHERE ((DIRECTORID = PERSON.ID)
      AND (TITLE = 'Star Wars'))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[names of the actors of the movies with the title "Alien"]
+  \begin{itemize}
+    \item names of the actors in "Alien"
      \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON, CASTING
@@ -2063,14 +1855,14 @@ SELECT NAME
      AND (MOVIEID = MOVIE.ID)
      AND (ACTORID = PERSON.ID))
       \end{lstlisting}
-    \end{example}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of movies where actors\\
-                  with the name "Harrison Ford" played]
+  \begin{itemize}
+    \item titles of Harrison Ford's movies
     \begin{lstlisting}
 SELECT TITLE
   FROM MOVIE, PERSON, CASTING
@@ -2078,29 +1870,14 @@ SELECT TITLE
      AND (MOVIEID = MOVIE.ID)
      AND (ACTORID = PERSON.ID))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of movies where actors\\
-                  with the name "Harrison Ford" played, but not the lead role]
-    \begin{lstlisting}
-SELECT TITLE
-  FROM MOVIE, PERSON, CASTING
-  WHERE ((NAME = 'Harrison Ford')
-     AND (MOVIEID = MOVIE.ID)
-     AND (ACTORID = PERSON.ID)
-     AND (ORD > 1))
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Query Examples}
-
-  \begin{example}[titles and names of the lead actors of the movies in 1962]
+  \begin{itemize}
+    \item titles and names of the lead actors of the movies in 1962
     \begin{lstlisting}
 SELECT TITLE, NAME
   FROM MOVIE, PERSON, CASTING
@@ -2109,85 +1886,135 @@ SELECT TITLE, NAME
      AND (ACTORID = PERSON.ID)
      AND (ORD = 1))
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Query Examples}
+
+  \begin{itemize}
+    \item number of movies John Travolta acted in every year
+
+    \medskip
+\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
+~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
+\pause
+~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
+~~~~~~~~~\lstinline!AND (MOVIEID = MOVIE.ID)!\\
+~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID))!\\
+\pause
+~~~~\lstinline!GROUP BY YR!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Query Examples}
+
+  \begin{itemize}
+    \item titles and number of actors of the movies in 1978,\\
+      in descending order of actor counts
+
+    \medskip
+\lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
+~~~~\lstinline!FROM MOVIE, CASTING!\\
+\pause
+~~~~\lstinline!WHERE ((YR = 1978)!\\
+~~~~~~~~~\lstinline!AND (MOVIE.ID = CASTING.MOVIEID))!\\
+\pause
+~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
+\pause\pause
+~~~~\lstinline!ORDER BY 2 DESC!
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Table Expressions}
 
   \begin{itemize}
-    \item the join operation can be expressed as a table expression:
-    \begin{itemize}
-      \item product
-      \item using conditions
-      \item over columns with the same name
-      \item natural join
-      \item outer join
-    \end{itemize}
-  \end{itemize}
-
-  \begin{block}{Statement}
+    \item join operation can be expressed as a table expression:
     \begin{lstlisting}
 SELECT ...
   FROM table_expression [ AS table_name ]
   WHERE selection_condition
   ...
     \end{lstlisting}
-  \end{block}
+
+    \medskip
+    \item product
+    \item using conditions
+    \item over columns with the same name
+    \item natural join
+    \item outer join
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Expressions}
 
-  \begin{block}{product}
+  \begin{itemize}
+    \item product
     \begin{lstlisting}
-table1_name CROSS JOIN table2_name
+SELECT ...
+  FROM table1_name CROSS JOIN table2_name
+  ...
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{block}{using conditions}
+    \pause
+    \medskip
+    \item join using conditions
     \begin{lstlisting}
-table1_name JOIN table2_name
-  ON condition
+SELECT ...
+  FROM table1_name JOIN table2_name
+         ON condition
+  ...
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[names of the directors of the movies\\
-                  with the title "Star Wars"]
+  \begin{itemize}
+    \item name of the director of "Star Wars"
+    \begin{lstlisting}
+SELECT NAME
+  FROM MOVIE, PERSON
+  WHERE ((DIRECTORID = PERSON.ID)
+     AND (TITLE = 'Star Wars'))
+    \end{lstlisting}
+
+    \pause
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE JOIN PERSON
           ON (DIRECTORID = PERSON.ID)
   WHERE (TITLE = 'Star Wars')
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Join Expressions}
 
-  \begin{block}{over columns with the same name}
-    \begin{lstlisting}
-table1_name JOIN table2_name
-  USING (column_name [, ...])
-    \end{lstlisting}
-  \end{block}
-
   \begin{itemize}
-    \item repeated columns are taken once
-  \end{itemize}
-
-  \pause
-  \begin{block}{natural join}
+    \item over columns with the same name
     \begin{lstlisting}
-table1_name NATURAL JOIN table2_name
+SELECT ...
+  FROM table1_name JOIN table2_name
+         USING (column_name [, ...])
+  ...
     \end{lstlisting}
-  \end{block}
+    \item repeated columns are taken once
+
+    \pause
+    \medskip
+    \item natural join
+    \begin{lstlisting}
+SELECT ...
+  FROM table1_name NATURAL JOIN table2_name
+  ...
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -2199,21 +2026,20 @@ table1_name NATURAL JOIN table2_name
 
     \item in outer join, every unmatched row is included in the result\\
       where the columns from the other table are set to null
-  \end{itemize}
-
-  \pause
-  \begin{block}{Statement}
     \begin{lstlisting}
-table1_name [ LEFT | RIGHT | FULL ]
-       [ OUTER ] JOIN table2_name
+SELECT ...
+  FROM table1_name [ LEFT | RIGHT | FULL ]
+         [ OUTER ] JOIN table2_name
+  ...
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Outer Join Examples}
 
-  \begin{example}[left outer join]
+  \begin{itemize}
+    \item left outer join
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2256,13 +2082,14 @@ NUM & NAME & NUM & VALUE \\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Outer Join Examples}
 
-  \begin{example}[right outer join]
+  \begin{itemize}
+    \item right outer join
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2305,13 +2132,14 @@ NUM & NAME & NUM & VALUE \\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Outer Join Examples}
 
-  \begin{example}[full outer join]
+  \begin{itemize}
+    \item full outer join
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2355,20 +2183,21 @@ NUM & NAME & NUM & VALUE \\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of movies with no known actors]
+  \begin{itemize}
+    \item titles of movies with no known actors
     \begin{lstlisting}
 SELECT TITLE
   FROM MOVIE LEFT JOIN CASTING
          ON (MOVIEID = MOVIE.ID)
   WHERE (ACTORID IS NULL)
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -2383,13 +2212,16 @@ SELECT TITLE
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of all movies with the same number of votes]
+  \begin{itemize}
+    \item titles of all movies with the same number of votes
+
+    \medskip
     \lstinline!SELECT M1.TITLE, M2.TITLE!\\
     \lstinline!  FROM MOVIE AS M1, MOVIE AS M2!\\
     \lstinline!  WHERE (M1.VOTES = M2.VOTES)!\\
     \pause
     \lstinline!    AND (M1.ID < M2.ID)!
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Subqueries}
@@ -2397,32 +2229,29 @@ SELECT TITLE
 \begin{frame}[fragile]
   \frametitle{Subqueries}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item using subquery results in condition expressions
     \begin{lstlisting}
 SELECT ...
   WHERE expression operator
       [ ALL | ANY ] (subquery)
   ...
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
-    \item using subquery results in condition expression
-    \pause
-    \begin{itemize}
-      \item row and column counts of subquery must be suitable
-      \item \lstinline!ALL!: for all values from subquery
-      \item \lstinline!ANY!: for at least one value from subquery
-    \end{itemize}
+    \item result of subquery must be compatible
+    \item \lstinline!ALL!: for all values from subquery
+    \item \lstinline!ANY!: for at least one value from subquery
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles and scores of all movies with scores\\
-                  higher than that of "Star Wars", in descending order of
-                  scores]
+  \begin{itemize}
+    \item titles and scores of all movies with scores\\
+      higher than that of "Star Wars", in descending order of scores
+
+      \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE, SCORE FROM MOVIE!\\
 ~~~~\lstinline!WHERE (!
@@ -2439,38 +2268,17 @@ SELECT ...
 \uncover<3->{
 \lstinline!) ORDER BY SCORE DESC!
 }
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of movies with more votes\\
-                  than the sum of all "Police Academy" movies]
-\uncover<3->{
-\lstinline!SELECT TITLE FROM MOVIE!\\
-~~~~\lstinline!WHERE (!
-}
-\uncover<2->{
-\lstinline!VOTES >!\\
-~~~~~~~~\lstinline!(!
-}
-\lstinline!SELECT SUM(VOTES) FROM MOVIE!\\
-~~~~~~~~~~~~~~\lstinline!WHERE (TITLE LIKE 'Police Academy%')!
-\uncover<2->{
-\lstinline!)!\\
-}
-\uncover<3->{
-\lstinline!)!
-}
-  \end{example}
-\end{frame}
+  \begin{itemize}
+    \item titles of movies with scores less than\\
+      the scores of all "Police Academy" movies
 
-\begin{frame}[fragile]
-  \frametitle{Query Examples}
-
-  \begin{example}[titles of movies with scores less than\\
-                  the scores of all "Police Academy" movies]
+    \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE FROM MOVIE!\\
 ~~~~\lstinline!WHERE (!
@@ -2487,14 +2295,17 @@ SELECT ...
 \uncover<3->{
 \lstinline!)!
 }
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[titles of movies with less votes\\
-                than any movie made before 1930]
+  \begin{itemize}
+    \item titles of movies with less votes\\
+      than any movie made before 1930
+
+    \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE FROM MOVIE!\\
 ~~~~\lstinline!WHERE ((YR >= 1930) AND (!
@@ -2511,7 +2322,52 @@ SELECT ...
 \uncover<3->{
 \lstinline!))!
 }
-  \end{example}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Query Examples}
+
+  \begin{itemize}
+    \item names of actors who played with Johnny Depp
+
+    \medskip
+\uncover<2->{
+\lstinline!SELECT NAME FROM PERSON, CASTING!\\
+~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
+~~~~~~~~~\lstinline!AND (MOVIEID IN (!\\
+}
+~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
+~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Johnny Depp'))!\\
+\uncover<2->{
+\lstinline!) ))!
+}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Query Examples}
+
+  \begin{itemize}
+    \item names of actors with at least 10 lead roles
+
+    \medskip
+\uncover<4->{
+\lstinline!SELECT NAME FROM PERSON!\\
+~~~~\lstinline!WHERE (ID IN (!\\
+}
+~~~~~~~~~~~~\lstinline!SELECT ACTORID FROM CASTING!\\
+~~~~~~~~~~~~~~~~\lstinline!WHERE (ORD = 1)!\\
+\pause
+~~~~~~~~~~~~~~~~\lstinline!GROUP BY ACTORID!\\
+\pause
+~~~~~~~~~~~~~~~~\lstinline!HAVING (COUNT(MOVIEID) >= 10)!\\
+\uncover<4->{
+\lstinline!) )!
+}
+  \end{itemize}
 \end{frame}
 
 \subsection{Set Operations}
@@ -2522,6 +2378,7 @@ SELECT ...
   \begin{itemize}
     \item an operation on two subquery results
 
+    \medskip
     \item basic set operations in the relational model:
     \begin{itemize}
       \item intersection: \lstinline!INTERSECT!
@@ -2529,7 +2386,6 @@ SELECT ...
       \item difference: \lstinline!EXCEPT!
     \end{itemize}
 
-    \pause
     \item duplicate rows are not allowed in the result
   \end{itemize}
 \end{frame}
@@ -2537,7 +2393,10 @@ SELECT ...
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[number of people who both directed and acted]
+  \begin{itemize}
+  \item number of people who both directed and acted
+
+  \medskip
 \uncover<3->{
 \lstinline!SELECT COUNT(*) FROM (!\\
 }
@@ -2557,39 +2416,16 @@ SELECT ...
 \uncover<3->{
 \lstinline!) AS DIRECTOR_ACTOR!
 }
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Query Examples}
 
-  \begin{example}[number of directors who have not acted]
-\uncover<3->{
-\lstinline!SELECT COUNT(*) FROM (!\\
-}
-\uncover<2->{
-~~~~\lstinline!(!
-}
-\lstinline!SELECT DISTINCT DIRECTORID FROM MOVIE!
-\uncover<2->{
-\lstinline!)!\\
-~~~~\lstinline!EXCEPT!\\
-~~~~\lstinline!(!
-}
-\lstinline!SELECT DISTINCT ACTORID FROM CASTING!
-\uncover<2->{
-\lstinline!)!\\
-}
-\uncover<3->{
-\lstinline!) AS DIRECTOR_ONLY!
-}
-  \end{example}
-\end{frame}
+  \begin{itemize}
+    \item number of people who worked in movies before 1930
 
-\begin{frame}[fragile]
-  \frametitle{Query Examples}
-
-  \begin{example}[number of people who worked in movies before 1930]
+    \medskip
 \uncover<3->{
 \lstinline!SELECT COUNT(*) FROM (!\\
 }
@@ -2613,123 +2449,37 @@ SELECT ...
 \uncover<3->{
 \lstinline!) AS OLD_MOVIE_PERSON_IDS!
 }
-  \end{example}
-\end{frame}
-
-\subsection*{Extra Examples}
-
-\begin{frame}
-  \frametitle{Extra Examples}
-
-  \begin{itemize}
-    \item number of movies John Travolta acted in every year
-    \item titles and number of actors of the movies in 1978,\\
-      in ascending order of actor counts
-    \item names of actors who played with Johnny Depp
-    \item titles and names of lead actors of the movies\\
-      Uma Thurman was in
-    \item names of actors with at least 10 lead roles
   \end{itemize}
 \end{frame}
 
-\mode
-<beamer>
-
 \begin{frame}[fragile]
-  \frametitle{Extra Query Examples}
+  \frametitle{Query Examples}
 
-  \begin{example}[number of movies John Travolta acted in every year]
-\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
-~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
-\pause
-~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
-~~~~~~~~~\lstinline!AND (MOVIEID = MOVIE.ID)!\\
-~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID))!\\
-\pause
-~~~~\lstinline!GROUP BY YR!
-  \end{example}
-\end{frame}
+  \begin{itemize}
+    \item number of directors who have not acted
 
-\begin{frame}[fragile]
-  \frametitle{Extra Query Examples}
-
-  \begin{example}[titles and number of actors of the movies in 1978,\\
-                  in ascending order of actor counts]
-\lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
-~~~~\lstinline!FROM MOVIE, CASTING!\\
-\pause
-~~~~\lstinline!WHERE ((YR = 1978)!\\
-~~~~~~~~~\lstinline!AND (MOVIE.ID = CASTING.MOVIEID))!\\
-\pause
-~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
-\pause\pause
-~~~~\lstinline!ORDER BY 2 DESC!
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Extra Query Examples}
-
-  \begin{example}[names of actors who played with Johnny Depp]
+    \medskip
+\uncover<3->{
+\lstinline!SELECT COUNT(*) FROM (!\\
+}
 \uncover<2->{
-\lstinline!SELECT NAME FROM PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~\lstinline!AND (MOVIEID IN (!\\
+~~~~\lstinline!(!
 }
-~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Johnny Depp'))!\\
+\lstinline!SELECT DISTINCT DIRECTORID FROM MOVIE!
 \uncover<2->{
-\lstinline!) ))!
+\lstinline!)!\\
+~~~~\lstinline!EXCEPT!\\
+~~~~\lstinline!(!
 }
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Extra Query Examples}
-
-  \begin{example}[titles and names of lead actors of the movies\\
-                  Uma Thurman was in]
+\lstinline!SELECT DISTINCT ACTORID FROM CASTING!
 \uncover<2->{
-\lstinline!SELECT TITLE, NAME FROM MOVIE, PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((MOVIEID = MOVIE.ID)!\\
-~~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID)!\\
-~~~~~~~~~~\lstinline!AND (ORD = 1)!\\
-~~~~~~~~~~\lstinline!AND (MOVIEID IN! (\\
+\lstinline!)!\\
 }
-~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Uma Thurman'))!\\
-\uncover<2->{
-\lstinline!) ))!
+\uncover<3->{
+\lstinline!) AS DIRECTOR_ONLY!
 }
-  \end{example}
+  \end{itemize}
 \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Extra Query Examples}
-
-  \begin{example}[names of actors with at least 10 lead roles]
-\uncover<4->{
-\lstinline!SELECT NAME FROM PERSON!\\
-~~~~\lstinline!WHERE (ID IN (!\\
-}
-~~~~~~~~~~~~\lstinline!SELECT ACTORID FROM CASTING!\\
-~~~~~~~~~~~~~~~~\lstinline!WHERE (ORD = 1)!\\
-\pause
-~~~~~~~~~~~~~~~~\lstinline!GROUP BY ACTORID!\\
-\pause
-~~~~~~~~~~~~~~~~\lstinline!HAVING (COUNT(MOVIEID) >= 10)!\\
-\uncover<4->{
-\lstinline!) )!
-}
-  \end{example}
-\end{frame}
-
-\mode
-<all>
 
 \subsection*{References}
 
