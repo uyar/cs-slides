@@ -1,0 +1,770 @@
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Frankfurt}
+  \setbeamercovered{transparent}
+}
+
+\title{Systems Programming}
+\subtitle{Kernel Development}
+
+\author{H. Turgut Uyar \and Şima Uyar}
+\date{2001-2014}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\pgfdeclareimage[height=6.8cm]{ldr2_0101}{ldr2_0101}
+\pgfdeclareimage[height=6.8cm]{ldr2_0201}{ldr2_0201}
+\pgfdeclareimage[width=8cm]{ldr2_0202}{ldr2_0202}
+\pgfdeclareimage[height=6cm]{task}{task}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Kernel}
+
+\subsection{Architecture}
+
+\begin{frame}
+  \frametitle{Kernel}
+
+  \begin{itemize}
+    \item provides programs with a consistent view of the hardware
+
+    \bigskip
+    \item protects against unauthorized access to resources
+    \item kernel runs in supervisor mode (kernel space),\\
+      applications run in user mode (user space)
+
+    \pause
+    \medskip
+    \item switching to kernel space:
+    \begin{itemize}
+      \item system calls: synchronous, in the process context
+      \item interrupts: asynchronous
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kernel Subsystems}
+
+  \begin{center}
+    \pgfuseimage{ldr2_0101}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kernel Subsystems}
+
+  \begin{itemize}
+    \item process management
+    \begin{itemize}
+      \item creating and destroying processes
+      \item communication between processes
+      \item scheduling
+    \end{itemize}
+
+    \item memory management
+    \begin{itemize}
+      \item virtual address space for each process
+    \end{itemize}
+
+    \item filesystems
+    \begin{itemize}
+      \item structured filesystem on top of unstructured hardware
+    \end{itemize}
+
+    \item device control
+
+    \item networking
+    \begin{itemize}
+      \item delivering data packets across program and network interfaces
+      \item routing and address resolution
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kernel Architecture}
+
+  \begin{itemize}
+    \item \alert{monolithic}: all functionality in one big chunk of code
+
+    \bigskip
+    \item \alert{microkernel}: organized as layers
+    \begin{itemize}
+      \item most functionality in user space
+      \item too much communication overhead
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Kernel Development}
+
+\begin{frame}
+  \frametitle{Kernel Development}
+
+  \begin{itemize}
+    \item recompile the kernel
+    \item reboot the computer
+    \item test the new kernel
+    \item reboot to the original kernel
+
+    \bigskip
+    \item very slow development cycle!
+    \item no external libraries
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Adding a System Call}
+
+  \begin{itemize}
+    \item add an entry to the system call table:\\
+      system call number, name, function to invoke, ...
+    \item add prototype to the system calls header file
+    \item implement system call
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Adding a System Call}
+
+  \begin{itemize}
+    \item new system call: add two integers
+
+    \pause
+    \medskip
+    \item add an entry to the system call table
+    \begin{exampleblock}{\texttt{arch/x86/kernel/syscall\_table\_32.S}}
+      \begin{pygments}{c}
+.long sys_mycall
+      \end{pygments}
+    \end{exampleblock}
+
+    \pause
+    \medskip
+    \item append entry for system call
+    \begin{exampleblock}{\texttt{arch/x86/include/asm/unistd\_32.h}}
+      \begin{pygments}{c}
+#define __NR_mycall 333
+      \end{pygments}
+    \end{exampleblock}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Adding a System Call}
+
+  \begin{itemize}
+    \item add prototype to the system calls header file
+    \begin{exampleblock}{\texttt{include/linux/syscalls.h}}
+      \begin{pygments}{c}
+asmlinkage int sys_mycall(int i, int j);
+      \end{pygments}
+    \end{exampleblock}
+
+    \pause
+    \medskip
+    \item implement system call
+    \begin{exampleblock}{mycall.c}
+      \begin{pygments}{c}
+asmlinkage int sys_mycall(int i, int j)
+{
+    return i + j;
+}
+      \end{pygments}
+    \end{exampleblock}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Test Program}
+
+  \begin{pygments}{c}
+#define __NR_mycall 333
+
+int main(int argc, char **argv)
+{
+    int x1 = 10, x2 = 20, y;
+
+    y = syscall(__NR_mycall, x1, x2);
+    printf("%d\n", y);
+    return 0;
+}
+  \end{pygments}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Transfer}
+
+  \begin{itemize}
+    \item special functions for transferring data\\
+      between kernel space and user space
+
+    \bigskip
+    \item kernel $\rightarrow$ user:\\
+      \pygment{c}|copy_to_user(user_buf, kernel_buf, length)|
+    \smallskip
+    \item user $\rightarrow$ kernel:\\
+      \pygment{c}|copy_from_user(kernel_buf, user_buf, length)|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Data Transfer}
+
+  \begin{itemize}
+    \item new system call: get the time passed since 1970
+
+    \medskip
+    \item kernel structure for representing time
+    \begin{pygments}{c}
+struct timeval {
+    long tv_sec;    /* seconds */
+    long tv_usec;   /* microseconds */
+};
+    \end{pygments}
+
+    \medskip
+    \item global variable that keeps the current time
+    \begin{pygments}{c}
+struct timeval xtime;
+    \end{pygments}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Data Transfer}
+
+  \begin{pygments}{c}
+asmlinkage int sys_ptime(struct timeval *tm)
+{
+    copy_to_user(tm, &xtime, sizeof(struct timeval));
+    return 0;
+}
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Test Program}
+
+  \begin{pygments}{c}
+#define __NR_ptime 334
+
+int main(int argc, char **argv)
+{
+    struct timeval utime;
+    int res;
+
+    res = syscall(__NR_ptime, &utime);
+    printf("%d\n", (int) utime.tv_sec);
+    sleep(2);
+    res = syscall(__NR_ptime, &utime);
+    printf("%d\n", (int) utime.tv_sec);
+    return 0;
+}
+  \end{pygments}
+\end{frame}
+
+\subsection{Kernel Modules}
+
+\begin{frame}
+  \frametitle{Modular Kernel}
+
+  \begin{itemize}
+    \item monolithic architecture
+    \item modules added or removed at runtime
+
+    \medskip
+    \item no need to reboot: faster development cycle
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module Registry}
+
+  \begin{center}
+    \pgfuseimage{ldr2_0201}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Hello, world!}
+
+  \begin{pygments}{c}
+#include <linux/init.h>
+#include <linux/module.h>
+
+MODULE_LICENSE("Dual BSD/GPL");
+
+static int hello_init(void) { ... }
+
+static void hello_exit() { ... }
+
+module_init(hello_init);
+module_exit(hello_exit);
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Hello, world!}
+
+  \begin{pygments}{c}
+static int hello_init(void)
+{
+    printk(KERN_ALERT "Hello, world!\n");
+    return 0;
+}
+
+static void hello_exit()
+{
+    printk(KERN_ALERT "Goodbye, cruel world!\n");
+}
+  \end{pygments}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kernel Symbol Table}
+
+  \begin{itemize}
+    \item kernel symbol table contains addresses of global symbols
+
+    \bigskip
+    \item when loading a module:
+    \smallskip
+    \item unresolved symbols are linked to the kernel symbol table
+    \item exported symbols become part of the kernel symbol table
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module Stacking}
+
+  \begin{itemize}
+    \item modules can use symbols exported by other modules
+  \end{itemize}
+
+  \begin{center}
+    \pgfuseimage{ldr2_0202}
+  \end{center}
+\end{frame}
+
+\subsection*{Reading Material}
+
+\begin{frame}
+  \frametitle{Reading Material}
+
+  \begin{itemize}
+    \item Corbet-Rubini-Hartman, 3/e
+    \begin{itemize}
+      \item Chapter 2: \alert{Building and Running Modules}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Process Management}
+
+\subsection{Data Structures}
+
+\begin{frame}
+  \frametitle{Process Descriptor}
+
+  \begin{itemize}
+    \item a process descriptor for each process:\\
+      \pygment{c}{struct task_struct}
+
+    \medskip
+    \item process state
+    \item process identification (pid, uid, euid, ...)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Process Descriptor}
+
+  \begin{center}
+    \pgfuseimage{task}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Process List}
+
+  \begin{itemize}
+    \item doubly linked list of all process descriptors
+    \item \pygment{c}|tasks| field of \pygment{c}|task_struct|
+    \item \pygment{c}|current| macro gives the process descriptor\\
+      of the running process: e.g. \pygment{c}|current->pid|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Process 0}
+
+  \begin{itemize}
+    \item a.k.a. the \textit{idle process} or the \textit{swapper}
+    \item the first entry in the process list
+    \item created during the initialization stage of the kernel
+    \item the only process created without using the \textit{fork} system call
+    \item the ancestor of all processes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Process 0}
+
+  \begin{itemize}
+    \item uses a statically allocated data structure
+    \begin{itemize}
+      \item process descriptor stored in the \pygment{c}|init_task| variable
+      \item initialized by the \pygment{c}|INIT_TASK| macro
+    \end{itemize}
+
+    \item executes the \pygment{c}|start_kernel()| function
+    \begin{itemize}
+      \item initializes all data structures needed by kernel
+      \item enables interrupts
+      \item creates process 1 (commonly known as the \textit{init process})
+    \end{itemize}
+
+    \item executes the \pygment{c}|cpu_idle()| function
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Creating Processes}
+
+  \begin{itemize}
+    \item \textit{fork} is implemented as the \pygment{c}|clone| system call
+    \item \pygment{c}|do_fork()| function handles the \pygment{c}|clone|
+      system call:
+
+    \medskip
+    \item allocates a pid for the child process
+    \item uses \pygment{c}|copy_process()| to set up the process descriptor\\
+      and other kernel data structures for new process
+    \begin{itemize}
+      \item uses \pygment{c}|dup_task_struct()| to allocate a new process
+        descriptor\\
+        and to copy parent process' process descriptor info
+    \end{itemize}
+    \item adjusts some parameters of parent and child processes
+    \item returns pid of child process
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Destroying Processes}
+
+  \begin{itemize}
+    \item through the \pygment{c}|_exit()| system call
+    \item uses the \pygment{c}|do_exit()| function
+  \end{itemize}
+\end{frame}
+
+\subsection{Synchronization}
+
+\begin{frame}
+  \frametitle{Synchronization}
+
+  \begin{itemize}
+    \item critical sections and race conditions also exist for kernel code
+    \item synchronization is needed
+
+    \bigskip
+    \item several kernel level synchronization primitives
+    \item primitive must be chosen based on requirements of operation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Synchronization Primitives}
+
+  \begin{itemize}
+    \item atomic read-modify-write operations
+    \item memory barriers (to avoid instruction reordering)
+    \item spin locks (locks with busy waiting)
+    \item kernel semaphores (lock with blocking wait)
+    \item interrupt disabling (local CPU)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Atomic Operations}
+
+  \begin{itemize}
+    \item instructions that execute atomically
+    \item no interrupts
+
+    \medskip
+    \item to implement counters
+    \item to atomically perform an operation and test results:\\
+      e.g. \pygment{c}{atomic_dec_and_test}
+
+    \medskip
+    \begin{pygments}{c}
+typedef struct {
+    volatile int counter;
+} atomic_t;
+    \end{pygments}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Memory Barriers}
+
+  \begin{itemize}
+    \item kernel may reorder assembly instructions for optimization
+    \item reordering must be avoided when synchronization is needed
+    \item barrier ensures that the instructions before the primitive\\
+      are completed before the instructions after the primitive
+
+    \medskip
+    \item read memory barrier: \pygment{c}|rmb()|
+    \item write memory barrier: \pygment{c}|wmb()|
+    \item memory barrier: \pygment{c}|barrier()|
+      \textendash ~ same as \pygment{c}|wmb()|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Spin Locks}
+
+  \begin{itemize}
+    \item for locking access to shared data (critical sections)
+    \item for multiprocessor environments
+    \item uses busy waiting
+    \begin{itemize}
+      \item kernel resources usually locked for very short periods
+      \item more time consuming to release and reacquire cpu
+    \end{itemize}
+
+    \medskip
+    \item represented by a \pygment{c}|spinlock_t| structure
+    \item macros used for working with spin locks
+    \item read and write spin locks to increase concurrency:\\
+      \pygment{c}|rwlock_t| structure
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Semaphones}
+
+  \begin{itemize}
+    \item sleeping locks
+    \item suited for locks that are held for a long time
+    \item not optimal for locks that are held for short periods
+
+    \medskip
+    \item kernel preemption not disabled,\\
+      i.e. no adverse effects on scheduling latency
+    \item allows arbitrary number of simultaneous lock holders:\\
+      counting semaphores
+
+    \medskip
+    \item two atomic operations: \pygment{c}{P()} - \pygment{c}{V()}\\
+      \pygment{c}{down()} - \pygment{c}{up()}
+  \end{itemize}
+\end{frame}
+
+\subsection{Scheduling}
+
+\begin{frame}
+  \frametitle{Scheduling}
+
+  \begin{itemize}
+    \item divide the finite resource of processor time\\
+      between the runnable processes on the system
+
+    \medskip
+    \item conflicting goals:
+    \begin{itemize}
+      \item fast process response time (low latency)
+      \item maximal system utilization (high throughput)
+    \end{itemize}
+
+    \medskip
+    \item processor bound processes - I/O bound processes
+    \begin{itemize}
+      \item Linux favors I/O bound processes, i.e. optimizes for low latency
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{O(1) Scheduler}
+
+  \begin{itemize}
+    \item constant-time algorithm for timeslice calculation\\
+      and per processor runqueues
+    \item scalable
+    \item ideal for large server workloads
+    \item problems for interactive processes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CFS Scheduler}
+
+  \begin{itemize}
+    \item Completely Fair Scheduler
+    \item aims at improving scheduling for interactive processes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linux Scheduler}
+
+  \begin{itemize}
+    \item different algorithms to schedule different types of processes
+    \item scheduler classes with priorities
+    \item iterate over each scheduler class in order of priority
+    \item CFS for normal processes
+    \item two policies for real time processes:
+    \begin{itemize}
+      \item \ttfamily{SCHED\_FIFO}
+      \item \ttfamily{SCHED\_RR}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CFS}
+
+  \begin{itemize}
+    \item assign processes a \emph{proportion} of processor
+    \item nice value (priority) acts as weight to determine\\
+      proportion of processor time
+    \item preemptive (based on proportions of processor time consumed)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CFS}
+
+  \begin{itemize}
+    \item \emph{timeslice} proportional to process' weight\\
+      over sum of weights of all runnable processes
+    \item targeted latency
+    \item minimum granularity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CFS Implementation}
+
+   \begin{itemize}
+    \item for process accounting:\\
+      \pygment{c}|struct sched_entity|
+    \item member of \pygment{c}|struct task_struct|
+
+    \medskip
+    \item \emph{virtual runtime} (\pygment{c}|vruntime|):\\
+      actual runtime (in ns) of a process\\
+      normalized by the number of runnable processes
+    \item in a perfectly multitasking system all processes should have\\
+      the same virtual runtime
+    \item updated periodically by the system timer\\
+      and also whenever a process becomes runnable or is blocked
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CFS Implementation}
+
+  \begin{itemize}
+    \item the runnable process with the smallest \pygment{c}|vruntime|\\
+      is selected to run
+    \item red-black tree to manage list of runnable processes:\\
+      search in $O(log~n)$
+    \begin{itemize}
+      \item leftmost node has lowest \pygment{c}|vruntime|
+      \item leftmost node is cached
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection*{Reading Material}
+
+\begin{frame}
+  \frametitle{Reading Material}
+  \begin{itemize}
+    \item Linux Kernel Development, 3rd Edition
+    \begin{itemize}
+      \item Author: Robert Love
+      \item Publisher: Addison-Wesley Professional
+      \item Year: 2010
+      \item Chapters: \alert{3}, \alert{4}, 5, 9 and 10
+      \item accessible on Safari e-books through the ITU Library
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% \section{The /proc Filesystem}
+%
+% \begin{frame}
+%   \frametitle{/proc Filesystem}
+%   \begin{itemize}
+%      \item pseudo filesystem
+%      \item for accessing information about the runtime state of the kernel
+%      \item some are read-only, e.g. /proc/version
+%      \item man 5 proc
+%      \item \textit{ps} and \textit{top} work in user space and use /proc
+%      \item \textit{sysctl} is used to modify kernel parameters at runtime
+%       \begin{itemize}
+%               \item parameters defined in /proc/sys
+%               \item man 8 sysctl
+%       \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Contents}
+%       \begin{itemize}
+%          \item /proc/PID per process
+%             \begin{itemize}
+%               \item command line
+%               \item current working directory
+%               \item a directory per open file descriptor
+%               \item executable file
+%               \item memory map
+%               \item status and memory usage info
+%               \item ...
+%             \end{itemize}
+%          \item /proc/devices
+%          \item /proc/cpuinfo
+%          \item /proc/meminfo
+%          \item /proc/modules
+%          \item /proc/filesystems
+%          \item /proc/partitions
+%          \item /proc/version
+%          \item /proc/sys/kernel
+%          \item ...
+%       \end{itemize}
+% \end{frame}
+
+\end{document}

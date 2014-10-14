@@ -1,0 +1,1853 @@
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pythontex}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Frankfurt}
+  \setbeamercovered{transparent}
+}
+
+\pgfdeclareimage{stack1}{stack1}
+\pgfdeclareimage{stack2}{stack2}
+% \pgfdeclareimage[height=6.5cm]{linker}{linker}
+% \pgfdeclareimage[height=6.2cm]{linkerexample}{linkerexample}
+
+\title{System Programming}
+\subtitle{Assembly}
+
+\author{H. Turgut Uyar \and Şima Uyar}
+\date{2001-2014}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Intel Assembly}
+
+\subsection{x86 Processors}
+
+\begin{frame}[fragile]
+  \frametitle{x86 Processors}
+
+  \begin{itemize}
+    \item Intel family of processors: x86 (32 bit), x64 (64 bit)
+
+    \medskip
+    \item very similar from the programming standpoint
+    \item 8086: 16 bit processor, real mode
+    \item 80386: 32 bit processor, protected mode (virtual memory)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Segments}
+
+  \begin{itemize}
+    \item programs are divided into \alert{segments}
+
+    \medskip
+    \item \alert{code} segment: instructions
+    \item \alert{data} segment: initialized data
+    \item \alert{bss} segment: uninitialized data
+    \item \alert{stack} segment
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{8086 Registers}
+
+  \begin{itemize}
+    \item 4 general purpose data registers
+    \item 2 index registers
+    \item 2 pointer registers
+    \item 4 segment registers
+    \item 2 control registers
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Registers}
+
+  \begin{itemize}
+    \item AX: accumulator register
+
+    \item BX: base register
+    \begin{itemize}
+      \item used to address data in memory
+    \end{itemize}
+
+    \item CX: counter register
+    \begin{itemize}
+      \item used as repetition counter in loop operations
+    \end{itemize}
+
+    \item DX: data register
+    \begin{itemize}
+      \item used in multiplication and division operations
+    \end{itemize}
+
+    \medskip
+    \item high and low halves can be accessed as 8-bit registers:\\
+      AH-AL, BH-BL, CH-CL, DH-DL
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Index and Pointer Registers}
+
+  \begin{itemize}
+    \item index registers:
+    \begin{itemize}
+      \item DI: data index
+      \item SI: stack index
+      \item they can be used like general purpose registers
+    \end{itemize}
+
+    \medskip
+    \item pointer registers:
+    \begin{itemize}
+      \item BP: base pointer
+      \item SP: stack pointer
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Segment Registers}
+
+  \begin{itemize}
+    \item CS: code segment register
+    \item DS: data segment register
+    \item SS: stack segment register
+    \item ES: extra segment register
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Control Registers}
+
+  \begin{itemize}
+    \item IP: instruction pointer
+    \begin{itemize}
+      \item CS + IP: address of next instruction
+    \end{itemize}
+
+    \medskip
+    \item FLAGS: status conditions
+    \begin{itemize}
+      \item ZF (zero), OF (overflow), SF (sign), CF (carry), PF (parity)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{80386}
+
+  \begin{itemize}
+    \item in 80386, registers are extended to 32 bits:\\
+      EAX EBX ECX EDX ESI EDI EBP ESP\\
+      EIP
+
+    \medskip
+    \item AX, BX, \ldots, BP, SP are still valid (lower 16~bits)
+    \item AH, AL, \ldots, DH, DL are still valid
+  \end{itemize}
+\end{frame}
+
+\subsection{Instructions}
+
+\begin{frame}
+  \frametitle{Operand Types}
+
+  \begin{itemize}
+    \item register
+
+    \medskip
+    \item memory: offset from beginning of segment
+
+    \medskip
+    \item immediate: listed in the instruction itself
+
+    \medskip
+    \item implied: not explicitly specified
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic Instructions}
+
+  \begin{table}
+    \begin{tabular}{ll}
+      \pygment{nasm}|mov dest, src|
+          & move src to dest\\
+      \hline
+      \pygment{nasm}|add dest, src|
+          & add src to dest\\
+      \hline
+      \pygment{nasm}|adc dest, src|
+          & add src to dest with carry\\
+      \hline
+      \pygment{nasm}|sub dest, src|
+          & subtract src from dest\\
+      \hline
+      \pygment{nasm}|sbb dest, src|
+          & subtract src from dest with borrow\\
+      \hline
+      \pygment{nasm}|inc dest|
+          & increment dest\\
+      \hline
+      \pygment{nasm}|dec dest|
+          & decrement dest\\
+      \hline
+      \pygment{nasm}|mul src|
+          & multiply eax with src, result in edx:eax\\
+      \hline
+      \pygment{nasm}|div src|
+          & divide edx:eax by src, result in eax and edx\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bitwise Instructions}
+
+  \begin{table}
+    \begin{tabular}{ll}
+      \pygment{nasm}|not dest|
+          & bitwise not (one's complement)\\
+      \hline
+      \pygment{nasm}|and dest, src|
+          & bitwise and\\
+      \hline
+      \pygment{nasm}|or dest, src|
+          & bitwise or\\
+      \hline
+      \pygment{nasm}|xor dest, src|
+          & bitwise xor\\
+      \hline
+      \pygment{nasm}|neg dest|
+          & negate (two's complement)\\
+      \hline
+      \pygment{nasm}|shl dest, amount|
+          & logical shift left\\
+      \hline
+      \pygment{nasm}|shr dest, amount|
+          & logical shift right\\
+      \hline
+      \pygment{nasm}|asl dest, amount|
+          & arithmetic shift left\\
+      \hline
+      \pygment{nasm}|asr dest, amount|
+          & arithmetic shift right\\
+      \hline
+      \pygment{nasm}|rol dest, amount|
+          & rotate left\\
+      \hline
+      \pygment{nasm}|ror dest, amount|
+          & rotate right\\
+      \hline
+      \pygment{nasm}|rcl dest, amount|
+          & rotate left with carry\\
+      \hline
+      \pygment{nasm}|rcr dest, amount|
+          & rotate right with carry\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Branching Instructions}
+
+  \begin{table}
+    \begin{tabular}{ll}
+      \pygment{nasm}|jmp| & unconditional\\
+      \hline
+      \pygment{nasm}|jz|  & if ZF is set\\
+      \hline
+      \pygment{nasm}|jnz| & if ZF is unset\\
+      \hline
+      \pygment{nasm}|jo|  & if OF is set\\
+      \hline
+      \pygment{nasm}|jno| & if OF is unset\\
+      \hline
+      \pygment{nasm}|js|  & if SF is set\\
+      \hline
+      \pygment{nasm}|jns| & if SF is unset\\
+      \hline
+      \pygment{nasm}|jc|  & if CF is set\\
+      \hline
+      \pygment{nasm}|jnc| & if CF is unset\\
+      \hline
+      \pygment{nasm}|jp|  & if PF is set\\
+      \hline
+      \pygment{nasm}|jnp| & if PF is unset\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{fragile}
+  \frametitle{Branching Instructions}
+
+  \begin{itemize}
+   \item \pygment{nasm}|cmp vleft, vright|: compare vleft and vright
+  \end{itemize}
+
+  \begin{table}
+    \begin{tabular}{lll}
+      condition             & signed               & unsigned\\
+      \hline\\
+      vleft $=$ vright      & \pygment{nasm}|je|   & \pygment{nasm}|je|\\
+      \hline
+      vleft $\neq$ vright   & \pygment{nasm}|jne|  & \pygment{nasm}|jne|\\
+      \hline
+      vleft $<$ vright      & \pygment{nasm}|jl|   & \pygment{nasm}|jb|\\
+      \hline
+      vleft $\nless$ vright & \pygment{nasm}|jnl|  & \pygment{nasm}|jnb|\\
+      \hline
+      vleft $\leq$ vright   & \pygment{nasm}|jle|  & \pygment{nasm}|jbe|\\
+      \hline
+      vleft $\nleq$ vright  & \pygment{nasm}|jnle| & \pygment{nasm}|jnbe|\\
+      \hline
+      vleft $>$ vright      & \pygment{nasm}|jg|   & \pygment{nasm}|ja|\\
+      \hline
+      vleft $\ngtr$ vright  & \pygment{nasm}|jng|  & \pygment{nasm}|jna|\\
+      \hline
+      vleft $\geq$ vright   & \pygment{nasm}|jge|  & \pygment{nasm}|jae|\\
+      \hline
+      vleft $\ngeq$ vright  & \pygment{nasm}|jnge| & \pygment{nasm}|jnae|\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\subsection{Directives}
+
+\begin{frame}
+  \frametitle{Directives}
+
+  \begin{itemize}
+    \item assembler needs extra info: \emph{directives}
+    \item not part of the instruction set
+
+    \bigskip
+    \item labels: mark points in code and data
+    \begin{itemize}
+      \item entry labels have to marked \pygment{nasm}|global|
+    \end{itemize}
+
+    \item segments
+
+    \item data definition
+
+    \item named constants: \pygment{nasm}|equ|
+    \begin{itemize}
+      \item no memory allocated
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Code Template}
+
+  \begin{pygments}{nasm}
+segment .data
+; initialized data definitions
+
+segment .bss
+; uninitialized data definitions
+
+segment .text
+global _start
+
+_start:
+    ; entry point
+  \end{pygments}
+\end{frame}
+
+\begin{frame}{fragile}
+  \frametitle{Data Definition}
+
+  \begin{table}
+    \begin{tabular}{lll}
+      type  & initialized        & uninitialized\\
+      \hline\\
+      byte  & \pygment{nasm}|db| & \pygment{nasm}|resb|\\
+      \hline
+      word  & \pygment{nasm}|dw| & \pygment{nasm}|resw|\\
+      \hline
+      dword & \pygment{nasm}|dd| & \pygment{nasm}|resd|\\
+      \hline
+      qword & \pygment{nasm}|dq| & \pygment{nasm}|resq|\\
+      \hline
+      tword & \pygment{nasm}|dt| & \pygment{nasm}|rest|\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Data Definition Examples}
+
+  \begin{pygments}{nasm}
+L1 db    0
+L2 dw    1000
+L3 dd    1A92h
+L4 db    0, 1, 2, 3
+L5 db    "w", "o", "r", "d", 0
+L6 db    'word', 0
+L7 times 100 db 0
+L8 resb  1
+L9 resw  100
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dereferencing}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item plain label:\\
+        address of memory
+
+      \medskip
+      \begin{example}
+        \begin{pygments}{nasm}
+mov eax, L1
+        \end{pygments}
+      \end{example}
+    \end{itemize}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item label in brackets:\\
+        contents of memory
+
+      \medskip
+      \begin{example}
+        \begin{pygments}{nasm}
+mov eax, [L1]
+        \end{pygments}
+      \end{example}
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% \begin{frame}[fragile]
+%   \frametitle{Addressing Issues}
+%
+%   \begin{itemize}
+%     \item not allowed to have both operands in memory
+%     \item operands must be of the same size
+%   \end{itemize}
+%
+%   \pause
+%   \begin{example}
+%     \begin{itemize}
+%       \item the following instructions are incorrect:
+%     \end{itemize}
+%
+%     \begin{pygments}{nasm}
+% mov [L8], [L1]
+%
+% mov ax, bl
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Addressing Issues}
+%
+%   \begin{itemize}
+%     \item NASM does not keep track of the type of data
+%   \end{itemize}
+%
+%   \pause
+%   \begin{example}
+%     \begin{itemize}
+%       \item the following instruction is incorrect:
+%     \end{itemize}
+%
+%     \begin{pygments}{nasm}
+% mov [L2],1
+%     \end{pygments}
+%
+%     \pause
+%     \begin{itemize}
+%       \item use this instead:
+%     \end{itemize}
+%
+%     \begin{pygments}{nasm}
+% mov word [L2],1
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+
+\subsection{System Calls}
+
+\begin{frame}
+  \frametitle{System Calls}
+
+  \begin{itemize}
+    \item system calls are implemented using software interrupt \texttt{80h}
+  \end{itemize}
+
+  \bigskip
+  \begin{block}{system call setup}
+    \texttt{eax} $\leftarrow$ system call number\\
+    \texttt{ebx} $\leftarrow$ first argument\\
+    \texttt{ecx} $\leftarrow$ second argument\\
+    \texttt{edx} $\leftarrow$ third argument\\
+    \pygment{nasm}|int 80h|
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{System Call Examples}
+
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item \pygment{c}{exit} system call number: 1
+      \item arg. 1: return status
+      \begin{itemize}
+        \item 0: success, 1: failure
+      \end{itemize}
+    \end{itemize}
+
+    \pause
+    \bigskip
+    \begin{itemize}
+      \item read system call number: 3
+      \item arg. 1: input descriptor
+      \begin{itemize}
+        \item 0: stdin, 1: stdout,\\
+          2: stderr
+      \end{itemize}
+      \item arg. 2: start of input buffer
+      \item arg. 3: length of input
+    \end{itemize}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item write system call number: 4
+      \item arg. 1: output descriptor
+      \begin{itemize}
+        \item 0: stdin, 1: stdout,\\
+          2: stderr
+      \end{itemize}
+      \item arg. 2: start of output buffer
+      \item arg. 3: length of output
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Hello, world!}
+
+    \begin{columns}[t]
+      \column{.55\textwidth}
+      \begin{pygments}{nasm}
+segment .data
+msg db  "Hello, world!", 10
+len equ 14
+      \end{pygments}
+
+      \column{.45\textwidth}
+      \begin{pygments}{nasm}
+segment .text
+global _start
+
+_start:
+    mov  eax, 4
+    mov  ebx, 1
+    mov  ecx, msg
+    mov  edx, len
+    int  80h
+
+    mov  eax, 1
+    mov  ebx, 0
+    int  80h
+      \end{pygments}
+    \end{columns}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Carter}
+    \begin{itemize}
+      \item Chapter 1: Introduction
+      \begin{itemize}
+        \item 1.2. \alert{Computer Organization}
+        \item 1.3. \alert{Assembly Language}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Assembly and C}
+
+\subsection{Subroutines}
+
+\begin{frame}
+  \frametitle{Stack}
+
+  \begin{itemize}
+    \item the stack is accessed in 4-byte units
+  \end{itemize}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{push}
+      \pygment{nasm}|push operand|
+      \begin{itemize}
+        \item subtract 4 from esp
+        \item store operand to address [esp]
+      \end{itemize}
+    \end{block}
+
+    \column{.5\textwidth}
+    \begin{block}{pop}
+      \pygment{nasm}|pop register|
+      \begin{itemize}
+        \item store operand at address [esp] to register
+        \item add 4 to esp
+      \end{itemize}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Stack Example}
+
+  \begin{columns}
+    \column{.35\textwidth}
+    \pgfuseimage{stack1}
+
+    \begin{picture}(0,0)(-55,-38)
+      \only<1,7>{\put(25,0){\vector(-1,0){25}}\put(27,-3){esp$_0$}}
+      \only<2->{\put(-18,8) 1}
+      \only<2,6>{\put(25,11){\vector(-1,0){25}}\put(27,8){esp$_1$}}
+      \only<3->{\put(-18,19) 2}
+      \only<3,5>{\put(25,22){\vector(-1,0){25}}\put(27,19){esp$_2$}}
+      \only<4->{\put(-18,30) 3}
+      \only<4>{\put(25,33){\vector(-1,0){25}}\put(27,30){esp$_3$}}
+    \end{picture}
+
+    \pause
+    \column{.55\textwidth}
+    \begin{pygments}{nasm}
+push dword 1
+    \end{pygments}
+    \pause
+    \begin{pygments}{nasm}
+push dword 2
+    \end{pygments}
+    \pause
+    \begin{pygments}{nasm}
+push dword 3
+    \end{pygments}
+    \pause
+    \begin{pygments}{nasm}
+pop  eax
+    \end{pygments}
+    \pause
+    \begin{pygments}{nasm}
+pop  ebx
+    \end{pygments}
+    \pause
+    \begin{pygments}{nasm}
+pop  ecx
+    \end{pygments}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subroutine Call}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{call}
+      \pygment{nasm}|call target|
+      \begin{itemize}
+        \item push address of next instruction
+        \item jump to target
+      \end{itemize}
+    \end{block}
+
+    \column{.5\textwidth}
+    \begin{block}{ret}
+      \pygment{nasm}|ret|
+      \begin{itemize}
+        \item pop return address
+        \item jump to return address
+      \end{itemize}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Stack Parameters}
+
+  \begin{itemize}
+    \item called subroutine does not pop parameters
+    \item accesses parameters on the stack
+  \end{itemize}
+
+  \begin{block}{stack layout}
+    \begin{center}
+      \pgfuseimage{stack2}
+
+      \begin{picture}(0,0)(22,-38)
+        \put(0,31){ret. addr.}
+        \put(82,31){esp}
+        \put(80,34){\vector(-1,0){25}}
+        \put(1,20){parameter}
+        \put(82,20){esp+4}
+        \put(80,23){\vector(-1,0){25}}
+        \put(1,9){parameter}
+        \put(82,9){esp+8}
+        \put(80,12){\vector(-1,0){25}}
+      \end{picture}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Accessing Parameters}
+
+  \begin{itemize}
+    \item offsets from esp may change
+  \end{itemize}
+
+  \begin{exampleblock}{example: after a push}
+    \begin{center}
+      \pgfuseimage{stack2}
+
+      \begin{picture}(0,0)(22,-27)
+        \put(10,42){data}
+        \put(82,42){esp}
+        \put(80,45){\vector(-1,0){25}}
+        \put(0,31){ret. addr.}
+        \put(82,31){esp+4}
+        \put(80,34){\vector(-1,0){25}}
+        \put(1,20){parameter}
+        \put(82,20){esp+8}
+        \put(80,23){\vector(-1,0){25}}
+        \put(1,9){parameter}
+        \put(82,9){esp+12}
+        \put(80,12){\vector(-1,0){25}}
+      \end{picture}
+    \end{center}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Accessing Parameters}
+
+  \begin{itemize}
+    \item use ebp
+  \end{itemize}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{subroutine template}
+      \begin{pygments}{nasm}
+push ebp
+mov  ebp, esp
+
+...
+
+pop  ebp
+ret
+      \end{pygments}
+    \end{block}
+
+    \column{.5\textwidth}
+    \begin{block}{stack layout}
+      \pgfuseimage{stack2}
+
+      \begin{picture}(0,0)(-10,-27)
+        \put(10,42){ebp}
+        \put(82,42){esp, ebp}
+        \put(80,45){\vector(-1,0){25}}
+        \put(0,31){ret. addr.}
+        \put(82,31){ebp+4}
+        \put(80,34){\vector(-1,0){25}}
+        \put(1,20){parameter}
+        \put(82,20){ebp+8}
+        \put(80,23){\vector(-1,0){25}}
+        \put(1,9){parameter}
+        \put(82,9){ebp+12}
+        \put(80,12){\vector(-1,0){25}}
+      \end{picture}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Factorial}
+
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+segment .bss
+f   resd 1
+
+segment .text
+
+fact:
+    push ebp
+    mov  ebp, esp
+
+    mov  dword [f], 1
+    mov  ecx, [ebp+8]
+    \end{pygments}
+
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+back:
+    mov  eax, [f]
+    mul  ecx
+    mov  [f], eax
+    dec  ecx
+    cmp  ecx, 1
+    jne  back
+
+    pop  ebp
+    ret
+    \end{pygments}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Calling Factorial}
+
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+segment .data
+k   dd   5
+
+segment .bss
+f   resd 1
+
+segment .text
+global _start
+
+fact:
+    ...
+    \end{pygments}
+
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+_start:
+    push ebp
+    mov  ebp, esp
+
+    push dword [k]
+    call fact
+    add  esp, 4
+
+    pop  ebp
+    ret
+    \end{pygments}
+  \end{columns}
+\end{frame}
+
+\subsection{Calling Conventions}
+
+\begin{frame}
+  \frametitle{Calling Conventions}
+
+  \begin{itemize}
+    \item how will parameters be passed?
+      \item if using stack:
+      \begin{itemize}
+        \item in what order will the parameters be pushed?
+        \item who will remove parameters from the stack?
+      \end{itemize}
+
+    \item how will the result be returned?
+
+    \item which registers should remain unchanged?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{C Calling Conventions}
+
+  \begin{itemize}
+    \item parameters are passed via the stack
+    \begin{itemize}
+      \item caller pushes parameters in reverse order
+      \item caller removes parameters from the stack
+    \end{itemize}
+
+    \item result is returned over eax
+
+    \item ebx, esi, edi, ebp, cs, ds, ss, es should remain unchanged
+  \end{itemize}
+\end{frame}
+
+\subsection{C from Assembly}
+
+\begin{frame}
+  \frametitle{Calling C from Assembly}
+
+  \begin{itemize}
+    \item to call a C function from Assembly:
+
+    \medskip
+    \item declare function as \pygment{nasm}|extern|
+    \item push arguments in reverse order
+    \item call function
+    \item adjust esp
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: printf}
+
+  \begin{columns}[t]
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+segment .data
+k    dd   5
+intf db   "%d", 10, 0
+
+segment .bss
+f    resd 1
+
+segment .text
+global main
+extern printf
+
+fact:
+    ...
+    \end{pygments}
+
+    \column{.45\textwidth}
+    \begin{pygments}{nasm}
+main:
+    ...
+
+    push dword [k]
+    call fact
+    add  esp, 4
+
+    push dword [f]
+    push intf
+    call printf
+    add  esp, 8
+
+    ...
+    \end{pygments}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{C Variables}
+
+  \begin{itemize}
+    \item global: in fixed memory locations
+    \item static: same as global, only scope is different
+    \item automatic: on stack
+    \item register: in a register (if possible)
+    \item volatile: do not optimize
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Automatic Variables}
+
+  \begin{itemize}
+    \item allocation is done by subtracting from esp
+  \end{itemize}
+
+  \begin{columns}[b]
+    \column{.5\textwidth}
+
+    \begin{block}{subroutine template}
+      \begin{pygments}{nasm}
+push ebp
+mov  ebp, esp
+sub  esp, N_BYTES
+
+...
+
+mov  esp, ebp
+pop  ebp
+ret
+      \end{pygments}
+    \end{block}
+
+    \column{.5\textwidth}
+    \begin{block}{stack layout}
+      \pgfuseimage{stack2}
+
+      \begin{picture}(0,0)(-10,-16)
+        \put(5,64){var. 2}
+        \put(82,64){esp, ebp-8}
+        \put(80,67){\vector(-1,0){25}}
+        \put(5,53){var. 1}
+        \put(82,53){ebp-4}
+        \put(80,56){\vector(-1,0){25}}
+        \put(10,42){ebp}
+        \put(82,42){ebp}
+        \put(80,45){\vector(-1,0){25}}
+        \put(0,31){ret. addr.}
+        \put(82,31){ebp+4}
+        \put(80,34){\vector(-1,0){25}}
+        \put(1,20){param. 1}
+        \put(82,20){ebp+8}
+        \put(80,23){\vector(-1,0){25}}
+        \put(1,9){param. 2}
+        \put(82,9){ebp+12}
+        \put(80,12){\vector(-1,0){25}}
+      \end{picture}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Factorial (C)}
+
+  \begin{pygments}{c}
+int y;
+
+void fact(int k)
+{
+  register int i;
+
+  y = 1;
+  for (i = k; i > 1; i--)
+      y = y * i;
+}
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Factorial (C)}
+
+  \begin{pygments}{c}
+int fact(int k)
+{
+    int y;
+    register int i;
+
+    y = 1;
+    for (i = k; i > 1; i--)
+        y = y * i;
+    return y;
+}
+  \end{pygments}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Factorial}
+
+  \begin{columns}[t]
+    \column{.48\textwidth}
+    \begin{pygments}{nasm}
+segment .text
+global fact
+
+fact:
+    push ebp
+    mov  ebp, esp
+    sub  esp, 4
+
+    mov  dword [ebp-4], 1
+    mov  ecx, [ebp+8]
+    \end{pygments}
+
+    \column{.46\textwidth}
+    \begin{pygments}{nasm}
+back:
+    mov  eax, [ebp-4]
+    mul  ecx
+    mov  [ebp-4], eax
+    dec  ecx
+    cmp  ecx, 1
+    jne  back
+
+    mov  eax, [ebp-4]
+    mov  esp, ebp
+    pop  ebp
+    ret
+    \end{pygments}
+  \end{columns}
+\end{frame}
+
+% \begin{frame}[fragile]
+%   \frametitle{Function Example}
+%
+%   \begin{example}[Recursive Factorial (C)]
+%     \begin{pygments}{nasm}[language=C]
+% int fact(int k)
+% {
+%     if (k == 1)
+%         return 1;
+%     else
+%         return k * fact(k - 1);
+% }
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Function Example}
+%
+%   \begin{example}[Recursive Factorial]
+%     \begin{columns}[t]
+%       \column{.47\textwidth}
+%       \begin{pygments}{nasm}
+% fact:
+%     push ebp
+%     mov  ebp, esp
+%
+%     mov  eax, 1
+%     mov  ecx, [ebp+8]
+%     cmp  ecx, 1
+%     je   end_rec
+%
+%     push ecx
+%       \end{pygments}
+%
+%       \column{.47\textwidth}
+%       \begin{pygments}{nasm}
+%     dec  ecx
+%     push ecx
+%     call fact
+%     add  esp, 4
+%
+%     pop  ecx
+%     mul  ecx
+%
+% end_rec:
+%     pop  ebp
+%     ret
+%       \end{pygments}
+%     \end{columns}
+%   \end{example}
+% \end{frame}
+
+\subsection{Assembly from C}
+
+\begin{frame}
+  \frametitle{Calling Assembly from C}
+
+  \begin{itemize}
+    \item to call an Assembly function from C:
+
+    \medskip
+    \item in Assembly file: declare function as \pygment{nasm}|global|
+    \item in C file: declare the prototype
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Factorial}
+
+  \begin{pygments}{c}
+int fact(int k);
+
+int main(void)
+{
+    int x, y;
+
+    ...
+    y = fact(x);
+    ...
+}
+  \end{pygments}
+\end{frame}
+%
+% \lstdefinelanguage{ATT}[]{Intel}{
+%   morekeywords={movb,movl,movw}
+% }
+% \lstdefinelanguage{Gas}[]{ATT}{
+%   morekeywords={ascii,data,globl,long,text}
+% }
+% \lstset{language=Gas}
+%
+% \subsection{Inline Assembly}
+%
+% \begin{frame}[fragile]
+%   \frametitle{AT\&T Syntax}
+%
+%   \begin{columns}
+%     \column{.6\textwidth}
+%     \begin{itemize}
+%       \item order of operands:\\
+%         \texttt{opcode src,dest}
+%
+%       \pause
+%       \item operand size specified in opcode:\\
+%         \pygment{nasm}|movb movw movl|
+%
+%       \pause
+%       \item register names start with \%
+%
+%       \pause
+%       \item immediate values start with \$
+%     \end{itemize}
+%
+%     \pause
+%     \column{.4\textwidth}
+%     \begin{example}
+%       \begin{pygments}{nasm}
+% ; Intel: mov eax,1
+% movl $1,%eax
+%       \end{pygments}
+%     \end{example}
+%   \end{columns}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Dereferencing}
+%
+%   \begin{itemize}
+%     \item addresses start with \$:\\
+%       \pygment{nasm}|movl $number,\%eax --- mov eax,number|
+%
+%     \pause
+%     \item dereferencing by plain labels:\\
+%       \pygment{nasm}|movl number,\%eax ---  mov eax,[number]|
+%
+%     \pause
+%     \item dereferencing register addresses by enclosing in ():\\
+%       \pygment{nasm}|movl (\%ebx),\%eax ---  mov eax,[ebx]|
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{AT\&T Syntax Example}
+%
+%   \begin{example}[Hello world]
+%     \begin{columns}[t]
+%       \column{.5\textwidth}
+%       \begin{pygments}{nasm}[language=Gas]
+% .data
+% msg:
+%     .ascii "Hello, world!\n"
+% len:
+%     .long  . - msg
+%
+% .text
+% .globl main
+%       \end{pygments}
+%
+%       \column{.4\textwidth}
+%       \begin{pygments}{nasm}[language=Gas]
+% main:
+%     movl $4,%eax
+%     movl $1,%ebx
+%     movl $msg,%ecx
+%     movl len,%edx
+%     int  0x80
+%
+%     movl $1,%eax
+%     movl $0,%ebx
+%     int  0x80
+%       \end{pygments}
+%     \end{columns}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Inline Assembly}
+%
+%   \begin{itemize}
+%     \item assembly code directly in C source
+%     \item \alert{NOT A FUNCTION CALL}
+%   \end{itemize}
+%
+%   \pause
+%   \begin{block}{template}
+%     \begin{pygments}{nasm}[language=C]
+% /* some C code */
+%
+% asm( code
+%      : output values
+%      : input values
+%      : clobbered registers );
+%
+% /* some C code */
+%     \end{pygments}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Value Transfer}
+%
+%   \begin{itemize}
+%     \item over registers
+%     \begin{itemize}
+%       \item \texttt{a}: eax, \texttt{b}: ebx, \texttt{c}: ecx, \texttt{d}: edx
+%       \item \texttt{D}: edi, \texttt{S}: esi
+%     \end{itemize}
+%
+%     \pause
+%     \item over any register: \texttt{r}
+%
+%     \pause
+%     \item over any register if possible, over memory otherwise: \texttt{g}
+%
+%     \pause
+%     \item accessing in code by index
+%     \begin{itemize}
+%       \item starting from \texttt{\%0}
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Output Value Example}
+%
+%   \begin{example}
+%     \begin{pygments}{nasm}[language=C]
+% ...
+% int variable1;
+% ...
+% asm( code
+%      : "=a" (variable1)
+%      : input values
+%      : clobbered registers );
+%
+% ...
+%     \end{pygments}
+%
+%     \pause
+%     \begin{itemize}
+%       \item on exit, transfer value in eax to variable1
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Input Value Example}
+%
+%   \begin{example}
+%     \begin{pygments}{nasm}[language=C]
+% ...
+% int variable1, variable2;
+% ...
+% asm( code
+%      : "=a" (variable1)
+%      : "g" (variable2)
+%      : clobbered registers );
+%
+% ...
+%     \end{pygments}
+%
+%     \pause
+%     \begin{itemize}
+%       \item in code, access value of variable2 by its index: \%1
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Inline Assembly Example}
+%
+%   \begin{example}[Inline factorial]
+%     \begin{pygments}{nasm}[language=C]
+% #include <stdio.h>
+%
+% int main(void)
+% {
+%     int x, y;
+%
+%     printf("x: ");
+%     scanf("%d", &x);
+%
+%     asm( ... ); /* y = x! */
+%
+%     printf("%d\n", y);
+%     return 0;
+% }
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Inline Assembly Example}
+%
+%   \begin{example}[Inline factorial]
+%     \begin{pygments}{nasm}[language=C]
+% asm("movl  %1,%%ecx\n\t"
+%     "movl  $1,%%edi\n"
+%     "back:\n\t"
+%     "movl  %%edi,%%eax\n\t"
+%     "mull  %%ecx\n\t"
+%     "movl  %%eax,%%edi\n\t"
+%     "decl  %%ecx\n\t"
+%     "cmpl  $1,%%ecx\n\t"
+%     "jne   back\n\t"
+%     : "=D" (y)
+%     : "g" (x)
+%     : "%eax", "%ecx", "%edx");
+%     \end{pygments}
+%   \end{example}
+% \end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Carter}
+    \begin{itemize}
+      \item Chapter 4: \alert{Subprograms}
+    \end{itemize}
+  \end{block}
+%
+%     \medskip
+%     \item \alert{Brennan's Guide to Inline Assembly}
+%   \end{itemize}
+\end{frame}
+%
+% \section{Linkers and Loaders}
+%
+% \subsection{Introduction}
+%
+% \begin{frame}
+%   \frametitle{Basic Functions}
+%
+%   \begin{itemize}
+%     \item binding abstract names to concrete names
+%     \begin{itemize}
+%       \item easier to write code using abstract names
+%     \end{itemize}
+%
+%     \pause
+%     \item related but conceptually different actions:
+%     \begin{itemize}
+%       \item symbol resolution
+%       \item relocation
+%       \item program loading
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Symbol Resolution}
+%
+%   \begin{itemize}
+%     \item references between subprograms are made using \emph{symbols}
+%
+%     \pause
+%     \item linker
+%     \begin{itemize}
+%       \item notes the location assigned to the called subprogram
+%       \item patches the caller's object code
+%     \end{itemize}
+%   \end{itemize}
+%
+%   \pause
+%   \begin{example}[\texttt{main} calls \texttt{sqrt}]
+%     \begin{itemize}
+%       \item linker finds location assigned to \texttt{sqrt} in the math library
+%       \item patches the object code of \texttt{main} so the call refers to that
+%         location
+%     \end{itemize}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Relocation}
+%
+%   \begin{itemize}
+%     \item compiler generated object code starts at address 0
+%     \begin{itemize}
+%       \item subprograms have to be loaded at non-overlapping addresses
+%     \end{itemize}
+%
+%     \pause
+%     \item linker creates output starting at address 0
+%     \begin{itemize}
+%       \item subprograms relocated within the big program
+%     \end{itemize}
+%
+%     \pause
+%     \item loader picks the actual load address
+%     \begin{itemize}
+%       \item linked program relocated as a whole
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Program Loading}
+%
+%   \begin{itemize}
+%     \item loader copies program from secondary storage to memory
+%     \begin{itemize}
+%       \item copy data from disk to memory
+%       \item allocate storage
+%       \item set protection bits
+%       \item arrange for virtual memory
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \subsection{Address Binding}
+%
+% \begin{frame}
+%   \frametitle{Address Binding}
+%
+%   \begin{itemize}
+%     \item early computers were programmed in machine language
+%     \begin{itemize}
+%       \item write code on paper
+%       \item assemble by hand
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item symbols were bound to addresses:
+%     \begin{itemize}
+%       \item by the programmer
+%       \item at the time of translation
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Address Binding}
+%
+%   \begin{itemize}
+%     \item if an instruction had to be inserted or deleted:
+%     \begin{itemize}
+%       \item inspect the whole program
+%       \item change affected addresses
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item names bound to addresses too early
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Assemblers}
+%
+%   \begin{itemize}
+%     \item programmers use symbolic names
+%     \begin{itemize}
+%       \item assemblers bind names to addresses
+%     \end{itemize}
+%
+%     \pause
+%     \item if program changes $\rightarrow$ reassemble
+%
+%     \pause
+%     \medskip
+%     \item the work of assigning addresses is pushed from the programmer to the
+%       assembler
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Operating Systems}
+%
+%   \begin{itemize}
+%     \item before operating systems:
+%     \begin{itemize}
+%       \item every process can access the entire memory
+%       \item assemble and link for fixed memory addresses
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item after operating systems:
+%     \begin{itemize}
+%       \item processes share memory
+%       \item actual addresses aren't known until program is loaded
+%       \item final address binding deferred past link time to load time
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Linker-Loader Separation}
+%
+%   \begin{itemize}
+%     \item linker does part of address binding
+%     \begin{itemize}
+%       \item assigns relative addresses within each program
+%     \end{itemize}
+%
+%     \pause
+%     \item loader does a final relocation
+%     \begin{itemize}
+%       \item assigns actual addresses
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Multitasking}
+%
+%   \begin{itemize}
+%     \item multiple programs run at the same time
+%
+%     \item frequently multiple copies of the same program
+%     \begin{itemize}
+%       \item some parts of the program are the same among all instances
+%       \item other parts are unique to each instance
+%     \end{itemize}
+%
+%     \pause
+%     \item separate changing parts from unchanging parts
+%     \begin{itemize}
+%       \item use single copy of unchanging parts
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Multitasking}
+%
+%   \begin{itemize}
+%     \item compilers were modified to generate object code in multiple sections
+%     \begin{itemize}
+%       \item one section for read-only code
+%       \item another for writable data
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item linkers had to combine sections of each type
+%     \begin{itemize}
+%       \item combine code sections to produce a code section
+%       \item combine data sections to produce a data section
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Libraries}
+%
+%   \begin{itemize}
+%     \item even different programs share common code
+%     \begin{itemize}
+%       \item library functions
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item modern systems provide \alert{shared libraries}
+%     \begin{itemize}
+%       \item all programs that use a library can share a single copy
+%       \item better performance, less resources
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Static Shared Libraries}
+%
+%   \begin{itemize}
+%     \item addresses are bound when the library is built
+%     \begin{itemize}
+%       \item linker binds references to these addresses
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item very inflexible
+%     \begin{itemize}
+%       \item if any part of library changes $\rightarrow$ relink all programs
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Dynamic Shared Libraries}
+%
+%   \begin{itemize}
+%     \item library symbols are bound when program starts running
+%     \begin{itemize}
+%       \item linker binds references to these addresses
+%     \end{itemize}
+%
+%     \pause
+%     \item can be delayed even farther:
+%     \begin{itemize}
+%       \item at the time of the first call
+%     \end{itemize}
+%
+%     \pause
+%     \item programs can bind to libraries at runtime
+%     \begin{itemize}
+%       \item load libraries at runtime
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \subsection{Two-Pass Linking}
+%
+% \begin{frame}
+%   \frametitle{Two-Pass Linking}
+%
+%   \begin{itemize}
+%     \item input: a set of object files and libraries
+%     \begin{itemize}
+%       \item each input file contains segments
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item output: executable or object code
+%     \begin{itemize}
+%       \item load map, debugger symbols, ...
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Two-Pass Linking}
+%
+%   \begin{center}
+%     \pgfuseimage{linker}
+%   \end{center}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Symbol Table}
+%
+%   \begin{itemize}
+%     \item each input file contains a symbol table
+%
+%     \pause
+%     \item exported symbols
+%     \begin{itemize}
+%       \item defined within the file for use in other files
+%       \item names of subprograms within the file that can be called from
+%         elsewhere
+%     \end{itemize}
+%
+%     \pause
+%     \item imported symbols
+%     \begin{itemize}
+%       \item used in the file but defined elsewhere
+%       \item names of subprograms called but not present in the file
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{First Pass}
+%
+%   \begin{itemize}
+%     \item scan input files:
+%     \begin{itemize}
+%       \item find sizes of segments
+%       \item collect references and definitions of all symbols
+%     \end{itemize}
+%
+%     \pause
+%     \item create:
+%     \begin{itemize}
+%       \item \emph{segment table}: all segments defined in input files
+%       \item \emph{symbol table}: all imported and exported symbols
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Second Pass}
+%
+%   \begin{itemize}
+%     \item assign numeric locations to symbols
+%
+%     \pause
+%     \item determine size and location of segments in output
+%
+%     \pause
+%     \item substitute numeric addresses for symbol references
+%     \begin{itemize}
+%       \item adjust memory addresses in code and data to reflect relocated
+%         addresses
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Linking Libraries}
+%
+%   \begin{itemize}
+%     \item library: collection of object code
+%
+%     \pause
+%     \item when resolving symbols:
+%     \begin{itemize}
+%       \item process all regular input files
+%       \item if any imported symbols are still missing:\\
+%         link in any library that exports the symbol
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Linking Libraries}
+%
+%   \begin{example}
+%     \begin{center}
+%       \pgfuseimage{linkerexample}
+%     \end{center}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Linking Shared Libraries}
+%
+%   \begin{itemize}
+%     \item linker identifies the shared libraries that resolve the undefined
+%       names
+%
+%     \item rather than linking, it notes the libraries
+%
+%     \item shared library is bound when program is loaded
+%   \end{itemize}
+% \end{frame}
+%
+% \subsection*{References}
+%
+% \begin{frame}
+%   \frametitle{References}
+%
+%   \begin{block}{Primary Text: Levine}
+%     \begin{itemize}
+%       \item Chapter 1: \alert{Linking and Loading}
+%       \item Chapter 3: \alert{Object Files}
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\end{document}
