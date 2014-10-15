@@ -10,7 +10,7 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
-\usepackage{beramono}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
@@ -35,7 +35,8 @@
                 EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
                 SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
 }
-\lstset{basicstyle=\ttfamily\small, keywordstyle=\color{ForestGreen}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -493,24 +494,22 @@ echo "</table>\n";
   \end{itemize}
 \end{frame}
 
-\lstset{basicstyle=\ttfamily\footnotesize}
-
 \begin{frame}
   \frametitle{JDBC Flow}
 
   \begin{itemize}
     \item get a connection object:\\
-    \lstinline!Connection conn = DriverManager.getConnection()!
+    \lstinline!Connection conn = DriverManager.getConnection();!
 
     \pause
     \item create a statement object on the connection\\
-    \lstinline!Statement stmt = conn.createStatement()!
+    \lstinline!Statement stmt = conn.createStatement();!
 
     \pause
     \item execute the query
     \begin{itemize}
-      \item select: \lstinline!ResultSet results = stmt.executeQuery(query)!
-      \item insert, update, delete: \lstinline!stmt.executeUpdate(query)!
+      \item select: \lstinline!ResultSet results = stmt.executeQuery(query);!
+      \item insert, update, delete: \lstinline!stmt.executeUpdate(query);!
     \end{itemize}
 
     \pause
@@ -567,8 +566,6 @@ SQL type                            & Java class
     \end{tabular}
   \end{table}
 \end{frame}
-
-\lstset{basicstyle=\ttfamily\small}
 
 \begin{frame}[fragile]
   \frametitle{JDBC Example: Driver}
@@ -637,8 +634,6 @@ stmt.close();
   \url{http://xkcd.com/327/}
 \end{frame}
 
-\lstset{basicstyle=\ttfamily\footnotesize}
-
 \begin{frame}
   \frametitle{Prepared Statements}
 
@@ -647,21 +642,19 @@ stmt.close();
 
     \medskip
     \item creating:\\
-      \lstinline!PreparedStatement stmt = conn.prepareStatement(query)!
+      \lstinline!PreparedStatement stmt = conn.prepareStatement(query);!
 
     \medskip
     \item placeholder for parameters in query: \lstinline!?!
     \item values must be set before executing:\\
-      \lstinline!stmt.setXXX(order, value)!
+      \lstinline!stmt.setXXX(order, value);!
 
     \medskip
     \item executing:\\
-      \lstinline!stmt.executeQuery()!\\
-      \lstinline!stmt.executeUpdate()!
+      \lstinline!ResultSet results = stmt.executeQuery();!\\
+      \lstinline!stmt.executeUpdate();!
   \end{itemize}
 \end{frame}
-
-\lstset{basicstyle=\ttfamily\small}
 
 \begin{frame}[fragile]
   \frametitle{JDBC Example: Prepared Statement}

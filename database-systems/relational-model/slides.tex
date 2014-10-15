@@ -10,6 +10,7 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
@@ -28,7 +29,8 @@
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
                 START, TO, TYPE, VACUUM}
 }
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -373,9 +375,8 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
         ...
 
     \begin{itemize}
-      \item assigning the value \texttt{"Usual Suspects"} to the attribute
-        \texttt{DIRECTOR} is correct in terms of data types\\
-        but it doesn't make sense
+      \item assigning \texttt{"Usual Suspects"} to \texttt{DIRECTOR} is valid\\
+        in terms of data types but it doesn't make sense
 
       \item \texttt{YEAR} and \texttt{VOTES} are integers\\
         but it doesn't make sense to compare them
