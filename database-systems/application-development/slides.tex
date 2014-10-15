@@ -1,23 +1,20 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2014
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
-\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
 \lstdefinelanguage{ExtendedPHP}[]{PHP}{
@@ -38,7 +35,7 @@
                 EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
                 SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
 }
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily\small, keywordstyle=\color{ForestGreen}, showstringspaces=false}
 
 \mode<presentation>
 {
@@ -51,7 +48,7 @@
 \subtitle{Application Development}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -62,9 +59,10 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
-\pgfdeclareimage[height=6cm]{esql}{esql}
+\pgfdeclareimage[height=5cm]{esql}{esql}
+\pgfdeclareimage[width=11cm]{xkcd}{xkcd}
 
 \begin{document}
 
@@ -76,29 +74,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -108,9 +117,9 @@
 
 \section{Application Development}
 
-\lstset{language=C}
-
 \subsection{Introduction}
+
+\lstset{language=C}
 
 \begin{frame}
   \frametitle{Introduction}
@@ -124,8 +133,8 @@
     \bigskip
     \item mismatch between SQL and the host language:
     \begin{itemize}
-      \item SQL operations on sets
-      \item iteration constructs in programming languages
+      \item sets in SQL
+      \item objects and iteration constructs in the host language
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -143,9 +152,8 @@
     \medskip
     \item run statements as needed:
     \begin{itemize}
+      \item query operations return result sets $\rightarrow$ iterate over rows
       \item update operations return number of affected rows
-      \item query operations return result sets\\
-        $\rightarrow$ iterate over rows
     \end{itemize}
 
     \pause
@@ -171,18 +179,16 @@
   \begin{itemize}
     \item using the library functions of the SQL server
 
-    \pause
     \bigskip
     \item pros: fast
-    \item cons: specific to the SQL product
+    \item cons: specific to SQL product
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{API Example}
+  \frametitle{API Example: PostgreSQL - C}
 
-  \begin{example}[PostgreSQL - C]
-    \begin{lstlisting}
+  \begin{lstlisting}
 #include <libpq-fe.h>
 
 int main(int argc, char *argv[])
@@ -191,88 +197,77 @@ int main(int argc, char *argv[])
     /* execute query */
     /* disconnect */
 }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{API Example}
+  \frametitle{API Example: Connection}
 
-  \begin{example}[connecting]
-    \begin{lstlisting}
+  \begin{lstlisting}
 /* PGconn *conn; */
-
 conn = PQconnectdb("host=localhost dbname=imdb"
-                " user=itucs password=itucs");
-if (PQstatus(conn) == CONNECTION_BAD) {
+                   " user=itucs password=itucs");
+if (PQstatus(conn) == CONNECTION_BAD)
+{
     fprintf(stderr, "Connection failed.\n");
     exit(1);
 }
+
 /* execute query */
+
 PQfinish(conn);
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{API Example}
+  \frametitle{API Example: Query Execution}
 
-  \begin{example}[executing a query]
-    \begin{lstlisting}
-/* PGresult *result; */
-
+  \begin{lstlisting}
 sprintf(query, "SELECT TITLE, SCORE"
-        " FROM MOVIE WHERE (YR = %d)", year);
+               " FROM MOVIE WHERE (YR = %d)", year);
+
+/* PGresult *result; */
 result = PQexec(conn, query);
-if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+if (PQresultStatus(result) != PGRES_TUPLES_OK)
+{
     fprintf(stderr, "Query failed.\n");
     PQclear(result);
     PQfinish(conn);
     exit(1);
 }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{API Example}
+  \frametitle{API Example: Result Set}
 
-  \begin{example}[processing the result set]
-    \begin{lstlisting}
-for (i = 0; i < PQntuples(result); i++) {
+  \begin{lstlisting}
+for (i = 0; i < PQntuples(result); i++)
+{
     title = PQgetvalue(result, i, 0);
     score = PQgetvalue(result, i, 1);
     ...
 }
 
 PQclear(result);
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
-\lstset{language=EmbeddedSQL}
-
 \subsection{Embedded SQL}
+
+\lstset{language=EmbeddedSQL}
 
 \begin{frame}
   \frametitle{Embedded SQL}
 
   \begin{itemize}
-    \item stages:
-    \begin{enumerate}
-      \item mark SQL statements within host language code: \lstinline!EXEC SQL!
-      \item embedded SQL preprocessor:\\
-        embedded SQL directives $\rightarrow$ API calls
-      \item host language compiler
-    \end{enumerate}
+    \item mark SQL statements within host language code: \lstinline!EXEC SQL!
+    \item preprocessor: embedded SQL directives $\rightarrow$ API calls
 
     \pause
     \bigskip
     \item pros: fast, standard
     \item cons: difficult, does not support most languages
-
-    \bigskip
-    \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
   \end{itemize}
 \end{frame}
 
@@ -282,50 +277,37 @@ PQclear(result);
   \begin{center}
     \pgfuseimage{esql}
   \end{center}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Embedded SQL Standard}
-
-  \begin{itemize}
-    \item sharing variables with the host language
-    \item error control
-    \item adapting query results
-  \end{itemize}
+  \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Variable Sharing}
+  \frametitle{Embedded SQL}
 
-  \begin{block}{Syntax}
+  \begin{itemize}
+    \item variable sharing
     \begin{lstlisting}
 EXEC SQL BEGIN DECLARE SECTION;
-shared variables
+-- shared variables
 EXEC SQL END DECLARE SECTION;
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
-    \item '\lstinline!:!' in front of host language variables in SQL statements
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Error Control}
-
-  \begin{block}{Error Processing}
+    \pause
+    \medskip
+    \item error control
     \begin{lstlisting}
 EXEC SQL WHENEVER
   { SQLERROR | SQLWARNING | NOT FOUND }
   { STOP | CONTINUE | DO command | GOTO label }
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Adapting Query Results}
+  \frametitle{Query Results}
 
-  \begin{block}{Cursors}
+  \begin{itemize}
+    \item cursors for iterating over query results
     \begin{lstlisting}
 EXEC SQL DECLARE cursor_name CURSOR FOR
     SELECT ...;
@@ -333,23 +315,16 @@ EXEC SQL OPEN cursor_name;
 EXEC SQL FETCH IN cursor_name INTO variables;
 EXEC SQL CLOSE cursor_name;
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item query is not executed when cursor is defined
-    \item it is executed when cursor is opened
-    \begin{itemize}
-      \item cursor points to first element in the result set
-    \end{itemize}
+    \medskip
+    \item query is executed when cursor is opened
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Embedded SQL Example}
+  \frametitle{Embedded SQL Example: Connect}
 
-  \begin{example}[connecting]
-    \begin{lstlisting}[language=C]
+  \begin{lstlisting}[language=C]
 EXEC SQL BEGIN DECLARE SECTION;
 int year;
 char *title = NULL, *score = NULL;
@@ -361,15 +336,13 @@ EXEC SQL CONNECT TO imdb
 /* process query */
 
 EXEC SQL DISCONNECT;
-    \end{lstlisting}
- \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Embedded SQL Example}
+  \frametitle{Embedded SQL Example: Cursor}
 
-  \begin{example}[processing query]
-    \begin{lstlisting}[language=C]
+  \begin{lstlisting}[language=C]
 scanf("%d", &year);
 EXEC SQL DECLARE c_query CURSOR FOR
     SELECT TITLE, SCORE FROM MOVIE
@@ -380,27 +353,25 @@ EXEC SQL OPEN c_query;
 
 EXEC SQL CLOSE c_query;
 EXEC SQL COMMIT;
-    \end{lstlisting}
- \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Embedded SQL Example}
+  \frametitle{Embedded SQL Example: Query}
 
-  \begin{example}[executing query]
-    \begin{lstlisting}[language=C]
+  \begin{lstlisting}[language=C]
 EXEC SQL WHENEVER NOT FOUND DO break;
-while (1) {
+while (1)
+{
     EXEC SQL FETCH c_query INTO :title, :score;
     ...
 }
-    \end{lstlisting}
- \end{example}
+  \end{lstlisting}
 \end{frame}
 
-\lstset{language=ExtendedPHP}
-
 \subsection{ODBC}
+
+\lstset{language=ExtendedPHP}
 
 \begin{frame}[label=odbc]
   \frametitle{ODBC}
@@ -409,7 +380,6 @@ while (1) {
     \item \alert{ODBC}: Open DataBase Connectivity\\
       a service layer between the application and the server
 
-    \pause
     \bigskip
     \item pros: standard
     \item cons: slow
@@ -422,20 +392,20 @@ while (1) {
   \begin{itemize}
     \item application
 
-    \pause
+    \medskip
     \item driver manager
     \begin{itemize}
       \item registers the ODBC drivers
       \item transfers requests from application to driver
     \end{itemize}
 
-    \pause
+    \medskip
     \item driver
     \begin{itemize}
       \item translates and transfers requests to data source
     \end{itemize}
 
-    \pause
+    \medskip
     \item data source
     \begin{itemize}
       \item processes instructions from the driver
@@ -444,10 +414,9 @@ while (1) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{ODBC Example}
+  \frametitle{ODBC Example: PHP}
 
-  \begin{example}[PHP]
-    \begin{lstlisting}
+  \begin{lstlisting}
 $conn = odbc_connect("imdb", "itucs", "itucs");
 $query = "SELECT TITLE, SCORE FROM MOVIE"
        . " WHERE (YR = " . $year . ")";
@@ -456,15 +425,13 @@ $result = odbc_exec($conn, $query);
 /* process the result set */
 
 odbc_close($conn);
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{ODBC Example}
+  \frametitle{ODBC Example: PHP}
 
-  \begin{example}[processing the result set]
-    \begin{lstlisting}
+  \begin{lstlisting}
 echo "<table>\n";
 while (odbc_fetch_row($result)) {
     $title = odbc_result($result, "title");
@@ -475,13 +442,12 @@ while (odbc_fetch_row($result)) {
     echo "</tr>\n";
 }
 echo "</table>\n";
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
-\lstset{language=Java}
-
 \subsection{JDBC}
+
+\lstset{language=Java}
 
 \begin{frame}
   \frametitle{JDBC}
@@ -489,20 +455,8 @@ echo "</table>\n";
   \begin{itemize}
     \item \alert{JDBC}: Java DataBase Connectivity
 
-    \pause
+    \medskip
     \item same architectural concepts as in ODBC
-    \begin{itemize}
-      \item different types of drivers
-    \end{itemize}
-
-    \pause
-    \item JDBC URL for connection
-    \begin{itemize}
-      \item \lstinline!jdbc:<subprotocol>:<parameters>!
-    \end{itemize}
-
-    \pause
-    \item matching Java and SQL data types
   \end{itemize}
 \end{frame}
 
@@ -516,12 +470,14 @@ echo "</table>\n";
     \end{itemize}
 
     \pause
+    \medskip
     \item \emph{Type II}: direct translation via non-Java driver
     \begin{itemize}
       \item translate into API of data source (for example C++)
     \end{itemize}
 
     \pause
+    \medskip
     \item \emph{Type III}: network bridges
     \begin{itemize}
       \item connect to middleware server\\
@@ -529,6 +485,7 @@ echo "</table>\n";
     \end{itemize}
 
     \pause
+    \medskip
     \item \emph{Type IV}: direct translation via Java driver
     \begin{itemize}
       \item communicate with DBMS through Java sockets
@@ -536,29 +493,24 @@ echo "</table>\n";
   \end{itemize}
 \end{frame}
 
+\lstset{basicstyle=\ttfamily\footnotesize}
+
 \begin{frame}
   \frametitle{JDBC Flow}
 
   \begin{itemize}
-    \item get a connection object
-    \begin{itemize}
-      \item static: \lstinline!DriverManager.getConnection()!
-	$\rightarrow$ \lstinline!Connection!
-    \end{itemize}
+    \item get a connection object:\\
+    \lstinline!Connection conn = DriverManager.getConnection()!
 
     \pause
-    \item create a statement object on the connection
-    \begin{itemize}
-      \item \lstinline!Connection.createStatement()!
-	 $\rightarrow$ \lstinline!Statement!
-    \end{itemize}
+    \item create a statement object on the connection\\
+    \lstinline!Statement stmt = conn.createStatement()!
 
     \pause
     \item execute the query
     \begin{itemize}
-      \item read: \lstinline!Statement.executeQuery(query)!
-	$\rightarrow$ \lstinline!ResultSet!
-      \item insert, update, delete: \lstinline!Statement.executeUpdate(query)!
+      \item select: \lstinline!ResultSet results = stmt.executeQuery(query)!
+      \item insert, update, delete: \lstinline!stmt.executeUpdate(query)!
     \end{itemize}
 
     \pause
@@ -576,16 +528,15 @@ echo "</table>\n";
   \begin{itemize}
     \item \lstinline!ResultSet! is an iterator
     \begin{itemize}
-      \item whether there are more rows: \lstinline!ResultSet.hasNext()!
-      \item proceed to the next row: \lstinline!ResultSet.next()!
+      \item whether there are more rows: \lstinline!.hasNext()!
+      \item proceed to the next row: \lstinline!.next()!
     \end{itemize}
 
-    \pause
     \medskip
     \item convert and transfer data in the row to variables
     \begin{itemize}
-      \item by column name: \lstinline!ResultSet.getXXX(name)!
-      \item by column order: \lstinline!ResultSet.getXXX(order)!
+      \item by column name: \lstinline!.getXXX(name)!
+      \item by column order: \lstinline!.getXXX(order)!
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -595,180 +546,187 @@ echo "</table>\n";
 
   \begin{table}
     \begin{tabular}{|l|l|l|}\hline
-SQL type  & Java class         & ResultSet method\\\hline\hline
-BIT       & Boolean            & getBoolean()    \\\hline
-CHAR      & String             & getString()     \\\hline
-VARCHAR   & String             & getString()     \\\hline
-DOUBLE    & Double             & getDouble()     \\\hline
-FLOAT     & Float              & getDouble()     \\\hline
-INTEGER   & Integer            & getInt()        \\\hline
-REAL      & Double             & getFloat()      \\\hline
-DATE      & java.sql.Date      & getDate()       \\\hline
-TIME      & java.sql.Time      & getTime()       \\\hline
-TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
+SQL type                            & Java class
+                                    & \lstinline!ResultSet! method\\\hline\hline
+\lstinline[language=SQL]!BIT!       & \lstinline!Boolean!
+                                    & \lstinline!.getBoolean()!    \\\hline
+\lstinline[language=SQL]!CHAR!      & \lstinline!String!
+                                    & \lstinline!.getString()!     \\\hline
+\lstinline[language=SQL]!VARCHAR!   & \lstinline!String!
+                                    & \lstinline!.getString()!     \\\hline
+\lstinline[language=SQL]!FLOAT!     & \lstinline!Float!
+                                    & \lstinline!.getDouble()!     \\\hline
+\lstinline[language=SQL]!INTEGER!   & \lstinline!Integer!
+                                    & \lstinline!.getInt()!        \\\hline
+\lstinline[language=SQL]!DATE!      & \lstinline!java.sql.Date!
+                                    & \lstinline!.getDate()!       \\\hline
+\lstinline[language=SQL]!TIME!      & \lstinline!java.sql.Time!
+                                    & \lstinline!.getTime()!       \\\hline
+\lstinline[language=SQL]!TIMESTAMP! & \lstinline!java.sql.TimeStamp!
+                                    & \lstinline!.getTimestamp()!  \\\hline
     \end{tabular}
   \end{table}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{JDBC Example}
+\lstset{basicstyle=\ttfamily\small}
 
-  \begin{example}[loading the database driver]
-    \begin{lstlisting}
+\begin{frame}[fragile]
+  \frametitle{JDBC Example: Driver}
+
+  \begin{lstlisting}
 try {
-  Class.forName("org.postgresql.Driver");
+    Class.forName("org.postgresql.Driver");
 } catch (ClassNotFoundException e) {
-  // PostgreSQL driver not installed
+    // PostgreSQL driver not installed
 }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Example}
+  \frametitle{JDBC Example: Connect}
 
-  \begin{example}[connecting]
-    \begin{lstlisting}
+  \begin{lstlisting}
 try {
-  Connection conn = DriverManager.getConnection(
-    "jdbc:postgresql:imdb", "itucs", "itucs"
-  );
+    conn = DriverManager.getConnection(
+        "jdbc:postgresql:imdb", "itucs", "itucs"
+    );
 } catch (SQLException e) {
-  // connection error
+    // connection error
 }
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Example}
+  \frametitle{JDBC Example: Insert}
 
-  \begin{example}[inserting]
+  \begin{lstlisting}
+query = "INSERT INTO MOVIE (TITLE, YR)"
+      + " VALUES ('Casablanca', 1942)";
+stmt = conn.createStatement();
+stmt.executeUpdate(query);
+stmt.close();
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Security}
+
+  \begin{itemize}
+    \item don't trust inputs from outside sources
+  \end{itemize}
+
+  \medskip
+  \begin{example}
     \begin{lstlisting}
-String query = "INSERT INTO MOVIE (TITLE, YR)"
-    + " VALUES ('Casablanca', 1942)";
-Statement stmt = conn.createStatement();
+name = ...; // get from outside source
+query = "INSERT INTO Students (NAME)"
+      + " VALUES ('" + name + "')";
+stmt = conn.createStatement();
 stmt.executeUpdate(query);
 stmt.close();
     \end{lstlisting}
   \end{example}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Little Bobby Tables}
+
+  \begin{center}
+    \pgfuseimage{xkcd}
+  \end{center}
+  \url{http://xkcd.com/327/}
+\end{frame}
+
+\lstset{basicstyle=\ttfamily\footnotesize}
+
 \begin{frame}
   \frametitle{Prepared Statements}
 
   \begin{itemize}
-    \item prepared statements can be reused\\
-      by changing parameter values
+    \item prepared statements can be reused by changing parameter values
 
-    \pause
     \medskip
     \item creating:\\
-      \lstinline!Connection.prepareStatement(query)!
-      $\rightarrow$ \lstinline!PreparedStatement!
-    \item placeholder for parameters in query: '\lstinline!?!'
-    \begin{itemize}
-      \item values must be set before executing:\\
-	\lstinline!PreparedStatement.setXXX(order, value)!
-    \end{itemize}
+      \lstinline!PreparedStatement stmt = conn.prepareStatement(query)!
 
-    \pause
     \medskip
-    \item executing: \lstinline!PreparedStatement.executeQuery()!\\
-      or \lstinline!PreparedStatement.executeUpdate()!
+    \item placeholder for parameters in query: \lstinline!?!
+    \item values must be set before executing:\\
+      \lstinline!stmt.setXXX(order, value)!
+
+    \medskip
+    \item executing:\\
+      \lstinline!stmt.executeQuery()!\\
+      \lstinline!stmt.executeUpdate()!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Prepared Statement Example}
+\lstset{basicstyle=\ttfamily\small}
 
-  \begin{example}[inserting - using prepared statement]
-    \begin{lstlisting}
-String query = "INSERT INTO MOVIE (TITLE, YR)"
-    + " VALUES (?, ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
+\begin{frame}[fragile]
+  \frametitle{JDBC Example: Prepared Statement}
+
+  \begin{lstlisting}
+query = "INSERT INTO MOVIE (TITLE, YR) VALUES (?, ?)";
+stmt = conn.prepareStatement(query);
 for (Movie movie : getMovies()) {
     stmt.setString(1, movie.getTitle());
     stmt.setInt(2, movie.getYear());
     stmt.executeUpdate();
 }
 stmt.close();
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Result Set Example}
+  \frametitle{JDBC Example: Result Set}
 
-  \begin{example}[listing movie titles in a year]
-    \begin{lstlisting}
-String query = String.format(
-  "SELECT TITLE FROM MOVIE WHERE (YR = %d)",
-  year);
-Statement stmt = conn.createStatement();
-ResultSet results = stmt.executeQuery(query);
+  \begin{lstlisting}
+query = String.format(
+    "SELECT TITLE FROM MOVIE WHERE (YR = %d)", year
+);
+stmt = conn.createStatement();
+results = stmt.executeQuery(query);
 while (results.next()) {
-    String title = results.getString("TITLE");
+    title = results.getString("TITLE");
     System.out.println("Title: " + title),
 }
 results.close();
 stmt.close();
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Example}
+  \frametitle{JDBC Example: Delete}
 
-  \begin{example}[deleting]
-    \begin{lstlisting}
-String query = "DELETE FROM MOVIE" +
-    " WHERE (ID = ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
+  \begin{lstlisting}
+query = "DELETE FROM MOVIE WHERE (ID = ?)";
+stmt = conn.prepareStatement(query);
 stmt.setInt(1, movie.getId());
 stmt.executeUpdate();
 stmt.close();
-    \end{lstlisting}
-  \end{example}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{JDBC Example}
+  \frametitle{JDBC Example: Update}
 
-  \begin{example}[updating]
-    \begin{lstlisting}
-String query = "UPDATE MOVIE SET YR = ?" +
-    " WHERE (ID = ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
+  \begin{lstlisting}
+query = "UPDATE MOVIE SET YR = ? WHERE (ID = ?)";
+stmt = conn.prepareStatement(query);
 stmt.setInt(1, movie.getYear());
 stmt.setInt(2, movie.getId());
 stmt.executeUpdate();
 stmt.close();
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Closing Resources}
-
-  \begin{itemize}
-    \item it is recommended to close resources\\
-      such as results sets and statements\\
-      in the \lstinline!finally! part
-      of \lstinline!try - catch - finally! blocks
-  \end{itemize}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Resource Closing Example}
+  \frametitle{JDBC Example: Close Resources}
 
-  \begin{block}{}
-    \begin{lstlisting}
-Statement stmt = conn.createStatement();
-ResultSet results = null;
+  \begin{lstlisting}
+Statement stmt = ...;
+ResultSet results = ...;
 try {
     results = stmt.executeQuery(query);
     ...
@@ -778,109 +736,92 @@ try {
     results.close();
     stmt.close();
 }
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Auto-Generated Identity Values}
-
-  \begin{itemize}
-    \item to obtain auto-generated identity values,\\
-      use the \lstinline!RETURN_GENERATED_KEYS! flag\\
-      when creating the statement
-    \item after executing the statement:\\
-      \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
-      \lstinline!ResultSet!
-  \end{itemize}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Auto-Generated Keys Example}
+  \frametitle{Auto-Generated Identity Values}
 
-  \begin{block}{}
-    \begin{lstlisting}
-String query = "INSERT INTO ... ";
-PreparedStatement stmt =
-    connection.prepareStatement(query,
-        Statement.RETURN_GENERATED_KEYS);
+  \begin{lstlisting}
+query = "INSERT INTO ... ";
+stmt = conn.prepareStatement(query,
+           Statement.RETURN_GENERATED_KEYS);
 stmt.executeUpdate();
 
-ResultSet ids = statement.getGeneratedKeys();
+ResultSet ids = stmt.getGeneratedKeys();
 // assuming there is one and only one result
 ids.next();
 int id = ids.getInt(1);
-    \end{lstlisting}
-  \end{block}
+  \end{lstlisting}
 \end{frame}
-
-\begin{frame}
-  \frametitle{Batch Mode}
-
-  \begin{itemize}
-    \item accumulating statements to run them in batches\\
-      might be faster
-
-    \pause
-    \medskip
-    \item get the connection out of "auto commit" mode
-    \item accumulate: \lstinline!Statement.addBatch(query)!
-    \item execute accumulated statements: \lstinline!Statement.executeBatch()!
-    \item finalizing changes: \lstinline!Connection.commit()!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Batch Mode Example}
-
-  \begin{block}{}
-    \begin{lstlisting}
-stmt = conn.createStatement( ... );
-conn.setAutoCommit(false);
-int queryCount = 0;
-int batchSize = 100;
-for ( ... ) {
-    stmt.addBatch(query);
-    queryCount++;
-    if (queryCount % batchSize == 0) {
-        stmt.executeBatch();
-        conn.commit();
-    }
-}
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fetch Size}
-
-  \begin{itemize}
-    \item the JDBC drivers prefetch rows from the query
-    \item increases performance, but also increases memory usage
-
-    \pause
-    \medskip
-    \item setting a smaller fetch size decreases memory usage:\\
-      \lstinline!Statement.setFetchSize(count)!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fetch Size Example}
-
-  \begin{block}{}
-    \begin{lstlisting}
-stmt.setFetchSize(1);
-
-// MySQL
-stmt.setFetchSize(Integer.MIN_VALUE)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\lstset{language=ExtendedSQL}
+%
+% \begin{frame}
+%   \frametitle{Batch Mode}
+%
+%   \begin{itemize}
+%     \item accumulating statements to run them in batches\\
+%       might be faster
+%
+%     \pause
+%     \medskip
+%     \item get the connection out of "auto commit" mode
+%     \item accumulate: \lstinline!Statement.addBatch(query)!
+%     \item execute accumulated statements: \lstinline!Statement.executeBatch()!
+%     \item finalizing changes: \lstinline!Connection.commit()!
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Batch Mode Example}
+%
+%   \begin{block}{}
+%     \begin{lstlisting}
+% stmt = conn.createStatement( ... );
+% conn.setAutoCommit(false);
+% int queryCount = 0;
+% int batchSize = 100;
+% for ( ... ) {
+%     stmt.addBatch(query);
+%     queryCount++;
+%     if (queryCount % batchSize == 0) {
+%         stmt.executeBatch();
+%         conn.commit();
+%     }
+% }
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Fetch Size}
+%
+%   \begin{itemize}
+%     \item the JDBC drivers prefetch rows from the query
+%     \item increases performance, but also increases memory usage
+%
+%     \pause
+%     \medskip
+%     \item setting a smaller fetch size decreases memory usage:\\
+%       \lstinline!Statement.setFetchSize(count)!
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Fetch Size Example}
+%
+%   \begin{block}{}
+%     \begin{lstlisting}
+% stmt.setFetchSize(1);
+%
+% // MySQL
+% stmt.setFetchSize(Integer.MIN_VALUE)
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
 
 \section{SQL}
+
+\lstset{language=ExtendedSQL}
 
 \subsection{Stored Procedures}
 
@@ -889,36 +830,35 @@ stmt.setFetchSize(Integer.MIN_VALUE)
 
   \begin{itemize}
     \item implementing functionality in the database server
-    \begin{itemize}
-      \item languages: SQL, PL/SQL, C, ...
-    \end{itemize}
+    \item languages: SQL, PL/SQL, C, ...
 
     \pause
     \bigskip
-    \item \alert{not recommended}
-    \begin{itemize}
-      \item not portable
-      \item not scalable
-      \item database servers are not optimized for business logic
-    \end{itemize}
-    $\rightarrow$ implement business logic on the application server
+    \item not portable
+    \pause
+    \item not scalable
+    \pause
+    \item database servers are not optimized for business logic
+    \pause
+    \item \alert{not recommended}\\
+      $\rightarrow$ implement business logic on the application server
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Creating Functions}
+  \frametitle{Functions}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item creating a function
     \begin{lstlisting}
 CREATE FUNCTION
-  function_name([parameter_type [, ...]])
+  function_name(parameter_type [, ...])
   RETURNS return_type
   AS function_body
   LANGUAGE language_name
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
+    \medskip
     \item first parameter \$1, second parameter \$2, ...
   \end{itemize}
 \end{frame}
@@ -926,33 +866,32 @@ CREATE FUNCTION
 \begin{frame}[fragile]
   \frametitle{SQL Function Example}
 
-  \begin{example}[calculating new score]
-    \$1: old score, \$2: old votes, \$3: new vote
+  \begin{itemize}
+    \item calculating new score:\\
+      \$1: old score, \$2: old votes, \$3: new vote
+
+    \medskip
     \begin{lstlisting}
 CREATE FUNCTION NEW_SCORE(float, int, int)
   RETURNS float
-  AS 'SELECT ($1*$2+$3) / ($2+1);'
+  AS 'SELECT ($1 * $2 + $3) / ($2 + 1);'
   LANGUAGE 'sql'
     \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Triggers}
-
-  \begin{definition}
-    \alert{trigger}: a function that will be automatically activated on an event
-  \end{definition}
-
-  \begin{itemize}
-    \item can be useful for maintaining integrity
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Creating Triggers}
+  \frametitle{Triggers}
 
-  \begin{block}{Statement}
+  \begin{itemize}
+    \item \alert{trigger}: a function that will be automatically invoked
+      on an event
+    \item can be useful for maintaining integrity
+
+    \pause
+    \medskip
+    \item creating a trigger:
+    \smallskip
     \begin{lstlisting}
 CREATE TRIGGER trigger_name
   { BEFORE | AFTER } { event [ OR ... ] }
@@ -960,9 +899,7 @@ CREATE TRIGGER trigger_name
   [ FOR [ EACH ] { ROW | STATEMENT } ]
   EXECUTE PROCEDURE function_name(...)
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
     \item PL/pgSQL:
     \begin{itemize}
       \item \lstinline!old!: tuple before the operation
@@ -974,7 +911,10 @@ CREATE TRIGGER trigger_name
 \begin{frame}[fragile]
   \frametitle{Trigger Example}
 
-  \begin{example}[let SCORE * VOTES be kept in the POINTS column]
+  \begin{itemize}
+    \item let \lstinline!SCORE * VOTES! be kept in the \lstinline!POINTS! column
+
+    \medskip
     \begin{lstlisting}
 CREATE FUNCTION UPDATE_MOVIE_POINTS()
   RETURNS opaque
@@ -984,59 +924,55 @@ CREATE FUNCTION UPDATE_MOVIE_POINTS()
       END;'
   LANGUAGE 'plpgsql'
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Trigger Example}
 
-  \begin{example}[calculate POINTS automatically on updates]
+  \begin{itemize}
+    \item calculate \lstinline!POINTS! automatically on updates
+
+    \medskip
     \begin{lstlisting}
 CREATE TRIGGER UPDATE_MOVIE
   BEFORE INSERT OR UPDATE ON MOVIE
   FOR EACH ROW
   EXECUTE PROCEDURE UPDATE_MOVIE_POINTS()
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \subsection{Views}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Views}
 
   \begin{itemize}
-    \item presenting a derived table like a base table
-
-    \pause
+    \item presenting a derived table like a base table: \alert{view}
     \item isolating users and application programs\\
       from changes in database structure
-%     \begin{itemize}
-%       \item denormalizing after database refactoring
-%     \end{itemize}
-  \end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Creating Views}
-
-  \begin{block}{Statement}
+    \pause
+    \bigskip
+    \item creating a view:
     \begin{lstlisting}
 CREATE VIEW view_name AS
   SELECT ...
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
-    \item the \lstinline!SELECT! query will be executed every time the view is
-      used
+    \medskip
+    \item \lstinline!SELECT! will be executed every time the view is used
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{View Example}
 
-  \begin{example}
+  \begin{itemize}
+    \item identifiers, titles and years of new movies
+
+    \medskip
     \begin{lstlisting}
 CREATE VIEW NEW_MOVIE AS
   SELECT ID, TITLE, YR FROM MOVIE
@@ -1044,40 +980,41 @@ CREATE VIEW NEW_MOVIE AS
 
 SELECT * FROM NEW_MOVIE
     \end{lstlisting}
-  \end{example}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Updating Views}
 
   \begin{itemize}
-    \item changes have to performed on the base tables
-    \begin{itemize}
-      \item rules need to be defined
-    \end{itemize}
-  \end{itemize}
+    \item any change will have to performed on the base tables
+    \item rules need to be defined
 
-  \pause
-  \begin{block}{Creating Rules}
+    \pause
+    \bigskip
+    \item creating a rule:
     \begin{lstlisting}
 CREATE RULE rule_name AS
   ON event TO view_name
   [ WHERE condition ]
   DO [ INSTEAD ] sql_statement
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{View Rule Example}
 
-  \begin{example}
+  \begin{itemize}
+    \item modify the title of a new movie
     \begin{lstlisting}
-UPDATE NEW_MOVIE SET TITLE='..'
-  WHERE (ID = 1)
+UPDATE NEW_MOVIE SET TITLE = ...
+  WHERE (ID = ...)
     \end{lstlisting}
 
     \pause
+    \medskip
+    \item rule for updating the base table
     \begin{lstlisting}
 CREATE RULE UPDATE_TITLE AS
   ON UPDATE TO NEW_MOVIE
@@ -1085,64 +1022,51 @@ CREATE RULE UPDATE_TITLE AS
     UPDATE MOVIE SET TITLE = new.TITLE
       WHERE (ID = old.ID)
     \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\subsection{Permissions}
-
-\begin{frame}
-  \frametitle{Permissions}
-
-  \begin{itemize}
-    \item \alert{subject}: active entities (user, group)
-    \item \alert{object}: passive entities (table, column, view, ...)
-
-    \pause
-    \item owner of object determines permissions of other subjects:\\
-      \emph{discretionary access control}
   \end{itemize}
 \end{frame}
+%
+% \subsection{Permissions}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Permissions}
+%
+%   \begin{block}{Granting Permissions}
+%     \begin{lstlisting}
+% GRANT permission_name [, ...]
+%   ON object_name TO subject_name
+%   [ WITH GRANT OPTION ]
+%     \end{lstlisting}
+%   \end{block}
+%
+%   \pause
+%   \begin{block}{Revoking Permissions}
+%     \begin{lstlisting}
+% REVOKE permission_name
+%   ON object_name FROM subject_name
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Permission Examples}
+%
+%   \begin{example}[granting permissions on a table]
+%     \begin{lstlisting}
+% GRANT SELECT, INSERT, UPDATE ON MOVIE
+%   TO 'itucs'
+%     \end{lstlisting}
+%   \end{example}
+%
+%   \pause
+%   \begin{example}[revoking permissions on a table]
+%     \begin{lstlisting}
+% REVOKE INSERT ON MOVIE
+%   FROM 'itucs'
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{SQL Permissions}
-
-  \begin{block}{Granting Permissions}
-    \begin{lstlisting}
-GRANT permission_name [, ...]
-  ON object_name TO subject_name
-  [ WITH GRANT OPTION ]
-    \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{block}{Revoking Permissions}
-    \begin{lstlisting}
-REVOKE permission_name
-  ON object_name FROM subject_name
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Permission Examples}
-
-  \begin{example}[granting permissions on a table]
-    \begin{lstlisting}
-GRANT SELECT, INSERT, UPDATE ON MOVIE
-  TO 'itucs'
-    \end{lstlisting}
-  \end{example}
-
-  \pause
-  \begin{example}[revoking permissions on a table]
-    \begin{lstlisting}
-REVOKE INSERT ON MOVIE
-  FROM 'itucs'
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\subsection{Tips}
+\subsection{Indexes}
 
 \begin{frame}[fragile]
   \frametitle{Indexes}
@@ -1151,60 +1075,58 @@ REVOKE INSERT ON MOVIE
     \item some operations require sorting:\\
       \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
 
-    \pause
-    \item creating indexes speeds up queries
-    \begin{itemize}
-      \item slows down insert and update operations
-    \end{itemize}
-  \end{itemize}
+    \medskip
+    \item indexes speed up queries
+    \item slow down inserts and updates
 
-  \pause
-  \begin{block}{Statement}
+    \pause
+    \bigskip
+    \item creating an index
     \begin{lstlisting}
 CREATE [ UNIQUE ] INDEX index_name
   ON table_name(column_name [, ...])
     \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Bulk Data Transfer}
-
-  \begin{itemize}
-    \item use vendor-specific bulk data transfer commands\\
-      instead of inserting or deleting one-by-one
-
-    \item export to / import from tab separated value files
   \end{itemize}
 \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Bulk Data Transfer}
-
-  \begin{block}{PostgreSQL}
-    \begin{lstlisting}
-COPY table_name (column_name [, ...])
-  TO 'output_file_path'
-
-COPY table_name (column_name [, ...])
-  FROM 'input_file_path'
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Bulk Data Transfer}
-
-  \begin{block}{MySQL}
-    \begin{lstlisting}
-SELECT column_name [, ...] FROM table_name
-  INTO OUTFILE 'output_file_path'
-
-LOAD DATA INFILE 'input_file_path'
-  INTO TABLE table_name (column_name [, ...])
-    \end{lstlisting}
-  \end{block}
-\end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Bulk Data Transfer}
+%
+%   \begin{itemize}
+%     \item use vendor-specific bulk data transfer commands\\
+%       instead of inserting or deleting one-by-one
+%
+%     \item export to / import from tab separated value files
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Bulk Data Transfer}
+%
+%   \begin{block}{PostgreSQL}
+%     \begin{lstlisting}
+% COPY table_name (column_name [, ...])
+%   TO 'output_file_path'
+%
+% COPY table_name (column_name [, ...])
+%   FROM 'input_file_path'
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Bulk Data Transfer}
+%
+%   \begin{block}{MySQL}
+%     \begin{lstlisting}
+% SELECT column_name [, ...] FROM table_name
+%   INTO OUTFILE 'output_file_path'
+%
+% LOAD DATA INFILE 'input_file_path'
+%   INTO TABLE table_name (column_name [, ...])
+%     \end{lstlisting}
+%   \end{block}
+% \end{frame}
 
 \section*{References}
 
