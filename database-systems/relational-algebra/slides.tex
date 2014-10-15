@@ -10,6 +10,7 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamertemplate{navigation symbols}{}
@@ -28,7 +29,8 @@
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
                 START, TO, TYPE, VACUUM}
 }
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -115,7 +117,7 @@
   \frametitle{Closure}
 
   \begin{itemize}
-    \item \alert{closure}: the input and output of all operations are relations
+    \item \alert{closure}: input and output of all operations are relations
 
     \medskip
     \item the output of one operation can be the input of another
@@ -290,7 +292,7 @@ relation WHERE condition
   \frametitle{Selection Examples - 1}
 
   \begin{itemize}
-    \item the movies with more than 10000 votes (\texttt{S1})
+    \item movies with more than 10000 votes (\texttt{S1})
     \begin{lstlisting}
 MOVIE WHERE (VOTES > 10000)
     \end{lstlisting}
@@ -316,7 +318,7 @@ MOVIE WHERE (VOTES > 10000)
   \frametitle{Selection Examples - 2}
 
   \begin{itemize}
-    \item the movies older than 1992, with scores higher than 7.5
+    \item movies older than 1992, with scores higher than 7.5
       (\texttt{S2})
     \begin{lstlisting}
 MOVIE WHERE ((YEAR < YEAR(1992))
@@ -355,7 +357,7 @@ relation { attribute_name [, ...] }
   \frametitle{Projection Examples - 1}
 
   \begin{itemize}
-      \item the titles of all movies (\texttt{P1})
+      \item titles of all movies (\texttt{P1})
     \begin{lstlisting}
 MOVIE { TITLE }
     \end{lstlisting}
@@ -404,7 +406,7 @@ Cry-Baby                      \\\hline
   \frametitle{Projection Examples - 2}
 
   \begin{itemize}
-    \item the titles and years of all movies (\texttt{P2})
+    \item titles and years of all movies (\texttt{P2})
     \begin{lstlisting}
 MOVIE { TITLE, YEAR }
     \end{lstlisting}
@@ -453,7 +455,7 @@ eXistenZ                       & 1999\\\hline
   \frametitle{Projection Examples - 3}
 
   \begin{itemize}
-    \item the years of all movies (\texttt{P3})
+    \item years of all movies (\texttt{P3})
     \begin{lstlisting}
 MOVIE { YEAR }
     \end{lstlisting}
@@ -483,17 +485,17 @@ MOVIE { YEAR }
   \frametitle{Projection Examples - 4}
 
   \begin{itemize}
-    \item the titles of movies with votes more than 5000\\
+    \item titles of movies with votes more than 5000\\
       and scores higher than 7.0 (\texttt{P4})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the movies with votes more than 5000\\
+    \item movies with votes more than 5000\\
       and scores higher than 7.0 (\texttt{P4A})
 
     \pause
-    \item the titles in \texttt{P4A} (\texttt{P4})
+    \item titles in \texttt{P4A} (\texttt{P4})
   \end{enumerate}
 \end{frame}
 
@@ -501,7 +503,7 @@ MOVIE { YEAR }
   \frametitle{Projection Examples - 4}
 
   \begin{itemize}
-    \item the movies with votes more than 5000\\
+    \item movies with votes more than 5000\\
       and scores higher than 7.0 (\texttt{P4A})
     \begin{lstlisting}
 MOVIE WHERE ((VOTES > 5000)
@@ -531,7 +533,7 @@ MOVIE WHERE ((VOTES > 5000)
   \frametitle{Projection Examples - 4}
 
   \begin{itemize}
-    \item the titles in \texttt{P4A} (\texttt{P4})
+    \item titles in \texttt{P4A} (\texttt{P4})
     \begin{lstlisting}
 P4A { TITLE }
     \end{lstlisting}
@@ -559,7 +561,7 @@ Usual Suspects      \\\hline
   \frametitle{Projection Examples - 4}
 
   \begin{itemize}
-    \item the titles of movies with votes more than 5000\\
+    \item titles of movies with votes more than 5000\\
       and scores higher than 7.0 (\texttt{P4})
     \begin{lstlisting}
 ( MOVIE
@@ -607,7 +609,7 @@ relation1 JOIN relation2
   \frametitle{Join Examples - 1}
 
   \begin{itemize}
-    \item the titles of all movies and the names of their directors
+    \item titles and director names of all movies
       (\texttt{J1})
   \end{itemize}
 
@@ -616,7 +618,7 @@ relation1 JOIN relation2
     \item all movies and their directors (\texttt{J1A})
 
     \pause
-    \item the movie titles and director names in \texttt{J1A} (\texttt{J1})
+    \item titles and director names in \texttt{J1A} (\texttt{J1})
   \end{enumerate}
 \end{frame}
 
@@ -653,7 +655,7 @@ MOVIE JOIN
   \frametitle{Join Examples - 1}
 
   \begin{itemize}
-    \item the movie titles and director names in \texttt{J1A}
+    \item titles and director names in \texttt{J1A}
       (\texttt{J1})
     \begin{lstlisting}
 J1A { TITLE, NAME }
@@ -682,8 +684,7 @@ eXistenZ             & David Cronenberg\\\hline
   \frametitle{Join Examples - 2}
 
   \begin{itemize}
-    \item the titles of all movies and the names of their actors,\\
-      along with their ordinal numbers (\texttt{J2})
+    \item titles, actor names and actor orders of all movies (\texttt{J2})
   \end{itemize}
 
   \pause
@@ -694,8 +695,7 @@ eXistenZ             & David Cronenberg\\\hline
     \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
 
     \pause
-    \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
-      (\texttt{J2})
+    \item titles, actor names and actor orders in \texttt{J2B} (\texttt{J2})
   \end{enumerate}
 \end{frame}
 
@@ -762,7 +762,7 @@ J2A JOIN
   \frametitle{Join Examples - 2}
 
   \begin{itemize}
-    \item the movie titles, actor names and ordinal numbers in \texttt{J2B}
+    \item titles, actor names and actor orders in \texttt{J2B}
       (\texttt{J2})
     \begin{lstlisting}
 J2B { TITLE, NAME, ORD }
@@ -792,19 +792,18 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \frametitle{Join Examples - 3}
 
   \begin{itemize}
-    \item the names of the actors in Johnny Depp's movies (\texttt{J3})
+    \item names of the actors in Johnny Depp's movies (\texttt{J3})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the identifiers of Johnny Depp's movies (\texttt{J3A})
+    \item ids of Johnny Depp's movies (\texttt{J3A})
 
     \pause
-    \item the identifiers of the actors in the movies in \texttt{J3A}
-      (\texttt{J3B})
+    \item ids of the actors in the movies in \texttt{J3A} (\texttt{J3B})
 
     \pause
-    \item the names of the actors in \texttt{J3B} (\texttt{J3})
+    \item names of the actors in \texttt{J3B} (\texttt{J3})
   \end{enumerate}
 \end{frame}
 
@@ -812,7 +811,7 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \frametitle{Join Examples - 3}
 
   \begin{itemize}
-    \item the identifiers of Johnny Depp's movies (\texttt{J3A})
+    \item ids of Johnny Depp's movies (\texttt{J3A})
     \begin{lstlisting}
 (((PERSON RENAME { PERSON# AS ACTOR# })
     JOIN CASTING)
@@ -840,7 +839,7 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \frametitle{Join Examples - 3}
 
   \begin{itemize}
-    \item the identifiers of the actors in the movies in \texttt{J3A}
+    \item ids of the actors in the movies in \texttt{J3A}
       (\texttt{J3B})
     \begin{lstlisting}
 (J3A JOIN CASTING) { ACTOR# }
@@ -870,7 +869,7 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \frametitle{Join Examples - 3}
 
   \begin{itemize}
-    \item the names of the actors in \texttt{J3B} (\texttt{J3})
+    \item names of the actors in \texttt{J3B} (\texttt{J3})
     \begin{lstlisting}
 ((J3B RENAME { ACTOR# AS PERSON# })
     JOIN PERSON) { NAME }
@@ -914,20 +913,18 @@ relation1 DIVIDEBY relation2
   \frametitle{Division Example}
 
   \begin{itemize}
-    \item the titles of the movies in which both Johnny Depp\\
-      and Christina Ricci played (\texttt{V1})
+    \item titles of movies with Johnny Depp and Christina Ricci (\texttt{V1})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
+    \item ids of Johnny Depp and Christina Ricci (\texttt{V1A})
 
     \pause
-    \item the identities of the movies with all the actors in \texttt{V1A}
-      (\texttt{V1B})
+    \item ids of movies with all the actors in \texttt{V1A} (\texttt{V1B})
 
     \pause
-    \item the titles of the movies in \texttt{V1B} (\texttt{V1})
+    \item titles of the movies in \texttt{V1B} (\texttt{V1})
   \end{enumerate}
 \end{frame}
 
@@ -935,7 +932,7 @@ relation1 DIVIDEBY relation2
   \frametitle{Division Example}
 
   \begin{itemize}
-    \item the identities of Johnny Depp and Christina Ricci (\texttt{V1A})
+    \item ids of Johnny Depp and Christina Ricci (\texttt{V1A})
     \begin{lstlisting}
 (PERSON
     WHERE ((NAME = "Johnny Depp")
@@ -961,7 +958,7 @@ relation1 DIVIDEBY relation2
   \frametitle{Division Example}
 
   \begin{itemize}
-    \item the identities of movies with all the actors in \texttt{V1A}
+    \item ids of movies with all the actors in \texttt{V1A}
       (\texttt{V1B})
     \begin{lstlisting}
 (MOVIE { MOVIE# })
@@ -988,7 +985,7 @@ relation1 DIVIDEBY relation2
   \frametitle{Division Example}
 
   \begin{itemize}
-    \item the titles of the movies in \texttt{V1B} (\texttt{V1})
+    \item titles of movies in \texttt{V1B} (\texttt{V1})
     \begin{lstlisting}
 (V1B JOIN MOVIE) { TITLE }
     \end{lstlisting}
@@ -1049,15 +1046,15 @@ relation1 INTERSECT relation2
   \frametitle{Intersection Example}
 
   \begin{itemize}
-    \item the names of all directors who also acted (\texttt{I1})
+    \item names of all directors who also acted (\texttt{I1})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the identifiers of all directors who also acted (\texttt{I1A})
+    \item ids of all directors who also acted (\texttt{I1A})
 
     \pause
-    \item the names of all the persons in \texttt{I1A} (\texttt{I1})
+    \item names of all the persons in \texttt{I1A} (\texttt{I1})
   \end{enumerate}
 \end{frame}
 
@@ -1065,7 +1062,7 @@ relation1 INTERSECT relation2
   \frametitle{Intersection Example}
 
   \begin{itemize}
-    \item the identifiers of all directors who also acted (\texttt{I1})
+    \item ids of all directors who also acted (\texttt{I1})
     \begin{lstlisting}
 (MOVIE { DIRECTOR# }
       RENAME { DIRECTOR# AS PERSON# })
@@ -1091,7 +1088,7 @@ relation1 INTERSECT relation2
   \frametitle{Intersection Example}
 
   \begin{itemize}
-    \item the names of all the persons in \texttt{I1A} (\texttt{I1})
+    \item names of all persons in \texttt{I1A} (\texttt{I1})
     \begin{lstlisting}
 (I1A JOIN PERSON) { NAME }
     \end{lstlisting}
@@ -1113,7 +1110,8 @@ Spike Jonze     \\\hline
   \frametitle{Union}
 
   \begin{itemize}
-    \item \alert{union}: selecting the tuples found in at least one of two relations
+    \item \alert{union}: selecting the tuples found in at least one of two
+      relations
     \begin{lstlisting}
 relation1 UNION relation2
     \end{lstlisting}
@@ -1127,25 +1125,23 @@ relation1 UNION relation2
   \frametitle{Union Example}
 
   \begin{itemize}
-    \item the names of all the directors and actors of all movies\\
-      newer than 1997 (\texttt{U1})
+    \item names of all directors and actors of all movies newer than 1997\\
+      (\texttt{U1})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the identifiers and director identifiers of all movies\\
-      newer than 1997 (\texttt{U1A})
+    \item ids and director ids of all movies newer than 1997 (\texttt{U1A})
 
     \pause
-    \item the identifiers of all the actors in the movies in \texttt{U1A}
-      (\texttt{U1B})
+    \item ids of all actors in the movies in \texttt{U1A} (\texttt{U1B})
 
     \pause
-    \item the identifiers of the directors and actors in at least one of\\
+    \item ids of directors and actors in at least one of
       \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
 
     \pause
-    \item the names of all the persons in \texttt{U1C} (\texttt{U1})
+    \item names of all the persons in \texttt{U1C} (\texttt{U1})
   \end{enumerate}
 \end{frame}
 
@@ -1153,8 +1149,7 @@ relation1 UNION relation2
   \frametitle{Union Example}
 
   \begin{itemize}
-    \item the identifiers and director identifiers of all movies\\
-      newer than 1997 (\texttt{U1A})
+    \item ids and director ids of all movies newer than 1997 (\texttt{U1A})
     \begin{lstlisting}
 (MOVIE WHERE (YEAR > YEAR(1997)))
   { MOVIE#, DIRECTOR# }
@@ -1184,7 +1179,7 @@ relation1 UNION relation2
   \frametitle{Union Example}
 
   \begin{itemize}
-    \item the identifiers of all the actors in the movies in \texttt{U1A}
+    \item ids of all actors in the movies in \texttt{U1A}
       (\texttt{U1B})
     \begin{lstlisting}
 (U1A JOIN CASTING) { ACTOR# }
@@ -1231,7 +1226,7 @@ relation1 UNION relation2
   \frametitle{Union Example}
 
   \begin{itemize}
-    \item the identifiers of the directors and actors in at least one of\\
+    \item ids of directors and actors in at least one of\\
       \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
     \begin{lstlisting}
 (U1A { DIRECTOR# }
@@ -1295,7 +1290,7 @@ UNION (U1B RENAME { ACTOR# AS PERSON# })
   \frametitle{Union Example}
 
   \begin{itemize}
-    \item the names of all the persons in \texttt{U1C} (\texttt{U1})
+    \item names of all persons in \texttt{U1C} (\texttt{U1})
     \begin{lstlisting}
 (U1C JOIN PERSON) { NAME }
     \end{lstlisting}
@@ -1371,17 +1366,16 @@ relation1 MINUS relation2
   \frametitle{Difference Example}
 
   \begin{itemize}
-    \item the names of all the actors who have not played\\
-      in Johnny Depp's movies (\texttt{D1})
+    \item names of all actors who haven't played in Johnny Depp's movies
+      (\texttt{D1})
   \end{itemize}
 
   \pause
   \begin{enumerate}
-    \item the identities of all the actors who played\\
-      in Johnny Depp's movies (\texttt{J3B})
+    \item ids of all actors who played in Johnny Depp's movies (\texttt{J3B})
 
     \pause
-    \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
+    \item names of all actors who are not in \texttt{J3B} (\texttt{D1})
   \end{enumerate}
 \end{frame}
 
@@ -1389,7 +1383,7 @@ relation1 MINUS relation2
   \frametitle{Difference Example}
 
   \begin{itemize}
-    \item the names of all the actors who are not in \texttt{J3B} (\texttt{D1})
+    \item names of all the actors who are not in \texttt{J3B} (\texttt{D1})
     \begin{lstlisting}
 (((CASTING { ACTOR# } MINUS J3B)
       RENAME { ACTOR# AS PERSON# })
