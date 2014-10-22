@@ -115,7 +115,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=example_r]
   \frametitle{Example Relation}
 
   \begin{tiny}
@@ -143,24 +143,15 @@
   \frametitle{Functional Dependency Examples}
 
   \begin{itemize}
-    \item MOVIEID $\rightarrow$ COUNTRY
-    \item ACTORID $\rightarrow$ NAME
-
-    \pause
+    \item MOVIEID $\rightarrow$ TITLE
     \item MOVIEID $\rightarrow$ \{TITLE, COUNTRY, LANGUAGE\}
-
-    \pause
-    \item \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
-    \item \{MOVIEID, ACTORID\} $\rightarrow$ MOVIEID
-
-    \pause
+    \item ACTORID $\rightarrow$ NAME
     \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
 
     \pause
-    \item \{MOVIEID, ACTORID\} $\rightarrow$ \{COUNTRY, ORD\}
-
-    \pause
-    \item COUNTRY $\rightarrow$ LANGUAGE
+    \medskip
+    \item trivial: MOVIEID $\rightarrow$ MOVIEID
+    \item redundant: \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
   \end{itemize}
 \end{frame}
 
@@ -219,11 +210,11 @@
       \item every relation in 2NF is also in 1NF
       \item every relation in 3NF is also in 2NF, ...
     \end{itemize}
-    \item the NF of a database is the NF of the weakest relation
+    \item NF of database = NF of weakest relation
 
     \pause
     \medskip
-    \item 1NF: attribute values have to be atomic
+    \item \alert{1NF}: attribute values have to be atomic
   \end{itemize}
 \end{frame}
 
@@ -244,7 +235,7 @@
       \item let $A,B,C \subseteq Z$
 
       \medskip
-      \item $A \rightarrow B \Rightarrow R = \{A,B\} ~join~ \{A,C\}$
+      \item $A \rightarrow B \Rightarrow R = (A,B) ~join~ (A,C)$
     \end{itemize}
   \end{theorem}
 \end{frame}
@@ -353,6 +344,8 @@ US  &     503 & John Malkovich &  14\\\hline
 \begin{frame}
   \frametitle{Anomaly Examples}
 
+  \hyperlink{example_r}{\beamergotobutton{example relation}}
+
   \begin{itemize}
     \item the country of the movie "Gattaca" is known to be US,\\
       but this cannot be inserted if there is no actor in the movie
@@ -379,7 +372,7 @@ US  &     503 & John Malkovich &  14\\\hline
     \medskip
     \item in a relation $R$ that conforms to 1NF, if:
     \begin{itemize}
-      \item $R(A,B,C,D)$, primary key: $\{A,B\}$
+      \item $R(A,B,C,D)$, primary key: $(A,B)$
       \item $A \rightarrow D$
     \end{itemize}
 
@@ -387,7 +380,7 @@ US  &     503 & John Malkovich &  14\\\hline
     \item to transform to 2NF:
     \begin{itemize}
       \item $R1(A,D)$, primary key: $A$
-      \item $R2(A,B,C)$, primary key: $\{A,B\}$\\
+      \item $R2(A,B,C)$, primary key: $(A,B)$\\
         $A$ is a foreign key referencing $R1$
     \end{itemize}
   \end{itemize}
@@ -423,10 +416,10 @@ US  &     503 & John Malkovich &  14\\\hline
   \begin{itemize}
     \item R2 still not in 2NF: ACTORID $\rightarrow$ NAME
     \begin{itemize}
-      \item $A$: ACTORID
-      \item $B$: MOVIEID
-      \item $C$: ORD
-      \item $D$: NAME
+      \item $A$: \{ACTORID\}
+      \item $B$: \{MOVIEID\}
+      \item $C$: \{ORD\}
+      \item $D$: \{NAME\}
     \end{itemize}
 
     \pause
@@ -572,10 +565,10 @@ US  &     503 & John Malkovich &  14\\\hline
   \begin{itemize}
     \item R1: COUNTRY $\rightarrow$ LANGUAGE
     \begin{itemize}
-      \item $A$: MOVIEID
-      \item $B$: TITLE
-      \item $C$: COUNTRY
-      \item $D$: LANGUAGE
+      \item $A$: \{MOVIEID\}
+      \item $B$: \{TITLE\}
+      \item $C$: \{COUNTRY\}
+      \item $D$: \{LANGUAGE\}
     \end{itemize}
 
     \pause
@@ -851,17 +844,17 @@ IT & IT\\\hline
   \frametitle{Entity/Relationship Diagrams}
 
   \begin{itemize}
-    \item entity: rectangle
+    \item entity: box
     \begin{itemize}
       \item weak: double lines
     \end{itemize}
 
     \pause
-    \item property: ellipsis
+    \item property: circle
     \begin{itemize}
       \item derived: dashed lines
       \item multi-valued: double lines
-      \item composite: sub-ellipses
+      \item composite: sub-circles
     \end{itemize}
 
     \pause
@@ -880,6 +873,24 @@ IT & IT\\\hline
   \begin{center}
     \pgfuseimage{imdb1}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Entity/Relationship Diagrams}
+
+  \begin{itemize}
+    \item properties excluded if diagram too large
+
+    \bigskip
+    \item alternative representation for relationship: line
+    \item name of relationship above the line
+    \item fork at the end of line if "many"
+    \item circle at the end of line: empty if partial, filled if total
+
+    \medskip
+    \item no many-to-many relationships
+    \item add an entity and use two one-to-many relationships
+ \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -906,8 +917,8 @@ IT & IT\\\hline
     \end{itemize}
 
     \pause
-    \item for every one-to-many relationship\\a foreign from the
-      "many" side to the "one" side
+    \item for every one-to-many relationship\\
+      a foreign key from the "many" side to the "one" side
  \end{itemize}
 \end{frame}
 
