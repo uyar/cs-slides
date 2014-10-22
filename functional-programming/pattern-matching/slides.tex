@@ -8,11 +8,16 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=haskell, deletekeywords={gcd,length,sum}}
 
 \mode<presentation>
 {
@@ -40,8 +45,6 @@
 \pgfdeclareimage[height=1cm]{license}{../license}
 
 \begin{document}
-
-\setpythontexfv[]{frame=single}
 
 \begin{frame}
   \titlepage
@@ -102,31 +105,33 @@
   \begin{itemize}
     \item \alert{tuple}: a combination of a fixed number of values
       of fixed types
-    \begin{block}{}
-      \begin{pygments}{haskell}
-name :: (t1,t2,...,tn)
-name = (v1,v2,...,vn)
-      \end{pygments}
-    \end{block}
+      \smallskip
+      \begin{lstlisting}
+n :: (t1,t2,...,tn)
+n = (e1,e2,...,en)
+      \end{lstlisting}
 
     \medskip
     \item selector functions on pairs:\\
-      \pygment{haskell}{fst}, \pygment{haskell}{snd}
+      \lstinline{fst}, \lstinline{snd}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tuple Examples}
+  \frametitle{Tuple Example}
 
-  \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
-    \begin{pygments}{haskell}
-term1 :: (Float,Integer)
-term1 = (2.4,2)
+  \begin{itemize}
+    \item representing a term in a polynomial: $2.4x^2$
+  \end{itemize}
 
-fst term1  -- 2.4
-snd term1  -- 2
-    \end{pygments}
-  \end{exampleblock}
+  \medskip
+  \begin{lstlisting}
+t :: (Float,Integer)
+t = (2.4,2)
+
+fst t  -- 2.4
+snd t  -- 2
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -136,8 +141,8 @@ snd term1  -- 2
     \item tuple parameters are different from multiple parameters
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y
   | y == 0    = x
@@ -148,8 +153,8 @@ gcd' :: (Integer,Integer) -> Integer
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
--- call as: gcd' (9702, 945)
-    \end{pygments}
+-- call as: gcd' (9702,945)
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -162,12 +167,12 @@ gcd' a
 
   \begin{exampleblock}{example: greatest common divisor
                             and least common multiple}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 gcd_lcm :: Integer -> Integer -> (Integer,Integer)
 gcd_lcm x y = (d,m)
   where d = gcd x y
         m = (x*y) `div` d
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -179,20 +184,22 @@ gcd_lcm x y = (d,m)
   \begin{itemize}
     \item \alert{list}: a combination of an arbitrary number of values,\\
       all of the same type
-    \begin{block}{}
-      \begin{pygments}{haskell}
+    \smallskip
+    \begin{lstlisting}
 name :: [t]
-name = [v1,v2,...,vn]
-      \end{pygments}
-    \end{block}
+name = [e1,e2,...,en]
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{representing polynomials: $2.4x^2 + 1.8x - 4.6$}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item representing a polynomial: $2.4x^2 + 1.8x - 4.6$
+  \end{itemize}
+
+  \begin{lstlisting}
 -- second degree polynomial
 p1 :: (Float,Float,Float)
 p1 = (2.4,1.8,-4.6)
@@ -204,27 +211,29 @@ p2 = [2.4,1.8,-4.6]
 -- any degree polynomial, coefficients unordered
 p3 :: [(Float,Integer)]
 p3 = [(1.8,1), (-4.6,0), (2.4,2)]
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Type Synonyms}
 
-  \begin{block}{type synonyms}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item type synonym: giving an existing type a new name
+    \smallskip
+    \begin{lstlisting}
 type newName = oldName
-    \end{pygments}
-  \end{block}
+    \end{lstlisting}
+  \end{itemize}
 
-  \begin{exampleblock}{example: representing polynomials}
-    \begin{pygments}{haskell}
+  \pause
+  \begin{exampleblock}{example: representing a polynomial}
+    \begin{lstlisting}
 type Term = (Float,Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
 p4 = [(1.8,1), (-4.6,0), (2.4,2)]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -235,22 +244,18 @@ p4 = [(1.8,1), (-4.6,0), (2.4,2)]
     \item a list consists of a first item (\alert{head})\\
       followed by a list of the remaining items (\alert{tail})
 
-  \medskip
-    \item basic list operations:
-      \begin{itemize}
-        \item check if empty: \pygment{haskell}{null}
-        \item get the head: \pygment{haskell}{head}
-        \item get the tail: \pygment{haskell}{tail}
-        \item construct a list: \pygment{haskell}{item : sublist}
-      \end{itemize}
+    \medskip
+    \item check if empty: \lstinline{null}
+    \item get the head: \lstinline{head}
+    \item get the tail: \lstinline{tail}
+    \item construct a list: \lstinline{item : sublist}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Operation Examples}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 -- null :: [a] -> Bool
 null []         -- True
 null [1,2,3,4]  -- False
@@ -267,28 +272,32 @@ tail [1]        -- []
 
 -- (:) :: a -> [a] -> [a]
 1 : [2,3]       -- [1,2,3]
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{number of elements}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item number of elements
+  \end{itemize}
+
+  \begin{lstlisting}
 length :: [a] -> Integer
 length xs
   | null xs   = 0
   | otherwise = 1 + length (tail xs)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{number of elements (tail recursive)}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item number of elements (tail recursive)
+  \end{itemize}
+
+  \begin{lstlisting}
 length :: [a] -> Integer
 length xs = lengthIter 0 xs
   where
@@ -296,35 +305,38 @@ length xs = lengthIter 0 xs
     lengthIter acc xs'
       | null xs'  = acc
       | otherwise = lengthIter (acc+1) (tail xs')
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{sum of elements}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item sum of elements
+  \end{itemize}
+
+  \begin{lstlisting}
 sum :: [Integer] -> Integer
 sum xs
   | null xs   = 0
   | otherwise = head xs + sum (tail xs)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{sum of first two elements}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item sum of first two elements
+  \end{itemize}
+
+  \begin{lstlisting}
 firstPlusSecond :: [Integer] -> Integer
 firstPlusSecond xs
   | null xs        = 0
   | null (tail xs) = head xs
   | otherwise      = head xs + head (tail xs)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Algebraic Types}
@@ -333,70 +345,30 @@ firstPlusSecond xs
   \frametitle{Algebraic Types}
 
   \begin{itemize}
-    \item algebraic types can be used to define:
-    \begin{itemize}
-      \item enumerated types
-      \item product types
-      \item alternatives
-    \end{itemize}
-  \end{itemize}
-
-  \begin{block}{}
-    \begin{pygments}{haskell}
-data TypeName = Constructor_1 t_1_1 t_1_2 ... t_1_k1 |
-                Constructor_2 t_2_1 t_2_2 ... t_2_k2 |
-                ...
-                Constructor_n t_n_1 t_n_2 ... t_n_kn
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Constructors}
-
-  \begin{itemize}
-    \item value construction:\\
-      \pygment{haskell}{Constructor_i v_i_1 v_i_2 ... v_i_n}
+    \item algebraic types: constructors and components
 
     \medskip
-    \item constructors are functions
+    \item product types
+    \item enumerations
+    \item alternatives
   \end{itemize}
-
-  \begin{block}{}
-    \begin{pygments}{haskell}
-Constructor_i :: t_i_1 -> ... -> t_i_kn -> TypeName
-    \end{pygments}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Enumerated Types}
-
-  \begin{itemize}
-    \item enumerated type: no components in constructors
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-data Month = Jan | Feb | Mar | Apr | May | Jun |
-             Jul | Aug | Sep | Oct | Nov | Dec
-             deriving Show
-
-currentMonth :: Month
-currentMonth = Feb
-    \end{pygments}
-  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Product Types}
 
   \begin{itemize}
-    \item product type: one constructor with multiple components
+    \item product type: one constructor
+    \smallskip
+    \begin{lstlisting}
+data T = C t1 t2 ... tn
+    \end{lstlisting}
+    \item value construction: \lstinline{C e1 e2 ... en}
+    \item constructors are functions
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 type Name = String
 type Year = Integer
 
@@ -405,7 +377,30 @@ data Human = Person Name Year
 
 church :: Human
 church = Person "Alonzo Church" 1903
-    \end{pygments}
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Enumerations}
+
+  \begin{itemize}
+    \item enumeration: only constructors, no components
+    \smallskip
+    \begin{lstlisting}
+data T = C1 | C2 | ... | Cn
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+data Month = Jan | Feb | Mar | Apr | May | Jun |
+             Jul | Aug | Sep | Oct | Nov | Dec
+             deriving Show
+
+m :: Month
+m = Feb
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -416,8 +411,8 @@ church = Person "Alonzo Church" 1903
     \item alternative type: multiple constructors
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 type Coords = (Float,Float)
 type Length = Float
 
@@ -426,10 +421,11 @@ data Shape = Point Coords |
              Rectangle Coords Length Length
              deriving Show
 
-Point (0.0,0.0)
-Circle (0.0,0.0) 1.0
-Rectangle (45.9,87.6) 5.75 2.3
-    \end{pygments}
+p, c, r :: Shape
+p = Point (0.0,0.0)
+c = Circle (0.0,0.0) 1.0
+r = Rectangle (45.9,87.6) 5.75 2.3
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -442,19 +438,17 @@ Rectangle (45.9,87.6) 5.75 2.3
 
   \begin{itemize}
     \item expressions can be checked against patterns
-    \item the result is the expression for the first matched pattern
+    \item result is the expression for the first matched pattern
   \end{itemize}
 
-  \begin{block}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 case expr of
   p1 -> e1
   p2 -> e2
   ...
   pn -> en
   _  -> e
-    \end{pygments}
-  \end{block}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -464,14 +458,14 @@ case expr of
     \item simplest pattern: literal value
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y =
     case y of
       0 -> x
       _ -> gcd y (x `mod` y)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -479,12 +473,12 @@ gcd x y =
   \frametitle{Pattern Bindings}
 
   \begin{itemize}
-    \item a matched pattern can generate bindings
+    \item matched patterns generate bindings
     \item for tuples, pattern matching is better than selector functions
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 gcd' :: (Integer,Integer) -> Integer
 gcd' a =
     case a of
@@ -496,7 +490,7 @@ gcd' (9702,945)
 
 gcd' (63,0)
 -- first pattern, bindings: x <-> 63
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -507,13 +501,13 @@ gcd' (63,0)
     \item patterns can be nested
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 shift :: ((a,b), c) -> (a, (b,c))
 shift s =
     case s of
       ((x,y), z) -> (x, (y,z))
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -521,11 +515,11 @@ shift s =
   \frametitle{Wildcards}
 
   \begin{itemize}
-    \item if binding is not needed, use wildcard: \pygment{haskell}{_}
+    \item if binding not needed, use wildcard: \lstinline{_}
   \end{itemize}
 
-  \begin{exampleblock}{third component of a triple}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example: third component of a triple}
+    \begin{lstlisting}
 third :: (a,b,c) -> c
 third t =
     case t of
@@ -535,7 +529,7 @@ third t =
 third t =
     case t of
       (_,_,z) -> z
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -546,39 +540,44 @@ third t =
 
   \begin{itemize}
     \item empty list:\\
-      \pygment{haskell}{[]}
+      \lstinline{[]}
     \item nonempty list:\\
-      \pygment{haskell}{x:xs}
+      \lstinline{x:xs}
     \item list with exactly one element:\\
-      \pygment{haskell}{[x]}\\
-      \pygment{haskell}{x:[]}
+      \lstinline{[x]}\\
+      \lstinline{x:[]}
     \item list with exactly two elements:\\
-      \pygment{haskell}{[x1,x2]}\\
-      \pygment{haskell}{x1:x2:[]}
+      \lstinline{[x1,x2]}\\
+      \lstinline{x1:x2:[]}
     \item list with at least two elements:\\
-      \pygment{haskell}{x1:x2:xs}
+      \lstinline{x1:x2:xs}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Pattern Examples}
 
-  \begin{exampleblock}{number of elements}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item number of elements
+  \end{itemize}
+
+  \begin{lstlisting}
 length :: [a] -> Integer
 length xs =
     case xs of
       []    -> 0
       x:xs' -> 1 + length xs'
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Pattern Examples}
 
-  \begin{exampleblock}{sum of the first and third elements of a list}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item sum of the first and third elements
+  \end{itemize}
+
+  \begin{lstlisting}
 firstPlusThird :: [Integer] -> Integer
 firstPlusThird xs =
     case xs of
@@ -586,21 +585,38 @@ firstPlusThird xs =
       [x1]      -> x1
       [x1,_]    -> x1
       x1:_:x3:_ -> x1+x3
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Algebraic Type Patterns}
 
-\begin{frame}[fragile]
+\begin{frame}
   \frametitle{Algebraic Type Patterns}
 
   \begin{itemize}
-    \item use patterns to match algebraic types
+    \item patterns can match algebraic types
+    \item use pattern matching to get values out of product types
   \end{itemize}
+\end{frame}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+\begin{frame}[fragile]
+  \frametitle{Product Type Example}
+
+  \begin{lstlisting}
+birthYear :: Human -> Year
+birthYear p =
+    case p of
+      Person _ y -> y
+
+birthYear (Person "Alonzo Church" 1903)  -- 1903
+-- binding: y <-> 1903
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Enumeration Pattern Example}
+
+  \begin{lstlisting}
 daysInMonth :: Month -> Integer -> Integer
 daysInMonth m y =
     case m of
@@ -614,35 +630,13 @@ daysInMonth m y =
 daysInMonth Jan 2014 -- 31
 daysInMonth Feb 2014 -- 28
 daysInMonth Feb 2016 -- 29
-    \end{pygments}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Algebraic Type Patterns}
-
-  \begin{itemize}
-    \item use pattern matching to get values out of algebraic types
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-birthYear :: Human -> Year
-birthYear p =
-    case p of
-      Person _ y -> y
-
-birthYear (Person "Alonzo Church" 1903)  -- 1903
--- binding: y <-> 1903
-    \end{pygments}
-  \end{exampleblock}
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Algebraic Type Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 area :: Shape -> Float
 area s =
     case s of
@@ -652,36 +646,34 @@ area s =
 
 area (Circle (0.0,0.0) 3.0) -- 28.274311
 -- second pattern, binding: r <-> 3.0
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Function Patterns}
 
 \begin{frame}[fragile]
-  \frametitle{Pattern Matching}
+  \frametitle{Function Patterns}
 
   \begin{itemize}
     \item formal parameters are patterns
     \item components of the pattern will be matched\\
       with the components of the actual parameters
-    \item in case of multiple patterns, the first match will be selected
-  \end{itemize}
 
-  \begin{block}{}
-    \begin{pygments}{haskell}
+    \medskip
+    \item in case of multiple patterns, the first match will be selected
+    \smallskip
+    \begin{lstlisting}
 name p1 = e1
 name p2 = e2
 ...
-    \end{pygments}
-  \end{block}
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y =
     case y of
@@ -692,15 +684,13 @@ gcd x y =
 gcd :: Integer -> Integer -> Integer
 gcd x 0 = x
 gcd x y = gcd y (x `mod` y)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 gcd' :: (Integer,Integer) -> Integer
 gcd' a =
     case a of
@@ -711,15 +701,13 @@ gcd' a =
 gcd' :: (Integer,Integer) -> Integer
 gcd' (x,0) = x
 gcd' (x,y) = gcd' (y, x `mod` y)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 shift :: ((a,b), c) -> (a, (b,c))
 shift s =
     case s of
@@ -728,15 +716,13 @@ shift s =
 -- BETTER:
 shift :: ((a,b), c) -> (a, (b,c))
 shift ((x,y), z) = (x, (y,z))
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 third :: (a,b,c) -> c
 third t =
     case t of
@@ -745,15 +731,13 @@ third t =
 -- BETTER:
 third :: (a,b,c) -> c
 third (_,_,z) = z
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 length :: [a] -> Integer
 length xs =
     case xs of
@@ -764,15 +748,13 @@ length xs =
 length :: [a] -> Integer
 length []     = 0
 length (x:xs) = 1 + length xs
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Examples}
+  \frametitle{Function Pattern Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 birthYear :: Human -> Year
 birthYear p =
     case p of
@@ -781,15 +763,17 @@ birthYear p =
 -- BETTER:
 birthYear :: Human -> Year
 birthYear (Person _ y) = y
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example}
 
-  \begin{exampleblock}{efficient Fibonacci calculation}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item efficient Fibonacci calculation
+  \end{itemize}
+
+  \begin{lstlisting}
 fibStep :: (Integer,Integer) -> (Integer,Integer)
 fibStep (u,v) = (v,u+v)
 
@@ -799,15 +783,13 @@ fibPair 1 = (1,1)
 fibPair n = fibStep (fibPair (n-1))
 
 fastFib n = fst (fibPair n)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuples or Algebraic Types?}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 type Rational = (Integer,Integer)
 
 simplify :: Rational -> Rational
@@ -819,8 +801,7 @@ type DayInYear = (Integer,Integer)
 mar12 :: DayInYear
 mar12 = (12,3)
 simplify mar12 -- (4,1)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -830,8 +811,7 @@ simplify mar12 -- (4,1)
     \item algebraic types give you better type checking
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 data Rational' = Fraction Integer Integer
                  deriving Show
 
@@ -839,8 +819,7 @@ simplify' :: Rational' -> Rational'
 simplify' (Fraction n d) =
   Fraction (n `div` g) (d `div` g)
     where g = gcd n d
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 % TODO: add example for using case expression over function pattern
