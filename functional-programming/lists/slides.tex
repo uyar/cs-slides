@@ -8,11 +8,18 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=haskell, deletestring=[b]{"},
+        deletekeywords={concat,drop,elem,init,last,replicate,reverse,
+                        splitAt,take,unzip,unzip3,zip,zip3}}
 
 \mode<presentation>
 {
@@ -41,8 +48,6 @@
 
 \begin{document}
 
-\setpythontexfv[]{frame=single}
-
 \begin{frame}
   \titlepage
 \end{frame}
@@ -54,32 +59,35 @@
   \copyright~2013-2014 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
+  \begin{footnotesize}
     You are free to:
     \begin{itemize}
+      \itemsep0em
       \item Share -- copy and redistribute the material in any medium or format
       \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
     Under the following terms:
     \begin{itemize}
+      \itemsep0em
       \item Attribution -- You must give appropriate credit, provide a link to
-        the license, and indicate if changes were made.\\
-        You may do so in any reasonable manner, but not in any way
-        that suggests the licensor endorses you or your use.
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use the material for commercial
+      \item NonCommercial -- You may not use the material for commercial
         purposes.
 
-      \item Share Alike -- If you remix, transform, or build upon the material,
-        you must distribute your contributions\\
-        under the same license as the original.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
   \begin{small}
-    Legal code (the full license):\\
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
@@ -98,74 +106,80 @@
 
   \begin{itemize}
     \item a string is a list of characters
+    \begin{lstlisting}
+type String = [Char]
+    \end{lstlisting}
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-type String = [Char]
-
-head "abc"    -- 'a'
-tail "abc"    -- "bc"
-null "abc"    -- False
-null ""       -- True
-length "abc"  -- 3
-    \end{pygments}
+  \pause
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+head "word"    ~> 'w'
+tail "word"    -> "ord"
+null "word"    ~> False
+null ""        ~> True
+length "word"  ~> 4
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \subsection{List Operators}
 
 \begin{frame}[fragile]
-  \frametitle{List Indexing}
+  \frametitle{Indexing}
 
-  \begin{exampleblock}{get the nth element of a list}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item indexing operator: \lstinline{!!}\\
+      \lstinline{"word" !! 2 ~> 'r'}
+  \end{itemize}
+
+  \begin{exampleblock}{get the n-th element of a list}
+    \begin{lstlisting}
 getNth :: [a] -> Integer -> a
 getNth []     _ = error "empty list"
 getNth (x:xs) 0 = x
 getNth (x:xs) n = getNth xs (n-1)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
-
-  \begin{itemize}
-    \item Haskell operator: \pygment{haskell}{!!}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Appending Lists}
 
-  \begin{exampleblock}{append a list to another}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item append operator: \lstinline{++}\\
+      \lstinline{"word" ++ "smith" ~> "wordsmith"}
+  \end{itemize}
+
+  \begin{exampleblock}{add a list at the end of another list}
+    \begin{lstlisting}
 append :: [a] -> [a] -> [a]
 append []     ys = ys
 append (x:xs) ys = x : append xs ys
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
-
-  \begin{itemize}
-    \item Haskell operator: \pygment{haskell}{++}
-  \end{itemize}
 \end{frame}
+
+\subsection{Ranges}
 
 \begin{frame}[fragile]
   \frametitle{Range Expressions}
 
   \begin{itemize}
-    \item \pygment{haskell}{[n..m]}: range with increment 1
-    \item \pygment{haskell}{[n,p..m]}: range with increment \texttt{p-n}
+    \item \lstinline{[n..m]}: range with increment 1
+    \item \lstinline{[n,p..m]}: range with increment \texttt{p-n}
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-[2..7]          -- [2,3,4,5,6,7]
-[3.1..7.0]      -- [3.1,4.1,5.1,6.1,7.1]
-['a'..'m']      -- "abcdefghijklm"
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+[2..7]          ~> [2,3,4,5,6,7]
+[3.1..7.0]      ~> [3.1,4.1,5.1,6.1,7.1]
+['a'..'m']      ~> "abcdefghijklm"
 
-[7,6..3]        -- [7,6,5,4,3]
-[0.0,0.3..1.0]  -- [0.0,0.3,0.6,0.8999999999999999]
-['a','c'..'n']  -- "acegikm"
-    \end{pygments}
+[7,6..3]        ~> [7,6,5,4,3]
+[0.0,0.3..1.0]  ~> [0.0,0.3,0.6,0.8999999999999999]
+['a','c'..'n']  ~> "acegikm"
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -173,17 +187,17 @@ append (x:xs) ys = x : append xs ys
   \frametitle{Constructing Ranges}
 
   \begin{exampleblock}{construct a list from a lower limit to an upper limit}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 countUp :: Integer -> Integer -> [Integer]
 countUp lower upper
   | lower > upper = []
   | otherwise     = lower : countUp (lower+1) upper
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item exercise: \pygment{haskell}{countDown} (tail recursive)
+    \item exercise: \lstinline{countDown} (tail recursive)
   \end{itemize}
 \end{frame}
 
@@ -195,244 +209,226 @@ countUp lower upper
   \begin{itemize}
     \item describe a list in terms of the elements of another list
     \item generate, test, transform
+
+    \medskip
+    \begin{lstlisting}
+[e | v1 <- l1, v2 <- l2, ..., p1, p2, ...]
+    \end{lstlisting}
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Comprehension Examples}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-[2*n | n <- [2,4,7]]              -- [4,8,14]
-[even n | n <- [2,4,7]]           -- [True,True,False]
-[2*n | n <- [2,4,7], even n, n > 3] -- [8]
+    \begin{lstlisting}
+[2*n | n <- [2,4,7]]     ~> [4,8,14]
+[even n | n <- [2,4,7]]  ~> [True,True,False]
 
-[m+n | (m,n) <- [(2,3), (2,1), (7,8)]] -- [5,3,15]
+[2*n | n <- [2,4,7], even n, n > 3]     ~> [8]
+[m+n | (m,n) <- [(2,3), (2,1), (7,8)]]  ~> [5,3,15]
 
 [(x,y,z) | x <- [1..5], y <- [1..5], z <- [1..5],
            x*x + y*y == z*z]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Comprehension}
+  \frametitle{List Comprehension Examples}
 
   \begin{exampleblock}{Python}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=python]
 [2 * n for n in [2, 4, 7]]
 [even(n) for n in [2, 4, 7]]
+
 [2 * n for n in [2, 4, 7] if even(n) and (n > 3)]
 [m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
+
 [(x, y, z) for x in range(1, 6)
            for y in range(1, 6)
            for z in range(1, 6)
            if x * x + y * y == z * z]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Comprehension Example}
 
-  \begin{exampleblock}{Quicksort}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{quick sort}
+    \begin{lstlisting}
 quickSort :: [Integer] -> [Integer]
 quickSort []         = []
 quickSort (pivot:xs) =
     quickSort [x | x <- xs, x <= pivot]
     ++ [pivot]
     ++ quickSort [x | x <- xs, x > pivot]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \section{List Functions}
 
-\subsection{Standard Functions}
+\subsection{Basic Functions}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Membership Check}
 
-  \begin{itemize}
-    \item check whether an element is a member of a list\\
-      \pygment{haskell}{elem 'r' "word"} $\rightsquigarrow$
-      \pygment{haskell}{True}
+  \begin{exampleblock}{check whether an element is a member of a list}
+    \begin{lstlisting}
+elem 'r' "word" ~> True
+elem 'x' "word" ~> False
 
-      \pygment{haskell}{elem 'x' "word"} $\rightsquigarrow$
-      \pygment{haskell}{False}
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 elem :: Char -> [Char] -> Bool
 elem _ []     = False
 elem x (c:cs) = if x == c then True else elem x cs
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item exercise: make a list of n copies of an item\\
-      \pygment{haskell}{replicate 3 'c'} $\rightsquigarrow$
-      \pygment{haskell}{"ccc"}
+      \lstinline{replicate 3 'c' ~> "ccc"}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Last Element}
 
-  \begin{itemize}
-    \item get the last element of a list\\
-      \pygment{haskell}{last "word"} $\rightsquigarrow$
-      \pygment{haskell}{'d'}
-  \end{itemize}
+  \begin{exampleblock}{get the last element of a list}
+    \begin{lstlisting}
+last "word" ~> 'd'
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 last :: [a] -> a
 last []     = error "empty list"
 last [x]    = x
 last (x:xs) = last xs
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item exercise: get all elements but the last of a list\\
-      \pygment{haskell}{init "word"} $\rightsquigarrow$
-      \pygment{haskell}{"wor"}
+      \lstinline{init "word" ~> "wor"}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Split}
 
-  \begin{itemize}
-    \item take n elements from the front of a list\\
-      \pygment{haskell}{take 3 "Peccary"} $\rightsquigarrow$
-      \pygment{haskell}{"Pec"}
-  \end{itemize}
+  \begin{exampleblock}{take n elements from the front of a list}
+    \begin{lstlisting}
+take 3 "Peccary" ~> "Pec"
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 take :: Integer -> [a] -> [a]
 take 0 _      = []
 take _ []     = []
 take n (x:xs) = x : take (n-1) xs
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item exercise: drop n elements from the front of a list\\
-      \pygment{haskell}{drop 3 "Peccary"} $\rightsquigarrow$
-      \pygment{haskell}{"cary"}
+      \lstinline{drop 3 "Peccary" ~> "cary"}
     \item exercise: split a list at a given position\\
-      \pygment{haskell}{splitAt 3 "Peccary"} $\rightsquigarrow$
-      \pygment{haskell}{("Pec","cary")}
+      \lstinline{splitAt 3 "Peccary" ~> ("Pec","cary")}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Reverse}
 
-  \begin{itemize}
-    \item reverse a list\\
-      \pygment{haskell}{reverse "word"} $\rightsquigarrow$
-      \pygment{haskell}{"drow"}
-  \end{itemize}
+  \begin{exampleblock}{reverse a list}
+    \begin{lstlisting}
+reverse "word" ~> "drow"
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 reverse :: [a] -> [a]
 reverse []     = []
 reverse (x:xs) = (reverse xs) ++ [x]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Concatenate}
 
-  \begin{itemize}
-    \item convert a list of lists into a list\\
-      \pygment{haskell}{concat [[2,3], [], [4]} $\rightsquigarrow$
-      \pygment{haskell}{[2,3,4]}
-  \end{itemize}
+  \begin{exampleblock}{convert a list of lists into a list}
+    \begin{lstlisting}
+concat [[2,3], [], [4] ~> [2,3,4]
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 concat :: [[a]] -> [a]
-concat []     = []
-concat (x:xs) = x ++ concat xs
-    \end{pygments}
+concat []       = []
+concat (xs:xss) = xs ++ concat xss
+    \end{lstlisting}
   \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: write \lstinline{concat} using list comprehension
+  \end{itemize}
 \end{frame}
 
-\subsection{Zip}
+\subsection{Zip - Unzip}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Zip}
 
-  \begin{itemize}
-    \item convert two lists into a list of pairs\\
-      \pygment{haskell}{zip [1,2] ['a','b']} $\rightsquigarrow$
-      \pygment{haskell}{[(1,'a'), (2,'b')]}
-  \end{itemize}
+  \begin{exampleblock}{convert two lists into a list of pairs}
+    \begin{lstlisting}
+zip [1,2] "ab" ~> [(1,'a'), (2,'b')]
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 zip :: [a] -> [b] -> [(a,b)]
 zip []     []     = []
 zip (x:xs) (y:ys) = (x,y) : zip xs ys
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item not all cases are covered:\\
-      \pygment{haskell}{zip [1,2] ['a','b','c']}
-    \item result should be: \pygment{haskell}{[(1,'a'), (2,'b')]}
+      \lstinline{zip [1,2] "abc" ~> [(1,'a'), (2,'b')]}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Zip}
 
   \begin{exampleblock}{convert two lists into a list of pairs}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 zip :: [a] -> [b] -> [(a,b)]
 zip (x:xs) (y:ys) = (x,y) : zip xs ys
 zip _      _      = []
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item exercise: convert three lists into a list of triples\\
-      \pygment{haskell}{zip3}
+      \lstinline{zip3 [1,2] "abc" [7,4]} $\rightsquigarrow$
+      \lstinline{[(1,'a',7), (2,'b',4)]}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Standard Functions}
+  \frametitle{Unzip}
 
-  \begin{itemize}
-    \item convert a list of pairs into a pair of lists\\
-      \pygment{haskell}{unzip [(1,'a'), (2,'b')]} $\rightsquigarrow$
-      \pygment{haskell}{([1,2], ['a','b'])}
-  \end{itemize}
+  \begin{exampleblock}{convert a list of pairs into a pair of lists}
+    \begin{lstlisting}
+unzip [(1,'a'), (2,'b')] ~> ([1,2], "ab")
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
 unzip :: [(a,b)] -> ([a],[b])
 unzip []          = ([],[])
 unzip ((x,y):xys) = (x:xs,y:ys)
   where (xs,ys) = unzip xys
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item exercise: convert a list of triples into three lists\\
-      \pygment{haskell}{unzip3}
+      \lstinline{unzip3 [(1,'a',7), ('2','b',4)] ~> ([1,2], "ab", [7,4])}
   \end{itemize}
 \end{frame}
 
@@ -444,21 +440,21 @@ unzip ((x,y):xys) = (x:xs,y:ys)
   \frametitle{List Maximum}
 
   \begin{exampleblock}{maximum of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 maxList :: [Integer] -> Integer
 maxList []     = error "empty list"
 maxList [x]    = x
 maxList (x:xs)
   | x > maxList xs = x
   | otherwise      = maxList xs
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item what if called as given below?\\
-      \pygment{haskell}{maxList [30,29..1]}\\
-      \pygment{haskell}{maxList [1..30]}
+    \item what if called as:\\
+      \lstinline{maxList [30,29..1]}\\
+      \lstinline{maxList [1..30]}
   \end{itemize}
 \end{frame}
 
@@ -466,7 +462,7 @@ maxList (x:xs)
   \frametitle{List Maximum}
 
   \begin{exampleblock}{maximum of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 maxList :: [Integer] -> Integer
 maxList []     = error "empty list"
 maxList [x]    = x
@@ -474,7 +470,7 @@ maxList (x:xs)
   | x > maxTail = x
   | otherwise   = maxTail
   where maxTail = maxList xs
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -482,19 +478,18 @@ maxList (x:xs)
   \frametitle{Merging Lists}
 
   \begin{exampleblock}{merge two ordered lists}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 merge :: [Integer] -> [Integer] -> [Integer]
 merge xs     []     = xs
 merge []     ys     = ys
 merge (x:xs) (y:ys)
   | x <= y    = x : merge xs (y:ys)
   | otherwise = y : merge (x:xs) ys
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item reconstructing original lists is unnecessary:\\
-      use \pygment{haskell}{@}
+    \item reconstructing original lists not necessary: \lstinline{@}
   \end{itemize}
 \end{frame}
 
@@ -502,33 +497,35 @@ merge (x:xs) (y:ys)
   \frametitle{Merging Lists}
 
   \begin{exampleblock}{merge two ordered lists}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 merge :: [Integer] -> [Integer] -> [Integer]
 merge xs     []             = xs
 merge []     ys             = ys
 merge xs@(x:xs') ys@(y:ys')
   | x <= y    = x : merge xs' ys
   | otherwise = y : merge xs  ys'
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Roman Numeral Conversion}
 
-  \begin{itemize}
-    \item convert an integer to Roman numerals
-    \item adapted from the book ``Dive into Python'' by Mark Pilgrim
-  \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{convert an integer to Roman numerals}
+    \begin{itemize}
+      \item adapted from the book ``Dive into Python'' by Mark Pilgrim:\\
+        \url{http://www.diveintopython.net/}
+    \end{itemize}
+
+    \medskip
+    \begin{lstlisting}
 romanNumerals =
   [("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
    ("C",  100), ("XC",  90), ("L",  50), ("XL",  40),
    ("X",   10), ("IX",   9), ("V",   5), ("IV",   4),
    ("I",    1)]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -536,7 +533,7 @@ romanNumerals =
   \frametitle{Roman Numeral Conversion}
 
   \begin{exampleblock}{Python}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=python]
 def toRoman(n):
     result = ""
     for numeral, integer in romanNumerals:
@@ -544,7 +541,7 @@ def toRoman(n):
             result += numeral
             n -= integer
     return result
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -552,7 +549,7 @@ def toRoman(n):
   \frametitle{Roman Numeral Conversion}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 toRoman :: Integer -> String
 toRoman n = tR n romanNumerals
   where
@@ -561,7 +558,7 @@ toRoman n = tR n romanNumerals
     tR n xs@((s,k):xs')
       | n >= k    = s ++ tR (n-k) xs
       | otherwise = tR n xs'
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
@@ -574,7 +571,7 @@ toRoman n = tR n romanNumerals
   \frametitle{Roman Numeral Conversion}
 
   \begin{exampleblock}{Python}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=python]
 def fromRoman(s):
     result = 0
     index = 0
@@ -583,7 +580,7 @@ def fromRoman(s):
             result += integer
             index += len(numeral)
     return result
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
