@@ -8,11 +8,17 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=haskell, deletestring=[b]{"},
+        deletekeywords={cycle}}
 
 \mode<presentation>
 {
@@ -41,8 +47,6 @@
 
 \begin{document}
 
-\setpythontexfv[]{frame=single}
-
 \begin{frame}
   \titlepage
 \end{frame}
@@ -54,32 +58,35 @@
   \copyright~2013-2014 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
+  \begin{footnotesize}
     You are free to:
     \begin{itemize}
+      \itemsep0em
       \item Share -- copy and redistribute the material in any medium or format
       \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
     Under the following terms:
     \begin{itemize}
+      \itemsep0em
       \item Attribution -- You must give appropriate credit, provide a link to
-        the license, and indicate if changes were made.\\
-        You may do so in any reasonable manner, but not in any way
-        that suggests the licensor endorses you or your use.
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use the material for commercial
+      \item NonCommercial -- You may not use the material for commercial
         purposes.
 
-      \item Share Alike -- If you remix, transform, or build upon the material,
-        you must distribute your contributions\\
-        under the same license as the original.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
   \begin{small}
-    Legal code (the full license):\\
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
@@ -103,19 +110,19 @@
     \item how about a function that reads in a value of the desired type\\
       from the input?\\
       \smallskip
-      \pygment{haskell}{inputInt :: Integer}
+      \lstinline{inputInt :: Integer}
 
     \pause
     \medskip
     \item breaks reasoning:\\
       \smallskip
-      \pygment{haskell}{inputDiff = inputInt - inputInt}
+      \lstinline{inputDiff = inputInt - inputInt}
 
     \medskip
     \item any function might be affected:\\
       \smallskip
-      \pygment{haskell}{foo :: Integer -> Integer}\\
-      \pygment{haskell}{foo n = inputInt + n}\\
+      \lstinline{foo :: Integer -> Integer}\\
+      \lstinline{foo n = inputInt + n}\\
   \end{itemize}
 \end{frame}
 
@@ -123,16 +130,16 @@
   \frametitle{I/O Type}
 
   \begin{itemize}
-    \item new type: \pygment{haskell}{IO a}\\
+    \item new type: \lstinline{IO a}\\
       a program which will do some I/O and return a value of type \texttt{a}
 
     \medskip
     \item instead of:\\
       \smallskip
-      \pygment{haskell}{inputInt :: Integer}
+      \lstinline{inputInt :: Integer}
     \item we have:\\
       \smallskip
-      \pygment{haskell}{inputInt :: IO Integer}
+      \lstinline{inputInt :: IO Integer}
 
     \pause
     \medskip
@@ -146,18 +153,18 @@
   \frametitle{I/O Type}
 
   \begin{itemize}
-    \item if I/O doesn't produce a result: \pygment{haskell}{IO ()}
+    \item if I/O doesn't produce a result: \lstinline{IO ()}
 
     \medskip
     \item output:\\
       \smallskip
-      \pygment{haskell}{putStr :: String -> IO ()}\\
-      \pygment{haskell}{putStrLn :: String -> IO ()}
+      \lstinline{putStr :: String -> IO ()}\\
+      \lstinline{putStrLn :: String -> IO ()}
 
     \smallskip
     \item input:\\
       \smallskip
-      \pygment{haskell}{getLine :: IO String}\\
+      \lstinline{getLine :: IO String}\\
   \end{itemize}
 \end{frame}
 
@@ -165,14 +172,15 @@
   \frametitle{Program Start}
 
   \begin{itemize}
-    \item entry point of the program: \pygment{haskell}{main}
+    \item entry point of the program: \lstinline{main}
   \end{itemize}
 
-  \begin{exampleblock}{Hello, world!}
-    \begin{pygments}{haskell}
+  \medskip
+  \begin{exampleblock}{example: Hello, world!}
+    \begin{lstlisting}
 main :: IO ()
 main = putStrLn "Hello, world!"
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -182,19 +190,19 @@ main = putStrLn "Hello, world!"
   \frametitle{String Conversions}
 
   \begin{itemize}
-    \item to convert a type to string: \pygment{haskell}{show}
-    \item to convert a string to another type: \pygment{haskell}{read}
+    \item convert a type to string: \lstinline{show}
+    \item convert a string to another type: \lstinline{read}
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-show 42    -- "42"
-show 3.14  -- "3.14"
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+show 42    ~> "42"
+show 3.14  ~> "3.14"
 
-read "42" :: Integer  -- 42
-read "42" :: Float    -- 42.0
-read "3.14" :: Float  -- 3.14
-    \end{pygments}
+read "42" :: Integer  ~> 42
+read "42" :: Float    ~> 42.0
+read "3.14" :: Float  ~> 3.14
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -205,30 +213,29 @@ read "3.14" :: Float  -- 3.14
 
   \begin{itemize}
     \item I/O consists of \alert{actions} happening in a sequence
-    \item to create an action sequence: \pygment{haskell}{do}
+    \item create an action sequence: \lstinline{do}
     \item small imperative programming language
-  \end{itemize}
 
-  \begin{block}{}
-    \begin{pygments}{haskell}
+    \medskip
+    \begin{lstlisting}
 do action1
    action2
    ...
-    \end{pygments}
-  \end{block}
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sequence Example}
 
   \begin{exampleblock}{print a string 4 times}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 put4times :: String -> IO ()
 put4times str = do putStrLn str
                    putStrLn str
                    putStrLn str
                    putStrLn str
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -236,16 +243,16 @@ put4times str = do putStrLn str
   \frametitle{Capturing Values}
 
   \begin{itemize}
-    \item capturing value produced by the program: \pygment{haskell}{<-}
-    \item can only be used within \pygment{haskell}{do}
+    \item capture value produced by the program: \lstinline{<-}
+    \item can only be used within the sequence
   \end{itemize}
 
-  \begin{exampleblock}{reverse and print the line read from the input}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example: reverse and print the line read from the input}
+    \begin{lstlisting}
 reverseLine :: IO ()
 reverseLine = do line <- getLine
                  putStrLn (reverse line)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -253,12 +260,12 @@ reverseLine = do line <- getLine
   \frametitle{Local Definitions}
 
   \begin{itemize}
-    \item local definitions: \pygment{haskell}{let}
-    \item can only be used within the action sequence
+    \item local definitions: \lstinline{let}
+    \item can only be used within the sequence
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example: reverse two lines}
+    \begin{lstlisting}
 reverse2lines :: IO ()
 reverse2lines = do line1 <- getLine
                    line2 <- getLine
@@ -266,7 +273,7 @@ reverse2lines = do line1 <- getLine
                    let rev2 = reverse line2
                    putStrLn rev2
                    putStrLn rev1
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -274,15 +281,15 @@ reverse2lines = do line1 <- getLine
   \frametitle{Returning Values}
 
   \begin{itemize}
-    \item returning result of sequence: \pygment{haskell}{return}
+    \item returning result of sequence: \lstinline{return}
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example: read an integer from the input}
+    \begin{lstlisting}
 getInteger :: IO Integer
 getInteger = do line <- getLine
                 return (read line :: Integer)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -290,12 +297,12 @@ getInteger = do line <- getLine
   \frametitle{Recursion in Sequence}
 
   \begin{exampleblock}{copy input to output indefinitely}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 copy :: IO ()
 copy = do line <- getLine
           putStrLn line
           copy
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -303,7 +310,7 @@ copy = do line <- getLine
   \frametitle{Conditional in Sequence}
 
   \begin{exampleblock}{copy a number of times}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 copyN :: Integer -> IO ()
 copyN n =
     if n <= 0
@@ -311,7 +318,7 @@ copyN n =
         else do line <- getLine
                 putStrLn line
                 copyN (n-1)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -319,50 +326,49 @@ copyN n =
   \frametitle{Conditional in Sequence}
 
   \begin{exampleblock}{copy until input line is empty}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 copyEmpty :: IO ()
 copyEmpty = do line <- getLine
                if line == ""
                    then return ()
                    else do putStrLn line
                            copyEmpty
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-\section{Example: Rock-Paper-Scissors}
+\section{Example: Rock - Paper - Scissors}
 
 \subsection{Data Types}
 
 \begin{frame}[fragile]
-  \frametitle{Data Types}
+  \frametitle{Rock - Paper - Scissors}
 
   \begin{itemize}
     \item two players repeatedly play Rock-Paper-Scissors
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{data types}
+    \begin{lstlisting}
 data Move = Rock | Paper | Scissors
             deriving Show
 
 type Match = ([Move],[Move])
 
 -- ex: ([Rock,Rock,Paper], [Scissors,Paper,Rock])
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Outcome}
 
-  \begin{itemize}
-    \item determine the outcome of one round\\
-      player A wins $\mapsto$ 1, player B wins $\mapsto$ -1, tied $\mapsto$ 0
-  \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{outcome of one round}
+    \begin{itemize}
+      \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tied $\mapsto$ 0
+    \end{itemize}
+    \begin{lstlisting}
 outcome :: Move -> Move -> Integer
 outcome moveA moveB =
     case (moveA, moveB) of
@@ -373,40 +379,39 @@ outcome moveA moveB =
       (Scissors, Paper)    ->  1
       (Paper,    Scissors) -> -1
       _                    ->  0
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
+  \pause
+  \vspace{-12pt}
   \begin{itemize}
     \item exercise: determine the outcome of a match\\
-      \pygment{haskell}{matchOutcome [Rock,Paper] [Paper,Scissors]}
-      $\rightsquigarrow$ \pygment{haskell}{-2}
+      \lstinline{matchOutcome [Rock,Paper] [Paper,Scissors] ~> -2}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{String Conversions}
 
-  \begin{itemize}
-    \item moves in a round as a string
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{convert round to string}
+    \begin{lstlisting}
 showRound :: (Move,Move) -> String
 showRound (moveA,moveB) =
     "A plays: " ++ show moveA ++
     ", B plays: " ++ show moveB
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
+  \pause
+  \vspace{-12pt}
   \begin{itemize}
     \item exercise: match result as a string\\
-      \pygment{haskell}{showResult [Rock,Paper] [Paper,Scissors]}\\
-      $\rightsquigarrow$ \pygment{haskell}{"Player B wins by 2"}
+      \lstinline{showResult [Rock,Paper] [Paper,Scissors]}\\
+      $\rightsquigarrow$ \lstinline{"Player B wins by 2"}
 
       \smallskip
-      \pygment{haskell}{showResult [Rock,Paper] [Paper,Rock]}\\
-      $\rightsquigarrow$ \pygment{haskell}{"It's a tie"}
+      \lstinline{showResult [Rock,Paper] [Paper,Rock]}\\
+      $\rightsquigarrow$ \lstinline{"It's a tie"}
   \end{itemize}
 \end{frame}
 
@@ -419,17 +424,16 @@ showRound (moveA,moveB) =
     \item a strategy is a function that selects a move\\
       based on the previous moves of the opponent:\\
       \smallskip
-      \pygment{haskell}{[Move] -> Move}
+      \lstinline{[Move] -> Move}
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{always play the same move}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 rock, paper, scissors :: [Move] -> Move
 rock     _ = Rock
 paper    _ = Paper
 scissors _ = Scissors
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -437,14 +441,14 @@ scissors _ = Scissors
   \frametitle{Strategies}
 
   \begin{exampleblock}{cycle through the possibilities}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 cycle :: [Move] -> Move
 cycle moves =
     case (length moves) `mod` 3 of
       0 -> Rock
       1 -> Paper
       2 -> Scissors
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -452,12 +456,12 @@ cycle moves =
   \frametitle{Strategies}
 
   \begin{exampleblock}{play whatever the opponent played last}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 -- opponent moves kept in reverse order
 echo :: [Move] -> Move
 echo []            = Rock
 echo (latest:rest) = latest
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -471,22 +475,22 @@ echo (latest:rest) = latest
   \end{itemize}
 
   \begin{exampleblock}{convert a character into a move}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 convertMove :: Char -> Move
 convertMove c
   | c `elem` "rR" = Rock
   | c `elem` "pP" = Paper
   | c `elem` "sS" = Scissors
   | otherwise     = error "unknown move"
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Game Play}
 
-  \begin{exampleblock}{computer plays \pygment{haskell}{echo}}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{computer plays \lstinline{echo}}
+    \begin{lstlisting}
 play :: Match -> IO ()
 play (movesA,movesB) =
     do ch <- getChar
@@ -500,15 +504,19 @@ play (movesA,movesB) =
 
 playInteractive :: IO ()
 playInteractive = play ([],[])
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Automatic Play}
 
-  \begin{exampleblock}{\pygment{haskell}{cycle} versus \pygment{haskell}{echo}}
-    \begin{pygments}{haskell}
+  \begin{itemize}
+    \item generate a match between two strategies
+  \end{itemize}
+
+  \begin{exampleblock}{\lstinline{cycle} versus \lstinline{echo}}
+    \begin{lstlisting}
 generateMatch :: Integer -> Match
 generateMatch 0 = ([],[])
 generateMatch n = step (generateMatch (n-1))
@@ -516,7 +524,7 @@ generateMatch n = step (generateMatch (n-1))
     step :: Match -> Match
     step (movesA,movesB) = (cycle movesB : movesA,
                             echo movesA : movesB)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
