@@ -15,8 +15,8 @@
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, frame=ltrb,
+        showstringspaces=false, deletestring=[b]{"}}
 \lstset{language=haskell, deletekeywords={even,gcd}}
 
 \mode<presentation>
@@ -153,9 +153,8 @@ even n = (==) ((*) (div n 2) 2) n
     \item \alert{guards}: Boolean expressions to check cases
       in function definitions
     \item function result is the expression for the first valid guard
-  \end{itemize}
 
-  \begin{block}{}
+    \medskip
     \begin{lstlisting}
 n :: t1 -> t2 -> ... -> tk -> t
 n x1 x2 ... xk
@@ -164,19 +163,21 @@ n x1 x2 ... xk
     ...
   | otherwise = e
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Guard Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{maximum of three integers}
+    \begin{lstlisting}
 maxThree :: Integer -> Integer -> Integer -> Integer
 maxThree x y z
   | x >= y && x >= z = x
   | y >= z           = y
   | otherwise        = z
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Errors}
@@ -234,16 +235,16 @@ fac n
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
   \end{lstlisting}
 
-  \lstinline{gcd 9702 945}\\
-  $\rightsquigarrow$ \lstinline{gcd 945 252}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{gcd 252 189}\\
-  \hspace{32pt}$\rightsquigarrow$ \lstinline{gcd 189 63}\\
-  \hspace{48pt}$\rightsquigarrow$ \lstinline{gcd 63 0}\\
-  \hspace{64pt}$\rightsquigarrow$ \lstinline{63}\\
-  \hspace{48pt}$\rightsquigarrow$ \lstinline{63}\\
-  \hspace{32pt}$\rightsquigarrow$ \lstinline{63}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{63}\\
-  $\rightsquigarrow$ \lstinline{63}\\
+  \lstinline{gcd(9702, 945)}\\
+  \lstinline{~> gcd(945, 252)}\\
+  \lstinline{    ~>  gcd(252, 189)}\\
+  \lstinline{         ~> gcd(189, 63)}\\
+  \lstinline{             ~> gcd(63, 0)}\\
+  \lstinline{                 ~> 63}\\
+  \lstinline{             ~> 63}\\
+  \lstinline{         ~> 63}\\
+  \lstinline{    ~>  63}\\
+  \lstinline{~> 63}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -257,15 +258,15 @@ fac n
   \end{lstlisting}
 
   \lstinline{fac 4}\\
-  $\rightsquigarrow$ \lstinline{4 * fac 3}\\
-  \hspace{38pt}$\rightsquigarrow$ \lstinline{3 * fac 2}\\
-  \hspace{76pt}$\rightsquigarrow$ \lstinline{2 * fac 1}\\
-  \hspace{114pt}$\rightsquigarrow$ \lstinline{1 * fac 0}\\
-  \hspace{152pt}$\rightsquigarrow$ \lstinline{1}\\
-  \hspace{114pt}$\rightsquigarrow$ \lstinline{1}\\
-  \hspace{76pt}$\rightsquigarrow$ \lstinline{2}\\
-  \hspace{38pt}$\rightsquigarrow$ \lstinline{6}\\
-  $\rightsquigarrow$ \lstinline{24}\\
+  \lstinline{~> 4 * fac 3}\\
+  \lstinline{          ~> 3 * fac 2}\\
+  \lstinline{                    ~> 2 * fac 1}\\
+  \lstinline{                              ~> 1 * fac 0}\\
+  \lstinline{                                        ~> 1}\\
+  \lstinline{                              ~> 1}\\
+  \lstinline{                    ~> 2}\\
+  \lstinline{          ~> 6}\\
+  \lstinline{~> 24}\\
 \end{frame}
 
 \subsection{Tail Recursion}
@@ -294,11 +295,11 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
   \end{lstlisting}
 
   \lstinline{gcd 9702 945}\\
-  $\rightsquigarrow$ \lstinline{gcd 945 252}\\
-  $\rightsquigarrow$ \lstinline{gcd 252 189}\\
-  $\rightsquigarrow$ \lstinline{gcd 189 63}\\
-  $\rightsquigarrow$ \lstinline{gcd 63 0}\\
-  $\rightsquigarrow$ \lstinline{63}\\
+  \lstinline{~> gcd 945 252}\\
+  \lstinline{~> gcd 252 189}\\
+  \lstinline{~> gcd 189 63}\\
+  \lstinline{~> gcd 63 0}\\
+  \lstinline{~> 63}\\
 \end{frame}
 
 \begin{frame}
@@ -317,7 +318,8 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
 \begin{frame}[fragile]
   \frametitle{Tail Recursion Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{tail recursive factorial}
+    \begin{lstlisting}
 facIter :: Integer -> Integer -> Integer
 facIter acc n
   | n < 0     = error "negative parameter"
@@ -326,7 +328,8 @@ facIter acc n
 
 fac :: Integer -> Integer
 fac n = facIter 1 n
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -340,13 +343,13 @@ facIter acc n
   \end{lstlisting}
 
   \lstinline{fac 4}\\
-  $\rightsquigarrow$ \lstinline{facIter 1 4}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{facIter 4 3}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{facIter 12 2}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{facIter 24 1}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{facIter 24 0}\\
-  \hspace{16pt}$\rightsquigarrow$ \lstinline{24}\\
-  $\rightsquigarrow$ \lstinline{24}\\
+  \lstinline{~> facIter 1 4}\\
+  \lstinline{    ~> facIter 4 3}\\
+  \lstinline{    ~> facIter 12 2}\\
+  \lstinline{    ~> facIter 24 1}\\
+  \lstinline{    ~> facIter 24 0}\\
+  \lstinline{    ~> 24}\\
+  \lstinline{~> 24}\\
 \end{frame}
 
 \begin{frame}[fragile]
@@ -410,17 +413,14 @@ fib n
 \begin{frame}[fragile]
   \frametitle{Recursion Example}
 
-  \begin{itemize}
-    \item compute $x^y$ where $y \in \mathbb{N}$
-  \end{itemize}
-
-  \smallskip
-  \begin{lstlisting}
+  \begin{exampleblock}{exponentiation}
+    \begin{lstlisting}
 pow :: Integer -> Integer -> Integer
 pow x y
   | y == 0    = 1
   | otherwise = x * pow x (y-1)
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 
   \pause
   \begin{itemize}
@@ -439,7 +439,8 @@ pow x y
 \begin{frame}[fragile]
   \frametitle{Recursion Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{fast exponentiation}
+    \begin{lstlisting}
 fastPow :: Integer -> Integer -> Integer
 fastPow x y
   | y == 0    = 1
@@ -448,32 +449,32 @@ fastPow x y
   where
     sqr :: Integer -> Integer
     sqr n = n*n
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Recursion Example}
 
-  \begin{itemize}
-    \item square roots with Newton's method
+  \begin{exampleblock}{square roots with Newton's method}
+    \begin{itemize}
+      \item start with an initial guess $y$ (say $y = 1$)
+      \item repeatedly improve the guess by taking the mean of $y$
+        and $x / y$
+      \item until the guess is good enough ($\sqrt x \cdot \sqrt x = x$)
+    \end{itemize}
 
     \medskip
-    \item start with an initial guess $y$ (say $y = 1$)
-    \item repeatedly improve the guess by taking the mean of $y$
-      and $x / y$
-    \item until the guess is good enough ($\sqrt x \cdot \sqrt x = x$)
-  \end{itemize}
-
-  \medskip
-  \begin{center}
-    \begin{tabular}{lll}
-    $y$      & $x / y$             & next guess\\\hline
-    1        & 2 / 1 = 2           & 1.5\\
-    1.5      & 2 / 1.5 = 1.333     & 1.4167\\
-    1.4167   & 2 / 1.4167 = 1.4118 & 1.4142\\
-    1.4142   & ...                 & ...
-    \end{tabular}
-  \end{center}
+    \begin{center}
+      \begin{tabular}{lll}
+      $y$      & $x / y$             & next guess\\\hline
+      1        & 2 / 1 = 2           & 1.5\\
+      1.5      & 2 / 1.5 = 1.333     & 1.4167\\
+      1.4167   & 2 / 1.4167 = 1.4118 & 1.4142\\
+      1.4142   & ...                 & ...
+      \end{tabular}
+    \end{center}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
