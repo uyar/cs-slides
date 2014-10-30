@@ -15,8 +15,8 @@
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, frame=ltrb,
+        showstringspaces=false, deletestring=[b]{"}}
 \lstset{language=haskell, deletekeywords={gcd,length,Rational,sum}}
 
 \mode<presentation>
@@ -120,18 +120,15 @@ n = (e1,e2,...,en)
 \begin{frame}[fragile]
   \frametitle{Tuple Example}
 
-  \begin{itemize}
-    \item representing a term in a polynomial: $2.4x^2$
-  \end{itemize}
-
-  \medskip
-  \begin{lstlisting}
+  \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
+    \begin{lstlisting}
 t :: (Float,Integer)
 t = (2.4,2)
 
-fst t  -- 2.4
-snd t  -- 2
-  \end{lstlisting}
+fst t ~> 2.4
+snd t ~> 2
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -141,19 +138,21 @@ snd t  -- 2
     \item tuple parameters are different from multiple parameters
   \end{itemize}
 
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{}
     \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
--- call as: gcd 9702 945
+
+gcd 9702 945 ~> 63
 
 gcd' :: (Integer,Integer) -> Integer
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
--- call as: gcd' (9702,945)
+
+gcd' (9702,945) ~> 63
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -195,11 +194,8 @@ name = [e1,e2,...,en]
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{itemize}
-    \item representing a polynomial: $2.4x^2 + 1.8x - 4.6$
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{representing a polynomial: $2.4x^2 + 1.8x - 4.6$}
+    \begin{lstlisting}
 -- second degree polynomial
 p1 :: (Float,Float,Float)
 p1 = (2.4,1.8,-4.6)
@@ -211,7 +207,8 @@ p2 = [2.4,1.8,-4.6]
 -- any degree polynomial, coefficients unordered
 p3 :: [(Float,Integer)]
 p3 = [(1.8,1), (-4.6,0), (2.4,2)]
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -257,47 +254,42 @@ p4 = [(1.8,1), (-4.6,0), (2.4,2)]
 
   \begin{lstlisting}
 -- null :: [a] -> Bool
-null []         -- True
-null [1,2,3,4]  -- False
+null []         ~> True
+null [1,2,3,4]  ~> False
 
 -- head :: [a] -> a
-head [1,2,3,4]  -- 1
-head []         -- error
-head [1]        -- 1
+head [1,2,3,4]  ~> 1
+head []         ~> error
+head [1]        ~> 1
 
 -- tail :: [a] -> [a]
-tail [1,2,3,4]  -- [2,3,4]
-tail []         -- error
-tail [1]        -- []
+tail [1,2,3,4]  ~> [2,3,4]
+tail []         ~> error
+tail [1]        ~> []
 
 -- (:) :: a -> [a] -> [a]
-1 : [2,3]       -- [1,2,3]
+1 : [2,3]       ~> [1,2,3]
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{itemize}
-    \item number of elements
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{number of elements}
+    \begin{lstlisting}
 length :: [a] -> Integer
 length xs
   | null xs   = 0
   | otherwise = 1 + length (tail xs)
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{itemize}
-    \item number of elements (tail recursive)
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{number of elements (tail recursive)}
+    \begin{lstlisting}
 length :: [a] -> Integer
 length xs = lengthIter 0 xs
   where
@@ -305,38 +297,35 @@ length xs = lengthIter 0 xs
     lengthIter acc xs'
       | null xs'  = acc
       | otherwise = lengthIter (acc+1) (tail xs')
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{itemize}
-    \item sum of elements
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{sum of elements}
+    \begin{lstlisting}
 sum :: [Integer] -> Integer
 sum xs
   | null xs   = 0
   | otherwise = head xs + sum (tail xs)
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{itemize}
-    \item sum of first two elements
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{sum of first two elements}
+    \begin{lstlisting}
 firstPlusSecond :: [Integer] -> Integer
 firstPlusSecond xs
   | null xs        = 0
   | null (tail xs) = head xs
   | otherwise      = head xs + head (tail xs)
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Algebraic Types}
@@ -345,29 +334,21 @@ firstPlusSecond xs
   \frametitle{Algebraic Types}
 
   \begin{itemize}
-    \item algebraic types: constructors and components
-
-    \medskip
-    \item product types
-    \item enumerations
-    \item alternatives
+    \item \alert{algebraic types}: constructors and components
+    \begin{lstlisting}
+data T = C1 t11 t12 ... t1m |
+         C2 t21 t22 ... t2n |
+         ...
+    \end{lstlisting}
+    \item value construction: \lstinline{Ci ei1 ei2 ... eik}
+    \item constructors are functions
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Product Types}
+  \frametitle{Algebraic Type Examples}
 
-  \begin{itemize}
-    \item product type: one constructor
-    \smallskip
-    \begin{lstlisting}
-data T = C t1 t2 ... tn
-    \end{lstlisting}
-    \item value construction: \lstinline{C e1 e2 ... en}
-    \item constructors are functions
-  \end{itemize}
-
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{simple product type}
     \begin{lstlisting}
 type Name = String
 type Year = Integer
@@ -382,17 +363,9 @@ church = Person "Alonzo Church" 1903
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Enumerations}
+  \frametitle{Algebraic Type Examples}
 
-  \begin{itemize}
-    \item enumeration: only constructors, no components
-    \smallskip
-    \begin{lstlisting}
-data T = C1 | C2 | ... | Cn
-    \end{lstlisting}
-  \end{itemize}
-
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{enumeration}
     \begin{lstlisting}
 data Month = Jan | Feb | Mar | Apr | May | Jun |
              Jul | Aug | Sep | Oct | Nov | Dec
@@ -405,13 +378,9 @@ m = Feb
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Alternative Types}
+  \frametitle{Algebraic Type Examples}
 
-  \begin{itemize}
-    \item alternative type: multiple constructors
-  \end{itemize}
-
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{geometric shapes}
     \begin{lstlisting}
 type Coords = (Float,Float)
 type Length = Float
@@ -439,16 +408,17 @@ r = Rectangle (45.9,87.6) 5.75 2.3
   \begin{itemize}
     \item expressions can be checked against patterns
     \item result is the expression for the first matched pattern
-  \end{itemize}
 
-  \begin{lstlisting}
+    \medskip
+    \begin{lstlisting}
 case expr of
   p1 -> e1
   p2 -> e2
   ...
   pn -> en
   _  -> e
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -474,7 +444,7 @@ gcd x y =
 
   \begin{itemize}
     \item matched patterns generate bindings
-    \item for tuples, pattern matching is better than selector functions
+    \item tuple components can be matched directly
   \end{itemize}
 
   \begin{exampleblock}{example}
@@ -544,11 +514,9 @@ third t =
     \item nonempty list:\\
       \lstinline{x:xs}
     \item list with exactly one element:\\
-      \lstinline{[x]}\\
-      \lstinline{x:[]}
+      \lstinline{[x]}
     \item list with exactly two elements:\\
-      \lstinline{[x1,x2]}\\
-      \lstinline{x1:x2:[]}
+      \lstinline{[x1,x2]}
     \item list with at least two elements:\\
       \lstinline{x1:x2:xs}
   \end{itemize}
@@ -557,27 +525,22 @@ third t =
 \begin{frame}[fragile]
   \frametitle{List Pattern Examples}
 
-  \begin{itemize}
-    \item number of elements
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{number of elements}
+    \begin{lstlisting}
 length :: [a] -> Integer
 length xs =
     case xs of
       []    -> 0
       x:xs' -> 1 + length xs'
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{List Pattern Examples}
 
-  \begin{itemize}
-    \item sum of the first and third elements
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{sum of the first and third elements}
+    \begin{lstlisting}
 firstPlusThird :: [Integer] -> Integer
 firstPlusThird xs =
     case xs of
@@ -585,7 +548,8 @@ firstPlusThird xs =
       [x1]      -> x1
       [x1,_]    -> x1
       x1:_:x3:_ -> x1+x3
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Algebraic Type Patterns}
@@ -600,23 +564,26 @@ firstPlusThird xs =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Product Type Example}
+  \frametitle{Algebraic Type Pattern Examples}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{get component out of product type}
+    \begin{lstlisting}
 birthYear :: Human -> Year
 birthYear p =
     case p of
       Person _ y -> y
 
-birthYear (Person "Alonzo Church" 1903)  -- 1903
+birthYear (Person "Alonzo Church" 1903) ~> 1903
 -- binding: y <-> 1903
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Enumeration Pattern Example}
+  \frametitle{Algebraic Type Pattern Examples}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{number of days in a month}
+    \begin{lstlisting}
 daysInMonth :: Month -> Integer -> Integer
 daysInMonth m y =
     case m of
@@ -627,16 +594,18 @@ daysInMonth m y =
       Feb -> if y `mod` 4 == 0 then 29 else 28
       _   -> 31
 
-daysInMonth Jan 2014 -- 31
-daysInMonth Feb 2014 -- 28
-daysInMonth Feb 2016 -- 29
+daysInMonth Jan 2014 ~> 31
+daysInMonth Feb 2014 ~> 28
+daysInMonth Feb 2016 ~> 29
     \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Algebraic Type Example}
+  \frametitle{Algebraic Type Pattern Examples}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{area of a geometric shape}
+    \begin{lstlisting}
 area :: Shape -> Float
 area s =
     case s of
@@ -644,9 +613,10 @@ area s =
       Circle    _ r   -> 3.14159 * r * r
       Rectangle _ h w -> h * w
 
-area (Circle (0.0,0.0) 3.0) -- 28.274311
+area (Circle (0.0,0.0) 3.0) ~> 28.274311
 -- second pattern, binding: r <-> 3.0
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Function Patterns}
@@ -769,11 +739,8 @@ birthYear (Person _ y) = y
 \begin{frame}[fragile]
   \frametitle{Example}
 
-  \begin{itemize}
-    \item efficient Fibonacci calculation
-  \end{itemize}
-
-  \begin{lstlisting}
+  \begin{exampleblock}{efficient Fibonacci calculation}
+    \begin{lstlisting}
 fibStep :: (Integer,Integer) -> (Integer,Integer)
 fibStep (u,v) = (v,u+v)
 
@@ -783,13 +750,15 @@ fibPair 1 = (1,1)
 fibPair n = fibStep (fibPair (n-1))
 
 fastFib n = fst (fibPair n)
-  \end{lstlisting}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tuples or Algebraic Types?}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{representing rational numbers}
+    \begin{lstlisting}
 type Rational = (Integer,Integer)
 
 simplify :: Rational -> Rational
@@ -800,8 +769,9 @@ type DayInYear = (Integer,Integer)
 
 mar12 :: DayInYear
 mar12 = (12,3)
-simplify mar12 -- (4,1)
-  \end{lstlisting}
+simplify mar12 ~> (4,1)
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -811,6 +781,7 @@ simplify mar12 -- (4,1)
     \item algebraic types give you better type checking
   \end{itemize}
 
+  \bigskip
   \begin{lstlisting}
 data Rational' = Fraction Integer Integer
                  deriving Show

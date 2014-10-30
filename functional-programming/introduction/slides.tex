@@ -15,8 +15,8 @@
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, frame=ltrb,
+        showstringspaces=false, deletestring=[b]{"}}
 
 \mode<presentation>
 {
@@ -205,14 +205,10 @@
 \begin{frame}[fragile]
   \frametitle{Imperative Programming Example}
 
-  \begin{itemize}
-    \item greatest common divisor (Python)
-  \end{itemize}
-
-  \medskip
-  \begin{columns}
+  \begin{columns}[b]
     \column{.55\textwidth}
-    \begin{lstlisting}
+    \begin{exampleblock}{greatest common divisor (Python)}
+      \begin{lstlisting}
 def gcd(x, y):
     r = 0
     while y > 0:
@@ -220,7 +216,8 @@ def gcd(x, y):
         x = y
         y = r
     return x
-    \end{lstlisting}
+      \end{lstlisting}
+    \end{exampleblock}
 
     \column{.4\textwidth}
     \begin{tabular}{|r|r|r|}\hline
@@ -233,7 +230,7 @@ def gcd(x, y):
     \end{tabular}
 
     \medskip
-    $\rightsquigarrow$ 63
+    \lstinline{~> 63}
   \end{columns}
 \end{frame}
 
@@ -290,32 +287,29 @@ def gcd(x, y):
 \begin{frame}[fragile]
   \frametitle{Functional Programming Example}
 
-  \begin{itemize}
-    \item greatest common divisor (Python)
-  \end{itemize}
-
-  \medskip
   \begin{columns}
     \column{.55\textwidth}
-    \begin{lstlisting}
+    \begin{exampleblock}{greatest common divisor (Python)}
+      \begin{lstlisting}
 def gcd(x, y):
     if y == 0:
         return x
     else:
         return gcd(y, x % y)
-    \end{lstlisting}
+      \end{lstlisting}
+    \end{exampleblock}
 
     \column{.4\textwidth}
     \lstinline{gcd(9702, 945)}\\
-    $\rightsquigarrow$ \lstinline{gcd(945, 252)}\\
-    \hspace{16pt}$\rightsquigarrow$ \lstinline{gcd(252, 189)}\\
-    \hspace{32pt}$\rightsquigarrow$ \lstinline{gcd(189, 63)}\\
-    \hspace{48pt}$\rightsquigarrow$ \lstinline{gcd(63, 0)}\\
-    \hspace{64pt}$\rightsquigarrow$ \lstinline{63}\\
-    \hspace{48pt}$\rightsquigarrow$ \lstinline{63}\\
-    \hspace{32pt}$\rightsquigarrow$ \lstinline{63}\\
-    \hspace{16pt}$\rightsquigarrow$ \lstinline{63}\\
-    $\rightsquigarrow$ \lstinline{63}
+    \lstinline{~> gcd(945, 252)}\\
+    \lstinline{    ~>  gcd(252, 189)}\\
+    \lstinline{         ~> gcd(189, 63)}\\
+    \lstinline{             ~> gcd(63, 0)}\\
+    \lstinline{                 ~> 63}\\
+    \lstinline{             ~> 63}\\
+    \lstinline{         ~> 63}\\
+    \lstinline{    ~>  63}\\
+    \lstinline{~> 63}
   \end{columns}
 \end{frame}
 
@@ -682,14 +676,14 @@ n e1 e2 ... ek
 sqr :: Integer -> Integer
 sqr x = x * x
 
-sqr 21    -- 441
-sqr (2+5) -- 49
+sqr 21    ~> 441
+sqr (2+5) ~> 49
 
 sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = sqr x + sqr y
 
-sumOfSquares 3 4       -- 25
-sumOfSquares 2 (sqr 3) -- 85
+sumOfSquares 3 4       ~> 25
+sumOfSquares 2 (sqr 3) ~> 85
   \end{lstlisting}
 \end{frame}
 
