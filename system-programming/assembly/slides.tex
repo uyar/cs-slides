@@ -1,15 +1,22 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=[x86masm]Assembler,
+        morekeywords={.bss,.text, asl,asr,extern,global,
+                      resb,resd,resq,rest,resw,times}}
+
 \mode<presentation>
 {
-  \usetheme{Frankfurt}
+  \usetheme{default}
   \setbeamercovered{transparent}
 }
 
@@ -198,31 +205,31 @@
 
   \begin{table}
     \begin{tabular}{ll}
-      \pygment{nasm}|mov dest, src|
+      \lstinline|mov dest, src|
           & move src to dest\\
       \hline
-      \pygment{nasm}|add dest, src|
+      \lstinline|add dest, src|
           & add src to dest\\
       \hline
-      \pygment{nasm}|adc dest, src|
+      \lstinline|adc dest, src|
           & add src to dest with carry\\
       \hline
-      \pygment{nasm}|sub dest, src|
+      \lstinline|sub dest, src|
           & subtract src from dest\\
       \hline
-      \pygment{nasm}|sbb dest, src|
+      \lstinline|sbb dest, src|
           & subtract src from dest with borrow\\
       \hline
-      \pygment{nasm}|inc dest|
+      \lstinline|inc dest|
           & increment dest\\
       \hline
-      \pygment{nasm}|dec dest|
+      \lstinline|dec dest|
           & decrement dest\\
       \hline
-      \pygment{nasm}|mul src|
+      \lstinline|mul src|
           & multiply eax with src, result in edx:eax\\
       \hline
-      \pygment{nasm}|div src|
+      \lstinline|div src|
           & divide edx:eax by src, result in eax and edx\\
     \end{tabular}
   \end{table}
@@ -233,43 +240,43 @@
 
   \begin{table}
     \begin{tabular}{ll}
-      \pygment{nasm}|not dest|
+      \lstinline|not dest|
           & bitwise not (one's complement)\\
       \hline
-      \pygment{nasm}|and dest, src|
+      \lstinline|and dest, src|
           & bitwise and\\
       \hline
-      \pygment{nasm}|or dest, src|
+      \lstinline|or  dest, src|
           & bitwise or\\
       \hline
-      \pygment{nasm}|xor dest, src|
+      \lstinline|xor dest, src|
           & bitwise xor\\
       \hline
-      \pygment{nasm}|neg dest|
+      \lstinline|neg dest|
           & negate (two's complement)\\
       \hline
-      \pygment{nasm}|shl dest, amount|
+      \lstinline|shl dest, amount|
           & logical shift left\\
       \hline
-      \pygment{nasm}|shr dest, amount|
+      \lstinline|shr dest, amount|
           & logical shift right\\
       \hline
-      \pygment{nasm}|asl dest, amount|
+      \lstinline|asl dest, amount|
           & arithmetic shift left\\
       \hline
-      \pygment{nasm}|asr dest, amount|
+      \lstinline|asr dest, amount|
           & arithmetic shift right\\
       \hline
-      \pygment{nasm}|rol dest, amount|
+      \lstinline|rol dest, amount|
           & rotate left\\
       \hline
-      \pygment{nasm}|ror dest, amount|
+      \lstinline|ror dest, amount|
           & rotate right\\
       \hline
-      \pygment{nasm}|rcl dest, amount|
+      \lstinline|rcl dest, amount|
           & rotate left with carry\\
       \hline
-      \pygment{nasm}|rcr dest, amount|
+      \lstinline|rcr dest, amount|
           & rotate right with carry\\
     \end{tabular}
   \end{table}
@@ -280,27 +287,27 @@
 
   \begin{table}
     \begin{tabular}{ll}
-      \pygment{nasm}|jmp| & unconditional\\
+      \lstinline|jmp| & unconditional\\
       \hline
-      \pygment{nasm}|jz|  & if ZF is set\\
+      \lstinline|jz|  & if ZF is set\\
       \hline
-      \pygment{nasm}|jnz| & if ZF is unset\\
+      \lstinline|jnz| & if ZF is unset\\
       \hline
-      \pygment{nasm}|jo|  & if OF is set\\
+      \lstinline|jo|  & if OF is set\\
       \hline
-      \pygment{nasm}|jno| & if OF is unset\\
+      \lstinline|jno| & if OF is unset\\
       \hline
-      \pygment{nasm}|js|  & if SF is set\\
+      \lstinline|js|  & if SF is set\\
       \hline
-      \pygment{nasm}|jns| & if SF is unset\\
+      \lstinline|jns| & if SF is unset\\
       \hline
-      \pygment{nasm}|jc|  & if CF is set\\
+      \lstinline|jc|  & if CF is set\\
       \hline
-      \pygment{nasm}|jnc| & if CF is unset\\
+      \lstinline|jnc| & if CF is unset\\
       \hline
-      \pygment{nasm}|jp|  & if PF is set\\
+      \lstinline|jp|  & if PF is set\\
       \hline
-      \pygment{nasm}|jnp| & if PF is unset\\
+      \lstinline|jnp| & if PF is unset\\
     \end{tabular}
   \end{table}
 \end{frame}
@@ -309,32 +316,32 @@
   \frametitle{Branching Instructions}
 
   \begin{itemize}
-   \item \pygment{nasm}|cmp vleft, vright|: compare vleft and vright
+   \item \lstinline|cmp vleft, vright|: compare vleft and vright
   \end{itemize}
 
   \begin{table}
     \begin{tabular}{lll}
       condition             & signed               & unsigned\\
       \hline\\
-      vleft $=$ vright      & \pygment{nasm}|je|   & \pygment{nasm}|je|\\
+      vleft $=$ vright      & \lstinline|je|   & \lstinline|je|\\
       \hline
-      vleft $\neq$ vright   & \pygment{nasm}|jne|  & \pygment{nasm}|jne|\\
+      vleft $\neq$ vright   & \lstinline|jne|  & \lstinline|jne|\\
       \hline
-      vleft $<$ vright      & \pygment{nasm}|jl|   & \pygment{nasm}|jb|\\
+      vleft $<$ vright      & \lstinline|jl|   & \lstinline|jb|\\
       \hline
-      vleft $\nless$ vright & \pygment{nasm}|jnl|  & \pygment{nasm}|jnb|\\
+      vleft $\nless$ vright & \lstinline|jnl|  & \lstinline|jnb|\\
       \hline
-      vleft $\leq$ vright   & \pygment{nasm}|jle|  & \pygment{nasm}|jbe|\\
+      vleft $\leq$ vright   & \lstinline|jle|  & \lstinline|jbe|\\
       \hline
-      vleft $\nleq$ vright  & \pygment{nasm}|jnle| & \pygment{nasm}|jnbe|\\
+      vleft $\nleq$ vright  & \lstinline|jnle| & \lstinline|jnbe|\\
       \hline
-      vleft $>$ vright      & \pygment{nasm}|jg|   & \pygment{nasm}|ja|\\
+      vleft $>$ vright      & \lstinline|jg|   & \lstinline|ja|\\
       \hline
-      vleft $\ngtr$ vright  & \pygment{nasm}|jng|  & \pygment{nasm}|jna|\\
+      vleft $\ngtr$ vright  & \lstinline|jng|  & \lstinline|jna|\\
       \hline
-      vleft $\geq$ vright   & \pygment{nasm}|jge|  & \pygment{nasm}|jae|\\
+      vleft $\geq$ vright   & \lstinline|jge|  & \lstinline|jae|\\
       \hline
-      vleft $\ngeq$ vright  & \pygment{nasm}|jnge| & \pygment{nasm}|jnae|\\
+      vleft $\ngeq$ vright  & \lstinline|jnge| & \lstinline|jnae|\\
     \end{tabular}
   \end{table}
 \end{frame}
@@ -351,14 +358,14 @@
     \bigskip
     \item labels: mark points in code and data
     \begin{itemize}
-      \item entry labels have to marked \pygment{nasm}|global|
+      \item entry labels have to marked \lstinline|global|
     \end{itemize}
 
     \item segments
 
     \item data definition
 
-    \item named constants: \pygment{nasm}|equ|
+    \item named constants: \lstinline|equ|
     \begin{itemize}
       \item no memory allocated
     \end{itemize}
@@ -368,7 +375,7 @@
 \begin{frame}[fragile]
   \frametitle{Code Template}
 
-  \begin{pygments}{nasm}
+  \begin{lstlisting}
 segment .data
 ; initialized data definitions
 
@@ -380,7 +387,7 @@ global _start
 
 _start:
     ; entry point
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}{fragile}
@@ -390,15 +397,15 @@ _start:
     \begin{tabular}{lll}
       type  & initialized        & uninitialized\\
       \hline\\
-      byte  & \pygment{nasm}|db| & \pygment{nasm}|resb|\\
+      byte  & \lstinline|db| & \lstinline|resb|\\
       \hline
-      word  & \pygment{nasm}|dw| & \pygment{nasm}|resw|\\
+      word  & \lstinline|dw| & \lstinline|resw|\\
       \hline
-      dword & \pygment{nasm}|dd| & \pygment{nasm}|resd|\\
+      dword & \lstinline|dd| & \lstinline|resd|\\
       \hline
-      qword & \pygment{nasm}|dq| & \pygment{nasm}|resq|\\
+      qword & \lstinline|dq| & \lstinline|resq|\\
       \hline
-      tword & \pygment{nasm}|dt| & \pygment{nasm}|rest|\\
+      tword & \lstinline|dt| & \lstinline|rest|\\
     \end{tabular}
   \end{table}
 \end{frame}
@@ -406,7 +413,7 @@ _start:
 \begin{frame}[fragile]
   \frametitle{Data Definition Examples}
 
-  \begin{pygments}{nasm}
+  \begin{lstlisting}
 L1 db    0
 L2 dw    1000
 L3 dd    1A92h
@@ -416,7 +423,7 @@ L6 db    'word', 0
 L7 times 100 db 0
 L8 resb  1
 L9 resw  100
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -430,9 +437,9 @@ L9 resw  100
 
       \medskip
       \begin{example}
-        \begin{pygments}{nasm}
+        \begin{lstlisting}
 mov eax, L1
-        \end{pygments}
+        \end{lstlisting}
       \end{example}
     \end{itemize}
 
@@ -443,9 +450,9 @@ mov eax, L1
 
       \medskip
       \begin{example}
-        \begin{pygments}{nasm}
+        \begin{lstlisting}
 mov eax, [L1]
-        \end{pygments}
+        \end{lstlisting}
       \end{example}
     \end{itemize}
   \end{columns}
@@ -465,11 +472,11 @@ mov eax, [L1]
 %       \item the following instructions are incorrect:
 %     \end{itemize}
 %
-%     \begin{pygments}{nasm}
+%     \begin{lstlisting}
 % mov [L8], [L1]
 %
 % mov ax, bl
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 %
@@ -486,18 +493,18 @@ mov eax, [L1]
 %       \item the following instruction is incorrect:
 %     \end{itemize}
 %
-%     \begin{pygments}{nasm}
+%     \begin{lstlisting}
 % mov [L2],1
-%     \end{pygments}
+%     \end{lstlisting}
 %
 %     \pause
 %     \begin{itemize}
 %       \item use this instead:
 %     \end{itemize}
 %
-%     \begin{pygments}{nasm}
+%     \begin{lstlisting}
 % mov word [L2],1
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 
@@ -516,7 +523,7 @@ mov eax, [L1]
     \texttt{ebx} $\leftarrow$ first argument\\
     \texttt{ecx} $\leftarrow$ second argument\\
     \texttt{edx} $\leftarrow$ third argument\\
-    \pygment{nasm}|int 80h|
+    \lstinline|int 80h|
   \end{block}
 \end{frame}
 
@@ -526,7 +533,7 @@ mov eax, [L1]
   \begin{columns}[b]
     \column{.5\textwidth}
     \begin{itemize}
-      \item \pygment{c}{exit} system call number: 1
+      \item \lstinline{exit} system call number: 1
       \item arg. 1: return status
       \begin{itemize}
         \item 0: success, 1: failure
@@ -566,14 +573,14 @@ mov eax, [L1]
 
     \begin{columns}[t]
       \column{.55\textwidth}
-      \begin{pygments}{nasm}
+      \begin{lstlisting}
 segment .data
 msg db  "Hello, world!", 10
 len equ 14
-      \end{pygments}
+      \end{lstlisting}
 
       \column{.45\textwidth}
-      \begin{pygments}{nasm}
+      \begin{lstlisting}
 segment .text
 global _start
 
@@ -587,7 +594,7 @@ _start:
     mov  eax, 1
     mov  ebx, 0
     int  80h
-      \end{pygments}
+      \end{lstlisting}
     \end{columns}
 \end{frame}
 
@@ -620,8 +627,8 @@ _start:
 
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{block}{push}
-      \pygment{nasm}|push operand|
+    \begin{block}{}
+      \lstinline|push operand|
       \begin{itemize}
         \item subtract 4 from esp
         \item store operand to address [esp]
@@ -629,8 +636,8 @@ _start:
     \end{block}
 
     \column{.5\textwidth}
-    \begin{block}{pop}
-      \pygment{nasm}|pop register|
+    \begin{block}{}
+      \lstinline|pop register|
       \begin{itemize}
         \item store operand at address [esp] to register
         \item add 4 to esp
@@ -658,29 +665,17 @@ _start:
 
     \pause
     \column{.55\textwidth}
-    \begin{pygments}{nasm}
-push dword 1
-    \end{pygments}
+    \lstinline|push dword 1|\\
     \pause
-    \begin{pygments}{nasm}
-push dword 2
-    \end{pygments}
+    \lstinline|push dword 2|\\
     \pause
-    \begin{pygments}{nasm}
-push dword 3
-    \end{pygments}
+    \lstinline|push dword 3|\\
     \pause
-    \begin{pygments}{nasm}
-pop  eax
-    \end{pygments}
+    \lstinline|pop  eax|\\
     \pause
-    \begin{pygments}{nasm}
-pop  ebx
-    \end{pygments}
+    \lstinline|pop  ebx|\\
     \pause
-    \begin{pygments}{nasm}
-pop  ecx
-    \end{pygments}
+    \lstinline|pop  ecx|
   \end{columns}
 \end{frame}
 
@@ -688,18 +683,18 @@ pop  ecx
   \frametitle{Subroutine Call}
 
   \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{call}
-      \pygment{nasm}|call target|
+    \column{.55\textwidth}
+    \begin{block}{}
+      \lstinline|call target|
       \begin{itemize}
         \item push address of next instruction
         \item jump to target
       \end{itemize}
     \end{block}
 
-    \column{.5\textwidth}
-    \begin{block}{ret}
-      \pygment{nasm}|ret|
+    \column{.45\textwidth}
+    \begin{block}{}
+      \lstinline|ret|
       \begin{itemize}
         \item pop return address
         \item jump to return address
@@ -768,13 +763,13 @@ pop  ecx
   \frametitle{Accessing Parameters}
 
   \begin{itemize}
-    \item use ebp
+    \item use ebp (frame pointer)
   \end{itemize}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
+  \begin{columns}
+    \column{.45\textwidth}
     \begin{block}{subroutine template}
-      \begin{pygments}{nasm}
+      \begin{lstlisting}
 push ebp
 mov  ebp, esp
 
@@ -782,7 +777,7 @@ mov  ebp, esp
 
 pop  ebp
 ret
-      \end{pygments}
+      \end{lstlisting}
     \end{block}
 
     \column{.5\textwidth}
@@ -812,7 +807,7 @@ ret
 
   \begin{columns}[t]
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 segment .bss
 f   resd 1
 
@@ -824,10 +819,10 @@ fact:
 
     mov  dword [f], 1
     mov  ecx, [ebp+8]
-    \end{pygments}
+    \end{lstlisting}
 
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 back:
     mov  eax, [f]
     mul  ecx
@@ -838,7 +833,7 @@ back:
 
     pop  ebp
     ret
-    \end{pygments}
+    \end{lstlisting}
   \end{columns}
 \end{frame}
 
@@ -847,7 +842,7 @@ back:
 
   \begin{columns}[t]
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 segment .data
 k   dd   5
 
@@ -859,10 +854,10 @@ global _start
 
 fact:
     ...
-    \end{pygments}
+    \end{lstlisting}
 
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 _start:
     push ebp
     mov  ebp, esp
@@ -873,7 +868,7 @@ _start:
 
     pop  ebp
     ret
-    \end{pygments}
+    \end{lstlisting}
   \end{columns}
 \end{frame}
 
@@ -921,7 +916,7 @@ _start:
     \item to call a C function from Assembly:
 
     \medskip
-    \item declare function as \pygment{nasm}|extern|
+    \item declare function as \lstinline|extern|
     \item push arguments in reverse order
     \item call function
     \item adjust esp
@@ -933,7 +928,7 @@ _start:
 
   \begin{columns}[t]
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 segment .data
 k    dd   5
 intf db   "%d", 10, 0
@@ -947,10 +942,10 @@ extern printf
 
 fact:
     ...
-    \end{pygments}
+    \end{lstlisting}
 
     \column{.45\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 main:
     ...
 
@@ -964,7 +959,7 @@ main:
     add  esp, 8
 
     ...
-    \end{pygments}
+    \end{lstlisting}
   \end{columns}
 \end{frame}
 
@@ -991,7 +986,7 @@ main:
     \column{.5\textwidth}
 
     \begin{block}{subroutine template}
-      \begin{pygments}{nasm}
+      \begin{lstlisting}
 push ebp
 mov  ebp, esp
 sub  esp, N_BYTES
@@ -1001,7 +996,7 @@ sub  esp, N_BYTES
 mov  esp, ebp
 pop  ebp
 ret
-      \end{pygments}
+      \end{lstlisting}
     \end{block}
 
     \column{.5\textwidth}
@@ -1035,7 +1030,7 @@ ret
 \begin{frame}[fragile]
   \frametitle{Example: Factorial (C)}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}[language=C]
 int y;
 
 void fact(int k)
@@ -1046,13 +1041,13 @@ void fact(int k)
   for (i = k; i > 1; i--)
       y = y * i;
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Factorial (C)}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}[language=C]
 int fact(int k)
 {
     int y;
@@ -1063,7 +1058,7 @@ int fact(int k)
         y = y * i;
     return y;
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1071,7 +1066,7 @@ int fact(int k)
 
   \begin{columns}[t]
     \column{.48\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 segment .text
 global fact
 
@@ -1082,10 +1077,10 @@ fact:
 
     mov  dword [ebp-4], 1
     mov  ecx, [ebp+8]
-    \end{pygments}
+    \end{lstlisting}
 
     \column{.46\textwidth}
-    \begin{pygments}{nasm}
+    \begin{lstlisting}
 back:
     mov  eax, [ebp-4]
     mul  ecx
@@ -1098,7 +1093,7 @@ back:
     mov  esp, ebp
     pop  ebp
     ret
-    \end{pygments}
+    \end{lstlisting}
   \end{columns}
 \end{frame}
 
@@ -1106,7 +1101,7 @@ back:
 %   \frametitle{Function Example}
 %
 %   \begin{example}[Recursive Factorial (C)]
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % int fact(int k)
 % {
 %     if (k == 1)
@@ -1114,7 +1109,7 @@ back:
 %     else
 %         return k * fact(k - 1);
 % }
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 %
@@ -1124,7 +1119,7 @@ back:
 %   \begin{example}[Recursive Factorial]
 %     \begin{columns}[t]
 %       \column{.47\textwidth}
-%       \begin{pygments}{nasm}
+%       \begin{lstlisting}
 % fact:
 %     push ebp
 %     mov  ebp, esp
@@ -1135,10 +1130,10 @@ back:
 %     je   end_rec
 %
 %     push ecx
-%       \end{pygments}
+%       \end{lstlisting}
 %
 %       \column{.47\textwidth}
-%       \begin{pygments}{nasm}
+%       \begin{lstlisting}
 %     dec  ecx
 %     push ecx
 %     call fact
@@ -1150,7 +1145,7 @@ back:
 % end_rec:
 %     pop  ebp
 %     ret
-%       \end{pygments}
+%       \end{lstlisting}
 %     \end{columns}
 %   \end{example}
 % \end{frame}
@@ -1164,7 +1159,7 @@ back:
     \item to call an Assembly function from C:
 
     \medskip
-    \item in Assembly file: declare function as \pygment{nasm}|global|
+    \item in Assembly file: declare function as \lstinline|global|
     \item in C file: declare the prototype
   \end{itemize}
 \end{frame}
@@ -1172,7 +1167,7 @@ back:
 \begin{frame}[fragile]
   \frametitle{Example: Factorial}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}[language=C]
 int fact(int k);
 
 int main(void)
@@ -1183,7 +1178,7 @@ int main(void)
     y = fact(x);
     ...
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 %
 % \lstdefinelanguage{ATT}[]{Intel}{
@@ -1207,7 +1202,7 @@ int main(void)
 %
 %       \pause
 %       \item operand size specified in opcode:\\
-%         \pygment{nasm}|movb movw movl|
+%         \lstinline|movb movw movl|
 %
 %       \pause
 %       \item register names start with \%
@@ -1219,10 +1214,10 @@ int main(void)
 %     \pause
 %     \column{.4\textwidth}
 %     \begin{example}
-%       \begin{pygments}{nasm}
+%       \begin{lstlisting}
 % ; Intel: mov eax,1
 % movl $1,%eax
-%       \end{pygments}
+%       \end{lstlisting}
 %     \end{example}
 %   \end{columns}
 % \end{frame}
@@ -1232,15 +1227,15 @@ int main(void)
 %
 %   \begin{itemize}
 %     \item addresses start with \$:\\
-%       \pygment{nasm}|movl $number,\%eax --- mov eax,number|
+%       \lstinline|movl $number,\%eax --- mov eax,number|
 %
 %     \pause
 %     \item dereferencing by plain labels:\\
-%       \pygment{nasm}|movl number,\%eax ---  mov eax,[number]|
+%       \lstinline|movl number,\%eax ---  mov eax,[number]|
 %
 %     \pause
 %     \item dereferencing register addresses by enclosing in ():\\
-%       \pygment{nasm}|movl (\%ebx),\%eax ---  mov eax,[ebx]|
+%       \lstinline|movl (\%ebx),\%eax ---  mov eax,[ebx]|
 %   \end{itemize}
 % \end{frame}
 %
@@ -1250,7 +1245,7 @@ int main(void)
 %   \begin{example}[Hello world]
 %     \begin{columns}[t]
 %       \column{.5\textwidth}
-%       \begin{pygments}{nasm}[language=Gas]
+%       \begin{lstlisting}[language=Gas]
 % .data
 % msg:
 %     .ascii "Hello, world!\n"
@@ -1259,10 +1254,10 @@ int main(void)
 %
 % .text
 % .globl main
-%       \end{pygments}
+%       \end{lstlisting}
 %
 %       \column{.4\textwidth}
-%       \begin{pygments}{nasm}[language=Gas]
+%       \begin{lstlisting}[language=Gas]
 % main:
 %     movl $4,%eax
 %     movl $1,%ebx
@@ -1273,7 +1268,7 @@ int main(void)
 %     movl $1,%eax
 %     movl $0,%ebx
 %     int  0x80
-%       \end{pygments}
+%       \end{lstlisting}
 %     \end{columns}
 %   \end{example}
 % \end{frame}
@@ -1288,7 +1283,7 @@ int main(void)
 %
 %   \pause
 %   \begin{block}{template}
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % /* some C code */
 %
 % asm( code
@@ -1297,7 +1292,7 @@ int main(void)
 %      : clobbered registers );
 %
 % /* some C code */
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{block}
 % \end{frame}
 %
@@ -1329,7 +1324,7 @@ int main(void)
 %   \frametitle{Output Value Example}
 %
 %   \begin{example}
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % ...
 % int variable1;
 % ...
@@ -1339,7 +1334,7 @@ int main(void)
 %      : clobbered registers );
 %
 % ...
-%     \end{pygments}
+%     \end{lstlisting}
 %
 %     \pause
 %     \begin{itemize}
@@ -1352,7 +1347,7 @@ int main(void)
 %   \frametitle{Input Value Example}
 %
 %   \begin{example}
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % ...
 % int variable1, variable2;
 % ...
@@ -1362,7 +1357,7 @@ int main(void)
 %      : clobbered registers );
 %
 % ...
-%     \end{pygments}
+%     \end{lstlisting}
 %
 %     \pause
 %     \begin{itemize}
@@ -1375,7 +1370,7 @@ int main(void)
 %   \frametitle{Inline Assembly Example}
 %
 %   \begin{example}[Inline factorial]
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % #include <stdio.h>
 %
 % int main(void)
@@ -1390,7 +1385,7 @@ int main(void)
 %     printf("%d\n", y);
 %     return 0;
 % }
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 %
@@ -1398,7 +1393,7 @@ int main(void)
 %   \frametitle{Inline Assembly Example}
 %
 %   \begin{example}[Inline factorial]
-%     \begin{pygments}{nasm}[language=C]
+%     \begin{lstlisting}[language=C]
 % asm("movl  %1,%%ecx\n\t"
 %     "movl  $1,%%edi\n"
 %     "back:\n\t"
@@ -1411,7 +1406,7 @@ int main(void)
 %     : "=D" (y)
 %     : "g" (x)
 %     : "%eax", "%ecx", "%edx");
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 
