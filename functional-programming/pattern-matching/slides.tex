@@ -17,8 +17,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
         showstringspaces=false, frame=ltrb}
-\lstset{language=haskell, deletestring=[b]{"},
-        deletekeywords={gcd,length,Rational,sum}}
+\lstset{language=Haskell, deletekeywords={gcd}}
 
 \mode<presentation>
 {
@@ -108,13 +107,13 @@
       of fixed types
       \smallskip
       \begin{lstlisting}
-n :: (t1,t2,...,tn)
-n = (e1,e2,...,en)
+n :: (t1, t2, ..., tn)
+n = (e1, e2, ..., en)
       \end{lstlisting}
 
     \medskip
     \item selector functions on pairs:\\
-      \lstinline{fst}, \lstinline{snd}
+      \lstinline|fst|, \lstinline|snd|
   \end{itemize}
 \end{frame}
 
@@ -123,11 +122,11 @@ n = (e1,e2,...,en)
 
   \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
     \begin{lstlisting}
-t :: (Float,Integer)
-t = (2.4,2)
+t :: (Float, Integer)
+t = (2.4, 2)
 
-fst t ~> 2.4
-snd t ~> 2
+-- fst t ~> 2.4
+-- snd t ~> 2
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -146,14 +145,14 @@ gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
 
-gcd 9702 945 ~> 63
+-- gcd 9702 945 ~> 63
 
-gcd' :: (Integer,Integer) -> Integer
+gcd' :: (Integer, Integer) -> Integer
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
 
-gcd' (9702,945) ~> 63
+-- gcd' (9702, 945) ~> 63
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -168,10 +167,11 @@ gcd' (9702,945) ~> 63
   \begin{exampleblock}{example: greatest common divisor
                             and least common multiple}
     \begin{lstlisting}
-gcd_lcm :: Integer -> Integer -> (Integer,Integer)
-gcd_lcm x y = (d,m)
-  where d = gcd x y
-        m = (x*y) `div` d
+gcd_lcm :: Integer -> Integer -> (Integer, Integer)
+gcd_lcm x y = (d, m)
+  where
+    d = gcd x y
+    m = (x * y) `div` d
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -186,8 +186,8 @@ gcd_lcm x y = (d,m)
       all of the same type
     \smallskip
     \begin{lstlisting}
-name :: [t]
-name = [e1,e2,...,en]
+n :: [t]
+n = [e1, e2, ..., en]
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -198,16 +198,16 @@ name = [e1,e2,...,en]
   \begin{exampleblock}{representing a polynomial: $2.4x^2 + 1.8x - 4.6$}
     \begin{lstlisting}
 -- second degree polynomial
-p1 :: (Float,Float,Float)
-p1 = (2.4,1.8,-4.6)
+p1 :: (Float, Float, Float)
+p1 = (2.4, 1.8, -4.6)
 
 -- any degree polynomial, coefficients ordered
 p2 :: [Float]
-p2 = [2.4,1.8,-4.6]
+p2 = [2.4, 1.8, -4.6]
 
 -- any degree polynomial, coefficients unordered
-p3 :: [(Float,Integer)]
-p3 = [(1.8,1), (-4.6,0), (2.4,2)]
+p3 :: [(Float, Integer)]
+p3 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -226,11 +226,11 @@ type newName = oldName
   \pause
   \begin{exampleblock}{example: representing a polynomial}
     \begin{lstlisting}
-type Term = (Float,Integer)
+type Term = (Float, Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
-p4 = [(1.8,1), (-4.6,0), (2.4,2)]
+p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -243,10 +243,10 @@ p4 = [(1.8,1), (-4.6,0), (2.4,2)]
       followed by a list of the remaining items (\alert{tail})
 
     \medskip
-    \item check if empty: \lstinline{null}
-    \item get the head: \lstinline{head}
-    \item get the tail: \lstinline{tail}
-    \item construct a list: \lstinline{item : sublist}
+    \item check if empty: \lstinline|null|
+    \item get the head: \lstinline|head|
+    \item get the tail: \lstinline|tail|
+    \item construct a list: \lstinline|item : sublist|
   \end{itemize}
 \end{frame}
 
@@ -255,21 +255,21 @@ p4 = [(1.8,1), (-4.6,0), (2.4,2)]
 
   \begin{lstlisting}
 -- null :: [a] -> Bool
-null []         ~> True
-null [1,2,3,4]  ~> False
+null []            ~> True
+null [1, 2, 3, 4]  ~> False
 
 -- head :: [a] -> a
-head [1,2,3,4]  ~> 1
-head []         ~> error
-head [1]        ~> 1
+head [1, 2, 3, 4]  ~> 1
+head []            ~> error
+head [1]           ~> 1
 
 -- tail :: [a] -> [a]
-tail [1,2,3,4]  ~> [2,3,4]
-tail []         ~> error
-tail [1]        ~> []
+tail [1, 2, 3, 4]  ~> [2, 3, 4]
+tail []            ~> error
+tail [1]           ~> []
 
 -- (:) :: a -> [a] -> [a]
-1 : [2,3]       ~> [1,2,3]
+1 : [2, 3]         ~> [1, 2, 3]
   \end{lstlisting}
 \end{frame}
 
@@ -277,7 +277,7 @@ tail [1]        ~> []
   \frametitle{List Example}
 
   \begin{exampleblock}{number of elements}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Integer
 length xs
   | null xs   = 0
@@ -290,14 +290,14 @@ length xs
   \frametitle{List Example}
 
   \begin{exampleblock}{number of elements (tail recursive)}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Integer
 length xs = lengthIter 0 xs
   where
     lengthIter :: Integer -> [a] -> Integer
     lengthIter acc xs'
       | null xs'  = acc
-      | otherwise = lengthIter (acc+1) (tail xs')
+      | otherwise = lengthIter (acc + 1) (tail xs')
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -306,7 +306,7 @@ length xs = lengthIter 0 xs
   \frametitle{List Example}
 
   \begin{exampleblock}{sum of elements}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={sum}]
 sum :: [Integer] -> Integer
 sum xs
   | null xs   = 0
@@ -341,7 +341,7 @@ data T = C1 t11 t12 ... t1m |
          C2 t21 t22 ... t2n |
          ...
     \end{lstlisting}
-    \item value construction: \lstinline{Ci ei1 ei2 ... eik}
+    \item value construction: \lstinline|Ci ei1 ei2 ... eik|
     \item constructors are functions
   \end{itemize}
 \end{frame}
@@ -368,8 +368,8 @@ church = Person "Alonzo Church" 1903
 
   \begin{exampleblock}{enumeration}
     \begin{lstlisting}
-data Month = Jan | Feb | Mar | Apr | May | Jun |
-             Jul | Aug | Sep | Oct | Nov | Dec
+data Month = Jan | Feb | Mar | Apr | May | Jun
+           | Jul | Aug | Sep | Oct | Nov | Dec
              deriving Show
 
 m :: Month
@@ -383,18 +383,18 @@ m = Feb
 
   \begin{exampleblock}{geometric shapes}
     \begin{lstlisting}
-type Coords = (Float,Float)
+type Coords = (Float, Float)
 type Length = Float
 
-data Shape = Point Coords |
-             Circle Coords Length |
-             Rectangle Coords Length Length
+data Shape = Point Coords
+           | Circle Coords Length
+           | Rectangle Coords Length Length
              deriving Show
 
 p, c, r :: Shape
-p = Point (0.0,0.0)
-c = Circle (0.0,0.0) 1.0
-r = Rectangle (45.9,87.6) 5.75 2.3
+p = Point (0.0, 0.0)
+c = Circle (0.0, 0.0) 1.0
+r = Rectangle (45.9, 87.6) 5.75 2.3
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -413,11 +413,11 @@ r = Rectangle (45.9,87.6) 5.75 2.3
     \medskip
     \begin{lstlisting}
 case expr of
-  p1 -> e1
-  p2 -> e2
-  ...
-  pn -> en
-  _  -> e
+    p1 -> e1
+    p2 -> e2
+    ...
+    pn -> en
+    _  -> e
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -432,10 +432,9 @@ case expr of
   \begin{exampleblock}{example}
     \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
-gcd x y =
-    case y of
-      0 -> x
-      _ -> gcd y (x `mod` y)
+gcd x y = case y of
+    0 -> x
+    _ -> gcd y (x `mod` y)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -450,16 +449,15 @@ gcd x y =
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-gcd' :: (Integer,Integer) -> Integer
-gcd' a =
-    case a of
-      (x,0) -> x
-      (x,y) -> gcd' (y, x `mod` y)
+gcd' :: (Integer, Integer) -> Integer
+gcd' a = case a of
+    (x, 0) -> x
+    (x, y) -> gcd' (y, x `mod` y)
 
-gcd' (9702,945)
+-- gcd' (9702, 945)
 -- second pattern, bindings: x <-> 9702, y <-> 945
 
-gcd' (63,0)
+-- gcd' (63, 0)
 -- first pattern, bindings: x <-> 63
     \end{lstlisting}
   \end{exampleblock}
@@ -474,10 +472,9 @@ gcd' (63,0)
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-shift :: ((a,b), c) -> (a, (b,c))
-shift s =
-    case s of
-      ((x,y), z) -> (x, (y,z))
+shift :: ((a, b), c) -> (a, (b, c))
+shift s = case s of
+    ((x, y), z) -> (x, (y, z))
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -486,20 +483,18 @@ shift s =
   \frametitle{Wildcards}
 
   \begin{itemize}
-    \item if binding not needed, use wildcard: \lstinline{_}
+    \item if binding not needed, use wildcard: \lstinline|_|
   \end{itemize}
 
   \begin{exampleblock}{example: third component of a triple}
     \begin{lstlisting}
-third :: (a,b,c) -> c
-third t =
-    case t of
-      (x,y,z) -> z
+third :: (a, b, c) -> c
+third t = case t of
+    (x, y, z) -> z
 
--- BETTER:
-third t =
-    case t of
-      (_,_,z) -> z
+-- OR:
+third t = case t of
+    (_, _, z) -> z
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -511,15 +506,15 @@ third t =
 
   \begin{itemize}
     \item empty list:\\
-      \lstinline{[]}
+      \lstinline|[]|
     \item nonempty list:\\
-      \lstinline{x:xs}
+      \lstinline|x:xs|
     \item list with exactly one element:\\
-      \lstinline{[x]}
+      \lstinline|[x]|
     \item list with exactly two elements:\\
-      \lstinline{[x1,x2]}
+      \lstinline|[x1, x2]|
     \item list with at least two elements:\\
-      \lstinline{x1:x2:xs}
+      \lstinline|x1:x2:xs|
   \end{itemize}
 \end{frame}
 
@@ -527,12 +522,11 @@ third t =
   \frametitle{List Pattern Examples}
 
   \begin{exampleblock}{number of elements}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Integer
-length xs =
-    case xs of
-      []    -> 0
-      x:xs' -> 1 + length xs'
+length xs = case xs of
+    []    -> 0
+    x:xs' -> 1 + length xs'
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -543,12 +537,11 @@ length xs =
   \begin{exampleblock}{sum of the first and third elements}
     \begin{lstlisting}
 firstPlusThird :: [Integer] -> Integer
-firstPlusThird xs =
-    case xs of
-      []        -> 0
-      [x1]      -> x1
-      [x1,_]    -> x1
-      x1:_:x3:_ -> x1+x3
+firstPlusThird xs = case xs of
+    []        -> 0
+    [x1]      -> x1
+    [x1, _]   -> x1
+    x1:_:x3:_ -> x1 + x3
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -570,11 +563,10 @@ firstPlusThird xs =
   \begin{exampleblock}{get component out of product type}
     \begin{lstlisting}
 birthYear :: Human -> Year
-birthYear p =
-    case p of
-      Person _ y -> y
+birthYear p = case p of
+    Person _ y -> y
 
-birthYear (Person "Alonzo Church" 1903) ~> 1903
+-- birthYear (Person "Alonzo Church" 1903) ~> 1903
 -- binding: y <-> 1903
     \end{lstlisting}
   \end{exampleblock}
@@ -586,18 +578,17 @@ birthYear (Person "Alonzo Church" 1903) ~> 1903
   \begin{exampleblock}{number of days in a month}
     \begin{lstlisting}
 daysInMonth :: Month -> Integer -> Integer
-daysInMonth m y =
-    case m of
-      Apr -> 30
-      Jun -> 30
-      Sep -> 30
-      Nov -> 30
-      Feb -> if y `mod` 4 == 0 then 29 else 28
-      _   -> 31
+daysInMonth m y = case m of
+    Apr -> 30
+    Jun -> 30
+    Sep -> 30
+    Nov -> 30
+    Feb -> if y `mod` 4 == 0 then 29 else 28
+    _   -> 31
 
-daysInMonth Jan 2014 ~> 31
-daysInMonth Feb 2014 ~> 28
-daysInMonth Feb 2016 ~> 29
+-- daysInMonth Jan 2014 ~> 31
+-- daysInMonth Feb 2014 ~> 28
+-- daysInMonth Feb 2016 ~> 29
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -608,13 +599,12 @@ daysInMonth Feb 2016 ~> 29
   \begin{exampleblock}{area of a geometric shape}
     \begin{lstlisting}
 area :: Shape -> Float
-area s =
-    case s of
-      Point     _     -> 0.0
-      Circle    _ r   -> 3.14159 * r * r
-      Rectangle _ h w -> h * w
+area s = case s of
+    Point     _     -> 0.0
+    Circle    _ r   -> 3.14159 * r * r
+    Rectangle _ h w -> h * w
 
-area (Circle (0.0,0.0) 3.0) ~> 28.274311
+-- area (Circle (0.0, 0.0) 3.0) ~> 28.274311
 -- second pattern, binding: r <-> 3.0
     \end{lstlisting}
   \end{exampleblock}
@@ -634,8 +624,8 @@ area (Circle (0.0,0.0) 3.0) ~> 28.274311
     \item in case of multiple patterns, the first match will be selected
     \smallskip
     \begin{lstlisting}
-name p1 = e1
-name p2 = e2
+n p1 = e1
+n p2 = e2
 ...
     \end{lstlisting}
   \end{itemize}
@@ -646,12 +636,11 @@ name p2 = e2
 
   \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
-gcd x y =
-    case y of
-      0 -> x
-      _ -> gcd y (x `mod` y)
+gcd x y = case y of
+    0 -> x
+    _ -> gcd y (x `mod` y)
 
--- BETTER:
+-- OR:
 gcd :: Integer -> Integer -> Integer
 gcd x 0 = x
 gcd x y = gcd y (x `mod` y)
@@ -662,16 +651,15 @@ gcd x y = gcd y (x `mod` y)
   \frametitle{Function Pattern Example}
 
   \begin{lstlisting}
-gcd' :: (Integer,Integer) -> Integer
-gcd' a =
-    case a of
-      (x,0) -> x
-      (x,y) -> gcd' (y, x `mod` y)
+gcd' :: (Integer, Integer) -> Integer
+gcd' a = case a of
+    (x,0) -> x
+    (x,y) -> gcd' (y, x `mod` y)
 
--- BETTER:
-gcd' :: (Integer,Integer) -> Integer
-gcd' (x,0) = x
-gcd' (x,y) = gcd' (y, x `mod` y)
+-- OR:
+gcd' :: (Integer, Integer) -> Integer
+gcd' (x, 0) = x
+gcd' (x, y) = gcd' (y, x `mod` y)
   \end{lstlisting}
 \end{frame}
 
@@ -679,14 +667,14 @@ gcd' (x,y) = gcd' (y, x `mod` y)
   \frametitle{Function Pattern Example}
 
   \begin{lstlisting}
-shift :: ((a,b), c) -> (a, (b,c))
+shift :: ((a, b), c) -> (a, (b, c))
 shift s =
     case s of
-      ((x,y), z) -> (x, (y,z))
+      ((x, y), z) -> (x, (y, z))
 
--- BETTER:
-shift :: ((a,b), c) -> (a, (b,c))
-shift ((x,y), z) = (x, (y,z))
+-- OR:
+shift :: ((a, b), c) -> (a, (b, c))
+shift ((x, y), z) = (x, (y, z))
   \end{lstlisting}
 \end{frame}
 
@@ -694,28 +682,26 @@ shift ((x,y), z) = (x, (y,z))
   \frametitle{Function Pattern Example}
 
   \begin{lstlisting}
-third :: (a,b,c) -> c
-third t =
-    case t of
-      (_,_,z) -> z
+third :: (a, b, c) -> c
+third t = case t of
+    (_ , _, z) -> z
 
--- BETTER:
-third :: (a,b,c) -> c
-third (_,_,z) = z
+-- OR:
+third :: (a, b, c) -> c
+third (_, _, z) = z
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Function Pattern Example}
 
-  \begin{lstlisting}
+  \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Integer
-length xs =
-    case xs of
-      []    -> 0
-      x:xs' -> 1 + length xs'
+length xs = case xs of
+    []    -> 0
+    x:xs' -> 1 + length xs'
 
--- BETTER:
+-- OR:
 length :: [a] -> Integer
 length []     = 0
 length (x:xs) = 1 + length xs
@@ -727,11 +713,10 @@ length (x:xs) = 1 + length xs
 
   \begin{lstlisting}
 birthYear :: Human -> Year
-birthYear p =
-    case p of
-      Person _ y -> y
+birthYear p = case p of
+    Person _ y -> y
 
--- BETTER:
+-- OR:
 birthYear :: Human -> Year
 birthYear (Person _ y) = y
   \end{lstlisting}
@@ -742,35 +727,38 @@ birthYear (Person _ y) = y
 
   \begin{exampleblock}{efficient Fibonacci calculation}
     \begin{lstlisting}
-fibStep :: (Integer,Integer) -> (Integer,Integer)
-fibStep (u,v) = (v,u+v)
+fibStep :: (Integer, Integer) -> (Integer, Integer)
+fibStep (u, v) = (v, u + v)
 
--- fibPair n = (fib n, fib (n+1))
-fibPair :: Integer -> (Integer,Integer)
-fibPair 1 = (1,1)
-fibPair n = fibStep (fibPair (n-1))
+-- fibPair n ~> (fib n, fib (n + 1))
+fibPair :: Integer -> (Integer, Integer)
+fibPair 1 = (1, 1)
+fibPair n = fibStep (fibPair (n - 1))
 
 fastFib n = fst (fibPair n)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
+\lstset{deletekeywords={Rational}}
+
 \begin{frame}[fragile]
   \frametitle{Tuples or Algebraic Types?}
 
   \begin{exampleblock}{representing rational numbers}
     \begin{lstlisting}
-type Rational = (Integer,Integer)
+type Rational = (Integer, Integer)
 
 simplify :: Rational -> Rational
-simplify (n,d) = (n `div` g, d `div` g)
-  where g = gcd n d
+simplify (n, d) = (n `div` g, d `div` g)
+  where
+    g = gcd n d
 
-type DayInYear = (Integer,Integer)
+type DayInYear = (Integer, Integer)
 
 mar12 :: DayInYear
-mar12 = (12,3)
-simplify mar12 ~> (4,1)
+mar12 = (12, 3)
+-- simplify mar12 ~> (4, 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -790,7 +778,8 @@ data Rational' = Fraction Integer Integer
 simplify' :: Rational' -> Rational'
 simplify' (Fraction n d) =
   Fraction (n `div` g) (d `div` g)
-    where g = gcd n d
+    where
+      g = gcd n d
   \end{lstlisting}
 \end{frame}
 
