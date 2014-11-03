@@ -1,15 +1,20 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=C}
+
 \mode<presentation>
 {
-  \usetheme{Frankfurt}
+  \usetheme{default}
   \setbeamercovered{transparent}
 }
 
@@ -26,9 +31,9 @@
   \end{frame}
 }
 
-\pgfdeclareimage[height=6cm]{pport}{pport}
-\pgfdeclareimage[height=6cm]{cycle}{cycle}
-\pgfdeclareimage[height=5.8cm]{simplescull}{simplescull}
+\pgfdeclareimage[height=7.3cm]{pport}{pport}
+\pgfdeclareimage[height=7.3cm]{cycle}{cycle}
+\pgfdeclareimage[height=7.3cm]{simplescull}{simplescull}
 
 \begin{document}
 
@@ -379,48 +384,29 @@
   \frametitle{Direct Access}
 
   \begin{itemize}
-    \item input: \pygment{c}|inb|, \pygment{c}|inw|, \pygment{c}|inl|
-    \item output: \pygment{c}|outb|, \pygment{c}|outw|, \pygment{c}|outl|
+    \item input: \lstinline|inb|, \lstinline|inw|, \lstinline|inl|
+    \item output: \lstinline|outb|, \lstinline|outw|, \lstinline|outl|
 
     \pause
     \medskip
-    \item get permission from O/S: \pygment{c}{ioperm} system call
-    \begin{pygments}{c}
+    \item get permission from O/S: \lstinline{ioperm} system call
+    \begin{lstlisting}
 int ioperm(unsigned long from,
            unsigned long num,
            int turn_on);
-    \end{pygments}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Direct Access Example}
 
-  \begin{itemize}
-    \item output to parallel interface
-
-    \begin{columns}[t]
-      \column{.45\textwidth}
-      \begin{pygments}{c}
+  \begin{exampleblock}{output to parallel interface}
+    \begin{lstlisting}
 ioperm(0x378, 1, 255);
 outb(0xff, 0x378);
-      \end{pygments}
-
-      \pause
-      \column{.45\textwidth}
-    \begin{pygments}{nasm}
-mov  eax, 101
-mov  ebx, 378h
-mov  ecx, 1
-mov  edx, 255
-int  80h
-
-mov  dx, 378h
-mov  al, ffh
-out  dx, al
-      \end{pygments}
-    \end{columns}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection*{Reading Material}
@@ -448,8 +434,8 @@ out  dx, al
       is similar to the file interface
 
     \medskip
-    \item \pygment{c}|open|, \pygment{c}|close|
-    \item \pygment{c}|read|, \pygment{c}|write|
+    \item \lstinline|open|, \lstinline|close|
+    \item \lstinline|read|, \lstinline|write|
   \end{itemize}
 \end{frame}
 
@@ -457,8 +443,8 @@ out  dx, al
   \frametitle{Device Specific Operations}
 
   \begin{itemize}
-    \item some operations are neither \pygment{c}|read| nor \pygment{c}|write|
-    \item \pygment{c}|ioctl|: issue command specific to device
+    \item some operations are neither \lstinline|read| nor \lstinline|write|
+    \item \lstinline|ioctl|: issue command specific to device
   \end{itemize}
 
   \begin{exampleblock}{device-specific operation examples}
@@ -474,17 +460,17 @@ out  dx, al
   \frametitle{System Calls}
 
   \begin{itemize}
-    \item \pygment{c}|open|:
-    \begin{pygments}{c}
+    \item \lstinline|open|:
+    \begin{lstlisting}
 int open(const char *pathname,
          int flags,
          mode_t mode);
-    \end{pygments}
+    \end{lstlisting}
 
     \item flags:
     \begin{itemize}
-      \item \pygment{c}|O_RDONLY O_WRONLY O_RDWR|
-      \item \pygment{c}|O_CREAT O_APPEND|
+      \item \lstinline|O_RDONLY O_WRONLY O_RDWR|
+      \item \lstinline|O_CREAT O_APPEND|
     \end{itemize}
 
     \item mode: permissions
@@ -497,10 +483,10 @@ int open(const char *pathname,
   \frametitle{System Calls}
 
   \begin{itemize}
-    \item \pygment{c}|close|:
-    \begin{pygments}{c}
+    \item \lstinline|close|:
+    \begin{lstlisting}
 int close(int fd);
-    \end{pygments}
+    \end{lstlisting}
     \item returns: success / failure status
   \end{itemize}
 \end{frame}
@@ -509,12 +495,12 @@ int close(int fd);
   \frametitle{System Calls}
 
   \begin{itemize}
-    \item \pygment{c}|read|:
-    \begin{pygments}{c}
+    \item \lstinline|read|:
+    \begin{lstlisting}
 ssize_t read(int fd,
              void *buf,
              size_t count);
-    \end{pygments}
+    \end{lstlisting}
     \item returns: number of bytes read $(x)$
     \begin{itemize}
       \item $x=count$: successful completion
@@ -529,12 +515,12 @@ ssize_t read(int fd,
   \frametitle{System Calls}
 
   \begin{itemize}
-    \item \pygment{c}|write|:
-    \begin{pygments}{c}
+    \item \lstinline|write|:
+    \begin{lstlisting}
 ssize_t write(int fd,
               const void *buf,
               size_t count);
-    \end{pygments}
+    \end{lstlisting}
     \item returns: number of bytes written $(x)$
     \begin{itemize}
       \item $x=count$: successful completion
@@ -549,12 +535,12 @@ ssize_t write(int fd,
   \frametitle{System Calls}
 
   \begin{itemize}
-    \item \pygment{c}|ioctl|:
-    \begin{pygments}{c}
+    \item \lstinline|ioctl|:
+    \begin{lstlisting}
 int ioctl(int fd,
           int request,
           ...);
-    \end{pygments}
+    \end{lstlisting}
     \item parameter and return values depend on request
   \end{itemize}
 \end{frame}
@@ -562,11 +548,8 @@ int ioctl(int fd,
 \begin{frame}[fragile]
   \frametitle{Device Access Example}
 
-  \begin{itemize}
-    \item output to parallel port
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{output to parallel port}
+    \begin{lstlisting}
 fd = open("/dev/parport0", O_WRONLY);
 if (fd == -1)
 {
@@ -575,15 +558,15 @@ if (fd == -1)
 }
 write(fd, buffer, len);
 close(fd);
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 %
 % \begin{frame}[fragile]
 %   \frametitle{Device Specific Command Example}
 %
 %   \begin{example}[Ejecting the CDROM]
-%     \begin{pygments}{c}
+%     \begin{lstlisting}
 % int fd, status;
 %
 % fd = open("/dev/cdrom", O_RDONLY);
@@ -595,18 +578,15 @@ close(fd);
 % }
 %
 % close(fd);
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Specific Command Example}
 
-  \begin{itemize}
-    \item make the speaker beep
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{make the speaker beep}
+    \begin{lstlisting}
 fd = open("/dev/console", O_RDWR);
 status = ioctl(fd, KDMKTONE, 0x100011AA);
 if (status == -1)
@@ -615,8 +595,8 @@ if (status == -1)
     exit(EXIT_FAILURE);
 }
 close(fd);
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Implementation}
@@ -630,117 +610,33 @@ close(fd);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \pygment{c}|open| system call:
-    \begin{pygments}{c}
-int open(const char *pathname,
-         int flags,
-         mode_t mode);
-    \end{pygments}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{pygments}{c}
-int foo_open(struct inode *inode,
-             struct file *filp);
-    \end{pygments}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \pygment{c}|close| system call:
-    \begin{pygments}{c}
-int close(int fd);
-    \end{pygments}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{pygments}{c}
-int foo_release(struct inode *inode,
-                struct file *filp)
-    \end{pygments}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \pygment{c}|read| system call:
-    \begin{pygments}{c}
-ssize_t read(int fd,
-             void *buf,
-             size_t count);
-    \end{pygments}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{pygments}{c}
-ssize_t foo_read(struct file *filp,
-                 char __user *buf,
-                 size_t count,
-                 loff_t *f_pos)
-    \end{pygments}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \pygment{c}|write| system call:
-    \begin{pygments}{c}
-ssize_t write(int fd,
-              const void *buf,
-              size_t count);
-    \end{pygments}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{pygments}{c}
-ssize_t foo_write(struct file *filp,
-                  const char __user *buf,
-                  size_t count,
-                  loff_t *f_pos)
-    \end{pygments}
-  \end{itemize}
-\end{frame}
-
 \begin{frame}
   \frametitle{Device Driver Example}
 
-  \begin{itemize}
-    \item short: read/write I/O ports
-    \item each device node accesses a different port:
+  \begin{exampleblock}{short: read/write I/O ports}
     \begin{itemize}
-      \item \texttt{/dev/short0}: port at base
-      \item \texttt{/dev/short1}: port at base+1
-    \end{itemize}
+      \item each device node accesses a different port:
+      \begin{itemize}
+        \item \texttt{/dev/short0}: port at base
+        \item \texttt{/dev/short1}: port at base+1
+      \end{itemize}
 
-    \pause
-    \medskip
-    \item module parameters:
-    \begin{itemize}
-      \item major number (default dynamic)
-      \item base address (default 0x378)
+      \pause
+      \medskip
+      \item module parameters:
+      \begin{itemize}
+        \item major number (default dynamic)
+        \item base address (default 0x378)
+      \end{itemize}
     \end{itemize}
-  \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Driver Example}
 
-  \begin{itemize}
-    \item global definitions
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{global definitions}
+    \begin{lstlisting}
 #define SHORT_NR_PORTS 8
 
 static int major = 0;
@@ -749,8 +645,8 @@ module_param(major, int, 0);
 static unsigned long base = 0x378;
 unsigned long short_base = 0;
 module_param(base, long, 0);
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -776,47 +672,22 @@ module_param(base, long, 0);
 \begin{frame}[fragile]
   \frametitle{Device Driver Example}
 
-  \begin{itemize}
-    \item region allocation
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{region allocation}
+    \begin{lstlisting}
 if (!request_region(short_base, SHORT_NR_PORTS,
                     "short"))
 {
     return -ENODEV;
 }
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Driver Example}
 
-  \begin{itemize}
-    \item file operations for mapping system calls to functions:\\
-      \pygment{c}|struct file_operations|
-
-    \medskip
-    \begin{pygments}{c}
-struct file_operations short_fops = {
-    .open    = short_open,
-    .release = short_release,
-    .read    = short_read,
-    .write   = short_write,
-};
-    \end{pygments}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{itemize}
-    \item driver registration
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{driver registration: major and minor numbers}
+    \begin{lstlisting}
 if (major != 0)
 {
     dev = MKDEV(major, 0);
@@ -827,53 +698,61 @@ else
     result = alloc_chrdev_region(&dev, 0, 1, "short");
     major = MAJOR(dev);
 }
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Driver Example}
 
   \begin{itemize}
-    \item driver registration (continued)
+    \item map system calls to functions:\\
+      \lstinline|struct file_operations|
+  \end{itemize}
 
-    \medskip
-    \begin{pygments}{c}
-if (result < 0)
-{
-    /* release port region */
-    return result;
-}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+struct file_operations short_fops = {
+    .open    = short_open,
+    .release = short_release,
+    .read    = short_read,
+    .write   = short_write,
+};
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Device Driver Example}
+
+  \begin{exampleblock}{driver registration: activate driver}
+    \begin{lstlisting}
 cdev_init(&cdev, &short_fops);
 cdev.ops = &short_fops;
 cdev_add(&cdev, dev, 1);
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Driver Example}
 
-  \begin{itemize}
-    \item module cleanup
-
-    \medskip
-    \begin{pygments}{c}
+  \begin{exampleblock}{module cleanup}
+    \begin{lstlisting}
 dev_t devno = MKDEV(major, 0);
 cdev_del(&cdev);
 unregister_chrdev_region(devno, 1);
 
 release_region(short_base, SHORT_NR_PORTS);
-    \end{pygments}
-  \end{itemize}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 %
 % \begin{frame}[fragile]
 %   \frametitle{Memory-Mapped I/O}
 %
 %   \begin{example}
-%     \begin{pygments}{c}
+%     \begin{lstlisting}
 % /* allocating region on init */
 % if (!request_mem_region(short_base,
 %                         SHORT_NR_PORTS,
@@ -886,7 +765,7 @@ release_region(short_base, SHORT_NR_PORTS);
 % /* releasing region on cleanup */
 % iounmap((void __iomem *) short_base);
 % release_mem_region(short_base, SHORT_NR_PORTS);
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{example}
 % \end{frame}
 
@@ -894,25 +773,45 @@ release_region(short_base, SHORT_NR_PORTS);
   \frametitle{Kernel Data Structures}
 
   \begin{itemize}
-    \item a data structure for each open file:\\
-      \pygment{c}|struct file|
-    \begin{itemize}
-      \item \pygment{c}|f_mode|: readable, writable, both
-      \item \pygment{c}|f_pos|: current reading/writing position
-      \item \pygment{c}|f_flags|
-      \item \pygment{c}|f_op|: operations associated with the file
-      \item \pygment{c}|private_data|: pointer to allocated data
-    \end{itemize}
+    \item a structure for each device node:\\
+      \lstinline|struct inode|
 
     \pause
     \medskip
-    \item a data structure for each device node:\\
-      \pygment{c}|struct inode|
+    \item a structure for each open file:\\
+      \lstinline|struct file|
+    \begin{itemize}
+      \item \lstinline|f_mode|: readable, writable, both
+      \item \lstinline|f_pos|: current reading/writing position
+      \item \lstinline|f_flags|
+      \item \lstinline|f_op|: operations associated with the file
+      \item \lstinline|private_data|: pointer to allocated data
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|open| system call:
+    \begin{lstlisting}
+int open(const char *pathname,
+         int flags,
+         mode_t mode);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+int foo_open(struct inode *inode,
+             struct file *filp);
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Opening}
+  \frametitle{Opening Device}
 
   \begin{itemize}
     \item identify actual device
@@ -923,14 +822,53 @@ release_region(short_base, SHORT_NR_PORTS);
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Reading}
+  \frametitle{Kernel System Call Interface}
 
-  \begin{example}[short\_read]
-    \begin{pygments}{c}
+  \begin{itemize}
+    \item \lstinline|close| system call:
+    \begin{lstlisting}
+int close(int fd);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+int foo_release(struct inode *inode,
+                struct file *filp);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|read| system call:
+    \begin{lstlisting}
+ssize_t read(int fd,
+             void *buf,
+             size_t count);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+ssize_t foo_read(struct file *filp,
+                 char __user *buf,
+                 size_t count,
+                 loff_t *f_pos);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Device Driver Example}
+
+  \begin{exampleblock}{reading from short}
+    \begin{lstlisting}
 int retval = count;
 int minor = iminor(filp->f_dentry->d_inode);
-unsigned long port = short_base +
-                      (minor & 0x0f);
+unsigned long port = short_base + (minor & 0x0f);
 unsigned char *kbuf, *ptr;
 
 kbuf = kmalloc(count, GFP_KERNEL);
@@ -939,32 +877,53 @@ if (!kbuf)
 ...
 kfree(kbuf);
 return retval;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Reading}
+  \frametitle{Device Driver Example}
 
-  \begin{example}[short\_read]
-    \begin{pygments}{c}
+  \begin{exampleblock}{reading from short}
+    \begin{lstlisting}
 ptr = kbuf;
 while (count--) {
     *(ptr++) = inb(port);
     rmb();
 }
-if ((retval > 0) &&
-        copy_to_user(buf, kbuf, retval))
+if ((retval > 0) && copy_to_user(buf, kbuf, retval))
     retval = -EFAULT;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|write| system call:
+    \begin{lstlisting}
+ssize_t write(int fd,
+              const void *buf,
+              size_t count);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+ssize_t foo_write(struct file *filp,
+                  const char __user *buf,
+                  size_t count,
+                  loff_t *f_pos);
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Writing Example}
 
-  \begin{example}[short\_write]
-    \begin{pygments}{c}
+  \begin{exampleblock}{writing to short}
+    \begin{lstlisting}
 if (copy_from_user(kbuf, buf, count))
     return -EFAULT;
 ptr = kbuf;
@@ -972,97 +931,76 @@ while (count--) {
     outb(*(ptr++), port);
     wmb();
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
-\subsection{Advanced Operations}
-%
-% \begin{frame}
-%   \frametitle{Advanced Driver Operations}
-%
-%   \begin{itemize}
-%     \item other system calls in the interface
-%     \begin{itemize}
-%       \item ioctl, seek, ...
-%     \end{itemize}
-%   \end{itemize}
-% \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{pygments}{c}
-loff_t foo_llseek(struct file *filp,
-                  loff_t off,
-                  int whence)
-
-int foo_ioctl(struct inode *inode,
-              struct file *filp,
-              unsigned int cmd,
-              unsigned long arg)
-  \end{pygments}
-\end{frame}
+\subsection{Example}
 
 \begin{frame}
-  \frametitle{Advanced Driver Example}
+  \frametitle{Larger Example}
 
-  \begin{example}[simplified scull]
+  \begin{exampleblock}{simplified scull}
     \begin{itemize}
+      \item private data structures
+      \item also implement \lstinline|seek, ioctl|
+
+      \pause
+      \medskip
       \item use memory as device
       \begin{itemize}
         \item \texttt{/dev/scull0}
         \item \texttt{/dev/scull1}
       \end{itemize}
 
-      \pause
       \item each device can hold data up to a limit
       \begin{itemize}
         \item data persists during module's lifetime
       \end{itemize}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Advanced Driver Example}
+  \frametitle{Memory Layout}
 
-  \begin{example}[simplified scull]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{simplescull}
-      \end{center}
+  \begin{columns}
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{simplescull}
+    \end{center}
 
-      \pause
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item each device has a quantum set
-        \item each quantum has the actual data
-        \item memory is allocated as data is written
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item each device has\\
+        a quantum set
+      \item each quantum contains\\
+        the actual data
+      \item memory is allocated\\
+        as data is written
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Global Definitions}
 
-  \begin{example}[scull.h]
-    \begin{pygments}{c}
+  \begin{exampleblock}{\texttt{scull.h}}
+    \begin{lstlisting}
 #define SCULL_MAJOR 0
 #define SCULL_NR_DEVS 4
 #define SCULL_QUANTUM 4000
 #define SCULL_QSET 1000
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Parameters}
 
-  \begin{example}
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 int scull_major = SCULL_MAJOR;
 int scull_minor = 0;
 int scull_nr_devs = SCULL_NR_DEVS;
@@ -1074,15 +1012,15 @@ module_param(scull_minor, int, S_IRUGO);
 module_param(scull_nr_devs, int, S_IRUGO);
 module_param(scull_quantum, int, S_IRUGO);
 module_param(scull_qset, int, S_IRUGO);
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Data Structures}
 
-  \begin{example}
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 struct scull_dev {
     char **data;
     int quantum;
@@ -1093,33 +1031,32 @@ struct scull_dev {
 };
 
 struct scull_dev *scull_devices;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Device Operations}
+  \frametitle{File Operations}
 
-  \begin{example}
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 struct file_operations scull_fops = {
-    .owner   = THIS_MODULE,
-    .llseek  = scull_llseek,
-    .read    = scull_read,
-    .write   = scull_write,
-    .ioctl   = scull_ioctl,
     .open    = scull_open,
     .release = scull_release,
+    .read    = scull_read,
+    .write   = scull_write,
+    .llseek  = scull_llseek,
+    .ioctl   = scull_ioctl,
 };
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Initialization}
 
-  \begin{example}[scull\_init\_module]
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
   /* get major and minor numbers */
   /* allocate and initialize devices */
 
@@ -1128,36 +1065,36 @@ struct file_operations scull_fops = {
 fail:
   scull_cleanup_module();
   return result;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Initialization}
 
-  \begin{example}[get major and minor numbers]
-    \begin{pygments}{c}
-if (scull_major) {
+  \begin{exampleblock}{major and minor numbers}
+    \begin{lstlisting}
+if (scull_major)
+{
     devno = MKDEV(scull_major, scull_minor);
     result = register_chrdev_region(devno,
                 scull_nr_devs, "scull");
-} else {
+}
+else
+{
     result = alloc_chrdev_region(&devno,
         scull_minor, scull_nr_devs, "scull");
     scull_major = MAJOR(devno);
 }
-if (result < 0) {
-    return result;
-}
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Initialization}
 
-  \begin{example}[allocate data structures]
-    \begin{pygments}{c}
+  \begin{exampleblock}{allocating data structures}
+    \begin{lstlisting}
 scull_devices = kmalloc(scull_nr_devs *
        sizeof(struct scull_dev), GFP_KERNEL);
 if (!scull_devices) {
@@ -1166,15 +1103,15 @@ if (!scull_devices) {
 }
 memset(scull_devices, 0, scull_nr_devs *
           sizeof(struct scull_dev));
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Initialization}
 
-  \begin{example}[initialize devices]
-    \begin{pygments}{c}
+  \begin{exampleblock}{activate driver}
+    \begin{lstlisting}
 for (i = 0; i < scull_nr_devs; i++) {
     dev = &scull_devices[i];
     dev->quantum = scull_quantum;
@@ -1187,15 +1124,15 @@ for (i = 0; i < scull_nr_devs; i++) {
     dev->cdev.ops = &scull_fops;
     cdev_add(&dev->cdev, devno, 1);
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Module Cleanup}
 
-  \begin{example}[scull\_cleanup\_module]
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 dev_t devno = MKDEV(scull_major, scull_minor);
 
 if (scull_devices) {
@@ -1207,191 +1144,188 @@ if (scull_devices) {
 }
 
 unregister_chrdev_region(devno, scull_nr_devs);
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Trimming the Device}
+%
+%   \begin{example}[scull\_trim]
+%     \begin{lstlisting}
+% if (dev->data) {
+%     for (i = 0; i < dev->qset; i++) {
+%         if (dev->data[i])
+%             kfree(dev->data[i]);
+%     }
+%     kfree(dev->data);
+% }
+% dev->data = NULL;
+% dev->quantum = scull_quantum;
+% dev->qset = scull_qset;
+% dev->size = 0;
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Trimming the Device}
+  \frametitle{Open}
 
-  \begin{example}[scull\_trim]
-    \begin{pygments}{c}
-if (dev->data) {
-    for (i = 0; i < dev->qset; i++) {
-        if (dev->data[i])
-            kfree(dev->data[i]);
-    }
-    kfree(dev->data);
-}
-dev->data = NULL;
-dev->quantum = scull_quantum;
-dev->qset = scull_qset;
-dev->size = 0;
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Opening the Device}
-
-  \begin{example}[scull\_open]
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 struct scull_dev *dev;
 
 dev = container_of(inode->i_cdev,
                     struct scull_dev, cdev);
 filp->private_data = dev;
-
-/* trim device if open was write-only */
-...
-
-return 0;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Opening the Device}
+%
+%   \begin{example}
+%     \begin{lstlisting}
+% /* trim device if open was write-only */
+% if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
+%     if (down_interruptible(&dev->sem))
+%         return -ERESTARTSYS;
+%     scull_trim(dev);
+%     up(&dev->sem);
+% }
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Opening the Device}
+  \frametitle{Write}
 
-  \begin{example}
-    \begin{pygments}{c}
-/* trim device if open was write-only */
-if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
-    if (down_interruptible(&dev->sem))
-        return -ERESTARTSYS;
-    scull_trim(dev);
-    up(&dev->sem);
-}
-    \end{pygments}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Writing to the Device}
-
-  \begin{example}[scull\_write]
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
   struct scull_dev *dev = filp->private_data;
-  int quantum = dev->quantum, qset = dev->qset;
-  int s_pos, q_pos;
   ssize_t retval = -ENOMEM;
 
   if (down_interruptible(&dev->sem))
       return -ERESTARTSYS;
 
-  /* write */
+  /* determine position */
+  /* allocate quantum if necessary */
+  /* copy from user space */
+  /* update size */
 
 out:
   up(&dev->sem);
   return retval;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Writing to the Device}
+  \frametitle{Write}
 
-  \begin{example}[write]
-    \begin{pygments}{c}
-if (*f_pos >= quantum * qset) {
+  \begin{exampleblock}{determine position}
+    \begin{lstlisting}
+int quantum = dev->quantum, qset = dev->qset;
+int s_pos, q_pos;
+
+if (*f_pos >= quantum * qset)
+{
     retval = 0;
     goto out;
 }
 
 s_pos = (long) *f_pos / quantum;
 q_pos = (long) *f_pos % quantum;
-
-/* allocate quantum if necessary */
-/* adjust write amount */
-/* copy from user space */
-/* update size */
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Writing to the Device}
+  \frametitle{Write}
 
-  \begin{example}[allocate quantum]
-    \begin{pygments}{c}
-if (!dev->data) {
+  \begin{exampleblock}{allocate quantum if necessary}
+    \begin{lstlisting}
+if (!dev->data)
+{
     dev->data = kmalloc(qset * sizeof(char *),
                         GFP_KERNEL);
     if (!dev->data)
         goto out;
     memset(dev->data, 0, qset * sizeof(char *));
 }
-if (!dev->data[s_pos]) {
-    dev->data[s_pos] = kmalloc(quantum,
-                               GFP_KERNEL);
+if (!dev->data[s_pos])
+{
+    dev->data[s_pos] = kmalloc(quantum, GFP_KERNEL);
     if (!dev->data[s_pos])
         goto out;
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Writing to the Device}
+  \frametitle{Write}
 
-  \begin{example}[copy from user space]
-    \begin{pygments}{c}
+  \begin{exampleblock}{copy from user space}
+    \begin{lstlisting}
 /* adjust write amount */
 if (count > quantum - q_pos)
     count = quantum - q_pos;
 
-/* copy from user space */
 if (copy_from_user(dev->data[s_pos] + q_pos,
-                   buf, count)) {
+                   buf, count))
+{
     retval = -EFAULT;
     goto out;
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Writing to the Device}
+  \frametitle{Write}
 
-  \begin{example}[update size]
-    \begin{pygments}{c}
+  \begin{exampleblock}{update size}
+    \begin{lstlisting}
 *f_pos += count;
 retval = count;
 
-/* update size */
 if (dev->size < *f_pos)
     dev->size = *f_pos;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Reading from the Device}
+  \frametitle{Read}
 
-  \begin{example}[scull\_read]
-    \begin{pygments}{c}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
   struct scull_dev *dev = filp->private_data;
-  int quantum = dev->quantum;
-  int s_pos, q_pos;
   ssize_t retval = 0;
 
   if (down_interruptible(&dev->sem))
       return -ERESTARTSYS;
 
-  /* read */
+  /* determine position */
+  /* copy to user space */
 
 out:
   up(&dev->sem);
   return retval;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Reading from the Device}
+  \frametitle{Read}
 
-  \begin{example}[read]
-    \begin{pygments}{c}
+  \begin{exampleblock}{determine position}
+    \begin{lstlisting}
+int quantum = dev->quantum;
+int s_pos, q_pos;
+
 if (*f_pos >= dev->size)
     goto out;
 if (*f_pos + count > dev->size)
@@ -1402,40 +1336,58 @@ q_pos = (long) *f_pos % quantum;
 
 if (dev->data == NULL || ! dev->data[s_pos])
     goto out;
-
-/* adjust read amount */
-/* copy to user space */
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Reading from the Device}
 
-  \begin{example}[copy to user space]
-    \begin{pygments}{c}
+  \begin{exampleblock}{copy to user space}
+    \begin{lstlisting}
 /* adjust read amount */
 if (count > quantum - q_pos)
     count = quantum - q_pos;
 
-/* copy to user space */
-if (copy_to_user(buf, dev->data[s_pos] + q_pos,
-                 count)) {
+if (copy_to_user(buf, dev->data[s_pos] + q_pos, count))
+{
     retval = -EFAULT;
     goto out;
 }
 *f_pos += count;
 retval = count;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Seeking on the Device}
+  \frametitle{Kernel System Call Interface}
 
-  \begin{example}
-    \begin{pygments}{c}
-switch(whence) {
+  \begin{itemize}
+    \item \lstinline|lseek| system call:
+    \begin{lstlisting}
+off_t lseek(int fd,
+            off_t offset,
+            int whence);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+loff_t foo_llseek(struct file *filp,
+                  loff_t off,
+                  int whence);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Seek}
+
+  \begin{exampleblock}{calculate new position}
+    \begin{lstlisting}
+switch(whence)
+{
     case 0: /* SEEK_SET */
         newpos = off;
         break;
@@ -1448,57 +1400,80 @@ switch(whence) {
     default: /* can't happen */
         return -EINVAL;
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Seeking on the Device}
+  \frametitle{Seek}
 
-  \begin{example}
-    \begin{pygments}{c}
+  \begin{exampleblock}{set new position}
+    \begin{lstlisting}
 if (newpos < 0)
     return -EINVAL;
 filp->f_pos = newpos;
 return newpos;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|ioctl| system call:
+    \begin{lstlisting}
+int ioctl(int fd,
+          int request,
+          ...);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+int foo_ioctl(struct inode *inode,
+              struct file *filp,
+              unsigned int cmd,
+              unsigned long arg)
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Device-Specific Commands}
 
-  \begin{example}
+  \begin{exampleblock}{}
     \begin{itemize}
-      \item \pygment{c}|SCULL_IOCRESET|:\\
+      \item \lstinline|SCULL_IOCRESET|:\\
         assign default values to quantum set size and quantum size
 
       \pause
       \medskip
-      \item \pygment{c}|SCULL_IOCSQUANTUM|: set quantum size from pointer
-      \item \pygment{c}|SCULL_IOCTQUANTUM|: (tell) set quantum size from value
+      \item \lstinline|SCULL_IOCSQUANTUM|: set quantum size from pointer
+      \item \lstinline|SCULL_IOCTQUANTUM|: (tell) set quantum size from value
 
       \pause
-      \item \pygment{c}|SCULL_IOCGQUANTUM|: get quantum size to pointer
-      \item \pygment{c}|SCULL_IOCQQUANTUM|: (query) return quantum size
+      \item \lstinline|SCULL_IOCGQUANTUM|: get quantum size to pointer
+      \item \lstinline|SCULL_IOCQQUANTUM|: (query) return quantum size
 
       \pause
-      \item \pygment{c}|SCULL_IOCXQUANTUM|: (exchange) set + get
-      \item \pygment{c}|SCULL_IOCHQUANTUM|: (shift) tell + query
+      \item \lstinline|SCULL_IOCXQUANTUM|: (exchange) set + get
+      \item \lstinline|SCULL_IOCHQUANTUM|: (shift) tell + query
 
       \pause
       \medskip
       \item similar operations for quantum set size
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Operations}
 
-  \begin{example}
-    \begin{pygments}{c}
-switch(cmd) {
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+switch(cmd)
+{
     case SCULL_IOCRESET:
         scull_quantum = SCULL_QUANTUM;
         scull_qset = SCULL_QSET;
@@ -1506,15 +1481,15 @@ switch(cmd) {
 
     /* other cases */
 }
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Operations}
 
-  \begin{example}[setting quantum size]
-    \begin{pygments}{c}
+  \begin{exampleblock}{setting quantum size}
+    \begin{lstlisting}
 case SCULL_IOCSQUANTUM:
     if (! capable (CAP_SYS_ADMIN))
         return -EPERM;
@@ -1527,15 +1502,15 @@ case SCULL_IOCTQUANTUM:
         return -EPERM;
     scull_quantum = arg;
     break;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Device Operations}
 
-  \begin{example}[getting quantum size]
-    \begin{pygments}{c}
+  \begin{exampleblock}{getting quantum size}
+    \begin{lstlisting}
 case SCULL_IOCGQUANTUM:
     retval = __put_user(scull_quantum,
                         (int __user *) arg);
@@ -1543,8 +1518,8 @@ case SCULL_IOCGQUANTUM:
 
 case SCULL_IOCQQUANTUM:
     return scull_quantum;
-    \end{pygments}
-  \end{example}
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection*{Reading Material}
