@@ -17,9 +17,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
         showstringspaces=false, frame=ltrb}
-\lstset{language=haskell, deletestring=[b]{"},
-        deletekeywords={concat,drop,elem,init,last,replicate,reverse,
-                        splitAt,take,unzip,unzip3,zip,zip3}}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -115,7 +113,7 @@ type String = [Char]
   \begin{exampleblock}{examples}
     \begin{lstlisting}
 head "word"    ~> 'w'
-tail "word"    -> "ord"
+tail "word"    ~> "ord"
 null "word"    ~> False
 null ""        ~> True
 length "word"  ~> 4
@@ -129,16 +127,21 @@ length "word"  ~> 4
   \frametitle{Indexing}
 
   \begin{itemize}
-    \item indexing operator: \lstinline{!!}\\
-      \lstinline{"word" !! 2 ~> 'r'}
+    \item indexing operator: \lstinline|!!|
   \end{itemize}
 
   \begin{exampleblock}{get the n-th element of a list}
+    \begin{lstlisting}[frame=none]
+"word" !! 2     ~> 'r'
+getNth "word" 2 ~> 'r'
+    \end{lstlisting}
+
+    \pause
     \begin{lstlisting}
 getNth :: [a] -> Integer -> a
 getNth []     _ = error "empty list"
 getNth (x:xs) 0 = x
-getNth (x:xs) n = getNth xs (n-1)
+getNth (x:xs) n = getNth xs (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -147,11 +150,16 @@ getNth (x:xs) n = getNth xs (n-1)
   \frametitle{Appending Lists}
 
   \begin{itemize}
-    \item append operator: \lstinline{++}\\
-      \lstinline{"word" ++ "smith" ~> "wordsmith"}
+    \item appending operator: \lstinline|++|
   \end{itemize}
 
   \begin{exampleblock}{add a list at the end of another list}
+    \begin{lstlisting}[frame=none]
+"word" ++ "smith"     ~> "wordsmith"
+append "word" "smith" ~> "wordsmith"
+    \end{lstlisting}
+
+    \pause
     \begin{lstlisting}
 append :: [a] -> [a] -> [a]
 append []     ys = ys
@@ -166,19 +174,19 @@ append (x:xs) ys = x : append xs ys
   \frametitle{Range Expressions}
 
   \begin{itemize}
-    \item \lstinline{[n..m]}: range with increment 1
-    \item \lstinline{[n,p..m]}: range with increment \texttt{p-n}
+    \item \lstinline|[n .. m]|: range with increment 1
+    \item \lstinline|[n, p .. m]|: range with increment \texttt{p - n}
   \end{itemize}
 
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-[2..7]          ~> [2,3,4,5,6,7]
-[3.1..7.0]      ~> [3.1,4.1,5.1,6.1,7.1]
-['a'..'m']      ~> "abcdefghijklm"
+[2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
+[3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
+['a' .. 'm']      ~> "abcdefghijklm"
 
-[7,6..3]        ~> [7,6,5,4,3]
-[0.0,0.3..1.0]  ~> [0.0,0.3,0.6,0.8999999999999999]
-['a','c'..'n']  ~> "acegikm"
+[7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
+[0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
+['a', 'c' .. 'n'] ~> "acegikm"
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -191,13 +199,13 @@ append (x:xs) ys = x : append xs ys
 countUp :: Integer -> Integer -> [Integer]
 countUp lower upper
   | lower > upper = []
-  | otherwise     = lower : countUp (lower+1) upper
+  | otherwise     = lower : countUp (lower + 1) upper
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item exercise: \lstinline{countDown} (tail recursive)
+    \item exercise: \lstinline|countDown| (tail recursive)
   \end{itemize}
 \end{frame}
 
@@ -222,14 +230,17 @@ countUp lower upper
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-[2*n | n <- [2,4,7]]     ~> [4,8,14]
-[even n | n <- [2,4,7]]  ~> [True,True,False]
+[2 * n | n <- [2, 4, 7]]   ~> [4, 8, 14]
+[even n | n <- [2, 4, 7]]  ~> [True, True, False]
 
-[2*n | n <- [2,4,7], even n, n > 3]     ~> [8]
-[m+n | (m,n) <- [(2,3), (2,1), (7,8)]]  ~> [5,3,15]
+[2 * n | n <- [2, 4, 7], even n, n > 3]  ~> [8]
 
-[(x,y,z) | x <- [1..5], y <- [1..5], z <- [1..5],
-           x*x + y*y == z*z]
+[m + n | (m, n) <- [(2, 3), (2, 1), (7, 8)]]
+    ~> [5, 3, 15]
+
+[(x, y, z) | x <- [1 .. 5], y <- [1 .. 5],
+             z <- [1 .. 5],
+             x*x + y*y == z*z]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -238,11 +249,12 @@ countUp lower upper
   \frametitle{List Comprehension Examples}
 
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 [2 * n for n in [2, 4, 7]]
 [even(n) for n in [2, 4, 7]]
 
 [2 * n for n in [2, 4, 7] if even(n) and (n > 3)]
+
 [m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
 
 [(x, y, z) for x in range(1, 6)
@@ -276,10 +288,13 @@ quickSort (pivot:xs) =
   \frametitle{Membership Check}
 
   \begin{exampleblock}{check whether an element is a member of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[frame=none]
 elem 'r' "word" ~> True
 elem 'x' "word" ~> False
+    \end{lstlisting}
 
+    \pause
+    \begin{lstlisting}[deletekeywords={elem}]
 elem :: Char -> [Char] -> Bool
 elem _ []     = False
 elem x (c:cs) = if x == c then True else elem x cs
@@ -288,8 +303,10 @@ elem x (c:cs) = if x == c then True else elem x cs
 
   \pause
   \begin{itemize}
-    \item exercise: make a list of n copies of an item\\
-      \lstinline{replicate 3 'c' ~> "ccc"}
+    \item exercise: make a list of n copies of an item
+    \begin{lstlisting}[frame=none]
+replicate 3 'c' ~> "ccc"
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -297,9 +314,12 @@ elem x (c:cs) = if x == c then True else elem x cs
   \frametitle{Last Element}
 
   \begin{exampleblock}{get the last element of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[frame=none]
 last "word" ~> 'd'
+    \end{lstlisting}
 
+    \pause
+    \begin{lstlisting}[deletekeywords={last}]
 last :: [a] -> a
 last []     = error "empty list"
 last [x]    = x
@@ -309,8 +329,10 @@ last (x:xs) = last xs
 
   \pause
   \begin{itemize}
-    \item exercise: get all elements but the last of a list\\
-      \lstinline{init "word" ~> "wor"}
+    \item exercise: get all elements but the last of a list
+    \begin{lstlisting}[frame=none]
+init "word" ~> "wor"
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -318,22 +340,30 @@ last (x:xs) = last xs
   \frametitle{Split}
 
   \begin{exampleblock}{take n elements from the front of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[frame=none]
 take 3 "Peccary" ~> "Pec"
+    \end{lstlisting}
 
+    \pause
+    \begin{lstlisting}[deletekeywords={take}]
 take :: Integer -> [a] -> [a]
 take 0 _      = []
 take _ []     = []
-take n (x:xs) = x : take (n-1) xs
+take n (x:xs) = x : take (n - 1) xs
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item exercise: drop n elements from the front of a list\\
-      \lstinline{drop 3 "Peccary" ~> "cary"}
-    \item exercise: split a list at a given position\\
-      \lstinline{splitAt 3 "Peccary" ~> ("Pec","cary")}
+    \item exercise: drop n elements from the front of a list
+    \begin{lstlisting}[frame=none]
+drop 3 "Peccary" ~> "cary"
+    \end{lstlisting}
+
+    \item exercise: split a list at a given position
+    \begin{lstlisting}[frame=none]
+splitAt 3 "Peccary" ~> ("Pec", "cary")
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -341,9 +371,12 @@ take n (x:xs) = x : take (n-1) xs
   \frametitle{Reverse}
 
   \begin{exampleblock}{reverse a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[frame=none]
 reverse "word" ~> "drow"
+    \end{lstlisting}
 
+    \pause
+    \begin{lstlisting}[deletekeywords={reverse}]
 reverse :: [a] -> [a]
 reverse []     = []
 reverse (x:xs) = (reverse xs) ++ [x]
@@ -355,9 +388,12 @@ reverse (x:xs) = (reverse xs) ++ [x]
   \frametitle{Concatenate}
 
   \begin{exampleblock}{convert a list of lists into a list}
-    \begin{lstlisting}
-concat [[2,3], [], [4] ~> [2,3,4]
+    \begin{lstlisting}[frame=none]
+concat [[2, 3], [], [4] ~> [2, 3, 4]
+    \end{lstlisting}
 
+    \pause
+    \begin{lstlisting}[deletekeywords={concat}]
 concat :: [[a]] -> [a]
 concat []       = []
 concat (xs:xss) = xs ++ concat xss
@@ -366,7 +402,7 @@ concat (xs:xss) = xs ++ concat xss
 
   \pause
   \begin{itemize}
-    \item exercise: write \lstinline{concat} using list comprehension
+    \item exercise: write \lstinline|concat| using list comprehension
   \end{itemize}
 \end{frame}
 
@@ -376,19 +412,24 @@ concat (xs:xss) = xs ++ concat xss
   \frametitle{Zip}
 
   \begin{exampleblock}{convert two lists into a list of pairs}
-    \begin{lstlisting}
-zip [1,2] "ab" ~> [(1,'a'), (2,'b')]
+    \begin{lstlisting}[frame=none]
+zip [1, 2] "ab" ~> [(1, 'a'), (2, 'b')]
+    \end{lstlisting}
 
-zip :: [a] -> [b] -> [(a,b)]
+    \pause
+    \begin{lstlisting}[deletekeywords={zip}]
+zip :: [a] -> [b] -> [(a, b)]
 zip []     []     = []
-zip (x:xs) (y:ys) = (x,y) : zip xs ys
+zip (x:xs) (y:ys) = (x, y) : zip xs ys
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item not all cases are covered:\\
-      \lstinline{zip [1,2] "abc" ~> [(1,'a'), (2,'b')]}
+    \item not all cases are covered:
+    \begin{lstlisting}[deletekeywords={zip}, frame=none]
+zip [1, 2] "abc" ~> [(1, 'a'), (2, 'b')]
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -396,18 +437,20 @@ zip (x:xs) (y:ys) = (x,y) : zip xs ys
   \frametitle{Zip}
 
   \begin{exampleblock}{convert two lists into a list of pairs}
-    \begin{lstlisting}
-zip :: [a] -> [b] -> [(a,b)]
-zip (x:xs) (y:ys) = (x,y) : zip xs ys
+    \begin{lstlisting}[deletekeywords={zip}]
+zip :: [a] -> [b] -> [(a, b)]
+zip (x:xs) (y:ys) = (x, y) : zip xs ys
 zip _      _      = []
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item exercise: convert three lists into a list of triples\\
-      \lstinline{zip3 [1,2] "abc" [7,4]} $\rightsquigarrow$
-      \lstinline{[(1,'a',7), (2,'b',4)]}
+    \item exercise: convert three lists into a list of triples
+    \begin{lstlisting}[frame=none]
+zip3 [1, 2] "abc" [7, 4]
+    ~> [(1, 'a', 7), (2, 'b', 4)]
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -415,20 +458,27 @@ zip _      _      = []
   \frametitle{Unzip}
 
   \begin{exampleblock}{convert a list of pairs into a pair of lists}
-    \begin{lstlisting}
-unzip [(1,'a'), (2,'b')] ~> ([1,2], "ab")
+    \begin{lstlisting}[frame=none]
+unzip [(1, 'a'), (2, 'b')] ~> ([1, 2], "ab")
+    \end{lstlisting}
 
-unzip :: [(a,b)] -> ([a],[b])
-unzip []          = ([],[])
-unzip ((x,y):xys) = (x:xs,y:ys)
-  where (xs,ys) = unzip xys
+    \pause
+    \begin{lstlisting}[deletekeywords={unzip}]
+unzip :: [(a, b)] -> ([a], [b])
+unzip []           = ([], [])
+unzip ((x, y):xys) = (x : xs, y : ys)
+  where
+    (xs, ys) = unzip xys
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item exercise: convert a list of triples into three lists\\
-      \lstinline{unzip3 [(1,'a',7), ('2','b',4)] ~> ([1,2], "ab", [7,4])}
+    \item exercise: convert a list of triples into three lists
+    \begin{lstlisting}[frame=none]
+unzip3 [(1, 'a', 7), (2, 'b', 4)]
+    ~> ([1, 2], "ab", [7, 4])
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -442,8 +492,8 @@ unzip ((x,y):xys) = (x:xs,y:ys)
   \begin{exampleblock}{maximum of a list}
     \begin{lstlisting}
 maxList :: [Integer] -> Integer
-maxList []     = error "empty list"
-maxList [x]    = x
+maxList []         = error "empty list"
+maxList [x]        = x
 maxList (x:xs)
   | x > maxList xs = x
   | otherwise      = maxList xs
@@ -453,8 +503,8 @@ maxList (x:xs)
   \pause
   \begin{itemize}
     \item what if called as:\\
-      \lstinline{maxList [30,29..1]}\\
-      \lstinline{maxList [1..30]}
+      \lstinline|maxList [30, 29 .. 1]|\\
+      \lstinline|maxList [1 .. 30]|
   \end{itemize}
 \end{frame}
 
@@ -464,12 +514,13 @@ maxList (x:xs)
   \begin{exampleblock}{maximum of a list}
     \begin{lstlisting}
 maxList :: [Integer] -> Integer
-maxList []     = error "empty list"
-maxList [x]    = x
+maxList []      = error "empty list"
+maxList [x]     = x
 maxList (x:xs)
   | x > maxTail = x
   | otherwise   = maxTail
-  where maxTail = maxList xs
+  where
+    maxTail = maxList xs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -483,13 +534,13 @@ merge :: [Integer] -> [Integer] -> [Integer]
 merge xs     []     = xs
 merge []     ys     = ys
 merge (x:xs) (y:ys)
-  | x <= y    = x : merge xs (y:ys)
-  | otherwise = y : merge (x:xs) ys
+  | x <= y          = x : merge xs (y : ys)
+  | otherwise       = y : merge (x : xs) ys
     \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item reconstructing original lists not necessary: \lstinline{@}
+    \item reconstructing original lists not necessary: \lstinline|@|
   \end{itemize}
 \end{frame}
 
@@ -502,8 +553,8 @@ merge :: [Integer] -> [Integer] -> [Integer]
 merge xs     []             = xs
 merge []     ys             = ys
 merge xs@(x:xs') ys@(y:ys')
-  | x <= y    = x : merge xs' ys
-  | otherwise = y : merge xs  ys'
+  | x <= y                  = x : merge xs' ys
+  | otherwise               = y : merge xs  ys'
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -533,7 +584,7 @@ romanNumerals =
   \frametitle{Roman Numeral Conversion}
 
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def toRoman(n):
     result = ""
     for numeral, integer in romanNumerals:
@@ -553,11 +604,11 @@ def toRoman(n):
 toRoman :: Integer -> String
 toRoman n = tR n romanNumerals
   where
-    tR :: Integer -> [(String,Integer)] -> String
-    tR n []             = ""
-    tR n xs@((s,k):xs')
-      | n >= k    = s ++ tR (n-k) xs
-      | otherwise = tR n xs'
+    tR :: Integer -> [(String, Integer)] -> String
+    tR n []              = ""
+    tR n xs@((s, k):xs')
+      | n >= k           = s ++ tR (n - k) xs
+      | otherwise        = tR n xs'
     \end{lstlisting}
   \end{exampleblock}
 
@@ -571,12 +622,12 @@ toRoman n = tR n romanNumerals
   \frametitle{Roman Numeral Conversion}
 
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def fromRoman(s):
     result = 0
     index = 0
     for numeral, integer in romanNumerals:
-        while s[index:index+len(numeral)] == numeral:
+        while s[index : index+len(numeral)] == numeral:
             result += integer
             index += len(numeral)
     return result
