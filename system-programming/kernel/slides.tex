@@ -1,16 +1,20 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=C}
+
 \mode<presentation>
 {
-  \usetheme{Frankfurt}
+  \usetheme{default}
   \setbeamercovered{transparent}
 }
 
@@ -27,10 +31,10 @@
   \end{frame}
 }
 
-\pgfdeclareimage[height=6.8cm]{ldr2_0101}{ldr2_0101}
-\pgfdeclareimage[height=6.8cm]{ldr2_0201}{ldr2_0201}
-\pgfdeclareimage[width=8cm]{ldr2_0202}{ldr2_0202}
-\pgfdeclareimage[height=6cm]{task}{task}
+\pgfdeclareimage[height=7.3cm]{ldr2_0101}{ldr2_0101}
+\pgfdeclareimage[height=7.3cm]{ldr2_0201}{ldr2_0201}
+\pgfdeclareimage[width=10cm]{ldr2_0202}{ldr2_0202}
+\pgfdeclareimage[height=7.3cm]{task}{task}
 
 \begin{document}
 
@@ -160,18 +164,18 @@
     \medskip
     \item add an entry to the system call table
     \begin{exampleblock}{\texttt{arch/x86/kernel/syscall\_table\_32.S}}
-      \begin{pygments}{c}
+      \begin{lstlisting}
 .long sys_mycall
-      \end{pygments}
+      \end{lstlisting}
     \end{exampleblock}
 
     \pause
     \medskip
     \item append entry for system call
     \begin{exampleblock}{\texttt{arch/x86/include/asm/unistd\_32.h}}
-      \begin{pygments}{c}
+      \begin{lstlisting}
 #define __NR_mycall 333
-      \end{pygments}
+      \end{lstlisting}
     \end{exampleblock}
   \end{itemize}
 \end{frame}
@@ -182,21 +186,21 @@
   \begin{itemize}
     \item add prototype to the system calls header file
     \begin{exampleblock}{\texttt{include/linux/syscalls.h}}
-      \begin{pygments}{c}
+      \begin{lstlisting}
 asmlinkage int sys_mycall(int i, int j);
-      \end{pygments}
+      \end{lstlisting}
     \end{exampleblock}
 
     \pause
     \medskip
     \item implement system call
     \begin{exampleblock}{mycall.c}
-      \begin{pygments}{c}
+      \begin{lstlisting}
 asmlinkage int sys_mycall(int i, int j)
 {
     return i + j;
 }
-      \end{pygments}
+      \end{lstlisting}
     \end{exampleblock}
   \end{itemize}
 \end{frame}
@@ -204,7 +208,7 @@ asmlinkage int sys_mycall(int i, int j)
 \begin{frame}[fragile]
   \frametitle{Example: Test Program}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}
 #define __NR_mycall 333
 
 int main(int argc, char **argv)
@@ -215,7 +219,7 @@ int main(int argc, char **argv)
     printf("%d\n", y);
     return 0;
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}
@@ -227,10 +231,10 @@ int main(int argc, char **argv)
 
     \bigskip
     \item kernel $\rightarrow$ user:\\
-      \pygment{c}|copy_to_user(user_buf, kernel_buf, length)|
+      \lstinline|copy_to_user(user_buf, kernel_buf, length)|
     \smallskip
     \item user $\rightarrow$ kernel:\\
-      \pygment{c}|copy_from_user(kernel_buf, user_buf, length)|
+      \lstinline|copy_from_user(kernel_buf, user_buf, length)|
   \end{itemize}
 \end{frame}
 
@@ -242,37 +246,37 @@ int main(int argc, char **argv)
 
     \medskip
     \item kernel structure for representing time
-    \begin{pygments}{c}
+    \begin{lstlisting}
 struct timeval {
     long tv_sec;    /* seconds */
     long tv_usec;   /* microseconds */
 };
-    \end{pygments}
+    \end{lstlisting}
 
     \medskip
     \item global variable that keeps the current time
-    \begin{pygments}{c}
+    \begin{lstlisting}
 struct timeval xtime;
-    \end{pygments}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Data Transfer}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}
 asmlinkage int sys_ptime(struct timeval *tm)
 {
     copy_to_user(tm, &xtime, sizeof(struct timeval));
     return 0;
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Test Program}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}
 #define __NR_ptime 334
 
 int main(int argc, char **argv)
@@ -287,7 +291,7 @@ int main(int argc, char **argv)
     printf("%d\n", (int) utime.tv_sec);
     return 0;
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Kernel Modules}
@@ -315,7 +319,7 @@ int main(int argc, char **argv)
 \begin{frame}[fragile]
   \frametitle{Example: Hello, world!}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}
 #include <linux/init.h>
 #include <linux/module.h>
 
@@ -327,13 +331,13 @@ static void hello_exit() { ... }
 
 module_init(hello_init);
 module_exit(hello_exit);
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Hello, world!}
 
-  \begin{pygments}{c}
+  \begin{lstlisting}
 static int hello_init(void)
 {
     printk(KERN_ALERT "Hello, world!\n");
@@ -344,7 +348,7 @@ static void hello_exit()
 {
     printk(KERN_ALERT "Goodbye, cruel world!\n");
 }
-  \end{pygments}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}
@@ -368,6 +372,7 @@ static void hello_exit()
     \item modules can use symbols exported by other modules
   \end{itemize}
 
+  \medskip
   \begin{center}
     \pgfuseimage{ldr2_0202}
   \end{center}
@@ -395,7 +400,7 @@ static void hello_exit()
 
   \begin{itemize}
     \item a process descriptor for each process:\\
-      \pygment{c}{struct task_struct}
+      \lstinline{struct task_struct}
 
     \medskip
     \item process state
@@ -416,9 +421,9 @@ static void hello_exit()
 
   \begin{itemize}
     \item doubly linked list of all process descriptors
-    \item \pygment{c}|tasks| field of \pygment{c}|task_struct|
-    \item \pygment{c}|current| macro gives the process descriptor\\
-      of the running process: e.g. \pygment{c}|current->pid|
+    \item \lstinline|tasks| field of \lstinline|task_struct|
+    \item \lstinline|current| macro gives the process descriptor\\
+      of the running process: e.g. \lstinline|current->pid|
   \end{itemize}
 \end{frame}
 
@@ -440,18 +445,18 @@ static void hello_exit()
   \begin{itemize}
     \item uses a statically allocated data structure
     \begin{itemize}
-      \item process descriptor stored in the \pygment{c}|init_task| variable
-      \item initialized by the \pygment{c}|INIT_TASK| macro
+      \item process descriptor stored in the \lstinline|init_task| variable
+      \item initialized by the \lstinline|INIT_TASK| macro
     \end{itemize}
 
-    \item executes the \pygment{c}|start_kernel()| function
+    \item executes the \lstinline|start_kernel()| function
     \begin{itemize}
       \item initializes all data structures needed by kernel
       \item enables interrupts
       \item creates process 1 (commonly known as the \textit{init process})
     \end{itemize}
 
-    \item executes the \pygment{c}|cpu_idle()| function
+    \item executes the \lstinline|cpu_idle()| function
   \end{itemize}
 \end{frame}
 
@@ -459,16 +464,16 @@ static void hello_exit()
   \frametitle{Creating Processes}
 
   \begin{itemize}
-    \item \textit{fork} is implemented as the \pygment{c}|clone| system call
-    \item \pygment{c}|do_fork()| function handles the \pygment{c}|clone|
+    \item \textit{fork} is implemented as the \lstinline|clone| system call
+    \item \lstinline|do_fork()| function handles the \lstinline|clone|
       system call:
 
     \medskip
     \item allocates a pid for the child process
-    \item uses \pygment{c}|copy_process()| to set up the process descriptor\\
+    \item uses \lstinline|copy_process()| to set up the process descriptor\\
       and other kernel data structures for new process
     \begin{itemize}
-      \item uses \pygment{c}|dup_task_struct()| to allocate a new process
+      \item uses \lstinline|dup_task_struct()| to allocate a new process
         descriptor\\
         and to copy parent process' process descriptor info
     \end{itemize}
@@ -481,8 +486,8 @@ static void hello_exit()
   \frametitle{Destroying Processes}
 
   \begin{itemize}
-    \item through the \pygment{c}|_exit()| system call
-    \item uses the \pygment{c}|do_exit()| function
+    \item through the \lstinline|_exit()| system call
+    \item uses the \lstinline|do_exit()| function
   \end{itemize}
 \end{frame}
 
@@ -523,14 +528,14 @@ static void hello_exit()
     \medskip
     \item to implement counters
     \item to atomically perform an operation and test results:\\
-      e.g. \pygment{c}{atomic_dec_and_test}
+      e.g. \lstinline{atomic_dec_and_test}
 
     \medskip
-    \begin{pygments}{c}
+    \begin{lstlisting}
 typedef struct {
     volatile int counter;
 } atomic_t;
-    \end{pygments}
+    \end{lstlisting}
   \end{itemize}
 \end{frame}
 
@@ -544,10 +549,10 @@ typedef struct {
       are completed before the instructions after the primitive
 
     \medskip
-    \item read memory barrier: \pygment{c}|rmb()|
-    \item write memory barrier: \pygment{c}|wmb()|
-    \item memory barrier: \pygment{c}|barrier()|
-      \textendash ~ same as \pygment{c}|wmb()|
+    \item read memory barrier: \lstinline|rmb()|
+    \item write memory barrier: \lstinline|wmb()|
+    \item memory barrier: \lstinline|barrier()|
+      \textendash ~ same as \lstinline|wmb()|
   \end{itemize}
 \end{frame}
 
@@ -564,10 +569,10 @@ typedef struct {
     \end{itemize}
 
     \medskip
-    \item represented by a \pygment{c}|spinlock_t| structure
+    \item represented by a \lstinline|spinlock_t| structure
     \item macros used for working with spin locks
     \item read and write spin locks to increase concurrency:\\
-      \pygment{c}|rwlock_t| structure
+      \lstinline|rwlock_t| structure
   \end{itemize}
 \end{frame}
 
@@ -586,8 +591,8 @@ typedef struct {
       counting semaphores
 
     \medskip
-    \item two atomic operations: \pygment{c}{P()} - \pygment{c}{V()}\\
-      \pygment{c}{down()} - \pygment{c}{up()}
+    \item two atomic operations: \lstinline{P()} - \lstinline{V()}\\
+      \lstinline{down()} - \lstinline{up()}
   \end{itemize}
 \end{frame}
 
@@ -679,11 +684,11 @@ typedef struct {
 
    \begin{itemize}
     \item for process accounting:\\
-      \pygment{c}|struct sched_entity|
-    \item member of \pygment{c}|struct task_struct|
+      \lstinline|struct sched_entity|
+    \item member of \lstinline|struct task_struct|
 
     \medskip
-    \item \emph{virtual runtime} (\pygment{c}|vruntime|):\\
+    \item \emph{virtual runtime} (\lstinline|vruntime|):\\
       actual runtime (in ns) of a process\\
       normalized by the number of runnable processes
     \item in a perfectly multitasking system all processes should have\\
@@ -697,12 +702,12 @@ typedef struct {
   \frametitle{CFS Implementation}
 
   \begin{itemize}
-    \item the runnable process with the smallest \pygment{c}|vruntime|\\
+    \item the runnable process with the smallest \lstinline|vruntime|\\
       is selected to run
     \item red-black tree to manage list of runnable processes:\\
       search in $O(log~n)$
     \begin{itemize}
-      \item leftmost node has lowest \pygment{c}|vruntime|
+      \item leftmost node has lowest \lstinline|vruntime|
       \item leftmost node is cached
     \end{itemize}
   \end{itemize}
