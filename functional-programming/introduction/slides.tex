@@ -615,7 +615,8 @@ a = 3.14159 * r * r
     \begin{lstlisting}
 a :: Float
 a = 3.14159 * r * r
-  where r = d / 2.0
+  where
+    r = d / 2.0
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -679,8 +680,8 @@ n e1 e2 ... ek
 sqr :: Integer -> Integer
 sqr x = x * x
 
--- sqr 21    ~> 441
--- sqr (2+5) ~> 49
+-- sqr 21      ~> 441
+-- sqr (2 + 5) ~> 49
 
 sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = sqr x + sqr y
