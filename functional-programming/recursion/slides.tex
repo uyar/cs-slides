@@ -17,7 +17,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
         showstringspaces=false, frame=ltrb}
-\lstset{language=haskell, deletestring=[b]{"}, deletekeywords={even,gcd}}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -102,45 +102,27 @@
 \subsection{Infix - Prefix}
 
 \begin{frame}[fragile]
-  \frametitle{Infix Functions}
+  \frametitle{Infix - Prefix}
 
   \begin{itemize}
-    \item function calls can be written in infix notation within backquotes
-  \end{itemize}
-
-  \begin{exampleblock}{example: \lstinline{mod} function}
+    \item function calls can be written in infix notation\\
+      within backquotes
+    \smallskip
     \begin{lstlisting}
-even :: Integer -> Bool
-even n = mod n 2 == 0
-
--- OR:
-even :: Integer -> Bool
-even n = n `mod` 2 == 0
+mod n 2
+n `mod` 2
     \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Prefix Operators}
-
-  \begin{itemize}
-    \item operator calls can be written in prefix notation within parentheses
-  \end{itemize}
-
-  \begin{exampleblock}{example: \lstinline{*} operator}
+    \pause
+    \medskip
+    \item operator calls can be written in prefix notation\\
+      within parentheses
+    \smallskip
     \begin{lstlisting}
-even :: Integer -> Bool
-even n = (n `div` 2 ) * 2 == n
-
--- OR:
-even :: Integer -> Bool
-even n = (*) (div n 2) 2 == n
-
--- OR:
-even :: Integer -> Bool
-even n = (==) ((*) (div n 2) 2) n
+6 * 7
+(*) 6 7
     \end{lstlisting}
-  \end{exampleblock}
+  \end{itemize}
 \end{frame}
 
 \subsection{Guards}
@@ -173,9 +155,9 @@ n x1 x2 ... xk
     \begin{lstlisting}
 maxThree :: Integer -> Integer -> Integer -> Integer
 maxThree x y z
-  | x >= y && x >= z = x
-  | y >= z           = y
-  | otherwise        = z
+  | x>=y && x>=z = x
+  | y>=z         = y
+  | otherwise    = z
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -186,7 +168,7 @@ maxThree x y z
   \frametitle{Errors}
 
   \begin{itemize}
-    \item errors can be reported using \lstinline{error}
+    \item errors can be reported using \lstinline|error|
   \end{itemize}
 
   \begin{exampleblock}{example: reciprocal (multiplicative inverse)}
@@ -200,6 +182,8 @@ reciprocal x
 \end{frame}
 
 \section{Recursion}
+
+\lstset{deletekeywords={gcd}}
 
 \subsection{Primitive Recursion}
 
@@ -223,7 +207,7 @@ fac :: Integer -> Integer
 fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fac (n-1)
+  | otherwise = n * fac (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -235,16 +219,16 @@ fac n
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
   \end{lstlisting}
 
-  \lstinline{gcd(9702, 945)}\\
-  \lstinline{~> gcd(945, 252)}\\
-  \lstinline{    ~>  gcd(252, 189)}\\
-  \lstinline{         ~> gcd(189, 63)}\\
-  \lstinline{             ~> gcd(63, 0)}\\
-  \lstinline{                 ~> 63}\\
-  \lstinline{             ~> 63}\\
-  \lstinline{         ~> 63}\\
-  \lstinline{    ~>  63}\\
-  \lstinline{~> 63}
+  \lstinline|gcd(9702, 945)|\\
+  \lstinline|~> gcd(945, 252)|\\
+  \lstinline|    ~>  gcd(252, 189)|\\
+  \lstinline|         ~> gcd(189, 63)|\\
+  \lstinline|             ~> gcd(63, 0)|\\
+  \lstinline|                 ~> 63|\\
+  \lstinline|             ~> 63|\\
+  \lstinline|         ~> 63|\\
+  \lstinline|    ~>  63|\\
+  \lstinline|~> 63|
 \end{frame}
 
 \begin{frame}[fragile]
@@ -254,19 +238,19 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
 fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
-  | otherwise = n * fac (n-1)
+  | otherwise = n * fac (n - 1)
   \end{lstlisting}
 
-  \lstinline{fac 4}\\
-  \lstinline{~> 4 * fac 3}\\
-  \lstinline{          ~> 3 * fac 2}\\
-  \lstinline{                    ~> 2 * fac 1}\\
-  \lstinline{                              ~> 1 * fac 0}\\
-  \lstinline{                                        ~> 1}\\
-  \lstinline{                              ~> 1}\\
-  \lstinline{                    ~> 2}\\
-  \lstinline{          ~> 6}\\
-  \lstinline{~> 24}\\
+  \lstinline|fac 4|\\
+  \lstinline|~> 4 * fac 3|\\
+  \lstinline|          ~> 3 * fac 2|\\
+  \lstinline|                    ~> 2 * fac 1|\\
+  \lstinline|                              ~> 1 * fac 0|\\
+  \lstinline|                                        ~> 1|\\
+  \lstinline|                              ~> 1|\\
+  \lstinline|                    ~> 2|\\
+  \lstinline|          ~> 6|\\
+  \lstinline|~> 24|\\
 \end{frame}
 
 \subsection{Tail Recursion}
@@ -294,12 +278,12 @@ fac n
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
   \end{lstlisting}
 
-  \lstinline{gcd 9702 945}\\
-  \lstinline{~> gcd 945 252}\\
-  \lstinline{~> gcd 252 189}\\
-  \lstinline{~> gcd 189 63}\\
-  \lstinline{~> gcd 63 0}\\
-  \lstinline{~> 63}\\
+  \lstinline|gcd 9702 945|\\
+  \lstinline|~> gcd 945 252|\\
+  \lstinline|~> gcd 252 189|\\
+  \lstinline|~> gcd 189 63|\\
+  \lstinline|~> gcd 63 0|\\
+  \lstinline|~> 63|\\
 \end{frame}
 
 \begin{frame}
@@ -324,7 +308,7 @@ facIter :: Integer -> Integer -> Integer
 facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = facIter (acc*n) (n-1)
+  | otherwise = facIter (acc * n) (n - 1)
 
 fac :: Integer -> Integer
 fac n = facIter 1 n
@@ -339,17 +323,17 @@ fac n = facIter 1 n
 facIter acc n
   | n < 0     = error "negative parameter"
   | n == 0    = acc
-  | otherwise = facIter (acc*n) (n-1)
+  | otherwise = facIter (acc * n) (n - 1)
   \end{lstlisting}
 
-  \lstinline{fac 4}\\
-  \lstinline{~> facIter 1 4}\\
-  \lstinline{    ~> facIter 4 3}\\
-  \lstinline{    ~> facIter 12 2}\\
-  \lstinline{    ~> facIter 24 1}\\
-  \lstinline{    ~> facIter 24 0}\\
-  \lstinline{    ~> 24}\\
-  \lstinline{~> 24}\\
+  \lstinline|fac 4|\\
+  \lstinline|~> facIter 1 4|\\
+  \lstinline|    ~> facIter 4 3|\\
+  \lstinline|    ~> facIter 12 2|\\
+  \lstinline|    ~> facIter 24 1|\\
+  \lstinline|    ~> facIter 24 0|\\
+  \lstinline|    ~> 24|\\
+  \lstinline|~> 24|\\
 \end{frame}
 
 \begin{frame}[fragile]
@@ -368,7 +352,7 @@ fac n
         facIter :: Integer -> Integer -> Integer
         facIter acc n'
           | n' == 0   = acc
-          | otherwise = facIter (acc*n') (n'-1)
+          | otherwise = facIter (acc * n') (n' - 1)
   \end{lstlisting}
 \end{frame}
 
@@ -395,7 +379,7 @@ fib :: Integer -> Integer
 fib n
   | n == 1    = 1
   | n == 2    = 1
-  | otherwise = fib (n-2) + fib (n-1)
+  | otherwise = fib (n - 2) + fib (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -418,7 +402,7 @@ fib n
 pow :: Integer -> Integer -> Integer
 pow x y
   | y == 0    = 1
-  | otherwise = x * pow x (y-1)
+  | otherwise = x * pow x (y - 1)
     \end{lstlisting}
   \end{exampleblock}
 
@@ -445,10 +429,10 @@ fastPow :: Integer -> Integer -> Integer
 fastPow x y
   | y == 0    = 1
   | even y    = sqr (fastPow x (y `div` 2))
-  | otherwise = x * fastPow x (y-1)
+  | otherwise = x * fastPow x (y - 1)
   where
     sqr :: Integer -> Integer
-    sqr n = n*n
+    sqr n = n * n
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -560,7 +544,7 @@ isGoodEnough guess x' =
   \frametitle{Recursion Example}
 
   \begin{itemize}
-    \item no need to pass \lstinline{x} around, it's already in scope
+    \item no need to pass \lstinline|x| around, it's already in scope
   \end{itemize}
 
   \pause
