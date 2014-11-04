@@ -33,7 +33,10 @@
 
 \pgfdeclareimage[height=7.3cm]{pport}{pport}
 \pgfdeclareimage[height=7.3cm]{cycle}{cycle}
-\pgfdeclareimage[height=7.3cm]{simplescull}{simplescull}
+\pgfdeclareimage[width=6.5cm]{simplescull1}{simplescull1}
+\pgfdeclareimage[width=5.5cm]{simplescull2}{simplescull2}
+\pgfdeclareimage[width=5cm]{simplescull3}{simplescull1}
+\pgfdeclareimage[width=5cm]{simplescull}{simplescull}
 
 \begin{document}
 
@@ -613,340 +616,8 @@ close(fd);
 \begin{frame}
   \frametitle{Device Driver Example}
 
-  \begin{exampleblock}{short: read/write I/O ports}
-    \begin{itemize}
-      \item each device node accesses a different port:
-      \begin{itemize}
-        \item \texttt{/dev/short0}: port at base
-        \item \texttt{/dev/short1}: port at base+1
-      \end{itemize}
-
-      \pause
-      \medskip
-      \item module parameters:
-      \begin{itemize}
-        \item major number (default dynamic)
-        \item base address (default 0x378)
-      \end{itemize}
-    \end{itemize}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{global definitions}
-    \begin{lstlisting}
-#define SHORT_NR_PORTS 8
-
-static int major = 0;
-module_param(major, int, 0);
-
-static unsigned long base = 0x378;
-unsigned long short_base = 0;
-module_param(base, long, 0);
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Module Initialization}
-
-  \begin{itemize}
-    \item allocate I/O region
-    \begin{itemize}
-      \item base address
-      \item number of ports
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item register driver with the kernel
-    \begin{itemize}
-      \item major and minor numbers
-      \item capabilities: file operations
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{region allocation}
-    \begin{lstlisting}
-if (!request_region(short_base, SHORT_NR_PORTS,
-                    "short"))
-{
-    return -ENODEV;
-}
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{driver registration: major and minor numbers}
-    \begin{lstlisting}
-if (major != 0)
-{
-    dev = MKDEV(major, 0);
-    result = register_chrdev_region(dev, 1, "short");
-}
-else
-{
-    result = alloc_chrdev_region(&dev, 0, 1, "short");
-    major = MAJOR(dev);
-}
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{itemize}
-    \item map system calls to functions:\\
-      \lstinline|struct file_operations|
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-struct file_operations short_fops = {
-    .open    = short_open,
-    .release = short_release,
-    .read    = short_read,
-    .write   = short_write,
-};
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{driver registration: activate driver}
-    \begin{lstlisting}
-cdev_init(&cdev, &short_fops);
-cdev.ops = &short_fops;
-cdev_add(&cdev, dev, 1);
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{module cleanup}
-    \begin{lstlisting}
-dev_t devno = MKDEV(major, 0);
-cdev_del(&cdev);
-unregister_chrdev_region(devno, 1);
-
-release_region(short_base, SHORT_NR_PORTS);
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{Memory-Mapped I/O}
-%
-%   \begin{example}
-%     \begin{lstlisting}
-% /* allocating region on init */
-% if (!request_mem_region(short_base,
-%                         SHORT_NR_PORTS,
-%                         "short")) {
-%     return -ENODEV;
-% }
-% short_base = (unsigned long) ioremap(short_base,
-%               SHORT_NR_PORTS);
-%
-% /* releasing region on cleanup */
-% iounmap((void __iomem *) short_base);
-% release_mem_region(short_base, SHORT_NR_PORTS);
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel Data Structures}
-
-  \begin{itemize}
-    \item a structure for each device node:\\
-      \lstinline|struct inode|
-
-    \pause
-    \medskip
-    \item a structure for each open file:\\
-      \lstinline|struct file|
-    \begin{itemize}
-      \item \lstinline|f_mode|: readable, writable, both
-      \item \lstinline|f_pos|: current reading/writing position
-      \item \lstinline|f_flags|
-      \item \lstinline|f_op|: operations associated with the file
-      \item \lstinline|private_data|: pointer to allocated data
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \lstinline|open| system call:
-    \begin{lstlisting}
-int open(const char *pathname,
-         int flags,
-         mode_t mode);
-    \end{lstlisting}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{lstlisting}
-int foo_open(struct inode *inode,
-             struct file *filp);
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Opening Device}
-
-  \begin{itemize}
-    \item identify actual device
-    \item check for device-specific errors
-    \item initialize device
-    \item allocate and initialize data structures
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \lstinline|close| system call:
-    \begin{lstlisting}
-int close(int fd);
-    \end{lstlisting}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{lstlisting}
-int foo_release(struct inode *inode,
-                struct file *filp);
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \lstinline|read| system call:
-    \begin{lstlisting}
-ssize_t read(int fd,
-             void *buf,
-             size_t count);
-    \end{lstlisting}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{lstlisting}
-ssize_t foo_read(struct file *filp,
-                 char __user *buf,
-                 size_t count,
-                 loff_t *f_pos);
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{reading from short}
-    \begin{lstlisting}
-int retval = count;
-int minor = iminor(filp->f_dentry->d_inode);
-unsigned long port = short_base + (minor & 0x0f);
-unsigned char *kbuf, *ptr;
-
-kbuf = kmalloc(count, GFP_KERNEL);
-if (!kbuf)
-    return -ENOMEM;
-...
-kfree(kbuf);
-return retval;
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Device Driver Example}
-
-  \begin{exampleblock}{reading from short}
-    \begin{lstlisting}
-ptr = kbuf;
-while (count--) {
-    *(ptr++) = inb(port);
-    rmb();
-}
-if ((retval > 0) && copy_to_user(buf, kbuf, retval))
-    retval = -EFAULT;
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kernel System Call Interface}
-
-  \begin{itemize}
-    \item \lstinline|write| system call:
-    \begin{lstlisting}
-ssize_t write(int fd,
-              const void *buf,
-              size_t count);
-    \end{lstlisting}
-
-    \medskip
-    \item kernel function to implement:
-    \begin{lstlisting}
-ssize_t foo_write(struct file *filp,
-                  const char __user *buf,
-                  size_t count,
-                  loff_t *f_pos);
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Writing Example}
-
-  \begin{exampleblock}{writing to short}
-    \begin{lstlisting}
-if (copy_from_user(kbuf, buf, count))
-    return -EFAULT;
-ptr = kbuf;
-while (count--) {
-    outb(*(ptr++), port);
-    wmb();
-}
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\subsection{Example}
-
-\begin{frame}
-  \frametitle{Larger Example}
-
   \begin{exampleblock}{simplified scull}
     \begin{itemize}
-      \item private data structures
-      \item also implement \lstinline|seek, ioctl|
-
-      \pause
-      \medskip
       \item use memory as device
       \begin{itemize}
         \item \texttt{/dev/scull0}
@@ -967,10 +638,9 @@ while (count--) {
   \begin{columns}
     \column{.55\textwidth}
     \begin{center}
-      \pgfuseimage{simplescull}
+      \pgfuseimage{simplescull1}
     \end{center}
 
-    \pause
     \column{.4\textwidth}
     \begin{itemize}
       \item each device has\\
@@ -1019,8 +689,11 @@ module_param(scull_qset, int, S_IRUGO);
 \begin{frame}[fragile]
   \frametitle{Data Structures}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{center}
+    \pgfuseimage{simplescull2}
+  \end{center}
+
+  \begin{lstlisting}
 struct scull_dev {
     char **data;
     int quantum;
@@ -1031,12 +704,74 @@ struct scull_dev {
 };
 
 struct scull_dev *scull_devices;
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Module Initialization}
+
+  \begin{itemize}
+    \item allocate I/O region
+    \begin{itemize}
+      \item base address
+      \item number of ports
+    \end{itemize}
+
+    \medskip
+    \item register driver with the kernel
+    \begin{itemize}
+      \item major and minor numbers
+      \item capabilities: file operations
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Module Initialization}
+
+  \begin{exampleblock}{driver registration: major and minor numbers}
+    \begin{lstlisting}
+if (scull_major)
+{
+    devno = MKDEV(scull_major, scull_minor);
+    result = register_chrdev_region(devno,
+                scull_nr_devs, "scull");
+}
+else    /* dynamic */
+{
+    result = alloc_chrdev_region(&devno,
+        scull_minor, scull_nr_devs, "scull");
+    scull_major = MAJOR(devno);
+}
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Module Initialization}
+
+  \begin{exampleblock}{data structure allocation}
+    \begin{lstlisting}
+scull_devices = kmalloc(scull_nr_devs *
+       sizeof(struct scull_dev), GFP_KERNEL);
+if (!scull_devices)
+{
+    result = -ENOMEM;
+    goto fail;
+}
+memset(scull_devices, 0,
+       scull_nr_devs * sizeof(struct scull_dev));
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{File Operations}
+
+  \begin{itemize}
+    \item map system calls to functions:\\
+      \lstinline|struct file_operations|
+  \end{itemize}
 
   \begin{exampleblock}{}
     \begin{lstlisting}
@@ -1055,64 +790,10 @@ struct file_operations scull_fops = {
 \begin{frame}[fragile]
   \frametitle{Module Initialization}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{driver activation}
     \begin{lstlisting}
-  /* get major and minor numbers */
-  /* allocate and initialize devices */
-
-  return 0; /* succeed */
-
-fail:
-  scull_cleanup_module();
-  return result;
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Module Initialization}
-
-  \begin{exampleblock}{major and minor numbers}
-    \begin{lstlisting}
-if (scull_major)
+for (i = 0; i < scull_nr_devs; i++)
 {
-    devno = MKDEV(scull_major, scull_minor);
-    result = register_chrdev_region(devno,
-                scull_nr_devs, "scull");
-}
-else
-{
-    result = alloc_chrdev_region(&devno,
-        scull_minor, scull_nr_devs, "scull");
-    scull_major = MAJOR(devno);
-}
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Module Initialization}
-
-  \begin{exampleblock}{allocating data structures}
-    \begin{lstlisting}
-scull_devices = kmalloc(scull_nr_devs *
-       sizeof(struct scull_dev), GFP_KERNEL);
-if (!scull_devices) {
-    result = -ENOMEM;
-    goto fail;
-}
-memset(scull_devices, 0, scull_nr_devs *
-          sizeof(struct scull_dev));
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Module Initialization}
-
-  \begin{exampleblock}{activate driver}
-    \begin{lstlisting}
-for (i = 0; i < scull_nr_devs; i++) {
     dev = &scull_devices[i];
     dev->quantum = scull_quantum;
     dev->qset = scull_qset;
@@ -1135,8 +816,10 @@ for (i = 0; i < scull_nr_devs; i++) {
     \begin{lstlisting}
 dev_t devno = MKDEV(scull_major, scull_minor);
 
-if (scull_devices) {
-    for (i = 0; i < scull_nr_devs; i++) {
+if (scull_devices)
+{
+    for (i = 0; i < scull_nr_devs; i++)
+    {
         scull_trim(scull_devices + i);
         cdev_del(&scull_devices[i].cdev);
     }
@@ -1147,39 +830,108 @@ unregister_chrdev_region(devno, scull_nr_devs);
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{Trimming the Device}
-%
-%   \begin{example}[scull\_trim]
-%     \begin{lstlisting}
-% if (dev->data) {
-%     for (i = 0; i < dev->qset; i++) {
-%         if (dev->data[i])
-%             kfree(dev->data[i]);
-%     }
-%     kfree(dev->data);
-% }
-% dev->data = NULL;
-% dev->quantum = scull_quantum;
-% dev->qset = scull_qset;
-% dev->size = 0;
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Module Cleanup}
+
+  \begin{columns}
+    \column{.43\textwidth}
+    \pgfuseimage{simplescull3}
+
+    \column{.57\textwidth}
+    \begin{exampleblock}{data structure deallocation}
+      \begin{lstlisting}
+if (dev->data)
+{
+    for (i = 0; i < dev->qset;
+         i++)
+    {
+        if (dev->data[i])
+            kfree(dev->data[i]);
+    }
+    kfree(dev->data);
+}
+dev->data = NULL;
+dev->quantum = scull_quantum;
+dev->qset = scull_qset;
+dev->size = 0;
+      \end{lstlisting}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel Data Structures}
+
+  \begin{itemize}
+    \item a structure for each device node:\\
+      \lstinline|struct inode|
+
+    \medskip
+    \item a structure for each open file:\\
+      \lstinline|struct file|
+    \begin{itemize}
+      \item \lstinline|f_mode|: readable, writable, both
+      \item \lstinline|f_pos|: current reading/writing position
+      \item \lstinline|f_flags|
+      \item \lstinline|f_op|: operations associated with the file
+      \item \lstinline|private_data|: pointer to allocated data
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Open}
+
+  \begin{itemize}
+    \item identify actual device
+    \item check for device-specific errors
+    \item initialize device
+    \item allocate and initialize data structures
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|open| system call:
+    \begin{lstlisting}
+int open(const char *pathname,
+         int flags,
+         mode_t mode);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+int foo_open(struct inode *inode,
+             struct file *filp);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Open}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{columns}
+    \column{.43\textwidth}
+    \pgfuseimage{simplescull}
+
+    \column{.57\textwidth}
+    \begin{exampleblock}{}
+      \begin{lstlisting}
 struct scull_dev *dev;
 
-dev = container_of(inode->i_cdev,
-                    struct scull_dev, cdev);
+dev = container_of(
+        inode->i_cdev,
+        struct scull_dev,
+        cdev
+);
 filp->private_data = dev;
-    \end{lstlisting}
-  \end{exampleblock}
+      \end{lstlisting}
+    \end{exampleblock}
+  \end{columns}
 \end{frame}
 %
 % \begin{frame}[fragile]
@@ -1197,6 +949,46 @@ filp->private_data = dev;
 %     \end{lstlisting}
 %   \end{example}
 % \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|close| system call:
+    \begin{lstlisting}
+int close(int fd);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+int foo_release(struct inode *inode,
+                struct file *filp);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|write| system call:
+    \begin{lstlisting}
+ssize_t write(int fd,
+              const void *buf,
+              size_t count);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+ssize_t foo_write(struct file *filp,
+                  const char __user *buf,
+                  size_t count,
+                  loff_t *f_pos);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Write}
@@ -1295,6 +1087,28 @@ if (dev->size < *f_pos)
     dev->size = *f_pos;
     \end{lstlisting}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Kernel System Call Interface}
+
+  \begin{itemize}
+    \item \lstinline|read| system call:
+    \begin{lstlisting}
+ssize_t read(int fd,
+             void *buf,
+             size_t count);
+    \end{lstlisting}
+
+    \medskip
+    \item kernel function to implement:
+    \begin{lstlisting}
+ssize_t foo_read(struct file *filp,
+                 char __user *buf,
+                 size_t count,
+                 loff_t *f_pos);
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1518,6 +1332,126 @@ case SCULL_IOCGQUANTUM:
 
 case SCULL_IOCQQUANTUM:
     return scull_quantum;
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Device Access}
+
+\begin{frame}
+  \frametitle{Device Driver Example}
+
+  \begin{exampleblock}{short: read/write I/O ports}
+    \begin{itemize}
+      \item each device node accesses a different port:
+      \begin{itemize}
+        \item \texttt{/dev/short0}: port at base
+        \item \texttt{/dev/short1}: port at base+1
+      \end{itemize}
+
+      \medskip
+      \item module parameters:
+      \begin{itemize}
+        \item major number (default dynamic)
+        \item base address (default 0x378)
+      \end{itemize}
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Region Allocation}
+
+  \begin{exampleblock}{module initializion}
+    \begin{lstlisting}
+if (!request_region(short_base, SHORT_NR_PORTS,
+                    "short"))
+{
+    return -ENODEV;
+}
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}{module cleanup}
+    \begin{lstlisting}
+release_region(short_base, SHORT_NR_PORTS);
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Memory-Mapped I/O}
+%
+%   \begin{example}
+%     \begin{lstlisting}
+% /* allocating region on init */
+% if (!request_mem_region(short_base,
+%                         SHORT_NR_PORTS,
+%                         "short")) {
+%     return -ENODEV;
+% }
+% short_base = (unsigned long) ioremap(short_base,
+%               SHORT_NR_PORTS);
+%
+% /* releasing region on cleanup */
+% iounmap((void __iomem *) short_base);
+% release_mem_region(short_base, SHORT_NR_PORTS);
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Read}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+int retval = count;
+int minor = iminor(filp->f_dentry->d_inode);
+unsigned long port = short_base + (minor & 0x0f);
+unsigned char *kbuf, *ptr;
+
+kbuf = kmalloc(count, GFP_KERNEL);
+if (!kbuf)
+    return -ENOMEM;
+
+/* do the I/O */
+
+kfree(kbuf);
+return retval;
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Read}
+
+  \begin{exampleblock}{do the I/O}
+    \begin{lstlisting}
+ptr = kbuf;
+while (count--)
+{
+    *(ptr++) = inb(port);
+    rmb();
+}
+if ((retval > 0) && copy_to_user(buf, kbuf, retval))
+    retval = -EFAULT;
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Write}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+if (copy_from_user(kbuf, buf, count))
+    return -EFAULT;
+ptr = kbuf;
+while (count--)
+{
+    outb(*(ptr++), port);
+    wmb();
+}
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
