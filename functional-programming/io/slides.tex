@@ -17,8 +17,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
         showstringspaces=false, frame=ltrb}
-\lstset{language=haskell, deletestring=[b]{"},
-        deletekeywords={cycle}}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -110,19 +109,19 @@
     \item how about a function that reads in a value of the desired type\\
       from the input?\\
       \smallskip
-      \lstinline{inputInt :: Integer}
+      \lstinline|inputInt :: Integer|
 
     \pause
     \medskip
     \item breaks reasoning:\\
       \smallskip
-      \lstinline{inputDiff = inputInt - inputInt}
+      \lstinline|inputDiff = inputInt - inputInt|
 
     \medskip
     \item any function might be affected:\\
       \smallskip
-      \lstinline{foo :: Integer -> Integer}\\
-      \lstinline{foo n = inputInt + n}\\
+      \lstinline|foo :: Integer -> Integer|\\
+      \lstinline|foo n = inputInt + n|\\
   \end{itemize}
 \end{frame}
 
@@ -130,16 +129,16 @@
   \frametitle{I/O Type}
 
   \begin{itemize}
-    \item new type: \lstinline{IO a}\\
+    \item new type: \lstinline|IO a|\\
       a program which will do some I/O and return a value of type \texttt{a}
 
     \medskip
     \item instead of:\\
       \smallskip
-      \lstinline{inputInt :: Integer}
+      \lstinline|inputInt :: Integer|
     \item we have:\\
       \smallskip
-      \lstinline{inputInt :: IO Integer}
+      \lstinline|inputInt :: IO Integer|
 
     \pause
     \medskip
@@ -153,18 +152,18 @@
   \frametitle{I/O Type}
 
   \begin{itemize}
-    \item if I/O doesn't produce a result: \lstinline{IO ()}
+    \item if I/O doesn't produce a result: \lstinline|IO ()|
 
     \medskip
     \item output:\\
       \smallskip
-      \lstinline{putStr :: String -> IO ()}\\
-      \lstinline{putStrLn :: String -> IO ()}
+      \lstinline|putStr :: String -> IO ()|\\
+      \lstinline|putStrLn :: String -> IO ()|
 
     \smallskip
     \item input:\\
       \smallskip
-      \lstinline{getLine :: IO String}\\
+      \lstinline|getLine :: IO String|\\
   \end{itemize}
 \end{frame}
 
@@ -172,7 +171,7 @@
   \frametitle{Program Start}
 
   \begin{itemize}
-    \item entry point of the program: \lstinline{main}
+    \item entry point of the program: \lstinline|main|
   \end{itemize}
 
   \medskip
@@ -190,8 +189,8 @@ main = putStrLn "Hello, world!"
   \frametitle{String Conversions}
 
   \begin{itemize}
-    \item convert a type to string: \lstinline{show}
-    \item convert a string to another type: \lstinline{read}
+    \item convert a type to string: \lstinline|show|
+    \item convert a string to another type: \lstinline|read|
   \end{itemize}
 
   \begin{exampleblock}{examples}
@@ -213,14 +212,15 @@ read "3.14" :: Float  ~> 3.14
 
   \begin{itemize}
     \item I/O consists of \alert{actions} happening in a sequence
-    \item create an action sequence: \lstinline{do}
+    \item create an action sequence: \lstinline|do|
     \item small imperative programming language
 
     \medskip
     \begin{lstlisting}
-do action1
-   action2
-   ...
+do
+    action1
+    action2
+    ...
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -231,10 +231,11 @@ do action1
   \begin{exampleblock}{print a string 4 times}
     \begin{lstlisting}
 put4times :: String -> IO ()
-put4times str = do putStrLn str
-                   putStrLn str
-                   putStrLn str
-                   putStrLn str
+put4times str = do
+    putStrLn str
+    putStrLn str
+    putStrLn str
+    putStrLn str
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -243,15 +244,16 @@ put4times str = do putStrLn str
   \frametitle{Capturing Values}
 
   \begin{itemize}
-    \item capture value produced by the program: \lstinline{<-}
+    \item capture value produced by the program: \lstinline|<-|
     \item can only be used within the sequence
   \end{itemize}
 
   \begin{exampleblock}{example: reverse and print the line read from the input}
     \begin{lstlisting}
 reverseLine :: IO ()
-reverseLine = do line <- getLine
-                 putStrLn (reverse line)
+reverseLine = do
+    line <- getLine
+    putStrLn (reverse line)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -260,19 +262,20 @@ reverseLine = do line <- getLine
   \frametitle{Local Definitions}
 
   \begin{itemize}
-    \item local definitions: \lstinline{let}
+    \item local definitions: \lstinline|let|
     \item can only be used within the sequence
   \end{itemize}
 
   \begin{exampleblock}{example: reverse two lines}
     \begin{lstlisting}
 reverse2lines :: IO ()
-reverse2lines = do line1 <- getLine
-                   line2 <- getLine
-                   let rev1 = reverse line1
-                   let rev2 = reverse line2
-                   putStrLn rev2
-                   putStrLn rev1
+reverse2lines = do
+    line1 <- getLine
+    line2 <- getLine
+    let rev1 = reverse line1
+    let rev2 = reverse line2
+    putStrLn rev2
+    putStrLn rev1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -281,14 +284,15 @@ reverse2lines = do line1 <- getLine
   \frametitle{Returning Values}
 
   \begin{itemize}
-    \item returning result of sequence: \lstinline{return}
+    \item returning result of sequence: \lstinline|return|
   \end{itemize}
 
   \begin{exampleblock}{example: read an integer from the input}
     \begin{lstlisting}
 getInteger :: IO Integer
-getInteger = do line <- getLine
-                return (read line :: Integer)
+getInteger = do
+    line <- getLine
+    return (read line :: Integer)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -299,9 +303,10 @@ getInteger = do line <- getLine
   \begin{exampleblock}{copy input to output indefinitely}
     \begin{lstlisting}
 copy :: IO ()
-copy = do line <- getLine
-          putStrLn line
-          copy
+copy = do
+    line <- getLine
+    putStrLn line
+    copy
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -309,15 +314,16 @@ copy = do line <- getLine
 \begin{frame}[fragile]
   \frametitle{Conditional in Sequence}
 
-  \begin{exampleblock}{copy a number of times}
+  \begin{exampleblock}{copy input to output a number of times}
     \begin{lstlisting}
 copyN :: Integer -> IO ()
 copyN n =
     if n <= 0
         then return ()
-        else do line <- getLine
-                putStrLn line
-                copyN (n-1)
+        else do
+            line <- getLine
+            putStrLn line
+            copyN (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -328,11 +334,13 @@ copyN n =
   \begin{exampleblock}{copy until input line is empty}
     \begin{lstlisting}
 copyEmpty :: IO ()
-copyEmpty = do line <- getLine
-               if line == ""
-                   then return ()
-                   else do putStrLn line
-                           copyEmpty
+copyEmpty = do
+    line <- getLine
+    if line == ""
+        then return ()
+        else do
+            putStrLn line
+            copyEmpty
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -353,9 +361,8 @@ copyEmpty = do line <- getLine
 data Move = Rock | Paper | Scissors
             deriving Show
 
-type Match = ([Move],[Move])
-
--- ex: ([Rock,Rock,Paper], [Scissors,Paper,Rock])
+type Match = ([Move], [Move])
+-- ex: ([Rock, Rock, Paper], [Scissors, Paper, Rock])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -363,22 +370,20 @@ type Match = ([Move],[Move])
 \begin{frame}[fragile]
   \frametitle{Outcome}
 
-
   \begin{exampleblock}{outcome of one round}
     \begin{itemize}
       \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tied $\mapsto$ 0
     \end{itemize}
     \begin{lstlisting}
 outcome :: Move -> Move -> Integer
-outcome moveA moveB =
-    case (moveA, moveB) of
-      (Rock,     Scissors) ->  1
-      (Scissors, Rock)     -> -1
-      (Paper,    Rock)     ->  1
-      (Rock,     Paper)    -> -1
-      (Scissors, Paper)    ->  1
-      (Paper,    Scissors) -> -1
-      _                    ->  0
+outcome moveA moveB = case (moveA, moveB) of
+    (Rock,     Scissors) ->  1
+    (Scissors, Rock)     -> -1
+    (Paper,    Rock)     ->  1
+    (Rock,     Paper)    -> -1
+    (Scissors, Paper)    ->  1
+    (Paper,    Scissors) -> -1
+    _                    ->  0
     \end{lstlisting}
   \end{exampleblock}
 
@@ -386,32 +391,31 @@ outcome moveA moveB =
   \vspace{-12pt}
   \begin{itemize}
     \item exercise: determine the outcome of a match\\
-      \lstinline{matchOutcome [Rock,Paper] [Paper,Scissors] ~> -2}
+      \lstinline|matchOutcome [Rock, Paper] [Paper, Scissors] ~> -2|
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{String Conversions}
 
-  \begin{exampleblock}{convert round to string}
+  \begin{exampleblock}{convert a round in the game to string}
     \begin{lstlisting}
-showRound :: (Move,Move) -> String
-showRound (moveA,moveB) =
-    "A plays: " ++ show moveA ++
-    ", B plays: " ++ show moveB
+showRound :: (Move, Move) -> String
+showRound (moveA, moveB) = "A plays: " ++ show moveA
+    ++ ", B plays: " ++ show moveB
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \vspace{-12pt}
   \begin{itemize}
-    \item exercise: match result as a string\\
-      \lstinline{showResult [Rock,Paper] [Paper,Scissors]}\\
-      $\rightsquigarrow$ \lstinline{"Player B wins by 2"}
+    \item exercise: convert match result to string\\
+      \lstinline|showResult [Rock, Paper] [Paper, Scissors]|\\
+      \lstinline|    ~> "Player B wins by 2"|
 
       \smallskip
-      \lstinline{showResult [Rock,Paper] [Paper,Rock]}\\
-      $\rightsquigarrow$ \lstinline{"It's a tie"}
+      \lstinline|showResult [Rock, Paper] [Paper, Rock]|\\
+      \lstinline|    ~> "It's a tie"|
   \end{itemize}
 \end{frame}
 
@@ -424,7 +428,7 @@ showRound (moveA,moveB) =
     \item a strategy is a function that selects a move\\
       based on the previous moves of the opponent:\\
       \smallskip
-      \lstinline{[Move] -> Move}
+      \lstinline|[Move] -> Move|
   \end{itemize}
 
   \begin{exampleblock}{always play the same move}
@@ -441,13 +445,12 @@ scissors _ = Scissors
   \frametitle{Strategies}
 
   \begin{exampleblock}{cycle through the possibilities}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={cycle}]
 cycle :: [Move] -> Move
-cycle moves =
-    case (length moves) `mod` 3 of
-      0 -> Rock
-      1 -> Paper
-      2 -> Scissors
+cycle moves = case (length moves) `mod` 3 of
+    0 -> Rock
+    1 -> Paper
+    2 -> Scissors
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -489,21 +492,22 @@ convertMove c
 \begin{frame}[fragile]
   \frametitle{Game Play}
 
-  \begin{exampleblock}{computer plays \lstinline{echo}}
+  \begin{exampleblock}{play interactively against \lstinline|echo|}
     \begin{lstlisting}
 play :: Match -> IO ()
-play (movesA,movesB) =
-    do ch <- getChar
-       putStrLn ""
-       if ch == '.'
-           then putStrLn (showResult (movesA,movesB))
-           else do let moveA = echo movesB
-                   let moveB = convertMove ch
-                   putStrLn (showRound (moveA,moveB))
-                   play (moveA:movesA, moveB:movesB)
+play (movesA, movesB) = do
+    ch <- getChar
+    putStrLn ""
+    if ch == '.'
+        then putStrLn (showResult (movesA, movesB))
+        else do
+            let moveA = echo movesB
+            let moveB = convertMove ch
+            putStrLn (showRound (moveA, moveB))
+            play (moveA:movesA, moveB:movesB)
 
 playInteractive :: IO ()
-playInteractive = play ([],[])
+playInteractive = play ([], [])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -511,19 +515,16 @@ playInteractive = play ([],[])
 \begin{frame}[fragile]
   \frametitle{Automatic Play}
 
-  \begin{itemize}
-    \item generate a match between two strategies
-  \end{itemize}
-
-  \begin{exampleblock}{\lstinline{cycle} versus \lstinline{echo}}
-    \begin{lstlisting}
+  \begin{exampleblock}{generate a match:
+      \lstinline[deletekeywords={cycle}]|cycle| versus \lstinline|echo|}
+    \begin{lstlisting}[deletekeywords={cycle}]
 generateMatch :: Integer -> Match
-generateMatch 0 = ([],[])
-generateMatch n = step (generateMatch (n-1))
+generateMatch 0 = ([], [])
+generateMatch n = step (generateMatch (n - 1))
   where
     step :: Match -> Match
-    step (movesA,movesB) = (cycle movesB : movesA,
-                            echo movesA : movesB)
+    step (movesA, movesB) = (cycle movesB : movesA,
+                             echo movesA : movesB)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
