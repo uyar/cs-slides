@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
@@ -15,7 +14,7 @@
    id="svg1"
    sodipodi:version="0.32"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="simplescull.svg"
+   sodipodi:docname="simplescull2.svg"
    inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/simplescull.png"
    inkscape:export-xdpi="72.000000"
    inkscape:export-ydpi="72.000000"
@@ -60,12 +59,12 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.0341587"
      inkscape:cx="237.32565"
-     inkscape:cy="812.88555"
+     inkscape:cy="735.52798"
      inkscape:current-layer="layer1"
      inkscape:window-width="1024"
      inkscape:window-height="698"
-     inkscape:window-x="634"
-     inkscape:window-y="208"
+     inkscape:window-x="347"
+     inkscape:window-y="88"
      showgrid="false"
      inkscape:grid-bbox="true"
      gridtolerance="3.0000000px"
@@ -98,154 +97,6 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="fill:none;fill-opacity:0.75;stroke:black;stroke-width:0.73308706pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect1061"
-       width="80.654755"
-       height="54.888565"
-       x="349.02591"
-       y="339.61523"
-       rx="15.674526"
-       ry="6.656517"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <rect
-       style="fill:none;fill-opacity:0.75;stroke:black;stroke-width:0.56610236pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect1064"
-       width="110.507"
-       height="149.18257"
-       x="85.512184"
-       y="329.72955"
-       ry="0"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.81063342;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-       d="M 85.620087,354.48035 L 195.40394,354.48035"
-       id="path1065"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <use
-       x="0.0000000"
-       y="0.0000000"
-       xlink:href="#path1065"
-       id="use1687"
-       transform="translate(0.000000,25.00000)"
-       width="744.09448"
-       height="1052.3622"
-       style="stroke-width:0.93750000;stroke-miterlimit:4.0000000"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#use1687"
-       id="use1688"
-       transform="translate(0,76)"
-       width="744.09448"
-       height="1052.3622"
-       style="stroke-width:0.9375;stroke-miterlimit:4"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-       id="path1689"
-       sodipodi:cx="148.99518"
-       sodipodi:cy="127.44045"
-       sodipodi:rx="5.0384841"
-       sodipodi:ry="3.5989172"
-       d="M 154.03366 127.44045 A 5.0384841 3.5989172 0 1 1  143.95669,127.44045 A 5.0384841 3.5989172 0 1 1  154.03366 127.44045 z"
-       transform="matrix(0.686731,0.000000,0.000000,1.000000,36.84270,216.2431)"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:0.70889443;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutL);stroke-miterlimit:4;stroke-opacity:1"
-       d="M 138.37146,343.52718 C 138.37146,343.52718 364.66887,344.1781 334.01656,352.31462 C 303.36423,360.45114 263.62974,364.68213 285.57832,366.47216 C 307.5269,368.26219 345.74769,368.91311 345.74769,368.91311"
-       id="path2315"
-       sodipodi:nodetypes="cccc"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="348.51404"
-       y="333.08075"
-       id="text4945"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"><tspan
-         sodipodi:role="line"
-         id="tspan4946"
-         x="348.51404"
-         y="333.08075">Quantum</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12.000000;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
-       x="404.07272"
-       y="129.33766"
-       id="text4952"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"
-       transform="translate(-304.8049,195.1057)"><tspan
-         sodipodi:role="line"
-         id="tspan4953"
-         x="404.07272"
-         y="129.33766">Quantum Set</tspan></text>
-    <rect
-       style="fill:none;fill-opacity:0.75;stroke:black;stroke-width:0.73308706pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect4971"
-       width="80.654755"
-       height="54.888565"
-       x="349.89075"
-       y="430.23486"
-       rx="15.674526"
-       ry="6.656517"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="349.33215"
-       y="423.02527"
-       id="text4972"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"><tspan
-         sodipodi:role="line"
-         id="tspan4973"
-         x="349.33215"
-         y="423.02527">Quantum</tspan></text>
-    <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:0.79232013;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutL);stroke-miterlimit:4;stroke-opacity:1"
-       d="M 138.44772,366.76049 C 138.44772,366.76049 298.40505,363.61128 267.94705,394.94356 C 237.48905,426.27581 262.91191,448.22439 284.72134,455.11748 C 306.53079,462.01056 344.50928,464.51716 344.50928,464.51716"
-       id="path4975"
-       sodipodi:nodetypes="cccc"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-       id="path4976"
-       sodipodi:cx="148.99518"
-       sodipodi:cy="127.44045"
-       sodipodi:rx="5.0384841"
-       sodipodi:ry="3.5989172"
-       d="M 154.03366 127.44045 A 5.0384841 3.5989172 0 1 1  143.95669,127.44045 A 5.0384841 3.5989172 0 1 1  154.03366 127.44045 z"
-       transform="matrix(0.686731,0.000000,0.000000,1.000000,36.93420,238.8173)"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
     <rect
        style="fill:none;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.1151621;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
        id="rect5627"
@@ -681,27 +532,6 @@
          id="tspan8258"
          x="404.07272"
          y="129.33766">scull_dev</tspan></text>
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-       id="path8261"
-       sodipodi:cx="148.99518"
-       sodipodi:cy="127.44045"
-       sodipodi:rx="5.0384841"
-       sodipodi:ry="3.5989172"
-       d="M 154.03366 127.44045 A 5.0384841 3.5989172 0 1 1  143.95669,127.44045 A 5.0384841 3.5989172 0 1 1  154.03366 127.44045 z"
-       transform="matrix(0.686731,0.000000,0.000000,1.000000,1.470859,62.94448)"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.95376080;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;marker-end:url(#TriangleOutL)"
-       d="M 100.34985,190.13006 C 100.34985,190.13006 61.015941,203.99532 51.227853,229.27757 C 41.439766,254.55983 39.591512,320.10818 59.836659,329.78597 C 80.081806,339.46375 78.002763,338.33748 79.944777,338.33748"
-       id="path8262"
-       sodipodi:nodetypes="cccc"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
     <text
        xml:space="preserve"
        style="font-size:12.000000;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
@@ -771,133 +601,5 @@
          id="tspan12074"
          x="121.18774"
          y="44.639473">scull_devices</tspan></text>
-    <rect
-       style="fill:none;fill-opacity:1;stroke:black;stroke-width:0.91071177;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-       id="rect1191"
-       width="104.49087"
-       height="54.584942"
-       x="94.372917"
-       y="51.336071" />
-    <use
-       x="0.0000000"
-       y="0.0000000"
-       xlink:href="#use1687"
-       id="use1193"
-       transform="matrix(0.964814,0.000000,0.000000,1.000000,10.57313,-293.3966)"
-       width="744.09448"
-       height="1052.3622"
-       style="stroke-width:0.93750000;stroke-miterlimit:4.0000000"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:12.000000;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
-       x="121.18774"
-       y="44.639473"
-       id="text1194"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"
-       transform="translate(-7.808600,53.33600)"><tspan
-         sodipodi:role="line"
-         id="tspan1195"
-         x="121.18774"
-         y="44.639473">private_data</tspan></text>
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-       id="path1197"
-       sodipodi:cx="148.99518"
-       sodipodi:cy="127.44045"
-       sodipodi:rx="5.0384841"
-       sodipodi:ry="3.5989172"
-       d="M 154.03366 127.44045 A 5.0384841 3.5989172 0 1 1  143.95669,127.44045 A 5.0384841 3.5989172 0 1 1  154.03366 127.44045 z"
-       transform="matrix(0.686731,0.000000,0.000000,1.000000,2.996990,-33.38803)"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:black;stroke-width:0.91071177;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-       id="rect1834"
-       width="104.49087"
-       height="54.584942"
-       x="231.99477"
-       y="51.336071" />
-    <use
-       x="0.0000000"
-       y="0.0000000"
-       xlink:href="#use1687"
-       id="use1835"
-       transform="matrix(0.964814,0.000000,0.000000,1.000000,148.0731,-293.3966)"
-       width="744.09448"
-       height="1052.3622"
-       style="stroke-width:0.93750000;stroke-miterlimit:4.0000000"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:12.000000;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
-       x="121.18774"
-       y="44.639473"
-       id="text1836"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"
-       transform="translate(129.6914,53.33600)"><tspan
-         sodipodi:role="line"
-         id="tspan1837"
-         x="121.18774"
-         y="44.639473">private_data</tspan></text>
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
-       id="path1839"
-       sodipodi:cx="148.99518"
-       sodipodi:cy="127.44045"
-       sodipodi:rx="5.0384841"
-       sodipodi:ry="3.5989172"
-       d="M 154.03366 127.44045 A 5.0384841 3.5989172 0 1 1  143.95669,127.44045 A 5.0384841 3.5989172 0 1 1  154.03366 127.44045 z"
-       transform="matrix(0.686731,0.000000,0.000000,1.000000,140.4970,-33.38803)"
-       inkscape:export-filename="/home/uyar/Documents/ders/sysprog/images/text12073.png"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <path
-       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.93750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;marker-end:url(#TriangleOutL);"
-       d="M 106.81078,94.301857 C 106.81078,94.301857 75.976637,84.766836 65.346716,106.02668 C 54.716795,127.28652 51.309906,139.24943 52.502268,155.29226 C 73.762111,171.33508 73.387284,165.50905 79.213327,164.86171"
-       id="path1840"
-       sodipodi:nodetypes="cccc" />
-    <path
-       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.93750000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;marker-end:url(#TriangleOutL);"
-       d="M 242.75177,93.007180 L 218.15293,143.64018"
-       id="path2475"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="94.714363"
-       y="42.048874"
-       id="text3109"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"><tspan
-         sodipodi:role="line"
-         id="tspan3110"
-         x="94.714363"
-         y="42.048874">filp</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="234.71434"
-       y="42.048874"
-       id="text3112"
-       inkscape:export-xdpi="72.000000"
-       inkscape:export-ydpi="72.000000"><tspan
-         sodipodi:role="line"
-         id="tspan3113"
-         x="234.71434"
-         y="42.048874">filp</tspan></text>
   </g>
 </svg>
