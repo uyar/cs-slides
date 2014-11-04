@@ -366,20 +366,20 @@ pairs = [(3, 2), (1, 3), (2, 1)]
 \begin{frame}[fragile]
   \frametitle{Sorting}
 
-  \begin{exampleblock}{parameterize \lstinline|quickSort| regarding comparison
+  \begin{exampleblock}{parameterize \lstinline|qSort| regarding comparison
       function}
     \begin{lstlisting}
-quickSort :: (a -> a -> Bool) -> [a] -> [a]
-quickSort before []         = []
-quickSort before (pivot:xs) =
-    quickSort before [x | x <- xs, x `before` pivot]
-    ++ [pivot]
-    ++ quickSort before [x | x <- xs,
-                             not (x `before` pivot)]
+qSort :: (a -> a -> Bool) -> [a] -> [a]
+qSort precedes []     = []
+qSort precedes (x:xs) =
+    qSort precedes before ++ [x] ++ qSort precedes after
+      where
+        before = [a | a <- xs, a `precedes` x]
+        after  = [b | b <- xs, not (b `precedes` x)]
 
--- quickSort (<=) [4, 5, 3]       ~> [3, 4, 5]
--- quickSort (>)  [4, 5, 3]       ~> [5, 4, 3]
--- quickSort (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
+-- qSort (<=) [4, 5, 3]       ~> [3, 4, 5]
+-- qSort (>)  [4, 5, 3]       ~> [5, 4, 3]
+-- qSort (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}

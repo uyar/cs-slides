@@ -283,12 +283,13 @@ countUp lower upper
 
   \begin{exampleblock}{quick sort}
     \begin{lstlisting}
-quickSort :: [Integer] -> [Integer]
-quickSort []         = []
-quickSort (pivot:xs) =
-    quickSort [x | x <- xs, x <= pivot]
-    ++ [pivot]
-    ++ quickSort [x | x <- xs, x > pivot]
+qSort :: [Integer] -> [Integer]
+qSort []     = []
+qSort (x:xs) =
+    qSort smaller ++ [x] ++ qSort larger
+      where
+        smaller = [a | a <- xs, a <= x]
+        larger  = [b | b <- xs, b >  x]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
