@@ -128,20 +128,36 @@ length "word"  ~> 4
 
   \begin{itemize}
     \item indexing operator: \lstinline|!!|
+    \begin{lstlisting}[frame=none]
+"word" !! 2   ~> 'r'
+(!!) "word" 2 ~> 'r'
+    \end{lstlisting}
   \end{itemize}
 
-  \begin{exampleblock}{get the n-th element of a list}
-    \begin{lstlisting}[frame=none]
-"word" !! 2     ~> 'r'
-getNth "word" 2 ~> 'r'
-    \end{lstlisting}
-
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}
-getNth :: [a] -> Integer -> a
-getNth []     _ = error "empty list"
-getNth (x:xs) 0 = x
-getNth (x:xs) n = getNth xs (n - 1)
+(!!) :: [a] -> Integer -> a
+(!!) []     _ = error "no such element"
+(!!) (x:xs) 0 = x
+(!!) (x:xs) n = (!!) xs (n - 1)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Indexing}
+
+  \begin{itemize}
+    \item use the infix operator notation
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+(!!) :: [a] -> Integer -> a
+[]     !! _ = error "no such element"
+(x:xs) !! 0 = x
+(x:xs) !! n = xs !! (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -150,20 +166,17 @@ getNth (x:xs) n = getNth xs (n - 1)
   \frametitle{Appending Lists}
 
   \begin{itemize}
-    \item appending operator: \lstinline|++|
-  \end{itemize}
-
-  \begin{exampleblock}{add a list at the end of another list}
+    \item append operator: \lstinline|++|
     \begin{lstlisting}[frame=none]
 "word" ++ "smith"     ~> "wordsmith"
-append "word" "smith" ~> "wordsmith"
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}
-append :: [a] -> [a] -> [a]
-append []     ys = ys
-append (x:xs) ys = x : append xs ys
+(++) :: [a] -> [a] -> [a]
+[]     ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -287,13 +300,16 @@ quickSort (pivot:xs) =
 \begin{frame}[fragile]
   \frametitle{Membership Check}
 
-  \begin{exampleblock}{check whether an element is a member of a list}
+  \begin{itemize}
+    \item check whether an element is a member of a list
     \begin{lstlisting}[frame=none]
 elem 'r' "word" ~> True
 elem 'x' "word" ~> False
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={elem}]
 elem :: Char -> [Char] -> Bool
 elem _ []     = False
@@ -313,12 +329,15 @@ replicate 3 'c' ~> "ccc"
 \begin{frame}[fragile]
   \frametitle{Last Element}
 
-  \begin{exampleblock}{get the last element of a list}
+  \begin{itemize}
+    \item get the last element of a list
     \begin{lstlisting}[frame=none]
 last "word" ~> 'd'
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={last}]
 last :: [a] -> a
 last []     = error "empty list"
@@ -339,12 +358,15 @@ init "word" ~> "wor"
 \begin{frame}[fragile]
   \frametitle{Split}
 
-  \begin{exampleblock}{take n elements from the front of a list}
+  \begin{itemize}
+    \item take n elements from the front of a list
     \begin{lstlisting}[frame=none]
 take 3 "Peccary" ~> "Pec"
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={take}]
 take :: Integer -> [a] -> [a]
 take 0 _      = []
@@ -370,12 +392,15 @@ splitAt 3 "Peccary" ~> ("Pec", "cary")
 \begin{frame}[fragile]
   \frametitle{Reverse}
 
-  \begin{exampleblock}{reverse a list}
+  \begin{itemize}
+    \item reverse a list
     \begin{lstlisting}[frame=none]
 reverse "word" ~> "drow"
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={reverse}]
 reverse :: [a] -> [a]
 reverse []     = []
@@ -387,12 +412,15 @@ reverse (x:xs) = (reverse xs) ++ [x]
 \begin{frame}[fragile]
   \frametitle{Concatenate}
 
-  \begin{exampleblock}{convert a list of lists into a list}
+  \begin{itemize}
+    \item convert a list of lists of items into a list of items
     \begin{lstlisting}[frame=none]
 concat [[2, 3], [], [4] ~> [2, 3, 4]
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={concat}]
 concat :: [[a]] -> [a]
 concat []       = []
@@ -411,12 +439,15 @@ concat (xs:xss) = xs ++ concat xss
 \begin{frame}[fragile]
   \frametitle{Zip}
 
-  \begin{exampleblock}{convert two lists into a list of pairs}
+  \begin{itemize}
+    \item convert two lists into a list of pairs
     \begin{lstlisting}[frame=none]
 zip [1, 2] "ab" ~> [(1, 'a'), (2, 'b')]
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={zip}]
 zip :: [a] -> [b] -> [(a, b)]
 zip []     []     = []
@@ -436,7 +467,7 @@ zip [1, 2] "abc" ~> [(1, 'a'), (2, 'b')]
 \begin{frame}[fragile]
   \frametitle{Zip}
 
-  \begin{exampleblock}{convert two lists into a list of pairs}
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={zip}]
 zip :: [a] -> [b] -> [(a, b)]
 zip (x:xs) (y:ys) = (x, y) : zip xs ys
@@ -457,12 +488,15 @@ zip3 [1, 2] "abc" [7, 4]
 \begin{frame}[fragile]
   \frametitle{Unzip}
 
-  \begin{exampleblock}{convert a list of pairs into a pair of lists}
+  \begin{itemize}
+    \item convert a list of pairs into a pair of lists
     \begin{lstlisting}[frame=none]
 unzip [(1, 'a'), (2, 'b')] ~> ([1, 2], "ab")
     \end{lstlisting}
+  \end{itemize}
 
-    \pause
+  \pause
+  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={unzip}]
 unzip :: [(a, b)] -> ([a], [b])
 unzip []           = ([], [])
@@ -550,11 +584,11 @@ merge (x:xs) (y:ys)
   \begin{exampleblock}{merge two ordered lists}
     \begin{lstlisting}
 merge :: [Integer] -> [Integer] -> [Integer]
-merge xs     []             = xs
-merge []     ys             = ys
-merge xs@(x:xs') ys@(y:ys')
-  | x <= y                  = x : merge xs' ys
-  | otherwise               = y : merge xs  ys'
+merge xs          []          = xs
+merge []          ys          = ys
+merge xs@(x':xs') ys@(y':ys')
+  | x' <= y'                  = x' : merge xs' ys
+  | otherwise                 = y' : merge xs  ys'
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
