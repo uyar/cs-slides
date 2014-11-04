@@ -8,11 +8,16 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
+        showstringspaces=false, frame=ltrb}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -41,8 +46,6 @@
 
 \begin{document}
 
-\setpythontexfv[]{frame=single}
-
 \begin{frame}
   \titlepage
 \end{frame}
@@ -54,32 +57,35 @@
   \copyright~2013-2014 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
+  \begin{footnotesize}
     You are free to:
     \begin{itemize}
+      \itemsep0em
       \item Share -- copy and redistribute the material in any medium or format
       \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
     Under the following terms:
     \begin{itemize}
+      \itemsep0em
       \item Attribution -- You must give appropriate credit, provide a link to
-        the license, and indicate if changes were made.\\
-        You may do so in any reasonable manner, but not in any way
-        that suggests the licensor endorses you or your use.
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use the material for commercial
+      \item NonCommercial -- You may not use the material for commercial
         purposes.
 
-      \item Share Alike -- If you remix, transform, or build upon the material,
-        you must distribute your contributions\\
-        under the same license as the original.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
   \begin{small}
-    Legal code (the full license):\\
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
@@ -91,10 +97,10 @@
 
 \section{Function Closures}
 
-\subsection{Returning Functions}
+\subsection{Functions as Result}
 
 \begin{frame}
-  \frametitle{Returning Functions}
+  \frametitle{Functions as Result}
 
   \begin{itemize}
     \item higher order functions can return functions as result
@@ -119,7 +125,7 @@
   \frametitle{Returning Functions}
 
   \begin{exampleblock}{body surface area}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 duBois :: Float -> Float -> Float
 duBois h w = 0.007184 * (h ** 0.725) * (w ** 0.425)
 
@@ -130,9 +136,9 @@ boyd h w = 0.0333 * (h ** 0.3) *
 bsa :: Integer -> (Float -> Float -> Float)
 bsa age = if age < 3 then boyd else duBois
 
-(bsa 20) 180 75  -- 1.9424062
-(bsa 2) 86 13    -- 0.58253276
-    \end{pygments}
+-- (bsa 20) 180 75  ~> 1.9424062
+-- (bsa 2)  86 13   ~> 0.58253276
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -145,6 +151,9 @@ bsa age = if age < 3 then boyd else duBois
     \medskip
     \item the code
     \item the environment that was current when the function was defined
+
+    \medskip
+    \item function \alert{closure}
   \end{itemize}
 \end{frame}
 
@@ -152,7 +161,7 @@ bsa age = if age < 3 then boyd else duBois
   \frametitle{Function Closure Example}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 stepRange :: Integer ->
                 (Integer -> Integer -> [Integer])
 stepRange step = getRange
@@ -162,12 +171,12 @@ stepRange step = getRange
 
 step1 :: Integer -> Integer -> [Integer]
 step1 = stepRange 1
--- step1 3 7 -> [3, 4, 5, 6, 7]
+-- step1 3 7 ~> [3, 4, 5, 6, 7]
 
 step5 :: Integer -> Integer -> [Integer]
 step5 = stepRange 5
--- step5 9 20 -> [9, 14, 19]
-    \end{pygments}
+-- step5 9 20 ~> [9, 14, 19]
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -175,15 +184,16 @@ step5 = stepRange 5
   \frametitle{Function Closure Example}
 
   \begin{exampleblock}{Python}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=Python]
 def step_range(step):
     def get_range(m, n):
         return range(m, n + 1, step)
     return get_range
 
 step1 = step_range(1)
-step1(3, 7)            # [3, 4, 5, 6, 7]
-    \end{pygments}
+
+# step1(3, 7)  ~> [3, 4, 5, 6, 7]
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -197,8 +207,8 @@ step1(3, 7)            # [3, 4, 5, 6, 7]
       of its function parameter
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{python}
+  \begin{exampleblock}{example: entry and exit messages}
+    \begin{lstlisting}[language=Python]
 def entry_exit(f):
     def wrapped(x):
         print("Entering with parameter: %s" % x)
@@ -206,7 +216,7 @@ def entry_exit(f):
         print("Exiting with result: %s" % result)
         return result
     return wrapped
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -214,22 +224,22 @@ def entry_exit(f):
   \frametitle{Decorator Example}
 
   \begin{exampleblock}{}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=Python]
 def fact(n):
     return 1 if n == 0 else n * fact(n - 1)
 
-entry_exit(fact)(5)
-    \end{pygments}
+# entry_exit(fact)(5)
+    \end{lstlisting}
 
     \pause
     \medskip
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=Python]
 @entry_exit
 def fact(n):
     return 1 if n == 0 else n * fact(n - 1)
 
-fact(5)
-    \end{pygments}
+# fact(5)
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -237,7 +247,7 @@ fact(5)
   \frametitle{Decorator Example}
 
   \begin{exampleblock}{memoization}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=Python]
 def memoize(f):
     cache = {}
     def wrapped(x):
@@ -245,22 +255,22 @@ def memoize(f):
             cache[x] = f(x)
         return cache[x]
     return wrapped
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Decorator Example}
 
-  \begin{exampleblock}{Fibonacci sequence}
-    \begin{pygments}{python}
+  \begin{exampleblock}{memoized Fibonacci sequence}
+    \begin{lstlisting}[language=Python]
 @memoize
 def fib(n):
     if n == 1 or n == 2:
         return 1
     else:
         return fib(n - 2) + fib(n - 1)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -279,6 +289,8 @@ def fib(n):
     \bigskip
     \item \alert{partial application}: call with fewer paratemers,\\
       obtain a function that expects the remaining parameters
+
+    \item in function signatures, arrows associate to the right
   \end{itemize}
 \end{frame}
 
@@ -286,42 +298,45 @@ def fib(n):
   \frametitle{Currying Example}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 add :: Integer -> Integer -> Integer
 add x y = x + y
 
--- same as: add :: Integer -> (Integer -> Integer)
-    \end{pygments}
+-- same as:
+add :: Integer -> (Integer -> Integer)
+add x = \y -> x + y
 
-    \pause
-    \medskip
-    \begin{pygments}{haskell}
 increment :: Integer -> Integer
 increment = add 1
 
-increment 7
-    \end{pygments}
+-- increment 7
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Currying}
+  \frametitle{Currying Examples}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 floorAll :: [Float] -> [Integer]
 floorAll xs = map floor xs
-
-allOdds :: [Integer] -> [Integer]
-allOdds xs = filter odd xs
 
 -- same as:
 floorAll :: [Float] -> [Integer]
 floorAll = map floor
+    \end{lstlisting}
+  \end{exampleblock}
 
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+allOdds :: [Integer] -> [Integer]
+allOdds xs = filter odd xs
+
+-- same as:
 allOdds :: [Integer] -> [Integer]
 allOdds = filter odd
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -329,7 +344,7 @@ allOdds = filter odd
   \frametitle{Currying Example}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 stepRange' :: Integer -> Integer -> Integer ->
                   [Integer]
 stepRange' step m n = [m, m + step .. n]
@@ -341,53 +356,49 @@ step1' = stepRange' 1
 naturals :: Integer -> [Integer]
 -- naturals n = stepRange' 1 0 n
 naturals = stepRange' 1 0
-    \end{pygments}
+-- naturals n = step1' 0 n
+-- naturals = step1' 0
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Currying vs Tupling}
+  \frametitle{Currying Functions}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-add1 :: Integer -> Integer -> Integer
-add1 x y = x + y
+  \begin{itemize}
+    \item convert a function that takes a pair\\
+      into an equivalent function that takes two parameters
+  \end{itemize}
 
-add2 :: (Integer, Integer) -> Integer
-add2 (x, y) = x + y
-    \end{pygments}
-  \end{exampleblock}
+  \begin{lstlisting}[deletekeywords={curry}]
+curry :: ((a, b) -> c) -> (a -> b -> c)
+curry f = \x y -> f (x, y)
+
+-- same as:
+curry :: ((a, b) -> c) -> a -> b -> c
+curry f x y = f (x, y)
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Currying vs Tupling}
-
-  \begin{itemize}
-    \item a function that will convert a function that takes two parameters\\
-      into an equivalent function that takes a pair
-  \end{itemize}
+  \frametitle{Currying Functions}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-uncurry' :: (a -> b -> c) -> ((a, b) -> c)
-uncurry' f = \(x, y) -> f x y
+    \begin{lstlisting}
+addT :: (Integer, Integer) -> Integer
+addT (x, y) = x + y
 
-(uncurry' add1) (5, 8)
-    \end{pygments}
+addC = curry addT
+    \end{lstlisting}
   \end{exampleblock}
 
-  \pause
   \begin{itemize}
-    \item note that \pygment{haskell}{f = \x -> e}\\
-      is equivalent to: \pygment{haskell}{f x = e}
+    \item exercise: convert a function that two parameters\\
+      into an equivalent function that takes a pair:\\
+    \begin{lstlisting}[deletekeywords={uncurry}]
+uncurry addC    -- same as addT
+    \end{lstlisting}
   \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-uncurry' :: (a -> b -> c) -> ((a, b) -> c)
-uncurry' f (x, y) = f x y
-    \end{pygments}
-  \end{exampleblock}
 \end{frame}
 
 \section{Function Operators}
@@ -398,20 +409,20 @@ uncurry' f (x, y) = f x y
   \frametitle{Function Composition}
 
   \begin{block}{function composition}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 (f . g) = f (g x)
-    \end{pygments}
+    \end{lstlisting}
   \end{block}
 
   \pause
   \begin{itemize}
-    \item what is the type of \pygment{haskell}{(.)}?
+    \item what is the type of \lstinline|(.)|?
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 (.) : (b -> c) -> (a -> b) -> a -> c
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -419,18 +430,18 @@ uncurry' f (x, y) = f x y
   \frametitle{Function Composition Example}
 
   \begin{exampleblock}{test whether number is even}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 even' :: Integer -> Bool
 even' = not . odd
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{exampleblock}{second element of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 second :: [a] -> a
 second = head . tail
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -438,18 +449,18 @@ second = head . tail
   \frametitle{Function Composition Example}
 
   \begin{exampleblock}{last element of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 last' :: [a] -> a
 last' = head . reverse
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{exampleblock}{length of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 length' :: [a] -> Integer
 length' = sum . map (\_ -> 1)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -459,9 +470,9 @@ length' = sum . map (\_ -> 1)
   \frametitle{Function Application}
 
   \begin{block}{function application}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 f $ x = f x
-    \end{pygments}
+    \end{lstlisting}
   \end{block}
 
   \begin{itemize}
@@ -469,12 +480,12 @@ f $ x = f x
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 sum (filter odd (map (floor . sqrt) [1 .. 100]))
 
 -- same as:
 sum $ filter odd $ map (floor . sqrt) [1 .. 100]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -486,10 +497,10 @@ sum $ filter odd $ map (floor . sqrt) [1 .. 100]
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-zipWith (\$) [sum, product] [[1, 2], [3, 4]]
+    \begin{lstlisting}
+zipWith ($) [sum, product] [[1, 2], [3, 4]]
 -- [3, 12]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -504,14 +515,14 @@ zipWith (\$) [sum, product] [[1, 2], [3, 4]]
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 (+2) 5                      -- 7
 (>2) 5                      -- True
 (2>) 5                      -- False
 filter (4>) [5, 2, 3, 7]    -- [2, 3]
 map (`div` 2) [5, 2, 3, 7]  -- [2, 1, 1, 3]
 (map (*2) . filter ((==1) . (`mod` 2))) [5, 2, 3, 6]
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -525,13 +536,13 @@ map (`div` 2) [5, 2, 3, 7]  -- [2, 1, 1, 3]
 %   \end{itemize}
 %
 %   \begin{exampleblock}{}
-%     \begin{pygments}{haskell}
+%     \begin{lstlisting}
 % averageDamp :: (Float -> Float) -> Float -> Float
 % averageDamp f x = (x + f x) / 2.0
 %
 % sqrt' :: Float -> Float
 % sqrt' x = fixedPoint (averageDamp (\y -> x / y)) 1.0
-%     \end{pygments}
+%     \end{lstlisting}
 %   \end{exampleblock}
 % \end{frame}
 
