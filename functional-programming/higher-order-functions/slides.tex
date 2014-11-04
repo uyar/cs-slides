@@ -391,10 +391,9 @@ qSort precedes (x:xs) =
 
   \begin{itemize}
     \item no need to name small functions that are not used anywhere else\\
-      $\rightarrow$ \alert{anonymous functions}
-    \item anonymous functions can't be recursive
+      $\rightarrow$ \alert{anonymous} functions
     \begin{lstlisting}
-      \fp1 fp2 ... -> e
+\fp1 fp2 ... -> e
     \end{lstlisting}
   \end{itemize}
 
@@ -411,9 +410,18 @@ sumSqr a b = sumF (\x -> x * x) a b
 \begin{frame}[fragile]
   \frametitle{Anonymous Functions}
 
+  \begin{itemize}
+    \item \lstinline|f x = e| is the same as \lstinline|f = \x -> e|
+    \item except that anonymous functions can't be recursive
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Anonymous Functions}
+
   \begin{block}{Python}
     \begin{lstlisting}[language=Python]
-      lambda fp1, fp2, ...: e
+lambda fp1, fp2, ...: e
     \end{lstlisting}
   \end{block}
 
