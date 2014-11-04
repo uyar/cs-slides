@@ -17,8 +17,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
         showstringspaces=false, frame=ltrb}
-\lstset{language=haskell, deletestring=[b]{"},
-        deletekeywords={next,sqrt}}
+\lstset{language=Haskell, deletekeywords={next}}
 
 \mode<presentation>
 {
@@ -145,7 +144,7 @@
 sumSqr :: Integer -> Integer -> Integer
 sumSqr a b
   | a > b     = 0
-  | otherwise = sqr a + sumSqr (a+1) b
+  | otherwise = sqr a + sumSqr (a + 1) b
     \end{lstlisting}
   \end{exampleblock}
 
@@ -156,7 +155,7 @@ sumSqr a b
 sumFac :: Integer -> Integer -> Integer
 sumFac a b
   | a > b     = 0
-  | otherwise = fac a + sumFac (a+1) b
+  | otherwise = fac a + sumFac (a + 1) b
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -172,7 +171,7 @@ sumFac a b
       \begin{lstlisting}
 sumFun a b
   | a > b     = 0
-  | otherwise = fun a + sumFun (a+1) b
+  | otherwise = fun a + sumFun (a + 1) b
       \end{lstlisting}
     \end{itemize}
   \end{exampleblock}
@@ -186,7 +185,7 @@ sumFun a b
       \begin{lstlisting}
 sumF f a b
   | a > b     = 0
-  | otherwise = f a + sumF f (a+1) b
+  | otherwise = f a + sumF f (a + 1) b
 
 sumSqr a b = sumF sqr a b
 sumFac a b = sumF fac a b
@@ -200,7 +199,7 @@ sumFac a b = sumF fac a b
 
   \begin{exampleblock}{}
     \begin{itemize}
-      \item what is the type of \lstinline{sumF}?
+      \item what is the type of \lstinline|sumF|?
 
       \smallskip
       \begin{lstlisting}
@@ -215,7 +214,7 @@ sumF :: (Integer -> Integer) -> Integer -> Integer
   \frametitle{Higher Order Function Example}
 
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def sum_f(f, a, b):
     total = 0
     while a <= b:
@@ -236,7 +235,7 @@ def sum_sqr(a, b):
   \frametitle{Higher Order Function Example}
 
   \begin{exampleblock}{C}
-    \begin{lstlisting}[language=c]
+    \begin{lstlisting}[language=C]
 int sum_f(int (*f)(int), int a, int b)
 {
     int total = 0;
@@ -255,7 +254,7 @@ int sum_f(int (*f)(int), int a, int b)
   \frametitle{Higher Order Function Example}
 
   \begin{exampleblock}{C}
-    \begin{lstlisting}[language=c]
+    \begin{lstlisting}[language=C]
 int sqr(int x)
 {
     return x * x;
@@ -274,7 +273,7 @@ int sum_sqr(int a, int b)
 
   \begin{exampleblock}{Rock - Paper - Scissors}
     \begin{itemize}
-      \item parameterize \lstinline{generateMatch} regarding both strategies
+      \item parameterize \lstinline|generateMatch| regarding both strategies
     \end{itemize}
 
     \begin{lstlisting}
@@ -282,13 +281,13 @@ type Strategy = [Move] -> Move
 
 generateMatch :: Strategy -> Strategy -> Integer
                  -> Match
-generateMatch _  _  0 = ([],[])
+generateMatch _  _  0 = ([], [])
 generateMatch sA sB n =
-    step (generateMatch sA sB (n-1))
+    step (generateMatch sA sB (n - 1))
       where
         step :: Match -> Match
-        step (movesA,movesB) = (sA movesB : movesA,
-                                sB movesA : movesB)
+        step (movesA, movesB) = (sA movesB : movesA,
+                                 sB movesA : movesB)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -301,11 +300,11 @@ generateMatch sA sB n =
 
   \begin{exampleblock}{}
     \begin{itemize}
-      \item in C, \lstinline[language=c]{qsort} takes comparison function
+      \item in C, \lstinline[language=C]{qsort} takes comparison function
         as parameter
     \end{itemize}
 
-    \begin{lstlisting}[language=c]
+    \begin{lstlisting}[language=C]
 typedef struct {
     int num, denom;
 } rational;
@@ -320,7 +319,7 @@ qsort(items, 3, sizeof(rational), compare_rationals);
   \frametitle{Sorting}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}[language=c]
+    \begin{lstlisting}[language=C]
 int compare_rationals(const void *r1, const void *r2)
 {
     int num1 = ((rational *) r1)->num;
@@ -328,9 +327,9 @@ int compare_rationals(const void *r1, const void *r2)
     int num2 = ((rational *) r2)->num;
     int denom2 = ((rational *) r2)->denom;
 
-    if (num1 * denom2 > num2 * denom1)
+    if (num1*denom2 > num2*denom1)
         return 1;
-    else if (num1 * denom2 < num2 * denom1)
+    else if (num1*denom2 < num2*denom1)
         return -1;
     else
         return 0;
@@ -344,11 +343,11 @@ int compare_rationals(const void *r1, const void *r2)
 
   \begin{exampleblock}{}
     \begin{itemize}
-      \item in Python, \lstinline[language=python]{sorted} takes key function
+      \item in Python, \lstinline[language=Python]{sorted} takes key function
         as parameter
     \end{itemize}
 
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def second(p):
     return p[1]
 
@@ -356,9 +355,10 @@ def value(p):
     return p[0] / p[1]
 
 pairs = [(3, 2), (1, 3), (2, 1)]
-sorted(pairs)              ~> [(1, 3), (2, 1), (3, 2)]
-sorted(pairs, key=second)  ~> [(2, 1), (3, 2), (1, 3)]
-sorted(pairs, key=value)   ~> [(1, 3), (3, 2), (2, 1)]
+
+# sorted(pairs)             ~> [(1, 3), (2, 1), (3, 2)]
+# sorted(pairs, key=second) ~> [(2, 1), (3, 2), (1, 3)]
+# sorted(pairs, key=value)  ~> [(1, 3), (3, 2), (2, 1)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -366,7 +366,7 @@ sorted(pairs, key=value)   ~> [(1, 3), (3, 2), (2, 1)]
 \begin{frame}[fragile]
   \frametitle{Sorting}
 
-  \begin{exampleblock}{parameterize \lstinline{quickSort} regarding comparison
+  \begin{exampleblock}{parameterize \lstinline|quickSort| regarding comparison
       function}
     \begin{lstlisting}
 quickSort :: (a -> a -> Bool) -> [a] -> [a]
@@ -377,9 +377,9 @@ quickSort before (pivot:xs) =
     ++ quickSort before [x | x <- xs,
                              not (x `before` pivot)]
 
-quickSort (<=) [4,5,3]       ~> [3,4,5]
-quickSort (>)  [4,5,3]       ~> [5,4,3]
-quickSort (<=) ["b","a","c"] ~> ["a","b","c"]
+-- quickSort (<=) [4, 5, 3]       ~> [3, 4, 5]
+-- quickSort (>)  [4, 5, 3]       ~> [5, 4, 3]
+-- quickSort (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -403,7 +403,7 @@ quickSort (<=) ["b","a","c"] ~> ["a","b","c"]
   \begin{exampleblock}{example}
     \begin{lstlisting}
 sumSqr :: Integer -> Integer -> Integer
-sumSqr a b = sumF (\x -> x*x) a b
+sumSqr a b = sumF (\x -> x * x) a b
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -412,21 +412,21 @@ sumSqr a b = sumF (\x -> x*x) a b
   \frametitle{Anonymous Functions}
 
   \begin{block}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
       lambda fp1, fp2, ...: e
     \end{lstlisting}
   \end{block}
 
   \medskip
   \begin{exampleblock}{example}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def sum_sqr(a, b):
     sum_func(lambda x: x * x, a, b)
     \end{lstlisting}
 
     \pause
     \bigskip
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 sorted(pairs, key=lambda p: p[0] / p[1])
     \end{lstlisting}
   \end{exampleblock}
@@ -449,7 +449,7 @@ sorted(pairs, key=lambda p: p[0] / p[1])
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Finding Fixed Points}
+  \frametitle{Fixed Points}
 
   \begin{exampleblock}{find fixed point}
     \begin{lstlisting}
@@ -478,9 +478,9 @@ fixedPoint f firstGuess = fixedPointIter firstGuess
     \end{itemize}
 
     \smallskip
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={sqrt}]
 sqrt :: Float -> Float
-sqrt x = fixedPoint (\y -> x/y) 1.0
+sqrt x = fixedPoint (\y -> x / y) 1.0
     \end{lstlisting}
   \end{exampleblock}
 
@@ -492,7 +492,7 @@ sqrt x = fixedPoint (\y -> x/y) 1.0
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={sqrt}]
 sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
     \end{lstlisting}
   \end{exampleblock}
@@ -509,9 +509,9 @@ sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
     \item transform all elements of a list
   \end{itemize}
 
-  \begin{exampleblock}{floors of all elements of a list}
+  \begin{exampleblock}{example: floors of all elements of a list}
     \begin{lstlisting}
--- [5.7,9.0,2.3] -> [5,9,2]
+-- floorAll [5.7, 9.0, 2.3] ~> [5, 9, 2]
 floorAll :: [Float] -> [Integer]
 
 -- primitive recursive
@@ -528,11 +528,11 @@ floorAll xs = [floor x | x <- xs]
   \frametitle{Map}
 
   \begin{itemize}
-    \item \lstinline{map}: apply a function to all elements of a list
+    \item \lstinline|map|: apply a function to all elements of a list
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={map}]
 -- primitive recursive
 map f []     = []
 map f (x:xs) = f x : map f xs
@@ -544,16 +544,16 @@ map f xs = [f x | x <- xs]
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline{map}?
+    \item what is the type?
   \end{itemize}
 
-  \begin{lstlisting}
+  \begin{lstlisting}[deletekeywords={map}]
 map :: (a -> b) -> [a] -> [b]
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Map}
+  \frametitle{Map Example}
 
   \begin{exampleblock}{floors of all elements of a list}
     \begin{lstlisting}
@@ -564,7 +564,7 @@ floorAll xs = map floor xs
 
   \bigskip
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 import math
 
 map(math.floor, [5.7, 9.0, 2.3])
@@ -576,25 +576,25 @@ map(math.floor, [5.7, 9.0, 2.3])
   \frametitle{Map Examples}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={replicate}]
 replicate :: Integer -> a -> [a]
-replicate n i = map (\_ -> i) [1..n]
+replicate n i = map (\_ -> i) [1 .. n]
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item zip two lists over a function\\
-      \lstinline{zipWith (+) [1,2] [10,12]} $\rightsquigarrow$
-      \lstinline{[11,14]}\\
-      \lstinline{zipWith replicate [3,2] ['a','b']} $\rightsquigarrow$
-      \lstinline{["aaa", "bb"]}
+    \item zip two lists over a function
+    \begin{lstlisting}[frame=none]
+zipWith (+)       [1, 2] [10, 12]   ~> [11, 14]
+zipWith replicate [3, 2] ['a', 'b'] ~> ["aaa", "bb"]
+    \end{lstlisting}
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={zipWith}]
 zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-zipWith f xs ys = map (\(x,y) -> f x y) (zip xs ys)
+zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -610,7 +610,7 @@ zipWith f xs ys = map (\(x,y) -> f x y) (zip xs ys)
 
   \begin{exampleblock}{all odd elements of a list}
     \begin{lstlisting}
--- [4,1,3,2] -> [1,3]
+-- allOdds [4, 1, 3, 2] ~> [1, 3]
 allOdds :: [Integer] -> [Integer]
 
 -- primitive recursive
@@ -629,11 +629,11 @@ allOdds xs = [x | x <- xs, odd x]
   \frametitle{Filter}
 
   \begin{itemize}
-    \item \lstinline{filter}: select elements that satisfy a predicate
+    \item \lstinline|filter|: select elements that satisfy a predicate
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={filter}]
 -- primitive recursive
 filter f []     = []
 filter f (x:xs)
@@ -647,7 +647,7 @@ filter f xs = [x | x <- xs, f x]
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline{filter}?
+    \item what is the type of \lstinline|filter|?
   \end{itemize}
 
   \begin{lstlisting}
@@ -656,7 +656,7 @@ filter :: (a -> Bool) -> [a] -> [a]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Filter}
+  \frametitle{Filter Example}
 
   \begin{exampleblock}{all odd elements of a list}
     \begin{lstlisting}
@@ -667,11 +667,22 @@ allOdds xs = filter odd xs
 
   \bigskip
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python]
 def odd(n):
-    return n % 2 == 1
+    return n%2 == 1
 
 filter(odd, [4, 1, 3, 2])
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Filter Example}
+
+  \begin{exampleblock}{how many elements in a list are above a threshold?}
+    \begin{lstlisting}
+howManyAbove :: Float -> [Float] -> Int
+howManyAbove t xs = length (filter (\x -> x > t) xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -680,18 +691,19 @@ filter(odd, [4, 1, 3, 2])
   \frametitle{Splitting Lists}
 
   \begin{itemize}
-    \item take elements from the front of a list while a predicate is true\\
-      \lstinline{takeWhile even [8,2,4,5,6]} $\rightsquigarrow$
-      \lstinline{[8,2,4]}
+    \item take elements from the front of a list while a predicate is true
+    \begin{lstlisting}[frame=none]
+takeWhile even [8, 2, 4, 5, 6] ~> [8, 2, 4]
+    \end{lstlisting}
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={takeWhile}]
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile f []     = []
 takeWhile f (x:xs)
-  | f x       = x : takeWhile f xs
-  | otherwise = []
+  | f x            = x : takeWhile f xs
+  | otherwise      = []
     \end{lstlisting}
   \end{exampleblock}
 
@@ -699,20 +711,10 @@ takeWhile f (x:xs)
   \begin{itemize}
     \item exercise: drop elements from the front of a list\\
       while a predicate is true\\
-      \lstinline{dropWhile even [8,2,4,5,6]} $\rightsquigarrow$
-      \lstinline{[5,6]}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fold Example}
-
-  \begin{exampleblock}{how many elements in a list are above a threshold?}
-    \begin{lstlisting}
-howManyAbove :: Float -> [Float] -> Integer
-howManyAbove t xs = length (filter (\x -> x > t) xs)
+    \begin{lstlisting}[frame=none]
+dropWhile even [8, 2, 4, 5, 6] ~> [5, 6]
     \end{lstlisting}
-  \end{exampleblock}
+  \end{itemize}
 \end{frame}
 
 \subsection{Fold}
@@ -724,9 +726,9 @@ howManyAbove t xs = length (filter (\x -> x > t) xs)
     \item reduce the elements of a list to a single value
   \end{itemize}
 
-  \begin{exampleblock}{sum all elements of a list}
-    \begin{lstlisting}
--- [2,8,5] -> 15
+  \begin{exampleblock}{sum all elements of a non-empty list}
+    \begin{lstlisting}[deletekeywords={sum}]
+-- sum [2, 8, 5] ~> 15
 sum :: [Integer] -> Integer
 sum [x]    = x
 sum (x:xs) = x + sum xs
@@ -738,11 +740,11 @@ sum (x:xs) = x + sum xs
   \frametitle{Fold}
 
   \begin{itemize}
-    \item \lstinline{foldr1}: reduce a list to a value over a function
+    \item \lstinline|foldr1|: reduce a non-empty list to a value over a function
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={foldr1}]
 foldr1 f [x]    = x
 foldr1 f (x:xs) = x `f` (foldr1 f xs)
 
@@ -754,7 +756,7 @@ foldr1 f (x:xs) = f x (foldr1 f xs)
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline{foldr1}?
+    \item what is the type of \lstinline|foldr1|?
   \end{itemize}
 
   \begin{lstlisting}
@@ -779,7 +781,7 @@ foldr1 f [e1, e2, ..., ej, ek]
   \frametitle{Fold}
 
   \begin{exampleblock}{sum all elements of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={sum}]
 sum :: [Integer] -> Integer
 sum xs = foldr1 (+) xs
     \end{lstlisting}
@@ -787,11 +789,12 @@ sum xs = foldr1 (+) xs
 
   \bigskip
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python, deletekeywords={reduce, sum}]
 import functools
+import operator
 
 def sum(xs):
-  return functools.reduce(lambda x, y: x + y, xs)
+  return functools.reduce(operator.add, xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -800,9 +803,9 @@ def sum(xs):
   \frametitle{Fold with Initial Value}
 
   \begin{itemize}
-    \item \lstinline{foldr1} doesn't work on empty lists
+    \item \lstinline|foldr1| doesn't work on empty lists
     \item add a parameter as initial value for empty list:
-      \lstinline{foldr}
+      \lstinline|foldr|
   \end{itemize}
 
   \begin{block}{}
@@ -819,14 +822,14 @@ foldr f s [e1, e2, ..., ej, ek]
   \frametitle{Fold with Initial Value}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={foldr}]
 foldr f s []     = s
 foldr f s (x:xs) = f x (foldr f s xs)
     \end{lstlisting}
 
     \pause
     \begin{itemize}
-      \item what is the type of \lstinline{foldr}?
+      \item what is the type of \lstinline|foldr|?
     \end{itemize}
 
     \begin{lstlisting}
@@ -839,7 +842,7 @@ foldr :: (a -> b -> b) -> b -> [a] -> b
   \frametitle{Fold with Initial Value}
 
   \begin{exampleblock}{sum all elements of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={sum}]
 sum :: [Integer] -> Integer
 sum xs = foldr (+) 0 xs
     \end{lstlisting}
@@ -847,11 +850,12 @@ sum xs = foldr (+) 0 xs
 
   \bigskip
   \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=python]
+    \begin{lstlisting}[language=Python, deletekeywords={reduce, sum}]
 import functools
+import operator
 
 def sum(xs):
-  return functools.reduce(lambda x, y: x + y, xs, 0)
+  return functools.reduce(operator.add, xs, 0)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -860,12 +864,12 @@ def sum(xs):
   \frametitle{Fold Examples}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={and, concat, product}]
 product :: [Integer] -> Integer
 product xs = foldr (*) 1 xs
 
 fac :: [Integer] -> Integer
-fac n = foldr (*) 1 [1..n]
+fac n = foldr (*) 1 [1 .. n]
 
 and :: [Bool] -> Bool
 and xs = foldr (&&) True xs
@@ -886,7 +890,7 @@ maxList xs = foldr1 max xs
     \begin{lstlisting}
 howManyAbove :: Float -> [Float] -> Integer
 howManyAbove t xs =
-    foldr (\x n -> if x > t then n+1 else n) 0 xs
+    foldr (\x n -> if x > t then n + 1 else n) 0 xs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -927,7 +931,7 @@ foldl f s [e1, e2, ..., ej, ek]
 
   \pause
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={foldl}]
 foldl f s []     = s
 foldl f s (x:xs) = foldl f (f s x) xs
     \end{lstlisting}
@@ -935,7 +939,7 @@ foldl f s (x:xs) = foldl f (f s x) xs
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline{foldl}?
+    \item what is the type of \lstinline|foldl|?
   \end{itemize}
 
   \begin{lstlisting}
@@ -944,13 +948,19 @@ foldl :: (a -> b -> a) -> a -> [b] -> a
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Fold Left}
+  \frametitle{Fold Right - Fold Left}
 
-  \begin{exampleblock}{}
+  \begin{itemize}
+    \item results not the same if function is not commutative
+  \end{itemize}
+
+  \begin{exampleblock}{example}
     \begin{lstlisting}
-foldl (*) 1 [1..7]           -- 5040
-foldl (/) 1.0 [1.0,2.0,3.0]  -- 0.1666666
-foldr (/) 1.0 [1.0,2.0,3.0]  -- 1.5
+foldr (*) 1   [1 .. 7]         ~> 5040
+foldl (*) 1   [1 .. 7]         ~> 5040
+
+foldr (/) 1.0 [1.0, 2.0, 3.0]  ~> 1.5
+foldl (/) 1.0 [1.0, 2.0, 3.0]  ~> 0.1666666
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -960,16 +970,18 @@ foldr (/) 1.0 [1.0,2.0,3.0]  -- 1.5
 \begin{frame}[fragile]
   \frametitle{Edit Distance}
 
-  \begin{itemize}
-    \item transform a source string into a destination string
-    \item operations: copy, insert, delete, change
-    \item use the minimum number of operations
-  \end{itemize}
+  \begin{exampleblock}{transform a source string into a destination string}
+    \begin{itemize}
+      \item operations: copy, insert, delete, change
+      \item use the minimum number of operations
+    \end{itemize}
 
-  \begin{exampleblock}{}
     \begin{lstlisting}
-data Edit = Copy | Insert Char | Delete | Change Char
-            deriving (Eq,Show)
+data Edit = Copy
+          | Insert Char
+          | Delete
+          | Change Char
+            deriving (Eq, Show)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -980,14 +992,14 @@ data Edit = Copy | Insert Char | Delete | Change Char
   \begin{exampleblock}{}
     \begin{lstlisting}
 transform :: String -> String -> [Edit]
-transform []     []     = []
-transform xs     []     = map (\_ -> Delete) xs
-transform []     ys     = map Insert ys
-transform (x:xs) (y:ys)
-  | x == y    = Copy : transform xs ys
-  | otherwise = best [Insert y : transform (x:xs) ys,
-                      Delete   : transform xs (y:ys),
-                      Change y : transform xs ys]
+transform []          [] = []
+transform xs          [] = map (\_ -> Delete) xs
+transform []          ys = map Insert ys
+transform xs@(x':xs') ys@(y':ys')
+  | x' == y'  = Copy : transform xs' ys'
+  | otherwise = best [Insert y' : transform xs  ys',
+                      Delete    : transform xs' ys,
+                      Change y' : transform xs' ys']
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -995,14 +1007,15 @@ transform (x:xs) (y:ys)
 \begin{frame}[fragile]
   \frametitle{Edit Distance}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{find best path}
     \begin{lstlisting}
 best :: [[Edit]] -> [Edit]
 best [x]    = x
 best (x:xs)
   | cost x <= cost b = x
   | otherwise        = b
-  where b = best xs
+  where
+    b = best xs
 
 cost :: [Edit] -> Integer
 cost xs = length (filter (\x -> x /= Copy) xs)
@@ -1011,8 +1024,7 @@ cost xs = length (filter (\x -> x /= Copy) xs)
 
   \pause
   \begin{itemize}
-    \item exercise: implement \lstinline{best} using
-      \lstinline{fold}
+    \item exercise: implement \lstinline|best| using \lstinline|fold|
   \end{itemize}
 \end{frame}
 
