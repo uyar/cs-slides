@@ -7,16 +7,16 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
 \lstset{language=Haskell}
 
 \mode<presentation>
@@ -78,16 +78,14 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -103,7 +101,7 @@
   \frametitle{Functions as Result}
 
   \begin{itemize}
-    \item higher order functions can return functions as result
+    \item higher-order functions can return functions as result
   \end{itemize}
 
   \begin{example}[body surface area]
@@ -130,14 +128,14 @@ duBois :: Float -> Float -> Float
 duBois h w = 0.007184 * (h ** 0.725) * (w ** 0.425)
 
 boyd :: Float -> Float -> Float
-boyd h w = 0.0333 * (h ** 0.3) *
-           (w ** (0.6157 - 0.0188 * (logBase 10 w)))
+boyd h w = 0.0333 * (h ** 0.3)
+         * (w ** (0.6157 - 0.0188 * (logBase 10 w)))
 
 bsa :: Integer -> (Float -> Float -> Float)
 bsa age = if age < 3 then boyd else duBois
 
--- (bsa 20) 180 75  ~> 1.9424062
--- (bsa 2)  86 13   ~> 0.58253276
+-- (bsa 20) 180 75 ~> 1.9424062
+-- (bsa 2)  86 13  ~> 0.58253276
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -192,7 +190,7 @@ def step_range(step):
 
 step1 = step_range(1)
 
-# step1(3, 7)  ~> [3, 4, 5, 6, 7]
+# step1(3, 7) ~> [3, 4, 5, 6, 7]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -200,11 +198,11 @@ step1 = step_range(1)
 \subsection{Decorators}
 
 \begin{frame}[fragile]
-  \frametitle{Decorators}
+  \frametitle{Decorators (Python)}
 
   \begin{itemize}
-    \item in Python, a decorator returns a transformed version\\
-      of its function parameter
+    \item a decorator takes a function as parameter\\
+      and returns a transformed version of it
   \end{itemize}
 
   \begin{exampleblock}{example: entry and exit messages}
@@ -291,6 +289,7 @@ def fib(n):
       obtain a function that expects the remaining parameters
 
     \item in function signatures, arrows associate to the right
+    \item function application associates to the left
   \end{itemize}
 \end{frame}
 
@@ -308,8 +307,8 @@ add x = \y -> x + y
 
 increment :: Integer -> Integer
 increment = add 1
-
--- increment 7
+-- increment = \y -> 1 + y
+-- increment y = 1 + y
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -366,7 +365,7 @@ naturals = stepRange' 1 0
   \frametitle{Currying Functions}
 
   \begin{itemize}
-    \item convert a function that takes a pair\\
+    \item \lstinline|curry|: convert a function that takes a pair\\
       into an equivalent function that takes two parameters
   \end{itemize}
 
@@ -393,11 +392,9 @@ addC = curry addT
   \end{exampleblock}
 
   \begin{itemize}
-    \item exercise: convert a function that two parameters\\
+    \item exercise: convert a function that takes two parameters\\
       into an equivalent function that takes a pair:\\
-    \begin{lstlisting}[deletekeywords={uncurry}]
-uncurry addC    -- same as addT
-    \end{lstlisting}
+      \lstinline|uncurry addC ~> addT|
   \end{itemize}
 \end{frame}
 
