@@ -204,7 +204,7 @@ length "word" ~> 4
 
   \begin{exampleblock}{construct a list from a lower limit to an upper limit}
     \begin{lstlisting}
-countUp :: Int -> Int -> [Int]
+countUp :: Integer -> Integer -> [Integer]
 countUp lower upper
   | lower > upper = []
   | otherwise     = lower : countUp (lower + 1) upper
