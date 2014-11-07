@@ -7,17 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
-\lstset{language=Haskell, deletekeywords={next}}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -28,7 +28,7 @@
 }
 
 \title{Functional Programming}
-\subtitle{Higher Order Functions}
+\subtitle{Higher-Order Functions}
 
 \author{H. Turgut Uyar}
 \date{2013-2014}
@@ -78,16 +78,14 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -95,7 +93,7 @@
   \tableofcontents
 \end{frame}
 
-\section{Higher Order Functions}
+\section{Higher-Order Functions}
 
 \subsection{Function Order}
 
@@ -128,7 +126,7 @@
 
     \pause
     \bigskip
-    \item \alert{higher order functions}
+    \item \alert{higher-order functions}
     \smallskip
     \item take functions as parameters, or
     \item return functions as result
@@ -161,7 +159,7 @@ sumFac a b
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{}
     \begin{itemize}
@@ -195,7 +193,7 @@ sumFac a b = sumF fac a b
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{}
     \begin{itemize}
@@ -211,7 +209,7 @@ sumF :: (Integer -> Integer) -> Integer -> Integer
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{Python}
     \begin{lstlisting}[language=Python]
@@ -232,7 +230,7 @@ def sum_sqr(a, b):
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{C}
     \begin{lstlisting}[language=C]
@@ -251,7 +249,7 @@ int sum_f(int (*f)(int), int a, int b)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{C}
     \begin{lstlisting}[language=C]
@@ -269,7 +267,7 @@ int sum_sqr(int a, int b)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Higher Order Function Example}
+  \frametitle{Higher-Order Function Example}
 
   \begin{exampleblock}{Rock - Paper - Scissors}
     \begin{itemize}
@@ -392,8 +390,8 @@ qSort precedes (x:xs) =
   \begin{itemize}
     \item no need to name small functions that are not used anywhere else\\
       $\rightarrow$ \alert{anonymous} functions
-    \begin{lstlisting}
-\fp1 fp2 ... -> e
+    \begin{lstlisting}[style=syntax]
+\x1 x2 ... -> e
     \end{lstlisting}
   \end{itemize}
 
@@ -420,13 +418,13 @@ sumSqr a b = sumF (\x -> x * x) a b
   \frametitle{Anonymous Functions}
 
   \begin{block}{Python}
-    \begin{lstlisting}[language=Python]
-lambda fp1, fp2, ...: e
+    \begin{lstlisting}[language=Python, style=syntax]
+lambda x1, x2, ...: e
     \end{lstlisting}
   \end{block}
 
   \medskip
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{examples}
     \begin{lstlisting}[language=Python]
 def sum_sqr(a, b):
     sum_func(lambda x: x * x, a, b)
@@ -460,18 +458,19 @@ sorted(pairs, key=lambda p: p[0] / p[1])
   \frametitle{Fixed Points}
 
   \begin{exampleblock}{find fixed point}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={next}]
 fixedPoint :: (Float -> Float) -> Float -> Float
-fixedPoint f firstGuess = fixedPointIter firstGuess
+fixedPoint f firstGuess = fpIter firstGuess
   where
+    fpIter :: Float -> Float
+    fpIter guess
+      | isCloseEnough guess next = next
+      | otherwise                = fpIter next
+      where
+        next = f guess
+
     isCloseEnough :: Float -> Float -> Bool
     isCloseEnough x y = (abs (x-y) / x) < 0.001
-
-    fixedPointIter :: Float -> Float
-    fixedPointIter guess
-      | isCloseEnough guess next = next
-      | otherwise                = fixedPointIter next
-      where next = f guess
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -506,7 +505,7 @@ sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
   \end{exampleblock}
 \end{frame}
 
-\section{Higher Order List Functions}
+\section{List Functions}
 
 \subsection{Map}
 
@@ -552,12 +551,9 @@ map f xs = [f x | x <- xs]
 
   \pause
   \begin{itemize}
-    \item what is the type?
+    \item what is the type?\\
+      \lstinline|map :: (a -> b) -> [a] -> [b]|
   \end{itemize}
-
-  \begin{lstlisting}[deletekeywords={map}]
-map :: (a -> b) -> [a] -> [b]
-  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -566,7 +562,6 @@ map :: (a -> b) -> [a] -> [b]
   \begin{exampleblock}{floors of all elements of a list}
     \begin{lstlisting}
 floorAll :: [Float] -> [Integer]
-floorAll xs = map floor xs
     \end{lstlisting}
   \end{exampleblock}
 
@@ -583,23 +578,20 @@ map(math.floor, [5.7, 9.0, 2.3])
 \begin{frame}[fragile]
   \frametitle{Map Examples}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{make a list of n copies of an item}
     \begin{lstlisting}[deletekeywords={replicate}]
-replicate :: Integer -> a -> [a]
+replicate :: Int -> a -> [a]
 replicate n i = map (\_ -> i) [1 .. n]
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
-  \begin{itemize}
-    \item zip two lists over a function
+  \begin{exampleblock}{zip two lists over a function}
     \begin{lstlisting}[frame=none]
 zipWith (+)       [1, 2] [10, 12]   ~> [11, 14]
 zipWith replicate [3, 2] ['a', 'b'] ~> ["aaa", "bb"]
     \end{lstlisting}
-  \end{itemize}
 
-  \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={zipWith}]
 zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
@@ -655,12 +647,9 @@ filter f xs = [x | x <- xs, f x]
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline|filter|?
+    \item what is the type of \lstinline|filter|?\\
+      \lstinline|filter :: (a -> Bool) -> [a] -> [a]|
   \end{itemize}
-
-  \begin{lstlisting}
-filter :: (a -> Bool) -> [a] -> [a]
-  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -699,10 +688,8 @@ howManyAbove t xs = length (filter (\x -> x > t) xs)
   \frametitle{Splitting Lists}
 
   \begin{itemize}
-    \item take elements from the front of a list while a predicate is true
-    \begin{lstlisting}[frame=none]
-takeWhile even [8, 2, 4, 5, 6] ~> [8, 2, 4]
-    \end{lstlisting}
+    \item take elements from the front of a list while a predicate is true\\
+      \lstinline|takeWhile even [8, 2, 4, 5, 6] ~> [8, 2, 4]|
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -719,9 +706,7 @@ takeWhile f (x:xs)
   \begin{itemize}
     \item exercise: drop elements from the front of a list\\
       while a predicate is true\\
-    \begin{lstlisting}[frame=none]
-dropWhile even [8, 2, 4, 5, 6] ~> [5, 6]
-    \end{lstlisting}
+      \lstinline|dropWhile even [8, 2, 4, 5, 6] ~> [5, 6]|
   \end{itemize}
 \end{frame}
 
@@ -764,12 +749,9 @@ foldr1 f (x:xs) = f x (foldr1 f xs)
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline|foldr1|?
+    \item what is the type of \lstinline|foldr1|?\\
+      \lstinline|foldr1 :: (a -> a -> a) -> [a] -> a|
   \end{itemize}
-
-  \begin{lstlisting}
-foldr1 :: (a -> a -> a) -> [a] -> a
-  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -836,13 +818,11 @@ foldr f s (x:xs) = f x (foldr f s xs)
     \end{lstlisting}
 
     \pause
+    \medskip
     \begin{itemize}
-      \item what is the type of \lstinline|foldr|?
+      \item what is the type of \lstinline|foldr|?\\
+        \lstinline|foldr :: (a -> b -> b) -> b -> [a] -> b|
     \end{itemize}
-
-    \begin{lstlisting}
-foldr :: (a -> b -> b) -> b -> [a] -> b
-    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -947,12 +927,9 @@ foldl f s (x:xs) = foldl f (f s x) xs
 
   \pause
   \begin{itemize}
-    \item what is the type of \lstinline|foldl|?
+    \item what is the type of \lstinline|foldl|?\\
+      \lstinline|foldl :: (a -> b -> a) -> a -> [b] -> a|
   \end{itemize}
-
-  \begin{lstlisting}
-foldl :: (a -> b -> a) -> a -> [b] -> a
-  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -964,11 +941,11 @@ foldl :: (a -> b -> a) -> a -> [b] -> a
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-foldr (*) 1   [1 .. 7]         ~> 5040
-foldl (*) 1   [1 .. 7]         ~> 5040
+foldr (*) 1   [1 .. 7]        ~> 5040
+foldl (*) 1   [1 .. 7]        ~> 5040
 
-foldr (/) 1.0 [1.0, 2.0, 3.0]  ~> 1.5
-foldl (/) 1.0 [1.0, 2.0, 3.0]  ~> 0.1666666
+foldr (/) 1.0 [1.0, 2.0, 3.0] ~> 1.5
+foldl (/) 1.0 [1.0, 2.0, 3.0] ~> 0.1666666
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -1025,7 +1002,7 @@ best (x:xs)
   where
     b = best xs
 
-cost :: [Edit] -> Integer
+cost :: [Edit] -> Int
 cost xs = length (filter (\x -> x /= Copy) xs)
     \end{lstlisting}
   \end{exampleblock}
