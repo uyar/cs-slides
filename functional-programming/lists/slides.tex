@@ -7,16 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstdefinestyle{exclamfix}{deletestring=[b]{"}}
 \lstset{language=Haskell}
 
 \mode<presentation>
@@ -78,16 +79,14 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -112,11 +111,11 @@ type String = [Char]
   \pause
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-head "word"    ~> 'w'
-tail "word"    ~> "ord"
-null "word"    ~> False
-null ""        ~> True
-length "word"  ~> 4
+head "word"   ~> 'w'
+tail "word"   ~> "ord"
+null "word"   ~> False
+null ""       ~> True
+length "word" ~> 4
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -127,17 +126,15 @@ length "word"  ~> 4
   \frametitle{Indexing}
 
   \begin{itemize}
-    \item indexing operator: \lstinline|!!|
-    \begin{lstlisting}[frame=none]
-"word" !! 2   ~> 'r'
-(!!) "word" 2 ~> 'r'
-    \end{lstlisting}
+    \item index operator: \lstinline|!!|\\
+      \lstinline[style=exclamfix]|"word" !! 2 ~> 'r'|
+    \item note that this is the same as:\\
+      \lstinline[style=exclamfix]|(!!) "word" 2|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}
-(!!) :: [a] -> Integer -> a
+(!!) :: [a] -> Int -> a
 (!!) []     _ = error "no such element"
 (!!) (x:xs) 0 = x
 (!!) (x:xs) n = (!!) xs (n - 1)
@@ -154,7 +151,7 @@ length "word"  ~> 4
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-(!!) :: [a] -> Integer -> a
+(!!) :: [a] -> Int -> a
 []     !! _ = error "no such element"
 (x:xs) !! 0 = x
 (x:xs) !! n = xs !! (n - 1)
@@ -166,10 +163,8 @@ length "word"  ~> 4
   \frametitle{Appending Lists}
 
   \begin{itemize}
-    \item append operator: \lstinline|++|
-    \begin{lstlisting}[frame=none]
-"word" ++ "smith"     ~> "wordsmith"
-    \end{lstlisting}
+    \item append operator: \lstinline|++|\\
+      \lstinline[style=exclamfix]|"word" ++ "smith"  ~> "wordsmith"|
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -209,7 +204,7 @@ length "word"  ~> 4
 
   \begin{exampleblock}{construct a list from a lower limit to an upper limit}
     \begin{lstlisting}
-countUp :: Integer -> Integer -> [Integer]
+countUp :: Int -> Int -> [Int]
 countUp lower upper
   | lower > upper = []
   | otherwise     = lower : countUp (lower + 1) upper
@@ -230,9 +225,7 @@ countUp lower upper
   \begin{itemize}
     \item describe a list in terms of the elements of another list
     \item generate, test, transform
-
-    \medskip
-    \begin{lstlisting}
+    \begin{lstlisting}[style=syntax]
 [e | v1 <- l1, v2 <- l2, ..., p1, p2, ...]
     \end{lstlisting}
   \end{itemize}
@@ -243,10 +236,10 @@ countUp lower upper
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-[2 * n | n <- [2, 4, 7]]   ~> [4, 8, 14]
-[even n | n <- [2, 4, 7]]  ~> [True, True, False]
+[2 * n | n <- [2, 4, 7]]  ~> [4, 8, 14]
+[even n | n <- [2, 4, 7]] ~> [True, True, False]
 
-[2 * n | n <- [2, 4, 7], even n, n > 3]  ~> [8]
+[2 * n | n <- [2, 4, 7], even n, n > 3] ~> [8]
 
 [m + n | (m, n) <- [(2, 3), (2, 1), (7, 8)]]
     ~> [5, 3, 15]
@@ -294,7 +287,7 @@ qSort (x:xs) =
   \end{exampleblock}
 \end{frame}
 
-\section{List Functions}
+\section{Prelude Functions}
 
 \subsection{Basic Functions}
 
@@ -302,14 +295,11 @@ qSort (x:xs) =
   \frametitle{Membership Check}
 
   \begin{itemize}
-    \item check whether an element is a member of a list
-    \begin{lstlisting}[frame=none]
-elem 'r' "word" ~> True
-elem 'x' "word" ~> False
-    \end{lstlisting}
+    \item check whether an element is a member of a list\\
+      \lstinline[style=exclamfix]|elem 'r' "word" ~> True|\\
+      \lstinline[style=exclamfix]|elem 'x' "word" ~> False|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={elem}]
 elem :: Char -> [Char] -> Bool
@@ -320,10 +310,8 @@ elem x (c:cs) = if x == c then True else elem x cs
 
   \pause
   \begin{itemize}
-    \item exercise: make a list of n copies of an item
-    \begin{lstlisting}[frame=none]
-replicate 3 'c' ~> "ccc"
-    \end{lstlisting}
+    \item exercise: make a list of n copies of an item\\
+      \lstinline|replicate 3 'c' ~> "ccc"|
   \end{itemize}
 \end{frame}
 
@@ -331,13 +319,10 @@ replicate 3 'c' ~> "ccc"
   \frametitle{Last Element}
 
   \begin{itemize}
-    \item get the last element of a list
-    \begin{lstlisting}[frame=none]
-last "word" ~> 'd'
-    \end{lstlisting}
+    \item get the last element of a list\\
+      \lstinline[style=exclamfix]|last "word" ~> 'd'|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={last}]
 last :: [a] -> a
@@ -349,10 +334,8 @@ last (x:xs) = last xs
 
   \pause
   \begin{itemize}
-    \item exercise: get all elements but the last of a list
-    \begin{lstlisting}[frame=none]
-init "word" ~> "wor"
-    \end{lstlisting}
+    \item exercise: get all elements but the last of a list\\
+      \lstinline[style=exclamfix]|init "word" ~> "wor"|
   \end{itemize}
 \end{frame}
 
@@ -360,16 +343,13 @@ init "word" ~> "wor"
   \frametitle{Split}
 
   \begin{itemize}
-    \item take n elements from the front of a list
-    \begin{lstlisting}[frame=none]
-take 3 "Peccary" ~> "Pec"
-    \end{lstlisting}
+    \item take n elements from the front of a list\\
+      \lstinline[style=exclamfix]|take 3 "Peccary" ~> "Pec"|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={take}]
-take :: Integer -> [a] -> [a]
+take :: Int -> [a] -> [a]
 take 0 _      = []
 take _ []     = []
 take n (x:xs) = x : take (n - 1) xs
@@ -378,15 +358,11 @@ take n (x:xs) = x : take (n - 1) xs
 
   \pause
   \begin{itemize}
-    \item exercise: drop n elements from the front of a list
-    \begin{lstlisting}[frame=none]
-drop 3 "Peccary" ~> "cary"
-    \end{lstlisting}
+    \item exercise: drop n elements from the front of a list\\
+      \lstinline[style=exclamfix]|drop 3 "Peccary" ~> "cary"|
 
-    \item exercise: split a list at a given position
-    \begin{lstlisting}[frame=none]
-splitAt 3 "Peccary" ~> ("Pec", "cary")
-    \end{lstlisting}
+    \item exercise: split a list at a given position\\
+      \lstinline[style=exclamfix]|splitAt 3 "Peccary" ~> ("Pec", "cary")|
   \end{itemize}
 \end{frame}
 
@@ -394,13 +370,10 @@ splitAt 3 "Peccary" ~> ("Pec", "cary")
   \frametitle{Reverse}
 
   \begin{itemize}
-    \item reverse a list
-    \begin{lstlisting}[frame=none]
-reverse "word" ~> "drow"
-    \end{lstlisting}
+    \item reverse a list\\
+      \lstinline[style=exclamfix]|reverse "word" ~> "drow"|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={reverse}]
 reverse :: [a] -> [a]
@@ -414,13 +387,10 @@ reverse (x:xs) = (reverse xs) ++ [x]
   \frametitle{Concatenate}
 
   \begin{itemize}
-    \item convert a list of lists of items into a list of items
-    \begin{lstlisting}[frame=none]
-concat [[2, 3], [], [4] ~> [2, 3, 4]
-    \end{lstlisting}
+    \item convert a list of lists of items into a list of items\\
+      \lstinline|concat [[2, 3], [], [4] ~> [2, 3, 4]|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={concat}]
 concat :: [[a]] -> [a]
@@ -441,13 +411,10 @@ concat (xs:xss) = xs ++ concat xss
   \frametitle{Zip}
 
   \begin{itemize}
-    \item convert two lists into a list of pairs
-    \begin{lstlisting}[frame=none]
-zip [1, 2] "ab" ~> [(1, 'a'), (2, 'b')]
-    \end{lstlisting}
+    \item convert two lists into a list of pairs\\
+      \lstinline[style=exclamfix]|zip [1, 2] "ab" ~> [(1, 'a'), (2, 'b')]|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={zip}]
 zip :: [a] -> [b] -> [(a, b)]
@@ -458,10 +425,8 @@ zip (x:xs) (y:ys) = (x, y) : zip xs ys
 
   \pause
   \begin{itemize}
-    \item not all cases are covered:
-    \begin{lstlisting}[deletekeywords={zip}, frame=none]
-zip [1, 2] "abc" ~> [(1, 'a'), (2, 'b')]
-    \end{lstlisting}
+    \item not all cases are covered:\\
+      \lstinline[style=exclamfix]|zip [1, 2] "abc" ~> [(1, 'a'), (2, 'b')]|
   \end{itemize}
 \end{frame}
 
@@ -478,11 +443,9 @@ zip _      _      = []
 
   \pause
   \begin{itemize}
-    \item exercise: convert three lists into a list of triples
-    \begin{lstlisting}[frame=none]
-zip3 [1, 2] "abc" [7, 4]
-    ~> [(1, 'a', 7), (2, 'b', 4)]
-    \end{lstlisting}
+    \item exercise: convert three lists into a list of triples\\
+      \lstinline[style=exclamfix]|zip3 [1, 2] "abc" [7, 4]|\\
+      \lstinline[style=exclamfix]|     ~> [(1, 'a', 7), (2, 'b', 4)]|
   \end{itemize}
 \end{frame}
 
@@ -490,13 +453,10 @@ zip3 [1, 2] "abc" [7, 4]
   \frametitle{Unzip}
 
   \begin{itemize}
-    \item convert a list of pairs into a pair of lists
-    \begin{lstlisting}[frame=none]
-unzip [(1, 'a'), (2, 'b')] ~> ([1, 2], "ab")
-    \end{lstlisting}
+    \item convert a list of pairs into a pair of lists\\
+      \lstinline[style=exclamfix]|unzip [(1, 'a'), (2, 'b')] ~> ([1, 2], "ab")|
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={unzip}]
 unzip :: [(a, b)] -> ([a], [b])
@@ -509,11 +469,9 @@ unzip ((x, y):xys) = (x : xs, y : ys)
 
   \pause
   \begin{itemize}
-    \item exercise: convert a list of triples into three lists
-    \begin{lstlisting}[frame=none]
-unzip3 [(1, 'a', 7), (2, 'b', 4)]
-    ~> ([1, 2], "ab", [7, 4])
-    \end{lstlisting}
+    \item exercise: convert a list of triples into three lists\\
+      \lstinline[style=exclamfix]|unzip3 [(1, 'a', 7), (2, 'b', 4)]|\\
+      \lstinline[style=exclamfix]|     ~> ([1, 2], "ab", [7, 4])|
   \end{itemize}
 \end{frame}
 
@@ -592,6 +550,11 @@ merge xs@(x':xs') ys@(y':ys')
   | otherwise                 = y' : merge xs  ys'
     \end{lstlisting}
   \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: check whether an integer list is in non-decreasing order
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
