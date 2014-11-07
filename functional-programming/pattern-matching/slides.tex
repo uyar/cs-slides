@@ -7,17 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
-\lstset{language=Haskell, deletekeywords={gcd}}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -78,22 +78,22 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Topics}
   \tableofcontents
 \end{frame}
+
+\lstset{deletekeywords={gcd}}
 
 \section{Data Types}
 
@@ -105,8 +105,7 @@
   \begin{itemize}
     \item \alert{tuple}: a combination of a fixed number of values
       of fixed types
-      \smallskip
-      \begin{lstlisting}
+      \begin{lstlisting}[style=syntax]
 n :: (t1, t2, ..., tn)
 n = (e1, e2, ..., en)
       \end{lstlisting}
@@ -125,18 +124,26 @@ n = (e1, e2, ..., en)
 t :: (Float, Integer)
 t = (2.4, 2)
 
--- fst t ~> 2.4
--- snd t ~> 2
+-- fst t  ~> 2.4
+-- snd t  ~> 2
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
   \frametitle{Tuple Parameters}
 
   \begin{itemize}
-    \item tuple parameters are different from multiple parameters
+    \item tuples can be sent as parameters
+    \item not the same as multiple parameters
+
+    \bigskip
+    \item tuples can be returned as result
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tuple Parameter Example}
 
   \begin{exampleblock}{}
     \begin{lstlisting}
@@ -145,27 +152,21 @@ gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
 
--- gcd 9702 945 ~> 63
-
 gcd' :: (Integer, Integer) -> Integer
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
 
--- gcd' (9702, 945) ~> 63
+-- gcd 9702 945
+-- gcd' (9702, 945)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Tuple Results}
+  \frametitle{Tuple Result Example}
 
-  \begin{itemize}
-    \item functions can return tuples
-  \end{itemize}
-
-  \begin{exampleblock}{example: greatest common divisor
-                            and least common multiple}
+  \begin{exampleblock}{greatest common divisor and least common multiple}
     \begin{lstlisting}
 gcd_lcm :: Integer -> Integer -> (Integer, Integer)
 gcd_lcm x y = (d, m)
@@ -184,8 +185,7 @@ gcd_lcm x y = (d, m)
   \begin{itemize}
     \item \alert{list}: a combination of an arbitrary number of values,\\
       all of the same type
-    \smallskip
-    \begin{lstlisting}
+    \begin{lstlisting}[style=syntax]
 n :: [t]
 n = [e1, e2, ..., en]
     \end{lstlisting}
@@ -278,7 +278,7 @@ tail [1]           ~> []
 
   \begin{exampleblock}{number of elements}
     \begin{lstlisting}[deletekeywords={length}]
-length :: [a] -> Integer
+length :: [a] -> Int
 length xs
   | null xs   = 0
   | otherwise = 1 + length (tail xs)
@@ -291,10 +291,10 @@ length xs
 
   \begin{exampleblock}{number of elements (tail recursive)}
     \begin{lstlisting}[deletekeywords={length}]
-length :: [a] -> Integer
+length :: [a] -> Int
 length xs = lengthIter 0 xs
   where
-    lengthIter :: Integer -> [a] -> Integer
+    lengthIter :: Int -> [a] -> Int
     lengthIter acc xs'
       | null xs'  = acc
       | otherwise = lengthIter (acc + 1) (tail xs')
@@ -336,7 +336,7 @@ firstPlusSecond xs
 
   \begin{itemize}
     \item \alert{algebraic types}: constructors and components
-    \begin{lstlisting}
+    \begin{lstlisting}[style=syntax]
 data T = C1 t11 t12 ... t1m |
          C2 t21 t22 ... t2n |
          ...
@@ -381,7 +381,7 @@ m = Feb
 \begin{frame}[fragile]
   \frametitle{Algebraic Type Examples}
 
-  \begin{exampleblock}{geometric shapes}
+  \begin{exampleblock}{multiple options}
     \begin{lstlisting}
 type Coords = (Float, Float)
 type Length = Float
@@ -409,9 +409,7 @@ r = Rectangle (45.9, 87.6) 5.75 2.3
   \begin{itemize}
     \item expressions can be checked against patterns
     \item result is the expression for the first matched pattern
-
-    \medskip
-    \begin{lstlisting}
+    \begin{lstlisting}[style=syntax]
 case expr of
     p1 -> e1
     p2 -> e2
@@ -419,17 +417,14 @@ case expr of
     pn -> en
     _  -> e
     \end{lstlisting}
+    \item matched patterns generate bindings
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Patterns}
+  \frametitle{Pattern Examples}
 
-  \begin{itemize}
-    \item simplest pattern: literal value
-  \end{itemize}
-
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{literal value}
     \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y = case y of
@@ -440,14 +435,9 @@ gcd x y = case y of
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Pattern Bindings}
+  \frametitle{Pattern Examples}
 
-  \begin{itemize}
-    \item matched patterns generate bindings
-    \item tuple components can be matched directly
-  \end{itemize}
-
-  \begin{exampleblock}{example}
+  \begin{exampleblock}{tuple matching}
     \begin{lstlisting}
 gcd' :: (Integer, Integer) -> Integer
 gcd' a = case a of
@@ -523,7 +513,7 @@ third t = case t of
 
   \begin{exampleblock}{number of elements}
     \begin{lstlisting}[deletekeywords={length}]
-length :: [a] -> Integer
+length :: [a] -> Int
 length xs = case xs of
     []    -> 0
     x:xs' -> 1 + length xs'
@@ -566,7 +556,7 @@ birthYear :: Human -> Year
 birthYear p = case p of
     Person _ y -> y
 
--- birthYear (Person "Alonzo Church" 1903) ~> 1903
+-- birthYear (Person "Alonzo Church" 1903)  ~> 1903
 -- binding: y <-> 1903
     \end{lstlisting}
   \end{exampleblock}
@@ -586,9 +576,9 @@ daysInMonth m y = case m of
     Feb -> if y `mod` 4 == 0 then 29 else 28
     _   -> 31
 
--- daysInMonth Jan 2014 ~> 31
--- daysInMonth Feb 2014 ~> 28
--- daysInMonth Feb 2016 ~> 29
+-- daysInMonth Jan 2014  ~> 31
+-- daysInMonth Feb 2014  ~> 28
+-- daysInMonth Feb 2016  ~> 29
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -622,8 +612,7 @@ area s = case s of
 
     \medskip
     \item in case of multiple patterns, the first match will be selected
-    \smallskip
-    \begin{lstlisting}
+    \begin{lstlisting}[style=syntax]
 n p1 = e1
 n p2 = e2
 ...
@@ -653,8 +642,8 @@ gcd x y = gcd y (x `mod` y)
   \begin{lstlisting}
 gcd' :: (Integer, Integer) -> Integer
 gcd' a = case a of
-    (x,0) -> x
-    (x,y) -> gcd' (y, x `mod` y)
+    (x, 0) -> x
+    (x, y) -> gcd' (y, x `mod` y)
 
 -- OR:
 gcd' :: (Integer, Integer) -> Integer
@@ -696,13 +685,13 @@ third (_, _, z) = z
   \frametitle{Function Pattern Example}
 
   \begin{lstlisting}[deletekeywords={length}]
-length :: [a] -> Integer
+length :: [a] -> Int
 length xs = case xs of
     []    -> 0
     x:xs' -> 1 + length xs'
 
 -- OR:
-length :: [a] -> Integer
+length :: [a] -> Int
 length []     = 0
 length (x:xs) = 1 + length xs
   \end{lstlisting}
@@ -758,7 +747,7 @@ type DayInYear = (Integer, Integer)
 
 mar12 :: DayInYear
 mar12 = (12, 3)
--- simplify mar12 ~> (4, 1)
+-- simplify mar12  ~> (4, 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}

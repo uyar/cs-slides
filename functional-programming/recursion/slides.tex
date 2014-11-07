@@ -127,18 +127,18 @@ n `mod` 2
   \begin{itemize}
     \item writing conditional expressions can become complicated
     \item \alert{guards}: predicates to check cases
-    \item function result is the expression for the first satisfied predicate
-  \end{itemize}
 
-  \medskip
-  \begin{lstlisting}[style=syntax]
+    \begin{lstlisting}[style=syntax]
 n :: t1 -> t2 -> ... -> tk -> t
 n x1 x2 ... xk
   | p1        = e1
   | p2        = e2
     ...
   | otherwise = e
-  \end{lstlisting}
+    \end{lstlisting}
+
+    \item function result is the expression for the first satisfied predicate
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
