@@ -559,7 +559,7 @@ d = 4.8
 c :: Float
 c = 3.14159 * d
 
--- d = 15.62  ~> error: multiple declarations
+-- d = 15.62 ~> error: multiple declarations
   \end{lstlisting}
 \end{frame}
 
@@ -674,14 +674,14 @@ n e1 e2 ... ek
 sqr :: Integer -> Integer
 sqr x = x * x
 
--- sqr 21       ~> 441
--- sqr (2 + 5)  ~> 49
+-- sqr 21      ~> 441
+-- sqr (2 + 5) ~> 49
 
 sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = sqr x + sqr y
 
--- sumOfSquares 3 4        ~> 25
--- sumOfSquares 2 (sqr 3)  ~> 85
+-- sumOfSquares 3 4       ~> 25
+-- sumOfSquares 2 (sqr 3) ~> 85
   \end{lstlisting}
 \end{frame}
 
