@@ -7,16 +7,16 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
 \lstset{language=Haskell}
 
 \mode<presentation>
@@ -80,16 +80,14 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -105,9 +103,7 @@
   \frametitle{Infix - Prefix}
 
   \begin{itemize}
-    \item function calls can be written in infix notation\\
-      within backquotes
-    \smallskip
+    \item functions infix when in backquotes
     \begin{lstlisting}
 mod n 2
 n `mod` 2
@@ -115,9 +111,7 @@ n `mod` 2
 
     \pause
     \medskip
-    \item operator calls can be written in prefix notation\\
-      within parentheses
-    \smallskip
+    \item operators prefix when in parentheses
     \begin{lstlisting}
 6 * 7
 (*) 6 7
@@ -132,20 +126,19 @@ n `mod` 2
 
   \begin{itemize}
     \item writing conditional expressions can become complicated
-    \item \alert{guards}: Boolean expressions to check cases
-      in function definitions
-    \item function result is the expression for the first valid guard
+    \item \alert{guards}: predicates to check cases
+    \item function result is the expression for the first satisfied predicate
+  \end{itemize}
 
-    \medskip
-    \begin{lstlisting}
+  \medskip
+  \begin{lstlisting}[style=syntax]
 n :: t1 -> t2 -> ... -> tk -> t
 n x1 x2 ... xk
-  | g1        = e1
-  | g2        = e2
+  | p1        = e1
+  | p2        = e2
     ...
   | otherwise = e
-    \end{lstlisting}
-  \end{itemize}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -169,13 +162,14 @@ maxThree x y z
 
   \begin{itemize}
     \item errors can be reported using \lstinline|error|
+    \item doesn't change the type signature
   \end{itemize}
 
   \begin{exampleblock}{example: reciprocal (multiplicative inverse)}
     \begin{lstlisting}
 reciprocal :: Float -> Float
 reciprocal x
-  | x == 0    = error "zero does not have a reciprocal"
+  | x == 0    = error "division by zero"
   | otherwise = 1.0 / x
     \end{lstlisting}
   \end{exampleblock}
@@ -189,10 +183,6 @@ reciprocal x
 
 \begin{frame}[fragile]
   \frametitle{Recursion Examples}
-
-  \begin{itemize}
-    \item two classic examples
-  \end{itemize}
 
   \begin{exampleblock}{greatest common divisor}
     \begin{lstlisting}
@@ -215,42 +205,50 @@ fac n
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
-  \end{lstlisting}
+    \end{lstlisting}
 
-  \lstinline|gcd(9702, 945)|\\
-  \lstinline|~> gcd(945, 252)|\\
-  \lstinline|    ~>  gcd(252, 189)|\\
-  \lstinline|         ~> gcd(189, 63)|\\
-  \lstinline|             ~> gcd(63, 0)|\\
-  \lstinline|                 ~> 63|\\
-  \lstinline|             ~> 63|\\
-  \lstinline|         ~> 63|\\
-  \lstinline|    ~>  63|\\
-  \lstinline|~> 63|
+    \begin{lstlisting}[frame=single]
+gcd(9702, 945)
+~> gcd(945, 252)
+   ~> gcd(252, 189)
+      ~> gcd(189, 63)
+         ~> gcd(63, 0)
+            ~> 63
+         ~> 63
+      ~> 63
+   ~> 63
+~> 63
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 fac n
   | n < 0     = error "negative parameter"
   | n == 0    = 1
   | otherwise = n * fac (n - 1)
-  \end{lstlisting}
+    \end{lstlisting}
 
-  \lstinline|fac 4|\\
-  \lstinline|~> 4 * fac 3|\\
-  \lstinline|          ~> 3 * fac 2|\\
-  \lstinline|                    ~> 2 * fac 1|\\
-  \lstinline|                              ~> 1 * fac 0|\\
-  \lstinline|                                        ~> 1|\\
-  \lstinline|                              ~> 1|\\
-  \lstinline|                    ~> 2|\\
-  \lstinline|          ~> 6|\\
-  \lstinline|~> 24|\\
+    \begin{lstlisting}[frame=single]
+fac 4
+~> 4 * fac 3
+       ~> 3 * fac 2
+              ~> 2 * fac 1
+                     ~> 1 * fac 0
+                            ~> 1
+                     ~> 1
+              ~> 2
+       ~> 6
+~> 24
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Tail Recursion}
@@ -274,16 +272,20 @@ fac n
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
-  \begin{lstlisting}
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
-  \end{lstlisting}
+    \end{lstlisting}
 
-  \lstinline|gcd 9702 945|\\
-  \lstinline|~> gcd 945 252|\\
-  \lstinline|~> gcd 252 189|\\
-  \lstinline|~> gcd 189 63|\\
-  \lstinline|~> gcd 63 0|\\
-  \lstinline|~> 63|\\
+    \begin{lstlisting}[frame=single]
+gcd 9702 945
+~> gcd 945 252
+~> gcd 252 189
+~> gcd 189 63
+~> gcd 63 0
+~> 63
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -293,7 +295,7 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \item to rearrange a function to be tail recursive:
 
     \medskip
-    \item define a helper function that takes an \alert{accumulator}
+    \item define a helper function that takes an accumulator
     \item base case: return accumulator
     \item recursive case: make recursive call with new accumulator value
   \end{itemize}
@@ -319,6 +321,7 @@ fac n = facIter 1 n
 \begin{frame}[fragile]
   \frametitle{Stack Frame Example}
 
+  \begin{exampleblock}{}
   \begin{lstlisting}
 facIter acc n
   | n < 0     = error "negative parameter"
@@ -326,21 +329,24 @@ facIter acc n
   | otherwise = facIter (acc * n) (n - 1)
   \end{lstlisting}
 
-  \lstinline|fac 4|\\
-  \lstinline|~> facIter 1 4|\\
-  \lstinline|    ~> facIter 4 3|\\
-  \lstinline|    ~> facIter 12 2|\\
-  \lstinline|    ~> facIter 24 1|\\
-  \lstinline|    ~> facIter 24 0|\\
-  \lstinline|    ~> 24|\\
-  \lstinline|~> 24|\\
+    \begin{lstlisting}[frame=single]
+fac 4
+~> facIter 1 4
+   ~> facIter 4 3
+   ~> facIter 12 2
+   ~> facIter 24 1
+   ~> facIter 24 0
+   ~> 24
+~> 24
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tail Recursion Example}
 
   \begin{itemize}
-    \item helper function doesn't need to be visible
+    \item helper function can be local
   \end{itemize}
 
   \begin{lstlisting}
@@ -361,8 +367,7 @@ fac n
 \begin{frame}[fragile]
   \frametitle{Tree Recursion}
 
-  \begin{itemize}
-    \item another classic example: the Fibonacci sequence
+  \begin{exampleblock}{Fibonacci sequence}
     \[
       fib_n =
         \begin{cases}
@@ -371,9 +376,7 @@ fac n
           fib_{n-2} + fib_{n-1} & \mbox{if } n > 2
         \end{cases}
     \]
-  \end{itemize}
 
-  \begin{exampleblock}{}
     \begin{lstlisting}
 fib :: Integer -> Integer
 fib n
@@ -425,17 +428,19 @@ pow x y
 
   \begin{exampleblock}{fast exponentiation}
     \begin{lstlisting}
-fastPow :: Integer -> Integer -> Integer
-fastPow x y
+pow :: Integer -> Integer -> Integer
+pow x y
   | y == 0    = 1
-  | even y    = sqr (fastPow x (y `div` 2))
-  | otherwise = x * fastPow x (y - 1)
+  | even y    = sqr (pow x (y `div` 2))
+  | otherwise = x * pow x (y - 1)
   where
     sqr :: Integer -> Integer
     sqr n = n * n
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
+
+\lstset{deletekeywords=sqrt}
 
 \begin{frame}
   \frametitle{Recursion Example}
@@ -464,41 +469,21 @@ fastPow x y
 \begin{frame}[fragile]
   \frametitle{Recursion Example}
 
-  \begin{itemize}
-    \item goal: $guess = \sqrt x$
-    \item if guess is good enough: $|guess \cdot guess - x| < \epsilon$
-  \end{itemize}
-
-  \pause
-  \begin{exampleblock}{check whether guess is good enough}
+  \begin{exampleblock}{}
     \begin{lstlisting}
+newton :: Float -> Float -> Float
+newton guess x
+  | isGoodEnough guess x = guess
+  | otherwise            = newton (improve guess x) x
+
 isGoodEnough :: Float -> Float -> Bool
 isGoodEnough guess x = abs (guess*guess - x) < 0.001
-    \end{lstlisting}
-  \end{exampleblock}
 
-  \pause
-  \begin{exampleblock}{improve guess}
-    \begin{lstlisting}
 improve :: Float -> Float -> Float
 improve guess x = (guess + x/guess) / 2.0
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Recursion Example}
-
-  \begin{exampleblock}{iterative computation}
-    \begin{lstlisting}
-newtonIter :: Float -> Float -> Float
-newtonIter guess x
-  | isGoodEnough guess x = guess
-  | otherwise            =
-        newtonIter (improve guess x) x
-
-newton :: Float -> Float
-newton x = newtonIter 1.0 x
+sqrt :: Float -> Float
+sqrt x = newton 1.0 x
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -507,21 +492,20 @@ newton x = newtonIter 1.0 x
   \frametitle{Recursion Example}
 
   \begin{lstlisting}
-newton :: Float -> Float
-newton x = newtonIter 1.0 x
+sqrt :: Float -> Float
+sqrt x = newton 1.0 x
   where
+    newton :: Float -> Float -> Float
+    newton guess x'
+      | isGoodEnough guess x' = guess
+      | otherwise             = newton (improve guess x') x'
+
     isGoodEnough :: Float -> Float -> Bool
     isGoodEnough guess x' =
         abs (guess*guess - x') < 0.001
 
     improve :: Float -> Float -> Float
     improve guess x' = (guess + x'/guess) / 2.0
-
-    newtonIter :: Float -> Float -> Float
-    newtonIter guess x'
-      | isGoodEnough guess x' = guess
-      | otherwise             =
-          newtonIter (improve guess x') x'
   \end{lstlisting}
 \end{frame}
 
@@ -533,7 +517,6 @@ newton x = newtonIter 1.0 x
   \end{itemize}
 
   \pause
-  \smallskip
   \begin{lstlisting}
 isGoodEnough guess x' =
     (abs (guess*guess - x')) / x' < 0.001
@@ -547,22 +530,20 @@ isGoodEnough guess x' =
     \item no need to pass \lstinline|x| around, it's already in scope
   \end{itemize}
 
-  \pause
-  \smallskip
   \begin{lstlisting}
-newton x = newtonIter 1.0
+sqrt x = newton 1.0
   where
+    newton :: Float -> Float
+    newton guess
+      | isGoodEnough guess = guess
+      | otherwise          = newton (improve guess)
+
     isGoodEnough :: Float -> Bool
     isGoodEnough guess =
         (abs (guess*guess - x)) / x < 0.001
 
     improve :: Float -> Float
     improve guess = (guess + x/guess) / 2.0
-
-    newtonIter :: Float -> Float
-    newtonIter guess
-      | isGoodEnough guess = guess
-      | otherwise          = newtonIter (improve guess)
   \end{lstlisting}
 \end{frame}
 
