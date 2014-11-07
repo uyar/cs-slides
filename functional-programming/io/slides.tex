@@ -7,16 +7,16 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
 \usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue},
-        showstringspaces=false, frame=ltrb}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
 \lstset{language=Haskell}
 
 \mode<presentation>
@@ -78,16 +78,14 @@
         you must distribute your contributions under the same license as the
         original.
     \end{itemize}
-  \end{footnotesize}
 
-  \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
     \smallskip
     Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -108,18 +106,15 @@
     \bigskip
     \item how about a function that reads in a value of the desired type\\
       from the input?\\
-      \smallskip
       \lstinline|inputInt :: Integer|
 
     \pause
     \medskip
     \item breaks reasoning:\\
-      \smallskip
       \lstinline|inputDiff = inputInt - inputInt|
 
     \medskip
     \item any function might be affected:\\
-      \smallskip
       \lstinline|foo :: Integer -> Integer|\\
       \lstinline|foo n = inputInt + n|\\
   \end{itemize}
@@ -134,17 +129,15 @@
 
     \medskip
     \item instead of:\\
-      \smallskip
       \lstinline|inputInt :: Integer|
     \item we have:\\
-      \smallskip
       \lstinline|inputInt :: IO Integer|
 
     \pause
     \medskip
     \item no longer valid:\\
-      \texttt{inputInt - inputInt}\\
-      \texttt{inputInt + n}
+      \lstinline|inputInt - inputInt|\\
+      \lstinline|inputInt + n|
   \end{itemize}
 \end{frame}
 
@@ -156,13 +149,11 @@
 
     \medskip
     \item output:\\
-      \smallskip
       \lstinline|putStr :: String -> IO ()|\\
       \lstinline|putStrLn :: String -> IO ()|
 
     \smallskip
     \item input:\\
-      \smallskip
       \lstinline|getLine :: IO String|\\
   \end{itemize}
 \end{frame}
@@ -195,12 +186,12 @@ main = putStrLn "Hello, world!"
 
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-show 42    ~> "42"
-show 3.14  ~> "3.14"
+show 42   ~> "42"
+show 3.14 ~> "3.14"
 
-read "42" :: Integer  ~> 42
-read "42" :: Float    ~> 42.0
-read "3.14" :: Float  ~> 3.14
+read "42" :: Integer ~> 42
+read "42" :: Float   ~> 42.0
+read "3.14" :: Float ~> 3.14
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -427,7 +418,6 @@ showRound (moveA, moveB) = "A plays: " ++ show moveA
   \begin{itemize}
     \item a strategy is a function that selects a move\\
       based on the previous moves of the opponent:\\
-      \smallskip
       \lstinline|[Move] -> Move|
   \end{itemize}
 
