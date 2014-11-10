@@ -1,24 +1,30 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
 \usepackage{listings}
-\usepackage{graphicx}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
 \lstset{language=C}
 
 \mode<presentation>
 {
-  \usetheme{Frankfurt}
-  \usecolortheme[named=OliveGreen]{structure}
+  \usetheme{default}
   \setbeamercovered{transparent}
 }
 
 \title{Systems Programming}
-\subtitle{User-Space File System}
+\subtitle{File System}
 
 \author{H. Turgut Uyar \and Şima Uyar}
-\date{2009-2011}
+\date{2009-2014}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -40,29 +46,32 @@
   \tableofcontents
 \end{frame}
 
-\section{User-Space Development}
+\section{File System Development}
+
+\subsection{User-Space Development}
 
 \begin{frame}
   \frametitle{System Programming Levels}
 
   \begin{itemize}
     \item compiling the kernel:\\
-      best performance, every possible functionality\\
-      risky, time-consuming
+      pros: best performance, every possible functionality\\
+      cons: risky, time-consuming
+
+    \medskip
     \item kernel modules:\\
-      very good performance, less risky, fast development\\
-      can not do everything
+      pros: very good performance, less risky, fast development\\
+      cons: can not do everything
 
     \pause
+    \medskip
     \item user-space:\\
-      even less risky, fast development, can use external libraries\\
-      poorer performance, can not do everything
+      pros: even less risky, fast development, can use external libraries\\
+      cons: poorer performance, can do even less
   \end{itemize}
 \end{frame}
 
-\section{FUSE}
-
-\subsection{Introduction}
+\subsection{FUSE}
 
 \begin{frame}
   \frametitle{FUSE}
@@ -72,12 +81,13 @@
     \item develop a file system in user space on top of a kernel module
 
     \pause
-    \begin{itemize}
-      \item non-native filesystems (NTFS, ZFS, ...)
-      \item changing data storage (SQL, ...)
-      \item providing transparent functionality (compression,\\
-        encryption, ...)
-    \end{itemize}
+    \bigskip
+    \item non-native filesystems:\\
+      NTFS, ZFS, ...
+    \item changing data storage:\\
+      SQL, ...
+    \item providing transparent functionality:\\
+      compression, encryption, ...
   \end{itemize}
 \end{frame}
 
@@ -95,35 +105,41 @@
   \begin{itemize}
     \item similar to device driver development:\\
       implement system calls
-    \item needed package: libfuse-dev
 
-    \pause
-    \item system calls:
-    \begin{itemize}
-      \item file related:\\
-        open, release, read, write, getattr, unlink, ...
-      \item directory related:\\
-        readdir, mkdir, rmdir, ...
-    \end{itemize}
+    \bigskip
+    \item file related system calls:\\
+      \lstinline|open, release, read, write, getattr, unlink, ...|
+    \item directory related system calls:\\
+      \lstinline|readdir, mkdir, rmdir, ...|
   \end{itemize}
 \end{frame}
 
-\subsection{Hello, world}
+\section{Examples}
 
-\begin{frame}
-  \frametitle{Example Filesystem: Hello world}
+\subsection{Hello, world!}
 
-  \begin{itemize}
-    \item virtual filesystem with only one directory and one file
-    \item the name of the file: \texttt{hello.txt}
-    \item the contents of the file: \texttt{Hello, world!}
-  \end{itemize}
+\begin{frame}[fragile]
+  \frametitle{Example}
+
+  \begin{exampleblock}{Hello, world!}
+    \begin{itemize}
+      \item virtual filesystem with only one directory and one file
+      \item name of the file: \texttt{hello.txt}
+      \item contents of the file: \lstinline|Hello, world!|
+    \end{itemize}
+
+    \begin{lstlisting}
+static const char *hello_path = "/hello.txt";
+static const char *hello_str = "Hello, world!\n";
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[fuse operations]
+  \begin{exampleblock}{map system calls to functions:
+    \lstinline|fuse_operations|}
     \begin{lstlisting}
 static struct fuse_operations hello_oper = {
     .getattr = hello_getattr,
@@ -132,25 +148,15 @@ static struct fuse_operations hello_oper = {
     .read    = hello_read,
 };
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Directory Listing}
 
-  \begin{example}
-    \begin{lstlisting}
-static const char *hello_path = "/hello.txt";
-static const char *hello_str = "Hello, world!\n";
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{FUSE Development}
-
-  \begin{block}{directory listing: readdir}
-    \begin{lstlisting}
+  \begin{itemize}
+    \item directory listing: \lstinline|readdir|
+    \begin{lstlisting}[style=syntax]
 static int hello_readdir(
     const char *path,
     void *buf,
@@ -159,13 +165,13 @@ static int hello_readdir(
     struct fuse_file_info *fi
 );
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[hello\_readdir]
+  \begin{exampleblock}{\lstinline|readdir|}
     \begin{lstlisting}
 if (strcmp(path, "/") != 0)
     return -ENOENT;
@@ -174,33 +180,36 @@ filler(buf, ".", NULL, 0);
 filler(buf, "..", NULL, 0);
 filler(buf, hello_path + 1, NULL, 0);
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{File Attributes}
 
-  \begin{block}{reading file attributes}
-    \begin{lstlisting}
+  \begin{itemize}
+    \item reading file attributes: \lstinline|getattr|
+    \begin{lstlisting}[style=syntax]
 static int hello_getattr(
     const char *path,
     struct stat *st_data
 );
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[hello\_getattr]
+  \begin{exampleblock}{\lstinline|getattr|}
     \begin{lstlisting}
 memset(stbuf, 0, sizeof(struct stat));
-if (strcmp(path, "/") == 0) {
+if (strcmp(path, "/") == 0)
+{
     stbuf->st_mode = S_IFDIR | 0755;
     stbuf->st_nlink = 2;
 }
-else if (strcmp(path, hello_path) == 0) {
+else if (strcmp(path, hello_path) == 0)
+{
     stbuf->st_mode = S_IFREG | 0444;
     stbuf->st_nlink = 1;
     stbuf->st_size = strlen(hello_str);
@@ -208,14 +217,15 @@ else if (strcmp(path, hello_path) == 0) {
 else
     res = -ENOENT;
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Reading Files}
 
-  \begin{block}{reading from a file}
-    \begin{lstlisting}
+  \begin{itemize}
+    \item reading from a file: \lstinline|read|
+    \begin{lstlisting}[style=syntax]
 static int hello_read(
     const char *path,
     char *buf,
@@ -224,19 +234,20 @@ static int hello_read(
     struct fuse_file_info *finfo
 );
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[hello\_read]
+  \begin{exampleblock}{\lstinline|read|}
     \begin{lstlisting}
 if (strcmp(path, hello_path) != 0)
     return -ENOENT;
 
 len = strlen(hello_str);
-if (offset < len) {
+if (offset < len)
+{
     if (offset + size > len)
         size = len - offset;
     memcpy(buf, hello_str + offset, size);
@@ -245,33 +256,13 @@ if (offset < len) {
 
 return size;
     \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{FUSE Development}
-
-  \begin{itemize}
-    \item compiling:\\
-      \lstinline!gcc -o hello -Wall -ansi -W -std=c99 -g -ggdb!\\
-      ~~~~\lstinline!-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64!\\
-      ~~~~\lstinline!-lfuse hello.c!
-
-    \item mounting:\\
-      \lstinline!./hello <dir>!
-
-    \item unmounting:\\
-      \lstinline!fusermount -u <dir>!
-
-    \item running in debug mode:\\
-      \lstinline!./hello -d <dir>!
-  \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Read-Only Filesystem}
 
 \begin{frame}
-  \frametitle{Example Filesystem: ROFS}
+  \frametitle{ROFS}
 
   \begin{itemize}
     \item read-only filesystem
@@ -282,9 +273,9 @@ return size;
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[fuse operations]
+  \begin{exampleblock}{operations}
     \begin{lstlisting}
 struct fuse_operations rofs_oper = {
     .getattr = rofs_getattr,
@@ -300,37 +291,37 @@ struct fuse_operations rofs_oper = {
     ...
 };
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[path translation]
+  \begin{exampleblock}{path translation}
     \begin{lstlisting}
 char *rPath = malloc(sizeof(char)*
     (strlen(path) + strlen(rw_path) + 1));
 
 strcpy(rPath, rw_path);
-if (rPath[strlen(rPath)-1] == '/') {
+if (rPath[strlen(rPath)-1] == '/')
     rPath[strlen(rPath)-1] = '\0';
-}
 strcat(rPath, path);
 
 return rPath;
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[directory listing]
+  \begin{exampleblock}{directory listing}
     \begin{lstlisting}
 upath = translate_path(path);
 dp = opendir(upath);  /* DIR *dp; */
 free(upath);
-if(dp == NULL) {
+if (dp == NULL)
+{
     res = -errno;
     return res;
 }
@@ -339,16 +330,17 @@ if(dp == NULL) {
 
 closedir(dp);
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[directory info]
+  \begin{exampleblock}{directory info}
     \begin{lstlisting}
 /* struct dirent *de; */
-while((de = readdir(dp)) != NULL) {
+while ((de = readdir(dp)) != NULL)
+{
     struct stat st;
     memset(&st, 0, sizeof(st));
     st.st_ino = de->d_ino;
@@ -357,49 +349,48 @@ while((de = readdir(dp)) != NULL) {
         break;
 }
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[reading file attributes]
+  \begin{exampleblock}{file attributes}
     \begin{lstlisting}
 upath = translate_path(path);
 res = lstat(upath, st_data);
 free(upath);
-if(res == -1) {
+if (res == -1)
     return -errno;
-}
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{example}[reading from a file]
+  \begin{exampleblock}{reading from a file}
     \begin{lstlisting}
 upath = translate_path(path);
 fd = open(upath, O_RDONLY);
 free(upath);
-if(fd == -1) {
+if (fd == -1)
+{
     res = -errno;
     return res;
 }
 res = pread(fd, buf, size, offset);
-if(res == -1) {
+if (res == -1)
     res = -errno;
-}
 close(fd);
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{FUSE Development}
+  \frametitle{Example}
 
-  \begin{block}{modification operations}
+  \begin{exampleblock}{modification operations}
     \begin{lstlisting}
 static int rofs_mkdir(
     const char *path,
@@ -411,27 +402,7 @@ static int rofs_unlink(const char *path);
 /* body */
 return -EROFS;
     \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{FUSE Development}
-
-  \begin{itemize}
-    \item compiling:\\
-      \lstinline!gcc -o rofs -Wall -ansi -W -std=c99 -g -ggdb!\\
-      ~~~~\lstinline!-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64!\\
-      ~~~~\lstinline!-lfuse rofs.c!
-
-    \item mounting:\\
-      \lstinline!./rofs <rw_dir> <ro_dir>!
-
-    \item unmounting:\\
-      \lstinline!fusermount -u <ro_dir>!
-
-    \item running in debug mode:\\
-      \lstinline!./rofs -d <rw_dir> <ro_dir>!
-  \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \end{document}
