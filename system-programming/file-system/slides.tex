@@ -114,6 +114,25 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Mounting}
+
+  \begin{itemize}
+    \item associating a file hierarchy with a top-level directory:\\
+      \alert{mounting}
+    \item requests are relative to top-level directory
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{itemize}
+      \item file system mounted on \texttt{/mnt/fuse}
+      \medskip
+      \item \texttt{ls /mnt/fuse} $\rightarrow$ \lstinline|readdir "/"|
+      \item \texttt{mkdir /mnt/fuse/foo} $\rightarrow$ \lstinline|mkdir "/foo"|
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
 \section{Examples}
 
 \subsection{Hello, world!}
@@ -128,7 +147,7 @@
       \item contents of the file: \lstinline|Hello, world!|
     \end{itemize}
 
-    \begin{lstlisting}
+    \begin{lstlisting}[frame=single]
 static const char *hello_path = "/hello.txt";
 static const char *hello_str = "Hello, world!\n";
     \end{lstlisting}
@@ -191,7 +210,7 @@ filler(buf, hello_path + 1, NULL, 0);
     \begin{lstlisting}[style=syntax]
 static int hello_getattr(
     const char *path,
-    struct stat *st_data
+    struct stat *stbuf
 );
     \end{lstlisting}
   \end{itemize}
@@ -251,7 +270,8 @@ if (offset < len)
     if (offset + size > len)
         size = len - offset;
     memcpy(buf, hello_str + offset, size);
-} else
+}
+else
     size = 0;
 
 return size;
@@ -264,12 +284,18 @@ return size;
 \begin{frame}
   \frametitle{ROFS}
 
-  \begin{itemize}
-    \item read-only filesystem
-    \item access an underlying directory in read-only mode
-    \item all read accesses are delegated to the underlying directory
-    \item all write accesses are denied
-  \end{itemize}
+  \begin{exampleblock}{read-only file system}
+    \begin{itemize}
+      \item access an underlying directory in read-only mode
+      \item all read accesses are delegated to the underlying directory
+      \item all write accesses are denied
+
+      \medskip
+      \item for example:
+      \item \lstinline|rw_path|: \texttt{/home/itucs/Documents}
+      \item mounted on \texttt{/mnt/Documents}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -299,7 +325,7 @@ struct fuse_operations rofs_oper = {
 
   \begin{exampleblock}{path translation}
     \begin{lstlisting}
-char *rPath = malloc(sizeof(char)*
+char *rPath = malloc(sizeof(char) *
     (strlen(path) + strlen(rw_path) + 1));
 
 strcpy(rPath, rw_path);
