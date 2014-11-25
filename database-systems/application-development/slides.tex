@@ -1058,29 +1058,6 @@ CREATE RULE UPDATE_TITLE AS
 %     \end{lstlisting}
 %   \end{example}
 % \end{frame}
-
-\subsection{Indexes}
-
-\begin{frame}[fragile]
-  \frametitle{Indexes}
-
-  \begin{itemize}
-    \item some operations require sorting:\\
-      \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
-
-    \medskip
-    \item indexes speed up queries
-    \item slow down inserts and updates
-
-    \pause
-    \bigskip
-    \item creating an index
-    \begin{lstlisting}
-CREATE [ UNIQUE ] INDEX index_name
-  ON table_name(column_name [, ...])
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
 %
 % \begin{frame}[fragile]
 %   \frametitle{Bulk Data Transfer}

@@ -114,35 +114,11 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Data Models}
-
-  \begin{itemize}
-    \item previous models:
-    \begin{itemize}
-      \item inverted list
-      \item hierarchical
-      \item network
-    \end{itemize}
-
-    \pause
-    \item relational model:
-    \begin{itemize}
-      \item Dr. E. F. Codd, 1970
-    \end{itemize}
-
-    \pause
-    \item later models:
-    \begin{itemize}
-      \item object
-      \item object / relational
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Relational Model}
 
   \begin{itemize}
+    \item Dr. E. F. Codd, 1970
+
     \item data is modelled as \alert{relations}:\\
       $\alpha \subseteq A \times B \times C \times ...$
 
@@ -154,7 +130,7 @@
 
     \pause
     \medskip
-    \item relations are represented using tables
+    \item relations can be represented using tables
     \item relation $\rightarrow$ table, tuple $\rightarrow$ row,
       attribute $\rightarrow$ column
   \end{itemize}
@@ -177,10 +153,9 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \end{footnotesize}
 
   \begin{itemize}
-    \item the name of the relation variable is \texttt{MOVIE}
-    \item \texttt{(Usual Suspects, 1995, Bryan Singer, 8.7, 3502)}\\
-      is a tuple
-    \item \texttt{YEAR} is an attribute
+    \item relation variable: \texttt{MOVIE}
+    \item tuple: \texttt{(Suspiria, 1977, Dario Argento, 7.1, 1004)}
+    \item attribute: \texttt{YEAR}
   \end{itemize}
 \end{frame}
 
@@ -188,19 +163,12 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \frametitle{Relation Structure}
 
     \begin{itemize}
-      \item relation header:
-      \begin{itemize}
-        \item the set of attributes of the relation
-        \item affected by data definition language statements
-      \end{itemize}
+      \item relation header: set of attributes of the relation
+      \item affected by data definition language statements
 
-      \pause
       \medskip
-      \item relation body:
-      \begin{itemize}
-        \item the set of tuples in the relation
-        \item affected by data manipulation language statements
-      \end{itemize}
+      \item relation body: set of tuples in the relation
+      \item affected by data manipulation language statements
     \end{itemize}
 \end{frame}
 
@@ -235,12 +203,12 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \frametitle{Tuple Order}
 
   \begin{itemize}
-    \item the order of tuples is insignificant
+    \item tuple order is insignificant
   \end{itemize}
 
   \begin{example}
     \begin{itemize}
-      \item the following two relations are equivalent:
+      \item these relations are equivalent:
     \end{itemize}
 
     \begin{columns}
@@ -277,12 +245,12 @@ Usual Suspects       & ...\\\hline
   \frametitle{Attribute Order}
 
   \begin{itemize}
-    \item the order of attributes is insignificant
+    \item attribute order is insignificant
   \end{itemize}
 
   \begin{example}
     \begin{itemize}
-      \item the following two relations are equivalent:
+      \item these relations are equivalent:
     \end{itemize}
 
     \begin{columns}
@@ -351,10 +319,8 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \begin{itemize}
     \item all values for the same attribute have to be selected\\
       from the same domain
-    \begin{itemize}
-      \item comparison only makes sense between values\\
-        chosen from the same domain
-    \end{itemize}
+    \item comparison only makes sense between values\\
+      chosen from the same domain
 
     \medskip
     \item in practice, data types are used instead
@@ -368,19 +334,15 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
     \item \texttt{TITLE} from the titles domain, \texttt{YEAR} from the years
       domain,\\
       \texttt{DIRECTOR} from the directors domain, ...
-
-    \pause
     \item if data types are used:\\
       \texttt{TITLE} string, \texttt{YEAR} integer, \texttt{DIRECTOR} string,
         ...
 
-    \begin{itemize}
-      \item assigning \texttt{"Usual Suspects"} to \texttt{DIRECTOR} is valid\\
-        in terms of data types but it doesn't make sense
-
-      \item \texttt{YEAR} and \texttt{VOTES} are integers\\
-        but it doesn't make sense to compare them
-    \end{itemize}
+    \medskip
+    \item assigning \texttt{"Usual Suspects"} to \texttt{DIRECTOR} is valid\\
+      in terms of data types but it doesn't make sense
+    \item \texttt{YEAR} and \texttt{VOTES} are integers\\
+      but it doesn't make sense to compare them
   \end{itemize}
 \end{frame}
 
@@ -422,28 +384,28 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
   \begin{columns}[t]
     \column{.5\textwidth}
     \begin{itemize}
-      \item the value of the attribute\\
-	is not known for this tuple
+      \item value of attribute\\
+	not known for tuple
     \end{itemize}
 
     \begin{example}
       \begin{itemize}
-        \item the director of the movie\\
-	  is not known
+        \item director of movie\\
+	  not known
       \end{itemize}
     \end{example}
 
     \pause
     \column{.5\textwidth}
     \begin{itemize}
-      \item this tuple does not have\\
-        a value for this attribute
+      \item tuple does not have\\
+        a value for attribute
     \end{itemize}
 
     \begin{example}
       \begin{itemize}
-        \item nobody voted for the movie,\\
-	  therefore there is no \texttt{SCORE}
+        \item nobody voted for movie,\\
+	  therefore no \texttt{SCORE}
       \end{itemize}
     \end{example}
   \end{columns}
@@ -474,10 +436,9 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
     \item let $B$ be the set of all attributes of the relation,\\
       and let $A \subseteq B$
 
-    \pause
-    \bigskip
-    \item to be a candidate key, $A$ has to be:
     \smallskip
+    \item to be a candidate key, $A$ has to be:
+
     \item \alert{unique}: no two tuples have the same values\\
       for all attributes in $A$
     \item \alert{irreducible}: no subset of $A$ is unique
@@ -515,7 +476,7 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
     \pause
     \medskip
     \item identity attribute
-    \item its value doesn't matter
+    \item value doesn't matter
     \item it can be generated by the system
   \end{itemize}
 \end{frame}
@@ -548,10 +509,10 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
 
   \begin{itemize}
     \item if a relation has more than one candidate key,\\
-      one of them is selected as the \alert{primary key}
+      one of them is selected as \alert{primary key}
     \begin{itemize}
-      \item the others are alternate keys
-      \item the names of the attributes in the primary key are underlined
+      \item others are alternate keys
+      \item names of attributes in the primary key are underlined
     \end{itemize}
 
     \pause
@@ -1324,8 +1285,7 @@ CONSTRAINT MOVIE_FKEY_DIRECTOR
 
   \begin{lstlisting}
 CONSTRAINT CASTING_FKEY_MOVIE
-  CASTING { MOVIE# }
-    <= MOVIE { MOVIE# };
+  CASTING { MOVIE# } <= MOVIE { MOVIE# };
   \end{lstlisting}
 
   \begin{lstlisting}
@@ -1729,6 +1689,22 @@ CREATE TABLE PERSON (
 )
     \end{lstlisting}
   \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Indexes}
+
+  \begin{itemize}
+    \item creating an index
+    \begin{lstlisting}
+CREATE [ UNIQUE ] INDEX index_name
+  ON table_name(column_name [, ...])
+    \end{lstlisting}
+
+    \medskip
+    \item speed up queries
+    \item slow down inserts and updates
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
