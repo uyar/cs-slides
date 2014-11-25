@@ -935,88 +935,6 @@ CREATE TRIGGER UPDATE_MOVIE
     \end{lstlisting}
   \end{itemize}
 \end{frame}
-
-\subsection{Views}
-
-\begin{frame}[fragile]
-  \frametitle{Views}
-
-  \begin{itemize}
-    \item presenting a derived table like a base table: \alert{view}
-    \item isolating users and application programs\\
-      from changes in database structure
-
-    \pause
-    \bigskip
-    \item creating a view:
-    \begin{lstlisting}
-CREATE VIEW view_name AS
-  SELECT ...
-    \end{lstlisting}
-
-    \medskip
-    \item \lstinline!SELECT! will be executed every time the view is used
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{View Example}
-
-  \begin{itemize}
-    \item identifiers, titles and years of new movies
-
-    \medskip
-    \begin{lstlisting}
-CREATE VIEW NEW_MOVIE AS
-  SELECT ID, TITLE, YR FROM MOVIE
-    WHERE (YR > 1995)
-
-SELECT * FROM NEW_MOVIE
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Updating Views}
-
-  \begin{itemize}
-    \item any change will have to performed on the base tables
-    \item rules need to be defined
-
-    \pause
-    \bigskip
-    \item creating a rule:
-    \begin{lstlisting}
-CREATE RULE rule_name AS
-  ON event TO view_name
-  [ WHERE condition ]
-  DO [ INSTEAD ] sql_statement
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{View Rule Example}
-
-  \begin{itemize}
-    \item modify the title of a new movie
-    \begin{lstlisting}
-UPDATE NEW_MOVIE SET TITLE = ...
-  WHERE (ID = ...)
-    \end{lstlisting}
-
-    \pause
-    \medskip
-    \item rule for updating the base table
-    \begin{lstlisting}
-CREATE RULE UPDATE_TITLE AS
-  ON UPDATE TO NEW_MOVIE
-  DO INSTEAD
-    UPDATE MOVIE SET TITLE = new.TITLE
-      WHERE (ID = old.ID)
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
 %
 % \subsection{Permissions}
 %
@@ -1114,8 +1032,6 @@ CREATE RULE UPDATE_TITLE AS
       \begin{itemize}
         \item 9.11. \alert{Triggers (a Digression)}
       \end{itemize}
-
-      \item Chapter 10: \alert{Views}
     \end{itemize}
   \end{block}
 
