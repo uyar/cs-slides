@@ -30,11 +30,11 @@
                 OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
                 WITH}
 }
-\lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
-  morekeywords={BEGIN, CLOSE, CONTINUE, CURSOR, DECLARE, FETCH, FOR, DO, END,
-                EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
-                SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
-}
+% \lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
+%   morekeywords={BEGIN, CLOSE, CONTINUE, CURSOR, DECLARE, FETCH, FOR, DO, END,
+%                 EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
+%                 SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
+% }
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
         showstringspaces=false}
 
@@ -168,9 +168,9 @@
 
   \begin{itemize}
     \item application programming interface (API)
-    \item embedded SQL
+%     \item embedded SQL
     \item ODBC
-    \item language standard interfaces
+    \item standardized interfaces for languages: JDBC for Java
   \end{itemize}
 \end{frame}
 
@@ -253,122 +253,122 @@ for (i = 0; i < PQntuples(result); i++)
 PQclear(result);
   \end{lstlisting}
 \end{frame}
-
-\subsection{Embedded SQL}
-
-\lstset{language=EmbeddedSQL}
-
-\begin{frame}
-  \frametitle{Embedded SQL}
-
-  \begin{itemize}
-    \item mark SQL statements within host language code: \lstinline!EXEC SQL!
-    \item preprocessor: embedded SQL directives $\rightarrow$ API calls
-
-    \pause
-    \bigskip
-    \item pros: fast, standard
-    \item cons: difficult, does not support most languages
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Embedded SQL}
-
-  \begin{center}
-    \pgfuseimage{esql}
-  \end{center}
-
-  \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Embedded SQL}
-
-  \begin{itemize}
-    \item variable sharing
-    \begin{lstlisting}
-EXEC SQL BEGIN DECLARE SECTION;
--- shared variables
-EXEC SQL END DECLARE SECTION;
-    \end{lstlisting}
-
-    \pause
-    \medskip
-    \item error control
-    \begin{lstlisting}
-EXEC SQL WHENEVER
-  { SQLERROR | SQLWARNING | NOT FOUND }
-  { STOP | CONTINUE | DO command | GOTO label }
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Query Results}
-
-  \begin{itemize}
-    \item cursors for iterating over query results
-    \begin{lstlisting}
-EXEC SQL DECLARE cursor_name CURSOR FOR
-    SELECT ...;
-EXEC SQL OPEN cursor_name;
-EXEC SQL FETCH IN cursor_name INTO variables;
-EXEC SQL CLOSE cursor_name;
-    \end{lstlisting}
-
-    \medskip
-    \item query is executed when cursor is opened
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Embedded SQL Example: Connect}
-
-  \begin{lstlisting}[language=C]
-EXEC SQL BEGIN DECLARE SECTION;
-int year;
-char *title = NULL, *score = NULL;
-EXEC SQL END DECLARE SECTION;
-
-EXEC SQL CONNECT TO imdb
-    USER itucs IDENTIFIED BY itucs;
-
-/* process query */
-
-EXEC SQL DISCONNECT;
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Embedded SQL Example: Cursor}
-
-  \begin{lstlisting}[language=C]
-scanf("%d", &year);
-EXEC SQL DECLARE c_query CURSOR FOR
-    SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YR = :year);
-EXEC SQL OPEN c_query;
-
-/* execute query */
-
-EXEC SQL CLOSE c_query;
-EXEC SQL COMMIT;
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Embedded SQL Example: Query}
-
-  \begin{lstlisting}[language=C]
-EXEC SQL WHENEVER NOT FOUND DO break;
-while (1)
-{
-    EXEC SQL FETCH c_query INTO :title, :score;
-    ...
-}
-  \end{lstlisting}
-\end{frame}
+%
+% \subsection{Embedded SQL}
+%
+% \lstset{language=EmbeddedSQL}
+%
+% \begin{frame}
+%   \frametitle{Embedded SQL}
+%
+%   \begin{itemize}
+%     \item mark SQL statements within host language code: \lstinline!EXEC SQL!
+%     \item preprocessor: embedded SQL directives $\rightarrow$ API calls
+%
+%     \pause
+%     \bigskip
+%     \item pros: fast, standard
+%     \item cons: difficult, does not support most languages
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Embedded SQL}
+%
+%   \begin{center}
+%     \pgfuseimage{esql}
+%   \end{center}
+%
+%   \hyperlink{odbc}{\beamergotobutton{skip Embedded SQL}}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Embedded SQL}
+%
+%   \begin{itemize}
+%     \item variable sharing
+%     \begin{lstlisting}
+% EXEC SQL BEGIN DECLARE SECTION;
+% -- shared variables
+% EXEC SQL END DECLARE SECTION;
+%     \end{lstlisting}
+%
+%     \pause
+%     \medskip
+%     \item error control
+%     \begin{lstlisting}
+% EXEC SQL WHENEVER
+%   { SQLERROR | SQLWARNING | NOT FOUND }
+%   { STOP | CONTINUE | DO command | GOTO label }
+%     \end{lstlisting}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Query Results}
+%
+%   \begin{itemize}
+%     \item cursors for iterating over query results
+%     \begin{lstlisting}
+% EXEC SQL DECLARE cursor_name CURSOR FOR
+%     SELECT ...;
+% EXEC SQL OPEN cursor_name;
+% EXEC SQL FETCH IN cursor_name INTO variables;
+% EXEC SQL CLOSE cursor_name;
+%     \end{lstlisting}
+%
+%     \medskip
+%     \item query is executed when cursor is opened
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Embedded SQL Example: Connect}
+%
+%   \begin{lstlisting}[language=C]
+% EXEC SQL BEGIN DECLARE SECTION;
+% int year;
+% char *title = NULL, *score = NULL;
+% EXEC SQL END DECLARE SECTION;
+%
+% EXEC SQL CONNECT TO imdb
+%     USER itucs IDENTIFIED BY itucs;
+%
+% /* process query */
+%
+% EXEC SQL DISCONNECT;
+%   \end{lstlisting}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Embedded SQL Example: Cursor}
+%
+%   \begin{lstlisting}[language=C]
+% scanf("%d", &year);
+% EXEC SQL DECLARE c_query CURSOR FOR
+%     SELECT TITLE, SCORE FROM MOVIE
+%       WHERE (YR = :year);
+% EXEC SQL OPEN c_query;
+%
+% /* execute query */
+%
+% EXEC SQL CLOSE c_query;
+% EXEC SQL COMMIT;
+%   \end{lstlisting}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{Embedded SQL Example: Query}
+%
+%   \begin{lstlisting}[language=C]
+% EXEC SQL WHENEVER NOT FOUND DO break;
+% while (1)
+% {
+%     EXEC SQL FETCH c_query INTO :title, :score;
+%     ...
+% }
+%   \end{lstlisting}
+% \end{frame}
 
 \subsection{ODBC}
 
@@ -812,11 +812,9 @@ int id = ids.getInt(1);
 %   \end{block}
 % \end{frame}
 
-\section{SQL}
+\subsection{SQL Procedures}
 
 \lstset{language=ExtendedSQL}
-
-\subsection{Stored Procedures}
 
 \begin{frame}
   \frametitle{Stored Procedures}
@@ -828,9 +826,7 @@ int id = ids.getInt(1);
     \pause
     \bigskip
     \item not portable
-    \pause
     \item not scalable
-    \pause
     \item database servers are not optimized for business logic
     \pause
     \item \alert{not recommended}\\
@@ -1016,17 +1012,17 @@ CREATE TRIGGER UPDATE_MOVIE
 %   \end{block}
 % \end{frame}
 
-\section*{References}
+\subsection*{References}
 
 \begin{frame}
   \frametitle{References}
 
   \begin{block}{Required Reading: Date}
     \begin{itemize}
-      \item Chapter 4: An Introduction to SQL
-      \begin{itemize}
-        \item 4.6. Embedded SQL
-      \end{itemize}
+%       \item Chapter 4: An Introduction to SQL
+%       \begin{itemize}
+%         \item 4.6. Embedded SQL
+%       \end{itemize}
 
       \item Chapter 9: Integrity
       \begin{itemize}
