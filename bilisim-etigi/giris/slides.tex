@@ -1,14 +1,18 @@
-% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -17,17 +21,11 @@
   \setbeamercovered{transparent}
 }
 
-\usepackage{ae}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
-
 \title{Bilişim Etiği}
 \subtitle{Giriş}
 
 \author{H. Turgut Uyar}
-\date{2004-2012}
+\date{2004-2015}
 
 \AtBeginSubsection[]
 {
@@ -39,15 +37,10 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
+
 \pgfdeclareimage[width=8cm]{usatoday}{usatoday}
 \pgfdeclareimage[width=7cm]{bbc}{bbc}
 \pgfdeclareimage[width=8cm]{msnbc}{msnbc}
@@ -63,33 +56,40 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2004-2012 H. Turgut Uyar
+  \copyright~2004-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -104,15 +104,16 @@
 
   \begin{itemize}
     \item her yeni teknolojinin getirdikleri ve götürdükleri oluyor
+    \item değişik boyutlarda
   \end{itemize}
 
-  \begin{ornek}
+  \begin{exampleblock}{örnekler}
     \begin{itemize}
       \item nükleer enerji
       \item akıllı karayolları
       \item aerosol kutuları
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -120,20 +121,24 @@
 
   \begin{itemize}
     \item her ilerlemede politika boşlukları oluşuyor
-    \begin{itemize}
-      \item her aşamada yeni ahlaki değerlendirme gerek
-      \item sakıncalar azaltılmalı
-      \item gerekirse o teknolojiden vazgeçilebilir
-    \end{itemize}
 
-    \pause
-    \medskip
-    \item oluşan boşluklar doldurulmalı
-    \begin{itemize}
-      \item yasalar
-      \item kurum politikaları
-      \item kişisel davranışlar
-    \end{itemize}
+    \bigskip
+    \item yeni ahlaki değerlendirme gerek
+    \item sakıncalar azaltılmalı
+    \item gerekirse o teknolojiden vazgeçilebilir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Politika Boşlukları}
+
+  \begin{itemize}
+    \item oluşan boşluklar nasıl doldurulacak?
+
+    \bigskip
+    \item yasalar
+    \item kurum politikaları
+    \item kişisel ilkeler
   \end{itemize}
 \end{frame}
 
@@ -147,9 +152,9 @@
     \begin{block}{getirdikleri}
       \begin{itemize}
         \item iletişim
-        \item tıp
-        \item uzay yolculuğu
-        \item ...
+        \item tıp uygulamaları
+        \item uzay araştırmaları
+        \item \ldots
       \end{itemize}
     \end{block}
 
@@ -160,39 +165,43 @@
         \item mahremiyet
         \item suç işlemenin kolaylaşması
         \item yabancılaşma
-        \item ...
+        \item \ldots
       \end{itemize}
     \end{block}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Sorunların Yeniliği}
+  \frametitle{Sorunlar}
 
   \begin{itemize}
-    \item "sorunlar yeni değil" diyenler:
-    \begin{itemize}
-      \item suçların gerçek dünyada karşılığı var:\\
-        dolandırıcılık
-      \item sorunların gerçek dünyada benzerleri var:\\
-        yazılım mülkiyeti $\rightarrow$ fikri mülkiyet\\
-        mahremiyet $\rightarrow$ basın
-    \end{itemize}
+    \item sorunlar yeni mi?
+  \end{itemize}
 
-    \pause
-    \medskip
-    \item "sorunlar yeni" diyenler:
+  \begin{block}{yeni değil}
+    \begin{itemize}
+      \item gerçek dünyada karşılıkları var: dolandırıcılık
+      \item gerçek dünyada benzerleri var:
+        yazılım kopyalama $\rightarrow$ kitap kopyalama
+    \end{itemize}
+  \end{block}
+
+  \pause
+  \begin{block}{yeni}
     \begin{itemize}
       \item bilişim teknolojisi olmadan yapılamaz
-      \item gerçek dünyadaki zorluklar, kısıtlamalar yok
+      \item gerçek dünyadaki riskler ve kısıtlamalar yok
     \end{itemize}
-  \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Sorunların Yeniliği}
+  \frametitle{Sorunlar}
 
   \begin{itemize}
+    \item doğası yeni olmasa bile:
+
+    \medskip
     \item ölçeğin büyüklüğü
     \item bilginin gücü
     \item bilginin kalıcılığı
@@ -209,7 +218,7 @@
 
     \column{.3\textwidth}
     \begin{itemize}
-      \item 15000 kişi\\
+      \item 15,000 kişi\\
         isim benzerliği\\
         nedeniyle listede
       \item havayollarını\\
@@ -225,13 +234,12 @@
   \frametitle{Bilginin Kalıcılığı: İngiltere polis kayıtları (2008)}
 
   \begin{columns}
-    \column{.6\textwidth}
+    \column{.56\textwidth}
     \pgfuseimage{bbc}
 
-    \column{.4\textwidth}
+    \column{.44\textwidth}
     \begin{itemize}
-      \item Bilgi Komiseri\\
-        polisten\\
+      \item Bilgi Komiseri polisten\\
         eski suç kayıtlarını\\
         silmesini istiyor
 
@@ -275,10 +283,10 @@
   \frametitle{Güvenilmezlik: Fransız Veri Koruma Ajansı raporu (2009)}
 
   \begin{columns}
-    \column{.6\textwidth}
+    \column{.57\textwidth}
     \pgfuseimage{register}
 
-    \column{.4\textwidth}
+    \column{.43\textwidth}
     \begin{itemize}
       \item 1 milyon Fransız\\
         sabıka kayıtlarındaki\\
@@ -295,17 +303,12 @@
 \begin{frame}
   \frametitle{Veri Madenciliği}
 
-  \begin{tanim}
-    \alert{veri madenciliği}
-
-    \begin{itemize}
-      \item veride örtülü kalıpların aranması
-      \item bariz olmayan yeni kategoriler ortaya çıkarma
-    \end{itemize}
-  \end{tanim}
-
-  \pause
   \begin{itemize}
+    \item \alert{veri madenciliği}
+    \item veride örtülü kalıpların aranması
+    \item bariz olmayan yeni kategoriler ortaya çıkarma
+
+    \medskip
     \item karar destek sistemlerinde kullanılıyor:\\
       alışveriş kartları, kredi puanlama
   \end{itemize}
@@ -315,13 +318,13 @@
   \frametitle{Örnek: Total Information Awareness}
 
   \begin{itemize}
+    \item terörist saldırıların önüne geçme amaçlı
+
+    \medskip
     \item pek çok değişik alandan veri toplansın
-    \begin{itemize}
-      \item finans, sağlık, iletişim, yolculuk, \ldots
-    \end{itemize}
+    \item finans, sağlık, iletişim, yolculuk, \ldots
     \item benzer davranış kalıplarından terörist olabilecekler belirlensin
 
-    \pause
     \bigskip
     \item hatalı sonuçlar
     \item yöntem kayması: suçu değil suçsuzluğu kanıtlamak gerekmesi
@@ -334,27 +337,28 @@
   \frametitle{Gelenekçi Yöntem}
 
   \begin{itemize}
-    \item var olan ilkelerin yeni sorunlara uyarlanması
-    \begin{itemize}
-      \item yazılım: kitap, film, ...
-      \item iletişim: yüzyüze, telefon, posta, basın, ...
-    \end{itemize}
+    \item var olan ilkeleri yeni sorunlara uyarlayalım
 
     \bigskip
-    \item kavramları yerleştirmek gerek
+    \item yazılım $\rightarrow$ kitap, film, \ldots
+    \item iletişim $\rightarrow$ yüzyüze, telefon, basın, \ldots
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Gelenekçi Yöntem}
 
-  \begin{ornek}[Yazılım neye benzer?]
+  \begin{itemize}
+    \item kavramları eşleştirmek zor olabilir
+  \end{itemize}
+
+  \begin{exampleblock}{yazılım neye benzer?}
     \begin{itemize}
       \item kitap, film $\rightarrow$ telif
       \item ilaç $\rightarrow$ patent
       \item Coca-Cola'nın formülü $\rightarrow$ ticari sır
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
