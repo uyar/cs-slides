@@ -1,0 +1,569 @@
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{IT Ethics}
+\subtitle{Ethical Theories}
+
+\author{H. Turgut Uyar}
+\date{2004-2015}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\pgfdeclareimage[height=4.5cm]{bentham}{bentham}
+\pgfdeclareimage[height=4.5cm]{kant}{kant}
+\pgfdeclareimage[height=4.5cm]{hobbes}{hobbes}
+\pgfdeclareimage[height=4.5cm]{platon}{platon}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2004-2015 H. Turgut Uyar
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\subsection{Definitions}
+
+\begin{frame}
+  \frametitle{Descriptive Claims}
+
+  \begin{itemize}
+    \item \alert{descriptive} claim: what is
+    \item subject of sociology, psychology, anthropology, political sciences
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{example}
+    \begin{quote}
+      85\% of computer users don't obey license agreements
+    \end{quote}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Normative Claims}
+
+  \begin{itemize}
+    \item \alert{normative} claim: what should be
+    \item subject of philosophy
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{example}
+    \begin{quote}
+      computer users should obey license agreements
+    \end{quote}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moral System}
+
+  \begin{itemize}
+    \item rules of conduct: individual directives, social policies
+    \item evaluation principles: social utility, \ldots
+
+    \pause
+    \bigskip
+    \item \emph{public}: rules are known to all members
+    \item \emph{informal}: no enforcement
+    \item \emph{rational}: based on principles of reason
+    \item \emph{impartial}: not biased to any member
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Setting Rules}
+
+  \begin{itemize}
+    \item considering \alert{core values}
+    \item \emph{intrinsic}: happiness, autonomy, privacy, \ldots
+    \item \emph{instrumental}: money, \ldots
+
+    \pause
+    \bigskip
+    \item grounding the principles:
+    \smallskip
+    \item religion
+    \item law
+    \item philosophy
+  \end{itemize}
+\end{frame}
+
+\subsection{Method}
+
+\begin{frame}
+  \frametitle{Method of Philosophical Ethics}
+
+  \begin{itemize}
+    \item \alert{dialectic}
+
+    \medskip
+    \item make a claim, state a principle
+    \item test the principle in various cases
+    \item adjust your claim and/or the principle
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dialectic Example}
+
+  \begin{itemize}
+    \item ``euthanasia is wrong\\
+      because human life should not be ended intentionally''
+
+    \pause
+    \medskip
+    \item conscious and in too much pain
+    \item unconscious and has brain damage
+    \item young - old
+
+    \pause
+    \smallskip
+    \item ``quality of life''
+
+    \pause
+    \medskip
+    \item consistency when applying to other problems:\\
+      war, capital punishment, abortion, \ldots
+    \item ``self defense, saving others, \ldots''
+  \end{itemize}
+\end{frame}
+
+\subsection{Discussion Stoppers}
+
+\begin{frame}
+  \frametitle{Discussion Stoppers}
+
+  \begin{itemize}
+    \item philosophers disagree on fundamental issues
+    \item how can others agree?
+
+    \pause
+    \bigskip
+    \item experts in other fields also disagree
+    \item light: waves or particles?
+
+    \pause
+    \medskip
+    \item there is agreement on many issues
+
+    \pause
+    \medskip
+    \item disagreement on principles - disagreement on facts
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Relativism}
+
+  \begin{itemize}
+    \item cultural relativism
+    \item ``different cultures have different beliefs\\
+      about morally right and wrong behaviour''
+
+    \pause
+    \medskip
+    \item descriptive claim, stated normatively:
+    \item ``what is morally right or wrong for members of a culture\\
+      can be determined only by that culture''
+    \item moral relativism
+
+    \pause
+    \medskip
+    \item there are some universal moral laws
+  \end{itemize}
+\end{frame}
+
+\subsection{Guidelines}
+
+\begin{frame}
+  \frametitle{Guidelines}
+
+  \begin{itemize}
+    \item why do we need ethical theories?
+
+    \medskip
+    \item help us decide what to do when faced with options
+    \item help us analyze moral issues
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Golden Rule}
+
+  \begin{itemize}
+    \item ``do unto others as you would have them do unto you''
+  \end{itemize}
+
+  \pause
+  \medskip
+  \begin{exampleblock}{counterexample}
+    \begin{itemize}
+      \item I'm a software developer.
+      \item I don't mind others copying and distributing my works\\
+        without my permission.
+      \item So I can copy and distribute other people's works\\
+        without their permission.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\section{Theories}
+
+\subsection{Utilitarianism}
+
+\begin{frame}
+  \frametitle{Utilitarianism}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{block}{utilitarianism}
+      an act is morally permissible\\
+      if its consequences produce\\
+      the greatest amount of good\\
+      for the greatest number of persons\\
+      affected by it
+    \end{block}
+
+    \begin{itemize}
+      \item consequence based
+    \end{itemize}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{bentham}\\
+      Jeremy Bentham (1748-1832)
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Utilitarianism Problem Example}
+
+  \begin{itemize}
+    \item I enter a clothing store and see a shirt that I like.
+    \item Should I steal it?
+    \item Calculate and decide.
+
+    \pause
+    \bigskip
+    \item I go out, enter another store and see a tie that I like.
+    \item Should I steal it?
+    \item \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Utilitarianism}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{act utilitarianism}
+      act so that more people\\
+      will be happier
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{rule utilitarianism}
+      act so that more people\\
+      would be happier\\
+      if everyone acted that way
+    \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Utilitarianism Problem Examples}
+
+  \begin{exampleblock}{act utilitarianism}
+    \begin{itemize}
+      \item "let's kill one person and save ten using his organs"
+      \item "let's make 1\% of the society work as slaves for the other 99\%"
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \begin{exampleblock}{rule utilitarianism}
+    \begin{itemize}
+      \item "making 1\% of the society work as slaves would cause unrest"
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Critique of Utilitarianism}
+
+  \begin{itemize}
+    \item morality is tied to happiness or pleasure
+
+    \pause
+    \medskip
+    \item consequence of action not known beforehand: \emph{moral luck}
+
+    \pause
+    \medskip
+    \item not helpful for decisions
+    \item how to do the utilitarian calculus?
+
+    \pause
+    \medskip
+    \item fair distribution of good outcomes?
+  \end{itemize}
+\end{frame}
+
+\subsection{Deontology}
+
+\begin{frame}
+  \frametitle{Deontology}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item intutiton is sufficient\\
+        to seek happiness
+      \item capacity of reasoning\\
+        is what separates\\
+        humans from animals
+      \item this capacity creates\\
+        a moral duty
+
+      \medskip
+      \item duty based
+    \end{itemize}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{kant}\\
+      Immanuel Kant (1724-1804)
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Categorical Imperative}
+
+  \begin{block}{categorical imperative}
+    \begin{itemize}
+      \item never treat others merely as a means to an end
+      \item act always on that rule that can be universally binding,\\
+        without exception, for all human beings
+    \end{itemize}
+  \end{block}
+
+  \pause
+  \begin{itemize}
+    \item what if duties conflict?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Categorical Imperative Example}
+
+  \begin{itemize}
+    \item slavery is wrong because
+
+    \medskip
+    \item a group of people would be treated as a means to an end
+    \item people wouldn't want this to be an impartial, universal rule
+  \end{itemize}
+\end{frame}
+
+\subsection{Social Contract}
+
+\begin{frame}
+  \frametitle{Social Contract Theory}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{hobbes}\\
+      Thomas Hobbes (1588-1679)
+    \end{center}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item premoral state:\\
+        everyone acts to satisfy\\
+        their own needs
+      \item there is a sense of freedom\\
+        but also a constant threat
+      \item we surrender some of\\
+        our freedom to a sovereign
+    \end{itemize}
+
+    \begin{itemize}
+      \item contract based
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Critique of Social Contract Theory}
+
+  \begin{itemize}
+    \item if there is no contract, there is no moral issue
+    \item nobody has to help anybody
+
+    \pause
+    \medskip
+    \item what is illegal is not necessarily morally wrong
+  \end{itemize}
+
+  \begin{exampleblock}{example: race discrimination laws}
+    \begin{itemize}
+      \item USA, South Africa (apartheid)
+      \item is it wrong to disobey these laws?
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rights}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item \alert{negative} rights:\\
+        not to be interfered with
+    \end{itemize}
+    \begin{exampleblock}{examples}
+      \begin{itemize}
+        \item voting
+        \item higher education
+      \end{itemize}
+    \end{exampleblock}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item \alert{positive} rights:\\
+        supported by society
+    \end{itemize}
+    \begin{exampleblock}{examples}
+      \begin{itemize}
+        \item basic education
+        \item health care?
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\subsection{Virtue Ethics}
+
+\begin{frame}
+  \frametitle{Virtue Ethics}
+
+  \begin{columns}
+    \column{.38\textwidth}
+    \begin{center}
+      \pgfuseimage{platon}\\
+      Platon (4th century B.C.)
+    \end{center}
+
+    \pause
+    \column{.62\textwidth}
+    \begin{itemize}
+      \item acquire good character traits
+
+      \item not ``what should I do in this case''\\
+        but ``what kind of a person should I be''
+    \end{itemize}
+
+    \begin{itemize}
+      \item character based
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Tavani}
+    \begin{itemize}
+      \item Chapter 2: \alert{Ethical Concepts and Ethical Theories}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
