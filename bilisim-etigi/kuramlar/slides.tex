@@ -1,14 +1,18 @@
-% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -17,17 +21,11 @@
   \setbeamercovered{transparent}
 }
 
-\usepackage{ae}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
-
 \title{Bilişim Etiği}
-\subtitle{Kuramlar}
+\subtitle{Etik Kuramları}
 
 \author{H. Turgut Uyar}
-\date{2004-2012}
+\date{2004-2015}
 
 \AtBeginSubsection[]
 {
@@ -39,15 +37,9 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \pgfdeclareimage[height=4.5cm]{bentham}{bentham}
 \pgfdeclareimage[height=4.5cm]{kant}{kant}
@@ -64,33 +56,40 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2004-2012 H. Turgut Uyar
+  \copyright~2004-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -105,64 +104,49 @@
 \begin{frame}
   \frametitle{Deskriptif Önermeler}
 
-  \begin{tanim}
-    \alert{deskriptif önerme}: durumun ne olduğunu söyler
-
-    \begin{itemize}
-      \item sosyoloji, psikoloji, antropoloji, politik bilimlerin konusu
-    \end{itemize}
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{deskriptif} önerme: ne olduğu
+    \item sosyoloji, psikoloji, antropoloji, politik bilimlerin konusu
+  \end{itemize}
 
   \pause
-  \begin{ornek}
+  \begin{exampleblock}{örnek}
     \begin{quote}
-      bilgisayar kullanıcılarının \%85'i yazılımları\\
-      lisansına aykırı kullanıyor
+      bilgisayar kullanıcılarının \%85'i yazılımların\\
+      lisans anlaşmalarına uymuyor
     \end{quote}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Normatif Önermeler}
 
-  \begin{tanim}
-    \alert{normatif önerme}: durumun ne olması gerektiğini söyler
-
-    \begin{itemize}
-      \item felsefenin konusu
-    \end{itemize}
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{normatif} önerme: ne olması gerektiği
+    \item felsefenin konusu
+  \end{itemize}
 
   \pause
-  \begin{ornek}
+  \begin{exampleblock}{örnek}
     \begin{quote}
-      bilgisayar kullanıcıları yazılımları\\
-      lisansına aykırı kullanmamalı
+      bilgisayar kullanıcıları yazılımların lisans anlaşmalarına uymalı
     \end{quote}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Ahlak Sistemi}
 
-  \begin{tanim}
-    \alert{ahlak sistemi}:
-
-    \begin{itemize}
-      \item davranış kuralları: bireysel, toplumsal
-      \item değerlendirme ilkeleri: toplumsal yarar, ...
-    \end{itemize}
-  \end{tanim}
-
-  \pause
   \begin{itemize}
-    \item{özellikleri
-      \begin{itemize}
-        \item \emph{açık}: herkes biliyor
-        \item \emph{resmi değil}: zorlayıcı yetkili yok
-        \item \emph{akılcı}: akıl yürüterek anlaşılabilir
-        \item \emph{tarafsız}: bütün katılımcılar eşit
-      \end{itemize}}
+    \item davranış kuralları: bireysel, toplumsal
+    \item değerlendirme ilkeleri: toplumsal yarar, \ldots
+
+    \pause
+    \bigskip
+    \item \emph{açık}: herkes biliyor
+    \item \emph{resmi değil}: zorlayıcı yetkili yok
+    \item \emph{akılcı}: akıl yürüterek anlaşılabilir
+    \item \emph{tarafsız}: bütün katılımcılar eşit
   \end{itemize}
 \end{frame}
 
@@ -170,21 +154,16 @@
   \frametitle{Kuralların Oluşturulması}
 
   \begin{itemize}
-    \item \alert{temel değerler} gözönüne alınarak:
-
-    \begin{itemize}
-      \item \emph{özünde iyi}: mutluluk, özerklik, mahremiyet, ...
-      \item \emph{araç olarak iyi}: para, ...
-    \end{itemize}
+    \item \alert{temel değerler} gözönüne alınarak
+    \item \emph{özünde iyi}: mutluluk, özerklik, mahremiyet, \ldots
+    \item \emph{araç olarak iyi}: para, \ldots
 
     \pause
-    \item ahlak ilkelerinin dayandırıldığı \alert{zemin}den yola çıkılarak:
-
-    \begin{itemize}
-      \item din
-      \item hukuk
-      \item felsefe
-    \end{itemize}
+    \bigskip
+    \item ahlak ilkelerinin dayandırıldığı zeminden yola çıkılarak
+    \item din
+    \item hukuk
+    \item felsefe
   \end{itemize}
 \end{frame}
 
@@ -193,98 +172,119 @@
 \begin{frame}
   \frametitle{Felsefe Metodolojisi}
 
-  \begin{tanim}
-    \alert{diyalektik}: \emph{çelişmelerle ilerleyen}
+  \begin{itemize}
+    \item \alert{diyalektik}
 
-    \begin{itemize}
-      \item tez
-      \item antitez
-      \item sentez
-    \end{itemize}
-  \end{tanim}
+    \medskip
+    \item bir tez ortaya koy, ilkeyle açıkla
+    \item ilkeyi çeşitli durumlarda sına
+    \item tezini ve/veya ilkeyi uyarla
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Diyalektik Örneği}
 
-  \begin{ornek}
-    \alert{"ötanazi yanlıştır çünkü insan yaşamı kasıtlı sona erdirilmemelidir"}
+  \begin{itemize}
+    \item ``ötanazi yanlıştır\\
+      çünkü insan yaşamı kasıtlı olarak sona erdirilmemelidir''
 
     \pause
-    \begin{itemize}
-      \item bilinçli ve çok acı çekiyor
-      \item bilinçsiz ve beyin hasarı var
-      \item ölümcül hasta
-      \item genç - yaşlı
-
-      \pause
-      \item \emph{yaşam kalitesi}
-    \end{itemize}
+    \medskip
+    \item bilinçli ve çok acı çekiyor
+    \item bilinçsiz ve beyin hasarı var
+    \item genç - yaşlı
 
     \pause
-    aynı ilkenin uygulanabileceği durumlar: savaş, idam, kürtaj
+    \smallskip
+    \item ``yaşam kalitesi''
 
-    \begin{itemize}
-      \item \emph{kendini savunma, başka yaşam kurtarma, ...}
-    \end{itemize}
-  \end{ornek}
+    \pause
+    \medskip
+    \item başka sorunlara uygulamada tutarlılık:\\
+      savaş, idam, kürtaj, \ldots
+    \item ``kendini savunma, başka yaşam kurtarma, \ldots''
+  \end{itemize}
 \end{frame}
 
-\subsection{Yanılgılar}
+\subsection{Tartışma Sorunları}
 
 \begin{frame}
-  \frametitle{Tartışma Yanılgıları}
+  \frametitle{Tartışma Sorunları}
 
-  \begin{quote}
-    felsefeciler ahlaki sorunların çözümünde anlaşamıyor
-  \end{quote}
-
-  \pause
   \begin{itemize}
-    \item başka alanlarda da uzmanların anlaşamadığı konular var
+    \item felsefeciler ahlaki sorunların çözümünde anlaşamıyor
+    \item başkaları nasıl anlaşsın?
 
     \pause
-    \item bazı konularda anlaşma var
+    \bigskip
+    \item başka alanlarda da uzmanlar anlaşamayabiliyor
+    \item ışık: dalga mı, parçacık mı?
 
     \pause
+    \medskip
+    \item birçok konuda anlaşma var
+
+    \pause
+    \medskip
     \item ilkelerde anlaşmazlık - durumlarda anlaşmazlık
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kültürel Relativizm}
+  \frametitle{Relativizm}
 
-  \begin{quote}
-    ahlaki normlar toplumdan topluma,\\
-    hatta aynı toplumda zaman içinde değişir
-  \end{quote}
-
-  \pause
   \begin{itemize}
-    \item deskriptif bir önerme, normatif olması için:
-  \end{itemize}
+    \item kültürel relativizm
+    \item ``değişik toplumlar ahlaken neyin doğru neyin yanlış olduğu\\
+      konusunda farklı inanışlara sahiptir''
 
-  \begin{quote}
-    neyin doğru neyin yanlış olduğuna\\
-    o toplumda yaşayanların karar vermesi gerekir
-  \end{quote}
+    \pause
+    \medskip
+    \item deskriptif önerme, normatif olursa:
+    \item ``bir toplumdaki bireyler için neyin doğru neyin yanlış olduğuna\\
+      yalnızca o toplum karar verebilir''
+    \item ahlaki relativizm
+
+    \pause
+    \medskip
+    \item bazı evrensel ahlak kuralları var
+  \end{itemize}
+\end{frame}
+
+\subsection{Davranış İlkeleri}
+
+\begin{frame}
+  \frametitle{İlkeler}
+
+  \begin{itemize}
+    \item etik kuramları neden gerekiyor?
+
+    \medskip
+    \item seçme durumunda kaldığımızda karar vermemize yardımcı
+    \item ahlaki konuların çözümlenmesinde yardımcı
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Relativizmin Eleştirisi}
+  \frametitle{Altın Kural}
 
-  \begin{ornek}
+  \begin{itemize}
+    \item ``başkaları sana nasıl davransın istiyorsan\\
+      sen de onlara öyle davran''
+  \end{itemize}
+
+  \pause
+  \medskip
+  \begin{exampleblock}{karşı örnek}
     \begin{itemize}
-      \item A toplumu barışçıl bir toplum,\\
-        ayrıca kültürel relativizme inanıyor
-
-      \item B toplumu pek barışçıl değil, farklı kültürlerden hoşlanmıyor,\\
-        A toplumunun yaşadığı yeri işgal ediyor
-
-      \item A toplumu B toplumunun davranışının yanlış olduğunu
-        söyleyemez
+      \item Ben bir yazılım geliştiriciyim.
+      \item Başkalarının benim yazılımlarımı benim iznim olmadan\\
+        çoğaltıp dağıtmaları benim için sorun değil.
+      \item O halde ben de başkalarının yazılımlarını\\
+        onların izni olmadan çoğaltıp dağıtabilirim.
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \section{Etik Kuramlar}
@@ -295,25 +295,40 @@
   \frametitle{Faydacılık}
 
   \begin{columns}
-    \column{.45\textwidth}
-    \begin{tanim}
-      \alert{faydacılık}:\\
-      bir davranış, etkilenenlerin çoğunluğunu mutlu edecekse ahlaken doğrudur
-    \end{tanim}
+    \column{.5\textwidth}
+    \begin{block}{faydacılık}
+      bir davranış, etkilenecek olanların\\
+      en büyük kısmını en mutlu edecek\\
+      sonuçlara yol açacaksa\\
+      ahlaken doğrudur
+    \end{block}
 
     \begin{itemize}
-      \item sonuca dayanıyor
+      \item sonuca dayalı
     \end{itemize}
 
-    \column{.55\textwidth}
+    \column{.5\textwidth}
     \begin{center}
-      \pgfuseimage{bentham}
+      \pgfuseimage{bentham}\\
+      Jeremy Bentham (1748-1832)
     \end{center}
-    \begin{itemize}
-      \item Jeremy Bentham (18-19.yy)\\
-        Epikuros (İ.Ö. 3-4.yy)
-    \end{itemize}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Faydacılık Sorun Örneği}
+
+  \begin{itemize}
+    \item Bir mağazaya giriyorum ve bir gömlek beğeniyorum.
+    \item Çalsam mı?
+    \item Hesap yap ve karar ver.
+
+    \pause
+    \bigskip
+    \item Çıkıyorum, başka bir mağazaya giriyorum ve bir kravat beğeniyorum.
+    \item Çalsam mı?
+    \item \ldots
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -341,20 +356,19 @@
 \begin{frame}
   \frametitle{Faydacılık Sorun Örnekleri}
 
-  \begin{ornek}[eylem faydacılığı]
+  \begin{exampleblock}{eylem faydacılığı}
     \begin{itemize}
-      \item "bir kişiyi öldürüp organlarıyla 10 kişiyi kurtaralım"
-      \item "toplumun \%1'ini köle olarak çalıştıralım"
+      \item "bir kişiyi öldürüp organlarıyla on kişiyi kurtaralım"
+      \item "toplumun \%1'ini diğer \%99'un kölesi olarak çalıştıralım"
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 
   \pause
-  \begin{ornek}[kural faydacılığı]
+  \begin{exampleblock}{kural faydacılığı}
     \begin{itemize}
-      \item "toplumun \%1'ini köle olarak çalıştırmak toplumda
-        gerginlik yaratır"
+      \item "toplumun \%1'ini köle olarak çalıştırmak toplum huzurunu bozar"
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -364,21 +378,17 @@
     \item ahlak mutluluğa ya da zevke bağlanıyor
 
     \pause
-    \item eylemi doğru ya da yanlış yapan şey eylemin dışında
-
-    \begin{itemize}
-      \item sonuç önceden bilinmiyor: \emph{ahlak şansı}
-    \end{itemize}
+    \medskip
+    \item davranışın sonucu önceden bilinmiyor: \emph{ahlak şansı}
 
     \pause
+    \medskip
     \item karar vermeye yardımcı değil
-
-    \begin{itemize}
-      \item üretilecek mutlulukları kestirmek çok zor, çoğu zaman olanaksız
-    \end{itemize}
+    \item fayda hesabı nasıl yapılacak?
 
     \pause
-    \item iyi sonuçların adil dağılımıyla ilgilenmiyor
+    \medskip
+    \item iyi sonuçların adil dağılımı?
   \end{itemize}
 \end{frame}
 
@@ -388,71 +398,55 @@
   \frametitle{Deontoloji}
 
   \begin{columns}
-    \column{.45\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
       \item mutluluk için içgüdü yeterlidir
-      \item oysa insanı hayvandan ayıran akıl yürütme yeteneğidir
-      \item bu yetenek insana ahlaki bir ödev yükler
+      \item oysa insanı hayvandan ayıran\\
+        akıl yürütme yeteneğidir
+      \item bu yetenek insana\\
+        ahlaki bir ödev yükler
     \end{itemize}
 
     \begin{itemize}
-      \item ödeve dayanıyor
+      \item ödeve dayalı
     \end{itemize}
 
-    \column{.55\textwidth}
+    \column{.5\textwidth}
     \begin{center}
-      \pgfuseimage{kant}
+      \pgfuseimage{kant}\\
+      Immanuel Kant (1724-1804)
     \end{center}
-    \begin{itemize}
-      \item Immanuel Kant (18.yy)
-    \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kesin Buyruk}
 
-  \begin{tanim}
-    \alert{kesin buyruk}:
-
+  \begin{block}{kesin buyruk}
     \begin{itemize}
-      \item kimseyi yalnızca bir amaca hizmet edecek araç olarak kullanma
-
-      \item öyle bir kurala göre davran ki, bu kuralın evrensel bir kural haline
-        gelmesini isteyebilesin
+      \item insanları asla yalnızca bir amaca ulaşmak için\\
+        araç olarak kullanma
+      \item öyle bir kurala göre davran ki,\\
+        bu kural bütün insanlar için bağlayıcı olsun
     \end{itemize}
-  \end{tanim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kesin Buyruk Örnekleri}
-
-  \begin{ornek}
-    \alert{"kölelik yanlıştır çünkü"}
-
-    \begin{itemize}
-      \item "bir grup insan bir amaca hizmet için araç olarak kullanılmış olur"
-      \item "tarafsız ve evrensel bir kural olarak uygulanmasını kimse istemez"
-    \end{itemize}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Deontolojinin Eleştirisi}
-
-  \begin{itemize}
-    \item çelişen ödevler varsa ne yapılacak?
-  \end{itemize}
+  \end{block}
 
   \pause
-  \begin{ornek}
-    \begin{itemize}
-      \item arkadaşınıza buluşmak için söz verdiniz
-      \item buluşmaya giderken büyükannenizin hastaneye kaldırıldığını
-        öğrendiniz
-      \item arkadaşınıza haber veremiyorsunuz
-    \end{itemize}
-  \end{ornek}
+  \begin{itemize}
+    \item ödevler çelişirse ne olacak?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kesin Buyruk Örneği}
+
+  \begin{itemize}
+    \item kölelik yanlıştır çünkü
+
+    \medskip
+    \item bir grup insan bir amaca hizmet için araç olarak kullanılmış olur
+    \item tarafsız ve evrensel bir kural olarak uygulanmasını kimse istemez
+  \end{itemize}
 \end{frame}
 
 \subsection{Toplumsal Sözleşme}
@@ -461,26 +455,26 @@
   \frametitle{Toplumsal Sözleşme Kuramı}
 
   \begin{columns}
-    \column{.55\textwidth}
+    \column{.5\textwidth}
     \begin{center}
-      \pgfuseimage{hobbes}
+      \pgfuseimage{hobbes}\\
+      Thomas Hobbes (1588-1679)
     \end{center}
-    \begin{itemize}
-      \item Thomas Hobbes (17.yy)
-    \end{itemize}
 
     \pause
-    \column{.45\textwidth}
+    \column{.5\textwidth}
     \begin{itemize}
-      \item \emph{ahlak öncesi devlet}: herkes kendi çıkarlarına göre davranıyor
-      \item bireyler özgür görünüyor ancak sürekli başkalarından gelecek tehditle
-        mücadele gerek
-      \item özgürlüğümüzün bir kısmını egemen bir yetkiye devrederiz
+      \item ahlak öncesi durum:\\
+        herkes kendi çıkarına göre\\
+        davranıyor
+      \item özgürlük algısı var\\
+        ama sürekli tehdit de var
+      \item özgürlüğümüzün bir kısmını\\
+        egemen bir yetkiye devrederiz
     \end{itemize}
 
-    \pause
     \begin{itemize}
-      \item sözleşmeye dayanıyor
+      \item sözleşmeye dayalı
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -490,45 +484,48 @@
 
   \begin{itemize}
     \item sözleşme yoksa ahlaki sorun da yok
-
-    \begin{itemize}
-      \item kimsenin kimseye yardım etmesi gerekmiyor
-    \end{itemize}
+    \item kimsenin kimseye yardım etmesi gerekmiyor
 
     \pause
+    \medskip
     \item yasaya aykırı olan ahlaka aykırı olmayabilir
-
-    \begin{ornek}
-      ırk ayrımına karşı sivil itaatsizlik
-    \end{ornek}
   \end{itemize}
+
+  \begin{exampleblock}{örnek: ırk ayrımı yasaları}
+    \begin{itemize}
+      \item ABD, Güney Afrika (apartheid)
+      \item bu yasalara itaatsizlik yanlış mı?
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Haklar}
 
-  \begin{itemize}
-    \item \alert{negatif haklar}: engellenmemek
-  \end{itemize}
-
-  \begin{ornek}
+  \begin{columns}
+    \column{.5\textwidth}
     \begin{itemize}
-      \item oy verme
-      \item yüksek eğitim
+      \item \alert{negatif} haklar: engellenmeme
     \end{itemize}
-  \end{ornek}
+    \begin{exampleblock}{örnekler}
+      \begin{itemize}
+        \item oy verme
+        \item yüksek eğitim
+      \end{itemize}
+    \end{exampleblock}
 
-  \pause
-  \begin{itemize}
-    \item \alert{pozitif haklar}: desteklenmek
-  \end{itemize}
-
-  \begin{ornek}
+    \pause
+    \column{.5\textwidth}
     \begin{itemize}
-      \item temel eğitim
-      \item sağlık?
+      \item \alert{pozitif} haklar: desteklenme
     \end{itemize}
-  \end{ornek}
+    \begin{exampleblock}{örnekler}
+      \begin{itemize}
+        \item temel eğitim
+        \item sağlık?
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
 \end{frame}
 
 \subsection{Erdem Ahlakı}
@@ -537,30 +534,23 @@
   \frametitle{Erdem Ahlakı}
 
   \begin{columns}
-    \column{.55\textwidth}
+    \column{.4\textwidth}
     \begin{center}
-      \pgfuseimage{platon}
+      \pgfuseimage{platon}\\
+      Platon (İ.Ö. 4. yy)
     \end{center}
-    \begin{itemize}
-      \item Platon (İ.Ö. 4.yy)\\
-        Aristoteles
-    \end{itemize}
 
     \pause
-    \column{.45\textwidth}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item iyi kişilik özelliklerinin geliştirilmesi
+      \item iyi kişilik özellikleri edinme
 
-      \item "şu durumda ne yapmalıyım?" değil\\
-        "nasıl bir insan olmalıyım?"
-
-      \item nezaket, doğru sözlülük, dürüstlük, güvenilirlik, yardımseverlik,
-        cömertlik, adillik
+      \item ``şu durumda ne yapmalıyım'' değil\\
+        ``nasıl bir insan olmalıyım''
     \end{itemize}
 
-    \pause
     \begin{itemize}
-      \item kişiliğe dayanıyor
+      \item kişiliğe dayalı
     \end{itemize}
   \end{columns}
 \end{frame}
