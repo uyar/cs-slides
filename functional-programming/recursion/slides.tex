@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Recursion}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -56,7 +56,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -191,6 +191,7 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{lstlisting}
   \end{exampleblock}
 
+  \pause
   \begin{exampleblock}{factorial}
     \begin{lstlisting}
 fac :: Integer -> Integer
@@ -211,11 +212,11 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{lstlisting}
 
     \begin{lstlisting}[frame=single]
-gcd(9702, 945)
-~> gcd(945, 252)
-   ~> gcd(252, 189)
-      ~> gcd(189, 63)
-         ~> gcd(63, 0)
+gcd 9702 945
+~> gcd 945 252
+   ~> gcd 252 189
+      ~> gcd 189 63
+         ~> gcd 63 0
             ~> 63
          ~> 63
       ~> 63
@@ -347,6 +348,7 @@ fac 4
 
   \begin{itemize}
     \item helper function can be local
+    \item negativity check only once
   \end{itemize}
 
   \begin{lstlisting}
@@ -398,16 +400,14 @@ fib n
 \subsection{Examples}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Exponentiation}
 
-  \begin{exampleblock}{exponentiation}
-    \begin{lstlisting}
+  \begin{lstlisting}
 pow :: Integer -> Integer -> Integer
 pow x y
   | y == 0    = 1
   | otherwise = x * pow x (y - 1)
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 
   \pause
   \begin{itemize}
@@ -424,10 +424,9 @@ pow x y
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Fast Exponentiation}
 
-  \begin{exampleblock}{fast exponentiation}
-    \begin{lstlisting}
+  \begin{lstlisting}
 pow :: Integer -> Integer -> Integer
 pow x y
   | y == 0    = 1
@@ -436,24 +435,23 @@ pow x y
   where
     sqr :: Integer -> Integer
     sqr n = n * n
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \lstset{deletekeywords=sqrt}
 
 \begin{frame}
-  \frametitle{Recursion Example}
+  \frametitle{Square Roots with Newton's Method}
 
-  \begin{exampleblock}{square roots with Newton's method}
-    \begin{itemize}
-      \item start with an initial guess $y$ (say $y = 1$)
-      \item repeatedly improve the guess by taking the mean of $y$
-        and $x / y$
-      \item until the guess is good enough ($\sqrt x \cdot \sqrt x = x$)
-    \end{itemize}
+  \begin{itemize}
+    \item start with an initial guess $y$ (say $y = 1$)
+    \item repeatedly improve the guess by taking the mean of $y$
+      and $x / y$
+    \item until the guess is good enough ($\sqrt x \cdot \sqrt x = x$)
+  \end{itemize}
 
-    \medskip
+  \medskip
+  \begin{exampleblock}{example: $\sqrt{2}$}
     \begin{center}
       \begin{tabular}{lll}
       $y$      & $x / y$             & next guess\\\hline
@@ -467,29 +465,36 @@ pow x y
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Square Roots with Newton's Method}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 newton :: Float -> Float -> Float
 newton guess x
   | isGoodEnough guess x = guess
   | otherwise            = newton (improve guess x) x
+  \end{lstlisting}
 
+  \pause
+  \begin{lstlisting}
 isGoodEnough :: Float -> Float -> Bool
 isGoodEnough guess x = abs (guess*guess - x) < 0.001
+  \end{lstlisting}
 
+  \pause
+  \begin{lstlisting}
 improve :: Float -> Float -> Float
 improve guess x = (guess + x/guess) / 2.0
+  \end{lstlisting}
 
+  \pause
+  \begin{lstlisting}
 sqrt :: Float -> Float
 sqrt x = newton 1.0 x
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Square Roots with Newton's Method}
 
   \begin{lstlisting}
 sqrt :: Float -> Float
@@ -510,13 +515,12 @@ sqrt x = newton 1.0 x
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Square Roots with Newton's Method}
 
   \begin{itemize}
     \item doesn't work with too small and too large numbers (why?)
   \end{itemize}
 
-  \pause
   \begin{lstlisting}
 isGoodEnough guess x' =
     (abs (guess*guess - x')) / x' < 0.001
@@ -524,7 +528,7 @@ isGoodEnough guess x' =
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Recursion Example}
+  \frametitle{Square Roots with Newton's Method}
 
   \begin{itemize}
     \item no need to pass \lstinline|x| around, it's already in scope
