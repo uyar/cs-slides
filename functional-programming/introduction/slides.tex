@@ -170,15 +170,11 @@
     \pause
     \bigskip
     \item \alert{imperative}: how to solve
-    \begin{itemize}
-      \item procedural, object-oriented
-    \end{itemize}
+    \item procedural, object-oriented
 
     \medskip
     \item \alert{declarative}: what to solve
-    \begin{itemize}
-      \item functional, logic
-    \end{itemize}
+    \item functional, logic
   \end{itemize}
 \end{frame}
 
@@ -191,7 +187,8 @@
     \column{.35\textwidth}
     \begin{center}
       \pgfuseimage{turing}\\
-      Alan Turing (1912-1954)
+      Alan Turing\\
+      (1912-1954)
     \end{center}
 
     \column{.65\textwidth}
@@ -247,7 +244,8 @@ def gcd(x, y):
     \column{.4\textwidth}
     \begin{center}
       \pgfuseimage{backus}\\
-      John Backus (1924-2007)
+      John Backus\\
+      (1924-2007)
     \end{center}
 
     \column{.55\textwidth}
@@ -270,7 +268,8 @@ def gcd(x, y):
     \column{.35\textwidth}
     \begin{center}
       \pgfuseimage{church}\\
-      Alonzo Church (1903-1995)
+      Alonzo Church\\
+      (1903-1995)
     \end{center}
 
     \column{.65\textwidth}
@@ -278,7 +277,7 @@ def gcd(x, y):
       \item based on $\lambda$-calculus
       \item a program is a function application
       \item same inputs should produce\\
-        same output
+        same output (``pure'')
       \item function also modifies context\\
         $\rightarrow$ \alert{side effect}
       \item avoid mutation
@@ -399,8 +398,8 @@ def get_random(n):
 
     \pause
     \bigskip
-    \item could we write programs without relying on side effects?
-    \item or, at least, could we constrain side effects?
+    \item could we write programs without side effects?
+    \item or, at least, could we separate pure and impure parts?
   \end{itemize}
 \end{frame}
 
@@ -411,7 +410,8 @@ def get_random(n):
     \column{.45\textwidth}
     \begin{center}
       \pgfuseimage{mccarthy}\\
-      John McCarthy (1927-2011)
+      John McCarthy\\
+      (1927-2011)
     \end{center}
 
     \column{.55\textwidth}
@@ -428,26 +428,19 @@ def get_random(n):
 
   \begin{itemize}
     \item functional languages with object-oriented features
-    \begin{itemize}
-      \item Ocaml, F\#
-      \item Scala
-    \end{itemize}
+    \item Ocaml, F\#, Scala
 
     \medskip
     \item imperative languages with functional features
-    \begin{itemize}
-      \item Python, Ruby
-      \item C\#, Java
-    \end{itemize}
+    \item Python, Ruby, C\#, Java
 
     \pause
     \bigskip
     \item what makes a language functional or imperative?
-    \begin{itemize}
-      \item higher-order functions
-      \item immutable data structures
-      \item recommended idioms in functional style
-    \end{itemize}
+    \smallskip
+    \item higher-order functions
+    \item immutable data structures
+    \item recommended idioms in functional style
   \end{itemize}
 \end{frame}
 
@@ -536,14 +529,16 @@ minor = age < 18
 
     \pause
     \bigskip
-    \item definitions in Haskell: name, type signature, expression
+    \item bindings in Haskell
+    \item signature: name, type
+    \item definition: name, expression
     \begin{lstlisting}[style=syntax]
 n :: t
 n = e
     \end{lstlisting}
 
     \medskip
-    \item redefinition not allowed
+    \item redefining not allowed
   \end{itemize}
 \end{frame}
 
@@ -660,7 +655,7 @@ n x1 x2 ... xk = e
 
     \pause
     \bigskip
-    \item function application in Haskell:
+    \item function application in Haskell
     \begin{lstlisting}[style=syntax]
 n e1 e2 ... ek
     \end{lstlisting}
@@ -676,6 +671,8 @@ sqr x = x * x
 
 -- sqr 21      ~> 441
 -- sqr (2 + 5) ~> 49
+-- sqr -2      ~> error
+-- sqr (-2)    ~> 4
 
 sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = sqr x + sqr y
