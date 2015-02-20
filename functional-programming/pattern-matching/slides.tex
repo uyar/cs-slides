@@ -688,9 +688,8 @@ gcd' (x, y) = gcd' (y, x `mod` y)
 
   \begin{lstlisting}
 shift :: ((a, b), c) -> (a, (b, c))
-shift s =
-    case s of
-      ((x, y), z) -> (x, (y, z))
+shift s = case s of
+    ((x, y), z) -> (x, (y, z))
 
 -- OR:
 shift :: ((a, b), c) -> (a, (b, c))
