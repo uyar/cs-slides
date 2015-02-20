@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Pattern Matching}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -104,11 +104,13 @@
 
   \begin{itemize}
     \item \alert{tuple}: a combination of a fixed number of values
-      of fixed types
-      \begin{lstlisting}[style=syntax]
+    \item different but fixed types
+
+    \smallskip
+    \begin{lstlisting}[style=syntax]
 n :: (t1, t2, ..., tn)
 n = (e1, e2, ..., en)
-      \end{lstlisting}
+    \end{lstlisting}
 
     \medskip
     \item selector functions on pairs:\\
@@ -183,8 +185,10 @@ gcd_lcm x y = (d, m)
   \frametitle{Lists}
 
   \begin{itemize}
-    \item \alert{list}: a combination of an arbitrary number of values,\\
-      all of the same type
+    \item \alert{list}: a combination of an arbitrary number of values
+    \item all of the same type
+
+    \smallskip
     \begin{lstlisting}[style=syntax]
 n :: [t]
 n = [e1, e2, ..., en]
@@ -247,6 +251,10 @@ p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \item get the head: \lstinline|head|
     \item get the tail: \lstinline|tail|
     \item construct a list: \lstinline|item : sublist|
+
+    \pause
+    \medskip
+    \item independent of type: \lstinline|[a]|
   \end{itemize}
 \end{frame}
 
@@ -254,22 +262,22 @@ p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
   \frametitle{List Operation Examples}
 
   \begin{lstlisting}
--- null :: [a] -> Bool
-null []           ~> True
-null [1, 2, 3, 4] ~> False
+null :: [a] -> Bool
+-- null []           ~> True
+-- null [1, 2, 3, 4] ~> False
 
--- head :: [a] -> a
-head [1, 2, 3, 4] ~> 1
-head []           ~> error
-head [1]          ~> 1
+head :: [a] -> a
+-- head [1, 2, 3, 4] ~> 1
+-- head []           ~> error
+-- head [1]          ~> 1
 
--- tail :: [a] -> [a]
-tail [1, 2, 3, 4] ~> [2, 3, 4]
-tail []           ~> error
-tail [1]          ~> []
+tail :: [a] -> [a]
+-- tail [1, 2, 3, 4] ~> [2, 3, 4]
+-- tail []           ~> error
+-- tail [1]          ~> []
 
--- (:) :: a -> [a] -> [a]
-1 : [2, 3]        ~> [1, 2, 3]
+(:) :: a -> [a] -> [a]
+-- 1 : [2, 3]        ~> [1, 2, 3]
   \end{lstlisting}
 \end{frame}
 
@@ -329,6 +337,27 @@ firstPlusSecond xs
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Strings}
+
+  \begin{itemize}
+    \item a string is a list of characters
+    \begin{lstlisting}
+type String = [Char]
+    \end{lstlisting}
+  \end{itemize}
+
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+-- head "word"   ~> 'w'
+-- tail "word"   ~> "ord"
+-- null "word"   ~> False
+-- null ""       ~> True
+-- length "word" ~> 4
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \subsection{Algebraic Types}
 
 \begin{frame}[fragile]
@@ -368,8 +397,8 @@ church = Person "Alonzo Church" 1903
 
   \begin{exampleblock}{enumeration}
     \begin{lstlisting}
-data Month = Jan | Feb | Mar | Apr | May | Jun
-           | Jul | Aug | Sep | Oct | Nov | Dec
+data Month = Jan | Feb | Mar | Apr | May | Jun |
+             Jul | Aug | Sep | Oct | Nov | Dec
              deriving Show
 
 m :: Month
@@ -386,9 +415,9 @@ m = Feb
 type Coords = (Float, Float)
 type Length = Float
 
-data Shape = Point Coords
-           | Circle Coords Length
-           | Rectangle Coords Length Length
+data Shape = Point Coords |
+             Circle Coords Length |
+             Rectangle Coords Length Length
              deriving Show
 
 p, c, r :: Shape
@@ -612,6 +641,8 @@ area s = case s of
 
     \medskip
     \item in case of multiple patterns, the first match will be selected
+
+    \smallskip
     \begin{lstlisting}[style=syntax]
 n p1 = e1
 n p2 = e2
