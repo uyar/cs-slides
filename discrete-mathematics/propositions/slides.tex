@@ -313,6 +313,7 @@
 
     \column{.6\textwidth}
     \begin{itemize}
+      \item also called \alert{conditional}
       \item if $p$ then $q$
       \smallskip
       \item $p$ is sufficient for $q$
@@ -441,7 +442,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Well-Formed Formula}
+% \subsection{Well-Formed Formula}
 
 \begin{frame}
   \frametitle{Well-Formed Formula}
@@ -771,7 +772,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Logical Implication and Equivalen}
+  \frametitle{Logical Implication and Equivalence}
 
   \begin{itemize}
     \item if $P \rightarrow Q$ is a tautology,
@@ -839,6 +840,36 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Logical Equivalence Example}
+
+  \begin{itemize}
+    \item implication: $p \rightarrow q$
+    \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
+    \item \emph{converse}: $q \rightarrow p$
+    \item \emph{inverse}: $\neg p \rightarrow \neg q$
+  \end{itemize}
+
+  \pause
+  \medskip
+  $p \rightarrow q \Leftrightarrow \neg q \rightarrow \neg p$
+
+  \vspace{-12pt}
+  \begin{table}
+    \caption{$(p \rightarrow q) \leftrightarrow (\neg q \rightarrow \neg p)$}
+    \begin{tabular}{|c|c|c|c|c|c||c|}\hline
+      $p$ &   $q$    & $p \rightarrow q$
+          & $\neg q$ & $\neg p$ & $\neg q \rightarrow \neg p$ & $A \leftrightarrow B$\\
+          &     & (A)               &          &          & (B)
+          &\\\hline\hline
+      $T$ & $T$ & $T$ & $F$ & $F$ & $T$ & $T$\\\hline
+      $T$ & $F$ & $F$ & $T$ & $F$ & $F$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $F$ & $T$ & $T$ & $T$\\\hline
+      $F$ & $F$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
   \frametitle{Metalogic}
 
   \begin{itemize}
@@ -891,9 +922,7 @@
   \end{itemize}
 \end{frame}
 
-\section{Propositional Calculus}
-
-\subsection{Introduction}
+\subsection{Laws of Logic}
 
 \begin{frame}
   \frametitle{Propositional Calculus}
@@ -914,41 +943,6 @@
       substitute logically equivalent formulas for one another
   \end{enumerate}
 \end{frame}
-
-\begin{frame}
-  \frametitle{Semantic Approach Example}
-
-  \begin{itemize}
-    \item implication: $p \rightarrow q$
-
-    \medskip
-    \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
-    \item \emph{converse}: $q \rightarrow p$
-    \item \emph{inverse}: $\neg p \rightarrow \neg q$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Semantic Approach Example}
-
-  \begin{center}
-    \begin{tabular}{|c|c||c||c||c||c|}\hline
-      $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
-          & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
-      $T$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
-      $T$ & $F$ & $F$ & $F$ & $T$ & $T$\\\hline
-      $F$ & $T$ & $T$ & $T$ & $F$ & $F$\\\hline
-      $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
-    \end{tabular}
-  \end{center}
-
-  \begin{itemize}
-    \item an implication and its contrapositive are equivalent
-    \item the converse and the inverse of an implication are equivalent
-  \end{itemize}
-\end{frame}
-
-\subsection{Laws of Logic}
 
 \begin{frame}
   \frametitle{Laws of Logic}
@@ -1059,13 +1053,15 @@
   \end{exampleblock}
 \end{frame}
 
-\subsection{Rules of Inference}
+\section{Rules of Inference}
+
+\subsection{Introduction}
 
 \begin{frame}
   \frametitle{Inference}
 
   \begin{itemize}
-    \item establishing the validity of an argument
+    \item establish the validity of an argument
     \item starting from a set of propositions
     \item which are assumed or proven to be true
   \end{itemize}
@@ -1094,6 +1090,8 @@
     \end{columns}
   \end{block}
 \end{frame}
+
+\subsection{Basic Rules}
 
 \begin{frame}
   \frametitle{Trivial Rules}
@@ -1185,49 +1183,28 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Implication Elimination}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{Modus Ponens (ImpE)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            p
-          \end{array}
-        }
-        {
-          \therefore q
-        }
-      \]
-    \end{block}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Modus Tollens (MT)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            \neg q
-          \end{array}
-        }
-        {
-          \therefore \neg p
-        }
-      \]
-    \end{block}
-  \end{columns}
-\end{frame}
+\subsection{Modus Ponens}
 
 \begin{frame}
-  \frametitle{Implication Elimination Example}
+  \frametitle{Modus Ponens}
 
-  \begin{exampleblock}{modus ponens}
+  \begin{block}{Implication Elimination (ImpE)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          p
+        \end{array}
+      }
+      {
+        \therefore q
+      }
+    \]
+  \end{block}
+
+  \pause
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has won the lottery.
@@ -1236,9 +1213,28 @@
       \item Therefore, Lydia will buy a car.
     \end{itemize}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Modus Tollens}
+
+  \begin{block}{Modus Tollens (MT)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          \neg q
+        \end{array}
+      }
+      {
+        \therefore \neg p
+      }
+    \]
+  \end{block}
 
   \pause
-  \begin{exampleblock}{modus tollens}
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia did not buy a car.
@@ -1250,62 +1246,67 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Fallacies}
+  \frametitle{Modus Tollens}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{block}{affirming the conclusion}
-      \[
-      \frac
-        {
+  \begin{columns}
+    \column{.3\textwidth}
+    \[
+    \frac
+      {
         \begin{array}{c}
           p \rightarrow q\\
-          q
-          \end{array}
-        }
-        {
-          \therefore p
-        }
-      \]
-    \end{block}
+          \neg q
+        \end{array}
+      }
+      {
+        \therefore \neg p
+      }
+    \]
 
+    \pause
+    \column{.65\textwidth}
+    \begin{eqnarray*}
+      1. & p \rightarrow q           & A\\
+      \pause
+      2. & \neg q \rightarrow \neg p & EQ: 1\\
+      \pause
+      3. & \neg q                    & A\\
+      \pause
+      4. & \neg p                    & ImpE:2,3\\
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fallacies}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \[
+    \frac
+      {
+      \begin{array}{c}
+        p \rightarrow q\\
+        q
+        \end{array}
+      }
+      {
+        \therefore p
+      }
+    \]
+
+    \medskip
+    \column{.5\textwidth}
     $(p \rightarrow q) \wedge q \nRightarrow p$
     \begin{itemize}
      \item $p: F$, $q: T$
       \smallskip
       $(F \rightarrow T) \wedge T \rightarrow F: F$
     \end{itemize}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{denying the hypothesis}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            \neg p
-          \end{array}
-        }
-        {
-          \therefore \neg q
-        }
-      \]
-    \end{block}
-
-    $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$
-    \begin{itemize}
-     \item $p: F$, $q: T$
-      \smallskip
-      $(F \rightarrow T) \wedge T \rightarrow F: F$
-    \end{itemize}
   \end{columns}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Fallacy Examples}
-
-  \begin{exampleblock}{affirming the conclusion}
+  \pause
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has bought a car.
@@ -1314,9 +1315,37 @@
       \item Therefore, Lydia has won the lottery.
     \end{itemize}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fallacies}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          \neg p
+        \end{array}
+      }
+      {
+        \therefore \neg q
+      }
+    \]
+
+    \column{.5\textwidth}
+    $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$
+    \begin{itemize}
+     \item $p: F$, $q: T$
+      \smallskip
+      $(F \rightarrow T) \wedge T \rightarrow F: F$
+    \end{itemize}
+  \end{columns}
 
   \pause
-  \begin{exampleblock}{denying the hypothesis}
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has not won the lottery.
@@ -1327,59 +1356,34 @@
   \end{exampleblock}
 \end{frame}
 
+\subsection{Provisional Assumptions}
+
 \begin{frame}
-  \frametitle{Provisional Assumptions}
+  \frametitle{Implication Introduction}
 
-  \begin{columns}[t]
-    \column{.6\textwidth}
-    \begin{block}{Implication Introduction (ImpI)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \vdash q
-          \end{array}
-        }
-        {
-          \therefore ~ \vdash p \rightarrow q
-        }
-      \]
-    \end{block}
+  \begin{block}{Implication Introduction (ImpI)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vdash q
+        \end{array}
+      }
+      {
+        \therefore ~ \vdash p \rightarrow q
+      }
+    \]
+  \end{block}
 
-    \begin{itemize}
-      \item if it can be shown that\\
-        $q$ is true assuming $p$ is true
-      \item then $p \rightarrow q$ is true\\
-        \emph{without assuming $p$ is true}
-
-      \pause
-      \medskip
-      \item $p$ is a \alert{provisional assumption} (PA)
-      \item PAs have to be \alert{discharged}
-    \end{itemize}
+  \begin{itemize}
+    \item if it can be shown that $q$ is true assuming $p$ is true
+    \item then $p \rightarrow q$ is true \emph{without assuming $p$ is true}
 
     \pause
-    \column{.4\textwidth}
-    \begin{block}{OR Elimination (OrE)}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \vee q\\
-            p \vdash r\\
-            q \vdash r
-          \end{array}
-        }
-        {
-          \therefore ~ \vdash r
-        }
-      \]
-    \end{block}
-
-    \begin{itemize}
-      \item $p$ and $q$ are PAs
-    \end{itemize}
-  \end{columns}
+    \medskip
+    \item $p$ is a \alert{provisional assumption} (PA)
+    \item provisional assumptions have to be \alert{discharged}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1407,19 +1411,43 @@
       \pause
       2. & p \rightarrow q           & A\\
       \pause
-      3. & q                         & ImpE:1,2\\
+      3. & q                         & ImpE:2,1\\
       \pause
       4. & \neg q                    & A\\
       \pause
       5. & q \rightarrow F           & EQ:4\\
       \pause
-      6. & F                         & ImpE:3,5\\
+      6. & F                         & ImpE:5,3\\
       \pause
       7. & p \rightarrow F           & ImpI:1,6\\
       \pause
       8. & \neg p                    & EQ:7\\
     \end{eqnarray*}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{OR Elimination}
+
+  \begin{block}{OR Elimination (OrE)}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vee q\\
+          p \vdash r\\
+          q \vdash r
+        \end{array}
+      }
+      {
+        \therefore ~ \vdash r
+      }
+    \]
+  \end{block}
+
+  \begin{itemize}
+    \item $p$ and $q$ are provisional assumptions
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1463,6 +1491,23 @@
         \begin{array}{c}
           p \vee q\\
           \neg p
+        \end{array}
+      }
+      {
+        \therefore q
+      }
+    \]
+
+    \pause
+    \bigskip
+    applying OrE:
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vee q\\
+          p \vdash q\\
+          q \vdash q\\
         \end{array}
       }
       {
@@ -1520,11 +1565,11 @@
       \pause
       2. & p \rightarrow q & A\\
       \pause
-      3. & q               & ImpE:1,2\\
+      3. & q               & ImpE:2,1\\
       \pause
       4. & q \rightarrow r & A\\
       \pause
-      5. & r               & ImpE:3,4\\
+      5. & r               & ImpE:4,3\\
       \pause
       6. & p \rightarrow r & ImpI:1,5\\
     \end{eqnarray*}
