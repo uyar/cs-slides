@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -27,7 +27,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2015}
 
 \AtBeginSubsection[]
 {
@@ -51,7 +51,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2015 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -121,64 +121,60 @@
 
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[propositions]
+    \begin{exampleblock}{propositions}
       \begin{itemize}
         \item The Moon revolves\\
           around the Earth.
         \item Elephants can fly.
         \item $3+8=11$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
 
     \pause
     \column{.5\textwidth}
-    \begin{example}[not propositions]
+    \begin{exampleblock}{not propositions}
       \begin{itemize}
         \item What time is it?
         \item Exterminate!
         \item $x<43$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Propositional Variable}
 
-  \begin{definition}
-    \alert{propositional variable}:\\
+  \begin{itemize}
+    \item \alert{propositional variable}:\\
       a name that represents the proposition
-  \end{definition}
+  \end{itemize}
 
-  \pause
-  \begin{example}
+  \begin{exampleblock}{examples}
     \begin{itemize}
       \item $p_1$: The Moon revolves around the Earth. ($T$)
       \item $p_2$: Elephants can fly. ($F$)
       \item $p_3$: $3+8=11$ ($T$)
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
-\subsection{Compound Propositions}
+\subsection{Logical Operators}
 
 \begin{frame}
   \frametitle{Compound Propositions}
 
   \begin{itemize}
-    \item \alert{compound propositions} are obtained
-    \begin{itemize}
-      \item by negating a proposition, or
-      \item by combining two or more propositions using
-        \alert{logical connectives}
-    \end{itemize}
+    \item compound propositions are obtained by applying
+      \alert{logical operators}
   \end{itemize}
 
   \pause
+  \bigskip
   \begin{itemize}
     \item \alert{truth table}:\\
       a table that lists the truth value of the compound proposition\\
-      for all possible values of its proposition variables
+      for all possible values of its variables
   \end{itemize}
 \end{frame}
 
@@ -198,7 +194,7 @@
 
     \pause
     \column{.7\textwidth}
-    \begin{example}
+    \begin{exampleblock}{examples}
       \begin{itemize}
         \item $\neg p_1$: The Moon does not revolve\\
           around the Earth.\\
@@ -206,7 +202,7 @@
         \item $\neg p_2$: Elephants cannot fly.\\
           $\neg F : T$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
@@ -228,13 +224,15 @@
 
     \pause
     \column{.62\textwidth}
-    \begin{example}
+    \begin{exampleblock}{examples}
       \begin{itemize}
         \item $p_1 \wedge p_2$: The Moon revolves around the Earth and elephants
           can fly.\\
           $T \wedge F : F$
+        \item $p_1 \wedge p_3$: The Moon revolves around the Earth and $3+8=11$.\\
+          $T \wedge T : T$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
@@ -256,13 +254,13 @@
 
     \pause
     \column{.6\textwidth}
-    \begin{example}
+    \begin{exampleblock}{example}
       \begin{itemize}
         \item $p_1 \vee p_2$: The Moon revolves around the Earth or elephants
           can fly.\\
           $T \vee F : T$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
@@ -284,13 +282,16 @@
 
     \pause
     \column{.65\textwidth}
-    \begin{example}
+    \begin{exampleblock}{examples}
       \begin{itemize}
         \item $p_1 \veebar p_2$: Either the Moon revolves around the Earth or
           elephants can fly.\\
           $T \veebar F : T$
+        \item $p_1 \veebar p_3$: Either the Moon revolves around the Earth or
+          $3+8=11$.\\
+          $T \veebar T : F$
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
@@ -313,18 +314,13 @@
     \column{.6\textwidth}
     \begin{itemize}
       \item if $p$ then $q$
-      \begin{itemize}
-        \item $p$ is sufficient for $q$
-        \item $q$ is necessary for $p$
-      \end{itemize}
+      \smallskip
+      \item $p$ is sufficient for $q$
+      \item $q$ is necessary for $p$
 
       \medskip
       \item $p$: \alert{hypothesis}
       \item $q$: \alert{conclusion}
-
-      \pause
-      \medskip
-      \item $\neg p \vee q$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -332,73 +328,69 @@
 \begin{frame}
   \frametitle{Implication Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$, $p_7$: $8<6$
-    \end{itemize}
+  \begin{itemize}
+    \item $p_4$: $3<8$, $p_5$: $3<14$, $p_6$: $3<2$, $p_7$: $8<6$
+  \end{itemize}
+
+  \pause
+  \begin{columns}[t]
+    \column{.5\textwidth}
+      \begin{itemize}
+        \item $p_4 \rightarrow p_5$:\\
+          ~~if $3 < 8$, then $3 < 14$\\
+          ~~$T \rightarrow T : T$
+        \pause
+        \item $p_4 \rightarrow p_6$:\\
+          ~~if $3 < 8$, then $3 < 2$\\
+          ~~$T \rightarrow F : F$
+      \end{itemize}
 
     \pause
-    \begin{columns}[t]
-      \column{.49\textwidth}
-        \begin{itemize}
-          \item $p_4 \rightarrow p_5$:\\
-            ~~if $3 < 8$, then $3 < 14$\\
-            ~~$T \rightarrow T : T$
-          \pause
-          \item $p_4 \rightarrow p_6$:\\
-            ~~if $3 < 8$, then $3 < 2$\\
-            ~~$T \rightarrow F : F$
-        \end{itemize}
-
-      \pause
-      \column{.49\textwidth}
-        \begin{itemize}
-          \item $p_6 \rightarrow p_4$:\\
-          ~~if $3 < 2$, then $3 < 8$\\
-          ~~$F \rightarrow T : T$
-          \pause
-          \item $p_6 \rightarrow p_7$:\\
-          ~~if $3 < 2$, then $8 < 6$\\
-          ~~$F \rightarrow F : T$
-        \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.5\textwidth}
+      \begin{itemize}
+        \item $p_6 \rightarrow p_4$:\\
+        ~~if $3 < 2$, then $3 < 8$\\
+        ~~$F \rightarrow T : T$
+        \pause
+        \item $p_6 \rightarrow p_7$:\\
+        ~~if $3 < 2$, then $8 < 6$\\
+        ~~$F \rightarrow F : T$
+      \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Implication Examples}
+  \frametitle{Implication Example}
 
-  \begin{example}
+  \begin{itemize}
+    \item "If I weigh over 70 kg, then I will exercise."
+  \end{itemize}
+
+  \pause
+  \begin{columns}
+    \column{.6\textwidth}
     \begin{itemize}
-      \item "If I weigh over 70 kg, then I will exercise."
+      \item $p$: I weigh over 70 kg.
+      \item $q$: I exercise.
     \end{itemize}
 
     \pause
-    \begin{columns}
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $p$: I weigh over 70 kg.
-        \item $q$: I exercise.
-      \end{itemize}
+    \begin{itemize}
+      \item when is this claim false?
+    \end{itemize}
 
-      \pause
-      \begin{itemize}
-        \item when is this claim false?
-      \end{itemize}
-
-      \column{.4\textwidth}
-      \begin{table}
-        \caption{$p \rightarrow q$}
-        \begin{tabular}{|c|c||c|}\hline
-          $p$ & $q$ & $p \rightarrow q$\\\hline\hline
-          $T$ & $T$ & $T$\\\hline
-          $T$ & $F$ & $F$\\\hline
-          $F$ & $T$ & $T$\\\hline
-          $F$ & $F$ & $T$\\\hline
-        \end{tabular}
-      \end{table}
-    \end{columns}
-  \end{example}
+    \column{.4\textwidth}
+    \begin{table}
+      \caption{$p \rightarrow q$}
+      \begin{tabular}{|c|c||c|}\hline
+        $p$ & $q$ & $p \rightarrow q$\\\hline\hline
+        $T$ & $T$ & $T$\\\hline
+        $T$ & $F$ & $F$\\\hline
+        $F$ & $T$ & $T$\\\hline
+        $F$ & $F$ & $T$\\\hline
+      \end{tabular}
+    \end{table}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -420,14 +412,8 @@
     \column{.6\textwidth}
     \begin{itemize}
       \item $p$ if and only if $q$
-      \begin{itemize}
-        \item $p$ is necessary and sufficient for $q$
-      \end{itemize}
-
-      \pause
-      \medskip
-      \item $(p \rightarrow q) \wedge (q \rightarrow p)$
-      \item $\neg (p \veebar q)$
+      \smallskip
+      \item $p$ is necessary and sufficient for $q$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -435,61 +421,58 @@
 \begin{frame}
   \frametitle{Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item The parent tells the child:\\
-        "If you do your homework, you can play computer games."
+  \begin{itemize}
+    \item mother tells child:\\
+      "If you do your homework, you can play computer games."
 
-      \pause
-      \medskip
-      \item $s$: The child does her homework.
-      \item $t$: The child plays computer games.
-      \item what does the parent mean?
+    \pause
+    \medskip
+    \item $h$: The child does her homework.
+    \item $p$: The child plays computer games.
+    \item what does the mother mean?
 
-      \pause
-      \medskip
-      \item $s \rightarrow t$
-      \pause
-      \item $\neg s \rightarrow \neg t$
-      \pause
-      \item $s \leftrightarrow t$
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item $h \rightarrow p$
+    \pause
+    \item $\neg h \rightarrow \neg p$
+    \pause
+    \item $h \leftrightarrow p$
+  \end{itemize}
 \end{frame}
 
-\subsection{Propositional Logic Language}
+\subsection{Well-Formed Formula}
 
 \begin{frame}
-  \frametitle{Propositional Logic Language}
+  \frametitle{Well-Formed Formula}
 
-  \begin{block}{syntax}
-    \begin{itemize}
-      \item which rules will be used to form compound propositions?
-      \item a formula that obeys these rules: \alert{well-formed formula} (WFF)
-    \end{itemize}
-  \end{block}
+  syntax
+  \begin{itemize}
+    \item which rules will be used to form compound propositions?
+    \item a formula that obeys these rules: \alert{well-formed formula} (WFF)
+  \end{itemize}
 
   \pause
-  \begin{block}{semantics}
-    \begin{itemize}
-      \item \emph{interpretation}: calculating the value of a
-        compound proposition\\
-        by assigning values to its propositional variables
-      \item truth table: all interpretations of a proposition
-    \end{itemize}
-  \end{block}
+  \bigskip
+  semantics
+  \begin{itemize}
+    \item \emph{interpretation}: calculating the value of a
+      compound proposition\\
+      by assigning values to its variables
+    \item truth table: all interpretations of a proposition
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Formula Examples}
 
-  \begin{example}[not well-formed]
+  \begin{exampleblock}{not well-formed}
     \begin{itemize}
       \item $\vee p$
       \item $p \wedge \neg$
-      \item $p \neg \wedge q$
+      \item $p~\neg \wedge q$
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -514,24 +497,22 @@
 \begin{frame}
   \frametitle{Precedence Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item $s$: Phyllis goes out for a walk.
-      \item $t$: The Moon is out.
-      \item $u$: It is snowing.
-      \item what do the following WFFs mean?
+  \begin{itemize}
+    \item $s$: Phyllis goes out for a walk.
+    \item $t$: The Moon is out.
+    \item $u$: It is snowing.
+    \item what do the following WFFs mean?
 
-      \pause
-      \medskip
-      \item $t \wedge \neg u \rightarrow s$
-      \pause
-      \item $t \rightarrow (\neg u \rightarrow s)$
-      \pause
-      \item $\neg (s \leftrightarrow (u \vee t))$
-      \pause
-      \item $\neg s \leftrightarrow u \vee t$
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item $t \wedge \neg u \rightarrow s$
+    \pause
+    \item $t \rightarrow (\neg u \rightarrow s)$
+    \pause
+    \item $\neg (s \leftrightarrow (u \vee t))$
+    \pause
+    \item $\neg s \leftrightarrow u \vee t$
+  \end{itemize}
 \end{frame}
 
 % \begin{frame}
@@ -717,52 +698,39 @@
 \begin{frame}
   \frametitle{Metalanguage}
 
-  \begin{definition}
-    \alert{target language}:\\
-      the language being worked on
-  \end{definition}
+  \begin{itemize}
+    \item \alert{target language}: the language being worked on
 
-  \pause
-  \begin{definition}
-    \alert{metalanguage}:\\
-      the language used when talking \emph{about} the properties\\
-      of the target language
-  \end{definition}
+    \pause
+    \medskip
+    \item \alert{metalanguage}: the language used when talking\\
+      \emph{about} the properties of the target language
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Metalanguage Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item a native Turkish speaker learning English
-      \begin{itemize}
-        \item target language: English
-        \item metalanguage: Turkish
-      \end{itemize}
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item a native Turkish speaker learning English
+    \item target language: English
+    \item metalanguage: Turkish
+  \end{itemize}
 
   \pause
-  \begin{example}
-    \begin{itemize}
-      \item a student learning programming
-      \begin{itemize}
-        \item target language: C, Python, Java, \ldots
-        \item metalanguage: English, Turkish, \ldots
-      \end{itemize}
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item a student learning programming
+    \item target language: C, Python, Java, \ldots
+    \item metalanguage: English, Turkish, \ldots
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Formula Properties}
 
   \begin{itemize}
-    \item a formula that is true for all interpretations is a \alert{tautology}
-    \item a formula that is false for all interpretations is a
-      \alert{contradiction}
-    \item a formula that is true for some interpretations is valid
+    \item WFF is true for all interpretations: \alert{tautology}
+    \item WFF is false for all interpretations: \alert{contradiction}
 
     \pause
     \bigskip
@@ -773,37 +741,101 @@
 \begin{frame}
   \frametitle{Tautology Example}
 
-  \begin{example}
-    \begin{table}
-      \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
-      \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $p \wedge A$ & $B \rightarrow q$\\
-            &     & $(A)$             & $(B)$        &\\\hline\hline
-        $T$ & $T$ & $T$ & $T$ & $T$\\\hline
-        $T$ & $F$ & $F$ & $F$ & $T$\\\hline
-        $F$ & $T$ & $T$ & $F$ & $T$\\\hline
-        $F$ & $F$ & $T$ & $F$ & $T$\\\hline
-      \end{tabular}
-    \end{table}
-  \end{example}
+  \begin{table}
+    \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
+    \begin{tabular}{|c|c|c|c||c|}\hline
+      $p$ & $q$ & $p \rightarrow q$ & $p \wedge A$ & $B \rightarrow q$\\
+          &     & $(A)$             & $(B)$        &\\\hline\hline
+      $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+      $T$ & $F$ & $F$ & $F$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $F$ & $T$\\\hline
+      $F$ & $F$ & $T$ & $F$ & $T$\\\hline
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 \begin{frame}
   \frametitle{Contradiction Example}
 
-  \begin{example}
-    \begin{table}
-      \caption{$p \wedge (\neg p \wedge q)$}
-      \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $\neg p$ & $\neg p \wedge q$ & $p \wedge A$\\
-            &     &          & ($A$)             &\\\hline\hline
-        $T$ & $T$ & $F$ & $F$ & $F$\\\hline
-        $T$ & $F$ & $F$ & $F$ & $F$\\\hline
-        $F$ & $T$ & $T$ & $T$ & $F$\\\hline
-        $F$ & $F$ & $T$ & $F$ & $F$\\\hline
-      \end{tabular}
-    \end{table}
-  \end{example}
+  \begin{table}
+    \caption{$p \wedge (\neg p \wedge q)$}
+    \begin{tabular}{|c|c|c|c||c|}\hline
+      $p$ & $q$ & $\neg p$ & $\neg p \wedge q$ & $p \wedge A$\\
+          &     &          & ($A$)             &\\\hline\hline
+      $T$ & $T$ & $F$ & $F$ & $F$\\\hline
+      $T$ & $F$ & $F$ & $F$ & $F$\\\hline
+      $F$ & $T$ & $T$ & $T$ & $F$\\\hline
+      $F$ & $F$ & $T$ & $F$ & $F$\\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Implication and Equivalen}
+
+  \begin{itemize}
+    \item if $P \rightarrow Q$ is a tautology,
+      then $P$ \alert{logically implies} $Q$:\\
+      $P \Rightarrow Q$
+
+    \pause
+    \medskip
+    \item if $P \leftrightarrow Q$ is a tautology,
+      then $P$ and $Q$ are \alert{logically equivalent}:\\
+      $P \Leftrightarrow Q$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Implication Example}
+
+  $(p \rightarrow q) \wedge p \Rightarrow q$
+
+  \begin{table}
+    \caption{$(p \rightarrow q) \wedge p \rightarrow q$}
+    \begin{tabular}{|c|c|c|c||c|}\hline
+      $p$ & $q$ & $p \rightarrow q$ & $A \wedge p$ & $B \rightarrow q$\\
+          &     & ($A$)             & ($B$)        &\\\hline\hline
+      $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+      $T$ & $F$ & $F$ & $F$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $F$ & $T$\\\hline
+      $F$ & $F$ & $T$ & $F$ & $T$\\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Equivalence Example}
+
+  $\neg p \Leftrightarrow p \rightarrow F$
+
+  \begin{table}
+    \caption{$\neg p \leftrightarrow p \rightarrow F$}
+    \begin{tabular}{|c|c|c||c|}\hline
+      $p$ & $\neg p$ & $p \rightarrow F$ & $\neg p \leftrightarrow A$\\
+          &          & ($A$)             &\\\hline\hline
+      $T$ & $F$ & $F$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $T$\\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logical Equivalence Example}
+
+  $p \rightarrow q \Leftrightarrow \neg p \vee q$
+
+  \begin{table}
+    \caption{$(p \rightarrow q) \leftrightarrow (\neg p \vee q)$}
+    \begin{tabular}{|c|c|c|c|c||c|}\hline
+      $p$ & $q$ & $p \rightarrow q$ & $\neg p$ & $\neg p \vee q$ & $A \leftrightarrow B$\\
+          &     & ($A$)             &          & ($B$)           &\\\hline\hline
+      $T$ & $T$ & $T$ & $F$ & $T$ & $T$\\\hline
+      $T$ & $F$ & $F$ & $F$ & $F$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+      $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 \begin{frame}
@@ -847,12 +879,10 @@
   \end{itemize}
 
   \pause
-  \begin{block}{Gödel's Theorem}
-    \begin{itemize}
-      \item Any logical system that is powerful enough to express arithmetic\\
-        must be either inconsistent or incomplete.
-    \end{itemize}
-  \end{block}
+  \begin{theorem}[Gödel's Theorem]
+    Any logical system that is powerful enough to express arithmetic\\
+    must be either inconsistent or incomplete.
+  \end{theorem}
 
   \pause
   \medskip
@@ -869,113 +899,56 @@
   \frametitle{Propositional Calculus}
 
   \begin{enumerate}
-    \item semantic approach: \emph{truth tables}
-    \begin{itemize}
-      \item too complicated when the number of primitive statements grow
-    \end{itemize}
+    \item semantic approach: \emph{truth tables}\\
+      too complicated when the number of primitive statements grow
 
     \pause
     \medskip
-    \item axiomatic approach: \emph{Boolean algebra}
-    \begin{itemize}
-      \item substituting logically equivalent formulas for one another
-    \end{itemize}
+    \item syntactic approach: \emph{rules of inference}\\
+      obtain new propositions from known propositions\\
+      using logical implications
 
     \pause
     \medskip
-    \item syntactic approach: \emph{rules of inference}
-    \begin{itemize}
-      \item obtaining new propositions from existing propositions\\
-        using logical implications
-    \end{itemize}
+    \item axiomatic approach: \emph{Boolean algebra}\\
+      substitute logically equivalent formulas for one another
   \end{enumerate}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Truth Table Example}
+  \frametitle{Semantic Approach Example}
 
   \begin{itemize}
-    \item $p \rightarrow q$
-    \begin{itemize}
-      \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
-      \item \emph{converse}: $q \rightarrow p$
-      \item \emph{inverse}: $\neg p \rightarrow \neg q$
-    \end{itemize}
+    \item implication: $p \rightarrow q$
+
+    \medskip
+    \item \emph{contrapositive}: $\neg q \rightarrow \neg p$
+    \item \emph{converse}: $q \rightarrow p$
+    \item \emph{inverse}: $\neg p \rightarrow \neg q$
   \end{itemize}
+\end{frame}
 
-  \pause
-  \begin{example}
-    \begin{center}
-      \begin{tabular}{|c|c||c||c||c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
-            & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
-        $T$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
-        $T$ & $F$ & $F$ & $F$ & $T$ & $T$\\\hline
-        $F$ & $T$ & $T$ & $T$ & $F$ & $F$\\\hline
-        $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
-      \end{tabular}
-    \end{center}
+\begin{frame}
+  \frametitle{Semantic Approach Example}
 
-    \begin{itemize}
-      \item an implication and its contrapositive are equivalent
-      \item the converse and the inverse of an implication are equivalent
-    \end{itemize}
-  \end{example}
+  \begin{center}
+    \begin{tabular}{|c|c||c||c||c||c|}\hline
+      $p$ & $q$ & $p \rightarrow q$ & $\neg q \rightarrow \neg p$
+          & $q \rightarrow p$ & $\neg p \rightarrow \neg q$\\\hline\hline
+      $T$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
+      $T$ & $F$ & $F$ & $F$ & $T$ & $T$\\\hline
+      $F$ & $T$ & $T$ & $T$ & $F$ & $F$\\\hline
+      $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
+    \end{tabular}
+  \end{center}
+
+  \begin{itemize}
+    \item an implication and its contrapositive are equivalent
+    \item the converse and the inverse of an implication are equivalent
+  \end{itemize}
 \end{frame}
 
 \subsection{Laws of Logic}
-
-\begin{frame}
-  \frametitle{Logical Equivalence}
-
-  \begin{definition}
-    if $P \leftrightarrow Q$ is a tautology, then $P$ and $Q$ are
-    \alert{logically equivalent}:\\
-    $P \Leftrightarrow Q$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Logical Equivalence Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item $\neg p \Leftrightarrow p \rightarrow F$
-    \end{itemize}
-
-    \begin{table}
-      \caption{$\neg p \leftrightarrow p \rightarrow F$}
-      \begin{tabular}{|c|c|c||c|}\hline
-        $p$ & $\neg p$ & $p \rightarrow F$ & $\neg p \leftrightarrow A$\\
-            &          & ($A$)             &\\\hline\hline
-        $T$ & $F$ & $F$ & $T$\\\hline
-        $F$ & $T$ & $T$ & $T$\\\hline
-      \end{tabular}
-    \end{table}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Logical Equivalence Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item $p \rightarrow q \Leftrightarrow \neg p \vee q$
-    \end{itemize}
-
-    \begin{table}
-      \caption{$(p \rightarrow q) \leftrightarrow (\neg p \vee q)$}
-      \begin{tabular}{|c|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $\neg p$ & $\neg p \vee q$ & $A \leftrightarrow B$\\
-            &     & ($A$)             &          & ($B$)           &\\\hline\hline
-        $T$ & $T$ & $T$ & $F$ & $T$ & $T$\\\hline
-        $T$ & $F$ & $F$ & $F$ & $F$ & $T$\\\hline
-        $F$ & $T$ & $T$ & $T$ & $T$ & $T$\\\hline
-        $F$ & $F$ & $T$ & $T$ & $T$ & $T$\\\hline
-      \end{tabular}
-    \end{table}
-  \end{example}
-\end{frame}
 
 \begin{frame}
   \frametitle{Laws of Logic}
@@ -1031,113 +1004,70 @@
 \begin{frame}
   \frametitle{Equivalence Example}
 
-  \begin{example}
-    \begin{eqnarray*}
-                      & p \rightarrow q           &   \\
-      \pause
-      \Leftrightarrow & \neg p \vee q             &   \\
-      \pause
-      \Leftrightarrow & q \vee \neg p             & Co\\
-      \pause
-      \Leftrightarrow & \neg \neg q \vee \neg p   & DN\\
-      \pause
-      \Leftrightarrow & \neg q \rightarrow \neg p &
-    \end{eqnarray*}
-  \end{example}
+  \begin{eqnarray*}
+                    & p \rightarrow q           &   \\
+    \pause
+    \Leftrightarrow & \neg p \vee q             &   \\
+    \pause
+    \Leftrightarrow & q \vee \neg p             & Co\\
+    \pause
+    \Leftrightarrow & \neg \neg q \vee \neg p   & DN\\
+    \pause
+    \Leftrightarrow & \neg q \rightarrow \neg p &
+  \end{eqnarray*}
 \end{frame}
 
 \begin{frame}
   \frametitle{Equivalence Example}
 
-  \begin{example}
-    \begin{eqnarray*}
-                      & \neg (\neg ((p \vee q) \wedge r) \vee \neg q)      &   \\
-      \pause
-      \Leftrightarrow & \neg \neg ((p \vee q) \wedge r) \wedge \neg \neg q & DM\\
-      \pause
-      \Leftrightarrow & ((p \vee q) \wedge r) \wedge q                     & DN\\
-      \pause
-      \Leftrightarrow & (p \vee q) \wedge (r \wedge q)                     & As\\
-      \pause
-      \Leftrightarrow & (p \vee q) \wedge (q \wedge r)                     & Co\\
-      \pause
-      \Leftrightarrow & ((p \vee q) \wedge q) \wedge r                     & As\\
-      \pause
-      \Leftrightarrow & q \wedge r                                         & Ab
-    \end{eqnarray*}
-  \end{example}
+  \begin{eqnarray*}
+                    & \neg (\neg ((p \vee q) \wedge r) \vee \neg q)      &   \\
+    \pause
+    \Leftrightarrow & \neg \neg ((p \vee q) \wedge r) \wedge \neg \neg q & DM\\
+    \pause
+    \Leftrightarrow & ((p \vee q) \wedge r) \wedge q                     & DN\\
+    \pause
+    \Leftrightarrow & (p \vee q) \wedge (r \wedge q)                     & As\\
+    \pause
+    \Leftrightarrow & (p \vee q) \wedge (q \wedge r)                     & Co\\
+    \pause
+    \Leftrightarrow & ((p \vee q) \wedge q) \wedge r                     & As\\
+    \pause
+    \Leftrightarrow & q \wedge r                                         & Ab
+  \end{eqnarray*}
 \end{frame}
 
 \begin{frame}
   \frametitle{Duality}
 
-  \begin{definition}
-    If $s$ contains no logical connectives other than $\wedge$ and $\vee$,\\
-    then the \alert{dual} of $s$, denoted $s^d$, is the statement obtained
-    from $s$\\
-    by replacing each occurrence of\\
-    $\wedge$ by $\vee$, $\vee$ by $\wedge$, $T$ by $F$, and $F$ by $T$.
-  \end{definition}
+  \begin{itemize}
+    \item \alert{dual} of $s$: $s^d$\\
+      replace: $\wedge$ with $\vee$, $\vee$ with $\wedge$, $T$ with $F$, $F$ with $T$
+
+    \pause
+    \medskip
+    \item \alert{principle of duality}:
+      if $s \Leftrightarrow t$ then $s^d \Leftrightarrow t^d$
+  \end{itemize}
 
   \pause
-  \begin{example}[dual proposition]
+  \begin{exampleblock}{example}
     \begin{eqnarray*}
       s:   & (p \wedge \neg q) \vee (r \wedge T)\\
       s^d: & (p \vee \neg q) \wedge (r \vee F)
     \end{eqnarray*}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Principle of Duality}
-
-  \begin{block}{principle of duality}
-    Let $s$ and $t$ be statements that contain no logical connectives\\
-    other than $\wedge$ and $\vee$.\\
-    If $s \Leftrightarrow t$ then $s^d \Leftrightarrow t^d$.
-  \end{block}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Rules of Inference}
 
 \begin{frame}
-  \frametitle{Rules of Inference}
-
-  \begin{definition}
-    if $P \rightarrow Q$ is a tautology, then $P$ \alert{logically implies} $Q$:\\
-    $P \Rightarrow Q$
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Logical Implication Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item $p \wedge (p \rightarrow q) \Rightarrow q$
-    \end{itemize}
-
-    \begin{table}
-      \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
-      \begin{tabular}{|c|c|c|c||c|}\hline
-        $p$ & $q$ & $p \rightarrow q$ & $p \wedge A$ & $B \rightarrow q$\\
-            &     & ($A$)             & ($B$)        &\\\hline\hline
-        $T$ & $T$ & $T$ & $T$ & $T$\\\hline
-        $T$ & $F$ & $F$ & $F$ & $T$\\\hline
-        $F$ & $T$ & $T$ & $F$ & $T$\\\hline
-        $F$ & $F$ & $T$ & $F$ & $T$\\\hline
-      \end{tabular}
-    \end{table}
-  \end{example}
-\end{frame}
-
-\begin{frame}
   \frametitle{Inference}
 
   \begin{itemize}
-    \item establishing the validity of an argument,\\
-      starting from a set of propositions\\
-      which are assumed or proven to be true
+    \item establishing the validity of an argument
+    \item starting from a set of propositions
+    \item which are assumed or proven to be true
   \end{itemize}
 
   \pause
@@ -1297,7 +1227,7 @@
 \begin{frame}
   \frametitle{Implication Elimination Example}
 
-  \begin{example}[Modus Ponens]
+  \begin{exampleblock}{modus ponens}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has won the lottery.
@@ -1305,10 +1235,10 @@
       \medskip
       \item Therefore, Lydia will buy a car.
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 
   \pause
-  \begin{example}[Modus Tollens]
+  \begin{exampleblock}{modus tollens}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia did not buy a car.
@@ -1316,7 +1246,7 @@
       \medskip
       \item Therefore, Lydia did not win the lottery.
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -1339,10 +1269,11 @@
       \]
     \end{block}
 
+    $(p \rightarrow q) \wedge q \nRightarrow p$
     \begin{itemize}
-      \item $(p \rightarrow q) \wedge q \nRightarrow p$:\\
-        \smallskip
-        $(F \rightarrow T) \wedge T \rightarrow F : F$
+     \item $p: F$, $q: T$
+      \smallskip
+      $(F \rightarrow T) \wedge T \rightarrow F: F$
     \end{itemize}
 
     \pause
@@ -1362,10 +1293,11 @@
       \]
     \end{block}
 
+    $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$
     \begin{itemize}
-      \item $(p \rightarrow q) \wedge \neg p \nRightarrow \neg q$:\\
-        \smallskip
-        $(F \rightarrow T) \wedge T \rightarrow F : F$
+     \item $p: F$, $q: T$
+      \smallskip
+      $(F \rightarrow T) \wedge T \rightarrow F: F$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -1373,7 +1305,7 @@
 \begin{frame}
   \frametitle{Fallacy Examples}
 
-  \begin{example}[affirming the conclusion]
+  \begin{exampleblock}{affirming the conclusion}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has bought a car.
@@ -1381,10 +1313,10 @@
       \medskip
       \item Therefore, Lydia has won the lottery.
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 
   \pause
-  \begin{example}[denying the hypothesis]
+  \begin{exampleblock}{denying the hypothesis}
     \begin{itemize}
       \item If Lydia wins the lottery, she will buy a car.
       \item Lydia has not won the lottery.
@@ -1392,14 +1324,14 @@
       \medskip
       \item Therefore, Lydia will not buy a car.
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Provisional Assumptions}
 
   \begin{columns}[t]
-    \column{.65\textwidth}
+    \column{.6\textwidth}
     \begin{block}{Implication Introduction (ImpI)}
       \[
       \frac
@@ -1416,8 +1348,8 @@
 
     \begin{itemize}
       \item if it can be shown that\\
-        $q$ is true assuming $p$ is true,\\
-        then $p \rightarrow q$ is true\\
+        $q$ is true assuming $p$ is true
+      \item then $p \rightarrow q$ is true\\
         \emph{without assuming $p$ is true}
 
       \pause
@@ -1427,7 +1359,7 @@
     \end{itemize}
 
     \pause
-    \column{.35\textwidth}
+    \column{.4\textwidth}
     \begin{block}{OR Elimination (OrE)}
       \[
       \frac
@@ -1453,43 +1385,41 @@
 \begin{frame}
   \frametitle{Implication Introduction Example}
 
-  \begin{example}[Modus Tollens]
-    \begin{columns}
-      \column{.3\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow q\\
-            \neg q
-          \end{array}
-        }
-        {
-          \therefore \neg p
-        }
-      \]
+  \begin{columns}
+    \column{.3\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow q\\
+          \neg q
+        \end{array}
+      }
+      {
+        \therefore \neg p
+      }
+    \]
 
+    \pause
+    \column{.65\textwidth}
+    \begin{eqnarray*}
+      1. & p                         & PA\\
       \pause
-      \column{.65\textwidth}
-      \begin{eqnarray*}
-        1. & p                         & PA\\
-        \pause
-        2. & p \rightarrow q           & A\\
-        \pause
-        3. & q                         & ImpE:1,2\\
-        \pause
-        4. & \neg q                    & A\\
-        \pause
-        5. & q \rightarrow F           & EQ:4\\
-        \pause
-        6. & F                         & ImpE:3,5\\
-        \pause
-        7. & p \rightarrow F           & ImpI:1,6\\
-        \pause
-        8. & \neg p                    & EQ:7\\
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+      2. & p \rightarrow q           & A\\
+      \pause
+      3. & q                         & ImpE:1,2\\
+      \pause
+      4. & \neg q                    & A\\
+      \pause
+      5. & q \rightarrow F           & EQ:4\\
+      \pause
+      6. & F                         & ImpE:3,5\\
+      \pause
+      7. & p \rightarrow F           & ImpI:1,6\\
+      \pause
+      8. & \neg p                    & EQ:7\\
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -1511,7 +1441,7 @@
   \end{block}
 
   \pause
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item Bart's wallet is either in his pocket or on his desk.
       \item Bart's wallet is not in his pocket.
@@ -1519,51 +1449,49 @@
       \medskip
       \item Therefore, Bart's wallet is on his desk.
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Disjunctive Syllogism}
 
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \vee q\\
-            \neg p
-          \end{array}
-        }
-        {
-          \therefore q
-        }
-      \]
+  \begin{columns}
+    \column{.5\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \vee q\\
+          \neg p
+        \end{array}
+      }
+      {
+        \therefore q
+      }
+    \]
 
+    \pause
+    \column{.5\textwidth}
+    \begin{eqnarray*}
+      1.   & p \vee q        & A\\
       \pause
-      \column{.5\textwidth}
-      \begin{eqnarray*}
-        1.   & p \vee q        & A\\
-        \pause
-        2.   & \neg p          & A\\
-        \pause
-        3.   & p \rightarrow F & EQ:2\\
-        \pause
-        4a1. & p               & PA\\
-        \pause
-        4a2. & F               & ImpE:3,4a1\\
-        \pause
-        4a.  & q               & CTR:4a2\\
-        \pause
-        4b1. & q               & PA\\
-        \pause
-        4b.  & q               & ID:4b1\\
-        \pause
-        5.   & q               & OrE:1,4a,4b
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+      2.   & \neg p          & A\\
+      \pause
+      3.   & p \rightarrow F & EQ:2\\
+      \pause
+      4a1. & p               & PA\\
+      \pause
+      4a2. & F               & ImpE:3,4a1\\
+      \pause
+      4a.  & q               & CTR:4a2\\
+      \pause
+      4b1. & q               & PA\\
+      \pause
+      4b.  & q               & ID:4b1\\
+      \pause
+      5.   & q               & OrE:1,4a,4b
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -1606,70 +1534,61 @@
 \begin{frame}
   \frametitle{Hypotetical Syllogism Example}
 
-  \begin{example}[Star Trek]
-    Spock to Lieutenant Decker:
-    \begin{quote}
-      It would be a suicide to attack the enemy ship now.\\
-      Someone who attempts suicide is not psychologically fit\\
-      to command the Enterprise.\\
-      Therefore, I am obliged to relieve you from duty.
-    \end{quote}
-  \end{example}
+  Spock to Lieutenant Decker:
+  \begin{quote}
+    It would be a suicide to attack the enemy ship now.\\
+    Someone who attempts suicide is not psychologically fit\\
+    to command the Enterprise.\\
+    Therefore, I am obliged to relieve you from duty.
+  \end{quote}
+
+  \pause
+  \begin{itemize}
+    \item $p$: Decker attacks the enemy ship.
+    \item $q$: Decker attempts suicide.
+    \item $r$: Decker is not psychologically fit to command the Enterprise.
+    \item $s$: Spock relieves Decker from duty.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hypotetical Syllogism Example}
 
-  \begin{example}[Star Trek]
-    \begin{itemize}
-      \item $p$: Decker attacks the enemy ship.
-      \item $q$: Decker attempts suicide.
-      \item $r$: Decker is not psychologically fit to command the Enterprise.
-      \item $s$: Spock relieves Decker from duty.
-    \end{itemize}
-  \end{example}
-\end{frame}
+  \begin{columns}
+    \column{.3\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p\\
+          p \rightarrow q\\
+          q \rightarrow r\\
+          r \rightarrow s
+        \end{array}
+      }
+      {
+        \therefore s
+      }
+    \]
 
-\begin{frame}
-  \frametitle{Hypotetical Syllogism Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.3\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p\\
-            p \rightarrow q\\
-            q \rightarrow r\\
-            r \rightarrow s
-          \end{array}
-        }
-        {
-          \therefore s
-        }
-      \]
-
+    \pause
+    \column{.65\textwidth}
+    \begin{eqnarray*}
+      1. & p \rightarrow q & A\\
       \pause
-      \column{.65\textwidth}
-      \begin{eqnarray*}
-        1. & p \rightarrow q & A\\
-        \pause
-        2. & q \rightarrow r & A\\
-        \pause
-        3. & p \rightarrow r & HS:1,2\\
-        \pause
-        4. & r \rightarrow s & A\\
-        \pause
-        5. & p \rightarrow s & HS:3,4\\
-        \pause
-        6. & p               & A\\
-        \pause
-        7. & s               & ImpE:5,6
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+      2. & q \rightarrow r & A\\
+      \pause
+      3. & p \rightarrow r & HS:1,2\\
+      \pause
+      4. & r \rightarrow s & A\\
+      \pause
+      5. & p \rightarrow s & HS:3,4\\
+      \pause
+      6. & p               & A\\
+      \pause
+      7. & s               & ImpE:5,6
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 % \begin{frame}
@@ -1715,219 +1634,205 @@
 \begin{frame}
   \frametitle{Inference Examples}
 
-  \begin{example}
-    \begin{columns}[t]
-      \column{.25\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow r\\
-            r \rightarrow s\\
-            x \vee \neg s\\
-            u \vee \neg x\\
-            \neg u
-          \end{array}
-        }
-        {
-          \therefore \neg p
-        }
-      \]
-
-      \pause
-      \column{.3\textwidth}
-      \begin{eqnarray*}
-        1. & u \vee \neg x   & A\\
-        \pause
-        2. & \neg u          & A\\
-        \pause
-        3. & \neg x          & DS:1,2\\
-        \pause
-        4. & x \vee \neg s   & A\\
-        \pause
-        5. & \neg s          & DS:4,3\\
-      \end{eqnarray*}
-
-      \pause
-      \column{.45\textwidth}
-      \begin{eqnarray*}
-        6. & r \rightarrow s & A\\
-        \pause
-        7. & \neg r          & MT:6,5\\
-        \pause
-        8. & p \rightarrow r & A\\
-        \pause
-        9. & \neg p          & MT:8,7\\
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inference Examples}
-
-  \begin{example}
+  \begin{columns}[t]
+    \column{.25\textwidth}
     \[
     \frac
       {
         \begin{array}{c}
-          (\neg p \vee \neg q) \rightarrow (r \wedge s)\\
-          r \rightarrow x\\
-          \neg x
+          p \rightarrow r\\
+          r \rightarrow s\\
+          x \vee \neg s\\
+          u \vee \neg x\\
+          \neg u
         \end{array}
       }
       {
-        \therefore p
+        \therefore \neg p
       }
     \]
 
     \pause
-    \begin{columns}[t]
-      \column{.3\textwidth}
-      \begin{eqnarray*}
-        1. & r \rightarrow x                               & A\\
-        \pause
-        2. & \neg x                                        & A\\
-        \pause
-        3. & \neg r                                        & MT:1,2\\
-        \pause
-        4. & \neg r \vee \neg s                            & OrI:3\\
-        \pause
-        5. & \neg (r \wedge s)                             & DM:4
-      \end{eqnarray*}
-
+    \column{.3\textwidth}
+    \begin{eqnarray*}
+      1. & \neg u          & A\\
       \pause
-      \column{.6\textwidth}
-      \begin{eqnarray*}
-        6. & (\neg p \vee \neg q) \rightarrow (r \wedge s) & A\\
-        \pause
-        7. & \neg (\neg p \vee \neg q)                     & MT:6,5\\
-        \pause
-        8. & p \wedge q                                    & DM:7\\
-        \pause
-        9. & p                                             & AndE:8
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inference Examples}
-
-  \begin{example}
-    \begin{columns}
-      \column{.3\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            p \rightarrow (q \vee r)\\
-            s \rightarrow \neg r\\
-            q \rightarrow \neg p\\
-            p\\
-            s
-          \end{array}
-        }
-        {
-          \therefore F
-        }
-      \]
-
+      2. & u \vee \neg x   & A\\
       \pause
-      \column{.6\textwidth}
-      \begin{eqnarray*}
-        1. & q \rightarrow \neg p     & A\\
-       \pause
-        2. & p                        & A\\
-       \pause
-        3. & \neg q                   & MT:1,2\\
-       \pause
-        4. & s                        & A\\
-       \pause
-        5. & s \rightarrow \neg r     & A\\
-       \pause
-        6. & \neg r                   & ImpE:5,4\\
-       \pause
-        7. & p \rightarrow (q \vee r) & A\\
-       \pause
-        8. & q \vee r                 & ImpE:7,2\\
-       \pause
-        9. & q                        & DS:8,6\\
-       \pause
-       10. & q \wedge \neg q : F      & AndI:9,3
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inference Examples}
-
-  \begin{example}
-    If there is a chance of rain or her red headband is missing,\\
-    then Lois will not mow her lawn. Whenever the temperature is\\
-    over 20\textcelsius, there is no chance for rain. Today the temperature is\\
-    22\textcelsius ~ and Lois is wearing her red headband. Therefore,\\
-    Lois will mow her lawn.
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inference Examples}
-
-  \begin{example}
-    \begin{itemize}
-      \item $p$: There is a chance of rain.
-      \item $q$: Lois' red headband is lost.
-      \item $r$: Lois mows her lawn.
-      \item $s$: The temperature is over 20\textcelsius.
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inference Examples}
-
-  \begin{example}
-    \begin{columns}
-      \column{.3\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            (p \vee q) \rightarrow \neg r\\
-            s \rightarrow \neg p\\
-            s \wedge \neg q
-          \end{array}
-        }
-        {
-          \therefore r
-        }
-      \]
-
+      3. & \neg x          & DS:2,1\\
       \pause
-      \column{.65\textwidth}
-      \begin{eqnarray*}
-        1. & s \wedge \neg q                & A\\
-        \pause
-        2. & s                              & AndE:1\\
-        \pause
-        3. & s \rightarrow \neg p           & A\\
-        \pause
-        4. & \neg p                         & ImpE:3,2\\
-        \pause
-        5. & \neg q                         & AndE:1\\
-        \pause
-        6. & \neg p \wedge \neg q           & AndI:4,5\\
-        \pause
-        7. & \neg (p \vee q)                & DM:6\\
-        \pause
-        8. & (p \vee q) \rightarrow \neg r  & A\\
-        \pause
-        9. & ?                              & 7,8
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+      4. & x \vee \neg s   & A\\
+      \pause
+      5. & \neg s          & DS:4,3\\
+    \end{eqnarray*}
+
+    \pause
+    \column{.45\textwidth}
+    \begin{eqnarray*}
+      6. & r \rightarrow s & A\\
+      \pause
+      7. & \neg r          & MT:6,5\\
+      \pause
+      8. & p \rightarrow r & A\\
+      \pause
+      9. & \neg p          & MT:8,7\\
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inference Examples}
+
+  \[
+  \frac
+    {
+      \begin{array}{c}
+        (\neg p \vee \neg q) \rightarrow (r \wedge s)\\
+        r \rightarrow x\\
+        \neg x
+      \end{array}
+    }
+    {
+      \therefore p
+    }
+  \]
+
+  \pause
+  \begin{columns}[t]
+    \column{.3\textwidth}
+    \begin{eqnarray*}
+      1. & \neg x                                        & A\\
+      \pause
+      2. & r \rightarrow x                               & A\\
+      \pause
+      3. & \neg r                                        & MT:2,1\\
+      \pause
+      4. & \neg r \vee \neg s                            & OrI:3\\
+      \pause
+      5. & \neg (r \wedge s)                             & DM:4
+    \end{eqnarray*}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{eqnarray*}
+      6. & (\neg p \vee \neg q) \rightarrow (r \wedge s) & A\\
+      \pause
+      7. & \neg (\neg p \vee \neg q)                     & MT:6,5\\
+      \pause
+      8. & p \wedge q                                    & DM:7\\
+      \pause
+      9. & p                                             & AndE:8
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inference Examples}
+
+  \begin{columns}
+    \column{.3\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          p \rightarrow (q \vee r)\\
+          s \rightarrow \neg r\\
+          q \rightarrow \neg p\\
+          p\\
+          s
+        \end{array}
+      }
+      {
+        \therefore F
+      }
+    \]
+
+    \pause
+    \column{.6\textwidth}
+    \begin{eqnarray*}
+      1. & p                        & A\\
+      \pause
+      2. & q \rightarrow \neg p     & A\\
+      \pause
+      3. & \neg q                   & MT:2,1\\
+      \pause
+      4. & s                        & A\\
+      \pause
+      5. & s \rightarrow \neg r     & A\\
+      \pause
+      6. & \neg r                   & ImpE:5,4\\
+      \pause
+      7. & p \rightarrow (q \vee r) & A\\
+      \pause
+      8. & q \vee r                 & ImpE:7,2\\
+      \pause
+      9. & q                        & DS:8,6\\
+      \pause
+      10. & q \wedge \neg q : F      & AndI:9,3
+    \end{eqnarray*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inference Examples}
+
+  If there is a chance of rain or her red headband is missing,\\
+  then Lois will not mow her lawn. Whenever the temperature is\\
+  over 20\textcelsius, there is no chance for rain. Today the temperature is\\
+  22\textcelsius ~ and Lois is wearing her red headband. Therefore,\\
+  Lois will mow her lawn.
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $p$: There is a chance of rain.
+    \item $q$: Lois' red headband is lost.
+    \item $r$: Lois mows her lawn.
+    \item $s$: The temperature is over 20\textcelsius.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inference Examples}
+
+  \begin{columns}
+    \column{.3\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          (p \vee q) \rightarrow \neg r\\
+          s \rightarrow \neg p\\
+          s \wedge \neg q
+        \end{array}
+      }
+      {
+        \therefore r
+      }
+    \]
+
+    \pause
+    \column{.65\textwidth}
+    \begin{eqnarray*}
+      1. & s \wedge \neg q                & A\\
+      \pause
+      2. & s                              & AndE:1\\
+      \pause
+      3. & s \rightarrow \neg p           & A\\
+      \pause
+      4. & \neg p                         & ImpE:3,2\\
+      \pause
+      5. & \neg q                         & AndE:1\\
+      \pause
+      6. & \neg p \wedge \neg q           & AndI:4,5\\
+      \pause
+      7. & \neg (p \vee q)                & DM:6\\
+      \pause
+      8. & (p \vee q) \rightarrow \neg r  & A\\
+      \pause
+      9. & ?                              & 7,8
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 \section*{References}
