@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Input/Output}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -494,7 +494,7 @@ play (movesA, movesB) = do
             let moveA = echo movesB
             let moveB = convertMove ch
             putStrLn (showRound (moveA, moveB))
-            play (moveA:movesA, moveB:movesB)
+            play (moveA : movesA, moveB : movesB)
 
 playInteractive :: IO ()
 playInteractive = play ([], [])
