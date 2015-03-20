@@ -1,0 +1,1305 @@
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{IT Ethics}
+\subtitle{Privacy}
+
+\author{H. Turgut Uyar}
+\date{2004-2015}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{definition}
+\newtheorem{tanim}[theorem]{Tanım}
+
+\theoremstyle{example}
+\newtheorem{ornek}[theorem]{Örnek}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../license}
+
+\pgfdeclareimage[width=5.8cm]{zuckerberg}{zuckerberg}
+\pgfdeclareimage[width=6.5cm]{pennsylvania}{pennsylvania}
+\pgfdeclareimage[width=5.8cm]{iphone}{iphone}
+\pgfdeclareimage[width=7.5cm]{carrieriq}{carrieriq}
+\pgfdeclareimage[width=7.5cm]{rfid-immigrants}{rfid-immigrants}
+\pgfdeclareimage[width=7.2cm]{rfid-passport}{rfid-passport}
+\pgfdeclareimage[width=7cm]{schneier}{schneier}
+\pgfdeclareimage[width=7cm]{schmidt}{schmidt}
+\pgfdeclareimage[height=7cm]{street-view}{street-view}
+\pgfdeclareimage[width=6.5cm]{face-recognition}{face-recognition}
+\pgfdeclareimage[width=7.2cm]{burglars}{burglars}
+\pgfdeclareimage[width=7.2cm]{oz}{oz}
+\pgfdeclareimage[width=7.5cm]{aol}{aol}
+\pgfdeclareimage[width=6.5cm]{italy}{italy}
+\pgfdeclareimage[height=6.5cm]{brown}{brown}
+\pgfdeclareimage[width=6.5cm]{york}{york}
+\pgfdeclareimage[width=6.5cm]{btk}{btk}
+\pgfdeclareimage[height=6.5cm]{bork}{bork}
+\pgfdeclareimage[width=6.4cm]{schaeffer}{schaeffer}
+\pgfdeclareimage[width=6.5cm]{toysmart}{toysmart}
+\pgfdeclareimage[width=6.5cm]{myspace}{myspace}
+\pgfdeclareimage[width=6.5cm]{politico}{politico}
+\pgfdeclareimage[width=6.5cm]{google-doj}{google-doj}
+\pgfdeclareimage[width=6.2cm]{abacus}{abacus}
+\pgfdeclareimage[height=5cm]{dna}{dna}
+\pgfdeclareimage[width=6.2cm]{reddit}{reddit}
+\pgfdeclareimage[width=6cm]{flights}{flights}
+\pgfdeclareimage[width=6cm]{facebook-evolution}{facebook-evolution}
+\pgfdeclareimage[width=6.5cm]{survey}{survey}
+\pgfdeclareimage[height=6.5cm]{chrome-history}{chrome-history}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2004-2015 H. Turgut Uyar
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Privacy}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Privacy}
+
+  \begin{itemize}
+    \item accessibility privacy
+    \item right to be left alone
+
+    \pause
+    \bigskip
+    \item decisional privacy
+    \item freedom from interference in personal affairs
+
+    \pause
+    \bigskip
+    \item informational privacy
+    \item control over personal data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Privacy as a Value}
+
+  \begin{columns}
+    \column{.46\textwidth}
+    \pgfuseimage{zuckerberg}
+
+    \column{.54\textwidth}
+    \begin{itemize}
+      \item Eric Schmidt (Google - 2009):\\
+        \smallskip
+        ``If you have something that\\
+          you don't want anyone to know,\\
+          maybe you shouldn't be doing it\\
+          in the first place.''
+
+      \pause
+      \medskip
+      \item Mark Zuckerberg\\
+        (Facebook - 2010):\\
+        \smallskip
+        ``Privacy is no longer\\
+          a social norm.''
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.telegraph.co.uk/technology/facebook/6966628/Facebooks-Mark-Zuckerberg-says-privacy-is-no-longer-a-social-norm.html}}\\
+  \tiny{\url{http://www.theregister.co.uk/2007/12/03/zuckerberg_files/}}\\
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Privacy as a Value}
+
+  \begin{itemize}
+    \item privacy is not a universal value
+
+    \pause
+    \bigskip
+    \item is privacy an intrinsic value?
+    \smallskip
+    \item security, autonomy not possible without privacy
+    \item ability to form relationships in a wide range
+  \end{itemize}
+\end{frame}
+
+\subsection{Surveillance}
+
+\begin{frame}
+  \frametitle{Surveillance}
+
+  \begin{itemize}
+    \item many technologies that can be used to track people
+
+    \medskip
+    \item credit cards
+    \item cell phones
+    \item surveillance cameras
+    \item face recognition, license plate recognition
+    \item \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: US student laptop cameras}
+
+  \begin{columns}
+    \column{.52\textwidth}
+    \pgfuseimage{pennsylvania}
+
+    \column{.48\textwidth}
+    \begin{itemize}
+      \item a school remotely activates\\
+        cameras on computers\\
+        issued to students (2010)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.computerworld.com/s/article/9190722/Update_School_district_settles_webcam_spying_suit_for_610_000_}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Location tracking on cell phones}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \pgfuseimage{iphone}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item Apple devices secretly\\
+        report their location (2011)
+      \item same on Google Android\\
+        and Microsoft Windows (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://edition.cnn.com/2011/TECH/mobile/04/20/iphone.tracking/index.html?hpt=T1}}\\
+  \tiny{\url{http://www.theregister.co.uk/2011/04/22/apple_iphone_location_tracking_analysis/}}\\
+  \tiny{\url{http://news.cnet.com/8301-31921_3-20057329-281.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Key logging in cell phones}
+
+  \begin{columns}
+    \column{.65\textwidth}
+    \pgfuseimage{carrieriq}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Carrier IQ app secretly\\
+        logs key presses (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/11/30/smartphone_spying_app/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surveillance Technologies: RFID}
+
+  \begin{columns}
+    \column{.3\textwidth}
+    \begin{itemize}
+      \item inventory
+      \item livestock
+
+      \pause
+      \medskip
+      \item pets
+      \item kids
+      \item inmates
+      \item immigrants
+    \end{itemize}
+
+    \column{.7\textwidth}
+    \pgfuseimage{rfid-immigrants}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.livescience.com/10498-proposal-implant-tracking-chips-immigrants.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: RFID chips in official IDs}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{rfid-passport}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item IDs with RFID chips\\
+        can easily be scanned\\
+        by anyone
+      \item people can be tracked
+      \item data can be used\\
+        in identity theft
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.foxnews.com/story/0,2933,531720,00.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surveillance Technologies: Internet}
+
+  \begin{columns}[t]
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item cookies
+      \item JavaScript codes
+      \item bugs
+      \item IP addresses
+    \end{itemize}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{exampleblock}{Google Analytics}
+      \begin{itemize}
+        \item many sites use Google Analytics\\
+          for visitor statistics
+        \item Google tracks the IP addresses\\
+          of the visitors of these sites
+        \item it can determine who the user is\\
+          if that user has a Google account
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\section{Data Protection}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Data Protection}
+
+  \begin{itemize}
+    \item states and private institutions collect\\
+      large amounts of data about individuals
+    \item for advertisement or improving service support
+
+    \bigskip
+    \item individuals are getting powerless
+    \item institutions know a lot about the individual
+    \item the individual knows very little about the institution
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bruce Schneier (2010)}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{schneier}
+
+    \column{.4\textwidth}
+    ``Don't make the mistake of thinking you're Facebook's customer, you're not
+      -- you're the product.\\
+      Its customers are the advertisers.''
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.information-age.com/channels/security-and-continuity/news/1290603/facebook-is-deliberately-killing-privacy-says-schneier.thtml}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Are the Problems New?}
+
+  \begin{itemize}
+    \item the amount of collected data
+    \item the speed at which data can be transferred
+    \item the persistence of data
+    \item the quality of data: detailed profile
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Eric Schmidt (2010)}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{schmidt}
+
+    \column{.4\textwidth}
+    ``Many young people will have to change their names on reaching adulthood.''
+
+    \pause
+    \medskip
+    ``I don't believe society understands what happens when everything is
+      available, knowable and recorded by everyone all the time.''
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.wsj.com/articles/SB10001424052748704901104575423294099527212}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Which Data Is Valuable?}
+
+  \begin{itemize}
+    \item name, birth date, address, phone number, \ldots
+    \item purchases
+    \item phone, e-mail, messaging, \ldots
+    \item political and religious beliefs
+    \item sexual orientation
+    \item health data
+    \item income data
+    \item visited web sites
+    \item queries in search engines
+    \item \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Which Data Is Sensitive?}
+
+  \begin{itemize}
+    \item sensitivity levels: secret, confidential, social, public, \ldots
+    \item varies from one person to another
+    \item not sensitive on its own but sensitive when merged
+
+    \bigskip
+    \item all personal data is sensitive
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Burglary using social networks}
+
+  \begin{columns}
+    \column{.58\textwidth}
+    \pgfuseimage{burglars}
+
+    \column{.42\textwidth}
+    \begin{itemize}
+      \item burglars choose\\
+        which houses to rob\\
+        by checking Facebook\\
+        status reports (2010)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2010/09/13/social_network_burglary_gang/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problems}
+
+  \begin{itemize}
+    \item collecting data illegally or without approval
+    \item using data not in accordance with purpose
+    \item not securing data
+    \item transferring data without approval
+    \item merging data with other data without approval
+    \item people not knowing what data is kept about them\\
+      and not being able to fix errors
+  \end{itemize}
+\end{frame}
+
+\subsection{Collecting Data}
+
+\begin{frame}
+  \frametitle{Collecting Data}
+
+  \begin{itemize}
+    \item who can collect which data?
+    \item suitability for purpose
+
+    \pause
+    \bigskip
+    \item under which circumstances?
+    \item legality
+    \item by notifying people and taking their consent
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google Street View}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \pgfuseimage{street-view}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item Google Street View cars\\
+        collect data about\\
+        WiFi access points\\
+        and devices that use them (2010)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.cnet.com/8301-31921_3-20082777-281/street-view-cars-grabbed-locations-of-phones-pcs/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Facebook face recognition}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{face-recognition}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Facebook, automatically\\
+        recognizes faces in photos\\
+        and tags people (2011)
+      \item no consent from users
+      \item Germany orders to remove\\
+        this feature and delete\\
+        all collected data
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.pcworld.com/article/229742/why_facebooks_facial_recognition_is_creepy.html}}\\
+  \tiny{\url{http://www.dw.de/dw/article/0,,15290120,00.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Use of Data}
+
+  \begin{itemize}
+    \item use of data consistent with purpose of collecting
+    \item damaging the owner of data: identity theft, blackmail
+
+    \medskip
+    \item rules and checks about who is accessing data and\\
+      under which circumstances
+    \item access by technical personnel
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Australian citizen database}
+
+  \begin{columns}
+    \column{.58\textwidth}
+    \pgfuseimage{oz}
+
+    \column{.42\textwidth}
+    \begin{itemize}
+      \item government employees\\
+        use citizen data\\
+        for identity theft (2006)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2006/08/28/oz_id_database_misused/}}\\
+\end{frame}
+
+\subsection{Data Security}
+
+\begin{frame}
+  \frametitle{Data Security}
+
+  \begin{itemize}
+    \item data can be exposed
+    \item security holes, errors, carelessness
+
+    \bigskip
+    \item data collectors must ensure security
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: York University student records}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{york}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item personel data of students\\
+        at the University of York\\
+        gets stolen (2011)
+    \end{itemize}
+  \end{columns}
+
+%   TODO: Sony Playstation, Facebook photos Jennifer Lawrence?
+  \medskip
+  \tiny{\url{http://www.bbc.co.uk/news/uk-england-york-north-yorkshire-12756951}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Türkiye BTK kayıtları}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{btk}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item bir hacker grubu,\\
+        BTK bilgisayarlarından\\
+        kişisel verileri\\
+        çalarak yayımlıyor (2012)
+      \item diğer bir hacker grubu,\\
+        polis bilgisayarlarından\\
+        yurttaşların\\
+        ihbar duyurularını\\
+        çalarak yayımlıyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.radikal.com.tr/Radikal.aspx?aType=RadikalDetayV3&ArticleID=1078717&CategoryID=77&Rdkref=6}}\\
+  \tiny{\url{http://www.radikal.com.tr/Radikal.aspx?aType=RadikalDetayV3&ArticleID=1080108&CategoryID=77&Rdkref=6}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: İngiltere çocuk yardımı kayıtları}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \pgfuseimage{brown}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item Gelirler Dairesi, 25 milyon kişinin\\
+        çocuk yardımı kayıtlarını içeren\\
+        CD'yi postada kaybediyor (2007)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.guardian.co.uk/politics/2007/nov/21/economy.uk}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/entertainment/7174760.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: AOL arama kayıtları}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{aol}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item AOL, yüzbinlerce\\
+        kullanıcısının\\
+        arama kayıtlarını\\
+        yayımlıyor (2006)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.cnet.com/AOLs-disturbing-glimpse-into-users-lives/2100-1030_3-6103098.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: İtalya vergi kayıtları}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{italy}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Vergi Dairesi,\\
+        bütün İtalyanların\\
+        isim, adres, doğum tarihi,\\
+        gelir ve vergi bilgilerini\\
+        yayımlıyor (2008)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2008/05/01/italy_publishes_tax_details/}}\\
+\end{frame}
+
+\subsection{Veri Aktarma}
+
+\begin{frame}
+  \frametitle{Verilerin Aktarılması}
+
+  \begin{itemize}
+    \item veriler hangi koşullar altında başkalarına aktarılabilsin?
+    \begin{itemize}
+      \item reklam verenler, iş ortakları, devlet güvenlik kurumları
+      \item ilgili kişilerden izin alınması
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Robert Bork}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \pgfuseimage{bork}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item bir yargıç yüksek mahkemeye\\
+        aday gösteriliyor
+      \item bir gazeteci, yargıcın abone olduğu\\
+        video şirketinden aldığı filmlerin\\
+        listesini yayımlıyor (1988)
+
+      \medskip
+      \item \emph{Video Privacy Protection Act}
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theatlanticwire.com/technology/2011/07/why-robert-bork-indirectly-kept-netflix-facebook/40408/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Rebecca Schaeffer cinayeti}
+
+  \begin{columns}
+    \column{.53\textwidth}
+    \pgfuseimage{schaeffer}
+
+    \column{.47\textwidth}
+    \begin{itemize}
+      \item bir hayranı\\
+        evinin kapısında öldürüyor
+      \item Motorlu Taşıtlar Dairesi\\
+        ehliyet bilgilerini\\
+        isteyene satıyor (1989)
+
+      \medskip
+      \item \emph{Driver's Privacy Protection Act (1994)}
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://investigation.discovery.com/investigation/hollywood-crimes/schaeffer/rebecca-schaeffer.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Toysmart müşteri bilgileri}
+
+  \begin{columns}
+    \column{.53\textwidth}
+    \pgfuseimage{toysmart}
+
+    \column{.47\textwidth}
+    \begin{itemize}
+      \item Toysmart firmasının\\
+        mahremiyet anlaşmasında\\
+        müşteri bilgilerinin\\
+        üçüncü şahıslara\\
+        verilmeyeceği yazıyor
+      \item firma iflas edince\\bilgileri satışa çıkarıyor (2001)
+      \item dava açılıyor,\\
+        veriler yok ediliyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.wired.com/politics/law/news/2001/01/41102}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: MySpace kullanıcı verileri}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{myspace}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item MySpace\\
+        kullanıcı verilerini\\
+        satışa çıkarıyor (2010)
+      \item isimler, posta kodları,\\
+        fotoğraflar, şarkı listeleri,\\
+        blog yazıları, \ldots
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.readwriteweb.com/archives/myspace_bulk_data.php}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: ABD başkan adaylığı anketleri}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{politico}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Facebook,\\
+        Cumhuriyetçi Parti\\
+        başkan adaylığı için\\
+        hangi adayın\\
+        daha popüler olduğunu\\
+        ölçmek üzere\\
+        kullanıcı verilerini\\
+        Politico'ya veriyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.facebook.com/notes/us-politics-on-facebook/politico-facebook-team-up-to-measure-gop-candidate-buzz/10150461091205882}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google - ABD Adalet Bakanlığı}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{google-doj}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Adalet Bakanlığı, Google'dan kişilerin\\
+        ne arama yaptıkları\\
+        verilerini istiyor,\\
+        Google vermiyor (2006)
+
+      \pause
+      \item Amazon, müşterilerinin\\
+        alışveriş bilgileri istenince\\
+        dava açıyor, kazanıyor (2010)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4630694.stm}}\\
+  \tiny{\url{http://www.theregister.co.uk/2010/10/27/amazon_sales/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: DoubleClick - Abacus}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \pgfuseimage{abacus}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item reklam firması DoubleClick,\\
+        tüketici alışkanlıkları firması Abacus
+        ile birleşmek istiyor\\
+      \item mahremiyet baskısı\\
+        nedeniyle vazgeçiyor (2000)
+
+      \pause
+      \medskip
+      \item Google, DoubleClick'i\\
+        satın alıyor (2008)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4630694.stm}}\\
+  \tiny{\url{http://www.businessweek.com/magazine/content/11_12/b4220038620504.htm}}\\
+\end{frame}
+
+\section{Önlemler}
+
+\subsection{Yasal}
+
+\begin{frame}
+  \frametitle{Yasal Düzenlemeler}
+
+  \begin{itemize}
+    \item Avrupa Birliği'nde kapsamlı düzenlemeler
+    \begin{itemize}
+      \item ilk veri koruma yasası Almanya'nın Hessen eyaletinde (1970)
+    \end{itemize}
+
+    \pause
+    \item ABD'de alana özel düzenlemeler:\\
+      kredi, ehliyet, video, sağlık, ...
+    \begin{itemize}
+      \item yeni bir mahremiyet yasa taslağı (2012)
+    \end{itemize}
+
+    \pause
+    \item Türkiye'de Avrupa Birliği ile ilişkiler ve uluslararası sözleşmeler\\
+      çerçevesinde kalıyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Avrupa Birliği}
+
+  \begin{block}{AB Temel Haklar Bildirgesi}
+    \begin{enumerate}
+      \item kişisel bilgilerin korunmasını isteme hakkı
+      \item amaca uygun, yasal ve adil kullanım;\\
+        kendisiyle ilgili bilgilere erişme ve düzeltme hakkı
+      \item kurallara uyulmasını denetleyen bağımsız makam
+    \end{enumerate}
+  \end{block}
+
+  \begin{itemize}
+    \item üye ülkeler bu ilkelere uygun yasal düzenlemeler yapmalı
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Avrupa Yasaları}
+
+  \begin{block}{İngiltere - Data Protection Act (1984, 1998)}
+    \begin{enumerate}
+      \item adil ve hukuki işleme
+      \item açıkça belirtilmiş ve yasal amaçlar
+      \item yeterlilik, ilgililik, gerekenden fazla olmama
+      \item doğruluk ve güncellik
+      \item amaç yerine geldikten sonra silinme
+      \item diğer kişilerin hakları
+      \item yetkisiz erişim ve kayba karşı yeterli önlem
+      \item yeterli koruma sağlamayan ülkelere aktarmama
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: İngiltere DNA veri bankası}
+
+  \begin{center}
+    \pgfuseimage{dna}
+  \end{center}
+
+  \begin{itemize}
+    \item Avrupa İnsan Hakları Mahkemesi kararı (2008):
+    \begin{quote}
+      Hüküm giymemiş kişilerin DNA bilgileri saklanamaz.
+    \end{quote}
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4630694.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Reddit - Facebook bilgi edinme istekleri}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{reddit}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Reddit kullanıcıları\\
+        bilgi edinme istekleriyle\\
+        Facebook'a yoğun\\
+        iş yükü çıkarıyorlar (2011)
+      \item 24~yaşında bir öğrenciye\\
+        1200~sayfalık döküm geliyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.zdnet.com/blog/facebook/reddit-users-overwhelm-facebook-with-data-requests/4165}}\\
+  \tiny{\url{https://threatpost.com/en_us/blogs/twenty-something-asks-facebook-his-file-and-gets-it-all-1200-pages-121311}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: ABD - Avrupa yolcu verileri}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{flights}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item havayolu şirketlerinden ABD'ye uçuşlarda yolcularla ilgili 34~parça
+        bilgi isteniyor
+      \item Avrupa Adalet Divanı\\
+        anlaşmayı iptal ediyor (2006)
+      \item daha sonraki anlaşmaya\\
+        Avrupa Veri Koruma\\
+        Denetçisi karşı çıkıyor (2011)
+
+      \pause
+      \item ABD istihbarat birimlerinin Avrupa banka kayıtlarına erişimi
+        anlaşmasını Avrupa Parlamentosu engelliyor (2010)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/5028918.stm}}\\
+  \tiny{\url{http://www.theregister.co.uk/2011/03/29/europe_passenger_name_wrong/}}\\
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/8510471.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Code of Fair Information Practices (1974)}
+    \begin{enumerate}
+      \item varlığı gizli bir veri kaydı tutma sistemi olamaz
+      \item kişiler, kendileriyle ilgili hangi bilgilerin tutulduğunu\\
+        ve bu bilgilerin nasıl kullanıldığını öğrenebilmelidir
+      \item kişiler, bir amaçla verdikleri bilgilerin, izinleri alınmadan\\
+        başka amaçlarla kullanımını önleyebilmelidir
+      \item kişiler, kendileriyle ilgili bilgileri düzeltebilmelidir
+      \item kişisel veri toplayan kurumlar, bu verilerin ilgili amaçlar için\\
+        güvenilirliğini sağlamalı ve kötüye kullanımını önlemelidir
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Code of Fair Information Practices (1974)}
+    \begin{itemize}
+      \item yalnızca kamu kurumlarını bağlar
+      \item kayıtların ayırdedici bir veriye göre aranabilmesi gerekir
+      \item yasayı uygulayıcı bir yetkili tanımlı değil
+      \item "sıradan kullanımlar için" veri alışverişine izin var
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ABD}
+
+  \begin{block}{Consumer Privacy Bill of Rights (2012)}
+    \begin{itemize}
+      \item tüketiciler, firmaların kendileriyle ilgili hangi verileri
+        topladıklarını ve bunları nasıl kullandıkları denetleyebilmeli
+      \item tüketiciler, mahremiyet ve güvenlik yöntemleriyle ilgili kolayca
+        ve anlaşılabilir şekilde bilgi alabilmeli
+      \item toplama, kullanma ve yaymanın amaca uygunluğu
+      \item verinin güvenli ve sorumlu şekilde işlenmesi
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Türkiye}
+
+  \begin{itemize}
+    \item Anayasa: özel ve aile yaşamına saygı bekleme hakkı
+    \item Anayasa: iletişimin gizliliği
+    \item Kişisel Verilerin Otomatik İşlenmesine İlişkin\\
+      Uluslararası Sözleşme
+    \item Bilgi Edinme Hakkı Yasası
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kişisel Verilerin Korunması Yasa Taslağı}
+
+  \begin{block}{Kişisel Verilerin Korunması Yasa Taslağı}
+    \begin{itemize}
+      \item \emph{Kişisel Verileri Koruma Yüksek Kurulu}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bilgi Edinme Hakkı Yasası}
+
+  \begin{block}{Bilgi Edinme Hakkı Yasası (2003)}
+    \begin{itemize}
+      \item bilgi edinme hakkı
+      \item bilgi verme yükümlülüğü
+      \item itirazlar için \emph{Bilgi Edinme Değerlendirme Kurulu}
+      \item ihmal, kusur ya da kasıt durumunda ceza kovuşturması
+
+      \pause
+      \item sınırlamalar:\\
+        devlet sırrı, ülkenin ekonomik çıkarları, istihbarat,\\
+        idari ve adli soruşturmalar, özel hayatın gizliliği,\\
+        haberleşmenin gizliliği, ticari sır
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Kurumsal}
+
+\begin{frame}
+  \frametitle{Kurum Politikaları}
+
+  \begin{itemize}
+    \item kurumlar kullanıcılarının mahremiyetine değişik düzeylerde\\
+      özen gösteriyor: mahremiyet politikaları
+    \begin{itemize}
+      \item hangi verileri hangi amaçla topladığını açıkça belirtmek
+      \item gerekmeyen verileri toplamamak
+      \item amaca aykırı kullanmamak
+      \item izin almadan başkalarına aktarmamak
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item "istemiyorsa çıksın" (opt-out) değil, "istiyorsa girsin" (opt-in)
+
+    \pause
+    \medskip
+    \item HTTP protokolu için yeni başlık alanı: Do Not Track
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Facebook}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{facebook-evolution}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item hesabınızı kapatsanız da\\
+        bilgileriniz kalıyor
+      \item varsayılan ayarlarda\\
+        açık olan veriler\\
+        giderek artıyor
+      \item mahremiyet ayarlarının\\
+        karmaşıklığı eleştiriliyor\\
+      \item işyerleri, okullar v.b.\\
+        hesabınıza erişim istiyor
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://mattmckeon.com/facebook-privacy/}}\\
+  \tiny{\url{https://www.nytimes.com/interactive/2010/05/12/business/facebook-privacy.html}}\\
+  \tiny{\url{http://redtape.msnbc.msn.com/_news/2012/03/06/10585353-govt-agencies-colleges-demand-applicants-facebook-passwords}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google}
+
+  \begin{itemize}
+    \item gerçek isim politikası
+    \item hizmetleri birleştiren mahremiyet politikası,\\
+      hem ahlaki hem de yasal açıdan eleştiriliyor (2012)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2012/03/06/why_google_privacy_policy_is_so_difficult_to_follow/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Arama motorları}
+
+  \begin{itemize}
+    \item arama motorları arama verilerini bir süre sonra\\
+      anonimize ediyor
+    \begin{itemize}
+      \item anonimizasyonun işe yaramadığı iddia ediliyor
+    \end{itemize}
+
+    \medskip
+    \item bazı arama motorları IP adreslerini kaydetmiyor:\\
+      Startpage, DuckDuckGo
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://arstechnica.com/tech-policy/news/2009/09/your-secrets-live-online-in-databases-of-ruin.ars}}\\
+\end{frame}
+
+\subsection{Kişisel}
+
+\begin{frame}
+  \frametitle{Kişisel Önlemler}
+
+  \begin{itemize}
+    \item kişisel verileri konusunda duyarlı olmak
+    \begin{itemize}
+      \item gerekmeyen yerlere vermemek
+      \item yanlış bilgiler vermek
+      \item veri "gürültüsü" yaratmak
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item teknolojiden yararlanmak
+    \begin{itemize}
+      \item şifreleme yazılımları
+      \item mahremiyet artırıcı yazılımlar
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Anket soruları}
+
+  \begin{columns}
+    \column{.52\textwidth}
+    \pgfuseimage{survey}
+
+    \column{.48\textwidth}
+    \begin{itemize}
+      \item katılanların \%90'dan fazlası\\
+        duyarlı verilerini veriyor (2005)
+      \begin{itemize}
+        \item evcil hayvanının adı
+        \item annesinin evlenmeden önceki soyadı
+      \end{itemize}
+
+      \item Facebook'da arkadaşlık isteklerini düşünmeden\\
+        kabul ediyor (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4378253.stm}}\\
+  \tiny{\url{http://nakedsecurity.sophos.com/2009/12/06/facebook-id-probe-2009/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Örnek: Google Chrome tarayıcı izleme}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \pgfuseimage{chrome-history}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google, bakılan her sayfanın izleneceği bir programa katılanlara yılda 25\$ veriyor (2012)
+
+      \item ücret farkı çok az bile olsa,\\
+        insanlar mahremiyeti koruyan\\
+        servisi değil, ucuz olan servisi\\
+        seçiyor (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.forbes.com/sites/kashmirhill/2012/02/09/your-online-privacy-is-worth-less-than-a-six-pack-of-marshmallow-fluff/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/03/21/privacy_economics/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Veri Gürültüsü}
+
+  \begin{itemize}
+    \item çok miktarda yanlış ya da ilgisiz veri üreterek\\
+      gerçek verilerin hangisi olduğunun belirlenmesi zorlaştırılabilir
+  \end{itemize}
+
+  \pause
+  \begin{ornek}
+    \begin{itemize}
+      \item alışveriş kartlarını başkalarıyla karşılıklı değişmek
+      \item Firefox eklentisi TrackMeNot, belli başlı arama motorlarında
+        rasgele aramalar yapıyor
+    \end{itemize}
+  \end{ornek}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mahremiyet Artırıcı Yazılımlar}
+
+  \begin{itemize}
+    \item vekil sunucular (proxy)
+    \begin{itemize}
+      \item Privoxy: reklamları ve kötü niyetli kod kalıplarını engelliyor
+    \end{itemize}
+
+    \pause
+    \medskip
+    \item Firefox tarayıcı eklentileri
+    \begin{itemize}
+      \item NoScript: JavaScript beyaz listesi
+      \item Cookie Monster: çerez beyaz listesi
+      \item Ghostery: böcek kara listesi
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section*{Kaynaklar}
+
+\begin{frame}
+  \frametitle{Kaynaklar}
+
+  \begin{block}{Okunacak: Tavani}
+    \begin{itemize}
+      \item Chapter 5: \alert{Privacy and Cyberspace}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
