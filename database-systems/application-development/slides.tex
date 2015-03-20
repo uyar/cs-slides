@@ -1040,7 +1040,96 @@ CREATE TRIGGER UPDATE_MOVIE
 
 \section{Object/Relational Mapping}
 
+\lstset{language=Java}
+
 \subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Problems}
+
+  \begin{itemize}
+    \item mismatch between the data model and the software model
+
+    \medskip
+    \item data: relation, tuple, foreign key, \ldots
+    \item software: object, method, \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{itemize}
+    \item adding an actor to a movie - SQL definitions
+  \end{itemize}
+
+  \begin{lstlisting}[language=SQL]
+CREATE TABLE MOVIE (ID INTEGER PRIMARY KEY,
+    TITLE VARCHAR(80) NOT NULL)
+
+CREATE TABLE PERSON (ID INTEGER PRIMARY KEY,
+    NAME VARCHAR(40) NOT NULL)
+
+CREATE TABLE CASTING(
+    MOVIEID INTEGER REFERENCES MOVIE,
+    ACTORID INTEGER REFERENCES PERSON,
+    PRIMARY KEY (MOVIEID, ACTORID)
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{itemize}
+    \item adding an actor to a movie - SQL operations
+  \end{itemize}
+
+  \begin{lstlisting}[language=SQL]
+INSERT INTO MOVIE(ID, TITLE)
+  VALUES(110, 'Sleepy Hollow')
+
+INSERT INTO PERSON(ID, NAME)
+  VALUES(26, 'Johnny Depp')
+
+INSERT INTO CASTING(MOVIEID, ACTORID)
+  VALUES(110, 26)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{itemize}
+    \item adding an actor to a movie - Java definitions
+  \end{itemize}
+
+  \begin{lstlisting}
+public class Movie {
+    ...
+    private List<Person> cast;
+
+    ...
+    public void addActor(Person p) {
+        this.cast.add(p);
+    }
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mismatch Example}
+
+  \begin{itemize}
+    \item adding an actor to a movie - Java operations
+  \end{itemize}
+
+  \begin{lstlisting}
+Movie m = new Movie("Sleepy Hollow", ...);
+Person p = new Person("Johnny Depp", ...);
+m.addActor(p);
+  \end{lstlisting}
+\end{frame}
 
 \begin{frame}
   \frametitle{Object/Relational Mapping}
