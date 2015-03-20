@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Higher-Order Functions}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -494,7 +494,7 @@ sqrt x = fixedPoint (\y -> x / y) 1.0
   \pause
   \vspace{-6pt}
   \begin{itemize}
-    \item doesn't converge (try with $y=2$)
+    \item doesn't converge (try with $x=2$)
     \item average successive values (average damping)
   \end{itemize}
 
@@ -506,98 +506,6 @@ sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
 \end{frame}
 
 \section{List Functions}
-
-\subsection{Map}
-
-\begin{frame}[fragile]
-  \frametitle{Map}
-
-  \begin{itemize}
-    \item transform all elements of a list
-  \end{itemize}
-
-  \begin{exampleblock}{example: floors of all elements of a list}
-    \begin{lstlisting}
--- floorAll [5.7, 9.0, 2.3] ~> [5, 9, 2]
-floorAll :: [Float] -> [Integer]
-
--- primitive recursive
-floorAll []     = []
-floorAll (x:xs) = floor x : floorAll xs
-
--- list comprehension
-floorAll xs = [floor x | x <- xs]
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Map}
-
-  \begin{itemize}
-    \item \lstinline|map|: apply a function to all elements of a list
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}[deletekeywords={map}]
--- primitive recursive
-map f []     = []
-map f (x:xs) = f x : map f xs
-
--- list comprehension
-map f xs = [f x | x <- xs]
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item what is the type?\\
-      \lstinline|map :: (a -> b) -> [a] -> [b]|
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Map Example}
-
-  \begin{exampleblock}{floors of all elements of a list}
-    \begin{lstlisting}
-floorAll :: [Float] -> [Integer]
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \bigskip
-  \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=Python]
-import math
-
-map(math.floor, [5.7, 9.0, 2.3])
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Map Examples}
-
-  \begin{exampleblock}{make a list of n copies of an item}
-    \begin{lstlisting}[deletekeywords={replicate}]
-replicate :: Int -> a -> [a]
-replicate n i = map (\_ -> i) [1 .. n]
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \pause
-  \begin{exampleblock}{zip two lists over a function}
-    \begin{lstlisting}[frame=none]
-zipWith (+)       [1, 2] [10, 12]   ~> [11, 14]
-zipWith replicate [3, 2] ['a', 'b'] ~> ["aaa", "bb"]
-    \end{lstlisting}
-
-    \begin{lstlisting}[deletekeywords={zipWith}]
-zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
 
 \subsection{Filter}
 
@@ -708,6 +616,99 @@ takeWhile f (x:xs)
       while a predicate is true\\
       \lstinline|dropWhile even [8, 2, 4, 5, 6] ~> [5, 6]|
   \end{itemize}
+\end{frame}
+
+\subsection{Map}
+
+\begin{frame}[fragile]
+  \frametitle{Map}
+
+  \begin{itemize}
+    \item transform all elements of a list
+  \end{itemize}
+
+  \begin{exampleblock}{example: floors of all elements of a list}
+    \begin{lstlisting}
+-- floorAll [5.7, 9.0, 2.3] ~> [5, 9, 2]
+floorAll :: [Float] -> [Integer]
+
+-- primitive recursive
+floorAll []     = []
+floorAll (x:xs) = floor x : floorAll xs
+
+-- list comprehension
+floorAll xs = [floor x | x <- xs]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Map}
+
+  \begin{itemize}
+    \item \lstinline|map|: apply a function to all elements of a list
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={map}]
+-- primitive recursive
+map f []     = []
+map f (x:xs) = f x : map f xs
+
+-- list comprehension
+map f xs = [f x | x <- xs]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item what is the type?\\
+      \lstinline|map :: (a -> b) -> [a] -> [b]|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Map Example}
+
+  \begin{exampleblock}{floors of all elements of a list}
+    \begin{lstlisting}
+floorAll :: [Float] -> [Integer]
+floorAll xs = map floor xs
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \bigskip
+  \begin{exampleblock}{Python}
+    \begin{lstlisting}[language=Python]
+import math
+
+map(math.floor, [5.7, 9.0, 2.3])
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Map Examples}
+
+  \begin{exampleblock}{make a list of n copies of an item}
+    \begin{lstlisting}[deletekeywords={replicate}]
+replicate :: Int -> a -> [a]
+replicate n i = map (\_ -> i) [1 .. n]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{exampleblock}{zip two lists over a function}
+    \begin{lstlisting}[frame=none]
+zipWith (+)       [1, 2] [10, 12]   ~> [11, 14]
+zipWith replicate [3, 2] ['a', 'b'] ~> ["aaa", "bb"]
+    \end{lstlisting}
+
+    \begin{lstlisting}[deletekeywords={zipWith}]
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Fold}
@@ -962,10 +963,7 @@ foldl (/) 1.0 [1.0, 2.0, 3.0] ~> 0.1666666
     \end{itemize}
 
     \begin{lstlisting}
-data Edit = Copy
-          | Insert Char
-          | Delete
-          | Change Char
+data Edit = Copy | Insert Char | Delete | Change Char
             deriving (Eq, Show)
     \end{lstlisting}
   \end{exampleblock}
@@ -977,9 +975,9 @@ data Edit = Copy
   \begin{exampleblock}{}
     \begin{lstlisting}
 transform :: String -> String -> [Edit]
-transform []          [] = []
-transform xs          [] = map (\_ -> Delete) xs
-transform []          ys = map Insert ys
+transform [] [] = []
+transform xs [] = map (\_ -> Delete) xs
+transform [] ys = map Insert ys
 transform xs@(x':xs') ys@(y':ys')
   | x' == y'  = Copy : transform xs' ys'
   | otherwise = best [Insert y' : transform xs  ys',
