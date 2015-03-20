@@ -1,14 +1,18 @@
-% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -17,17 +21,11 @@
   \setbeamercovered{transparent}
 }
 
-\usepackage{ae}
-\usepackage[T1]{fontenc}
-\usepackage[turkish]{babel}
-\usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-
 \title{Bilişim Etiği}
 \subtitle{Profesyonel Etik}
 
 \author{H. Turgut Uyar}
-\date{2004-2012}
+\date{2004-2015}
 
 \AtBeginSubsection[]
 {
@@ -39,15 +37,9 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[width=7.4cm]{ibm-nazi}{ibm-nazi}
 \pgfdeclareimage[height=5.3cm]{iran}{iran}
@@ -70,33 +62,40 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2004-2012 H. Turgut Uyar
+  \copyright~2004-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -112,39 +111,15 @@
   \frametitle{Meslek Ahlakı}
 
   \begin{itemize}
-    \item sıradan insanlar için geçerli olan etik kuralları\\
-      meslek sahipleri için farklılık gösterir mi?
+    \item profesyonel roller ahlaki değerlendirmelerde farklılık gerektirir mi?
+    \item meslekler farklı ahlaki yükümlülükler getirir mi?
 
-    \item meslek sahiplerinin sıradan insanlara göre\\
-      daha fazla etik sorumlulukları olabilir mi?
+    \pause
+    \bigskip
+    \item farklılaşmış meslekler: özel yetkiler, özel sorumluluklar
+    \item doktorluk, avukatlık, lisanslı mühendislik
+    \item yasal koruma - toplumun güveni
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Farklılaşmış Meslekler}
-
-  \begin{itemize}
-    \item bazı meslekler ahlaki değerlendirme açısından\\
-      diğerlerinden farklı özellikler gösterir
-  \end{itemize}
-
-  \begin{ornek}
-    doktorluk, avukatlık
-  \end{ornek}
-
-  \pause
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item özel yetkiler
-      \item yasal koruma
-    \end{itemize}
-
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item toplumun güvenini kazanma
-    \end{itemize}
-  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -152,26 +127,15 @@
 
   \begin{itemize}
     \item profesyonel etik tartışmalarında kimleri gözönüne alacağız?
-    \begin{itemize}
-      \item bilişim teknolojileri alanında çalışan herkes?
-      \item yalnızca yazılım mühendisleri?
-    \end{itemize}
+    \item bilişim teknolojileri alanında çalışan herkes?
+    \item yalnızca yazılım mühendisleri?
 
     \pause
     \medskip
     \item yazılım mühendisleri, kalite analistleri, teknik belgelemeciler,\\
       proje yöneticileri
-    \begin{itemize}
-      \item bir yazılımın analizinde, belirtimlerinde, tasarımında,\\
-        geliştirilmesinde, sertifikasyonunda, bakımında ve sınanmasında\\
-        çalışan herkes
-    \end{itemize}
-  \end{itemize}
-
-  \pause
-  \bigskip
-  \begin{itemize}
-    \item bu sayılanlar farklılaşmış meslekler mi?
+    \item yazılım sistemlerinin analizinde, tasarımında, geliştirilmesinde,\\
+      sertifikasyonunda, bakımında, sınanmasında çalışan herkes
   \end{itemize}
 \end{frame}
 
@@ -179,24 +143,24 @@
   \frametitle{Farklılaşmış Meslek Karakteristikleri}
 
   \begin{itemize}
-    \item toplumsal işlev görürler
+    \item toplumsal işlev görür
 
     \pause
-    \item özel bilgi ve eğitim gerektirirler
-    \begin{itemize}
-      \item pratisyen - araştırmacı farkı vardır
-    \end{itemize}
+    \medskip
+    \item özel bilgi ve eğitim gerektirir
+    \item pratisyen - araştırmacı farkı vardır
 
     \pause
-    \item emir almaktan çok inisiyatif kullanırlar
+    \medskip
+    \item emir almaktan çok inisiyatif kullanır
 
     \pause
+    \medskip
     \item mesleki örgütlenmeleri (meslek odaları) vardır
-    \begin{itemize}
-      \item çalışmak için lisans gerekir
-    \end{itemize}
+    \item çalışmak için lisans gerekir
 
     \pause
+    \medskip
     \item etik kodları ve mesleki davranış kuralları vardır
   \end{itemize}
 \end{frame}
@@ -209,14 +173,14 @@
   \begin{itemize}
     \item etik kodlarının amacı:
 
-    \begin{itemize}
-      \item esin verme
-      \item yol gösterme
-      \item eğitme
-      \item disiplin altına alma
-    \end{itemize}
+    \medskip
+    \item esin verme
+    \item yol gösterme
+    \item eğitme
+    \item disiplin altına alma
 
     \pause
+    \bigskip
     \item bu mesleğin üyelerinden ne beklenebilir?
   \end{itemize}
 \end{frame}
@@ -224,19 +188,17 @@
 % \subsection{ACM/IEEE-CS}
 
 \begin{frame}
-  \frametitle{ACM/IEEE-CS Yazılım Mühendisliği Etik Kodları}
+  \frametitle{ACM/IEEE-CS Yazılım Mühendisliği Etik Kodu}
 
   \begin{itemize}
-    \item kamu çıkarlarına uygun davranmak
-    \item müşterisinin ve işvereninin çıkarlarını gözetmek
-    \item ürününün en yüksek mesleki standartlarda olmasını sağlamak
-    \item mesleki değerlendirmelerinde dürüst ve bağımsız olmak
-    \item yönetici olarak ahlaklı davranmak ve bu tür davranışları\\
-      teşvik etmek
-    \item mesleğinin dürüstlüğünü ve saygınlığını ilerletmek
-    \item meslektaşlarına adil davranmak ve desteklemek
-    \item yaşam boyu öğrenme ilkesine ve ahlaki davranışlara\\
-      sadık kalmak
+    \item \alert{kamu} çıkarlarına uygun davranmak
+    \item \alert{müşteri ve işveren}inin çıkarlarına uygun davranmak
+    \item \alert{ürün}ünün en yüksek mesleki standartlarda olmasını sağlamak
+    \item mesleki \alert{değerlendirme}lerinde dürüst ve bağımsız olmak
+    \item \alert{yönetici} olarak ahlaklı yaklaşımı benimsemek ve teşvik etmek
+    \item \alert{meslek} saygınlığını artırmak
+    \item \alert{meslektaş}larına adil davranmak ve desteklemek
+    \item yaşam boyu öğrenme ilkesine sadık kalmak (\alert{kendi})
   \end{itemize}
 \end{frame}
 
@@ -276,19 +238,16 @@
   \frametitle{Kodun Yorumlanması}
 
   \begin{itemize}
-    \item bu kod doğru davranışı bulmak için verilmiş\\
-      bir algoritma \alert{DEĞİLDİR}
+    \item ``Bu kod doğru davranışı bulmak için verilmiş\\
+      bir algoritma \alert{değildir}.''
 
     \pause
-    \item karar verirken şunları gözönüne alın:
-
-    \begin{itemize}
-      \item kimler etkilenir?
-      \item herkese gereken saygı gösterilmiş olur mu?
-      \item toplum yeterli bilgiye sahip olsa onaylar mı?
-      \item en güçsüzler nasıl etkilenir?
-      \item ideal bir yazılım mühendisine yakışır mı?
-    \end{itemize}
+    \bigskip
+    \item kimler etkilenir?
+    \item diğer insanlara hak ettikleri saygı gösterilmiş olur mu?
+    \item toplum yeterli bilgiye sahip olsa onaylar mı?
+    \item en güçsüzler nasıl etkilenir?
+    \item ideal bir yazılım mühendisine yakışır mı?
   \end{itemize}
 \end{frame}
 
@@ -302,32 +261,28 @@
   \begin{itemize}
     \item ahlaki sorumluluk
     \item yasal sorumluluk
-
-    \medskip
+    \smallskip
     \item hesap verebilirlik
+
+    \pause
+    \bigskip
+    \item ahlaki sorumluluk için iki şart aranır:
+    \smallskip
+    \item yol açma
+    \item kasıt
   \end{itemize}
-
-  \pause
-  \begin{tanim}
-    ahlaki sorumluluk için iki şart aranır:
-
-    \begin{enumerate}
-      \item yol açma
-      \item kasıt
-    \end{enumerate}
-  \end{tanim}
 \end{frame}
 
 \begin{frame}
   \frametitle{Sorumluluk}
 
   \begin{itemize}
-    \item bazı mühendisler ve akademisyenler\\
+    \item bazı mühendisler ve araştırmacılar\\
       ahlaken yanlış buldukları projelerde çalışmayı reddeder
-    \begin{itemize}
-      \item silah sistemleri
-      \item gözetleme sistemleri
-    \end{itemize}
+
+    \medskip
+    \item silah sistemleri
+    \item gözetleme sistemleri
   \end{itemize}
 \end{frame}
 
@@ -360,27 +315,26 @@
   \end{center}
 
   \begin{itemize}
-    \item İran'ın gözetleme teknolojileri Siemens ve Nokia'dan (2009)
+    \item İran'ın gözetleme sistemleri Siemens ve Nokia'dan (2009)
   \end{itemize}
 
   \medskip
   \tiny{\url{http://online.wsj.com/article/SB124562668777335653.html}}\\
 \end{frame}
 
-\subsection{Bilişimcilerin Sorumluluğu}
-
 \begin{frame}
-  \frametitle{Mesleki Hatalar}
+  \frametitle{Bilişim Sistemleri}
 
   \begin{itemize}
+    \item bilişim sistemlerinin getirdiği ahlaki sorumluluklar var mı?
+
+    \bigskip
     \item güvenlik açısından kritik uygulamalar
-    \begin{itemize}
-      \item tıp
-      \item hava trafiği
-      \item toplu taşımacılık
-      \item güç santralleri
-      \item silah sistemleri
-    \end{itemize}
+    \smallskip
+    \item tıp
+    \item hava trafiği, toplu taşımacılık
+    \item güç santralleri
+    \item silah sistemleri
   \end{itemize}
 \end{frame}
 
@@ -394,7 +348,6 @@
   \begin{itemize}
     \item Fransız uydu fırlatma sisteminden atılan roket\\
       kendini imha ediyor: 500 milyon \$ zarar (1996)
-
     \item 64 bit kayan noktalı sayıyı 16 bit tamsayıya çevirirken taşma
   \end{itemize}
 
@@ -426,14 +379,15 @@
   \frametitle{Örnek: İsveç fabrika robotu}
 
   \begin{columns}
-    \column{.6\textwidth}
+    \column{.55\textwidth}
     \pgfuseimage{robot-sweden}
 
-    \column{.4\textwidth}
+    \column{.45\textwidth}
     \begin{itemize}
       \item İsveç'te bir robot\\
         bir fabrika işçisini\\
-        ağır yaralıyor (2009)
+        neredeyse öldürüyor\\
+        (2009)
     \end{itemize}
   \end{columns}
 
@@ -460,7 +414,8 @@
         arayüz tasarımı,\\
         yarış koşulları
       \item donanım\\
-        korumaları yok
+        korumaları\\
+        kaldırılmış
     \end{itemize}
   \end{columns}
 
@@ -508,9 +463,7 @@
 
     \bigskip
     \item bazı ülkeler şiddet içeren bilgisayar oyunlarını yasaklıyor:
-    \begin{itemize}
-      \item Tayland'da GTA (2008), Avustralya'da Manhunt (2004)
-    \end{itemize}
+    \item Tayland'da GTA (2008), Avustralya'da Manhunt (2004)
   \end{itemize}
 
   \medskip
@@ -527,21 +480,18 @@
   \frametitle{Sadakat}
 
   \begin{itemize}
-    \item çalışanlar işverene sadık olmalı
+    \item çalışanlar işverenlerine sadık olmalı
 
     \medskip
-    \item işverenin çalışanlara sadakati?
-    \begin{itemize}
-      \item sadakat ilişkisinin karşılıklı olması beklenebilir mi?
-    \end{itemize}
+    \item işverenlerin çalışanlarına sadakati?
+    \item sadakat ilişkisinin karşılıklı olması beklenebilir mi?
 
     \pause
-    \medskip
+    \bigskip
     \item etik kodundan:
-    \begin{itemize}
-      \item işverenin çıkarlarına aykırı davranmamalı
-      \item daha önemli ahlaki ilke çiğnenmiyorsa
-    \end{itemize}
+    \smallskip
+    \item işverenin çıkarlarına uygun davranmalı
+    \item kamu çıkarıyla uzlaştırmalı
   \end{itemize}
 \end{frame}
 
@@ -592,6 +542,7 @@
 
   \begin{itemize}
     \item bilgisayar denetimli toplu taşıma sistemi
+    \item süresini ve bütçesini çok aşmış
     \item mühendisler sistemin risklerini basına duyuruyor:\\
       işten atılıyorlar (1970'ler)
 
@@ -605,19 +556,16 @@
 
   \begin{itemize}
     \item ne zaman izin var?
-    \begin{itemize}
-      \item ürün ciddi hasar yaratacaksa
-      \item durum üstlere bildirildiyse
-      \item kurum içinde bütün yollar denendiyse
-    \end{itemize}
+    \smallskip
+    \item ciddi hasar yaratacaksa
+    \item kurum içinde bütün yollar denendiyse
 
     \pause
-    \medskip
+    \bigskip
     \item ne zaman ahlaki yükümlülük?
-    \begin{itemize}
-      \item kanıt varsa
-      \item ortaya çıkması zararı engelleyecekse
-    \end{itemize}
+    \smallskip
+    \item kanıt varsa
+    \item ortaya çıkması zararı engelleyecekse
   \end{itemize}
 \end{frame}
 
@@ -626,14 +574,11 @@
 
   \begin{itemize}
     \item yazılım mühendisleri çoğu zaman projenin bütününü görmüyor
-
-    \pause
     \item ahlaki sorumluluk her zaman bireysel mi?
 
     \pause
-    \item mühendisler etik sorunların çözümü için\\
-      bireyler düzeyinde değil meslek düzeyinde\\
-      düşünmeli ve davranmalı
+    \medskip
+    \item bireyler düzeyinde değil meslek düzeyinde düşünce ve davranış
   \end{itemize}
 \end{frame}
 
