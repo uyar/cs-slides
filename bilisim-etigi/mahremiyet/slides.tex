@@ -1,14 +1,18 @@
-% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -17,17 +21,11 @@
   \setbeamercovered{transparent}
 }
 
-\usepackage{ae}
-\usepackage[T1]{fontenc}
-\usepackage[turkish]{babel}
-\usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-
 \title{Bilişim Etiği}
 \subtitle{Mahremiyet}
 
 \author{H. Turgut Uyar}
-\date{2004-2012}
+\date{2004-2015}
 
 \AtBeginSubsection[]
 {
@@ -47,7 +45,7 @@
 
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[width=5.8cm]{zuckerberg}{zuckerberg}
 \pgfdeclareimage[width=6.5cm]{pennsylvania}{pennsylvania}
@@ -90,33 +88,40 @@
   \frametitle{Lisans}
 
   \pgfuseimage{license}\hfill
-  \copyright 2004-2012 H. Turgut Uyar
+  \copyright~2004-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -133,21 +138,17 @@
 
   \begin{itemize}
     \item erişim mahremiyeti
-    \begin{itemize}
-      \item rahat bırakılma
-    \end{itemize}
+    \item rahat bırakılma
 
     \pause
+    \bigskip
     \item karar verme mahremiyeti
-    \begin{itemize}
-      \item kişisel kararlara karışılmaması
-    \end{itemize}
+    \item kişisel kararlara karışılmaması
 
     \pause
+    \bigskip
     \item bilgi mahremiyeti
-    \begin{itemize}
-      \item kişisel verileri üzerinde denetim sahibi olma
-    \end{itemize}
+    \item kişisel verileri üzerinde denetim sahibi olma
   \end{itemize}
 \end{frame}
 
@@ -160,18 +161,20 @@
 
     \column{.54\textwidth}
     \begin{itemize}
-      \item Eric Schmidt (Google - 2009):
-      \begin{quote}
-        Başkalarının bilmesini istemeyeceğiniz bir şey yapıyorsanız,\\
-        belki de zaten yapmamanız gerekiyordur.
-      \end{quote}
+      \item Eric Schmidt (Google - 2009):\\
+        \smallskip
+        ``Başkalarının bilmesini\\
+          istemeyeceğiniz bir şeyiniz varsa,\\
+          belki de zaten yapmamanız\\
+          gerekiyordur.''
 
       \pause
+      \medskip
       \item Mark Zuckerberg\\
-        (Facebook - 2010):
-      \begin{quote}
-        Mahremiyet artık bir toplumsal norm değil.
-      \end{quote}
+        (Facebook - 2010):\\
+        \smallskip
+        ``Mahremiyet artık\\
+          bir toplumsal norm değil.''
     \end{itemize}
   \end{columns}
 
@@ -187,12 +190,11 @@
     \item mahremiyet evrensel bir değer değil
 
     \pause
-    \medskip
+    \bigskip
     \item mahremiyet özünde iyi bir değer mi?
-    \begin{itemize}
-      \item mahremiyet olmadan güvenlik, özerklik mümkün değil
-      \item farklı türden ilişkiler kurabilme
-    \end{itemize}
+    \smallskip
+    \item mahremiyet olmadan güvenlik, özerklik mümkün değil
+    \item farklı türden ilişkiler kurabilme
   \end{itemize}
 \end{frame}
 
@@ -202,19 +204,15 @@
   \frametitle{Gözetleme}
 
   \begin{itemize}
-    \item kişilerin izlenmesini sağlayan teknolojiler arttı
-  \end{itemize}
+    \item kişilerin izlenmesini sağlayan çok sayıda teknoloji var
 
-  \pause
-  \begin{ornek}
-    \begin{itemize}
-      \item kredi kartları
-      \item cep telefonları
-      \item video kameralar
-      \item yüz tanıma, plaka tanıma
-      \item \ldots
-    \end{itemize}
-  \end{ornek}
+    \medskip
+    \item kredi kartları
+    \item cep telefonları
+    \item video kameralar
+    \item yüz tanıma, plaka tanıma
+    \item \ldots
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -226,8 +224,7 @@
 
     \column{.48\textwidth}
     \begin{itemize}
-      \item bir okul,\\
-        öğrencilerine dağıttığı\\
+      \item bir okul, öğrencilere dağıttığı\\
         bilgisayarlardaki kameraları\\
         uzaktan etkinleştirerek\\
         öğrencileri gözetliyor (2010)
@@ -249,10 +246,10 @@
     \begin{itemize}
       \item Apple aygıtları\\
         bulundukları konumu\\
-        bir siteye gizlice bildiriyor (2011)
-      \item aynı durum Google Android\\
-        ve Microsoft Windows\\
-        telefonlarda da ortaya çıkıyor (2011)
+        gizlice bildiriyor (2011)
+      \item Google Android ve\\
+        Microsoft Windows'da\\
+        aynı durum (2011)
     \end{itemize}
   \end{columns}
 
@@ -292,10 +289,10 @@
 
       \pause
       \medskip
-      \item evcil hayvanlar,\\
-        çocuklar
-      \item göçmenler,\\
-        mahkumlar
+      \item evcil hayvanlar
+      \item çocuklar
+      \item mahkumlar
+      \item göçmenler
     \end{itemize}
 
     \column{.7\textwidth}
@@ -332,20 +329,18 @@
 \begin{frame}
   \frametitle{Gözetleme Teknolojileri: İnternet}
 
-  \begin{columns}
+  \begin{columns}[t]
     \column{.4\textwidth}
     \begin{itemize}
       \item çerezler
-      \item kalıcı çerezler (Flash)
       \item JavaScript kodları
       \item böcekler
       \item IP adresleri
-      \item HTTP başlık bilgileri
     \end{itemize}
 
     \pause
     \column{.6\textwidth}
-    \begin{ornek}[Google Analytics]
+    \begin{exampleblock}{Google Analytics}
       \begin{itemize}
         \item pek çok site, ziyaretçi sayılarını\\
           Google Analytics ile ölçüyor
@@ -354,31 +349,26 @@
         \item ziyaretçinin Google hesabı varsa\\
           kim olduğunu belirleyebiliyor
       \end{itemize}
-    \end{ornek}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
-\subsection{Veri Koruma}
+\section{Veri Koruma}
+
+\subsection{Giriş}
 
 \begin{frame}
   \frametitle{Veri Koruma}
 
   \begin{itemize}
-    \item devlet ve özel kurumlar kişiler hakkında\\
+    \item devletler ve özel kurumlar kişiler hakkında\\
       büyük miktarda veri topluyor
-    \begin{itemize}
-      \item kredi kartı şirketleri, bankalar, alışveriş marketleri,\\
-        İnternet siteleri, \ldots
-      \item reklam ya da hizmet kalitesini artırma amaçlı
-    \end{itemize}
+    \item reklam ya da hizmet kalitesini artırma amaçlı
 
-    \pause
-    \medskip
-    \item bireyler kurumlar karşısında güçsüzleşiyor:
-    \begin{itemize}
-      \item kurum birey hakkında çok şey biliyor
-      \item birey kurum hakkında neredeyse hiçbir şey bilmiyor
-    \end{itemize}
+    \bigskip
+    \item bireyler güçsüzleşiyor
+    \item kurum birey hakkında çok şey biliyor
+    \item birey kurum hakkında çok az şey biliyor
   \end{itemize}
 \end{frame}
 
@@ -386,14 +376,13 @@
   \frametitle{Bruce Schneier (2010)}
 
   \begin{columns}
-    \column{.55\textwidth}
+    \column{.6\textwidth}
     \pgfuseimage{schneier}
 
-    \column{.45\textwidth}
-    \begin{quote}
-      Facebook'un müşterisi olduğunuzu sanmak yanılgısına düşmeyin, değilsiniz
-      -- siz ürünsünüz. Müşterileri, reklam verenler.
-    \end{quote}
+    \column{.4\textwidth}
+    ``Facebook'un müşterisi olduğunuzu sanmak yanılgısına düşmeyin, değilsiniz
+      -- siz ürünsünüz.\\
+      Müşterileri, reklam verenler.''
   \end{columns}
 
   \medskip
@@ -407,7 +396,7 @@
     \item toplanan verinin miktarı
     \item başka yerlere aktarılmasındaki hız
     \item verinin kalıcılığı
-    \item bilginin kalitesi: ayrıntılı profil çıkartılabiliyor
+    \item bilginin kalitesi: ayrıntılı profil
   \end{itemize}
 \end{frame}
 
@@ -441,7 +430,7 @@
     \item isim, doğum tarihi, adres, telefon, \ldots
     \item yapılan her alışveriş
     \item telefon görüşmeleri, mesajlaşmalar, e-postalar, \ldots
-    \item politik ve dini görüşler
+    \item politik ve dini inanışlar
     \item cinsel tercihler
     \item sağlık verileri
     \item gelir verileri
@@ -455,13 +444,9 @@
   \frametitle{Hangi Veriler Duyarlı?}
 
   \begin{itemize}
-    \item veriler duyarlılık düzeylerine ayrılabilir:\\
-      gizli, yakın çevre, güven, toplumsal, açık
-    \begin{itemize}
-      \item kişiden kişiye değişir
-      \item bir bilgi kendi başına duyarlı olmayabilir,\\
-        ama başka bilgilerle birleştirildiğinde kritik hale gelebilir
-    \end{itemize}
+    \item duyarlılık düzeyleri: gizli, yakın çevre, toplumsal, açık
+    \item kişiden kişiye değişir
+    \item kendi başına duyarlı değil, ama birleştirildiğinde duyarlı
 
     \bigskip
     \item bütün kişisel veriler duyarlı
@@ -469,7 +454,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek: Sosyal ağ bilgileriyle hırsızlık}
+  \frametitle{Örnek: Sosyal ağ verileriyle hırsızlık}
 
   \begin{columns}
     \column{.58\textwidth}
@@ -503,26 +488,20 @@
   \end{itemize}
 \end{frame}
 
-\section{Sorunlar}
-
 \subsection{Veri Toplama}
 
 \begin{frame}
   \frametitle{Veri Toplama}
 
   \begin{itemize}
-    \item hangi kurumlar hangi verileri toplayabilsin?
-    \begin{itemize}
-      \item amaca uygunluk
-    \end{itemize}
+    \item kim hangi verileri toplayabilsin?
+    \item amaca uygunluk
 
     \pause
-    \medskip
+    \bigskip
     \item veriler hangi koşullarda toplanabilsin?
-    \begin{itemize}
-      \item yasalara uygunluk
-      \item ilgili kişinin bilgilendirilmesi, gerekiyorsa izninin alınması
-    \end{itemize}
+    \item yasalara uygunluk
+    \item kişileri bilgilendirerek ve izinlerini alarak
   \end{itemize}
 \end{frame}
 
@@ -538,7 +517,7 @@
       \item Google Street View araçları,\\
         WiFi erişim noktaları ile\\
         bunları kullanan aygıtların\\
-        ayırıcı verilerini topluyor (2010)
+        verilerini topluyor (2010)
     \end{itemize}
   \end{columns}
 
@@ -556,7 +535,7 @@
     \column{.45\textwidth}
     \begin{itemize}
       \item Facebook, resimlerdeki\\
-        yüzleri tanıyarak\\
+        yüzleri tanıyarak insanları\\
         otomatik etiketliyor (2011)
       \item kullanıcılardan izin almıyor
       \item Almanya, bu özelliği\\
@@ -571,23 +550,16 @@
   \tiny{\url{http://www.dw.de/dw/article/0,,15290120,00.html}}\\
 \end{frame}
 
-\subsection{Kullanım Şekli}
-
 \begin{frame}
   \frametitle{Verilerin Kullanımı}
 
   \begin{itemize}
     \item verilerin kullanımının toplanma amacına uygunluğu
-    \begin{itemize}
-      \item ilgili kişinin aleyhine kullanılması: kimlik hırsızlığı, şantaj
-    \end{itemize}
+    \item ilgili kişinin aleyhine kullanılması: kimlik hırsızlığı, şantaj
 
-    \pause
     \medskip
     \item kimlerin hangi koşullarda erişeceğine ilişkin kurallar ve denetim
-    \begin{itemize}
-      \item teknik personelin erişimi
-    \end{itemize}
+    \item teknik personelin erişimi
   \end{itemize}
 \end{frame}
 
@@ -887,8 +859,6 @@
   \tiny{\url{http://news.bbc.co.uk/2/hi/technology/4630694.stm}}\\
   \tiny{\url{http://www.theregister.co.uk/2010/10/27/amazon_sales/}}\\
 \end{frame}
-
-\subsection{Veri Birleştirme}
 
 \begin{frame}
   \frametitle{Örnek: DoubleClick - Abacus}
