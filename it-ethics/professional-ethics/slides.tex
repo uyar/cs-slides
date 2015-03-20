@@ -1,0 +1,592 @@
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{IT Ethics}
+\subtitle{Professional Ethics}
+
+\author{H. Turgut Uyar}
+\date{2004-2015}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../license}
+
+\pgfdeclareimage[width=7.4cm]{ibm-nazi}{ibm-nazi}
+\pgfdeclareimage[height=5.3cm]{iran}{iran}
+\pgfdeclareimage[height=4.5cm]{ariane}{ariane}
+\pgfdeclareimage[width=7cm]{aegis}{aegis}
+\pgfdeclareimage[width=6.5cm]{robot-sweden}{robot-sweden}
+\pgfdeclareimage[width=7.5cm]{therac}{therac}
+\pgfdeclareimage[height=4.5cm]{latimes}{latimes}
+\pgfdeclareimage[height=4.5cm]{gta}{gta}
+\pgfdeclareimage[width=6.5cm]{challenger}{challenger}
+\pgfdeclareimage[width=6.5cm]{boisjoly}{boisjoly}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2004-2015 H. Turgut Uyar
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Professions}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Ethics of Professions}
+
+  \begin{itemize}
+    \item do professional roles require different moral evaluations?
+    \item do professions carry different moral obligations?
+
+    \pause
+    \bigskip
+    \item differentiated professions: special rights, special responsibilities
+    \item doctors, lawyers, licensed engineers
+    \item legal protections - trust of society
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Software Professions}
+
+  \begin{itemize}
+    \item who will we consider when discussing professional ethics?
+    \item everybody working in IT?
+    \item software engineers only?
+
+    \pause
+    \medskip
+    \item software engineers, quality analists, technical documenters,\\
+      project managers
+    \item anybody working in the analysis, design, development,\\
+      certification, maintanence, and test of software systems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Characteristics of Differentiated Professions}
+
+  \begin{itemize}
+    \item perform an important social function
+
+    \pause
+    \medskip
+    \item require advanced knowledge and education
+    \item division between practitioners and researchers
+
+    \pause
+    \medskip
+    \item usually autonomous in their decisions
+
+    \pause
+    \medskip
+    \item formal organizations
+    \item licensing members for work
+
+    \pause
+    \medskip
+    \item code of ethics and professional conduct
+  \end{itemize}
+\end{frame}
+
+\subsection{Codes of Ethics}
+
+\begin{frame}
+  \frametitle{Codes of Ethics}
+
+  \begin{itemize}
+    \item purpose of codes of ethics:
+
+    \medskip
+    \item inspire
+    \item guide
+    \item educate
+    \item discipline
+
+    \pause
+    \bigskip
+    \item what may be expected from a member of this profession?
+  \end{itemize}
+\end{frame}
+
+% \subsection{ACM/IEEE-CS}
+
+\begin{frame}
+  \frametitle{ACM/IEEE-CS Software Engineering Code of Ethics}
+
+  \begin{itemize}
+    \item act consistently with the \alert{public} interest
+    \item act in the best interests of the \alert{client and employer}
+    \item ensure that the \alert{product} meets highest professional standards
+    \item maintain integrity and independence in professional \alert{judgment}
+    \item subscribe to and promote an ethical approach to \alert{management}
+    \item advance the integrity and reputation of the \alert{profession}
+    \item be fair to and supportive of \alert{colleagues}
+    \item participate in lifelong learning (\alert{self})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples of Clauses}
+
+  \begin{itemize}
+    \item accepting full responsibility for one's own work
+    \item moderating the interests of the software engineer, the employer,\\
+      the client and the users with the public good
+    \item considering issues of physical disabilities, allocation of resources,\\
+      economic disadvantage and other factors that can diminish\\
+      access to the benefits
+    \item contributing to public education concerning the discipline
+    \item ensuring adequate testing, debugging, and review of software\\
+      and related documents
+    \item respecting the privacy of those who will be affected
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples of Clauses}
+
+  \begin{itemize}
+    \item disclosing conflicts of interest to all concerned parties
+    \item not asking a software engineer to do anything inconsistent\\
+      with this code
+    \item supporting other software engineers striving to follow this code
+    \item avoiding associations with businesses and organizations\\
+      which are in conflict with this code
+    \item assisting colleagues in professional development
+    \item crediting the work of others and refraining from taking\\
+      undue credit
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interpreting}
+
+  \begin{itemize}
+    \item ``The Code is \alert{not} a simple ethical algorithm\\
+      that generates ethical decisions.''
+
+    \pause
+    \bigskip
+    \item who will be affected?
+    \item how will the least empowered be affected?
+    \item are other human beings treated with due respect?
+    \item how would the public view, if reasonably well informed?
+    \item is it worthy of the ideal software engineer?
+  \end{itemize}
+\end{frame}
+
+\section{Responsibility}
+
+\subsection{Introduction}
+
+\begin{frame}
+  \frametitle{Responsibility}
+
+  \begin{itemize}
+    \item moral responsibility
+    \item legal responsibility (liability)
+    \smallskip
+    \item accountability
+
+    \pause
+    \bigskip
+    \item two conditions for moral responsibility:
+    \item causality
+    \item intent
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Responsibility}
+
+  \begin{itemize}
+    \item some engineers and researchers\\
+      refuse to work on projects they find morally wrong
+
+    \medskip
+    \item weapon systems
+    \item surveillance systems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: IBM - Nazi Goverment}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{ibm-nazi}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item IBM sells technology\\
+        to the Nazi goverment
+      \item develops custom\\
+        applications to suit\\
+        their needs (1940s)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.cnet.com/Selling-technology-to-the-Nazis/2010-1071_3-876539.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Siemens and Nokia - İran}
+
+  \begin{center}
+    \pgfuseimage{iran}
+  \end{center}
+
+  \begin{itemize}
+    \item Iran buys its surveillance systems from Siemens and Nokia (2009)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://online.wsj.com/article/SB124562668777335653.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{IT Systems}
+
+  \begin{itemize}
+    \item are there any extra moral obligations in IT systems?
+
+    \bigskip
+    \item safety-critical applications
+    \smallskip
+    \item medicine
+    \item air traffic, mass transport
+    \item power systems
+    \item weapon systems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Ariane 5}
+
+  \begin{center}
+    \pgfuseimage{ariane}
+  \end{center}
+
+  \begin{itemize}
+    \item a French launcher destructs itself: 500 million \$ (1996)
+    \item overflow when converting a 64-bit floating point number\\
+      to a 16-bit integer
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.ima.umn.edu/~arnold/disasters/ariane5rep.html}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Aegis radar system}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{aegis}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item a US warship\\
+        shoots down\\
+        an Iranian airliner:\\
+        290 dead (1988)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/onthisday/hi/dates/stories/july/3/newsid_4678000/4678707.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Sweden factory robot}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{robot-sweden}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item a Swedish factory robot\\
+        almost kills a worker\\
+        (2009)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.thelocal.se/19120/20090428/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Therac-25 radiotherapy device}
+
+  \begin{columns}
+    \column{.66\textwidth}
+    \pgfuseimage{therac}
+
+    \column{.34\textwidth}
+    \begin{itemize}
+      \item radiotherapy\\
+        device overdoses:\\
+        3 dead,\\
+        2 seriously injured\\
+        (1985-87)
+
+      \item many faults:\\
+        interface design,\\
+        race conditions
+      \item hardware\\
+        protections\\
+        removed
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.mendeley.com/research/investigation-therac25-accidents/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: CT scan device}
+
+  \begin{center}
+    \pgfuseimage{latimes}
+  \end{center}
+
+  \begin{itemize}
+    \item a CT scanner in Los Angeles overdoses patients (2009)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://articles.latimes.com/2009/oct/13/local/me-cedars13}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Grand Theft Auto}
+
+  \begin{center}
+    \pgfuseimage{gta}
+  \end{center}
+
+  \begin{itemize}
+    \item a teenager in USA imitates GTA: 3 cops dead (2003)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.gamespot.com/news/grand-theft-auto-sparks-another-lawsuit-6118699}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Video games}
+
+  \begin{itemize}
+    \item GTA: "kill all the Haitians"
+    \item pornographic extensions
+
+    \bigskip
+    \item some countries ban violent video games:
+    \item Thailand bans GTA (2008), Australia bans Manhunt (2004)
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.gamespot.com/news/haitian-americans-protest-vice-city-6084645}}\\
+  \tiny{\url{http://www.gamespot.com/news/prostitutes-call-for-ban-on-gta-6144286}}\\
+  \tiny{\url{http://www.theregister.co.uk/2009/09/02/take_two_settles_investor_class_action_lawsuit/}}\\
+  \tiny{\url{http://www.reghardware.com/2008/08/04/gta_ban_thai/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/09/30/oz_manhunt_ban/}}\\
+\end{frame}
+
+\subsection{Loyalty}
+
+\begin{frame}
+  \frametitle{Loyalty}
+
+  \begin{itemize}
+    \item employees should be loyal to their employers
+
+    \medskip
+    \item what about the loyalty of employers to their employees?
+    \item can we expect loyalty to be mutual?
+
+    \pause
+    \bigskip
+    \item from the code of ethics:
+    \smallskip
+    \item act in the best interest of the employer
+    \item moderate it with the public interest
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Challenger space shuttle}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{challenger}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item shuttle launched despite\\
+        known risk:\\
+        7 astronauts dead (1986)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/onthisday/hi/dates/stories/january/28/newsid_2506000/2506161.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Challenger space shuttle}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{boisjoly}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item Roger Boisjoly\\
+        tries to stop the launch
+      \item he tells the truth\\
+        in the investigation\\
+        despite company pressure
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.latimes.com/news/obituaries/la-me-roger-boisjoly-20120207,0,2248999.story}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Bay Area Rapid Transit}
+
+  \begin{itemize}
+    \item computed aided mass transportation system
+    \item delayed and over-budget
+    \item engineers tell the risks of the system to the press:\\
+      they lose their jobs (1970s)
+
+    \medskip
+    \item legal protections to encourage this type of behavior
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Whistle-Blowing}
+
+  \begin{itemize}
+    \item when is it allowed?
+    \smallskip
+    \item if there is going to be serious damage
+    \item if all channels have been tried in the instution
+
+    \pause
+    \bigskip
+    \item when is it a moral obligation?
+    \smallskip
+    \item if there is evidence
+    \item if exposure will prevent the damage
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Collective Responsibility}
+
+  \begin{itemize}
+    \item software engineers don't see the whole of a project
+    \item is moral responsibility always individual?
+
+    \pause
+    \medskip
+    \item thinking and acting as a profession instead of as individuals
+  \end{itemize}
+\end{frame}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Tavani}
+    \begin{itemize}
+      \item Chapter 4: \alert{Professional Ethics}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
