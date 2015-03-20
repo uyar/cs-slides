@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -26,7 +26,7 @@
 \subtitle{Predicates and Proofs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2015}
 
 \AtBeginSubsection[]
 {
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2015 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -100,7 +100,7 @@
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Predicate}
+  \frametitle{Predicates}
 
   \begin{definition}
     \alert{predicate} (or \alert{open statement}): a declarative sentence which
@@ -111,40 +111,35 @@
         by certain allowable choices
     \end{itemize}
   \end{definition}
+
+  \begin{itemize}
+    \item set of allowable choices: \alert{universe of discourse} ($\mathcal{U}$)
+
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Universe of Discourse}
-
-  \begin{definition}
-    \alert{universe of discourse}: $\mathcal{U}$\\
-    set of allowable choices
-  \end{definition}
+  \frametitle{Sets}
 
   \begin{columns}[t]
     \column{.55\textwidth}
     \begin{itemize}
-      \item set notation: $\{a_1,a_2,\dots,a_n\}$
-      \item let $S$ be a set, and\\
-        $a$ be an element
-      \begin{itemize}
-        \item $a \in S$: $a$ is an element of $S$
-        \item $a \notin S$: $a$ is not an element of $S$
-      \end{itemize}
+      \item explicit notation: $\{a_1,a_2,\dots,a_n\}$
+
+      \medskip
+      \item $a \in S$: $a$ is an element of $S$
+      \item $a \notin S$: $a$ is not an element of $S$
     \end{itemize}
 
     \pause
     \column{.45\textwidth}
     \begin{itemize}
-      \item some important sets:
-      \begin{itemize}
-        \item $\mathbb{Z}$: integers
-        \item $\mathbb{N}$: natural numbers
-        \item $\mathbb{Z}^+$: positive integers
-        \item $\mathbb{Q}$: rational numbers
-        \item $\mathbb{R}$: real numbers
-        \item $\mathbb{C}$: complex numbers
-      \end{itemize}
+      \item $\mathbb{Z}$: integers
+      \item $\mathbb{N}$: natural numbers
+      \item $\mathbb{Z}^+$: positive integers
+      \item $\mathbb{Q}$: rational numbers
+      \item $\mathbb{R}$: real numbers
+      \item $\mathbb{C}$: complex numbers
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -152,27 +147,24 @@
 \begin{frame}
   \frametitle{Predicate Examples}
 
-  \begin{example}
-    $\mathcal{U} = \mathbb{N}$\\
-    $p(x)$: $x+2$ is an even integer
+  $\mathcal{U} = \mathbb{N}$\\
+  $p(x)$: $x+2$ is an even integer.
 
-    \bigskip
-    $p(5)$: $F$\\
-    $p(8)$: $T$
-
-    \pause
-    \bigskip
-    $\neg p(x)$: $x+2$ is not an even integer
-  \end{example}
+  \smallskip
+  $p(5)$: $F$\\
+  $p(8)$: $T$
 
   \pause
-  \begin{example}
-    $\mathcal{U} = \mathbb{N}$\\
-    $q(x,y)$: $x+y$ and $x-2y$ are even integers
+  \bigskip
+  $\neg p(x)$: $x+2$ is not an even integer.
 
-    \bigskip
-    $q(11,3)$: $F$, $q(14,4)$: $T$
-  \end{example}
+  \pause
+  \bigskip
+  $\mathcal{U} = \mathbb{N}$\\
+  $q(x,y)$: $x+y$ and $x-2y$ are even integers.
+
+  \smallskip
+  $q(11,3)$: $F$, $q(14,4)$: $T$
 \end{frame}
 
 \subsection{Quantifiers}
@@ -183,93 +175,74 @@
   \begin{columns}[t]
     \column{.48\textwidth}
     \begin{definition}
-      \alert{existential quantifier}:\\
+      \alert{existential quantifier}:  $\exists$\\
         predicate is true for some values
-
-      \begin{itemize}
-        \item symbol: $\exists$
-        \item read: \emph{there exists}
-
-        \pause
-        \medskip
-        \item symbol: $\exists!$
-        \item read: \emph{there exists only one}
-      \end{itemize}
     \end{definition}
+
+    \begin{itemize}
+      \item read: \emph{there exists}
+
+      \pause
+      \item one and only one: $\exists!$
+    \end{itemize}
 
     \pause
     \column{.48\textwidth}
     \begin{definition}
-      \alert{universal quantifier}:\\
+      \alert{universal quantifier}: $\forall$\\
         predicate is true for all values
-
-      \begin{itemize}
-        \item symbol: $\forall$
-        \item read: \emph{for all}
-      \end{itemize}
     \end{definition}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Quantifiers}
-
-  \begin{block}{existential quantifier}
-    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
-    $\exists x~p(x) \equiv p(x_1) \vee p(x_2) \vee \cdots \vee p(x_n)$
 
     \begin{itemize}
-      \item \emph{$p(x)$ is true for some $x$}
+      \item read: \emph{for all}
     \end{itemize}
-  \end{block}
+  \end{columns}
 
   \pause
-  \begin{block}{universal quantifier}
-    $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$\\
-    $\forall x~p(x) \equiv p(x_1) \wedge p(x_2) \wedge \cdots \wedge p(x_n)$
+  \bigskip
+  \begin{center}
+  $\mathcal{U} = \{x_1,x_2,\ldots,x_n\}$
 
-    \begin{itemize}
-      \item \emph{$p(x)$ is true for all $x$}
-    \end{itemize}
-  \end{block}
+  $\exists x~p(x) \Leftrightarrow p(x_1) \vee p(x_2) \vee \cdots \vee p(x_n)$
+
+  $\forall x~p(x) \Leftrightarrow p(x_1) \wedge p(x_2) \wedge \cdots \wedge p(x_n)$
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Quantifier Examples}
 
-  \begin{example}
-    \begin{columns}[t]
-      \column{.53\textwidth}
-      $\mathcal{U} = \mathbb{R}$\\
+  \begin{columns}[t]
+    \column{.53\textwidth}
+    $\mathcal{U} = \mathbb{R}$\\
 
-      \begin{itemize}
-        \item $p(x): x \geq 0$
-        \item $q(x): x^2 \geq 0$
-        \item $r(x): (x-4) (x+1) = 0$
-        \item $s(x): x^2 -3 > 0$
-      \end{itemize}
+    \begin{itemize}
+      \item $p(x): x \geq 0$
+      \item $q(x): x^2 \geq 0$
+      \item $r(x): (x-4) (x+1) = 0$
+      \item $s(x): x^2 -3 > 0$
+    \end{itemize}
 
-      are the following expressions true?
+    are the following expressions true?
 
-      \column{.4\textwidth}
-      \begin{itemize}
-        \pause
-        \item $\exists x~[p(x) \wedge r(x)]$
+    \column{.4\textwidth}
+    \begin{itemize}
+      \pause
+      \item $\exists x~[p(x) \wedge r(x)]$
 
-        \pause
-        \item $\forall x~[p(x) \rightarrow q(x)]$
+      \pause
+      \item $\forall x~[p(x) \rightarrow q(x)]$
 
-        \pause
-        \item $\forall x~[q(x) \rightarrow s(x)]$
+      \pause
+      \item $\forall x~[q(x) \rightarrow s(x)]$
 
-        \pause
-        \item $\forall x~[r(x) \vee s(x)]$
+      \pause
+      \item $\forall x~[r(x) \vee s(x)]$
 
-        \pause
-        \item $\forall x~[r(x) \rightarrow p(x)]$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \pause
+      \item $\forall x~[r(x) \rightarrow p(x)]$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -299,48 +272,41 @@
   \pause
   \begin{proof}
     \begin{eqnarray*}
-      \neg \exists x~p(x) & \equiv          & \neg [p(x_1) \vee p(x_2) \vee \cdots
+      \neg \exists x~p(x) & \Leftrightarrow & \neg [p(x_1) \vee p(x_2) \vee \cdots
                                               \vee p(x_n)]\\\pause
                           & \Leftrightarrow & \neg p(x_1) \wedge \neg p(x_2) \wedge \cdots
                                               \wedge \neg p(x_n)\\\pause
-                          & \equiv          & \forall x~\neg p(x)
+                          & \Leftrightarrow & \forall x~\neg p(x)
     \end{eqnarray*}
   \end{proof}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Predicate Equivalences}
+  \frametitle{Predicate Theorems}
 
-  \begin{theorem}
-    $\exists x~[p(x) \vee q(x)]
+  \begin{itemize}
+    \item $\exists x~[p(x) \vee q(x)]
       \Leftrightarrow \exists x~p(x) \vee \exists x~q(x)$
-  \end{theorem}
 
-  \pause
-  \begin{theorem}
-    $\forall x~[p(x) \wedge q(x)]
+    \pause
+    \medskip
+    \item $\forall x~[p(x) \wedge q(x)]
       \Leftrightarrow \forall x~p(x) \wedge \forall x~q(x)$
-  \end{theorem}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Predicate Implications}
+    \pause
+    \bigskip
+    \item $\forall x~p(x) \Rightarrow \exists x~p(x)$
 
-  \begin{theorem}
-    $\forall x~p(x) \Rightarrow \exists x~p(x)$
-  \end{theorem}
-
-  \pause
-  \begin{theorem}
-    $\exists x~[p(x) \wedge q(x)]
+    \pause
+    \bigskip
+    \item $\exists x~[p(x) \wedge q(x)]
       \Rightarrow \exists x~p(x) \wedge \exists x~q(x)$
-  \end{theorem}
 
-  \pause
-  \begin{theorem}
-    $\forall x~p(x) \vee \forall x~q(x)
+    \pause
+    \medskip
+    \item $\forall x~p(x) \vee \forall x~q(x)
       \Rightarrow \forall x~[p(x) \vee q(x)]$
-  \end{theorem}
+  \end{itemize}
 \end{frame}
 
 \subsection{Multiple Quantifiers}
@@ -349,59 +315,63 @@
   \frametitle{Multiple Quantifiers}
 
   \begin{itemize}
+    \item quantifiers can be combined
+
+    \medskip
     \item $\exists x \exists y~p(x,y)$
     \item $\forall x \exists y~p(x,y)$
     \item $\exists x \forall y~p(x,y)$
     \item $\forall x \forall y~p(x,y)$
+
+    \medskip
+    \item order of quantifiers is significant
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Multiple Quantifier Examples}
+  \frametitle{Multiple Quantifier Example}
 
-  \begin{example}
-    $\mathcal{U}=\mathbb{Z}$\\
-    $p(x,y): x+y=17$
+  $\mathcal{U}=\mathbb{Z}$\\
+  $p(x,y): x+y=17$
 
-    \begin{itemize}
-      \pause
-      \item $\forall x \exists y~p(x,y)$:\\
-        for every $x$ there exists a $y$ such that $x+y=17$
+  \pause
+  \medskip
+  \begin{itemize}
+    \item $\forall x \exists y~p(x,y)$:\\
+      for every $x$ there exists a $y$ such that $x+y=17$
 
-      \pause
-      \item $\exists y \forall x~p(x,y)$:\\
-        there exists a $y$ so that for all $x$,  $x+y=17$
+    \pause
+    \item $\exists y \forall x~p(x,y)$:\\
+      there exists a $y$ so that for all $x$,  $x+y=17$
 
-      \pause
-      \bigskip
-      \item what if $\mathcal{U}=\mathbb{N}$?
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item what changes if $\mathcal{U}=\mathbb{N}$?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Multiple Quantifiers}
 
-  \begin{example}
+  \begin{center}
     $\mathcal{U}_x = \{1,2\} \wedge \mathcal{U}_y = \{A,B\}$
+  \end{center}
 
-    \pause
-    \begin{eqnarray*}
-      \exists x \exists y~p(x,y) & \equiv & [p(1,A) \vee p(1,B)]
-                                       \vee [p(2,A) \vee p(2,B)]\\\pause
-      \exists x \forall y~p(x,y) & \equiv & [p(1,A) \wedge p(1,B)]
-                                       \vee [p(2,A) \wedge p(2,B)]\\\pause
-      \forall x \exists y~p(x,y) & \equiv & [p(1,A) \vee p(1,B)]
-                                     \wedge [p(2,A) \vee p(2,B)]\\\pause
-      \forall x \forall y~p(x,y) & \equiv & [p(1,A) \wedge p(1,B)]
-                                     \wedge [p(2,A) \wedge p(2,B)]
-    \end{eqnarray*}
-  \end{example}
+  \begin{eqnarray*}
+    \exists x \exists y~p(x,y) & \Leftrightarrow & [p(1,A) \vee p(1,B)]
+                                      \vee [p(2,A) \vee p(2,B)]\\\pause
+    \exists x \forall y~p(x,y) & \Leftrightarrow & [p(1,A) \wedge p(1,B)]
+                                      \vee [p(2,A) \wedge p(2,B)]\\\pause
+    \forall x \exists y~p(x,y) & \Leftrightarrow & [p(1,A) \vee p(1,B)]
+                                    \wedge [p(2,A) \vee p(2,B)]\\\pause
+    \forall x \forall y~p(x,y) & \Leftrightarrow & [p(1,A) \wedge p(1,B)]
+                                    \wedge [p(2,A) \wedge p(2,B)]
+  \end{eqnarray*}
 \end{frame}
 
 \section{Proofs}
 
-\subsection{Basic Principles}
+\subsection{Basic Methods}
 
 \begin{frame}
   \frametitle{Method of Exhaustion}
@@ -416,7 +386,6 @@
     as the sum of at most 3 square numbers.
   \end{theorem}
 
-  \pause
   \begin{proof}
     \begin{tabular}{lll}
       2 = 1+1   & 10 = 9+1    & 20 = 16+4\\
@@ -436,6 +405,7 @@
   \end{block}
 
   \pause
+  \bigskip
   \begin{block}{Universal Generalization (UG)}
     $p(a)$ for an \alert{arbitrarily chosen} $a$
       $\Rightarrow$ $\forall x~p(x)$
@@ -445,89 +415,83 @@
 \begin{frame}
   \frametitle{Universal Specification Example}
 
-  \begin{example}
-    \begin{quote}
-      All humans are mortal. Socrates is human.\\
-      Therefore, Socrates is mortal.
-    \end{quote}
+  \begin{quote}
+    All humans are mortal. Socrates is human.\\
+    Therefore, Socrates is mortal.
+  \end{quote}
 
-    \pause
-    \begin{itemize}
-      \item $\mathcal{U}$: all humans
-      \item $p(x)$: $x$ is mortal
-      \item $\forall x~p(x)$: All humans are mortal.
-      \item $a$: Socrates, $a \in \mathcal{U}$: Socrates is human.
-      \item therefore, $p(a)$: Socrates is mortal.
-    \end{itemize}
-  \end{example}
+  \pause
+  \begin{itemize}
+    \item $\mathcal{U}$: all humans
+    \item $p(x)$: $x$ is mortal.
+    \item $\forall x~p(x)$: All humans are mortal.
+    \item $a$: Socrates, $a \in \mathcal{U}$: Socrates is human.
+    \item therefore, $p(a)$: Socrates is mortal.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Universal Specification Example}
 
   \begin{small}
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)]\\
-            p(m)
-          \end{array}
-        }
-        {
-          \therefore \neg s(m)
-        }
-      \]
+  \begin{columns}
+    \column{.4\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)]\\
+          p(m)
+        \end{array}
+      }
+      {
+        \therefore \neg s(m)
+      }
+    \]
 
-      \pause
-      \column{.55\textwidth}
-      \begin{eqnarray*}
-        1. & \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)] & A\\\pause
-        2. & p(m)                                             & A\\\pause
-        3. & j(m) \vee s(m) \rightarrow \neg p(m)             & US:1\\\pause
-        4. & \neg (j(m) \vee s(m))                            & MT:3,2\\\pause
-        5. & \neg j(m) \wedge \neg s(m)                       & DM:4\\\pause
-        6. & \neg s(m)                                        & AndE:5
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.55\textwidth}
+    \begin{eqnarray*}
+      1. & \forall x~[j(x) \vee s(x) \rightarrow \neg p(x)] & A\\\pause
+      2. & p(m)                                             & A\\\pause
+      3. & j(m) \vee s(m) \rightarrow \neg p(m)             & US:1\\\pause
+      4. & \neg (j(m) \vee s(m))                            & MT:3,2\\\pause
+      5. & \neg j(m) \wedge \neg s(m)                       & DM:4\\\pause
+      6. & \neg s(m)                                        & AndE:5
+    \end{eqnarray*}
+  \end{columns}
   \end{small}
 \end{frame}
 
 \begin{frame}
   \frametitle{Universal Generalization Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.35\textwidth}
-      \[
-      \frac
-        {
-          \begin{array}{c}
-            \forall x~[p(x) \rightarrow q(x)]\\
-            \forall x~[q(x) \rightarrow r(x)]
-          \end{array}
-        }
-        {
-          \therefore \forall x~[p(x) \rightarrow r(x)]
-        }
-      \]
+  \begin{columns}
+    \column{.35\textwidth}
+    \[
+    \frac
+      {
+        \begin{array}{c}
+          \forall x~[p(x) \rightarrow q(x)]\\
+          \forall x~[q(x) \rightarrow r(x)]
+        \end{array}
+      }
+      {
+        \therefore \forall x~[p(x) \rightarrow r(x)]
+      }
+    \]
 
-      \pause
-      \column{.6\textwidth}
-      \begin{eqnarray*}
-        1. & \forall x~[p(x) \rightarrow q(x)] & A\\\pause
-        2. & p(c) \rightarrow q(c)             & US:1\\\pause
-        3. & \forall x~[q(x) \rightarrow r(x)] & A\\\pause
-        4. & q(c) \rightarrow r(c)             & US:3\\\pause
-        5. & p(c) \rightarrow r(c)             & HS:2,4\\\pause
-        6. & \forall x~[p(x) \rightarrow r(x)] & UG:5
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{eqnarray*}
+      1. & \forall x~[p(x) \rightarrow q(x)] & A\\\pause
+      2. & p(c) \rightarrow q(c)             & US:1\\\pause
+      3. & \forall x~[q(x) \rightarrow r(x)] & A\\\pause
+      4. & q(c) \rightarrow r(c)             & US:3\\\pause
+      5. & p(c) \rightarrow r(c)             & HS:2,4\\\pause
+      6. & \forall x~[p(x) \rightarrow r(x)] & UG:5
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -540,7 +504,7 @@
     \end{tabular}
   \end{block}
 
-  \medskip
+  \bigskip
   \begin{block}{trivial proof}
     \begin{tabular}{ll}
       to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
@@ -594,7 +558,7 @@
 
   \begin{theorem}
     $\forall a \in \mathbb{Z}~[3~|~(a-2) \rightarrow 3~|~(a^2-1)]$\\
-    where $x~|~y$ means $y~mod~x = 0$
+    $x~|~y$: $y~mod~x = 0$
   \end{theorem}
 
   \pause
@@ -684,7 +648,7 @@
   \begin{block}{proof by contradiction}
     \begin{tabular}{ll}
       to prove: & $P$\\
-      show:     & $\neg P \vdash Q \wedge \neg Q \Leftrightarrow F$
+      show:     & $\neg P \vdash Q \wedge \neg Q$
     \end{tabular}
   \end{block}
 \end{frame}
@@ -709,15 +673,16 @@
 
       \pause
       \item let $z = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdots s + 1$\\
-      \item $z$ is not divisible by a prime number in the range $[2, s]$
-      \pause
-      \begin{enumerate}
-        \item either $z$ is a prime number (note that $z > s$): $\neg Q$
-
-        \pause
-        \item or $z$ is divisible by a prime number $t$ where $t > s$: $\neg Q$
-      \end{enumerate}
+      \item $z$ is not divisible by any prime number in the range $[2, s]$
     \end{itemize}
+
+    \pause
+    \begin{enumerate}
+      \item either $z$ is a prime number (note that $z > s$): $\neg Q$
+
+      \pause
+      \item or $z$ is divisible by a prime number $t$ ($t > s$): $\neg Q$
+    \end{enumerate}
   \end{proof}
 \end{frame}
 
