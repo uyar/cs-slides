@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Function Closures}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -223,20 +223,20 @@ def entry_exit(f):
 
   \begin{exampleblock}{}
     \begin{lstlisting}[language=Python]
-def fact(n):
-    return 1 if n == 0 else n * fact(n - 1)
+def fac(n):
+    return 1 if n == 0 else n * fac(n - 1)
 
-# entry_exit(fact)(5)
+# entry_exit(fac)(5)
     \end{lstlisting}
 
     \pause
     \medskip
     \begin{lstlisting}[language=Python]
 @entry_exit
-def fact(n):
-    return 1 if n == 0 else n * fact(n - 1)
+def fac(n):
+    return 1 if n == 0 else n * fac(n - 1)
 
-# fact(5)
+# fac(5)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -344,19 +344,19 @@ allOdds = filter odd
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-stepRange' :: Integer -> Integer -> Integer ->
-                  [Integer]
-stepRange' step m n = [m, m + step .. n]
+stepRange :: Integer -> Integer -> Integer ->
+                 [Integer]
+stepRange step m n = [m, m + step .. n]
 
-step1' :: Integer -> Integer -> [Integer]
--- step1' m n = stepRange' 1 m n
-step1' = stepRange' 1
+step1 :: Integer -> Integer -> [Integer]
+-- step1 m n = stepRange 1 m n
+step1 = stepRange 1
 
 naturals :: Integer -> [Integer]
--- naturals n = stepRange' 1 0 n
-naturals = stepRange' 1 0
--- naturals n = step1' 0 n
--- naturals = step1' 0
+-- naturals n = stepRange 1 0 n
+naturals = stepRange 1 0
+-- naturals n = step1 0 n
+-- naturals = step1 0
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -407,7 +407,7 @@ addC = curry addT
 
   \begin{block}{function composition}
     \begin{lstlisting}
-(f . g) = f (g x)
+(f . g) x = f (g x)
     \end{lstlisting}
   \end{block}
 
@@ -419,6 +419,8 @@ addC = curry addT
   \begin{exampleblock}{}
     \begin{lstlisting}
 (.) : (b -> c) -> (a -> b) -> a -> c
+(.) f g x = f (g x)
+infixr 9 .
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -428,8 +430,8 @@ addC = curry addT
 
   \begin{exampleblock}{test whether number is even}
     \begin{lstlisting}
-even' :: Integer -> Bool
-even' = not . odd
+even :: Integer -> Bool
+even = not . odd
     \end{lstlisting}
   \end{exampleblock}
 
@@ -447,16 +449,16 @@ second = head . tail
 
   \begin{exampleblock}{last element of a list}
     \begin{lstlisting}
-last' :: [a] -> a
-last' = head . reverse
+last :: [a] -> a
+last = head . reverse
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{exampleblock}{length of a list}
     \begin{lstlisting}
-length' :: [a] -> Integer
-length' = sum . map (\_ -> 1)
+length :: [a] -> Int
+length = sum . map (\_ -> 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -471,6 +473,28 @@ length' = sum . map (\_ -> 1)
 f $ x = f x
     \end{lstlisting}
   \end{block}
+
+  \pause
+  \begin{itemize}
+    \item what is the type of \lstinline|($)|?
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+($) :: (a -> b) -> a -> b
+f $ x = f x
+infixr 0 $
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item why?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Application}
 
   \begin{itemize}
     \item less parentheses, more readable
