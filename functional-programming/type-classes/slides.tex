@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -7,12 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -26,7 +31,7 @@
 \subtitle{Type Classes}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -41,8 +46,6 @@
 
 \begin{document}
 
-\setpythontexfv[]{frame=single}
-
 \begin{frame}
   \titlepage
 \end{frame}
@@ -51,37 +54,38 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
+  \begin{footnotesize}
     You are free to:
     \begin{itemize}
+      \itemsep0em
       \item Share -- copy and redistribute the material in any medium or format
       \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
     Under the following terms:
     \begin{itemize}
+      \itemsep0em
       \item Attribution -- You must give appropriate credit, provide a link to
-        the license, and indicate if changes were made.\\
-        You may do so in any reasonable manner, but not in any way
-        that suggests the licensor endorses you or your use.
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use the material for commercial
+      \item NonCommercial -- You may not use the material for commercial
         purposes.
 
-      \item Share Alike -- If you remix, transform, or build upon the material,
-        you must distribute your contributions\\
-        under the same license as the original.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
 
-  \vfill
-  \begin{small}
-    Legal code (the full license):\\
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -91,7 +95,7 @@
 
 \section{Type Classes}
 
-\subsection{Overloading}
+\subsection{Introduction}
 
 \begin{frame}[fragile]
   \frametitle{Overloading}
@@ -101,23 +105,21 @@
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-elem' :: Char -> [Char] -> Bool
-elem' _ []     = False
-elem' x (c:cs) = if x == c then True else elem' x cs
-    \end{pygments}
+    \begin{lstlisting}
+elem :: Char -> [Char] -> Bool
+elem _ []     = False
+elem x (c:cs) = if x == c then True else elem x cs
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item a different function for every type?
     \item better to write it as:\\
-      \pygment{haskell}{a -> [a] -> Bool}
+      \lstinline|a -> [a] -> Bool|
     \item the type has to support equality checking
   \end{itemize}
 \end{frame}
-
-\subsection{Type Classes}
 
 \begin{frame}[fragile]
   \frametitle{Type Classes}
@@ -128,15 +130,14 @@ elem' x (c:cs) = if x == c then True else elem' x cs
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 class Eq a where
   (==) :: a -> a -> Bool
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
-  \pause
   \begin{itemize}
-    \item every type belonging to the class has to implement its functions
+    \item every type belonging to the class must implement its functions
     \item members of a type class are called its \alert{instances}
   \end{itemize}
 \end{frame}
@@ -145,27 +146,27 @@ class Eq a where
   \frametitle{Type Classes}
 
   \begin{itemize}
-    \item basic types like \pygment{haskell}{Bool}, \pygment{haskell}{Char},
-      \pygment{haskell}{Integer}, \pygment{haskell}{Float} are instances\\
-      of the type class \pygment{haskell}{Eq}
-    \item tuples and lists are also instances of \pygment{haskell}{Eq}
+    \item scalar types like \lstinline|Bool|, \lstinline|Char|,
+      \lstinline|Integer|, \lstinline|Float| are instances\\
+      of the type class \lstinline|Eq|
+    \item tuples and lists are also instances of \lstinline|Eq|
   \end{itemize}
 
   \pause
+  % TODO: context
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-elem' :: Eq a => a -> [a] -> Bool
-elem' _ []     = False
-elem' x (c:cs) = if x == c then True else elem' x cs
-    \end{pygments}
+    \begin{lstlisting}
+elem :: Eq a => a -> [a] -> Bool
+elem _ []     = False
+elem x (c:cs) = if x == c then True else elem x cs
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Defining Instances}
+  \frametitle{Instance Example}
 
-  \begin{exampleblock}{rock - paper - scissors}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 data Move = Rock | Paper | Scissors
 
 instance Eq Move where
@@ -174,28 +175,21 @@ instance Eq Move where
   (==) Scissors Scissors = True
   (==) _        _        = False
 
-elem' Paper [Rock, Paper, Rock]    -- True
-elem' Scissors [Rock, Paper, Rock] -- False
-    \end{pygments}
-  \end{exampleblock}
+elem Paper [Rock, Paper, Rock]    -- True
+elem Scissors [Rock, Paper, Rock] -- False
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Defining Instances}
+  \frametitle{Instance Example}
 
-  \begin{itemize}
-    \item using the infix notation
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{lstlisting}
 instance Eq Move where
   Rock     == Rock     = True
   Paper    == Paper    = True
   Scissors == Scissors = True
   _        == _        = False
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -206,19 +200,17 @@ instance Eq Move where
     \item they can be overridden by instances
   \end{itemize}
 
-  \pause
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 class Eq a where
   (==), (/=) :: a -> a -> Bool
   x /= y = not (x == y)
   x == y = not (x /= y)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item defining either \pygment{haskell}{==} or \pygment{haskell}{/=}
-      is enough
+    \item define one of \lstinline|==| and \lstinline|/=|
   \end{itemize}
 \end{frame}
 
@@ -226,29 +218,29 @@ class Eq a where
   \frametitle{Derived Instances}
 
   \begin{itemize}
-    \item default equality checker: derive from \pygment{haskell}{Eq}
+    \item default equality checker: derive from \lstinline|Eq|
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Move = Rock | Paper | Scissors
             deriving Eq
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item default string conversion: derive from \pygment{haskell}{Show}
+    \item default string conversion: derive from \lstinline|Show|
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 class Show a where
   show :: a -> String
 
 data Move = Rock | Paper | Scissors
             deriving (Eq, Show)
-   \end{pygments}
+   \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -256,16 +248,15 @@ data Move = Rock | Paper | Scissors
   \frametitle{Type Class Example}
 
   \begin{exampleblock}{rational numbers}
-    \begin{pygments}{haskell}
-data Rational' = Fraction Integer Integer
+    \begin{lstlisting}
+data Rational = Fraction Integer Integer
 
-instance Eq Rational' where
-  Fraction n1 d1 == Fraction n2 d2 =
-      n1 * d2 == n2 * d1
+instance Eq Rational where
+  Fraction n1 d1 == Fraction n2 d2 = n1 * d2 == n2 * d1
 
-instance Show Rational' where
+instance Show Rational where
   show (Fraction n d) = show n ++ "/" ++ show d
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -278,40 +269,39 @@ instance Show Rational' where
     \item type classes can depend on other type classes
   \end{itemize}
 
-  \begin{exampleblock}{ordering}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{example: ordering}
+    \begin{lstlisting}
 class Eq a => Ord a where
   (<), (<=), (>), (>=) :: a -> a -> Bool
 
   x <= y = (x < y || x == y)
   x >  y = y < x
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Type Class Example}
 
-  \begin{exampleblock}{rational numbers}
-    \begin{pygments}{haskell}
-instance Ord Rational' where
+  \begin{lstlisting}
+instance Ord Rational where
   Fraction n1 d1 < Fraction n2 d2 = n1 * d2 < n2 * d1
 
-quickSort :: Ord a => [a] -> [a]
-quickSort []         = []
-quickSort (pivot:xs) =
-    quickSort [x | x <- xs, x <= pivot]
-    ++ [pivot]
-    ++ quickSort [x | x <- xs, x > pivot]
-    \end{pygments}
-  \end{exampleblock}
+qSort :: Ord a => [a] -> [a]
+qSort []     = []
+qSort (x:xs) =
+    qSort before ++ [x] ++ qSort after
+      where
+        before = [a | a <- xs, a <= x]
+        after  = [b | b <- xs, a >  x]
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Ordering}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Ordering = LT | EQ | GT
 
 class Eq a => Ord a where
@@ -323,11 +313,11 @@ class Eq a => Ord a where
     | x == y    = EQ
     | x <= y    = LT
     | otherwise = GT
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item define either \pygment{haskell}{compare} or \pygment{haskell}{<=}
+    \item define either \lstinline|compare| or \lstinline|<=|
   \end{itemize}
 \end{frame}
 
@@ -335,7 +325,7 @@ class Eq a => Ord a where
   \frametitle{Ordering Default Definitions}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 class Eq a => Ord a where
 
   x <= y = compare x y /= GT
@@ -350,7 +340,7 @@ class Eq a => Ord a where
   min x y
     | x < y     = x
     | otherwise = y
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -358,7 +348,7 @@ class Eq a => Ord a where
   \frametitle{Numeric Type Class}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 class (Eq a, Show a) => Num a where
   (+), (-), (*) :: a -> a -> a
   negate        :: a -> a
@@ -366,21 +356,21 @@ class (Eq a, Show a) => Num a where
   fromInteger   :: Integer -> a
 
   x - y = x + negate y
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item exercise: make \pygment{haskell}{Rational'} an instance of
-      \pygment{haskell}{Num}
+    \item exercise: make \lstinline|Rational| an instance of
+      \lstinline|Num|
   \end{itemize}
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Numeric Type Class}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-instance Num Rational' where
+    \begin{lstlisting}
+instance Num Rational where
   Fraction n1 d1 + Fraction n2 d2 =
       Fraction (n1 * d2 + n2 * d1) (d1 * d2)
   Fraction n1 d1 * Fraction n2 d2 =
@@ -390,10 +380,10 @@ instance Num Rational' where
   abs (Fraction n d)    = Fraction (abs n) (abs d)
   signum (Fraction n d)
     | n < 0     = Fraction (-1) 1
-    | otherwise = Fraction 1 1
+    | otherwise = Fraction   1  1
 
   fromInteger n = Fraction n 1
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -403,7 +393,7 @@ instance Num Rational' where
   \frametitle{Type Inference}
 
   \begin{itemize}
-    \item type of entity not explicitly stated
+    \item type of entity not explicitly written
     \item inferred by the language processor
 
     \pause
@@ -416,13 +406,12 @@ instance Num Rational' where
 \begin{frame}[fragile]
   \frametitle{Type Inference Examples}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-even' n = n `mod` 2 == 0
--- even' :: Integral a => a -> Bool
+  \begin{lstlisting}
+even n = n `mod` 2 == 0
+-- even :: Integral a => a -> Bool
 
-evenMessage n = if even' n then "even" else "odd"
--- evenMessage :: Integral a => a  -> [Char]
+evenMessage n = if even n then "even" else "odd"
+-- evenMessage :: Integral a => a -> [Char]
 
 shrink x y z = if x then y `div` z else y
 -- shrink :: Integral a => Bool -> a -> a -> a
@@ -432,15 +421,15 @@ foo1 x y = if x then y else x + 1
 
 foo2 f g x = (f x, g x)
 -- (t2 -> t) -> (t2 -> t1) -> t2 -> (t, t1)
-    \end{pygments}
-  \end{exampleblock}
+  \end{lstlisting}
+
 \end{frame}
 
-\begin{frame}<beamer>[fragile]
+\begin{frame}[fragile]
   \frametitle{Type Inference Examples}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 f (x, y) = (x, ['a' .. y])
 -- (t, Char) -> (t, [Char])
 
@@ -449,7 +438,7 @@ g (m, zs) = m + length zs
 
 h = g . f
 -- h :: (Int, Char) -> Int
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -465,12 +454,12 @@ h = g . f
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Expr = Lit Integer |
             Add Expr Expr |
             Mul Expr Expr
             deriving Show
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -478,14 +467,14 @@ data Expr = Lit Integer |
   \frametitle{Recursive Algebraic Types}
 
   \begin{exampleblock}{evaluation}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 eval :: Expr -> Integer
 eval e =
   case e of
      Lit n     -> n
      Add e1 e2 -> (eval e1) + (eval e2)
      Mul e1 e2 -> (eval e1) * (eval e2)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -493,20 +482,20 @@ eval e =
   \frametitle{Recursive Algebraic Types}
 
   \begin{exampleblock}{string conversion}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 instance Show Expr where
   show e =
     case e of
       Lit n     -> show n
       Add e1 e2 -> show e1 ++ "+" ++ show e2
       Mul e1 e2 -> show e1 ++ "*" ++ show e2
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
-    \item incorrect:
-      \pygment{haskell}{Mul (Add (Lit 2) (Lit 3)) (Lit 5)}
+    \item incorrect:\\
+      \lstinline|Mul (Add (Lit 2) (Lit 3)) (Lit 5)|
     \item exercise: write a correct implementation\\
       using the least number of parentheses
   \end{itemize}
@@ -516,7 +505,7 @@ instance Show Expr where
   \frametitle{Recursive Algebraic Types}
 
   \begin{exampleblock}{binary integer tree}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data IntTree = NilT | NodeT Integer IntTree IntTree
 
 sumTree :: IntTree -> Integer
@@ -526,7 +515,7 @@ sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
 depth :: IntTree -> Integer
 depth NilT            = 0
 depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -540,7 +529,7 @@ depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Tree a = NilT | NodeT a (Tree a) (Tree a)
 
 sumTree :: Integral a => Tree a -> a
@@ -550,7 +539,7 @@ sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
 depth :: Tree a -> Integer
 depth NilT            = 0
 depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -564,7 +553,7 @@ depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Maybe a = Nothing | Just a
                deriving (Eq, Ord, Read, Show)
 
@@ -573,7 +562,7 @@ errDiv :: Integer -> Integer -> Maybe Integer
 errDiv n m
   | m /= 0    = Just (n `div` m)
   | otherwise = Nothing
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -581,11 +570,11 @@ errDiv n m
   \frametitle{The Maybe Type}
 
   \begin{exampleblock}{maximum of a list}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 maxListMaybe :: Ord a => [a] -> Maybe a
 maxListMaybe []     = Nothing
 maxListMaybe (x:xs) = Just (foldl max x xs)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -597,11 +586,11 @@ maxListMaybe (x:xs) = Just (foldl max x xs)
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
 mapMaybe g Nothing  = Nothing
 mapMaybe g (Just x) = Just (g x)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -613,11 +602,11 @@ mapMaybe g (Just x) = Just (g x)
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-maybe' :: b -> (a -> b) -> Maybe a -> b
-maybe' n f Nothing  = n
-maybe' n f (Just x) = f x
-    \end{pygments}
+    \begin{lstlisting}
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe n f Nothing  = n
+maybe n f (Just x) = f x
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -625,14 +614,14 @@ maybe' n f (Just x) = f x
   \frametitle{The Either Type}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 data Either a b = Left a | Right b
                   deriving (Eq, Ord, Read, Show)
 
-either' :: (a -> c) -> (b -> c) -> Either a b -> c
-either' f g (Left x)  = f x
-either' f g (Right y) = g y
-    \end{pygments}
+either :: (a -> c) -> (b -> c) -> Either a b -> c
+either f g (Left x)  = f x
+either f g (Right y) = g y
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
