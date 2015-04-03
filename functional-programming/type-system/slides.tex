@@ -28,7 +28,7 @@
 }
 
 \title{Functional Programming}
-\subtitle{Type Classes}
+\subtitle{Type System}
 
 \author{H. Turgut Uyar}
 \date{2013-2015}
@@ -93,31 +93,201 @@
   \tableofcontents
 \end{frame}
 
-\section{Type Classes}
+\section{Type System}
 
-\subsection{Introduction}
+\subsection{Static vs Dynamic Typing}
 
-\begin{frame}[fragile]
-  \frametitle{Overloading}
+\begin{frame}
+  \frametitle{Type Errors}
 
   \begin{itemize}
-    \item check whether an item is an element of a list
+    \item prevent operations that do not make sense
+    \item check type of operands before operation
+
+    \medskip
+    \item \alert{strongly typed}:\\
+      prohibit the application of any operation to any object\\
+      that is not intended to support the operation
   \end{itemize}
 
-  \begin{exampleblock}{}
+  \pause
+  \begin{exampleblock}{examples}
+    \begin{itemize}
+      \item \lstinline|mod|: both operands must be integers
+      \item \lstinline|and|: operand must be a list of booleans
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Weak Typing Example}
+
+  \begin{exampleblock}{C}
+    \begin{lstlisting}[language=C]
+void print_int(int i)
+{
+    printf("%d\n", i);
+}
+
+int main(int argc, char *argv[])
+{
+    float x = 51.2;     // char x[] = "itucs";
+    print_int(x);
+    return 0;
+}
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Type Checks}
+
+  \begin{itemize}
+    \item \alert{static} typing: checks at compile-time
+    \item variables and expressions have fixed types
+
+    \bigskip
+    \item \alert{dynamic} typing: checks at run-time
+    \item variables and expressions do not have fixed types
+    \item values have fixed types
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Static Typing Example}
+
+  \begin{exampleblock}{static: Java}
+    \begin{lstlisting}[language=Java]
+public static boolean even(int n)
+{
+  return (n % 2 == 0);
+}
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}{dynamic: Python}
+    \begin{lstlisting}[language=Python]
+def even(n):
+  return (n % 2 == 0)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison}
+
+  \begin{columns}[t]
+    \column{.35\textwidth}
+    \begin{itemize}
+      \item static typing
+      \smallskip
+      \item more efficient
+      \item more secure
+      \item less flexible
+    \end{itemize}
+
+    \column{.65\textwidth}
+    \begin{itemize}
+      \item dynamic typing
+      \smallskip
+      \item requires tags: more memory
+      \item poorer performance
+      \item greater flexibility
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dynamic Typing Problem}
+
+  \begin{exampleblock}{Python}
+    \begin{lstlisting}[language=Python]
+birthYear = 1985
+if condition:
+    birth_year = 1988
+if birthYear < 1987:
+    do_action()
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Type Inference}
+
+\begin{frame}
+  \frametitle{Type Inference}
+
+  \begin{itemize}
+    \item type of entity not explicitly written
+    \item inferred by the language processor
+
+    \medskip
+    \item assign every binding a type such that type checking succeeds
+    \item fail if no such assignment can be found
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Inference Examples}
+
+  \begin{lstlisting}
+nand x y = not (x && y)
+-- nand :: Bool -> Bool -> Bool
+
+limitedLast s n =
+    if (length s > n) then s !! (n - 1) else (last s)
+-- limitedLast :: [a] -> Int -> a
+
+capitalize s = toUpper (s !! 0) : drop 1 s
+-- capitalize :: [Char] -> [Char]
+
+foo1 x y = if x then y else x + 1
+-- type inference fails
+
+foo2 f g x = (f x, g x)
+-- (a -> b) -> (a -> c) -> a -> (b, c)
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Type Inference Examples}
+
+  \begin{lstlisting}
+f (x, y) = (x, ['a' .. y])
+
+g (m, zs) = m + length zs
+
+h = g . f
+  \end{lstlisting}
+
+  \medskip
+  \begin{itemize}
+    \item exercise: what are the types of \lstinline|f|, \lstinline|g|,
+      and \lstinline|h|?
+  \end{itemize}
+\end{frame}
+
+\subsection{Type Classes}
+
+\begin{frame}[fragile]
+  \frametitle{Type Classes}
+
+  \begin{exampleblock}{check whether an item is an element of a list}
     \begin{lstlisting}
-elem :: Char -> [Char] -> Bool
-elem _ []     = False
-elem x (c:cs) = if x == c then True else elem x cs
+elemChar :: Char -> [Char] -> Bool
+elemChar _ []     = False
+elemChar x (c:cs)
+  | x == c        = True
+  | otherwise     = elemChar x cs
     \end{lstlisting}
   \end{exampleblock}
 
   \pause
   \begin{itemize}
     \item a different function for every type?
-    \item better to write it as:\\
+    \item better if we can write it as:\\
       \lstinline|a -> [a] -> Bool|
-    \item the type has to support equality checking
+    \item provided that type \lstinline|a| supports equality check
   \end{itemize}
 \end{frame}
 
@@ -127,38 +297,39 @@ elem x (c:cs) = if x == c then True else elem x cs
   \begin{itemize}
     \item \alert{type class}: a collection of types\\
       over which some functions are defined
+    \item every type belonging to the class must implement its functions
+    \item members of a type class are called its \alert{instances}
   \end{itemize}
 
-  \begin{exampleblock}{}
+  \pause
+  \begin{exampleblock}{equality class}
     \begin{lstlisting}
 class Eq a where
   (==) :: a -> a -> Bool
     \end{lstlisting}
+    \begin{itemize}
+      \item \lstinline|Bool|, \lstinline|Char|, \lstinline|Integer|, \lstinline|Float|
+        are instances of \lstinline|Eq|
+      \item tuples and lists are also instances of \lstinline|Eq|
+    \end{itemize}
   \end{exampleblock}
-
-  \begin{itemize}
-    \item every type belonging to the class must implement its functions
-    \item members of a type class are called its \alert{instances}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Classes}
+  \frametitle{Context}
 
   \begin{itemize}
-    \item scalar types like \lstinline|Bool|, \lstinline|Char|,
-      \lstinline|Integer|, \lstinline|Float| are instances\\
-      of the type class \lstinline|Eq|
-    \item tuples and lists are also instances of \lstinline|Eq|
+    \item type signature can contain context (``provided that``)
+    \item a type being an instance of a class
   \end{itemize}
 
-  \pause
-  % TODO: context
   \begin{exampleblock}{}
     \begin{lstlisting}
 elem :: Eq a => a -> [a] -> Bool
 elem _ []     = False
-elem x (c:cs) = if x == c then True else elem x cs
+elem x (c:cs)
+  | x == c    = True
+  | otherwise = elem x cs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -170,55 +341,21 @@ elem x (c:cs) = if x == c then True else elem x cs
 data Move = Rock | Paper | Scissors
 
 instance Eq Move where
-  (==) Rock     Rock     = True
+  (==) Rock     Rock     = True  -- Rock == Rock = True
   (==) Paper    Paper    = True
   (==) Scissors Scissors = True
   (==) _        _        = False
 
-elem Paper [Rock, Paper, Rock]    -- True
+elem Paper    [Rock, Paper, Rock] -- True
 elem Scissors [Rock, Paper, Rock] -- False
   \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Instance Example}
-
-  \begin{lstlisting}
-instance Eq Move where
-  Rock     == Rock     = True
-  Paper    == Paper    = True
-  Scissors == Scissors = True
-  _        == _        = False
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Default Definitions}
-
-  \begin{itemize}
-    \item classes can contain default definitions for functions
-    \item they can be overridden by instances
-  \end{itemize}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-class Eq a where
-  (==), (/=) :: a -> a -> Bool
-  x /= y = not (x == y)
-  x == y = not (x /= y)
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{itemize}
-    \item define one of \lstinline|==| and \lstinline|/=|
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Derived Instances}
 
   \begin{itemize}
-    \item default equality checker: derive from \lstinline|Eq|
+    \item default equality check: derive from \lstinline|Eq|
   \end{itemize}
 
   \begin{exampleblock}{}
@@ -245,7 +382,7 @@ data Move = Rock | Paper | Scissors
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Type Class Example}
+  \frametitle{Instance Example}
 
   \begin{exampleblock}{rational numbers}
     \begin{lstlisting}
@@ -260,7 +397,28 @@ instance Show Rational where
   \end{exampleblock}
 \end{frame}
 
-\subsection{Derived Classes}
+\begin{frame}[fragile]
+  \frametitle{Default Definitions}
+
+  \begin{itemize}
+    \item classes can contain default definitions for functions
+    \item they can be overridden by instances
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+class Eq a where
+  (==), (/=) :: a -> a -> Bool
+
+  x /= y = not (x == y)
+  x == y = not (x /= y)
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item defining one of \lstinline|==| and \lstinline|/=| is enough
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Derived Classes}
@@ -269,7 +427,7 @@ instance Show Rational where
     \item type classes can depend on other type classes
   \end{itemize}
 
-  \begin{exampleblock}{example: ordering}
+  \begin{exampleblock}{ordering class}
     \begin{lstlisting}
 class Eq a => Ord a where
   (<), (<=), (>), (>=) :: a -> a -> Bool
@@ -289,19 +447,17 @@ instance Ord Rational where
 
 qSort :: Ord a => [a] -> [a]
 qSort []     = []
-qSort (x:xs) =
-    qSort before ++ [x] ++ qSort after
-      where
-        before = [a | a <- xs, a <= x]
-        after  = [b | b <- xs, a >  x]
+qSort (x:xs) = qSort before ++ [x] ++ qSort after
+  where
+    before = [b | b <- xs, b <= x]
+    after  = [a | a <- xs, a >  x]
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Ordering}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 data Ordering = LT | EQ | GT
 
 class Eq a => Ord a where
@@ -313,25 +469,21 @@ class Eq a => Ord a where
     | x == y    = EQ
     | x <= y    = LT
     | otherwise = GT
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 
   \begin{itemize}
-    \item define either \lstinline|compare| or \lstinline|<=|
+    \item define one of \lstinline|compare| and \lstinline|<=|
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Ordering Default Definitions}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-class Eq a => Ord a where
-
+  \begin{lstlisting}
   x <= y = compare x y /= GT
-  x < y  = compare x y == LT
+  x <  y = compare x y == LT
   x >= y = compare x y /= LT
-  x > y  = compare x y == GT
+  x >  y = compare x y == GT
 
   max x y
     | x <= y    = y
@@ -340,15 +492,13 @@ class Eq a => Ord a where
   min x y
     | x < y     = x
     | otherwise = y
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Numeric Type Class}
+  \frametitle{Numeric Class}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 class (Eq a, Show a) => Num a where
   (+), (-), (*) :: a -> a -> a
   negate        :: a -> a
@@ -356,8 +506,7 @@ class (Eq a, Show a) => Num a where
   fromInteger   :: Integer -> a
 
   x - y = x + negate y
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 
   \begin{itemize}
     \item exercise: make \lstinline|Rational| an instance of
@@ -365,86 +514,9 @@ class (Eq a, Show a) => Num a where
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Numeric Type Class}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-instance Num Rational where
-  Fraction n1 d1 + Fraction n2 d2 =
-      Fraction (n1 * d2 + n2 * d1) (d1 * d2)
-  Fraction n1 d1 * Fraction n2 d2 =
-      Fraction (n1 * n2) (d1 * d2)
-
-  negate (Fraction n d) = Fraction (-n) d
-  abs (Fraction n d)    = Fraction (abs n) (abs d)
-  signum (Fraction n d)
-    | n < 0     = Fraction (-1) 1
-    | otherwise = Fraction   1  1
-
-  fromInteger n = Fraction n 1
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\subsection{Type Inference}
-
-\begin{frame}
-  \frametitle{Type Inference}
-
-  \begin{itemize}
-    \item type of entity not explicitly written
-    \item inferred by the language processor
-
-    \pause
-    \medskip
-    \item assign every binding a type such that type checking succeeds
-    \item fail if no such assignment can be found
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Type Inference Examples}
-
-  \begin{lstlisting}
-even n = n `mod` 2 == 0
--- even :: Integral a => a -> Bool
-
-evenMessage n = if even n then "even" else "odd"
--- evenMessage :: Integral a => a -> [Char]
-
-shrink x y z = if x then y `div` z else y
--- shrink :: Integral a => Bool -> a -> a -> a
-
-foo1 x y = if x then y else x + 1
--- type inference fails
-
-foo2 f g x = (f x, g x)
--- (t2 -> t) -> (t2 -> t1) -> t2 -> (t, t1)
-  \end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Type Inference Examples}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-f (x, y) = (x, ['a' .. y])
--- (t, Char) -> (t, [Char])
-
-g (m, zs) = m + length zs
--- g :: (Int, [a]) -> Int
-
-h = g . f
--- h :: (Int, Char) -> Int
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
 \section{Algebraic Types}
 
-\subsection{Recursive Algebraic Types}
+\subsection{Recursive Types}
 
 \begin{frame}[fragile]
   \frametitle{Recursive Algebraic Types}
@@ -453,12 +525,11 @@ h = g . f
     \item types can be described in terms of themselves
   \end{itemize}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{example: expressions}
     \begin{lstlisting}
 data Expr = Lit Integer |
             Add Expr Expr |
             Mul Expr Expr
-            deriving Show
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -466,14 +537,13 @@ data Expr = Lit Integer |
 \begin{frame}[fragile]
   \frametitle{Recursive Algebraic Types}
 
-  \begin{exampleblock}{evaluation}
+  \begin{exampleblock}{example: evaluating an expression}
     \begin{lstlisting}
 eval :: Expr -> Integer
-eval e =
-  case e of
-     Lit n     -> n
-     Add e1 e2 -> (eval e1) + (eval e2)
-     Mul e1 e2 -> (eval e1) * (eval e2)
+eval e = case e of
+    Lit n     -> n
+    Add e1 e2 -> (eval e1) + (eval e2)
+    Mul e1 e2 -> (eval e1) * (eval e2)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -481,11 +551,10 @@ eval e =
 \begin{frame}[fragile]
   \frametitle{Recursive Algebraic Types}
 
-  \begin{exampleblock}{string conversion}
+  \begin{exampleblock}{example: converting an expression to a string}
     \begin{lstlisting}
 instance Show Expr where
-  show e =
-    case e of
+  show e = case e of
       Lit n     -> show n
       Add e1 e2 -> show e1 ++ "+" ++ show e2
       Mul e1 e2 -> show e1 ++ "*" ++ show e2
@@ -494,51 +563,47 @@ instance Show Expr where
 
   \pause
   \begin{itemize}
-    \item incorrect:\\
+    \item precedences incorrect, try with:\\
       \lstinline|Mul (Add (Lit 2) (Lit 3)) (Lit 5)|
     \item exercise: write a correct implementation\\
-      using the least number of parentheses
+      where the string will contain the minimal number of parentheses
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Recursive Algebraic Types}
-
-  \begin{exampleblock}{binary integer tree}
-    \begin{lstlisting}
-data IntTree = NilT | NodeT Integer IntTree IntTree
-
-sumTree :: IntTree -> Integer
-sumTree NilT            = 0
-sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
-
-depth :: IntTree -> Integer
-depth NilT            = 0
-depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\subsection{Polymorphic Algebraic Types}
+\subsection{Polymorphic Types}
 
 \begin{frame}[fragile]
   \frametitle{Polymorphic Algebraic Types}
 
-  \begin{itemize}
-    \item generalize the tree type
-  \end{itemize}
-
-  \begin{exampleblock}{}
+  \begin{exampleblock}{example: integer binary tree}
     \begin{lstlisting}
-data Tree a = NilT | NodeT a (Tree a) (Tree a)
+data BinTree = Nil | Node Int BinTree BinTree
 
-sumTree :: Integral a => Tree a -> a
-sumTree NilT            = 0
-sumTree (NodeT n t1 t2) = n + sumTree t1 + sumTree t2
-
-depth :: Tree a -> Integer
+depth :: BinTree -> Int
 depth NilT            = 0
 depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
+
+sumTree :: BinTree -> Int
+sumTree Nil            = 0
+sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Polymorphic Algebraic Types}
+
+  \begin{exampleblock}{example: polymorphic binary tree}
+    \begin{lstlisting}
+data BinTree a = Nil | Node a (BinTree a) (BinTree a)
+
+depth :: BinTree a -> Integer
+depth Nil            = 0
+depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
+
+sumTree :: Num a => BinTree a -> a
+sumTree Nil            = 0
+sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -552,28 +617,29 @@ depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
     \item returning an error value
   \end{itemize}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 data Maybe a = Nothing | Just a
                deriving (Eq, Ord, Read, Show)
+  \end{lstlisting}
 
-
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
 errDiv :: Integer -> Integer -> Maybe Integer
-errDiv n m
-  | m /= 0    = Just (n `div` m)
-  | otherwise = Nothing
+errDiv m n
+  | n == 0    = Nothing
+  | otherwise = Just (m `div` n)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{The Maybe Type}
+  \frametitle{Maybe Example}
 
   \begin{exampleblock}{maximum of a list}
     \begin{lstlisting}
-maxListMaybe :: Ord a => [a] -> Maybe a
-maxListMaybe []     = Nothing
-maxListMaybe (x:xs) = Just (foldl max x xs)
+maxList :: Ord a => [a] -> Maybe a
+maxList []     = Nothing
+maxList (x:xs) = Just (foldl max x xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -590,6 +656,9 @@ maxListMaybe (x:xs) = Just (foldl max x xs)
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
 mapMaybe g Nothing  = Nothing
 mapMaybe g (Just x) = Just (g x)
+
+mapMaybe length Nothing          -- Nothing
+mapMaybe length (Just "haskell") -- Just 7
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -606,6 +675,9 @@ mapMaybe g (Just x) = Just (g x)
 maybe :: b -> (a -> b) -> Maybe a -> b
 maybe n f Nothing  = n
 maybe n f (Just x) = f x
+
+maybe 0 length Nothing          -- 0
+maybe 0 length (Just "haskell") -- 7
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -613,19 +685,52 @@ maybe n f (Just x) = f x
 \begin{frame}[fragile]
   \frametitle{The Either Type}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{itemize}
+    \item one of two types
+  \end{itemize}
+
+  \begin{lstlisting}
 data Either a b = Left a | Right b
                   deriving (Eq, Ord, Read, Show)
+  \end{lstlisting}
 
-either :: (a -> c) -> (b -> c) -> Either a b -> c
-either f g (Left x)  = f x
-either f g (Right y) = g y
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+isFalse :: Either Integer [a] -> Bool
+isFalse (Left  0)  = True
+isFalse (Right []) = True
+isFalse _          = False
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-% TODO: join exercise (14.20 p. 336) from the book
+\begin{frame}[fragile]
+  \frametitle{Either Example}
+
+  \begin{lstlisting}
+either :: (a -> c) -> (b -> c) -> Either a b -> c
+either f g (Left  x) = f x
+either f g (Right y) = g y
+
+either length abs (Left  "haskell") -- 7
+either length abs (Right (-8))      -- 8
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Either Example}
+
+  \begin{lstlisting}
+join f g (Left  x) = Left  (f x)
+join f g (Right y) = Right (g y)
+  \end{lstlisting}
+
+  \medskip
+  \begin{itemize}
+    \item exercise: what is the type of \lstinline|join|?
+    \item how can it be invoked?
+  \end{itemize}
+\end{frame}
 
 \section*{References}
 
