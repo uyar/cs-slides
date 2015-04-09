@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Static Typing Example}
+  \frametitle{Type System Examples}
 
   \begin{exampleblock}{static: Java}
     \begin{lstlisting}[language=Java]
@@ -195,20 +195,6 @@ def even(n):
       \item greater flexibility
     \end{itemize}
   \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Dynamic Typing Problem}
-
-  \begin{exampleblock}{Python}
-    \begin{lstlisting}[language=Python]
-birthYear = 1985
-if condition:
-    birth_year = 1988
-if birthYear < 1987:
-    do_action()
-    \end{lstlisting}
-  \end{exampleblock}
 \end{frame}
 
 \subsection{Type Inference}
@@ -580,8 +566,8 @@ instance Show Expr where
 data BinTree = Nil | Node Int BinTree BinTree
 
 depth :: BinTree -> Int
-depth NilT            = 0
-depth (NodeT _ t1 t2) = 1 + max (depth t1) (depth t2)
+depth Nil            = 0
+depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
 
 sumTree :: BinTree -> Int
 sumTree Nil            = 0
