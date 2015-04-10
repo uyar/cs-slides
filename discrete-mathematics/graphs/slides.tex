@@ -1163,11 +1163,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Traversable Graphs}
-
-  \begin{definition}
-    $G$ is \alert{traversable}: $G$ contains a spanning trail
-  \end{definition}
+  \frametitle{Graphs}
 
   \begin{center}
     \pgfuseimage{konigsgraph}
@@ -1176,6 +1172,10 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
 \begin{frame}
   \frametitle{Traversable Graphs}
+
+  \begin{definition}
+    $G$ is \alert{traversable}: $G$ contains a spanning trail
+  \end{definition}
 
   \begin{itemize}
     \item a node with an odd degree must be either the starting node\\
@@ -1383,48 +1383,48 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \end{itemize}
   \end{example}
 \end{frame}
-% 
+%
 % \begin{frame}
 %   \frametitle{Proof of Euler's Formula}
-% 
+%
 %   \begin{block}{Proof}
 %     method: induction on $|E|$
-% 
+%
 %     \pause
 %     \begin{itemize}
 %       \item base step: one node, no edges\\
 %         $|V| = 1$, $|E| = 0$, $|R| = 1$
-% 
+%
 %       \pause
 %       \item assume it holds for a connected, planar graph with $k$ edges
 %     \end{itemize}
 %   \end{block}
 % \end{frame}
-% 
+%
 % \begin{frame}
 %   \frametitle{Proof of Euler's Formula}
-% 
+%
 %   \begin{proof}[Induction Step]
 %     \begin{columns}[t]
 %       \column{.5\textwidth}
 %       \begin{itemize}
 %         \item connect a new node\\
 % 	  to an existing node:
-% 
+%
 %         \medskip
 %         \pgfuseimage{eulerproof1}
 %       \end{itemize}
-% 
+%
 %       \column{.5\textwidth}
 %       \begin{itemize}
 %         \item add an edge between\\
 % 	  two existing nodes:
-% 
+%
 %         \medskip
 %         \pgfuseimage{eulerproof2}
 %       \end{itemize}
 %     \end{columns}
-% 
+%
 %     \pause
 %     \begin{columns}
 %       \column{.5\textwidth}
@@ -1433,7 +1433,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 % 	  $|E|$ is increased by 1,\\
 %           $|R|$ remains the same
 %       \end{itemize}
-% 
+%
 %       \pause
 %       \column{.5\textwidth}
 %       \begin{itemize}
