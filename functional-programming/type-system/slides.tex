@@ -158,8 +158,7 @@ int main(int argc, char *argv[])
 
   \begin{exampleblock}{static: Java}
     \begin{lstlisting}[language=Java]
-public static boolean even(int n)
-{
+public static boolean even(int n) {
   return (n % 2 == 0);
 }
     \end{lstlisting}
@@ -262,9 +261,8 @@ h = g . f
     \begin{lstlisting}
 elemChar :: Char -> [Char] -> Bool
 elemChar _ []     = False
-elemChar x (c:cs)
-  | x == c        = True
-  | otherwise     = elemChar x cs
+elemChar x (c:cs) =
+    if x == c then True else elemChar x cs
     \end{lstlisting}
   \end{exampleblock}
 
@@ -313,9 +311,7 @@ class Eq a where
     \begin{lstlisting}
 elem :: Eq a => a -> [a] -> Bool
 elem _ []     = False
-elem x (c:cs)
-  | x == c    = True
-  | otherwise = elem x cs
+elem x (c:cs) = if x == c then True else elem x cs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -332,8 +328,8 @@ instance Eq Move where
   (==) Scissors Scissors = True
   (==) _        _        = False
 
-elem Paper    [Rock, Paper, Rock] -- True
-elem Scissors [Rock, Paper, Rock] -- False
+-- elem Paper    [Rock, Paper, Rock] ~> True
+-- elem Scissors [Rock, Paper, Rock] ~> False
   \end{lstlisting}
 \end{frame}
 
@@ -433,10 +429,10 @@ instance Ord Rational where
 
 qSort :: Ord a => [a] -> [a]
 qSort []     = []
-qSort (x:xs) = qSort before ++ [x] ++ qSort after
+qSort (x:xs) = qSort smaller ++ [x] ++ qSort larger
   where
-    before = [b | b <- xs, b <= x]
-    after  = [a | a <- xs, a >  x]
+    smaller = [a | a <- xs, a <= x]
+    larger  = [b | b <- xs, b >  x]
   \end{lstlisting}
 \end{frame}
 
@@ -563,13 +559,13 @@ instance Show Expr where
 
   \begin{exampleblock}{example: integer binary tree}
     \begin{lstlisting}
-data BinTree = Nil | Node Int BinTree BinTree
+data BinTree = Nil | Node Integer BinTree BinTree
 
 depth :: BinTree -> Int
 depth Nil            = 0
 depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
 
-sumTree :: BinTree -> Int
+sumTree :: BinTree -> Integer
 sumTree Nil            = 0
 sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
     \end{lstlisting}
@@ -583,7 +579,7 @@ sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
     \begin{lstlisting}
 data BinTree a = Nil | Node a (BinTree a) (BinTree a)
 
-depth :: BinTree a -> Integer
+depth :: BinTree a -> Int
 depth Nil            = 0
 depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
 
@@ -624,8 +620,8 @@ errDiv m n
   \begin{exampleblock}{maximum of a list}
     \begin{lstlisting}
 maxList :: Ord a => [a] -> Maybe a
-maxList []     = Nothing
-maxList (x:xs) = Just (foldl max x xs)
+maxList [] = Nothing
+maxList xs = Just (foldl1 max xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -643,8 +639,8 @@ mapMaybe :: (a -> b) -> Maybe a -> Maybe b
 mapMaybe g Nothing  = Nothing
 mapMaybe g (Just x) = Just (g x)
 
-mapMaybe length Nothing          -- Nothing
-mapMaybe length (Just "haskell") -- Just 7
+-- mapMaybe length Nothing          ~> Nothing
+-- mapMaybe length (Just "haskell") ~> Just 7
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -662,8 +658,8 @@ maybe :: b -> (a -> b) -> Maybe a -> b
 maybe n f Nothing  = n
 maybe n f (Just x) = f x
 
-maybe 0 length Nothing          -- 0
-maybe 0 length (Just "haskell") -- 7
+-- maybe 0 length Nothing          ~> 0
+-- maybe 0 length (Just "haskell") ~> 7
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -698,8 +694,8 @@ either :: (a -> c) -> (b -> c) -> Either a b -> c
 either f g (Left  x) = f x
 either f g (Right y) = g y
 
-either length abs (Left  "haskell") -- 7
-either length abs (Right (-8))      -- 8
+-- either length abs (Left  "haskell") ~> 7
+-- either length abs (Right (-8))      ~> 8
   \end{lstlisting}
 \end{frame}
 
