@@ -237,8 +237,7 @@ def sum_sqr(a, b):
 int sum_f(int (*f)(int), int a, int b)
 {
     int total = 0;
-    while (a <= b)
-    {
+    while (a <= b) {
         total += f(a);
         a += 1;
     }
@@ -370,10 +369,11 @@ pairs = [(3, 2), (1, 3), (2, 1)]
 qSort :: (a -> a -> Bool) -> [a] -> [a]
 qSort precedes []     = []
 qSort precedes (x:xs) =
-    qSort precedes before ++ [x] ++ qSort precedes after
+    qSort precedes smaller ++ [x]
+        ++ qSort precedes larger
       where
-        before = [a | a <- xs, a `precedes` x]
-        after  = [b | b <- xs, not (b `precedes` x)]
+        smaller = [a | a <- xs,      a `precedes` x]
+        larger  = [b | b <- xs, not (b `precedes` x)]
 
 -- qSort (<=) [4, 5, 3]       ~> [3, 4, 5]
 -- qSort (>)  [4, 5, 3]       ~> [5, 4, 3]
@@ -393,6 +393,7 @@ qSort precedes (x:xs) =
     \begin{lstlisting}[style=syntax]
 \x1 x2 ... -> e
     \end{lstlisting}
+    \item \lstinline|f x = e| \hspace{36pt} : \hspace{36pt} \lstinline|f = \x -> e|
   \end{itemize}
 
   \pause
@@ -403,15 +404,6 @@ sumSqr :: Integer -> Integer -> Integer
 sumSqr a b = sumF (\x -> x * x) a b
     \end{lstlisting}
   \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Anonymous Functions}
-
-  \begin{itemize}
-    \item \lstinline|f x = e| is the same as \lstinline|f = \x -> e|
-    \item except that anonymous functions can't be recursive
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -545,8 +537,8 @@ allOdds xs = [x | x <- xs, odd x]
 -- primitive recursive
 filter f []     = []
 filter f (x:xs)
-  | f x       = x : filter f xs
-  | otherwise = filter f xs
+  | f x         = x : filter f xs
+  | otherwise   = filter f xs
 
 -- list comprehension
 filter f xs = [x | x <- xs, f x]
@@ -605,8 +597,8 @@ howManyAbove t xs = length (filter (\x -> x > t) xs)
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile f []     = []
 takeWhile f (x:xs)
-  | f x            = x : takeWhile f xs
-  | otherwise      = []
+  | f x       = x : takeWhile f xs
+  | otherwise = []
     \end{lstlisting}
   \end{exampleblock}
 
@@ -662,7 +654,7 @@ map f xs = [f x | x <- xs]
 
   \pause
   \begin{itemize}
-    \item what is the type?\\
+    \item what is the type of \lstinline|map|?\\
       \lstinline|map :: (a -> b) -> [a] -> [b]|
   \end{itemize}
 \end{frame}
