@@ -196,7 +196,7 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \begin{lstlisting}
 fac :: Integer -> Integer
 fac n
-  | n < 0     = error "negative parameter"
+  | n <  0    = error "negative parameter"
   | n == 0    = 1
   | otherwise = n * fac (n - 1)
     \end{lstlisting}
@@ -232,7 +232,7 @@ gcd 9702 945
   \begin{exampleblock}{}
     \begin{lstlisting}
 fac n
-  | n < 0     = error "negative parameter"
+  | n <  0    = error "negative parameter"
   | n == 0    = 1
   | otherwise = n * fac (n - 1)
     \end{lstlisting}
@@ -309,7 +309,7 @@ gcd 9702 945
     \begin{lstlisting}
 facIter :: Integer -> Integer -> Integer
 facIter acc n
-  | n < 0     = error "negative parameter"
+  | n <  0    = error "negative parameter"
   | n == 0    = acc
   | otherwise = facIter (acc * n) (n - 1)
 
@@ -325,7 +325,7 @@ fac n = facIter 1 n
   \begin{exampleblock}{}
   \begin{lstlisting}
 facIter acc n
-  | n < 0     = error "negative parameter"
+  | n <  0    = error "negative parameter"
   | n == 0    = acc
   | otherwise = facIter (acc * n) (n - 1)
   \end{lstlisting}
