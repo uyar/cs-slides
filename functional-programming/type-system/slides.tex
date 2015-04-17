@@ -308,7 +308,7 @@ class Eq a where
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords={elem}]
 elem :: Eq a => a -> [a] -> Bool
 elem _ []     = False
 elem x (c:cs) = if x == c then True else elem x cs
