@@ -191,6 +191,7 @@ show 3.14 ~> "3.14"
 
 read "42" :: Integer ~> 42
 read "42" :: Float   ~> 42.0
+
 read "3.14" :: Float ~> 3.14
     \end{lstlisting}
   \end{exampleblock}
@@ -514,7 +515,7 @@ generateMatch n = step (generateMatch (n - 1))
   where
     step :: Match -> Match
     step (movesA, movesB) = (cycle movesB : movesA,
-                             echo movesA : movesB)
+                             echo  movesA : movesB)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
