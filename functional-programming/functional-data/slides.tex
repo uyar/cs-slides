@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -7,12 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -26,7 +31,7 @@
 \subtitle{Functional Data Structures}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -41,8 +46,6 @@
 
 \begin{document}
 
-\setpythontexfv[]{frame=single}
-
 \begin{frame}
   \titlepage
 \end{frame}
@@ -51,37 +54,38 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2014 H. Turgut Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
+  \begin{footnotesize}
     You are free to:
     \begin{itemize}
+      \itemsep0em
       \item Share -- copy and redistribute the material in any medium or format
       \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
     Under the following terms:
     \begin{itemize}
+      \itemsep0em
       \item Attribution -- You must give appropriate credit, provide a link to
-        the license, and indicate if changes were made.\\
-        You may do so in any reasonable manner, but not in any way
-        that suggests the licensor endorses you or your use.
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use the material for commercial
+      \item NonCommercial -- You may not use the material for commercial
         purposes.
 
-      \item Share Alike -- If you remix, transform, or build upon the material,
-        you must distribute your contributions\\
-        under the same license as the original.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
 
-  \vfill
-  \begin{small}
-    Legal code (the full license):\\
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
-  \end{small}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -89,44 +93,274 @@
   \tableofcontents
 \end{frame}
 
-\section{Abstract Data Types}
+\section{Functional Data}
 
-\subsection{Introduction}
+\subsection{Immutability}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{update an element in a list}
+    \begin{lstlisting}
+update :: [a] -> Int -> a -> [a]
+update []     _ _ = error "empty list"
+update (_:xs) 0 y = y : xs
+update (x:xs) n y = x : update xs (n - 1) y
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Abstract Data Types}
 
 \begin{frame}
   \frametitle{Abstract Data Types}
 
-  \begin{definition}
-    \alert{abstract data type}:\\
+  \begin{itemize}
+    \item \alert{abstract data type}:\\
       private representation equipped with public operations
-  \end{definition}
+  \end{itemize}
 \end{frame}
+
+\section{Example: Sets}
+
+\subsection{Interface}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{set module interface}
+    \begin{lstlisting}[deletekeywords={union}]
+module Set (
+  Set,
+  empty,       -- Set a
+  add,         -- Ord a => Set a -> a -> Set a
+  makeSet,     -- Ord a => [a] -> Set a
+  contains,    -- Ord a => Set a -> a -> Bool
+  union,       -- Ord a => Set a -> Set a -> Set a
+  card,        -- Set a -> Int
+  mapSet       -- Ord b => (a -> b) -> Set a -> Set b
+) where
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Ordered List}
 
 \begin{frame}[fragile]
   \frametitle{Sets}
 
   \begin{itemize}
-    \item represent a set as an ordered list of elements without repetition
+    \item using an ordered list of elements without repetition
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-newtype Set a = Set [a]
-    \end{pygments}
+    \begin{lstlisting}
+data Set a = OrderedList [a]
+             deriving Show
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sets}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+  \begin{exampleblock}{create an empty set}
+    \begin{lstlisting}
 empty :: Set a
-empty = Set []
+empty = OrderedList []
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
-sing :: a -> Set a
-sing x = Set [x]
-    \end{pygments}
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{add an element to a set}
+    \begin{lstlisting}[deletekeywords={insert}]
+add :: Ord a => Set a -> a -> Set a
+add (OrderedList xs) x = OrderedList (insert xs x)
+
+insert :: Ord a => [a] -> a -> [a]
+insert []          y = [y]
+insert xs@(x':xs') y
+  | y < x'    = y  : xs
+  | y > x'    = x' : insert xs' y
+  | otherwise = xs
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{create a set from a list}
+    \begin{lstlisting}
+makeSet :: Ord a => [a] -> Set a
+makeSet = foldl add empty
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{check whether an element is a member of a set}
+    \begin{lstlisting}
+contains :: Ord a => Set a -> a -> Bool
+contains (OrderedList xs) = search xs
+
+search :: Ord a => [a] -> a -> Bool
+search []     _ = False
+search (x:xs) y
+  | y == x    = True
+  | y <  x    = False
+  | otherwise = search xs y
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{take the union of two sets}
+    \begin{lstlisting}[deletekeywords={union}]
+union :: Ord a => Set a -> Set a -> Set a
+union (OrderedList [])     ys = ys
+union (OrderedList (x:xs)) ys =
+    ((OrderedList xs) `union` ys) `add` x
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{apply a function to every element of a set}
+    \begin{lstlisting}
+mapSet :: Ord b => (a -> b) -> Set a -> Set b
+mapSet f (OrderedList xs) = makeSet (map f xs)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{get the number of elements in a set}
+    \begin{lstlisting}
+card :: Set a -> Int
+card (OrderedList xs) = length xs
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Ordered Binary Tree}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{itemize}
+    \item using an ordered binary tree of elements without repetition
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+data Set a = Nil | Node a (Set a) (Set a)
+             deriving Show
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{create an empty set}
+    \begin{lstlisting}
+empty :: Set a
+empty = Nil
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{add an element to a set}
+    \begin{lstlisting}
+add :: Ord a => Set a -> a -> Set a
+add Nil                    y = Node y Nil Nil
+add xs@(Node x left right) y
+  | y < x     = Node x (add left y) right
+  | y > x     = Node x left         (add right y)
+  | otherwise = xs
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{create a set from a list}
+    \begin{lstlisting}
+makeSet :: Ord a => [a] -> Set a
+makeSet = foldl add empty
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{check whether an element is a member of a set}
+    \begin{lstlisting}
+contains :: Ord a => Set a -> a -> Bool
+contains Nil                 _ = False
+contains (Node x left right) y
+  | y < x     = contains left x
+  | y > x     = contains right x
+  | otherwise = True
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{take the union of two sets}
+    \begin{lstlisting}[deletekeywords={union}]
+union :: Ord a => Set a -> Set a -> Set a
+union Nil ys  = ys
+union xs  Nil = xs
+union xs@(Node x left right) ys =
+    ((left `union` right) `union` ys) `add` x
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{apply a function to every element of a set}
+    \begin{lstlisting}
+collapse :: Set a -> [a]
+collapse Nil                 = []
+collapse (Node x left right) =
+    collapse left ++ [x] ++ collapse right
+
+mapSet :: Ord b => (a -> b) -> Set a -> Set b
+mapSet f = makeSet . map f . collapse
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sets}
+
+  \begin{exampleblock}{get the number of elements in a set}
+    \begin{lstlisting}
+card :: Set a -> Int
+card = length . collapse
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -138,6 +372,12 @@ sing x = Set [x]
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
       \item Chapter 16: \alert{Abstract data types}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Recommended Reading: Okasaki}
+    \begin{itemize}
+      \item Purely Functional Data Structures
     \end{itemize}
   \end{block}
 \end{frame}
