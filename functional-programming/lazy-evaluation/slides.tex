@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2014 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -7,12 +7,17 @@
 
 \documentclass[dvipsnames]{beamer}
 
-\usepackage{ae}
+\usepackage[scaled=0.95]{cabin}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{pythontex}
-\setbeamertemplate{navigation symbols}{}
-\setbeamersize{text margin left=2em, text margin right=2em}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell}
 
 \mode<presentation>
 {
@@ -26,7 +31,7 @@
 \subtitle{Lazy Evaluation}
 
 \author{H. Turgut Uyar}
-\date{2013-2014}
+\date{2013-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -49,33 +54,38 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2013 T. Uyar
+  \copyright~2013-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{footnotesize}
 \end{frame}
 
 \begin{frame}
@@ -104,19 +114,22 @@
   \frametitle{Expression Evaluation Example}
 
   \begin{exampleblock}{}
-    \pygment{python}{(3.14159 * r) * r}
+    \lstinline|-- r = 2.4|
+    \medskip
+
+    \lstinline|(3.14159 * r) * r|
 
     \pause
     \medskip
-    \pygment{python}{(3.14159 * 2.4) * r}
+    \lstinline|(3.14159 * 2.4) * r|
 
     \pause
     \medskip
-    \pygment{python}{7.539815999999999 * 2.4}
+    \lstinline|7.539815999999999 * 2.4|
 
     \pause
     \medskip
-    \pygment{python}{18.095558399999998}
+    \lstinline|18.095558399999998|
   \end{exampleblock}
 \end{frame}
 
@@ -132,10 +145,8 @@
 
     \pause
     \bigskip
-    \item \alert{substitution model}
-    \begin{itemize}
-      \item reduces an expression to a value
-    \end{itemize}
+    \item substitution model
+    \item reduces an expression to a value
   \end{itemize}
 \end{frame}
 
@@ -143,35 +154,35 @@
   \frametitle{Function Evaluation Example}
 
   \begin{exampleblock}{}
-    \pygment{python}{sum_of_squares(3, 2 + 2)}
+    \lstinline|sum_of_squares(3, 2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{sum_of_squares(3, 4)}
+    \lstinline|sum_of_squares(3, 4)|
 
     \pause
     \medskip
-    \pygment{python}{square(3) + square(4)}
+    \lstinline|square(3) + square(4)|
 
     \pause
     \medskip
-    \pygment{python}{3 * 3 + square(4)}
+    \lstinline|3 * 3 + square(4)|
 
     \pause
     \medskip
-    \pygment{python}{9 + square(4)}
+    \lstinline|9 + square(4)|
 
     \pause
     \medskip
-    \pygment{python}{9 + 4 * 4}
+    \lstinline|9 + 4 * 4|
 
     \pause
     \medskip
-    \pygment{python}{9 + 16}
+    \lstinline|9 + 16|
 
     \pause
     \medskip
-    \pygment{python}{25}
+    \lstinline|25|
   \end{exampleblock}
 \end{frame}
 
@@ -179,15 +190,23 @@
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item \alert{eager evaluation}: first evaluate arguments,\\
-      then apply the function to the resulting values\\
-      (a.k.a. ``call by value'')
+    \item \alert{strict}: first evaluate arguments, then apply function\\
+      (``call by value'')
 
     \pause
     \medskip
-    \item \alert{normal order evaluation}: do not evaluate arguments\\
-      until their values are needed\\
-      (a.k.a. ``call by name'')
+    \item \alert{normal order}: evaluate arguments when their values are needed\\
+      (``call by name'')
+
+    \pause
+    \medskip
+    \begin{block}{Church-Rosser property}
+      result is the same as long as:
+      \begin{itemize}
+        \item there are no side effects
+        \item all evaluations terminate
+      \end{itemize}
+    \end{block}
   \end{itemize}
 \end{frame}
 
@@ -195,70 +214,59 @@
   \frametitle{Normal Order Evaluation Example}
 
   \begin{exampleblock}{}
-    \pygment{python}{sum_of_squares(3, 2 + 2)}
+    \lstinline|sum_of_squares(3, 2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{square(3) + square(2 + 2)}
+    \lstinline|square(3) + square(2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{3 * 3 + square(2 + 2)}
+    \lstinline|3 * 3 + square(2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{9 + square(2 + 2)}
+    \lstinline|9 + square(2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{9 + (2 + 2) * (2 + 2)}
+    \lstinline|9 + (2 + 2) * (2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{9 + 4 * (2 + 2)}
+    \lstinline|9 + 4 * (2 + 2)|
 
     \pause
     \medskip
-    \pygment{python}{9 + 4 * 4}
+    \lstinline|9 + 4 * 4|
 
     \pause
     \medskip
-    \pygment{python}{9 + 16}
+    \lstinline|9 + 16|
 
     \pause
     \medskip
-    \pygment{python}{25}
+    \lstinline|25|
   \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Church-Rosser Property}
-
-  \begin{itemize}
-    \item eager and normal order evaluations yield the same result\\
-      as long as:
-
-    \bigskip
-    \item there are no side effects
-    \item all evaluations terminate
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Lazy Evaluation}
 
   \begin{itemize}
-    \item eager evaluation evaluates arguments only once
+    \item strict evaluation evaluates arguments only once
     \item but it might evaluate arguments which are not needed
 
     \medskip
-    \item normal order does not evaluate arguments which are not needed
+    \item normal order evaluation does not evaluate arguments\\
+      which are not needed
     \item but it might evaluate others more than once
 
     \pause
     \medskip
     \item \alert{lazy evaluation}: evaluate an argument once\\
       when its value is \emph{first} needed
+    \item \alert{memoization}
   \end{itemize}
 \end{frame}
 
@@ -266,16 +274,16 @@
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item most languages use eager evaluation
+    \item most languages use strict evaluation
   \end{itemize}
 
   \begin{exampleblock}{Python}
-    \begin{pygments}{python}
+    \begin{lstlisting}[language=Python]
 def first(x, y):
     return x
 
-# first(1, 1 // 0) -> division by zero
-    \end{pygments}
+# first(1, 1 // 0) ~> division by zero
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -287,12 +295,12 @@ def first(x, y):
   \end{itemize}
 
   \begin{exampleblock}{Haskell}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 first :: Integer -> Integer -> Integer
 first x y = x
 
--- first 1 (1 `div` 0) -> 1
-    \end{pygments}
+-- first 1 (1 `div` 0) ~> 1
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -308,17 +316,17 @@ first x y = x
 
   \pause
   \begin{exampleblock}{C}
-    \pygment{c}{(a >= 0) && (b < 10)}\\
-    \pygment{c}{// 2nd clause not evaluated if a < 0}
+    \lstinline[language=C]!(a >= 0) && (b < 10)!\\
+    \lstinline[language=C]!// second clause not evaluated if a < 0!
 
     \bigskip
-    \pygment{c}{(a >= 0) || (b < 10)}\\
-    \pygment{c}{// 2nd clause not evaluated if a >= 0}
+    \lstinline[language=C]!(a >= 0) || (b < 10)!\\
+    \lstinline[language=C]|// second clause not evaluated if a >= 0|
 
     \pause
     \bigskip
-    \pygment{c}{(a >= 0) || (b++ < 10)}\\
-    \pygment{c}{// dangerous if side effects are allowed}
+    \lstinline[language=C]!(a >= 0) || (b++ < 10)!\\
+    \lstinline[language=C]!// dangerous!
   \end{exampleblock}
 \end{frame}
 
@@ -330,78 +338,79 @@ first x y = x
   \end{itemize}
 
   \begin{exampleblock}{Java}
-    \begin{pygments}{java}
+    \begin{lstlisting}[language=Java]
 // find the index of a key item in a list
 index = 0;
 while ((index < items.length) && (items[index] != key))
     index++;
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Short-Circuit Evaluation Example}
+  \frametitle{Short-Circuit Evaluation Examples}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-and' :: Bool -> Bool -> Bool
-and' x y = if x then y else False
+    \begin{lstlisting}[deletekeywords={and,not,or}]
+and :: Bool -> Bool -> Bool
+and x y = if x then y else False
 
-or' :: Bool -> Bool -> Bool
-or' x y = if x then True else y
-
-not' :: Bool -> Bool
-not' x = if x then False else True
-    \end{pygments}
+or :: Bool -> Bool -> Bool
+or x y = if x then True else y
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-\subsection{Strictness}
+\subsection{Space Complexity}
 
 \begin{frame}[fragile]
-  \frametitle{Space Behaviour}
+  \frametitle{Space Complexity}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-fact 0 = 1
-fact n = n * fact (n - 1)
-    \end{pygments}
+    \begin{lstlisting}
+fac :: Integer -> Integer
+fac 0 = 1
+fac n = n * fac (n - 1)
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
+    \item not tail-recursive
     \item creates new stack frames
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Space Behaviour}
+  \frametitle{Space Complexity}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-factIter acc 0 = acc
-factIter acc n = factIter (acc * n) (n - 1)
-    \end{pygments}
+    \begin{lstlisting}
+facIter :: Integer -> Integer -> Integer
+facIter acc 0 = acc
+facIter acc n = facIter (acc * n) (n - 1)
+    \end{lstlisting}
   \end{exampleblock}
 
   \begin{itemize}
-    \item doesn't compute the multiplication until the last moment\\
-      because of lazy evaluation
+    \item tail-recursive
+    \item lazy evaluation: doesn't compute the multiplication\\
+      until the last moment
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Space Behaviour}
+  \frametitle{Space Complexity}
 
   \begin{itemize}
     \item possible solution: make the value needed
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-factIter acc 0 = acc
-factIter acc n
-  | acc == acc = factIter (acc * n) (n - 1)
-    \end{pygments}
+    \begin{lstlisting}
+facIter acc 0 = acc
+facIter acc n
+  | acc == acc = facIter (acc * n) (n - 1)
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -409,21 +418,51 @@ factIter acc n
   \frametitle{Strictness}
 
   \begin{itemize}
-    \item function to force the evaluation of a parameter:
-      \pyv[haskell]{seq}
+    \item force the evaluation of a parameter:
+      \lstinline|seq|
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 seq :: a -> b -> b
-seq x y -- evaluate x and return y
+seq x y
+  | x == x = y  -- evaluate x and return y
+    \end{lstlisting}
 
-factIter' acc 0 = acc
-factIter' acc n = seq acc (factIter' (acc * n) (n - 1))
+    \pause
+    \medskip
+    \begin{lstlisting}
+facIter :: Integer -> Integer -> Integer
+facIter acc 0 = acc
+facIter acc n = seq acc (facIter (acc * n) (n - 1))
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Strictness}
+
+  \begin{itemize}
+    \item make a function strict on a parameter:
+      \lstinline|strict|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 strict :: (a -> b) -> a -> b
 strict f x = seq x (f x)
-    \end{pygments}
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \begin{lstlisting}
+facIter :: Integer -> Integer -> Integer
+facIter acc 0 = acc
+facIter acc n = facIter (acc * n) (n - 1)
+
+fac :: Integer -> Integer
+fac n = (strict facIter 1) n
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -436,34 +475,40 @@ strict f x = seq x (f x)
 
   \begin{itemize}
     \item lazy evaluation makes it possible to define infinite data structures
+    \item create a list with infinite copies of the same element:\\
+      \lstinline|repeat 42 ~> [42, 42, 42, ...]|
   \end{itemize}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-ones = 1 : ones
+    \begin{lstlisting}[deletekeywords={repeat}]
+repeat :: a -> [a]
+repeat x = x : repeat x
+    \end{lstlisting}
 
-addFirstTwo :: [Integer] -> Integer
-addFirstTwo (x1:x2:xs) = x1 + x2
--- addFirstTwo ones -> 2
-    \end{pygments}
+    \pause
+    \medskip
+    \begin{lstlisting}
+addFirstTwo :: Num a => [a] -> a
+addFirstTwo (x1:x2:_) = x1 + x2
+
+-- addFirstTwo (repeat 42) ~> 84
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Infinite Lists}
-
-  \begin{itemize}
-    \item lazy evaluation makes it possible to define infinite data structures
-  \end{itemize}
+  \frametitle{Infinite Ranges}
 
   \begin{exampleblock}{}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 from :: Integer -> [Integer]
 from n = n : from (n + 1)
 
 -- from 5 -> [5, 6, 7, 8, ...]
+
 -- OR: [5 ..]
-    \end{pygments}
+-- addFirstTwo [7 ..] ~> 15
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -471,15 +516,32 @@ from n = n : from (n + 1)
   \frametitle{Infinite List Example}
 
   \begin{exampleblock}{sieve of Eratosthenes}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 sieve :: [Integer] -> [Integer]
 sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
 
 -- sieve [2 ..] -> [2, 3, 5, 7, 11, ...]
 
+primes :: [Integer]
+primes = sieve [2 ..]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite List Example}
+
+  \begin{exampleblock}{prime number test}
+    \begin{lstlisting}
 isPrime :: Integer -> Bool
-isPrime n = elem n (sieve [2 ..])
-    \end{pygments}
+isPrime n = elemOrd n primes
+
+elemOrd :: Ord a => a -> [a] -> Bool
+elemOrd n (x:xs)
+  | n <  x    = False
+  | n == x    = True
+  | otherwise = elemOrd n xs
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -487,10 +549,10 @@ isPrime n = elem n (sieve [2 ..])
   \frametitle{Infinite List Example}
 
   \begin{exampleblock}{Fibonacci sequence}
-    \begin{pygments}{haskell}
+    \begin{lstlisting}
 fibs :: [Integer]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
-    \end{pygments}
+    \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
@@ -501,33 +563,43 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 \begin{frame}[fragile]
   \frametitle{Folding}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-foldr f st []     = st
-foldr f st (x:xs) = f x (foldr f st xs)
-    \end{pygments}
-  \end{exampleblock}
+  \begin{lstlisting}
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr f s []     = s
+foldr f s (x:xs) = f x (foldr f s xs)
+    \end{lstlisting}
 
+    \begin{lstlisting}
+foldl :: (a -> b -> a) -> a -> [b] -> a
+foldl f s []     = s
+foldl f s (x:xs) = foldl f (f s x) xs
+  \end{lstlisting}
+
+  \medskip
   \begin{itemize}
-    \item not tail recursive
-    \item if f is lazy on its second argument, prefer foldr
-    \item \pyv[haskell]{foldr (&&) False (repeat False) -- False}
+    \item \lstinline|foldr|: not tail recursive
+    \item \lstinline|foldl|: tail recursive
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Folding}
+  \frametitle{Folding Example}
 
-  \begin{exampleblock}{}
-    \begin{pygments}{haskell}
-foldl f st []     = st
-foldl f st (x:xs) = foldl f (f st x) xs
-    \end{pygments}
-  \end{exampleblock}
+  \begin{lstlisting}
+foldr (&&) False (repeat False)
+-- False
+  \end{lstlisting}
 
+  \pause
+  \begin{lstlisting}
+foldl (&&) False (repeat False)
+-- doesn't terminate
+  \end{lstlisting}
+
+  \pause
+  \medskip
   \begin{itemize}
-    \item tail recursive
-    \item \pyv[haskell]{foldl (&&) False (repeat False) -- never terminates}
+    \item if f is lazy on its second argument, prefer \lstinline|foldr|
   \end{itemize}
 \end{frame}
 
