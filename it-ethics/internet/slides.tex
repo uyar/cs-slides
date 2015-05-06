@@ -1,0 +1,694 @@
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme[named=Mahogany]{structure}
+  \setbeamercovered{transparent}
+}
+
+\title{IT Ethics}
+\subtitle{Internet}
+
+\author{H. Turgut Uyar}
+\date{2004-2015}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Konular}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[width=2cm]{license}{../license}
+
+\pgfdeclareimage[width=5.6cm]{tomcruise}{tomcruise}
+\pgfdeclareimage[width=5.8cm]{milka}{milka}
+\pgfdeclareimage[width=5.8cm]{gmail}{gmail}
+\pgfdeclareimage[width=5.8cm]{goggle}{goggle}
+\pgfdeclareimage[width=5.6cm]{icann}{icann}
+\pgfdeclareimage[width=5.6cm]{sucks}{sucks}
+\pgfdeclareimage[height=6.8cm]{china}{china}
+\pgfdeclareimage[width=5.6cm]{neutrality}{neutrality}
+\pgfdeclareimage[height=6.8cm]{turkey}{turkey}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2004-2015 H. Turgut Uyar
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+  \end{footnotesize}
+
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Internet}
+
+\subsection{Domain Names}
+
+\begin{frame}
+  \frametitle{Domain Names}
+
+  \begin{itemize}
+    \item is the distribution of domain names fair?
+
+    \bigskip
+    \item until 1998: NSF
+    \item ``first come first served``
+    \item taking domain names of others: \emph{cybersquatting}
+
+    \pause
+    \medskip
+    \item after 1998: ICANN
+    \item a non-profit organization
+    \item Uniform Domain-Name Dispute-Resolution Policy
+    \item trademarks apply on domain names
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dispute Resolution}
+
+  \begin{itemize}
+    \item WIPO Arbitration and Mediation Center
+
+    \bigskip
+    \item for a domain name to be transferred:
+    \smallskip
+    \item the name has to be the same as or very similar to a trademark
+    \item the previous owner should have no rights on the name
+    \item there has to be malicious intent
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: TomCruise.com}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{tomcruise}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item WIPO takes the domain name\\
+        TomCruise.com from registrant\\
+        and gives it to the actor\\
+        Tom Cruise (2006)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2006/07/23/tom_cruise_dotcom_win/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/12/17/ronaldinho_scores_own_domain_name/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2006/10/13/rooney_wins_dotcom/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2012/03/19/pope_benedict_cybersquatter/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: milka.fr}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{milka}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item French designer Milka Budimir\\
+        registers milka.fr
+      \item Kraft claims it
+      \item court gives the name\\
+        to Kraft (2005)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/europe/4348585.stm}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Gmail}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{gmail}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google cannot use the name\\
+        Gmail in Britain (2005)\\
+        and in Germany (2007)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://news.bbc.co.uk/2/hi/business/4354954.stm}}\\
+  \tiny{\url{https://mashable.com/2007/10/02/google-german-domain/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Name Similarities}
+
+  \begin{itemize}
+    \item similar names can also cause disputes
+    \item Microsoft: mikerowesoft.com, mocosoft.com
+
+    \pause
+    \bigskip
+    \item \emph{typosquatting}
+    \item don't search engines and browsers make money from this?
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2004/01/19/microsoft_lawyers_threaten_mike_rowe/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2004/12/15/mocosoft_beats_microsoft/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2008/10/23/google_and_typosquatting/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Google}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{goggle}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Google wins various\\
+        domain names (2005):\\
+        googkle.com, ghoogle.com,\\
+        gfoogle.com, gooigle.com
+      \item cannot get goggle.com (2011)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/07/11/google_ruling/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2011/10/12/google_v_goggle/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: ICANN conflicts of interest}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{icann}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item president of ICANN\\
+        points out conflicts of interest\\
+        in the ICANN\\
+        board of directors (2012)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2012/03/19/icann_president_calls_out_his_own_board_over_conflicts_of_interest/}}\\
+\end{frame}
+
+\subsection{Freedom of Expression}
+
+\begin{frame}
+  \frametitle{Freedom of Expression}
+
+  \begin{itemize}
+    \item what is not covered in freedom of expression?
+
+    \bigskip
+    \item child pornography
+    \item hate or violence propaganda
+    \item promoting crime or harmful behaviour
+    \begin{itemize}
+      \item how to make a bomb, how to commit suicide painlessly?
+    \end{itemize}
+    \item defamation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Protest Sites}
+
+  \begin{itemize}
+    \item people publish web sites for protesting organizations\\
+      they have problems with
+
+    \bigskip
+    \item disputes are evaluated based on:
+    \smallskip
+    \item site content (lies, defamation, freedom of expression)
+    \item domain name (trademark)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Air France, Wal-Mart}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{sucks}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item WIPO gives the domain names\\
+        such as airfrancesucks.com,\\
+        wal-martcanadasucks.com\\
+        to respective companies
+      \item US Appeals Court decides\\
+        that protest sites\\
+        without commercial purpose\\
+        are protected by\\
+        freedom of expression (2005)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/04/05/bosley_case_appeal/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2006/12/29/wipo_rules_against_ryanair/}}\\
+  \tiny{\url{http://www.theregister.co.uk/2009/07/28/wipo_free_speech/}}\\
+\end{frame}
+
+\subsection{Democracy}
+
+\begin{frame}
+  \frametitle{Democracy}
+
+  \begin{itemize}
+    \item is the Internet a democratic platform?
+    \item does the Internet contribute to democracy?
+    \item should the Internet be expected to contribute to democracy?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contribution to Democracy}
+
+  \begin{itemize}
+    \item \emph{yes}: facilitates access to information with little cost
+
+    \medskip
+    \item \emph{but}: a lot of that information is incorrect
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contribution to Democracy}
+
+  \begin{itemize}
+    \item \emph{yes}: people come together regardless of geography
+    \item knowing different people from different cultures increases tolerance
+
+    \medskip
+    \item \emph{but}: personal choices have the opposite effect
+    \item we come together with people who think like we do
+    \item makes it easier to go to extremes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contribution to Democracy}
+
+  \begin{itemize}
+    \item \emph{yes}: individuals and minorities can make their voices heard
+
+    \medskip
+    \item \emph{but}: a chaotic platform
+    \item need to attract people's attention
+    \item registering in search engines
+    \item requires resources: even more power to the powerful?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Search Engines}
+
+  \begin{itemize}
+    \item for most people, search engines are the entry points\\
+      to the Internet
+
+    \medskip
+    \item search engine results are very important
+    \item which pages to include in the result?
+    \item in what order?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Google - Çin}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{china}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item search results from China\\
+        are censored
+      \item Google cancels\\
+        censored service (2010)
+      \item loses content provider license
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.guardian.co.uk/technology/2010/mar/25/china-microsoft-free-speech-google}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Net Neutrality}
+
+  \begin{itemize}
+    \item \alert{net neutrality}:\\
+      Internet being open, accessible, and non-discriminating\\
+      to all users, application providers, and carriers
+
+    \medskip
+    \item counterexamples:
+    \item blocking applications (for example VoIP)
+    \item limiting application bandwidth
+    \item blocking access to some sites and services
+    \item prioritizing access to some sites and services
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Net Neutrality Principles}
+
+  \begin{itemize}
+    \item accessing all kinds of legal content
+    \item using any application and service one wants
+    \item using any device one wants to connect,\\
+      as long as it doesn't damage the network
+    \item benefiting from the competition between\\
+      content and application providers
+  \end{itemize}
+
+  \medskip
+  \tiny{\url{http://www.computerworlduk.com/in-depth/it-business/3028/net-neutrality-a-simple-guide/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Net neutrality laws}
+
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{neutrality}
+    \end{center}
+
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item Chile (2010) and\\
+        Netherlands (2011) pass\\
+        laws to ensure net neutrality
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2011/06/23/netherlands_net_neutrality/}}\\
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Tavani}
+    \begin{itemize}
+      \item Chapter 9: \alert{Regulating Commerce and Speech in Cyberspace}
+      \item Chapter 11:\\
+        Social Issues II: Community and Identity in Cyberspace
+      \begin{itemize}
+          \item 11.1. \alert{Online Communities}
+          \item 11.2. \alert{Democracy and the Internet}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Social Implications}
+
+\subsection{Digital Divide}
+
+\begin{frame}
+  \frametitle{Digital Divide}
+
+  \begin{itemize}
+    \item \alert{digital divide}:
+      inequalities in benefiting from IT
+
+    \medskip
+    \item global inequalities
+    \item most IT users in North America and Europe
+
+    \medskip
+    \item social inequalities
+    \item income, gender, physical handicaps
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ethical Problem}
+
+  \begin{itemize}
+    \item is the digital divide an ethical problem?
+
+    \medskip
+    \item access to information
+    \item participation in the economic system
+    \item participation in the political system
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Participation of Women}
+
+  \begin{itemize}
+    \item women don't have much influence in IT
+
+    \bigskip
+    \item few women are interested
+    \item gender roles: ''women don't like mathematics``
+
+    \medskip
+    \item fewer women take higher education in IT
+
+    \medskip
+    \item even fewer women work in the field
+    \item difficult to come back after birth leave
+
+    \medskip
+    \item very few women are in managerial positions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Turkey}
+
+  \begin{columns}
+    \column{.47\textwidth}
+    \begin{center}
+      \pgfuseimage{turkey}
+    \end{center}
+
+    \column{.53\textwidth}
+    \begin{itemize}
+      \item IT participation of women\\
+        in Turkey is higher than\\
+        most other countries
+      \item suggested reason: mathematics\\
+        is mandatory in high school
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.theregister.co.uk/2005/08/15/women_it_maths_mandatory/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Participation of Handicapped Users}
+
+  \begin{itemize}
+    \item directives to ensure that handicapped users can use IT products
+    \item World Wide Web Consortium (W3C):\\
+      Web Accessibility Initiative (WAI)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Internet Access}
+
+  \begin{itemize}
+    \item should Internet access be a positive right?
+    \item equal opportunities in education
+
+    \medskip
+    \item is it enough just to provide access?
+    \item teaching skills to use IT effectively
+  \end{itemize}
+\end{frame}
+
+\subsection{Worklife}
+
+\begin{frame}
+  \frametitle{Unemployment}
+
+  \begin{itemize}
+    \item does IT cause unemployment?
+
+    \bigskip
+    \item \emph{yes}: many people lose their jobs because of automation
+    \item \emph{but}: it also creates many new jobs
+    \item nature of jobs change: require more qualifications
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Working Conditions in IT}
+
+  \begin{itemize}
+    \item job security
+    \item layoffs are very common
+    \item project-based temporary employment is very common
+    \item outsourcing and globalization: jobs go to other countries
+
+    \pause
+    \medskip
+    \item working hours
+    \item after hours work is very common
+    \item difficulties in overtime and compensation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surveillance at the Workplace}
+
+  \begin{itemize}
+    \item employees use the Internet for personal activities\\
+      during work hours
+
+    \medskip
+    \item employers take precautions
+    \smallskip
+    \item monitoring web usage
+    \item monitoring communication channels (e-mails, messaging)
+    \item causes privacy problems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surveillance at the Workplace}
+
+  \begin{itemize}
+    \item letting the employees know about the monitoring
+    \item giving the employees the chance to learn the data\\
+      collected about them and raise objections
+    \item verifying the collected data before making decisions based on it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Telecommuting}
+
+  \begin{itemize}
+    \item working from home (\emph{telecommuting})
+    \item attractive for companies: office rents are high
+
+    \medskip
+    \item participation of women, especially after birth
+    \item participation of physically handicapped
+
+    \pause
+    \medskip
+    \item disadvantage on layoffs and promotions
+    \item working hours get blurred
+  \end{itemize}
+\end{frame}
+
+\subsection*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Tavani}
+    \begin{itemize}
+      \item Chapter 10:\\
+        \alert{Social Issues I: Equity and Access, Employment and Work}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
