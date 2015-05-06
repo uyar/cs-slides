@@ -1,14 +1,18 @@
-% Copyright (c) 2004-2012 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
 %
-% Bu notlar "Creative Commons Attribution-NonCommercial-ShareAlike License" ile
-% lisanslanmıştır. Yazarının açıkça belirtilmesi koşuluyla ve ticari olmayan
-% amaçlarla kullanılabilir ve dağıtılabilir. Bu notlardan yola çıkılarak
-% oluşturulacak çalışmaların da aynı lisansa bağlı olmaları gerekir.
-%
-% Lisans ile ilgili ayrıntılı bilgi almak için şu sayfaya başvurabilirsiniz:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
+
+\usepackage{ae}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
 {
@@ -17,17 +21,11 @@
   \setbeamercovered{transparent}
 }
 
-\usepackage{ae}
-\usepackage[T1]{fontenc}
-\usepackage[turkish]{babel}
-\usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
-
 \title{Bilişim Etiği}
 \subtitle{İnternet}
 
 \author{H. Turgut Uyar}
-\date{2004-2012}
+\date{2004-2015}
 
 \AtBeginSubsection[]
 {
@@ -39,15 +37,9 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[width=5.6cm]{tomcruise}{tomcruise}
 \pgfdeclareimage[width=5.8cm]{milka}{milka}
@@ -66,36 +58,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Lisans}
+  \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2004-2012 H. Turgut Uyar
+  \copyright~2004-2015 H. Turgut Uyar
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -113,20 +112,17 @@
   \begin{itemize}
     \item alan adlarının dağıtımı adil mi?
 
-    \pause
     \bigskip
-    \item 1998'e kadar NSF dağıtıyor
-    \begin{itemize}
-      \item "ilk gelen alır" politikası
-      \item \emph{sanal çöreklenme} (cybersquatting)
-    \end{itemize}
-    
-    \item 1998'den sonra ICANN'e geçiyor
-    \begin{itemize}
-      \item kar amacı gütmeyen bir kuruluş
-      \item \emph{UDRP}: Uniform Domain-Name Dispute-Resolution Policy
-      \item tescilli markalar geçerli
-    \end{itemize}
+    \item 1998'e kadar: NSF
+    \item ``ilk gelen alır``
+    \item başkasının alan adını alma: \emph{sanal çöreklenme}
+
+    \pause
+    \medskip
+    \item 1998'den sonra: ICANN
+    \item kar amacı gütmeyen bir kuruluş
+    \item Uniform Domain-Name Dispute-Resolution Policy
+    \item tescilli markalar geçerli
   \end{itemize}
 \end{frame}
 
@@ -136,13 +132,12 @@
   \begin{itemize}
     \item WIPO Hakemlik ve Arabuluculuk Merkezi
 
-    \medskip
-    \item bir alan adının aktarılması için
-    \begin{itemize}
-      \item isim tescilli markayla aynı ya da çok benzer olmalı
-      \item eski sahibinin bu isim üzerinde hiçbir hakkı olmamalı
-      \item kötü niyet olmalı
-    \end{itemize}
+    \bigskip
+    \item bir alan adının aktarılması için:
+    \smallskip
+    \item isim tescilli markayla aynı ya da çok benzer olmalı
+    \item eski sahibinin bu isim üzerinde hiçbir hakkı olmamalı
+    \item kötü niyet olmalı
   \end{itemize}
 \end{frame}
 
@@ -182,11 +177,11 @@
 
     \column{.52\textwidth}
     \begin{itemize}
-      \item Fransız modacı\\
-        Milka Budimir almış
+      \item Fransız modacı Milka Budimir\\
+        milka.fr alanını kaydettirmiş
       \item Kraft istiyor
-      \item mahkeme, Kraft'ı\\
-        haklı buluyor (2005)
+      \item mahkeme ismi Kraft'a\\
+        veriyor (2005)
     \end{itemize}
   \end{columns}
 
@@ -221,16 +216,12 @@
 
   \begin{itemize}
     \item benzeyen isimler de anlaşmazlık konusu olabiliyor
-    \begin{itemize}
-      \item mikerowesoft.com: Mike Rowe - Microsoft
-      \item mocosoft.com: Mocosoft - Microsoft
-    \end{itemize}
+    \item Microsoft: mikerowesoft.com, mocosoft.com
 
-    \medskip
-    \item \emph{yazım hatasına çöreklenme} (typosquatting)
-    \begin{itemize}
-      \item arama motorları ve tarayıcılar aynı şekilde para kazanmıyor mu?
-    \end{itemize}
+    \pause
+    \bigskip
+    \item \emph{yazım hatasına çöreklenme}
+    \item arama motorları ve tarayıcılar aynı şekilde para kazanmıyor mu?
   \end{itemize}
 
   \medskip
@@ -240,7 +231,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek: Goggle}
+  \frametitle{Örnek: Google}
 
   \begin{columns}
     \column{.48\textwidth}
@@ -265,7 +256,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek: ICANN çıkar çatışmaları (2012)}
+  \frametitle{Örnek: ICANN çıkar çatışmaları}
 
   \begin{columns}
     \column{.48\textwidth}
@@ -294,21 +285,13 @@
   \begin{itemize}
     \item neler ifade özgürlüğüne girmez?
 
-    \pause
     \bigskip
     \item çocuk pornografisi
-
-    \pause
     \item nefret ya da şiddet propagandası
-
-    \pause
     \item suça ya da zararlı davranışa özendirme
     \begin{itemize}
-      \item nasıl bomba yapılır?
-      \item nasıl acısız intihar edilir?
+      \item nasıl bomba yapılır, nasıl acısız intihar edilir?
     \end{itemize}
-
-    \pause
     \item hakaret
   \end{itemize}
 \end{frame}
@@ -320,12 +303,11 @@
     \item insanlar memnun olmadığı kurumları protesto etmek için\\
       site açıyorlar
 
-    \medskip
-    \item iki açıdan değerlendiriliyor:
-    \begin{itemize}
-      \item sitenin içeriği (yalan, hakaret, ifade özgürlüğü)
-      \item alan adı (tescilli marka)
-    \end{itemize}
+    \bigskip
+    \item anlaşmazlıklar iki açıdan değerlendiriliyor:
+    \smallskip
+    \item sitenin içeriği (yalan, hakaret, ifade özgürlüğü)
+    \item alan adı (tescilli marka)
   \end{itemize}
 \end{frame}
 
@@ -346,8 +328,9 @@
         ilgili şirketlere veriyor
       \item ABD Temyiz Mahkemesi,\\
         ticari amaç gütmeyen\\
-        sitelerin ifade özgürlüğüne
-        gireceğini söylüyor (2005)
+        protesto sitelerinin\\
+        ifade özgürlüğüne girdiğine\\
+        karar veriyor (2005)
     \end{itemize}
   \end{columns}
 
@@ -363,80 +346,67 @@
   \frametitle{Demokrasi}
 
   \begin{itemize}
-    \item İnternet demokratik bir ortam mı?
+    \item İnternet demokratik bir platform mu?
     \item İnternet demokrasiye katkı yapıyor mu?
-    \item İnternet'in demokrasiye katkı yapması gerekli mi?
+    \item İnternet'in demokrasiye katkı yapması beklenmeli mi?
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Bilgiye Erişim}
+  \frametitle{Demokrasiye Katkı}
 
   \begin{itemize}
     \item \emph{evet}: düşük maliyetle bilgiye erişim sağlıyor
 
-    \pause
     \medskip
     \item \emph{ama}: bilginin önemli bir kısmı yanlış
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Aşırılıkları Azaltma}
+  \frametitle{Demokrasiye Katkı}
 
   \begin{itemize}
     \item \emph{evet}: insanlar coğrafyadan bağımsız olarak biraraya
       gelebiliyor
-    \begin{itemize}
-      \item farklı insanları ve kültürleri tanımak sivrilikleri törpüler
-    \end{itemize}
+    \item farklı insanları ve kültürleri tanımak sivrilikleri törpüler
 
-    \pause
     \medskip
     \item \emph{ama}: kişisel tercihler ters yönde etki yapıyor
-    \begin{itemize}
-      \item bakacağımız siteleri, haber alacağımız kaynakları\\
-        süzgeçten geçiriyoruz
-      \item kendimiz gibi düşünen insanlarla biraraya geliyoruz
-      \item tek bilgi kaynağı İnternet olursa hiç yeni düşünce\\
-        ya da görüş duymuyoruz
-      \item aşırılıklara kaymak kolaylaşıyor
-    \end{itemize}
+    \item kendimiz gibi düşünen insanlarla biraraya geliyoruz
+    \item aşırılıklara kaymak kolaylaşıyor
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Politik Sürece Katılım}
+  \frametitle{Demokrasiye Katkı}
 
   \begin{itemize}
     \item \emph{evet}: bireyler ve azınlık grupları seslerini duyurabiliyor
 
-    \pause
     \medskip
-    \item \emph{ama}: kaotik bir ortam
-    \begin{itemize}
-      \item sesini duyurabilmek için insanların ilgisini çekmek gerek
-      \item web sitesi hazırlama, arama motorlarına kaydettirme
-      \item kaynak gerektiriyor: güçlüye daha çok güç mü veriyor?
-    \end{itemize}
+    \item \emph{ama}: kaotik bir platform
+    \item insanların ilgisini çekmek gerek
+    \item arama motorlarına kaydettirme
+    \item kaynak gerektiriyor: güçlüye daha çok güç mü veriyor?
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Arama Motorlarının Rolü}
+  \frametitle{Arama Motorları}
 
   \begin{itemize}
-    \item pek çok insan için giriş noktası arama motorları
-    \item arama motorlarının sonuçları çok önemli:
-    \begin{itemize}
-      \item hangi sayfalar gösterilecek?
-      \item ne sırayla gösterilecek?
-    \end{itemize}
+    \item çoğu insan için İnternet'e giriş noktası arama motorları
+
+    \medskip
+    \item arama motorlarının sonuçları çok önemli
+    \item hangi sayfalar gösterilecek?
+    \item ne sırayla gösterilecek?
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek: Arama motorları - Çin}
+  \frametitle{Örnek: Google - Çin}
 
   \begin{columns}
     \column{.48\textwidth}
@@ -469,12 +439,10 @@
 
     \medskip
     \item aksi örnekler:
-    \begin{itemize}
-      \item taşıyıcıların bazı uygulamaları engellemesi\\
-        ya da harcadıkları bant genişliklerini kısıtlaması (örneğin VoIP)
-      \item taşıyıcıların bazı site ya da hizmetlere erişimi engellemesi\\
-        ya da önceliklendirmesi
-    \end{itemize}
+    \item uygulama engelleme (örneğin VoIP)
+    \item uygulama bant genişliği kısıtlama (örneğin VoIP)
+    \item bazı site ya da hizmetlere erişimi engelleme
+    \item bazı site ya da hizmetlere erişimi önceliklendirme
   \end{itemize}
 \end{frame}
 
@@ -482,19 +450,11 @@
   \frametitle{Ağ Tarafsızlığı İlkeleri}
 
   \begin{itemize}
-    \item kullanıcıların her türlü yasal İnternet içeriğine ulaşabilmesi
-    \item kullanıcıların istedikleri uygulama ve hizmetleri kullanabilmesi
-    \item ağa zarar vermedikleri sürece,\\
-      kullanıcıların ağa istedikleri aygıtla bağlanabilmesi
-    \item kullanıcıların taşıyıcılar, içerik sağlayıcılar ve\\
-      uygulama sağlayıcılar arasındaki rekabetten yararlanabilmesi
-
-    \pause
-    \medskip
-    \item hizmet sağlayıcıların yasal İnternet içerik uygulamaları\\
-      ve hizmetleri arasında ayrım yapmaması
-    \item hizmet sağlayıcıların uyguladıkları ağ yönetimi konusunda\\
-      bilgi vermeleri
+    \item her türlü yasal içeriğe ulaşabilme
+    \item istediği uygulama ve hizmetleri kullanabilme
+    \item ağa zarar vermediği sürece, istediği aygıtla bağlanabilmesi
+    \item içerik ve uygulama sağlayıcılar arasındaki rekabetten\\
+      yararlanabilme
   \end{itemize}
 
   \medskip
@@ -548,26 +508,30 @@
 \begin{frame}
   \frametitle{Sayısal Uçurum}
 
-  \begin{tanim}
-    \alert{sayısal uçurum}:
-      bilişim teknolojilerinden yararlanmada eşitsizlik
-  \end{tanim}
-
-  \pause
   \begin{itemize}
-    \item ülkeler arasındaki farklar
-    \begin{itemize}
-      \item BT kullanıcılarının çoğunluğu Kuzey Amerika ve Avrupa'da
-    \end{itemize}
+    \item \alert{sayısal uçurum}:
+      bilişim teknolojilerinden yararlanmada eşitsizlik
 
-    \pause
+    \medskip
+    \item ülkeler arasındaki farklar
+    \item BT kullanıcılarının çoğunluğu Kuzey Amerika ve Avrupa'da
+
     \medskip
     \item toplum içindeki farklar
-    \begin{itemize}
-      \item gelir düzeyi
-      \item cinsiyet
-      \item fiziksel engeller
-    \end{itemize}
+    \item gelir düzeyi, cinsiyet, fiziksel engeller
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Etik Sorunu}
+
+  \begin{itemize}
+    \item sayısal uçurum bir etik sorunu mu?
+
+    \medskip
+    \item bilgiye erişim
+    \item ekonomik sisteme katılım
+    \item politik sürece katılım
   \end{itemize}
 \end{frame}
 
@@ -579,26 +543,22 @@
 
     \bigskip
     \item ilgi duyan az
-    \begin{itemize}
-      \item kültürel roller: "kadınlar matematik sevmez"
-    \end{itemize}
+    \item kültürel roller: ''kadınlar matematik sevmez``
 
-    \pause
-    \item yüksek eğitim alan az
+    \medskip
+    \item yüksek eğitim alan daha az
 
-    \pause
-    \item meslekte çalışan az
-    \begin{itemize}
-      \item doğumdan sonra geri dönmek zor
-    \end{itemize}
+    \medskip
+    \item meslekte çalışan daha da az
+    \item doğumdan sonra geri dönmek zor
 
-    \pause
-    \item karar mekanizmalarında yer alan az
+    \medskip
+    \item yönetici pozisyonlarında çalışan çok az
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Örnek: Türkiye'de kadınların katılımı}
+  \frametitle{Örnek: Türkiye}
 
   \begin{columns}
     \column{.47\textwidth}
@@ -608,11 +568,11 @@
 
     \column{.53\textwidth}
     \begin{itemize}
-      \item Türkiye'de bilgisayar alanında\\
-        yüksek eğitim gören\\
-        kadınların oranı,\\
-        diğer ülkelere göre yüksek
-      \item lisede matematiğin zorunlu olmasına bağlanıyor
+      \item Türkiye'de bilişim alanında\\
+        kadınların oranı diğer ülkelere\\
+        göre yüksek
+      \item lisede matematiğin zorunlu\\
+        olmasına bağlanıyor
     \end{itemize}
   \end{columns}
 
@@ -624,22 +584,9 @@
   \frametitle{Fiziksel Engellilerin Katılımı}
 
   \begin{itemize}
-    \item fiziksel engellilerin erişimi için düzenlemeler, yönergeler
+    \item fiziksel engelli kullanıcıların kullanımı için yönergeler
     \item World Wide Web Consortium (W3C):\\
       Web Accessibility Initiative (WAI)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ahlaki Sorun}
-
-  \begin{itemize}
-    \item sayısal uçurum ahlaki bir sorun mu?
-
-    \medskip
-    \item bilgiye erişim
-    \item ekonomik sisteme katılım
-    \item politik sürece katılım
   \end{itemize}
 \end{frame}
 
@@ -648,16 +595,11 @@
 
   \begin{itemize}
     \item İnternet erişimi pozitif bir hak olmalı mı?
-    \begin{itemize}
-      \item eğitimde fırsat eşitliği
-    \end{itemize}
+    \item eğitimde fırsat eşitliği
 
-    \pause
     \medskip
     \item yalnızca erişimi sağlamak yeterli mi?
-    \begin{itemize}
-      \item kullanma becerilerinin kazandırılması
-    \end{itemize}
+    \item kullanma becerilerinin kazandırılması
   \end{itemize}
 \end{frame}
 
@@ -680,20 +622,16 @@
   \frametitle{Bilişim Sektöründe Çalışma Koşulları}
 
   \begin{itemize}
-    \item iş güvencesi:
-    \begin{itemize}
-      \item işten çıkarma yaygın
-      \item proje bazında geçici işçilik yaygın
-      \item taşeronluk ve küreselleşme: işler başka ülkelere gidiyor
-    \end{itemize}
+    \item iş güvencesi
+    \item işten çıkarmalar yaygın
+    \item proje bazında geçici işçilik yaygın
+    \item taşeronluk ve küreselleşme: işler başka ülkelere gidiyor
 
     \pause
     \medskip
     \item çalışma saatleri
-    \begin{itemize}
-      \item mesai saatleri dışında çalıştırma yaygın
-      \item fazla mesai, tazminat zorlukları
-    \end{itemize}
+    \item mesai saatleri dışında çalıştırma yaygın
+    \item fazla mesai, tazminat zorlukları
   \end{itemize}
 \end{frame}
 
@@ -704,22 +642,24 @@
     \item çalışanlar mesai saatlerinde İnternet'e iş dışı amaçlarla\\
       bağlanıyor
 
-    \item işverenler çeşitli önlemler alıyor:
-    \begin{itemize}
-      \item web kullanımının gözetlenmesi
-      \item iletişim kanallarının (e-posta, mesajlaşma) gözetlenmesi
-    \end{itemize}
-    \item bu önlemler mahremiyet sorunları yaratıyor
-
     \medskip
-    \item bazı ilkeler:
-    \begin{itemize}
-      \item çalışanlara gözetleme yapıldığının açıkça bildirilmesi
-      \item çalışanların kendileriyle ilgili toplanan bilgileri görebilmesi\\
-        ve itiraz edebilmesi
-      \item toplanan bilgilere göre değerlendirme yapmadan önce\\
-        bilgilerin doğrulanması
-    \end{itemize}
+    \item işverenler çeşitli önlemler alıyor
+    \smallskip
+    \item web kullanımının gözetlenmesi
+    \item iletişim kanallarının (e-posta, mesajlaşma) gözetlenmesi
+    \item mahremiyet sorunları yaratıyor
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{İşyerinde Gözetleme}
+
+  \begin{itemize}
+    \item çalışanlara gözetleme yapıldığının açıkça bildirilmesi
+    \item çalışanların kendileriyle ilgili toplanan bilgileri görebilmesi\\
+      ve itiraz edebilmesi
+    \item toplanan veriye göre değerlendirme yapmadan önce\\
+      verinin doğrulanması
   \end{itemize}
 \end{frame}
 
@@ -728,24 +668,16 @@
 
   \begin{itemize}
     \item evden çalışma (\emph{telecommuting})
-    \begin{itemize}
-      \item şirketler için cazip: ofis kiraları yüksek
-    \end{itemize}
+    \item şirketler için cazip: ofis kiraları yüksek
 
     \medskip
-    \item avantajları:
-    \begin{itemize}
-      \item kadınların katılımı: özellikle doğumdan sonra
-      \item engellilerin katılımı
-    \end{itemize}
+    \item kadınların katılımı, özellikle doğumdan sonra
+    \item engellilerin katılımı
 
     \pause
     \medskip
-    \item dezavantajları:
-    \begin{itemize}
-      \item işten çıkartmalar ve yükseltmelerde dezavantaj
-      \item çalışma saatleri belirsizleşiyor
-    \end{itemize}
+    \item işten çıkartmalar ve yükseltmelerde dezavantaj
+    \item çalışma saatleri belirsizleşiyor
   \end{itemize}
 \end{frame}
 
