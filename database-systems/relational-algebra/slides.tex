@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2014
+% Copyright (c) 2002-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -43,7 +43,7 @@
 \subtitle{Relational Algebra}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2014}
+\date{2002-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -66,7 +66,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2015 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{footnotesize}
@@ -120,7 +120,7 @@
     \item \alert{closure}: input and output of all operations are relations
 
     \medskip
-    \item the output of one operation can be the input of another
+    \item output of one operation can be the input to another
     \item operations can be nested
   \end{itemize}
 \end{frame}
@@ -493,8 +493,6 @@ MOVIE { YEAR }
   \begin{enumerate}
     \item movies with votes more than 5000\\
       and scores higher than 7.0 (\texttt{P4A})
-
-    \pause
     \item titles in \texttt{P4A} (\texttt{P4})
   \end{enumerate}
 \end{frame}
@@ -616,8 +614,6 @@ relation1 JOIN relation2
   \pause
   \begin{enumerate}
     \item all movies and their directors (\texttt{J1A})
-
-    \pause
     \item titles and director names in \texttt{J1A} (\texttt{J1})
   \end{enumerate}
 \end{frame}
@@ -690,11 +686,7 @@ eXistenZ             & David Cronenberg\\\hline
   \pause
   \begin{enumerate}
     \item all movies and their casting data (\texttt{J2A})
-
-    \pause
     \item all data in \texttt{J2A} matched with persons (\texttt{J2B})
-
-    \pause
     \item titles, actor names and actor orders in \texttt{J2B} (\texttt{J2})
   \end{enumerate}
 \end{frame}
@@ -798,11 +790,7 @@ Cry-Baby             & Traci Lords      &   7\\\hline
   \pause
   \begin{enumerate}
     \item ids of Johnny Depp's movies (\texttt{J3A})
-
-    \pause
     \item ids of the actors in the movies in \texttt{J3A} (\texttt{J3B})
-
-    \pause
     \item names of the actors in \texttt{J3B} (\texttt{J3})
   \end{enumerate}
 \end{frame}
@@ -919,11 +907,7 @@ relation1 DIVIDEBY relation2
   \pause
   \begin{enumerate}
     \item ids of Johnny Depp and Christina Ricci (\texttt{V1A})
-
-    \pause
     \item ids of movies with all the actors in \texttt{V1A} (\texttt{V1B})
-
-    \pause
     \item titles of the movies in \texttt{V1B} (\texttt{V1})
   \end{enumerate}
 \end{frame}
@@ -1052,8 +1036,6 @@ relation1 INTERSECT relation2
   \pause
   \begin{enumerate}
     \item ids of all directors who also acted (\texttt{I1A})
-
-    \pause
     \item names of all the persons in \texttt{I1A} (\texttt{I1})
   \end{enumerate}
 \end{frame}
@@ -1132,15 +1114,9 @@ relation1 UNION relation2
   \pause
   \begin{enumerate}
     \item ids and director ids of all movies newer than 1997 (\texttt{U1A})
-
-    \pause
     \item ids of all actors in the movies in \texttt{U1A} (\texttt{U1B})
-
-    \pause
     \item ids of directors and actors in at least one of
       \texttt{U1A} and \texttt{U1B} (\texttt{U1C})
-
-    \pause
     \item names of all the persons in \texttt{U1C} (\texttt{U1})
   \end{enumerate}
 \end{frame}
@@ -1373,8 +1349,6 @@ relation1 MINUS relation2
   \pause
   \begin{enumerate}
     \item ids of all actors who played in Johnny Depp's movies (\texttt{J3B})
-
-    \pause
     \item names of all actors who are not in \texttt{J3B} (\texttt{D1})
   \end{enumerate}
 \end{frame}
@@ -1490,11 +1464,8 @@ SELECT [ ALL | DISTINCT ] column_name [, ...]
     \end{lstlisting}
 
     \medskip
-    \item ordering direction:
-    \begin{itemize}
-      \item \lstinline!ASC!: ascending (default)
-      \item \lstinline!DESC!: descending
-    \end{itemize}
+    \item \lstinline!ASC!: in ascending order (default)
+    \item \lstinline!DESC!: in descending order
   \end{itemize}
 \end{frame}
 
@@ -1545,7 +1516,7 @@ SELECT [ ALL | DISTINCT ]
 
     \medskip
     \item new columns can be named: \lstinline!AS!
-    \item name or index of the column can be used for ordering
+    \item name or index of column can be used for ordering
   \end{itemize}
 \end{frame}
 
@@ -1602,7 +1573,7 @@ SELECT [ ALL | DISTINCT ]
   \frametitle{Query Examples}
 
   \begin{itemize}
-    \item year of "Citizen Kane"
+    \item year of ``Citizen Kane''
     \begin{lstlisting}
 SELECT YR FROM MOVIE
   WHERE (TITLE = 'Citizen Kane')
@@ -1622,26 +1593,25 @@ SELECT TITLE FROM MOVIE
   \frametitle{Condition Expressions}
 
   \begin{itemize}
-    \item whether a column is empty or not:\\
+    \item check if null:\\
     \begin{lstlisting}
 column_name IS { NULL | NOT NULL }
     \end{lstlisting}
 
     \pause
+    \medskip
     \item set membership:\\
     \begin{lstlisting}
 column_name IN (value_set)
     \end{lstlisting}
 
     \pause
-    \item string comparison
+    \medskip
+    \item string comparison:
     \begin{lstlisting}
 column_name LIKE pattern
     \end{lstlisting}
-    \begin{itemize}
-      \item in the pattern, \lstinline!%! can match any group of symbols\\
-        including the empty string
-    \end{itemize}
+    \item \lstinline!%!: matches any group of symbols, including empty string
   \end{itemize}
 \end{frame}
 
@@ -1668,7 +1638,7 @@ SELECT TITLE, YR FROM MOVIE
   \frametitle{Query Examples}
 
   \begin{itemize}
-    \item titles and scores of "Police Academy" movies
+    \item titles and scores of ``Police Academy'' movies
     \begin{lstlisting}
 SELECT TITLE, SCORE FROM MOVIE
   WHERE (TITLE LIKE 'Police Academy%')
@@ -1728,18 +1698,14 @@ SELECT [ ALL | DISTINCT ]
 
   \begin{itemize}
     \item one value for each group
-    \begin{itemize}
-      \item the value of the grouping column
-      \item the result of an aggregate function
-    \end{itemize}
+    \item column used for grouping
+    \item result of an aggregate function on a column
 
     \pause
     \medskip
     \item aggregate functions: \lstinline!COUNT SUM AVG MAX MIN!
-    \begin{itemize}
-      \item column name as parameter
-      \item null values are ignored
-    \end{itemize}
+    \item column name as parameter
+    \item null values are ignored
   \end{itemize}
 \end{frame}
 
@@ -1807,18 +1773,16 @@ SELECT SUM(VOTES) FROM MOVIE
 
   \begin{itemize}
     \item joining can be achieved using \lstinline!WHERE! conditions
-    \begin{itemize}
-      \item list the tables to join in the table list
-      \item use the dotted notation for columns with identical names
-    \end{itemize}
+    \item list tables to join \lstinline!FROM! clause
+    \item use dotted notation for columns with identical names
 
     \pause
     \medskip
-    \item processing order:
+    \item processing order (conceptual):
     \begin{itemize}
-      \item take the Cartesian product of the tables
-      \item select the rows that satisfy the \lstinline!WHERE! condition
-      \item ...
+      \item take Cartesian product of the tables
+      \item select rows that satisfy the \lstinline!WHERE! condition
+      \item \ldots
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -1827,7 +1791,7 @@ SELECT SUM(VOTES) FROM MOVIE
   \frametitle{Query Examples}
 
   \begin{itemize}
-    \item name of the director of "Star Wars"
+    \item name of the director of ``Star Wars''
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON
@@ -1841,7 +1805,7 @@ SELECT NAME
   \frametitle{Query Examples}
 
   \begin{itemize}
-    \item names of the actors in "Alien"
+    \item names of the actors in ``Alien''
      \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON, CASTING
@@ -1925,7 +1889,7 @@ SELECT TITLE, NAME
   \frametitle{Table Expressions}
 
   \begin{itemize}
-    \item join operation can be expressed as a table expression:
+    \item joins can be expressed as table expressions:
     \begin{lstlisting}
 SELECT ...
   FROM table_expression [ AS table_name ]
@@ -1969,7 +1933,7 @@ SELECT ...
   \frametitle{Query Examples}
 
   \begin{itemize}
-    \item name of the director of "Star Wars"
+    \item name of the director of ``Star Wars''
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON
@@ -2015,11 +1979,11 @@ SELECT ...
   \frametitle{Outer Join}
 
   \begin{itemize}
-    \item in "inner" join, if a row does not match\\
-      any row of the other table, it is not included in the result
-
-    \item in outer join, every unmatched row is included in the result\\
-      where the columns from the other table are set to null
+    \item inner join: unmatched rows are excluded
+    
+    \medskip
+    \item \alert{outer join}: unmatched rows are included
+    \item columns from the other table are null
     \begin{lstlisting}
 SELECT ...
   FROM table1_name [ LEFT | RIGHT | FULL ]
@@ -2198,7 +2162,7 @@ SELECT TITLE
   \frametitle{Self Join}
 
   \begin{itemize}
-    \item if the columns to join are in the same table
+    \item how to join columns in the same table?
     \item give a new name to the table in the expression
   \end{itemize}
 \end{frame}
@@ -2243,7 +2207,7 @@ SELECT ...
 
   \begin{itemize}
     \item titles and scores of all movies with scores\\
-      higher than that of "Star Wars", in descending order of scores
+      higher than that of ``Star Wars'', in descending order of scores
 
       \medskip
 \uncover<3->{
@@ -2270,7 +2234,7 @@ SELECT ...
 
   \begin{itemize}
     \item titles of movies with scores less than\\
-      the scores of all "Police Academy" movies
+      the scores of all ``Police Academy'' movies
 
     \medskip
 \uncover<3->{
@@ -2373,13 +2337,11 @@ SELECT ...
     \item an operation on two subquery results
 
     \medskip
-    \item basic set operations in the relational model:
-    \begin{itemize}
-      \item intersection: \lstinline!INTERSECT!
-      \item union: \lstinline!UNION!
-      \item difference: \lstinline!EXCEPT!
-    \end{itemize}
+    \item intersection: \lstinline!INTERSECT!
+    \item union: \lstinline!UNION!
+    \item difference: \lstinline!EXCEPT!
 
+    \medskip
     \item duplicate rows are not allowed in the result
   \end{itemize}
 \end{frame}
