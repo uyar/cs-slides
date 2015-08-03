@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2014
+% Copyright (c) 2002-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -43,7 +43,7 @@
 \subtitle{Relational Model}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2014}
+\date{2002-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -66,7 +66,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2015 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{footnotesize}
@@ -117,7 +117,7 @@
   \frametitle{Relational Model}
 
   \begin{itemize}
-    \item Dr. E. F. Codd, 1970
+    \item by Dr. E. F. Codd, 1970
 
     \item data is modelled as \alert{relations}:\\
       $\alpha \subseteq A \times B \times C \times ...$
@@ -176,27 +176,33 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
   \frametitle{Relation Predicate}
 
   \begin{itemize}
-    \item \alert{relation predicate}:\\
-      the sentence expressing the "meaning" of the relation
-    \item each tuple is either \emph{True} or \emph{False} according to the
-      predicate
+    \item \alert{relation predicate}: ``meaning'' of the relation
   \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{example}
+    \begin{itemize}
+      \item ``The movie titled \texttt{TITLE} was released in \texttt{YEAR}.\\
+	It was directed by \texttt{DIRECTOR}.\\
+	The average of \texttt{VOTES} votes is \texttt{SCORE}.''
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Relation Predicate Example}
+  \frametitle{Tuple Values}
 
   \begin{itemize}
-    \item The movie with the title \texttt{TITLE} was released in the year
-      \texttt{YEAR}.\\
-      It was directed by the director \texttt{DIRECTOR}.\\
-      The average of \texttt{VOTES} votes is \texttt{SCORE}.
-
-    \pause
-    \medskip
-    \item \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)} is True
-    \item \texttt{(Suspiria, 1978, Dario Argento, 1004, 7.1)} is False
+    \item each tuple is either \emph{True} or \emph{False} according to the
+      predicate
   \end{itemize}
+  
+  \begin{exampleblock}{example: MOVIE relation}
+    \begin{itemize}
+      \item \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)} is True
+      \item \texttt{(Suspiria, 1978, Dario Argento, 1004, 7.1)} is False
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -206,7 +212,8 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
     \item tuple order is insignificant
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item these relations are equivalent:
     \end{itemize}
@@ -238,7 +245,7 @@ Usual Suspects       & ...\\\hline
       \end{table}
       \end{footnotesize}
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -248,7 +255,8 @@ Usual Suspects       & ...\\\hline
     \item attribute order is insignificant
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item these relations are equivalent:
     \end{itemize}
@@ -278,7 +286,7 @@ YEAR & TITLE                & ...\\\hline\hline
       \end{table}
       \end{footnotesize}
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -289,7 +297,8 @@ YEAR & TITLE                & ...\\\hline\hline
     \item each tuple must be uniquely identifiable
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{footnotesize}
     \begin{table}
       %\caption{MOVIE}
@@ -304,20 +313,22 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
       \end{tabular}
     \end{table}
     \end{footnotesize}
-  \end{example}
 
-  \begin{picture}(20,40)(27,-70)
-    \color[rgb]{1,0.2,0.1}
-    \put(20,25){\vector(3,-2){25}}
-    \put(20,25){\vector(3,2){25}}
-  \end{picture}
+    \begin{picture}(0, 0)
+      \color[rgb]{1, 0.2, 0.1}
+      \thicklines
+      \put(5, 30){\line(0, 0){35}}
+      \put(5, 30){\vector(1, 0){15}}
+      \put(5, 65){\vector(1, 0){15}}
+    \end{picture}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Domains}
 
   \begin{itemize}
-    \item all values for the same attribute have to be selected\\
+    \item all values for the same attribute should be selected\\
       from the same domain
     \item comparison only makes sense between values\\
       chosen from the same domain
@@ -333,13 +344,13 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
   \begin{itemize}
     \item \texttt{TITLE} from the titles domain, \texttt{YEAR} from the years
       domain,\\
-      \texttt{DIRECTOR} from the directors domain, ...
+      \texttt{DIRECTOR} from the directors domain, \ldots
     \item if data types are used:\\
       \texttt{TITLE} string, \texttt{YEAR} integer, \texttt{DIRECTOR} string,
-        ...
+        \ldots
 
     \medskip
-    \item assigning \texttt{"Usual Suspects"} to \texttt{DIRECTOR} is valid\\
+    \item assigning \texttt{``Usual Suspects''} to \texttt{DIRECTOR} is valid\\
       in terms of data types but it doesn't make sense
     \item \texttt{YEAR} and \texttt{VOTES} are integers\\
       but it doesn't make sense to compare them
@@ -351,10 +362,10 @@ Suspiria             & 1977 & Dario Argento &   7.1 &  1004\\\hline
 
   \begin{itemize}
     \item attribute values must be scalar
-    \item arrays, lists, records etc. are not allowed
+    \item no arrays, lists, records, \ldots
   \end{itemize}
 
-  \begin{example}[multiple directors]
+  \begin{exampleblock}{example: multiple directors}
     \begin{footnotesize}
     \begin{table}
 %       \caption{MOVIE}
@@ -368,14 +379,14 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
     \end{footnotesize}
 
     \pause
-    \begin{picture}(0,0)(-120,-30)
-      \color[rgb]{1,0.2,0.1}
+    \begin{picture}(0, 0)
+      \color[rgb]{1, 0.2, 0.1}
       \thicklines
       \only<2->{
-        \put(0,0){\line(1,0){135}}
+        \put(115, 30){\line(1, 0){145}}
       }
     \end{picture}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -388,12 +399,13 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
 	not known for tuple
     \end{itemize}
 
-    \begin{example}
+    \medskip
+    \begin{exampleblock}{example}
       \begin{itemize}
         \item director of movie\\
 	  not known
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
 
     \pause
     \column{.5\textwidth}
@@ -402,12 +414,13 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
         a value for attribute
     \end{itemize}
 
-    \begin{example}
+    \medskip
+    \begin{exampleblock}{example}
       \begin{itemize}
         \item nobody voted for movie,\\
 	  therefore no \texttt{SCORE}
       \end{itemize}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
@@ -419,12 +432,13 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
     \item it may not be one of the valid values for the attribute
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item if \texttt{SCORE} values are between 1.0 and 10.0,\\
 	the default value can be chosen as \texttt{0.0}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \subsection{Keys}
@@ -476,7 +490,7 @@ The Matrix & ... & Andy Wachowski, Lana Wachowski & ...\\\hline
     \pause
     \medskip
     \item identity attribute
-    \item value doesn't matter
+    \item its value doesn't matter
     \item it can be generated by the system
   \end{itemize}
 \end{frame}
@@ -508,12 +522,10 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \frametitle{Primary Key}
 
   \begin{itemize}
-    \item if a relation has more than one candidate key,\\
-      one of them is selected as \alert{primary key}
-    \begin{itemize}
-      \item others are alternate keys
-      \item names of attributes in the primary key are underlined
-    \end{itemize}
+    \item if more than one candidate key,
+      one is selected as the \alert{primary key}
+    \item others are alternate keys
+    \item names of attributes in the primary key are underlined
 
     \pause
     \medskip
@@ -565,11 +577,11 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
     \end{footnotesize}
 
     \pause
-    \begin{picture}(0,0)(-170,-25)
-      \color[rgb]{1,0.2,0.1}
+    \begin{picture}(0, 0)
+      \color[rgb]{1, 0.2, 0.1}
       \thicklines
       \only<2->{
-        \put(0,0){\line(1,0){125}}
+        \put(170, 25){\line(1, 0){125}}
       }
     \end{picture}
   \end{itemize}
@@ -579,7 +591,7 @@ MOVIE\# & TITLE                & YEAR & DIRECTOR      & SCORE & VOTES\\\hline\hl
   \frametitle{Scalarity Example}
 
   \begin{itemize}
-    \item to meet the scalarity requirement, tuples have to be repeated
+    \item for scalarity, tuples have to be repeated
   \end{itemize}
 
   \begin{footnotesize}
@@ -742,18 +754,18 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
     \end{tiny}
   \end{columns}
 
-  \begin{picture}(100,50)(-148,-82)
-    \color[rgb]{0.1,0.6,0.1}
+  \begin{picture}(0, 0)
+    \color[rgb]{0.1, 0.6, 0.1}
     \thicklines
     \only<2->{
-      \put(22,22){\oval(20,8)}       % movie.director#=2259
-      \put(101,0){\oval(20,8)}       % person.person#=2259
-      \put(32,21){\vector(3,-1){58}} % movie.director#=2259->person.person#=2259
+      \put(169, 54){\oval(20, 8)}       % movie.director#=2259
+      \put(250, 32){\oval(20, 8)}       % person.person#=2259
+      \put(179, 54){\vector(3, -1){60}} % movie.director#=2259 -> person.person#=2259
     }
     \only<3->{
-      \put(10,41){\oval(45,9)}       % movie.director#
-      \put(92,41){\oval(36,9)}       % person.person#
-      \put(32,41){\vector(1,0){42}}  % movie.director#->person.person#
+      \put(157, 73){\oval(44, 9)}       % movie.director#
+      \put(242, 73){\oval(36, 9)}       % person.person#
+      \put(179, 73){\vector(1, 0){44}}  % movie.director# -> person.person#
     }
   \end{picture}
 \end{frame}
@@ -801,22 +813,22 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \end{table}
   \end{tiny}
 
-  \begin{picture}(210,80)(-33,-108)
-    \color[rgb]{0.1,0.6,0.1}
+  \begin{picture}(0, 0)
+    \color[rgb]{0.1, 0.6, 0.1}
     \thicklines
     \only<2->{
-      \put(116,78){\oval(45,9)}        % movie.director#
-      \put(211,78){\oval(36,9)}        % person.person#
-      \put(138,78){\vector(1,0){54}}   % movie.director#->person.person#
+      \put(148, 112){\oval(45, 9)}        % movie.director#
+      \put(243, 112){\oval(36, 9)}        % person.person#
+      \put(170, 112){\vector(1, 0){54}}   % movie.director# -> person.person#
     }
     \only<3->{
-      \put(97,9){\oval(33,9)}          % casting.movie#
-      \put(3,77){\oval(33,9)}          % movie.movie#
-      \put(96,14){\vector(-4,3){78}}   % casting.movie#->movie.movie#
+      \put(129,  43){\oval(33, 9)}        % casting.movie#
+      \put( 35, 112){\oval(33, 9)}        % movie.movie#
+      \put(128,  47){\vector(-4, 3){78}}  % casting.movie# -> movie.movie#
     }
     \only<4->{
-      \put(136,9){\oval(35,9)}         % casting.actor#
-      \put(150,14){\vector(3,4){45}}   % casting.actor#->person.person#
+      \put(167,  43){\oval(32, 9)}        % casting.actor#
+      \put(182,  47){\vector(3, 4){45}}   % casting.actor# -> person.person#
     }
   \end{picture}
 \end{frame}
@@ -827,16 +839,16 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \begin{itemize}
     \item \alert{referential integrity}:\\
       all values of a foreign key attribute must be present\\
-      in the corresponding attribute of the referenced relation
+      among the values of the referenced candidate key attribute
 
-    \medskip
-    \item prevent requests that break referential integrity
-    \begin{itemize}
-      \item don't allow
-      \item reflect the change to affected tuples
-      \item assign null value
-      \item assign default value
-    \end{itemize}
+    \pause
+    \bigskip
+    \item if a request would break referential integrity:
+    \smallskip
+    \item don't allow
+    \item reflect the change to affected tuples
+    \item assign null value
+    \item assign default value
   \end{itemize}
 \end{frame}
 
@@ -872,9 +884,8 @@ MOVIE\# & TITLE                & ... & ACTOR         \\\hline\hline
   \end{columns}
 
   \begin{itemize}
-    \item delete the tuple \texttt{(2259, Dario Argento)}
-    \item update the tuple \texttt{(2259, Dario Argento)}\\
-      as \texttt{(2871, Dario Argento)}
+    \item delete \texttt{(2259, Dario Argento)}
+    \item update \texttt{(2259, Dario Argento)} as \texttt{(2871, Dario Argento)}
   \end{itemize}
 \end{frame}
 
@@ -940,14 +951,15 @@ type_name(base_value [, ...])
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item generating a \texttt{SCORE} value:
       \begin{lstlisting}
 SCORE(8.7)
       \end{lstlisting}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -960,14 +972,15 @@ THE_field_name(variable_name)
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item getting the \texttt{VALUE} field of a \texttt{SCORE} variable:
       \begin{lstlisting}
 THE_VALUE(SCORE)
       \end{lstlisting}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -980,14 +993,15 @@ CAST_AS_target_type(value)
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item casting an integer \texttt{VOTES} value to a \texttt{RATIONAL}:
       \begin{lstlisting}
 CAST_AS_RATIONAL(VOTES)
       \end{lstlisting}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1242,14 +1256,15 @@ RENAME { attribute_name AS new_name }
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item renaming the \texttt{DIRECTOR\#} attribute:
       \begin{lstlisting}
 RENAME { DIRECTOR# AS PERSON# }
       \end{lstlisting}
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1306,10 +1321,8 @@ CONSTRAINT CASTING_FKEY_ACTOR
   \frametitle{Data Types}
 
   \begin{itemize}
-    \item \texttt{INTEGER}
-    \begin{itemize}
-      \item \texttt{SMALLINT}
-    \end{itemize}
+    \item \texttt{INTEGER},
+    \item \texttt{SMALLINT}
 
     \medskip
     \item \texttt{NUMERIC (precision, scale)}
@@ -1335,17 +1348,13 @@ CONSTRAINT CASTING_FKEY_ACTOR
 
   \begin{itemize}
     \item \texttt{CHARACTER [ VARYING ] (n)}
-    \begin{itemize}
-      \item in \texttt{CHARACTER (n)}, if the string is shorter than
-        \texttt{n} characters\\
-        it will be padded with spaces
-    \end{itemize}
+    \item \texttt{CHARACTER (n)}: if the string is shorter than
+      \texttt{n} characters\\
+      it will be padded with spaces
 
-    \item abbreviations:
-    \begin{itemize}
-      \item \texttt{CHAR (n)} instead of \texttt{CHARACTER (n)}
-      \item \texttt{VARCHAR (n)} instead of \texttt{CHARACTER VARYING (n)}
-    \end{itemize}
+    \medskip
+    \item \texttt{CHAR (n)} instead of \texttt{CHARACTER (n)}
+    \item \texttt{VARCHAR (n)} instead of \texttt{CHARACTER VARYING (n)}
   \end{itemize}
 \end{frame}
 
@@ -1386,18 +1395,14 @@ CONSTRAINT CASTING_FKEY_ACTOR
 
     \medskip
     \item binary: \texttt{BINARY LARGE OBJECT (n)}
-    \begin{itemize}
-      \item \texttt{BLOB}
-      \item picture, audio, etc.
-    \end{itemize}
+    \item \texttt{BLOB}
 
+    \medskip
     \item text: \texttt{CHARACTER LARGE OBJECT (n)}
-    \begin{itemize}
-      \item \texttt{CLOB}
-    \end{itemize}
+    \item \texttt{CLOB}
 
     \pause
-    \bigskip
+    \medskip
     \item can not be used in queries
   \end{itemize}
 \end{frame}
@@ -1601,7 +1606,7 @@ column_name data_type PRIMARY KEY
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID INTEGER PRIMARY KEY,
@@ -1609,7 +1614,7 @@ CREATE TABLE MOVIE (
   VOTES INTEGER DEFAULT 0
 )
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1681,14 +1686,14 @@ column_name data_type UNIQUE
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}[person names are unique]
+  \begin{exampleblock}{example: person names are unique}
     \begin{lstlisting}
 CREATE TABLE PERSON (
   ID SERIAL PRIMARY KEY,
   NAME VARCHAR(40) UNIQUE NOT NULL
 )
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1698,13 +1703,19 @@ CREATE TABLE PERSON (
     \item creating an index
     \begin{lstlisting}
 CREATE [ UNIQUE ] INDEX index_name
-  ON table_name(column_name [, ...])
+  ON table_name (column_name [, ...])
     \end{lstlisting}
 
-    \medskip
-    \item speed up queries
-    \item slow down inserts and updates
+    \smallskip
+    \item speeds up queries
+    \item slows down inserts and updates
   \end{itemize}
+
+  \begin{exampleblock}{example: create a year index on movies}
+    \begin{lstlisting}
+CREATE INDEX MOVIE_YEAR ON MOVIE (YR)
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1719,12 +1730,12 @@ ALTER TABLE table_name
   \end{itemize}
 
   \medskip
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   RENAME TO FILM
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1741,12 +1752,12 @@ ALTER TABLE table_name
   \end{itemize}
 
   \medskip
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ADD COLUMN RUNTIME INTEGER
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1761,12 +1772,12 @@ ALTER TABLE table_name
   \end{itemize}
 
   \medskip
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   DROP COLUMN RUNTIME
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1781,12 +1792,12 @@ ALTER TABLE table_name
   \end{itemize}
 
   \medskip
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 ALTER TABLE MOVIE
   RENAME COLUMN TITLE TO NAME
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1866,13 +1877,12 @@ INSERT INTO table_name
     \end{lstlisting}
 
     \pause
-    \item the order of values must match the order of columns
-    \item if the column names are not specified,\\
-      values must be written in the order used at table creation
+    \item order of values must match order of columns
+    \item if column names are omitted, values must be in order of definition
 
     \pause
-    \item unspecified columns will take their default values
-    \item automatically generated columns should not be specified
+    \item omitted columns will take their default values
+    \item automatically generated columns are usually omitted
   \end{itemize}
 \end{frame}
 
@@ -1944,7 +1954,7 @@ UPDATE table_name
     \end{lstlisting}
 
     \item if no condition is specified, all rows will be updated
-    \item the order column assignments isn't significant
+    \item order of column assignments is insignificant
   \end{itemize}
 \end{frame}
 
@@ -2011,7 +2021,7 @@ column_name data_type
     \end{lstlisting}
   \end{itemize}
 
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
@@ -2020,18 +2030,18 @@ CREATE TABLE MOVIE (
   DIRECTORID INTEGER REFERENCES PERSON (ID)
 )
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Foreign Keys}
 
   \begin{itemize}
-    \item if the foreign key corresponds to the primary key,\\
-      the referred column doesn't have to be specified
+    \item if the foreign key refers to the primary key,\\
+      the referred column can be omitted
   \end{itemize}
 
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{lstlisting}
 CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
@@ -2040,7 +2050,7 @@ CREATE TABLE MOVIE (
   DIRECTORID INTEGER REFERENCES PERSON
 )
     \end{lstlisting}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -2095,10 +2105,6 @@ CREATE TABLE MOVIE (
 \begin{frame}
   \frametitle{Referential Integrity Example}
 
-  \begin{itemize}
-    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
-  \end{itemize}
-
   \begin{columns}
     \column{.63\textwidth}
     \begin{tiny}
@@ -2127,8 +2133,9 @@ CREATE TABLE MOVIE (
   \end{columns}
 
   \begin{itemize}
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
+    \smallskip
     \item delete Spike Jonze from PERSON: not allowed
-    \pause
     \item delete Gabriel Byrne from PERSON: allowed
   \end{itemize}
 \end{frame}
@@ -2136,29 +2143,22 @@ CREATE TABLE MOVIE (
 \begin{frame}
   \frametitle{Referential Integrity Example}
 
-  \begin{itemize}
-    \item \lstinline!MOVIE.DIRECTORID: ON DELETE CASCADE!
-    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
-    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
-  \end{itemize}
-
-  \vspace{-24pt}
-  \begin{columns}
-    \column{.63\textwidth}
+  \begin{columns}[t]
+    \column{.45\textwidth}
     \begin{tiny}
     \begin{table}
       \caption{MOVIE}
-      \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE             & ... & DIRECTORID\\[2pt]\hline\hline
-          6 & Usual Suspects       & ... &        639\\\hline
-         70 & Being John Malkovich & ... &       1485\\\hline
-        107 & Batman \& Robin      & ... &        105\\\hline
-        112 & Three Kings          & ... &       1070\\\hline
+      \begin{tabular}{|r|l|r|}\hline
+\underline{ID} & TITLE             & DIRECTORID\\[2pt]\hline\hline
+          6 & Usual Suspects       &        639\\\hline
+         70 & Being John Malkovich &       1485\\\hline
+        107 & Batman \& Robin      &        105\\\hline
+        112 & Three Kings          &       1070\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
 
-    \column{.37\textwidth}
+    \column{.25\textwidth}
     \begin{tiny}
     \begin{table}
       \caption{PERSON}
@@ -2169,22 +2169,26 @@ CREATE TABLE MOVIE (
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{columns}
 
-  \vspace{-12pt}
-  \begin{tiny}
-  \begin{table}
-    \caption{CASTING}
-    \begin{tabular}{|r|r|r|}\hline
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                 112 &                1485 &   4\\\hline
-    \end{tabular}
-  \end{table}
-  \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 
   \begin{itemize}
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
+    \smallskip
     \item delete Spike Jonze from PERSON: which rows get deleted?
   \end{itemize}
 \end{frame}
@@ -2192,29 +2196,22 @@ CREATE TABLE MOVIE (
 \begin{frame}
   \frametitle{Referential Integrity Example}
 
-  \begin{itemize}
-    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
-    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
-    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
-  \end{itemize}
-
-  \vspace{-24pt}
-  \begin{columns}
-    \column{.63\textwidth}
+  \begin{columns}[t]
+    \column{.45\textwidth}
     \begin{tiny}
     \begin{table}
       \caption{MOVIE}
-      \begin{tabular}{|r|l|c|r|}\hline
-\underline{ID} & TITLE             & ... & DIRECTORID\\[2pt]\hline\hline
-          6 & Usual Suspects       & ... &        639\\\hline
-         70 & Being John Malkovich & ... &       1485\\\hline
-        107 & Batman \& Robin      & ... &        105\\\hline
-        112 & Three Kings          & ... &       1070\\\hline
+      \begin{tabular}{|r|l|r|}\hline
+\underline{ID} & TITLE             & DIRECTORID\\[2pt]\hline\hline
+          6 & Usual Suspects       &        639\\\hline
+         70 & Being John Malkovich &       1485\\\hline
+        107 & Batman \& Robin      &        105\\\hline
+        112 & Three Kings          &       1070\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
 
-    \column{.37\textwidth}
+    \column{.25\textwidth}
     \begin{tiny}
     \begin{table}
       \caption{PERSON}
@@ -2225,22 +2222,26 @@ CREATE TABLE MOVIE (
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{columns}
 
-  \vspace{-12pt}
-  \begin{tiny}
-  \begin{table}
-    \caption{CASTING}
-    \begin{tabular}{|r|r|r|}\hline
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
                   6 &                 308 &   2\\\hline
                  70 &                 282 &   2\\\hline
                 112 &                1485 &   4\\\hline
-    \end{tabular}
-  \end{table}
-  \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 
   \begin{itemize}
+    \item \lstinline!MOVIE.DIRECTORID: ON DELETE RESTRICT!
+    \item \lstinline!CASTING.MOVIEID: ON DELETE CASCADE!
+    \item \lstinline!CASTING.ACTORID: ON DELETE CASCADE!
+    \smallskip
     \item delete Spike Jonze from PERSON: which rows get deleted?
   \end{itemize}
 \end{frame}
