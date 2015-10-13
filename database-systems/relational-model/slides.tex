@@ -196,7 +196,7 @@ Being John Malkovich & 1999 & Spike Jonze   &   8.3 & 13809\\\hline
     \item each tuple is either \emph{True} or \emph{False} according to the
       predicate
   \end{itemize}
-  
+
   \begin{exampleblock}{example: MOVIE relation}
     \begin{itemize}
       \item \texttt{(Suspiria, 1977, Dario Argento, 1004, 7.1)} is True
@@ -1026,7 +1026,7 @@ RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
     YEAR YEAR,
-    DIRECTOR PERSON#,
+    DIRECTOR# PERSON#,
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# }
@@ -1059,7 +1059,7 @@ VAR MOVIE BASE RELATION
   { MOVIE# MOVIE#,
     TITLE CHAR,
     YEAR YEAR,
-    DIRECTOR PERSON#,
+    DIRECTOR# PERSON#,
     SCORE SCORE,
     VOTES INTEGER }
   KEY { MOVIE# };
@@ -1143,13 +1143,11 @@ relvar_name := RELATION { ... };
   \begin{lstlisting}
 MOVIE := RELATION
   { TUPLE
-      { MOVIE# MOVIE#(6),
-        TITLE "Usual Suspects",
+      { MOVIE# MOVIE#(6), TITLE "Usual Suspects",
         YEAR YEAR(1995), DIRECTOR# PERSON#(639),
         SCORE SCORE(8.7), VOTES 35027 },
     TUPLE
-      { MOVIE# MOVIE#(70),
-        TITLE "Being John Malkovich",
+      { MOVIE# MOVIE#(70), TITLE "Being John Malkovich",
         YEAR YEAR(1999), DIRECTOR# PERSON#(1485),
         SCORE SCORE(8.3), VOTES 13809 } };
   \end{lstlisting}
@@ -1174,12 +1172,12 @@ INSERT relvar_name RELATION
   \begin{lstlisting}
 INSERT MOVIE RELATION
   { TUPLE
-    { MOVIE# MOVIE#(6),
-      TITLE "Suspiria",
+    { MOVIE# MOVIE#(1),
+      TITLE "Star Wars",
       YEAR YEAR(1977),
-      DIRECTOR# PERSON#(2259),
-      SCORE SCORE(7.1),
-      VOTES 1004 } };
+      DIRECTOR# PERSON#(360),
+      SCORE SCORE(8.8),
+      VOTES 53567 } };
   \end{lstlisting}
 \end{frame}
 
@@ -1322,7 +1320,6 @@ CONSTRAINT CASTING_FKEY_ACTOR
 
   \begin{itemize}
     \item \texttt{INTEGER}
-    \item \texttt{SMALLINT}
 
     \medskip
     \item \texttt{NUMERIC (precision, scale)}
@@ -1333,10 +1330,7 @@ CONSTRAINT CASTING_FKEY_ACTOR
     \end{itemize}
 
     \medskip
-    \item \texttt{FLOAT (p)}
-    \begin{itemize}
-      \item \texttt{p}: lowest acceptable precision
-    \end{itemize}
+    \item \texttt{FLOAT}
 
     \medskip
     \item \texttt{BOOLEAN}
@@ -1669,7 +1663,7 @@ CREATE TABLE MOVIE (
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
   UNIQUE (TITLE),
-  UNIQUE (DIRECTOR, YR)
+  UNIQUE (DIRECTORID, YR)
 )
     \end{lstlisting}
   \end{itemize}
@@ -2001,9 +1995,9 @@ CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
+  DIRECTORID INTEGER,
   SCORE FLOAT,
   VOTES INTEGER DEFAULT 0,
-  DIRECTORID INTEGER,
   FOREIGN KEY DIRECTORID REFERENCES PERSON (ID)
 )
   \end{lstlisting}
@@ -2026,8 +2020,8 @@ column_name data_type
 CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
   ...
-  VOTES INTEGER DEFAULT 0,
-  DIRECTORID INTEGER REFERENCES PERSON (ID)
+  DIRECTORID INTEGER REFERENCES PERSON (ID),
+  ...
 )
     \end{lstlisting}
   \end{exampleblock}
@@ -2046,8 +2040,8 @@ CREATE TABLE MOVIE (
 CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
   ...
-  VOTES INTEGER DEFAULT 0,
-  DIRECTORID INTEGER REFERENCES PERSON
+  DIRECTORID INTEGER REFERENCES PERSON,
+  ...
 )
     \end{lstlisting}
   \end{exampleblock}
@@ -2094,6 +2088,7 @@ CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
   ...
   DIRECTORID INTEGER,
+  ...,
   FOREIGN KEY DIRECTORID
     REFERENCES PERSON (ID)
     ON DELETE RESTRICT
@@ -2254,9 +2249,9 @@ CREATE TABLE MOVIE (
   ID SERIAL PRIMARY KEY,
   TITLE VARCHAR(80) NOT NULL,
   YR NUMERIC(4),
+  DIRECTORID INTEGER REFERENCES PERSON (ID)
   SCORE FLOAT,
-  VOTES INTEGER DEFAULT 0,
-  DIRECTORID INTEGER REFERENCES PERSON
+  VOTES INTEGER DEFAULT 0
 )
   \end{lstlisting}
 \end{frame}
@@ -2277,8 +2272,8 @@ CREATE TABLE PERSON (
 
   \begin{lstlisting}
 CREATE TABLE CASTING (
-  MOVIEID INTEGER REFERENCES MOVIE,
-  ACTORID INTEGER REFERENCES PERSON,
+  MOVIEID INTEGER REFERENCES MOVIE (ID),
+  ACTORID INTEGER REFERENCES PERSON (ID),
   ORD INTEGER,
   PRIMARY KEY (MOVIEID, ACTORID)
 )
