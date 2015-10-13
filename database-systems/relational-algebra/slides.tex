@@ -1044,7 +1044,7 @@ relation1 INTERSECT relation2
   \frametitle{Intersection Example}
 
   \begin{itemize}
-    \item ids of all directors who also acted (\texttt{I1})
+    \item ids of all directors who also acted (\texttt{I1A})
     \begin{lstlisting}
 (MOVIE { DIRECTOR# }
       RENAME { DIRECTOR# AS PERSON# })
@@ -1980,7 +1980,7 @@ SELECT ...
 
   \begin{itemize}
     \item inner join: unmatched rows are excluded
-    
+
     \medskip
     \item \alert{outer join}: unmatched rows are included
     \item columns from the other table are null
