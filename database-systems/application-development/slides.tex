@@ -198,7 +198,7 @@ postgres://vagrant:vagrant@localhost:5432/itucsdb
 
   \begin{lstlisting}
 dsn = """user='vagrant' password='vagrant'
-         host='localhost' dbname='itucsdb'"""
+         host='localhost' port=5432 dbname='itucsdb'"""
 connection = dbapi2.connect(dsn)
 
 # database operations
@@ -255,23 +255,71 @@ connection.close()
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Query Example}
+  \frametitle{Retrieve Operation Example}
 
   \begin{lstlisting}
 connection = dbapi2.connect(dsn)
 cursor = connection.cursor()
-statement = """SELECT TITLE, VOTES FROM MOVIE
-                WHERE (YR = 1942)"""
+statement = """SELECT TITLE, SCORE FROM MOVIE
+                WHERE (YR = 1999)"""
 cursor.execute(statement)
 for row in cursor:
-    title, votes = row
-    print('%s : %d votes' % (title, votes))
+    title, score = row
+    print('%s: %s' % (title, score))
 cursor.close()
 connection.close()
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Retrieve Operation Examples}
+
+  \begin{itemize}
+    \item simpler code with tuple assignment
+  \end{itemize}
+
+  \begin{lstlisting}
+for row in cursor:
+    title, score = row
+    print('%s: %s' % (title, score))
+  \end{lstlisting}
+
+  \begin{lstlisting}
+for title, score in cursor:
+    print('%s: %s' % (title, score))
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Retrieve Operation Examples}
+
+  \begin{itemize}
+    \item movies and their directors
+  \end{itemize}
+
+  \begin{lstlisting}
+statement = """SELECT TITLE, NAME
+                 FROM MOVIE JOIN PERSON
+                   ON (MOVIE.DIRECTORID = PERSON.ID)"""
+cursor.execute(statement)
+for title, name in cursor:
+    print('%s: %s' % (title, name))
+  \end{lstlisting}
+\end{frame}
+
 \subsection{Error Handling}
+
+\begin{frame}
+  \frametitle{Error Handling}
+
+  \begin{itemize}
+    \item catch database related exceptions
+
+    \medskip
+    \item rollback operation on error (\lstinline!except!)
+    \item close all opened resources (\lstinline!finally!)
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Template}
@@ -292,7 +340,7 @@ finally:
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Context Managers}
+  \frametitle{Connection Context Managers}
 
   \begin{itemize}
     \item in some drivers, connections are context managers: \lstinline!with!
@@ -310,7 +358,26 @@ with dbapi2.connect(dsn) as connection:
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Context Managers}
+  \frametitle{Connection Context Manager Example}
+
+  \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    cursor = connection.cursor()
+    statement = """CREATE TABLE MOVIE (
+        ID SERIAL PRIMARY KEY,
+        TITLE VARCHAR(80),
+        YR NUMERIC(4),
+        SCORE FLOAT,
+        VOTES INTEGER DEFAULT 0,
+        DIRECTORID INTEGER REFERENCES PERSON (ID)
+    )"""
+    cursor.execute(statement)
+    cursor.close()
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Cursor Context Managers}
 
   \begin{itemize}
     \item in some drivers, cursors are also context managers
@@ -326,31 +393,29 @@ with dbapi2.connect(dsn) as connection:
   \end{itemize}
 \end{frame}
 
-\subsection{Constructing Statements}
+\begin{frame}[fragile]
+  \frametitle{Cursor Context Manager Example}
+
+  \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    with connection.cursor() as cursor:
+        statement = """CREATE TABLE CASTING (
+            MOVIEID INTEGER REFERENCES MOVIE (ID),
+            ACTORID INTEGER REFERENCES PERSON (ID),
+            ORD INTEGER,
+            PRIMARY KEY (MOVIEID, ACTORID)
+        )"""
+        cursor.execute(statement)
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Statements}
 
 \begin{frame}[fragile]
-  \frametitle{Constructing Statements}
+  \frametitle{Statements}
 
   \begin{itemize}
     \item unsafe to use string formatting for constructing statements
-  \end{itemize}
-
-  \medskip
-  \begin{exampleblock}{bad example}
-    \begin{lstlisting}
-title = 'Casablanca'
-year = 1942
-statement = """INSERT INTO MOVIE (TITLE, YR)
-                 VALUES ('%s', %d)""" % (title, year)
-cursor.execute(statement)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{SQL Injection}
-
-  \begin{itemize}
     \item never trust inputs from outside sources
     \item \alert{SQL injection} attacks
   \end{itemize}
@@ -374,13 +439,13 @@ cursor.execute(statement)
   \end{center}
 
   \vspace{-6pt}
-  \lstinline[language=SQL]!INSERT INTO Students (Name)!\\
-  \lstinline[language=SQL]!   VALUES ('!\alert{\lstinline!Robert'); DROP TABLE Students;-- !}
-  \lstinline[language=SQL]!')!
+  \lstinline[language=FullSQL]!INSERT INTO Students (Name)!\\
+  \lstinline[language=FullSQL]!   VALUES ('!\alert{\lstinline!Robert'); DROP TABLE Students;-- !}
+  \lstinline[language=FullSQL]!')!
 
-  \lstinline[language=SQL]!INSERT INTO Students (Name)!\\
-  \lstinline[language=SQL]!   VALUES ('Robert'); DROP TABLE Students;-- !
-  \lstinline[language=SQL]!')!
+  \lstinline[language=FullSQL]!INSERT INTO Students (Name)!\\
+  \lstinline[language=FullSQL]!   VALUES ('Robert'); DROP TABLE Students;-- !
+  \lstinline[language=FullSQL]!')!
 
   \begin{tiny}
     \url{http://xkcd.com/327/}
@@ -401,14 +466,54 @@ cursor.execute(statement)
 \begin{frame}[fragile]
   \frametitle{Placeholder Examples}
 
-  \begin{lstlisting}
+  \begin{itemize}
+    \item using tuples:
+    \begin{lstlisting}
 statement = """INSERT INTO MOVIE (TITLE, YR)
                  VALUES (%s, %s)"""
 cursor.execute(statement, (title, year))
+    \end{lstlisting}
 
+    \pause
+    \item using dictionaries:
+    \begin{lstlisting}
 statement = """INSERT INTO MOVIE (TITLE, YR)
                  VALUES (%(title)s, %(year)s)"""
-cursor.execute(statement, {'year': year, 'title': title})
+cursor.execute(statement, {'year': year,
+                           'title': title})
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fetching Results}
+
+  \begin{itemize}
+    \item fetching results instead of iterating over cursor:\\
+      \lstinline!.fetchall()!\\
+      \lstinline!.fetchone()!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fetch Example}
+
+  \begin{itemize}
+    \item people and movies they directed
+  \end{itemize}
+
+  \begin{lstlisting}
+statement1 = """SELECT ID, NAME FROM PERSON"""
+cursor.execute(statement1)
+people = cursor.fetchall()
+for person_id, name in people:
+    statement2 = """SELECT TITLE FROM MOVIE
+                     WHERE (DIRECTORID = %s)"""
+    cursor.execute(statement2, (person_id,))
+    directed = cursor.fetchall()
+    print('%s:' % (name,))
+    for title in directed:
+        print('  %s' % (title[0],))
   \end{lstlisting}
 \end{frame}
 
@@ -523,6 +628,7 @@ movie.add_actor(actor)
 
   \begin{itemize}
     \item map software components to database components
+    \item translate the object interface into SQL statements
   \end{itemize}
 
   \begin{table}
@@ -535,18 +641,24 @@ attribute & column & attribute\\\hline
     \end{table}
 \end{frame}
 
+\subsection{SQLAlchemy}
+
 \begin{frame}
   \frametitle{SQLAlchemy}
 
   \begin{itemize}
-    \item translates the object interface into SQL statements
+    \item abstraction over SQL expressions
+    \item object-relational mapper
+
+    \medskip
+    \item regular Python class
+    \item SQL table description
+    \item mapper maps class to table
   \end{itemize}
 \end{frame}
 
-\subsection{Basics}
-
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example}
+  \frametitle{Connection Example}
 
   \begin{lstlisting}
 from sqlalchemy import create_engine
@@ -554,74 +666,93 @@ from sqlalchemy import create_engine
 uri = 'postgres://vagrant:vagrant@localhost:5432/itucsdb'
 engine = create_engine(uri, echo=True)
   \end{lstlisting}
+
+  \pause
+  \medskip
+  \begin{lstlisting}
+from sqlalchemy import MetaData
+
+metadata = MetaData()
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: The Class}
+  \frametitle{Class Example}
 
   \begin{lstlisting}
 class Movie:
-    def __init__(self, title, year=None, votes=None):
+    def __init__(self, title, year=None,
+                 score=None, votes=None):
         self.title = title
         self.yr = year
+        self.score = score
         self.votes = votes
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: The Table}
+  \frametitle{Table Example}
 
   \begin{lstlisting}
-from sqlalchemy import MetaData, Table, Column
-from sqlalchemy import Integer, String
-
-metadata = MetaData()
+from sqlalchemy import Column, Table
+from sqlalchemy import Float, Integer, String
 
 movie_table = Table(
     'Movie', metadata,
     Column('id', Integer, primary_key=True),
     Column('title', String(80), nullable=False),
     Column('yr', Integer),
+    Column('score', Float)
     Column('votes', Integer)
 )
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: The Mapper}
+  \frametitle{Mapper Example}
 
   \begin{lstlisting}
 from sqlalchemy.orm import mapper
-
 
 mapper(Movie, movie_table)
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Creating Tables}
+  \frametitle{Creating Tables}
 
   \begin{lstlisting}
 metadata.create_all(bind=engine)
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 CREATE TABLE "Movie" (
-        id SERIAL NOT NULL,
-        title VARCHAR(80) NOT NULL,
-        yr INTEGER,
-        votes INTEGER,
-        PRIMARY KEY (id)
+    id SERIAL NOT NULL,
+    title VARCHAR(80) NOT NULL,
+    yr INTEGER,
+    score FLOAT,
+    votes INTEGER,
+    PRIMARY KEY (id)
 )
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Sessions}
+
+  \begin{itemize}
+    \item data operations are handled in sessions
+    \item end with commit or rollback
+    \item session keeps track of modified and new objects
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: The Session}
+  \frametitle{Session Example}
 
   \begin{lstlisting}
 from sqlalchemy.orm import sessionmaker
-
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -629,80 +760,98 @@ session = Session()
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Insert}
+  \frametitle{Session Example: Insert}
 
   \begin{lstlisting}
 movie = Movie('Casablanca', year=1942)
 session.add(movie)
 session.commit()
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
-INSERT INTO "Movie" (title, yr, votes)
-  VALUES (%(title)s, %(yr)s, %(votes)s)
+INSERT INTO "Movie" (title, yr, score, votes)
+  VALUES (%(title)s, %(yr)s, %(score)s, %(votes)s)
   RETURNING "Movie".id
-{'yr': 1942, 'votes': None, 'title': 'Casablanca'}
+  \end{lstlisting}
 
--- returned id is assumed to be 1
+  \begin{lstlisting}
+{'yr': 1942, 'title': 'Casablanca', 'score': None,
+ 'votes': None}
+
+# autogenerated id is assumed to be 1
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Update}
+  \frametitle{Session Example: Update}
 
   \begin{lstlisting}
-movie.votes = 359203
+movie.votes = 23283
 session.commit()
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 UPDATE "Movie" SET votes=%(votes)s
-  WHERE "Movie".id = %(Movie_id)s
-{'Movie_id': 1, 'votes': 359203}
+ WHERE "Movie".id = %(Movie_id)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'Movie_id': 1, 'votes': 23283}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Delete}
+  \frametitle{Session Example: Delete}
 
   \begin{lstlisting}
 session.delete(movie)
 session.commit()
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 DELETE FROM "Movie"
-  WHERE "Movie".id = %(id)s
+ WHERE "Movie".id = %(id)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
 {'id': 1}
   \end{lstlisting}
 \end{frame}
 
+\subsection{Queries}
+
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Select}
+  \frametitle{Query Examples}
 
   \begin{lstlisting}
 session.query(Movie)
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 SELECT "Movie".id AS "Movie_id",
        "Movie".title AS "Movie_title",
        "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
        "Movie".votes AS "Movie_votes"
   FROM "Movie"
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Selecting Columns}
+  \frametitle{Query Examples: Selecting Columns}
 
   \begin{lstlisting}
-session.query(Movie.title, Movie.votes)
+session.query(Movie.title, Movie.score)
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 SELECT "Movie".title AS "Movie_title",
-       "Movie".votes AS "Movie_votes"
+       "Movie".score AS "Movie_score"
   FROM "Movie"
   \end{lstlisting}
 \end{frame}
@@ -713,11 +862,13 @@ SELECT "Movie".title AS "Movie_title",
   \begin{lstlisting}
 session.query(Movie).order_by(Movie.yr)
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 SELECT "Movie".id AS "Movie_id",
        "Movie".title AS "Movie_title",
        "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
        "Movie".votes AS "Movie_votes"
   FROM "Movie"
   ORDER BY "Movie".yr
@@ -728,24 +879,40 @@ SELECT "Movie".id AS "Movie_id",
   \frametitle{SQLAlchemy Example: Selecting Rows}
 
   \begin{lstlisting}
-session.query(Movie).filter_by(yr=1942)
+session.query(Movie).filter_by(yr=1999)
   \end{lstlisting}
+  \hrule
 
   \begin{lstlisting}[language=FullSQL]
 SELECT "Movie".id AS "Movie_id",
        "Movie".title AS "Movie_title",
        "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
        "Movie".votes AS "Movie_votes"
   FROM "Movie"
-  WHERE "Movie".yr = %(yr_1)s
-{'yr_1': 1942}
+ WHERE "Movie".yr = %(yr_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'yr_1': 1999}
   \end{lstlisting}
 \end{frame}
 
-\subsection{Relationships}
+\subsection{Foreign Keys}
+
+\begin{frame}
+  \frametitle{Foreign Keys}
+
+  \begin{itemize}
+    \item add foreign key columns to table definitions
+    \item add a ``relationship'' property to the mapper
+    \item property name becomes attribute from source to target
+    \item backref parameter becomes attribute from target to source
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: One-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 class Person:
@@ -757,23 +924,24 @@ class Person:
 person_table = Table(
     'Person', metadata,
     Column('id', Integer, primary_key=True),
-    Column('name', String(40), nullable=False, unique=True)
+    Column('name', String(40), nullable=False,
+           unique=True)
 )
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: One-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 from sqlalchemy import ForeignKey
-
 
 movie_table = Table(
     'Movie', metadata,
     Column('id', Integer, primary_key=True),
     Column('title', String(80)),
     Column('yr', Integer),
+    Column('score', Float),
     Column('votes', Integer),
     Column('directorid', Integer, ForeignKey('Person.id'))
 )
@@ -781,11 +949,10 @@ movie_table = Table(
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: One-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 from sqlalchemy.orm import relationship
-
 
 mapper(Person, person_table,
        properties={
@@ -796,21 +963,80 @@ mapper(Person, person_table,
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: One-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
-for movie in session.query(Movie):
-    print('%s: %s' % (movie.title, movie.director.name))
+movies = session.query(Movie) \
+                .filter_by(title='Ed Wood')[0]
+  \end{lstlisting}
+  \hrule
 
-for person in session.query(Person):
-    print('%s:' % (person.name,))
-    for movie in person.directed:
-        print('  %s' % (movie.title,))
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       ...
+       "Movie".directorid AS "Movie_directorid"
+  FROM "Movie"
+ WHERE "Movie".title = %(title_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'title_1': 'Ed Wood'}
+
+# returned directorid is assumed to be 8
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Many-to-Many}
+  \frametitle{Foreign Key Example}
+
+  \begin{lstlisting}
+person = movie.director
+print(person.name)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Person".id AS "Person_id",
+       "Person".name AS "Person_name"
+  FROM "Person"
+ WHERE "Person".id = %(param_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'param_1': 8}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Backref Example}
+
+  \begin{lstlisting}
+for movie in person.directed:
+    print(movie.title)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       ...
+       "Movie".directorid AS "Movie_directorid"
+  FROM "Movie"
+ WHERE %(param_1)s = "Movie".directorid
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'param_1': 8}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Foreign Key Example}
+
+  \begin{itemize}
+    \item over a secondary table
+  \end{itemize}
 
   \begin{lstlisting}
 casting_table = Table(
@@ -825,35 +1051,38 @@ casting_table = Table(
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Many-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 mapper(Person, person_table,
        properties={
-           'directed': relationship(
-               Movie, backref='director'
-           ),
-           'acted': relationship(
-               Movie, backref='cast',
-               secondary=casting_table
-           )
+           'directed':
+               relationship(Movie,
+                            backref='director'),
+           'acted':
+               relationship(Movie,
+                            backref='cast',
+                            secondary=casting_table)
        })
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQLAlchemy Example: Many-to-Many}
+  \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
 for movie in session.query(Movie):
     print('%s:' % (movie.title,))
     for person in movie.cast:
         print('  %s' % (person.name,))
+  \end{lstlisting}
 
+  \pause
+  \begin{lstlisting}
 for person in session.query(Person):
     print('%s:' % (person.name,))
     for movie in person.acted:
-        print('  ', movie.title)
+        print('  %s' % (movie.title,))
   \end{lstlisting}
 \end{frame}
 
