@@ -18,17 +18,12 @@
 
 \usepackage{listings}
 \lstdefinelanguage{Python3}[]{Python}{
-  morekeywords={as, with}
+  morekeywords={as, with}, deletekeywords={format}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
                 START, TO, TYPE, VACUUM}
-}
-\lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
-  morekeywords={AFTER, BEFORE, DO, EACH, FOR, FUNCTION, INSTEAD, LANGUAGE,
-                OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
-                WITH}
 }
 \lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
         showstringspaces=false}
@@ -249,7 +244,7 @@ connection.close()
     \bigskip
     \item create a cursor on the connection
     \item execute statement on the cursor
-    \item iterate over rows on the cursor
+    \item iterate over rows on the cursor (every row is a tuple)
     \item close the cursor
   \end{itemize}
 \end{frame}
@@ -265,7 +260,7 @@ statement = """SELECT TITLE, SCORE FROM MOVIE
 cursor.execute(statement)
 for row in cursor:
     title, score = row
-    print('%s: %s' % (title, score))
+    print('{}: {}'.format(title, score))
 cursor.close()
 connection.close()
   \end{lstlisting}
@@ -281,12 +276,12 @@ connection.close()
   \begin{lstlisting}
 for row in cursor:
     title, score = row
-    print('%s: %s' % (title, score))
+    print('{}: {}'.format(title, score))
   \end{lstlisting}
 
   \begin{lstlisting}
 for title, score in cursor:
-    print('%s: %s' % (title, score))
+    print('{}: {}'.format(title, score))
   \end{lstlisting}
 \end{frame}
 
@@ -303,7 +298,7 @@ statement = """SELECT TITLE, NAME
                    ON (MOVIE.DIRECTORID = PERSON.ID)"""
 cursor.execute(statement)
 for title, name in cursor:
-    print('%s: %s' % (title, name))
+    print('{}: {}'.format(title, name))
   \end{lstlisting}
 \end{frame}
 
@@ -331,9 +326,8 @@ try:
     cursor.execute(statement)
     connection.commit()
     cursor.close()
-except dbapi2.DatabaseError as e:
+except dbapi2.DatabaseError:
     connection.rollback()
-    raise e
 finally:
     connection.close()
   \end{lstlisting}
@@ -503,17 +497,17 @@ cursor.execute(statement, {'year': year,
   \end{itemize}
 
   \begin{lstlisting}
-statement1 = """SELECT ID, NAME FROM PERSON"""
-cursor.execute(statement1)
+statement = """SELECT ID, NAME FROM PERSON"""
+cursor.execute(statement)
 people = cursor.fetchall()
 for person_id, name in people:
-    statement2 = """SELECT TITLE FROM MOVIE
-                     WHERE (DIRECTORID = %s)"""
-    cursor.execute(statement2, (person_id,))
+    statement = """SELECT TITLE FROM MOVIE
+                    WHERE (DIRECTORID = %s)"""
+    cursor.execute(statement, (person_id,))
     directed = cursor.fetchall()
-    print('%s:' % (name,))
-    for title in directed:
-        print('  %s' % (title[0],))
+    print('{}:'.format(name))
+    for (title,) in directed:
+        print('  {}'.format(title))
   \end{lstlisting}
 \end{frame}
 
@@ -928,6 +922,10 @@ person_table = Table(
            unique=True)
 )
   \end{lstlisting}
+
+  \begin{lstlisting}
+mapper(Person, person_table)
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -954,10 +952,11 @@ movie_table = Table(
   \begin{lstlisting}
 from sqlalchemy.orm import relationship
 
-mapper(Person, person_table,
+mapper(Movie, movie_table,
        properties={
-           'directed': relationship(Movie,
-                                    backref='director')
+           'director':
+               relationship(Person,
+                            backref='directed')
        })
   \end{lstlisting}
 \end{frame}
@@ -966,8 +965,8 @@ mapper(Person, person_table,
   \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
-movies = session.query(Movie) \
-                .filter_by(title='Ed Wood')[0]
+movie = session.query(Movie) \
+               .filter_by(title='Ed Wood').first()
   \end{lstlisting}
   \hrule
 
@@ -1054,14 +1053,14 @@ casting_table = Table(
   \frametitle{Foreign Key Example}
 
   \begin{lstlisting}
-mapper(Person, person_table,
+mapper(Movie, movie_table,
        properties={
-           'directed':
-               relationship(Movie,
-                            backref='director'),
-           'acted':
-               relationship(Movie,
-                            backref='cast',
+           'director':
+               relationship(Person,
+                            backref='directed'),
+           'cast':
+               relationship(Person,
+                            backref='acted',
                             secondary=casting_table)
        })
   \end{lstlisting}
@@ -1072,17 +1071,17 @@ mapper(Person, person_table,
 
   \begin{lstlisting}
 for movie in session.query(Movie):
-    print('%s:' % (movie.title,))
+    print('{}:'.format(movie.title))
     for person in movie.cast:
-        print('  %s' % (person.name,))
+        print('  {}'.format(person.name))
   \end{lstlisting}
 
   \pause
   \begin{lstlisting}
 for person in session.query(Person):
-    print('%s:' % (person.name,))
+    print('{}:'.format(person.name))
     for movie in person.acted:
-        print('  %s' % (movie.title,))
+        print('  {}'.format(movie.title))
   \end{lstlisting}
 \end{frame}
 
