@@ -18,7 +18,7 @@
 
 \usepackage{listings}
 \lstdefinelanguage{Python3}[]{Python}{
-  morekeywords={as, with}, deletekeywords={format}
+  morekeywords={as, with}, deletekeywords={filter,format}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -885,6 +885,29 @@ SELECT "Movie".id AS "Movie_id",
        "Movie".votes AS "Movie_votes"
   FROM "Movie"
  WHERE "Movie".yr = %(yr_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'yr_1': 1999}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQLAlchemy Example: Selecting Rows by Predicate}
+
+  \begin{lstlisting}
+session.query(Movie).filter(Movie.yr < 1999)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
+       "Movie".votes AS "Movie_votes"
+  FROM "Movie"
+ WHERE "Movie".yr < %(yr_1)s
   \end{lstlisting}
 
   \begin{lstlisting}
