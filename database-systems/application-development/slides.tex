@@ -327,9 +327,11 @@ try:
     connection.commit()
     cursor.close()
 except dbapi2.DatabaseError:
-    connection.rollback()
+    if connection:
+        connection.rollback()
 finally:
-    connection.close()
+    if connection:
+        connection.close()
   \end{lstlisting}
 \end{frame}
 
