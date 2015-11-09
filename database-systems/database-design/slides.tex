@@ -128,7 +128,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[label=example_r]
+\begin{frame}[label=example_db_1]
   \frametitle{Example Relation}
 
   \begin{tiny}
@@ -219,10 +219,8 @@
     \medskip
     \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
     \item every form adds stricter conditions to the previous form
-    \begin{itemize}
-      \item every relation in 2NF is also in 1NF
-      \item every relation in 3NF is also in 2NF, ...
-    \end{itemize}
+    \item every relation in 2NF is also in 1NF,\\
+      every relation in 3NF is also in 2NF, ...
     \item NF of database = NF of weakest relation
 
     \pause
@@ -357,20 +355,20 @@ US  &     503 & John Malkovich &  14\\\hline
 \begin{frame}
   \frametitle{Anomaly Examples}
 
-  \hyperlink{example_r}{\beamergotobutton{example relation}}
+  \hyperlink{example_db_1}{\beamergotobutton{example database}}
 
   \begin{itemize}
-    \item the country of the movie "Gattaca" is known to be US,\\
+    \item the country of the movie ``Gattaca'' is known to be US,\\
       but this cannot be inserted if there is no actor in the movie
 
     \pause
     \medskip
-    \item deleting that Gabriel Byrne acts in the movie "Usual Suspects"\\
+    \item deleting that Gabriel Byrne acts in the movie ``Usual Suspects''\\
       also deletes that the movie was made in the UK
 
     \pause
     \medskip
-    \item changing the country of the movie "Being John Malkovich"\\
+    \item changing the country of the movie ``Being John Malkovich''\\
       requires modifications in two tuples
   \end{itemize}
 \end{frame}
@@ -384,18 +382,14 @@ US  &     503 & John Malkovich &  14\\\hline
     \pause
     \medskip
     \item in a relation $R$ that conforms to 1NF, if:
-    \begin{itemize}
-      \item $R(A,B,C,D)$, primary key: $(A,B)$
-      \item $A \rightarrow D$
-    \end{itemize}
+    \item $R(A,B,C,D)$, primary key: $(A,B)$, and\\
+      $A \rightarrow D$
 
     \medskip
-    \item to transform to 2NF:
-    \begin{itemize}
-      \item $R1(A,D)$, primary key: $A$
-      \item $R2(A,B,C)$, primary key: $(A,B)$\\
-        $A$ is a foreign key referencing $R1$
-    \end{itemize}
+    \item to transform to 2NF, divide into:
+    \item $R1(A,D)$, primary key: $A$, and\\
+      $R2(A,B,C)$, primary key: $(A,B)$, where\\
+      $A$ is a foreign key referencing $R1$
   \end{itemize}
 \end{frame}
 
@@ -403,14 +397,11 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{1NF-2NF Transition Example}
 
   \begin{itemize}
-    \item among the non-key attributes,\\
-      only ORD depends on the primary key
-    \begin{itemize}
-      \item $A$: \{MOVIEID\}
-      \item $B$: \{ACTORID\}
-      \item $C$: \{NAME, ORD\}
-      \item $D$: \{TITLE, COUNTRY, LANGUAGE\}
-    \end{itemize}
+    \item among non-key attributes, only ORD depends on primary key
+    \item $A$: \{MOVIEID\}\\
+      $B$: \{ACTORID\}\\
+      $C$: \{NAME, ORD\}\\
+      $D$: \{TITLE, COUNTRY, LANGUAGE\}
 
     \pause
     \medskip
@@ -427,13 +418,11 @@ US  &     503 & John Malkovich &  14\\\hline
   \frametitle{1NF-2NF Transition Example}
 
   \begin{itemize}
-    \item R2 still not in 2NF: ACTORID $\rightarrow$ NAME
-    \begin{itemize}
-      \item $A$: \{ACTORID\}
-      \item $B$: \{MOVIEID\}
-      \item $C$: \{ORD\}
-      \item $D$: \{NAME\}
-    \end{itemize}
+    \item R2 still not 2NF: ACTORID $\rightarrow$ NAME
+    \item $A$: \{ACTORID\}\\
+      $B$: \{MOVIEID\}\\
+      $C$: \{ORD\}\\
+      $D$: \{NAME\}
 
     \pause
     \medskip
@@ -446,7 +435,7 @@ US  &     503 & John Malkovich &  14\\\hline
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=example_db_2]
   \frametitle{2NF Relation Examples}
 
   \vspace{-12pt}
@@ -510,18 +499,20 @@ US  &     503 & John Malkovich &  14\\\hline
 \begin{frame}
   \frametitle{2NF Corrected Anomalies}
 
+  \hyperlink{example_db_2}{\beamergotobutton{example database}}
+
   \begin{itemize}
-    \item if the country of the movie "Gattaca" is known to be US,\\
+    \item if the country of the movie ``Gattaca'' is known to be US,\\
       this can be inserted to R1
 
     \pause
     \medskip
-    \item if Gabriel Byrne is deleted from the movie "Usual Suspects",\\
+    \item if Gabriel Byrne is deleted from the movie ``Usual Suspects'',\\
       the country of the movie is still kept in R1
 
     \pause
     \medskip
-    \item changing the country of the movie "Being John Malkovich"\\
+    \item changing the country of the movie ``Being John Malkovich''\\
       requires updating only one tuple in R1
   \end{itemize}
 \end{frame}
@@ -529,13 +520,15 @@ US  &     503 & John Malkovich &  14\\\hline
 \begin{frame}
   \frametitle{2NF Remaining Anomalies}
 
+  \hyperlink{example_db_2}{\beamergotobutton{example database}}
+
   \begin{itemize}
     \item it is known that movies made in Brazil are in Portuguese\\
       but this can not be inserted if there is no movie made in Brazil
 
     \pause
     \medskip
-    \item deleting the movie "Suspiria" also deletes that\\
+    \item deleting the movie ``Suspiria'' also deletes that\\
       the language of movies made in Italy is Italian
 
     \pause
@@ -557,18 +550,14 @@ US  &     503 & John Malkovich &  14\\\hline
     \pause
     \medskip
     \item in a relation $R$ that conforms to 2NF, if:
-    \begin{itemize}
-      \item $R(A,B,C,D)$, primary key: $A$
-      \item $C \rightarrow D$
-    \end{itemize}
+    \item $R(A,B,C,D)$, primary key: $A$, and\\
+      $C \rightarrow D$
 
     \medskip
-    \item to transform to 3NF:
-    \begin{itemize}
-      \item $R1(C,D)$, primary key: $C$
-      \item $R2(A,B,C)$, primary key: $A$\\
-        $C$ is a foreign key referencing $R1$
-    \end{itemize}
+    \item to transform to 3NF, divide into:
+    \item $R1(C,D)$, primary key: $C$, and\\
+      $R2(A,B,C)$, primary key: $A$, where\\
+      $C$ is a foreign key referencing $R1$
   \end{itemize}
 \end{frame}
 
@@ -577,12 +566,10 @@ US  &     503 & John Malkovich &  14\\\hline
 
   \begin{itemize}
     \item R1: COUNTRY $\rightarrow$ LANGUAGE
-    \begin{itemize}
-      \item $A$: \{MOVIEID\}
-      \item $B$: \{TITLE\}
-      \item $C$: \{COUNTRY\}
-      \item $D$: \{LANGUAGE\}
-    \end{itemize}
+    \item $A$: \{MOVIEID\}\\
+      $B$: \{TITLE\}\\
+      $C$: \{COUNTRY\}\\
+      $D$: \{LANGUAGE\}
 
     \pause
     \medskip
@@ -595,7 +582,7 @@ US  &     503 & John Malkovich &  14\\\hline
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=example_db_3]
   \frametitle{3NF Relation Examples}
 
   \vspace{-24pt}
@@ -673,6 +660,8 @@ IT & IT\\\hline
 \begin{frame}
   \frametitle{3NF Corrected Anomalies}
 
+  \hyperlink{example_db_3}{\beamergotobutton{example database}}
+
   \begin{itemize}
     \item if movies made in Brazil are in known to be in Portuguese,\\
       this can be inserted into R5
@@ -701,20 +690,19 @@ IT & IT\\\hline
 \begin{frame}
   \frametitle{BCNF Example}
 
+  \hyperlink{example_db_1}{\beamergotobutton{example database}}
+
   \begin{itemize}
-    \item let movie title be unique
-    \item candidate keys:
-    \begin{itemize}
-      \item \{MOVIEID, ACTORID\}
-      \item \{TITLE, ACTORID\}
-    \end{itemize}
+    \item let movie titles be unique
+    \item candidate keys:\\
+      \{MOVIEID, ACTORID\}\\
+      \{TITLE, ACTORID\}
 
     \pause
-    \item non-conforming functional dependencies:
-    \begin{itemize}
-      \item MOVIEID $\rightarrow$ TITLE
-      \item TITLE $\rightarrow$ MOVIEID
-    \end{itemize}
+    \medskip
+    \item non-conforming functional dependencies:\\
+      MOVIEID $\rightarrow$ TITLE\\
+      TITLE $\rightarrow$ MOVIEID
   \end{itemize}
 \end{frame}
 
@@ -827,12 +815,9 @@ CREATE RULE UPDATE_TITLE AS
     \item modeling approach (Chen 1976)
 
     \medskip
-    \item components:
-    \begin{itemize}
-      \item entities
-      \item properties
-      \item relationships
-    \end{itemize}
+    \item entities
+    \item properties
+    \item relationships
   \end{itemize}
 \end{frame}
 
@@ -840,12 +825,12 @@ CREATE RULE UPDATE_TITLE AS
   \frametitle{Entities}
 
   \begin{itemize}
-    \item \alert{entity}: set of "things" with the same attributes
+    \item \alert{entity}: set of ``things'' with the same attributes
     \item elements of the set are \emph{instances} of the entity
 
     \medskip
     \item \emph{strong}: can exist by itself
-    \item \emph{weak}: existence depends on another entity
+    \item \emph{weak}: existence depends on other entities
   \end{itemize}
 \end{frame}
 
@@ -867,7 +852,7 @@ CREATE RULE UPDATE_TITLE AS
   \frametitle{Properties}
 
   \begin{itemize}
-    \item \alert{property}: data describing entities
+    \item \alert{property}: data describing entity
 
     \medskip
     \item simple / composite
@@ -916,23 +901,17 @@ CREATE RULE UPDATE_TITLE AS
 
   \begin{itemize}
     \item \alert{one-to-one}
-    \begin{itemize}
-      \item e.g. capital city relationship between countries and cities
-    \end{itemize}
+    \item e.g. capital city relationship between countries and cities
 
     \pause
     \medskip
     \item \alert{one-to-many}
-    \begin{itemize}
-      \item e.g. management relationship between employees and projects
-    \end{itemize}
+    \item e.g. management relationship between employees and projects
 
     \pause
     \medskip
     \item \alert{many-to-many}
-    \begin{itemize}
-      \item e.g. enrollment relationship between students and courses
-    \end{itemize}
+    \item e.g. enrollment relationship between students and courses
   \end{itemize}
 \end{frame}
 
@@ -943,25 +922,19 @@ CREATE RULE UPDATE_TITLE AS
 
   \begin{itemize}
     \item entity: box
-    \begin{itemize}
-      \item weak: double lines
-    \end{itemize}
+    \item weak: double lines
 
     \pause
+    \medskip
     \item property: circle
-    \begin{itemize}
-      \item derived: dashed lines
-      \item multi-valued: double lines
-      \item composite: sub-circles
-    \end{itemize}
+    \item composite: sub-circles
 
     \pause
+    \medskip
     \item relationship: diamond
-    \begin{itemize}
-      \item between weak and strong: double lines
-      \item total: connection double lines
-      \item 1 or n depending on the type of the relationship
-    \end{itemize}
+    \item between weak and strong: double lines
+    \item total: connection double lines
+    \item 1 or n depending on the type of the relationship
  \end{itemize}
 \end{frame}
 
@@ -982,7 +955,7 @@ CREATE RULE UPDATE_TITLE AS
     \bigskip
     \item alternative representation for relationship: line
     \item name of relationship above the line
-    \item fork at the end of line if "many"
+    \item fork at the end of line if ``many''
     \item circle at the end of line: empty if partial, filled if total
 
     \medskip
@@ -1003,20 +976,18 @@ CREATE RULE UPDATE_TITLE AS
   \frametitle{Applying to Design}
 
   \begin{itemize}
-    \item every entity a relation
+    \item every entity is a relation
+    \item every property is an attribute
 
     \pause
-    \item every property an attribute
+    \medskip
+    \item every one-to-many relationship is a foreign key\\
+      from the ``many'' side to the ``one'' side
 
     \pause
-    \item every many-to-many relationship a relation
-    \begin{itemize}
-      \item foreign keys to participating entities
-    \end{itemize}
-
-    \pause
-    \item for every one-to-many relationship\\
-      a foreign key from the "many" side to the "one" side
+    \medskip
+    \item every many-to-many relationship is a relation\\
+      with foreign keys to participating entities
  \end{itemize}
 \end{frame}
 
