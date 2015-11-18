@@ -1,4 +1,4 @@
-% Copyright (c) 2005-2014
+% Copyright (c) 2005-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -26,10 +26,10 @@
 }
 
 \title{Database Systems}
-\subtitle{NoSQL Databases}
+\subtitle{Non-Relational Databases}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2005-2014}
+\date{2005-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -42,8 +42,7 @@
 
 \pgfdeclareimage[width=2cm]{license}{../license}
 
-\pgfdeclareimage{object}{object}
-\pgfdeclareimage{oid}{oid}
+\pgfdeclareimage[width=6.8cm]{casino-royale}{casino-royale}
 
 \begin{document}
 
@@ -55,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2005-2014 T. Uyar, Ş. Öğüdücü
+  \copyright~2005-2015 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{footnotesize}
@@ -96,65 +95,514 @@
   \tableofcontents
 \end{frame}
 
-\section{NoSQL}
-
-\lstset{language=Java}
+\section{Non-Relational Databases}
 
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Problems with SQL}
+  \frametitle{Relational Model}
 
   \begin{itemize}
-    \item problems with the relational model / SQL:
+    \item relational model is not the best solution for all types of problems
+
+    \bigskip
+    \item example applications:
+    \smallskip
+    \item storing user preferences
+    \item processing data from Wikipedia pages
+    \item building a social network
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: User Preferences}
+
+  \begin{itemize}
+    \item user, preference type, selected option
+
+    \medskip
+    \item example task:\\
+      retrieve privacy preference of a given user
+
+    \pause
+    \medskip
+    \item no complex queries that would require SQL
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Wikipedia Pages}
+
+  \begin{columns}
+    \column{.55\textwidth}
+    \pgfuseimage{casino-royale}
+
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item combination of structured\\
+        and unstructured data
+
+      \medskip
+      \item example task:\\
+        retrieve first paragraph\\
+        of all James Bond movies\\
+        starring Daniel Craig
+
+      \pause
+      \medskip
+      \item difficult to represent\\
+        as a relation
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Social Network}
+
+  \begin{itemize}
+    \item users: userid, name, age, gender, \ldots
+    \item friends: userid1, userid2
+
+    \medskip
+    \item example tasks:\\
+      find all friends of a given user\\
+      find all friends of friends of a given user\\
+      find all female friends of male friends of a given user\\
+      find all friends of friends of ... friends of a given user\\
+
+    \pause
+    \medskip
+    \item too many complicated joins
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problems: Representation}
+
+  \begin{itemize}
+    \item difficult to handle unstructured and semistructured data
+    \item difficult to represent hierarchy and neighborhood
+
+    \pause
+    \medskip
+    \item rigid schemas: all rows need to store all fields
+    \item even if not applicable
+    \smallskip
+    \item fixed in advance
+    \item to make changes: shut down, alter table, restart
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problems: Scaling}
+
+  \begin{itemize}
+    \item when volume of data increases:
+
+    \medskip
+    \item scale up: faster processor
+    \item works up to a point
 
     \smallskip
-    \item require strict schemas: difficult to handle unstructured data
-    \item difficult to represent hierarchy and neighborhood
-    \item not suitable to scaling
-    \item complex query language might not be needed
+    \item scale out: more processors
+    \item commodity hardware
   \end{itemize}
-
-  \pause
-  \medskip
-  \begin{exampleblock}{examples}
-    \begin{itemize}
-      \item both structured and unstructured data: Wikipedia pages
-      \item social networks: "find friends of friends of X"
-    \end{itemize}
-  \end{exampleblock}
 \end{frame}
+
+\subsection{NoSQL}
 
 \begin{frame}
   \frametitle{NoSQL Databases}
 
   \begin{itemize}
-    \item NoSQL: Not Only SQL
-    \item divide data between relational and non-relational databases
+    \item NoSQL $\neq$ ``don't use SQL''
+    \item Not Only SQL
+    \item use relational for some parts and non-relational for other parts
 
     \pause
     \medskip
     \item key-value stores
-    \item column stores
+    \item column family stores
     \item document stores
     \item graph databases
   \end{itemize}
 \end{frame}
 
 \begin{frame}
+  \frametitle{NoSQL Principles}
+
+  \begin{itemize}
+    \item flexible schema
+
+    \medskip
+    \item focus on performance
+    \item no joins
+
+    \medskip
+    \item focus on availability
+    \item updates should always be allowed
+
+    \medskip
+    \item massive scalability
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{NoSQL Disadvantages}
+
+  \begin{itemize}
+    \item focus on availability $\rightarrow$ relaxed consistency
+    \item fewer transactional guarantees
+
+    \pause
+    \medskip
+    \item no declarative query language
+    \item programmatic handling of data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distributing Data}
+
+  \begin{itemize}
+    \item breaking a database into chunks: \alert{shards}
+    \item spreading chunks across distributed servers
+
+    \medskip
+    \item increases efficiency
+    \item more servers $\rightarrow$ more points of failure
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Replication}
+
+  \begin{itemize}
+    \item replicating data between servers
+    \item increases fault tolerance
+
+    \medskip
+    \item copies might diverge
+    \item \alert{eventual consistency}: temporary inconsistency is allowed
+    \item when system stops, all copies will be the same
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CAP Properties}
+
+  \begin{itemize}
+    \item \alert{consistency}:\\
+      all clients can read a single, up-to-date version of data\\
+      from replicated partitions
+
+    \medskip
+    \item \alert{availability}:\\
+      internal communication failures between replicated data\\
+      don't prevent updates
+
+    \medskip
+    \item \alert{partition tolerance}:\\
+      system keeps responding even if there is a communication failure\\
+      between partitions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CAP Theorem}
+
+  \begin{itemize}
+    \item Eric Brewer (2000)
+    \item Any distributed database can provide\\
+      at most two of the three CAP properties.
+  \end{itemize}
+\end{frame}
+
+\subsection{Serialization}
+
+\begin{frame}
   \frametitle{Serialization}
 
   \begin{itemize}
-    \item simplest method for making objects persist: write to file
+    \item simplest method for persistance: write to file
 
     \medskip
     \item write: object $\rightarrow$ serial format (\alert{serialization})
     \item read: serial format $\rightarrow$ object (\alert{deserialization})
-
-    \medskip
-    \item common formats: XML, JSON
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Serialization Formats}
+
+  \begin{itemize}
+    \item common formats: XML, JSON
+    \item human-readable
+    \item useful for data interchange
+    \item also useful for representing semistructured data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{JSON}
+
+  \begin{itemize}
+    \item JavaScript Object Notation
+
+    \medskip
+    \item base values: number, string, \ldots
+    \item objects: sets of key-value pairs
+    \item arrays of values
+
+    \medskip
+    \item nested structure
+  \end{itemize}
+\end{frame}
+
+\section{Data Models}
+
+\subsection{Key-Value Stores}
+
+\begin{frame}
+  \frametitle{Key-Value Stores}
+
+  \begin{itemize}
+    \item model: (key, value) pairs
+    \item very simple interface
+    \item operations:\\
+      insert(key, value)\\
+      fetch(key)\\
+      update(key, value)\\
+      delete(key)
+    \item products: Redis, Riak, Memcache, Amazon DynamoDB
+    \item applications: image store, object cache
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Key-Value Stores}
+
+  \begin{itemize}
+    \item distribute records to computing nodes based on key
+    \item advanced: structure in value
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Column Family Stores}
+
+  \begin{itemize}
+    \item key is a (row, column) pair
+    \item sparse matrix
+    \item products: Apache Cassandra, Apache HBase, Google BigTable
+    \item applications: web crawler results
+  \end{itemize}
+\end{frame}
+
+\subsection{Document Stores}
+
+\begin{frame}
+  \frametitle{Document Stores}
+
+  \begin{itemize}
+    \item model: (key, document) pairs
+    \item document: JSON formatted data
+    \item fetch also based on document contents
+    \item products: MongoDB, CouchDB
+  \end{itemize}
+\end{frame}
+
+% \subsection{Example: db4o}
+%
+% \begin{frame}
+%   \frametitle{db4o}
+%
+%   \begin{itemize}
+%     \item an object database system that can work embedded
+%
+%     \pause
+%     \medskip
+%     \item query using conditions
+%     \item query by example
+%     \begin{itemize}
+%       \item create an object of the class to be queried
+%       \item set the desired properties, leave the others blank
+%       \item search for similar objects
+%     \end{itemize}
+%
+%     \pause
+%     \medskip
+%     \item the objects to be updated or deleted have to be retrieved\\
+%       from the database (object identifier)
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{db4o Interface}
+%
+%   \begin{itemize}
+%     \item connecting to database (embedded mode):\\
+%       \lstinline!Db4oEmbedded.openFile(filePath)!
+%         $\rightarrow$ \lstinline!ObjectContainer!
+%
+%     \pause
+%     \medskip
+%     \item insert and update:\\
+%       \lstinline!ObjectContainer.store(object)!
+%     \item delete:\\
+%       \lstinline!ObjectContainer.delete(object)!
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{db4o Interface}
+%
+%   \begin{itemize}
+%     \item all instances of a class:\\
+%       \lstinline!ObjectContainer.query(Class.class)!
+%        $\rightarrow$ \lstinline!List<Class>!
+%
+%     \pause
+%     \medskip
+%     \item query by example:\\
+%       \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
+%        $\rightarrow$ \lstinline!ObjectSet<Class>!
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{db4o Interface}
+%
+%   \begin{itemize}
+%     \item query condition: \lstinline!Predicate<Class>!
+%     \item implement the \lstinline!match! method:\\
+%       \lstinline!public boolean match(Class object)!
+%
+%     \pause
+%     \medskip
+%     \item query:\\
+%       \lstinline!ObjectContainer.query(Predicate<Class> predicate)!\\
+%       $\rightarrow$ \lstinline!List<Class>!
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[connecting to the database]
+%     \begin{lstlisting}
+% ObjectContainer db = Db4oEmbedded.openFile(
+%     "imdb.db4o"
+% );
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[query: all movies]
+%     \begin{lstlisting}
+% List<Movie> movies = db.query(Movie.class);
+% for (Movie movie : movies) {
+%     ...
+% }
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[query by example: movies in 1977]
+%     \begin{lstlisting}
+% Movie prototype = new Movie(null);
+% prototype.setYear(1977);
+% ObjectSet<Movie> movies =
+%     db.queryByExample(prototype);
+% while (movies.hasNext()) {
+%     Movie m = movies.next();
+%     ...
+% }
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[query by condition: movies after 1977]
+%     \begin{lstlisting}
+% List<Movie> movies = db.query(
+%     new Predicate<Movie>() {
+%         public boolean match(Movie movie) {
+%             return movie.getYear() > 1977;
+%         }
+% });
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[insert]
+%     \begin{lstlisting}
+% Movie m = new Movie("Casablanca");
+% m.setYear(1942);
+% db.store(m);
+% db.commit();
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[update]
+%     \begin{lstlisting}
+% Movie prototype = new Movie("Casablanca");
+% ObjectSet<Movie> result =
+%     db.queryByExample(prototype);
+% Movie found = result.next();
+% found.setYear(1943);
+% db.store(found);
+% db.commit();
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+%
+% \begin{frame}[fragile]
+%   \frametitle{db4o Examples}
+%
+%   \begin{example}[delete]
+%     \begin{lstlisting}
+% Movie prototype = new Movie("Casablanca");
+% ObjectSet<Movie> result =
+%     db.queryByExample(prototype);
+% Movie found = result.next();
+% db.delete(found);
+% db.commit();
+%     \end{lstlisting}
+%   \end{example}
+% \end{frame}
+
+\subsection{Graph Databases}
+
+\begin{frame}
+  \frametitle{Document Stores}
+
+  \begin{itemize}
+    \item model: nodes and edges
+    \item nodes have properties
+    \item edges have labels
+    \item relationship intensive data
+    \item products: Neo4J
+    \item applications: social networks
+  \end{itemize}
+\end{frame}
+
+\section{XML Databases}
 
 \subsection{Serialization: XML}
 
@@ -195,58 +643,6 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{XML Example: HTML}
-
-  \begin{lstlisting}
-<html>
-  <head><title>Foo Bar</title></head>
-  <body>
-    <h1>Welcome to Foo Bar!</h1>
-    <p>You can get more information from the
-      <a href="http://www.foobar.net/">
-        foobar page</a>.</p>
-    <img src="logo.jpg" alt="Foo Bar logo" />
-  </body>
-</html>
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{XML Example: DocBook}
-
-  \begin{lstlisting}
-<book lang="en">
-  <title>Foobar Report</title>
-  <bookinfo>
-    <author>
-      <firstname>John</firstname>
-      <surname>Foobar</surname>
-    </author>
-    <date>2007</date>
-  </bookinfo>
-  <chapter>...</chapter>
-  <chapter>...</chapter>
-</book>
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{XML Example: DocBook}
-
-  \begin{lstlisting}
-  <chapter>
-    <title>Introduction</title>
-    <section>
-      <title>Description</title>
-      <para>Foobar is ...</para>
-      <para>...</para>
-    </section>
-    ...
-  </chapter>
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
   \frametitle{XML Example: Movies}
 
   \begin{lstlisting}
@@ -281,6 +677,8 @@
   </movie>
   \end{lstlisting}
 \end{frame}
+
+\subsection{XPath}
 
 \begin{frame}
   \frametitle{Querying XML}
@@ -414,237 +812,6 @@
       \item black-and-white movies:\\
         \lstinline!movie[@color="BW"]!
     \end{itemize}
-  \end{example}
-\end{frame}
-
-\subsection{Serialization: JSON}
-
-%
-% \subsection{Object Identifiers}
-%
-% \begin{frame}
-%   \frametitle{Object Identifiers}
-%
-%   \begin{itemize}
-%     \item every object has an identifier
-%     \begin{itemize}
-%       \item object identifiers don't change even if object attributes change
-%     \end{itemize}
-%
-%     \pause
-%     \item different from primary key
-%     \begin{itemize}
-%       \item primary key is visible (user-defined)
-%       \item value of primary key can change
-%     \end{itemize}
-%
-%     \pause
-%     \item correspond to references in programming languages
-%     \begin{itemize}
-%       \item object identifiers can refer to other objects:\\
-%         \emph{containment hierarchy}
-%     \end{itemize}
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Containment Hierarchy Example}
-%
-%   \begin{example}
-%     \begin{center}
-%       \pgfuseimage{object}
-%     \end{center}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{Containment Hierarchy Example}
-%
-%   \begin{example}
-%     \begin{center}
-%       \pgfuseimage{oid}
-%     \end{center}
-%   \end{example}
-% \end{frame}
-
-% \subsection{Example: db4o}
-
-\section{NoSQL Databases}
-
-\subsection{Key-Value Stores}
-
-\subsection{Document Stores}
-
-\begin{frame}
-  \frametitle{db4o}
-
-  \begin{itemize}
-    \item an object database system that can work embedded
-
-    \pause
-    \medskip
-    \item query using conditions
-    \item query by example
-    \begin{itemize}
-      \item create an object of the class to be queried
-      \item set the desired properties, leave the others blank
-      \item search for similar objects
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item the objects to be updated or deleted have to be retrieved\\
-      from the database (object identifier)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{db4o Interface}
-
-  \begin{itemize}
-    \item connecting to database (embedded mode):\\
-      \lstinline!Db4oEmbedded.openFile(filePath)!
-        $\rightarrow$ \lstinline!ObjectContainer!
-
-    \pause
-    \medskip
-    \item insert and update:\\
-      \lstinline!ObjectContainer.store(object)!
-    \item delete:\\
-      \lstinline!ObjectContainer.delete(object)!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{db4o Interface}
-
-  \begin{itemize}
-    \item all instances of a class:\\
-      \lstinline!ObjectContainer.query(Class.class)!
-       $\rightarrow$ \lstinline!List<Class>!
-
-    \pause
-    \medskip
-    \item query by example:\\
-      \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
-       $\rightarrow$ \lstinline!ObjectSet<Class>!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{db4o Interface}
-
-  \begin{itemize}
-    \item query condition: \lstinline!Predicate<Class>!
-    \item implement the \lstinline!match! method:\\
-      \lstinline!public boolean match(Class object)!
-
-    \pause
-    \medskip
-    \item query:\\
-      \lstinline!ObjectContainer.query(Predicate<Class> predicate)!\\
-      $\rightarrow$ \lstinline!List<Class>!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[connecting to the database]
-    \begin{lstlisting}
-ObjectContainer db = Db4oEmbedded.openFile(
-    "imdb.db4o"
-);
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[query: all movies]
-    \begin{lstlisting}
-List<Movie> movies = db.query(Movie.class);
-for (Movie movie : movies) {
-    ...
-}
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[query by example: movies in 1977]
-    \begin{lstlisting}
-Movie prototype = new Movie(null);
-prototype.setYear(1977);
-ObjectSet<Movie> movies =
-    db.queryByExample(prototype);
-while (movies.hasNext()) {
-    Movie m = movies.next();
-    ...
-}
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[query by condition: movies after 1977]
-    \begin{lstlisting}
-List<Movie> movies = db.query(
-    new Predicate<Movie>() {
-        public boolean match(Movie movie) {
-            return movie.getYear() > 1977;
-        }
-});
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[insert]
-    \begin{lstlisting}
-Movie m = new Movie("Casablanca");
-m.setYear(1942);
-db.store(m);
-db.commit();
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[update]
-    \begin{lstlisting}
-Movie prototype = new Movie("Casablanca");
-ObjectSet<Movie> result =
-    db.queryByExample(prototype);
-Movie found = result.next();
-found.setYear(1943);
-db.store(found);
-db.commit();
-    \end{lstlisting}
-  \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{db4o Examples}
-
-  \begin{example}[delete]
-    \begin{lstlisting}
-Movie prototype = new Movie("Casablanca");
-ObjectSet<Movie> result =
-    db.queryByExample(prototype);
-Movie found = result.next();
-db.delete(found);
-db.commit();
-    \end{lstlisting}
   \end{example}
 \end{frame}
 
@@ -810,19 +977,15 @@ results.delete();
   \end{example}
 \end{frame}
 
-\subsection{Graph Databases}
-
-\subsection{Comparison}
-
 \section*{References}
 
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required Reading: Date}
+  \begin{block}{Supplementary Reading}
     \begin{itemize}
-      \item Chapter 25: \alert{Object Databases}
-      \item Chapter 27: \alert{The World Wide Web and XML}
+      \item Making Sense of NoSQL, by Dan McCreary and Ann Kelly,\\
+        Manning Publications
     \end{itemize}
   \end{block}
 \end{frame}
