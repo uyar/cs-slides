@@ -292,17 +292,17 @@
   \frametitle{CAP Properties}
 
   \begin{itemize}
-    \item \alert{consistency}:\\
+    \item \alert{C}onsistency:\\
       all clients can read a single, up-to-date version of data\\
       from replicated partitions
 
     \medskip
-    \item \alert{availability}:\\
+    \item \alert{A}vailability:\\
       internal communication failures between replicated data\\
       don't prevent updates
 
     \medskip
-    \item \alert{partition tolerance}:\\
+    \item \alert{P}artition tolerance:\\
       system keeps responding even if there is a communication failure\\
       between partitions
   \end{itemize}
@@ -359,6 +359,45 @@
   \end{itemize}
 \end{frame}
 
+\lstset{language=Python}
+
+\begin{frame}[fragile]
+  \frametitle{JSON Example}
+
+  \begin{lstlisting}
+{
+  "title": "Being John Malkovich",
+  "year": 1999,
+  "score": 8.3,
+  "votes": 13809,
+  "director": "Spike Jonze",
+  "cast": [
+    "Cameron Diaz",
+    "John Cusack",
+    "John Malkovich"
+  ]
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{JSON Example}
+
+  \begin{lstlisting}
+[
+  {
+    "title": "Usual Suspects",
+    ...
+  },
+  ...
+  {
+    "title": "Ed Wood",
+    ...
+  }
+]
+  \end{lstlisting}
+\end{frame}
+
 \section{Data Models}
 
 \subsection{Key-Value Stores}
@@ -412,180 +451,55 @@
   \end{itemize}
 \end{frame}
 
-% \subsection{Example: db4o}
-%
-% \begin{frame}
-%   \frametitle{db4o}
-%
-%   \begin{itemize}
-%     \item an object database system that can work embedded
-%
-%     \pause
-%     \medskip
-%     \item query using conditions
-%     \item query by example
-%     \begin{itemize}
-%       \item create an object of the class to be queried
-%       \item set the desired properties, leave the others blank
-%       \item search for similar objects
-%     \end{itemize}
-%
-%     \pause
-%     \medskip
-%     \item the objects to be updated or deleted have to be retrieved\\
-%       from the database (object identifier)
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{db4o Interface}
-%
-%   \begin{itemize}
-%     \item connecting to database (embedded mode):\\
-%       \lstinline!Db4oEmbedded.openFile(filePath)!
-%         $\rightarrow$ \lstinline!ObjectContainer!
-%
-%     \pause
-%     \medskip
-%     \item insert and update:\\
-%       \lstinline!ObjectContainer.store(object)!
-%     \item delete:\\
-%       \lstinline!ObjectContainer.delete(object)!
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{db4o Interface}
-%
-%   \begin{itemize}
-%     \item all instances of a class:\\
-%       \lstinline!ObjectContainer.query(Class.class)!
-%        $\rightarrow$ \lstinline!List<Class>!
-%
-%     \pause
-%     \medskip
-%     \item query by example:\\
-%       \lstinline!ObjectContainer.queryByExample(Class prototype)!\\
-%        $\rightarrow$ \lstinline!ObjectSet<Class>!
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}
-%   \frametitle{db4o Interface}
-%
-%   \begin{itemize}
-%     \item query condition: \lstinline!Predicate<Class>!
-%     \item implement the \lstinline!match! method:\\
-%       \lstinline!public boolean match(Class object)!
-%
-%     \pause
-%     \medskip
-%     \item query:\\
-%       \lstinline!ObjectContainer.query(Predicate<Class> predicate)!\\
-%       $\rightarrow$ \lstinline!List<Class>!
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[connecting to the database]
-%     \begin{lstlisting}
-% ObjectContainer db = Db4oEmbedded.openFile(
-%     "imdb.db4o"
-% );
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[query: all movies]
-%     \begin{lstlisting}
-% List<Movie> movies = db.query(Movie.class);
-% for (Movie movie : movies) {
-%     ...
-% }
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[query by example: movies in 1977]
-%     \begin{lstlisting}
-% Movie prototype = new Movie(null);
-% prototype.setYear(1977);
-% ObjectSet<Movie> movies =
-%     db.queryByExample(prototype);
-% while (movies.hasNext()) {
-%     Movie m = movies.next();
-%     ...
-% }
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[query by condition: movies after 1977]
-%     \begin{lstlisting}
-% List<Movie> movies = db.query(
-%     new Predicate<Movie>() {
-%         public boolean match(Movie movie) {
-%             return movie.getYear() > 1977;
-%         }
-% });
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[insert]
-%     \begin{lstlisting}
-% Movie m = new Movie("Casablanca");
-% m.setYear(1942);
-% db.store(m);
-% db.commit();
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[update]
-%     \begin{lstlisting}
-% Movie prototype = new Movie("Casablanca");
-% ObjectSet<Movie> result =
-%     db.queryByExample(prototype);
-% Movie found = result.next();
-% found.setYear(1943);
-% db.store(found);
-% db.commit();
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
-%
-% \begin{frame}[fragile]
-%   \frametitle{db4o Examples}
-%
-%   \begin{example}[delete]
-%     \begin{lstlisting}
-% Movie prototype = new Movie("Casablanca");
-% ObjectSet<Movie> result =
-%     db.queryByExample(prototype);
-% Movie found = result.next();
-% db.delete(found);
-% db.commit();
-%     \end{lstlisting}
-%   \end{example}
-% \end{frame}
+\begin{frame}[fragile]
+  \frametitle{MongoDB Insert Example}
+
+  \begin{lstlisting}
+itucsdb.movies.insert(
+  {
+    "title": "Ed Wood",
+    "year": 1994,
+    "score": 7.8,
+    "votes": 6587,
+    "director": "Tim Burton",
+    "cast": [
+      "Johnny Depp"
+    ]
+  }
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{MongoDB Insert Example}
+
+  \begin{lstlisting}
+itucsdb.movies.insert(
+  {
+    "title": "Three Kings",
+    "year": 1999,
+    "score": 7.7,
+    "votes": 10319,
+    "cast": [
+      "George Clooney",
+      "Spike Jonze"
+    ]
+  }
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{MongoDB Find Example}
+
+  \begin{lstlisting}
+itucsdb.movies.find()
+
+itucsdb.movies.find(
+  {"year": 1999}
+)
+  \end{lstlisting}
+\end{frame}
 
 \subsection{Graph Databases}
 
