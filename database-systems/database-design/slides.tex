@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2014
+% Copyright (c) 2002-2015
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -41,7 +41,7 @@
 \subtitle{Database Design}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2014}
+\date{2002-2015}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -68,7 +68,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2002-2014 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2015 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{footnotesize}
@@ -136,7 +136,7 @@
     \caption{R}
     \begin{tabular}{|r|l|c|c|r|l|r|}\hline
 \underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
+      6 & The Usual Suspects   & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
     228 & Ed Wood              & US  &  EN  &      26 & Johnny Depp      &   1\\\hline
      70 & Being John Malkovich & US  &  EN  &     282 & Cameron Diaz     &   2\\\hline
    1512 & Suspiria             & IT  &  IT  &     745 & Udo Kier         &   9\\\hline
@@ -214,18 +214,22 @@
   \frametitle{Normal Forms}
 
   \begin{itemize}
-    \item \alert{normal form}: set of conditions that relations must satisfy
+    \item normal form: set of conditions that relations must satisfy
 
     \medskip
     \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
     \item every form adds stricter conditions to the previous form
-    \item every relation in 2NF is also in 1NF,\\
-      every relation in 3NF is also in 2NF, ...
     \item NF of database = NF of weakest relation
 
     \pause
     \medskip
     \item \alert{1NF}: attribute values have to be atomic
+
+    \pause
+    \medskip
+    \item simplifying assumption for definitions:\\
+      \alert{A TABLE HAS ONLY ONE CANDIDATE KEY,\\
+        WHICH IS ALSO THE PRIMARY KEY.}
   \end{itemize}
 \end{frame}
 
@@ -263,7 +267,7 @@
       \vspace{-6pt}
       \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
@@ -305,7 +309,7 @@ MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
       \vspace{-6pt}
       \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
@@ -363,8 +367,8 @@ US  &     503 & John Malkovich &  14\\\hline
 
     \pause
     \medskip
-    \item deleting that Gabriel Byrne acts in the movie ``Usual Suspects''\\
-      also deletes that the movie was made in the UK
+    \item deleting that Johnny Depp acts in the movie ``Ed Wood''\\
+      also deletes that the movie was made in the US
 
     \pause
     \medskip
@@ -445,7 +449,7 @@ US  &     503 & John Malkovich &  14\\\hline
       \caption{R1}
       \begin{tabular}{|r|l|c|c|}\hline
 \underline{MOVIEID} & TITLE    & COU & LANG\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
@@ -507,7 +511,7 @@ US  &     503 & John Malkovich &  14\\\hline
 
     \pause
     \medskip
-    \item if Gabriel Byrne is deleted from the movie ``Usual Suspects'',\\
+    \item if Johnny Depp is deleted from the movie ``Ed Wood'',\\
       the country of the movie is still kept in R1
 
     \pause
@@ -593,7 +597,7 @@ US  &     503 & John Malkovich &  14\\\hline
       \caption{R6}
       \begin{tabular}{|r|l|c|}\hline
 \underline{MOVIEID} & TITLE    & COU\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK \\\hline
+      6 & The Usual Suspects   & UK \\\hline
     228 & Ed Wood              & US \\\hline
      70 & Being John Malkovich & US \\\hline
    1512 & Suspiria             & IT \\\hline
