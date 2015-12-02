@@ -132,7 +132,7 @@
     \caption{MOVIE}
     \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE           & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects                 & 1995 &   8.7 & 35027 &        639\\\hline
+   6 & The Usual Suspects             & 1995 &   8.7 & 35027 &        639\\\hline
   70 & Being John Malkovich           & 1999 &   8.3 & 13809 &       1485\\\hline
  107 & Batman \& Robin                & 1997 &   3.5 & 10577 &        105\\\hline
  110 & Sleepy Hollow                  & 1999 &   7.5 & 10514 &        148\\\hline
@@ -303,7 +303,7 @@ MOVIE WHERE (VOTES > 10000)
     \caption{S1}
     \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-  6 & Usual Suspects        & 1995 &   8.7 & 35027 &        639\\\hline
+  6 & The Usual Suspects    & 1995 &   8.7 & 35027 &        639\\\hline
  70 & Being John Malkovich  & 1999 &   8.3 & 13809 &       1485\\\hline
 107 & Batman \& Robin       & 1997 &   3.5 & 10577 &        105\\\hline
 110 & Sleepy Hollow         & 1999 &   7.5 & 10514 &        148\\\hline
@@ -370,7 +370,7 @@ MOVIE { TITLE }
       \caption{P1}
       \begin{tabular}{|l|}\hline
 \underline{TITLE}             \\[2pt]\hline\hline
-Usual Suspects                \\\hline
+The Usual Suspects            \\\hline
 Being John Malkovich          \\\hline
 Batman \& Robin               \\\hline
 Sleepy Hollow                 \\\hline
@@ -442,7 +442,7 @@ Sleepy Hollow                  & 1999\\\hline
 Stigmata                       & 1999\\\hline
 Suspiria                       & 1977\\\hline
 Three Kings                    & 1999\\\hline
-Usual Suspects                 & 1995\\\hline
+The Usual Suspects             & 1995\\\hline
 eXistenZ                       & 1999\\\hline
       \end{tabular}
     \end{table}
@@ -514,7 +514,7 @@ MOVIE WHERE ((VOTES > 5000)
     \caption{P4A}
     \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects       & 1995 &   8.7 & 35027 &        639\\\hline
+   6 & The Usual Suspects   & 1995 &   8.7 & 35027 &        639\\\hline
   70 & Being John Malkovich & 1999 &   8.3 & 13809 &       1485\\\hline
  110 & Sleepy Hollow        & 1999 &   7.5 & 10514 &        148\\\hline
  112 & Three Kings          & 1999 &   7.7 & 10319 &       1070\\\hline
@@ -548,7 +548,7 @@ Ed Wood             \\\hline
 Gattaca             \\\hline
 Sleepy Hollow       \\\hline
 Three Kings         \\\hline
-Usual Suspects      \\\hline
+The Usual Suspects  \\\hline
     \end{tabular}
   \end{table}
   \end{tiny}
@@ -634,7 +634,7 @@ MOVIE JOIN
     \caption{J1A}
     \begin{tabular}{|r|l|c|r|l|}\hline
 \underline{MOVIE\#} & TITLE & ... & DIRECTOR\# & NAME            \\[2pt]\hline\hline
-   6 & Usual Suspects       & ... &       639  & Bryan Singer    \\\hline
+   6 & The Usual Suspects   & ... &       639  & Bryan Singer    \\\hline
   70 & Being John Malkovich & ... &      1485  & Spike Jonze     \\\hline
  107 & Batman \& Robin      & ... &       105  & Joel Schumacher \\\hline
  ... & ...                  & ... &       ...  & ...             \\\hline
@@ -668,7 +668,7 @@ Being John Malkovich & Spike Jonze     \\\hline
 Blade                & Stephen Norrington\\\hline
 ...                  & ...             \\\hline
 Three Kings          & Spike Jonze     \\\hline
-Usual Suspects       & Bryan Singer    \\\hline
+The Usual Suspects   & Bryan Singer    \\\hline
 eXistenZ             & David Cronenberg\\\hline
     \end{tabular}
   \end{table}
@@ -706,8 +706,8 @@ MOVIE JOIN CASTING
     \caption{J2A}
     \begin{tabular}{|r|l|c|r|r|}\hline
 \underline{MOVIE\#} & TITLE & ... & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
-   6 & Usual Suspects       & ... &                 302 &   3\\\hline
-   6 & Usual Suspects       & ... &                 308 &   2\\\hline
+   6 & The Usual Suspects   & ... &                 302 &   3\\\hline
+   6 & The Usual Suspects   & ... &                 308 &   2\\\hline
   70 & Being John Malkovich & ... &                 282 &   2\\\hline
   70 & Being John Malkovich & ... &                 503 &  14\\\hline
  ... & ...                  & ... &                 ... & ...\\\hline
@@ -736,8 +736,8 @@ J2A JOIN
     \caption{J2B}
     \begin{tabular}{|r|l|c|r|r|l|}\hline
 \underline{MOVIE\#} & TITLE & ... & \underline{ACTOR\#} & ORD & NAME\\[2pt]\hline\hline
-   6 & Usual Suspects       & ... &     302 &   3 & Benicio Del Toro\\\hline
-   6 & Usual Suspects       & ... &     308 &   2 & Gabriel Byrne   \\\hline
+   6 & The Usual Suspects   & ... &     302 &   3 & Benicio Del Toro\\\hline
+   6 & The Usual Suspects   & ... &     308 &   2 & Gabriel Byrne   \\\hline
   70 & Being John Malkovich & ... &     282 &   2 & Cameron Diaz    \\\hline
   70 & Being John Malkovich & ... &     503 &  14 & John Malkovich  \\\hline
  ... & ...                  & ... &     ... & ... & ...             \\\hline
@@ -766,8 +766,8 @@ J2B { TITLE, NAME, ORD }
     \caption{J2}
     \begin{tabular}{|l|l|r|}\hline
 \underline{TITLE}    & \underline{NAME} & \underline{ORD}\\[2pt]\hline\hline
-Usual Suspects       & Benicio Del Toro &   3\\\hline
-Usual Suspects       & Gabriel Byrne    &   2\\\hline
+The Usual Suspects   & Benicio Del Toro &   3\\\hline
+The Usual Suspects   & Gabriel Byrne    &   2\\\hline
 Being John Malkovich & Cameron Diaz     &   2\\\hline
 Being John Malkovich & John Malkovich   &  14\\\hline
 ...                  & ...              & ...\\\hline
