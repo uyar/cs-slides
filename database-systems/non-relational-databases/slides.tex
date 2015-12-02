@@ -43,6 +43,12 @@
 \pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[width=6.8cm]{casino-royale}{casino-royale}
+\pgfdeclareimage[width=11cm]{sharding}{sharding}
+\pgfdeclareimage[width=11cm]{cap}{cap}
+\pgfdeclareimage[width=11cm]{key-value}{key-value}
+\pgfdeclareimage[width=11cm]{image-store}{image-store}
+\pgfdeclareimage[height=2cm]{column-family-store1}{column-family-store1}
+\pgfdeclareimage[width=11cm]{column-family-store2}{column-family-store2}
 
 \begin{document}
 
@@ -106,8 +112,6 @@
     \item relational model is not the best solution for all types of problems
 
     \bigskip
-    \item example applications:
-    \smallskip
     \item storing user preferences
     \item processing data from Wikipedia pages
     \item building a social network
@@ -122,7 +126,7 @@
 
     \medskip
     \item example task:\\
-      retrieve privacy preference of a given user
+      retrieve notification setting of a given user
 
     \pause
     \medskip
@@ -199,11 +203,12 @@
   \begin{itemize}
     \item when volume of data increases:
 
-    \medskip
+    \bigskip
     \item scale up: faster processor
     \item works up to a point
 
-    \smallskip
+    \pause
+    \medskip
     \item scale out: more processors
     \item commodity hardware
   \end{itemize}
@@ -234,39 +239,45 @@
   \begin{itemize}
     \item flexible schema
 
+    \pause
     \medskip
     \item focus on performance
     \item no joins
 
+    \pause
+    \medskip
+    \item massive scalability
+
+    \pause
     \medskip
     \item focus on availability
     \item updates should always be allowed
-
-    \medskip
-    \item massive scalability
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{NoSQL Disadvantages}
+  \frametitle{Availability vs Consistency}
 
   \begin{itemize}
     \item focus on availability $\rightarrow$ relaxed consistency
     \item fewer transactional guarantees
 
-    \pause
-    \medskip
-    \item no declarative query language
-    \item programmatic handling of data
+    \bigskip
+    \item \alert{BASE} instead of ACID:
+    \smallskip
+    \item Basic availability
+    \item Soft state
+    \item Eventual consistency
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Distributing Data}
+  \frametitle{Sharding}
 
   \begin{itemize}
-    \item breaking a database into chunks: \alert{shards}
-    \item spreading chunks across distributed servers
+    \item when a server nears full capacity for data
+    \item \alert{sharding}: break data into chunks
+    \item spread chunks across distributed servers
 
     \medskip
     \item increases efficiency
@@ -278,7 +289,7 @@
   \frametitle{Replication}
 
   \begin{itemize}
-    \item replicating data between servers
+    \item replicate data between servers
     \item increases fault tolerance
 
     \medskip
@@ -312,9 +323,18 @@
   \frametitle{CAP Theorem}
 
   \begin{itemize}
-    \item Eric Brewer (2000)
     \item Any distributed database can provide\\
-      at most two of the three CAP properties.
+      at most two of the three CAP properties.\\
+      (Eric Brewer - 2000)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Query Language}
+
+  \begin{itemize}
+    \item no declarative query language
+    \item programmatic handling of data
   \end{itemize}
 \end{frame}
 
@@ -324,11 +344,15 @@
   \frametitle{Serialization}
 
   \begin{itemize}
-    \item simplest method for persistance: write to file
+    \item how to make objects persist?
+    \item simple method: write to file
+    \item in which format?
+    \item simple format: string
 
+    \pause
     \medskip
-    \item write: object $\rightarrow$ serial format (\alert{serialization})
-    \item read: serial format $\rightarrow$ object (\alert{deserialization})
+    \item on write: object $\rightarrow$ serial format (\alert{serialization})
+    \item on read: serial format $\rightarrow$ object (deserialization)
   \end{itemize}
 \end{frame}
 
@@ -337,11 +361,143 @@
 
   \begin{itemize}
     \item common formats: XML, JSON
+
+    \smallskip
     \item human-readable
     \item useful for data interchange
-    \item also useful for representing semistructured data
+    \item useful for representing semistructured data
   \end{itemize}
 \end{frame}
+
+\lstset{language=XML}
+
+\begin{frame}
+  \frametitle{XML}
+
+  \begin{itemize}
+    \item XML is not a language itself
+    \item framework for defining languages
+
+    \medskip
+    \item XML-based languages:\\
+      XHTML, DocBook, SVG, \ldots
+
+    \smallskip
+    \item XML processing languages:\\
+      XPath, XQuery, XSL Transforms, \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{XML Structure}
+
+  \begin{itemize}
+    \item an XML document forms a tree (hierarchy)
+
+    \medskip
+    \item nodes: \emph{elements}
+    \item elements represented by opening and closing tags
+    \item nesting determines hierarchy
+    \item non-container elements: self-closing tags
+
+    \medskip
+    \item elements can have attributes
+    \item elements can have text as child node: character data (CDATA)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example: XHTML}
+
+  \begin{lstlisting}
+<html>
+  <head>
+    <title>...</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>...</h1>
+    <p>...</p>
+    <img src="..." alt="..." />
+  </body>
+</html>
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example: Movie}
+
+  \begin{lstlisting}
+<movie color="Color">
+  <title>The Usual Suspects</title>
+  <year>1995</year>
+  <score>8.7</score>
+  <votes>35027</votes>
+  <director>Bryan Singer</director>
+  <cast>
+    <actor>Gabriel Byrne</actor>
+    <actor>Benicio Del Toro</actor>
+  </cast>
+</movie>
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{XML Example: Movies}
+
+  \begin{lstlisting}
+<movies>
+  <movie color="Color">
+    <title>The Usual Suspects</title>
+    <year>1995</year>
+    ...
+  </movie>
+  <movie color="Color">
+    <title>Being John Malkovich</title>
+    <year>1999</year>
+    ...
+  </movie>
+  ...
+</movies>
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Well-Formed Documents}
+
+  \begin{itemize}
+    \item \alert{well-formed}: conforming to XML rules
+    \item syntactically correct
+
+    \medskip
+    \item single root element
+    \item proper nesting of elements: matched tags
+    \item unique attributes within elements
+
+    \pause
+    \medskip
+    \item XML parsers convert well-formed XML documents into\\
+      \alert{DOM} objects (Document Object Model)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Valid Documents}
+
+  \begin{itemize}
+    \item \alert{valid}: conforming to domain rules
+    \item semantically correct
+
+    \medskip
+    \item DTD, XML Schema
+
+    \pause
+    \medskip
+    \item validating XML parsers also check for validity
+  \end{itemize}
+\end{frame}
+
+\lstset{language=Python}
 
 \begin{frame}
   \frametitle{JSON}
@@ -359,22 +515,19 @@
   \end{itemize}
 \end{frame}
 
-\lstset{language=Python}
-
 \begin{frame}[fragile]
   \frametitle{JSON Example}
 
   \begin{lstlisting}
 {
-  "title": "Being John Malkovich",
-  "year": 1999,
-  "score": 8.3,
-  "votes": 13809,
-  "director": "Spike Jonze",
+  "title": "The Usual Suspects",
+  "year": 1995,
+  "score": 8.7,
+  "votes": 35027,
+  "director": "Bryan Singer",
   "cast": [
-    "Cameron Diaz",
-    "John Cusack",
-    "John Malkovich"
+    "Gabriel Byrne",
+    "Benicio Del Toro"
   ]
 }
   \end{lstlisting}
@@ -386,16 +539,26 @@
   \begin{lstlisting}
 [
   {
-    "title": "Usual Suspects",
+    "title": "The Usual Suspects",
+    "year": 1995,
     ...
   },
   ...
   {
-    "title": "Ed Wood",
+    "title": "Being John Malkovich",
+    "year": 1999,
     ...
   }
 ]
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Valid Documents}
+
+  \begin{itemize}
+    \item JSON Schema
+  \end{itemize}
 \end{frame}
 
 \section{Data Models}
@@ -407,14 +570,32 @@
 
   \begin{itemize}
     \item model: (key, value) pairs
-    \item very simple interface
-    \item operations:\\
-      insert(key, value)\\
-      fetch(key)\\
-      update(key, value)\\
-      delete(key)
+    \item indexed by keys
+    \item keys are \alert{distinct}
+    \item value is an arbitrary large blob of data
+
+    \pause
+    \medskip
+    \item very simple interface: put, get, delete
+    \item no queries on values
+
+    \pause
+    \bigskip
     \item products: Redis, Riak, Memcache, Amazon DynamoDB
-    \item applications: image store, object cache
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Key-Value Store Examples}
+
+  \begin{itemize}
+    \item web page caching
+    \item key: URL, value: web page
+
+    \pause
+    \medskip
+    \item image store
+    \item key: path to image, value: image
   \end{itemize}
 \end{frame}
 
@@ -423,7 +604,10 @@
 
   \begin{itemize}
     \item distribute records to computing nodes based on key
-    \item advanced: structure in value
+
+    \medskip
+    \item advanced: data structures in value
+    \item not just a blob of data
   \end{itemize}
 \end{frame}
 
@@ -433,8 +617,32 @@
   \begin{itemize}
     \item key is a (row, column) pair
     \item sparse matrix
+
+    \pause
+    \medskip
+    \item advanced keys: (row, column family, column, timestamp)
+    \item column family: groups of columns
+    \item timestamp: store multiple values over time
+  \end{itemize}
+
+  \bigskip
+  \begin{itemize}
     \item products: Apache Cassandra, Apache HBase, Google BigTable
-    \item applications: web crawler results
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Column Family Store Example}
+
+  \begin{itemize}
+    \item user preferences
+    \item privacy settings, contact information, notifications, \ldots
+    \item typically under 100 fields, 1 KB
+
+    \medskip
+    \item only the associated user makes changes: no ACID requirements
+    \item mostly read
+    \item has to be fast and scalable
   \end{itemize}
 \end{frame}
 
@@ -446,8 +654,15 @@
   \begin{itemize}
     \item model: (key, document) pairs
     \item document: JSON formatted data
-    \item fetch also based on document contents
+
+    \medskip
+    \item query based on document contents
+    \item documents automatically indexed
+    \item documents grouped into collections: hierarchical structure
+
+    \bigskip
     \item products: MongoDB, CouchDB
+    \item application example: content management systems
   \end{itemize}
 \end{frame}
 
@@ -498,115 +713,40 @@ itucsdb.movies.find()
 itucsdb.movies.find(
   {"year": 1999}
 )
+
+itucsdb.movies.find(
+  {"year": {$gt 1999}}
+)
   \end{lstlisting}
 \end{frame}
 
-\subsection{Graph Databases}
+\subsection{XML Databases}
 
 \begin{frame}
-  \frametitle{Document Stores}
+  \frametitle{XML Databases}
 
   \begin{itemize}
-    \item model: nodes and edges
-    \item nodes have properties
-    \item edges have labels
-    \item relationship intensive data
-    \item products: Neo4J
-    \item applications: social networks
-  \end{itemize}
-\end{frame}
-
-\section{XML Databases}
-
-\subsection{Serialization: XML}
-
-\lstset{language=XML}
-
-\begin{frame}
-  \frametitle{XML}
-
-  \begin{itemize}
-    \item XML is not a language itself
-    \item framework for defining languages
+    \item variant of document stores
+    \item document: XML formatted data
 
     \medskip
-    \item XML-based languages:\\
-      XHTML, DocBook, SVG, MathML, WML, XMI, ...
+    \item query using XPath
 
-    \smallskip
-    \item XML-related languages:\\
-      XPath, XQuery, XSL Transforms, SOAP, XLink, ...
+    \bigskip
+    \item products: Oracle Berkeley DBXML, BaseX, eXist
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{XML Structure}
-
-  \begin{itemize}
-    \item an XML document forms a \emph{tree}
-
-    \item nodes: \emph{elements}
-    \item root node: \emph{document element}
-    \item leaves: character data, self-closing elements
-
-    \pause
-    \medskip
-    \item opening/closing tags
-    \item attributes
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{XML Example: Movies}
-
-  \begin{lstlisting}
-<movies>
-  <movie color="Color">
-    <title>Usual Suspects</title>
-    ...
-  </movie>
-  <movie color="Color">
-    <title>Being John Malkovich</title>
-    ...
-  </movie>
-  ...
-</movies>
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{XML Example: Movies}
-
-  \begin{lstlisting}
-  <movie color="Color">
-    <title>Usual Suspects</title>
-    <year>1995</year>
-    <score>8.7</score>
-    <votes>35027</votes>
-    <director>Bryan Singer</director>
-    <cast>
-      <actor>Gabriel Byrne</actor>
-      <actor>Benicio Del Toro</actor>
-    </cast>
-  </movie>
-  \end{lstlisting}
-\end{frame}
-
-\subsection{XPath}
-
-\begin{frame}
-  \frametitle{Querying XML}
+  \frametitle{XPath}
 
   \begin{itemize}
     \item XPath: selecting nodes and data from XML documents
-    \item path of nodes to find: chain of location steps
-    \begin{itemize}
-      \item starting from the root (absolute)
-      \item starting from the current node (relative)
-    \end{itemize}
 
     \medskip
-    \item XQuery: XPath + update operations
+    \item path of nodes to find: chain of location steps
+    \item starting from the root (absolute)
+    \item starting from the current node (relative)
   \end{itemize}
 \end{frame}
 
@@ -625,7 +765,7 @@ itucsdb.movies.find(
 
   \begin{itemize}
     \item location step structure:\\
-      \lstinline!axis::node_selector[predicate]!
+      \lstinline|axis::node_selector[predicate]|
 
     \medskip
     \item axis: where to search
@@ -638,21 +778,21 @@ itucsdb.movies.find(
   \frametitle{Axes}
 
   \begin{itemize}
-    \item \lstinline!child!:
+    \item \lstinline|child|:
       all children, one level (default axis)
-    \item \lstinline!descendant!:
-      all children, recursively (shorthand: \lstinline!//!)
-    \item \lstinline!parent!:
+    \item \lstinline|descendant|:
+      all children, recursively (shorthand: \lstinline|//|)
+    \item \lstinline|parent|:
       parent node, one level
-    \item \lstinline!ancestor!:
+    \item \lstinline|ancestor|:
       parent nodes, up to document element
-    \item \lstinline!attribute!:
-      attributes (shorthand: \lstinline!@!)
-    \item \lstinline!following-sibling!:
+    \item \lstinline|attribute|:
+      attributes (shorthand: \lstinline|@|)
+    \item \lstinline|following-sibling|:
       siblings that come later
-    \item \lstinline!preceding-sibling!:
+    \item \lstinline|preceding-sibling|:
       siblings that come earlier
-    \item ...
+    \item \ldots
   \end{itemize}
 \end{frame}
 
@@ -662,233 +802,198 @@ itucsdb.movies.find(
   \begin{itemize}
     \item node tag
     \item node attribute
-    \item node text: \lstinline!text()!
-    \item all children: \lstinline!*!
+    \item node text: \lstinline|text()|
+    \item all children: \lstinline|*|
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{XPath Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item names of all directors:\\
-        \lstinline!/movies/movie/director/text()!\\
-        \lstinline!//director/text()!
+  \begin{itemize}
+    \item names of all directors:\\
+      \lstinline|/movies/movie/director/text()|\\
+      \lstinline|//director/text()|
 
-      \pause
-      \item all actors in this movie:\\
-        \lstinline!./cast/actor!\\
-        \lstinline!.//actor!
+    \pause
+    \item all actors in this movie:\\
+      \lstinline|./cast/actor|\\
+      \lstinline|.//actor|
 
-      \pause
-      \item colors of all movies:\\
-        \lstinline!//movie/@color!
+    \pause
+    \item colors of all movies:\\
+      \lstinline|//movie/@color|
 
-      \pause
-      \item scores of movies after this one:\\
-        \lstinline!./following-sibling::movie/score!
-    \end{itemize}
-  \end{example}
+    \pause
+    \item scores of movies after this one:\\
+      \lstinline|./following-sibling::movie/score|
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{XPath Predicates}
 
   \begin{itemize}
-    \item testing node position: \lstinline![position]!
+    \item testing node position: \lstinline|[position]|
 
     \pause
     \medskip
-    \item testing existence of a child: \lstinline![child_tag]!
-    \item testing value of a child: \lstinline![child_tag="value"]!
+    \item testing existence of a child: \lstinline|[child_tag]|
+    \item testing value of a child: \lstinline|[child_tag="value"]|
 
     \pause
     \medskip
-    \item testing existence of an attribute: \lstinline![@attribute]!
-    \item testing value of an attribute: \lstinline![@attribute="value"]!
+    \item testing existence of an attribute: \lstinline|[@attribute]|
+    \item testing value of an attribute: \lstinline|[@attribute="value"]|
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{XPath Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item the title of the first movie:\\
-        \lstinline!/movies/movie[1]/title!
+  \begin{itemize}
+    \item title of the first movie:\\
+      \lstinline|/movies/movie[1]/title|
 
-      \pause
-      \item all movies in the year 1997:\\
-        \lstinline!movie[year="1997"]!
+    \pause
+    \item all movies in the year 1997:\\
+      \lstinline|movie[year="1997"]|
 
-      \pause
-      \item black-and-white movies:\\
-        \lstinline!movie[@color="BW"]!
-    \end{itemize}
-  \end{example}
+    \pause
+    \item black-and-white movies:\\
+      \lstinline|movie[@color="BW"]|
+  \end{itemize}
 \end{frame}
 
+\subsection{Graph Databases}
+
 \begin{frame}
-  \frametitle{Example: Oracle Berkeley DBXML}
+  \frametitle{Graph Databases}
 
   \begin{itemize}
-    \item an embedded XML database
-    \item stores XML documents
-    \item manipulates data using XQuery
-    \item can be used via its own client
-    \item has bindings for several languages
+    \item model: nodes and edges
+    \item nodes have properties
+    \item edges have labels
+
+    \medskip
+    \item for relationship intensive data: social networks, \ldots
+    \item traversals instead of joins
+
+    \bigskip
+    \item products: Neo4J
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{DBXML Interface}
+  \frametitle{Graph Databases}
 
   \begin{itemize}
-    \item creating a database:\\
-    \begin{itemize}
-      \item create an \lstinline!XmlManager! object
-      \item \lstinline!XmlManager.createContainer(name)!
-        $\rightarrow$ \lstinline!XmlContainer!
-      \item put a document element:\\
-        \lstinline!XmlContainer.putDocument(namespace, xml_string,!\\
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!configuration)!
-    \end{itemize}
-
-    \pause
-    \item connecting to an existing database:\\
-    \begin{itemize}
-      \item create an \lstinline!XmlManager! object
-      \item if \lstinline?XmlManager.existsContainer(name) != 0?
-      \item \lstinline!XmlManager.openContainer(name)!
-        $\rightarrow$ \lstinline!XmlContainer!
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{DBXML Interface}
-
-  \begin{itemize}
-    \item \lstinline!XmlManager.createQueryContext()!
-      $\rightarrow$ \lstinline!XmlQueryContext!
-    \item \lstinline!XmlQueryContext.setNamespace(namespace, URL)!
-
-    \pause
-    \item query string: \lstinline!collection(name)/xpath_expression!
-    \item running the query:\\
-      \lstinline!XmlManager.query(query, context)!
-      $\rightarrow$ \lstinline!XmlResults!
+    \item better suited for tasks like:\\
+      shortest path, friends of friends,\\
+      neighboring nodes with specific properties
 
     \pause
     \medskip
-    \item each element of the \lstinline!XmlResults! iterator is an
-      \lstinline!XmlValue!
-    \item \lstinline!getFirstChild()!, \lstinline!getLastChild()!,
-      \lstinline!getNextSibling()!, ...
-    \item character data: \lstinline!getNodeValue()!
-      $\rightarrow$ \lstinline!String!
-    \item attributes:
-      \lstinline!XmlValue.getAttributes()! $\rightarrow$ \lstinline!XmlResults!
+    \item difficult to scale out
+
+    \pause
+    \bigskip
+    \item declarative query languages: Cypher, Gremlin
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cypher}
+
+  \begin{itemize}
+    \item locate the initial nodes
+    \item select and traverse relationships
+    \item change and/or return values
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML Examples}
+  \frametitle{Cypher: Nodes}
 
-  \begin{example}[database connection]
-    \begin{lstlisting}
-db = new XmlManager();
-XmlContainer container = null;
-if (db.existsContainer("imdb.dbxml") != 0)
-  container = db.openContainer("imdb.dbxml");
-else {
-  container = db.createContainer("imdb.dbxml");
-  container.putDocument("movies",
-      "<movies />",
-      (XmlDocumentConfig) null);
-}
-    \end{lstlisting}
-  \end{example}
+  \begin{itemize}
+    \item \lstinline|(name)|
+    \item \lstinline|(name:Type)|
+    \item \lstinline|(name:Type {attributes})|
+  \end{itemize}
+
+  \begin{lstlisting}
+(matrix)
+(matrix:Movie)
+(matrix:Movie {title: "The Matrix"})
+(matrix:Movie {title: "The Matrix", released: 1997})
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML Examples}
+  \frametitle{Cypher: Relationships}
 
-  \begin{example}[converting a movie object into an XML string]
-    \begin{lstlisting}
-public static String toXml(Movie movie) {
-  StringBuffer buffer = new StringBuffer();
-  buffer.append("<movie>");
-  buffer.append("<title>"
-    + movie.getTitle() + "</title>");
-  buffer.append("<year>"
-    + movie.getYear().toString() + "</year>");
-  buffer.append("</movie>");
-  return buffer.toString();
-}
-    \end{lstlisting}
-  \end{example}
+  \begin{itemize}
+    \item undirected: \lstinline|--|
+    \item directed: \lstinline|-->| \lstinline|<--|
+    \item with details: \lstinline|-[]-|
+  \end{itemize}
+
+  \begin{lstlisting}
+-[role]->
+-[role:ACTED_IN]->
+-[role:ACTED_IN {roles: ["Neo"]}]->
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML Examples}
+  \frametitle{Cypher: Patterns}
 
-  \begin{example}[converting an XML node into a movie object]
-    \begin{lstlisting}
-private static Movie fromNode(XmlValue node)
-        throws XmlException {
-  XmlValue tn = node.getFirstChild();
-  String title =
-      tn.getFirstChild().getNodeValue();
-  XmlValue yn = tn.getNextSibling();
-  String yearValue =
-      yn.getFirstChild().getNodeValue();
-  Integer year = Integer.parseInt(yearValue);
-  Movie movie = new Movie(title);
-  movie.setYear(year);
-  return movie;
-}
-    \end{lstlisting}
-  \end{example}
+  \begin{itemize}
+    \item combine nodes and relationships
+    \item give names to patterns
+  \end{itemize}
+
+  \begin{lstlisting}
+(keanu:Person   {name:  "Keanu Reeves"} )
+-[role:ACTED_IN {roles: ["Neo"] } ]->
+(matrix:Movie   {title: "The Matrix"} )
+
+acted_in = (:Person)-[:ACTED_IN]->(:Movie)
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML Examples}
+  \frametitle{Cypher: Creating Data}
 
-  \begin{example}[query: all movies]
-    \begin{lstlisting}
-XmlQueryContext context = ...;
-context.setNamespace(...);
-String query =
-  "collection(\"imdb.dbxml\")/movies/movie";
-XmlResults results = db.query(query, context);
-if (results.hasNext()) {
-  XmlValue node = results.next();
-  Movie movie = fromNode(node);
-  ...
-}
-results.delete();
-    \end{lstlisting}
-  \end{example}
+  \begin{lstlisting}
+CREATE (:Movie {title: "The Matrix", released: 1997})
+
+CREATE (p:Person {name: "Keanu Reeves", born: 1964})
+RETURN p
+
+CREATE (a:Person {name: "Tom Hanks", born:1956 })
+  -[r:ACTED_IN {roles: ["Forrest"]}]->
+  (m:Movie {title: "Forrest Gump", released: 1994})
+CREATE (d:Person {name: "Robert Zemeckis", born: 1951})
+  -[:DIRECTED]-> (m)
+RETURN a, d, r, m
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{DBXML Examples}
+  \frametitle{Cypher: Matching Patterns}
 
-  \begin{example}[insert]
-    \begin{lstlisting}
-Movie m = new Movie("Casablanca");
-m.setYear(1942);
+  \begin{lstlisting}
+MATCH (m:Movie)
+RETURN m
 
-XmlQueryContext context = ...;
-context.setNamespace(...);
-String query = "insert nodes " + toXml(m)
-  + " into collection(\"imdb.dbxml\")/movies";
-XmlResults results = db.query(query, context);
-results.delete();
-    \end{lstlisting}
-  \end{example}
+MATCH (p:Person {name:"Keanu Reeves"})
+RETURN p
+
+MATCH (p:Person {name:"Tom Hanks"})
+  -[r:ACTED_IN]-> (m:Movie)
+RETURN m.title, r.roles
+  \end{lstlisting}
 \end{frame}
 
 \section*{References}
@@ -900,6 +1005,8 @@ results.delete();
     \begin{itemize}
       \item Making Sense of NoSQL, by Dan McCreary and Ann Kelly,\\
         Manning Publications
+      \item The Neo4J Manual: Tutorials\\
+        \url{http://neo4j.com/docs/stable/tutorials.html}
     \end{itemize}
   \end{block}
 \end{frame}
