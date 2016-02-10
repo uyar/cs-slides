@@ -1,4 +1,4 @@
-% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -8,9 +8,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -24,7 +24,7 @@
 \subtitle{Introduction}
 
 \author{H. Turgut Uyar}
-\date{2004-2015}
+\date{2004-2016}
 
 \AtBeginSubsection[]
 {
@@ -34,16 +34,13 @@
   \end{frame}
 }
 
-%\beamerdefaultoverlayspecification{<+->}
-
-\theoremstyle{plain}
-
 \pgfdeclareimage[height=1cm]{license}{../license}
 
-\pgfdeclareimage[width=8cm]{usatoday}{usatoday}
-\pgfdeclareimage[width=7cm]{bbc}{bbc}
-\pgfdeclareimage[width=8cm]{msnbc}{msnbc}
-\pgfdeclareimage[width=7cm]{register}{register}
+\pgfdeclareimage[width=8cm]{terror-watch}{terror-watch}
+\pgfdeclareimage[width=7cm]{drones}{drones}
+\pgfdeclareimage[width=6cm]{criminal-records}{criminal-records}
+\pgfdeclareimage[width=7cm]{us-data}{us-data}
+\pgfdeclareimage[width=7cm]{toyota}{toyota}
 
 \begin{document}
 
@@ -55,7 +52,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2004-2015 H. Turgut Uyar
+  \copyright~2004-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -92,11 +89,89 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Attribution}
+
+  \begin{itemize}
+    \item introductory section from Dr. Damien Jade Duff's slides
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Topics}
   \tableofcontents
 \end{frame}
 
-\section{Effects of Technology}
+\section{Introduction}
+
+\subsection{Why?}
+
+\begin{frame}
+  \frametitle{Why Study Ethics?}
+
+  \begin{itemize}
+    \item isn't it common sense anyway?
+    \pause
+    \item apparently not
+
+    \pause
+    \medskip
+    \item thousands of years of study
+
+    \pause
+    \medskip
+    \item we want to do the right thing
+    \item what is that?
+
+    \pause
+    \medskip
+    \item things keep changing
+
+    \pause
+    \bigskip
+    \item \alert{the issues are important!}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Famous Examples}
+
+  \begin{itemize}
+    \item PRISM and Edward Snowden (2013): NSA secretly collects\\
+      Internet communications data
+
+    \medskip
+    \item iCloud photo leak (2014): Apple security flaw causes\\
+      private photos to be stolen and published
+
+    \medskip
+    \item Apple - Samsung patent wars (2011-): huge impact\\
+      on IT companies
+
+    \medskip
+    \item Google vs China (2010-): Google refuses to censor search results\\
+      for China
+  \end{itemize}
+\end{frame}
+
+\subsection{Applied Ethics}
+
+\begin{frame}
+  \frametitle{Applied Ethics}
+
+  \begin{itemize}
+    \item identify moral problem
+    \item collect data, clarify concepts
+    \item apply moral theories and deliberate
+
+    \bigskip
+    \item approach to IT ethics as applied ethics
+    \item Philip Brey, 2000
+  \end{itemize}
+\end{frame}
+
+\section{IT Ethics}
+
+\subsection{Policy Vacuums}
 
 \begin{frame}
   \frametitle{Effects of Technology}
@@ -141,87 +216,81 @@
   \end{itemize}
 \end{frame}
 
-\section{Information Technology}
+\subsection{Effects of IT}
 
 \begin{frame}
-  \frametitle{Effects of Information Technology}
+  \frametitle{Effects of IT}
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{block}{pros}
-      \begin{itemize}
-        \item communication
-        \item medical applications
-        \item space research
-        \item \ldots
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item communication opportunities
+      \item medical advancements
+      \item space research
+      \item \ldots
+    \end{itemize}
 
     \pause
     \column{.5\textwidth}
-    \begin{block}{cons}
-      \begin{itemize}
-        \item privacy
-        \item criminal applications
-        \item alienation
-        \item \ldots
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item privacy problems
+      \item criminal applications
+      \item alienation
+      \item \ldots
+    \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Problems}
+  \frametitle{IT Problems}
 
   \begin{itemize}
     \item are these problems new?
   \end{itemize}
 
-  \begin{block}{no}
-    \begin{itemize}
-      \item same in the real world: fraud
-      \item similar in the real world:
-        copying software $\rightarrow$ copying books
-    \end{itemize}
-  \end{block}
-
-  \pause
-  \begin{block}{yes}
-    \begin{itemize}
-      \item not possible without IT
-      \item without the risks and restrictions of the real world
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Problems}
-
   \begin{itemize}
-    \item even if the character isn't new:
+    \item some people say ``NO''
+    \item same as in the real world: fraud
+    \item similar to the real world:
+      copying software $\rightarrow$ copying books
 
+    \pause
     \medskip
-    \item the greatness of the scale
-    \item the power of the information
-    \item the persistence of the information
-    \item the malleability of the technology
+    \item some people say ``YES''
+    \item not possible without IT
+    \item without the risks and restrictions of the real world
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Power of Information: USA terror watch list (2007)}
+  \frametitle{IT Problems}
+
+  \begin{itemize}
+    \item even if the characters of problems aren't new:
+
+    \medskip
+    \item scale
+    \item power
+    \item persistence
+    \item unreliable technology
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Power of Information}
 
   \begin{columns}
-    \column{.7\textwidth}
-    \pgfuseimage{usatoday}
+    \column{.65\textwidth}
+    \pgfuseimage{terror-watch}
 
-    \column{.3\textwidth}
+    \column{.35\textwidth}
     \begin{itemize}
+      \item US terror watch list\\
+        (2007)
       \item 15,000 people\\
-        on the list\\
-        due to name clashes
-      \item cannot use\\
-        airlines
+        on the list due to\\
+        name clashes
+      \item cannot use airlines
     \end{itemize}
   \end{columns}
 
@@ -230,26 +299,41 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Persistence of Information: England police records (2008)}
+  \frametitle{Power of Computers}
+
+  \begin{columns}
+    \column{.6\textwidth}
+    \pgfuseimage{drones}
+
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item drone strikes\\
+        in Pakistan (2014)
+      \item killed more than\\
+        2,000 people
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.rt.com/news/drones-pakistan-us-cia-military-408/}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Persistence of Information}
 
   \begin{columns}
     \column{.56\textwidth}
-    \pgfuseimage{bbc}
+    \pgfuseimage{criminal-records}
 
     \column{.44\textwidth}
     \begin{itemize}
+      \item England criminal records (2008)
       \item Information Commissioner\\
-        orders the police\\
-        to delete\\
-        old criminal records
-
-      \medskip
+        orders police to delete\\
+        old records
       \item 16 year old child\\
-        stole meat\\
-        worth 99p (1984)
-      \item 13 year old child\\
-        warned because of\\
-        minor a fight
+        stole meat worth 99p\\
+        (1984)
     \end{itemize}
   \end{columns}
 
@@ -258,18 +342,19 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Malleability: USA government records (2008)}
+  \frametitle{Unreliable Technology}
 
   \begin{columns}
-    \column{.65\textwidth}
-    \pgfuseimage{msnbc}
+    \column{.6\textwidth}
+    \pgfuseimage{us-data}
 
-    \column{.33\textwidth}
+    \column{.4\textwidth}
     \begin{itemize}
-      \item tens of thousands\\
-        of people\\
-        ``dead'' on record\\
-        though still alive
+      \item US incorrect\\
+        government data\\
+        (2008)
+      \item thousands of people\\
+        appear dead
       \item cannot receive\\
         tax returns
     \end{itemize}
@@ -280,58 +365,57 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Malleability: French Data Protection Agency Report (2009)}
+  \frametitle{Unreliable Technology}
 
   \begin{columns}
-    \column{.57\textwidth}
-    \pgfuseimage{register}
+    \column{.6\textwidth}
+    \pgfuseimage{toyota}
 
-    \column{.43\textwidth}
+    \column{.4\textwidth}
     \begin{itemize}
-      \item 1 million French citizens\\
-        lost their jobs\\
-        or couldn't find new jobs\\
-        because of inaccuracies\\
-        in the criminal records
+      \item Toyota recalls\\
+        1.9 million Prius cars\\
+        (2014)
+      \item software glitch
     \end{itemize}
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theregister.co.uk/2009/01/30/stic/}}
+  \tiny{\url{http://www.huffingtonpost.com/2014/02/12/toyota-recall-prius-hybrids-software-glitch_n_4771824.html}}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Data Mining}
+% \begin{frame}
+%   \frametitle{Data Mining}
+%
+%   \begin{itemize}
+%     \item \alert{data mining}
+%     \item looking for hidden patterns in data
+%     \item finding new categories that are not obvious
+%
+%     \medskip
+%     \item used in decision support systems:\\
+%       loyalty cards, credit scoring
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Example: Total Information Awareness}
+%
+%   \begin{itemize}
+%     \item prevent terrorist attacks
+%
+%     \medskip
+%     \item gather data from various fields
+%     \item finance, health, communication, travel, \ldots
+%     \item determine possible terrorists from similar behaviour patterns
+%
+%     \bigskip
+%     \item false positives
+%     \item paradigm shift: proving innocence instead of proving guilt
+%   \end{itemize}
+% \end{frame}
 
-  \begin{itemize}
-    \item \alert{data mining}
-    \item looking for hidden patterns in data
-    \item finding new categories that are not obvious
-
-    \medskip
-    \item used in decision support systems:\\
-      loyalty cards, credit scoring
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Example: Total Information Awareness}
-
-  \begin{itemize}
-    \item prevent terrorist attacks
-
-    \medskip
-    \item gather data from various fields
-    \item finance, health, communication, travel, \ldots
-    \item determine possible terrorists from similar behaviour patterns
-
-    \bigskip
-    \item false positives
-    \item paradigm shift: proving innocence instead of proving guilt
-  \end{itemize}
-\end{frame}
-
-\section{Method}
+\subsection{Method}
 
 \begin{frame}
   \frametitle{Traditionalist Method}
