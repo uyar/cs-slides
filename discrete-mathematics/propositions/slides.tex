@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2015
+% Copyright (c) 2001-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -11,10 +11,11 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
-\setbeamertemplate{navigation symbols}{}
+\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -27,7 +28,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2015}
+\date{2001-2016}
 
 \AtBeginSubsection[]
 {
@@ -51,7 +52,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2015 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -790,10 +791,10 @@
 \begin{frame}
   \frametitle{Logical Implication Example}
 
-  $(p \rightarrow q) \wedge p \Rightarrow q$
+  $p \wedge (p \rightarrow q) \Rightarrow q$
 
   \begin{table}
-    \caption{$(p \rightarrow q) \wedge p \rightarrow q$}
+    \caption{$p \wedge (p \rightarrow q) \rightarrow q$}
     \begin{tabular}{|c|c|c|c||c|}\hline
       $p$ & $q$ & $p \rightarrow q$ & $A \wedge p$ & $B \rightarrow q$\\
           &     & ($A$)             & ($B$)        &\\\hline\hline
@@ -1809,11 +1810,11 @@
       \pause
       7. & p \rightarrow (q \vee r) & A\\
       \pause
-      8. & q \vee r                 & ImpE:7,2\\
+      8. & q \vee r                 & ImpE:7,1\\
       \pause
       9. & q                        & DS:8,6\\
       \pause
-      10. & q \wedge \neg q : F      & AndI:9,3
+      10. & q \wedge \neg q : F     & AndI:9,3
     \end{eqnarray*}
   \end{columns}
 \end{frame}
