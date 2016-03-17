@@ -1,4 +1,4 @@
-% Copyright (c) 2004-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -8,9 +8,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -24,7 +24,7 @@
 \subtitle{Professional Ethics}
 
 \author{H. Turgut Uyar}
-\date{2004-2015}
+\date{2004-2016}
 
 \AtBeginSubsection[]
 {
@@ -40,6 +40,7 @@
 
 \pgfdeclareimage[width=2cm]{license}{../license}
 
+\pgfdeclareimage[width=6.5cm]{volkswagen}{volkswagen}
 \pgfdeclareimage[width=7.4cm]{ibm-nazi}{ibm-nazi}
 \pgfdeclareimage[height=5.3cm]{iran}{iran}
 \pgfdeclareimage[height=4.5cm]{ariane}{ariane}
@@ -61,7 +62,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2004-2015 H. Turgut Uyar
+  \copyright~2004-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -109,15 +110,34 @@
 \begin{frame}
   \frametitle{Ethics of Professions}
 
-  \begin{itemize}
-    \item do professional roles require different moral evaluations?
-    \item do professions carry different moral obligations?
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item do professional roles\\
+        require different\\
+        moral evaluations?
+      \item do professions\\
+        carry different\\
+        moral obligations?
+    \end{itemize}
 
-    \pause
-    \bigskip
-    \item differentiated professions: special rights, special responsibilities
+    \column{.6\textwidth}
+    \pgfuseimage{volkswagen}
+
+    \medskip
+    \tiny{\url{http://www.bbc.com/news/business-34324772}}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Differentiated Professions}
+
+  \begin{itemize}
+    \item for some professions: special rights, special responsibilities
+
+    \medskip
     \item doctors, lawyers, licensed engineers
-    \item legal protections - trust of society
+    \item legal protections $\leftrightarrow$ trust of society
   \end{itemize}
 \end{frame}
 
@@ -291,6 +311,7 @@
   \begin{columns}
     \column{.6\textwidth}
     \pgfuseimage{ibm-nazi}
+    % TODO: crop photo
 
     \column{.4\textwidth}
     \begin{itemize}
@@ -311,6 +332,7 @@
 
   \begin{center}
     \pgfuseimage{iran}
+    % TODO: crop photo
   \end{center}
 
   \begin{itemize}
@@ -360,6 +382,7 @@
   \begin{columns}
     \column{.6\textwidth}
     \pgfuseimage{aegis}
+    % TODO: crop photo
 
     \column{.4\textwidth}
     \begin{itemize}
@@ -380,6 +403,7 @@
   \begin{columns}
     \column{.55\textwidth}
     \pgfuseimage{robot-sweden}
+    % TODO: crop photo
 
     \column{.45\textwidth}
     \begin{itemize}
@@ -444,7 +468,7 @@
   \end{center}
 
   \begin{itemize}
-    \item a teenager in USA imitates GTA: 3 cops dead (2003)
+    \item a teenager in USA imitates GTA: 3 policemen dead (2003)
   \end{itemize}
 
   \medskip
@@ -498,6 +522,7 @@
   \begin{columns}
     \column{.55\textwidth}
     \pgfuseimage{challenger}
+    % TODO: crop photo
 
     \column{.45\textwidth}
     \begin{itemize}
@@ -517,6 +542,7 @@
   \begin{columns}
     \column{.55\textwidth}
     \pgfuseimage{boisjoly}
+    % TODO: crop photo
 
     \column{.45\textwidth}
     \begin{itemize}
@@ -585,6 +611,12 @@
   \begin{block}{Required Reading: Tavani}
     \begin{itemize}
       \item Chapter 4: \alert{Professional Ethics}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Required Reading: ACM-IEEE/CS Code of Ethics}
+    \begin{itemize}
+      \item \url{http://www.acm.org/about/se-code}
     \end{itemize}
   \end{block}
 \end{frame}
