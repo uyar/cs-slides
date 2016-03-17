@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -17,6 +17,7 @@
         keywordstyle=\color{blue},
         showstringspaces=false}
 \lstdefinestyle{syntax}{frame=single}
+\lstdefinestyle{exclamfix}{deletestring=[b]{"}}
 \lstset{language=Haskell}
 
 \mode<presentation>
@@ -31,7 +32,7 @@
 \subtitle{Pattern Matching}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +55,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -250,7 +251,6 @@ p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \item check if empty: \lstinline|null|
     \item get the head: \lstinline|head|
     \item get the tail: \lstinline|tail|
-    \item construct a list: \lstinline|item : sublist|
 
     \pause
     \medskip
@@ -275,50 +275,57 @@ tail :: [a] -> [a]
 -- tail [1, 2, 3, 4] ~> [2, 3, 4]
 -- tail []           ~> error
 -- tail [1]          ~> []
-
-(:) :: a -> [a] -> [a]
--- 1 : [2, 3]        ~> [1, 2, 3]
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Example}
+  \frametitle{List Construction}
 
-  \begin{exampleblock}{number of elements}
+  \begin{itemize}
+    \item list construction operator: \lstinline|:|\\
+      \lstinline|item : sublist|
+    \item associates to the right
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+(:) :: a -> [a] -> [a]
+-- 1 : [2, 3]        ~> [1, 2, 3]
+-- 1 : 2 : 3 : []    ~> [1, 2, 3]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Operators}
+
+  \begin{itemize}
+    \item indexing operator: \lstinline|!!|
+    \item concatenation operator: \lstinline|++|
+  \end{itemize}
+
+  \pause
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+-- [1, 2, 3] !! 0       ~> 1
+-- [1, 2, 3] !! 2       ~> 3
+-- [1, 2, 3] !! 3       ~> error
+
+-- [1, 2, 3] ++ [4, 5]  ~> [1, 2, 3, 4, 5]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Size}
+
+  \begin{exampleblock}{number of elements in a list}
     \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Int
 length xs
   | null xs   = 0
   | otherwise = 1 + length (tail xs)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{List Example}
-
-  \begin{exampleblock}{number of elements (tail recursive)}
-    \begin{lstlisting}[deletekeywords={length}]
-length :: [a] -> Int
-length xs = lengthIter 0 xs
-  where
-    lengthIter :: Int -> [a] -> Int
-    lengthIter acc xs'
-      | null xs'  = acc
-      | otherwise = lengthIter (acc + 1) (tail xs')
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{List Example}
-
-  \begin{exampleblock}{sum of elements}
-    \begin{lstlisting}[deletekeywords={sum}]
-sum :: [Integer] -> Integer
-sum xs
-  | null xs   = 0
-  | otherwise = head xs + sum (tail xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -341,7 +348,7 @@ firstPlusSecond xs
   \frametitle{Strings}
 
   \begin{itemize}
-    \item a string is a list of characters
+   \item a string is a list of characters
     \begin{lstlisting}
 type String = [Char]
     \end{lstlisting}
@@ -349,11 +356,36 @@ type String = [Char]
 
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-head   "word" ~> 'w'
-tail   "word" ~> "ord"
-null   "word" ~> False
-null   ""     ~> True
-length "word" ~> 4
+-- head "word"       ~> 'w'
+-- tail "word"       ~> "ord"
+
+-- null "word"       ~> False
+-- null ""           ~> True
+
+-- 'w' : "ord"       ~> "word"
+-- "word" !! 2       ~> 'r'
+-- "word" ++ "smith" ~> "wordsmith" 
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ranges}
+
+  \begin{itemize}
+    \item \lstinline|[n .. m]|: range with increment 1
+    \item \lstinline|[n, p .. m]|: range with increment \texttt{p - n}
+  \end{itemize}
+
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+[2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
+[3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
+['a' .. 'm']      ~> "abcdefghijklm"
+
+[7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
+[0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
+['a', 'c' .. 'n'] ~> "acegikm"
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -366,12 +398,13 @@ length "word" ~> 4
   \begin{itemize}
     \item \alert{algebraic types}: constructors and components
     \begin{lstlisting}[style=syntax]
-data T = C1 t11 t12 ... t1m |
-         C2 t21 t22 ... t2n |
-         ...
+data T = C1 t11 t12 ... t1m
+       | C2 t21 t22 ....... t2n
+       | ...
     \end{lstlisting}
     \item value construction: \lstinline|Ci ei1 ei2 ... eik|
     \item constructors are functions
+    \item \lstinline|Ci| may be the same as, or different from \lstinline|T|
   \end{itemize}
 \end{frame}
 
@@ -380,13 +413,10 @@ data T = C1 t11 t12 ... t1m |
 
   \begin{exampleblock}{simple product type}
     \begin{lstlisting}
-type Name = String
-type Year = Integer
+data Person = Person String Integer
+              deriving Show
 
-data Human = Person Name Year
-             deriving Show
-
-church :: Human
+church :: Person
 church = Person "Alonzo Church" 1903
     \end{lstlisting}
   \end{exampleblock}
@@ -397,8 +427,8 @@ church = Person "Alonzo Church" 1903
 
   \begin{exampleblock}{enumeration}
     \begin{lstlisting}
-data Month = Jan | Feb | Mar | Apr | May | Jun |
-             Jul | Aug | Sep | Oct | Nov | Dec
+data Month = Jan | Feb | Mar | Apr | May | Jun
+           | Jul | Aug | Sep | Oct | Nov | Dec
              deriving Show
 
 m :: Month
@@ -415,15 +445,15 @@ m = Feb
 type Coords = (Float, Float)
 type Length = Float
 
-data Shape = Point Coords |
-             Circle Coords Length |
-             Rectangle Coords Length Length
+data Shape = Point     Coords
+           | Circle    Coords Length
+           | Rectangle Coords Length Length
              deriving Show
 
 p, c, r :: Shape
-p = Point (0.0, 0.0)
-c = Circle (0.0, 0.0) 1.0
-r = Rectangle (45.9, 87.6) 5.75 2.3
+p = Point     (0.0, 0.0)
+c = Circle    (0.0, 0.0) 1.0
+r = Rectangle (5.9, 7.6) 5.7 2.3
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -453,7 +483,7 @@ case expr of
 \begin{frame}[fragile]
   \frametitle{Pattern Examples}
 
-  \begin{exampleblock}{literal value}
+  \begin{exampleblock}{literal value pattern}
     \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
 gcd x y = case y of
@@ -466,7 +496,7 @@ gcd x y = case y of
 \begin{frame}[fragile]
   \frametitle{Pattern Examples}
 
-  \begin{exampleblock}{tuple matching}
+  \begin{exampleblock}{tuple pattern}
     \begin{lstlisting}
 gcd' :: (Integer, Integer) -> Integer
 gcd' a = case a of
@@ -531,7 +561,7 @@ third t = case t of
     \item list with exactly one element:\\
       \lstinline|[x]|
     \item list with exactly two elements:\\
-      \lstinline|[x1, x2]|
+      \lstinline|[x1,x2]|
     \item list with at least two elements:\\
       \lstinline|x1:x2:xs|
   \end{itemize}
@@ -559,7 +589,7 @@ firstPlusThird :: [Integer] -> Integer
 firstPlusThird xs = case xs of
     []        -> 0
     [x1]      -> x1
-    [x1, _]   -> x1
+    [x1,_]    -> x1
     x1:_:x3:_ -> x1 + x3
     \end{lstlisting}
   \end{exampleblock}
@@ -581,7 +611,7 @@ firstPlusThird xs = case xs of
 
   \begin{exampleblock}{get component out of product type}
     \begin{lstlisting}
-birthYear :: Human -> Year
+birthYear :: Person -> Integer
 birthYear p = case p of
     Person _ y -> y
 
@@ -636,11 +666,10 @@ area s = case s of
 
   \begin{itemize}
     \item formal parameters are patterns
-    \item components of the pattern will be matched\\
-      with the components of the actual parameters
+    \item components of pattern matched with actual parameters
 
     \medskip
-    \item in case of multiple patterns, the first match will be selected
+    \item in case of multiple patterns, first match will be selected
 
     \smallskip
     \begin{lstlisting}[style=syntax]
@@ -731,18 +760,51 @@ length (x:xs) = 1 + length xs
   \frametitle{Function Pattern Example}
 
   \begin{lstlisting}
-birthYear :: Human -> Year
+birthYear :: Person -> Year
 birthYear p = case p of
     Person _ y -> y
 
 -- OR:
-birthYear :: Human -> Year
+birthYear :: Person -> Year
 birthYear (Person _ y) = y
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example}
+  \frametitle{Example: List Indexing}
+
+  \begin{lstlisting}
+(!!) :: [a] -> Int -> a
+(!!) []     _ = error "no such element"
+(!!) (x:xs) 0 = x
+(!!) (x:xs) n = (!!) xs (n - 1)
+  \end{lstlisting}
+
+  \pause
+  \begin{itemize}
+    \item use the infix operator notation:
+  \end{itemize}
+
+  \begin{lstlisting}
+(!!) :: [a] -> Int -> a
+[]     !! _ = error "no such element"
+(x:xs) !! 0 = x
+(x:xs) !! n = xs !! (n - 1)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: List Concatenation}
+
+  \begin{lstlisting}
+(++) :: [a] -> [a] -> [a]
+[]     ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Fibonacci}
 
   \begin{exampleblock}{efficient Fibonacci calculation}
     \begin{lstlisting}
@@ -757,49 +819,6 @@ fibPair n = fibStep (fibPair (n - 1))
 fastFib n = fst (fibPair n)
     \end{lstlisting}
   \end{exampleblock}
-\end{frame}
-
-\lstset{deletekeywords={Rational}}
-
-\begin{frame}[fragile]
-  \frametitle{Tuples or Algebraic Types?}
-
-  \begin{exampleblock}{representing rational numbers}
-    \begin{lstlisting}
-type Rational = (Integer, Integer)
-
-simplify :: Rational -> Rational
-simplify (n, d) = (n `div` g, d `div` g)
-  where
-    g = gcd n d
-
-type DayInYear = (Integer, Integer)
-
-mar12 :: DayInYear
-mar12 = (12, 3)
--- simplify mar12 ~> (4, 1)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Tuples or Algebraic Types?}
-
-  \begin{itemize}
-    \item algebraic types give you better type checking
-  \end{itemize}
-
-  \bigskip
-  \begin{lstlisting}
-data Rational' = Fraction Integer Integer
-                 deriving Show
-
-simplify' :: Rational' -> Rational'
-simplify' (Fraction n d) =
-  Fraction (n `div` g) (d `div` g)
-    where
-      g = gcd n d
-  \end{lstlisting}
 \end{frame}
 
 % TODO: add example for using case expression over function pattern
