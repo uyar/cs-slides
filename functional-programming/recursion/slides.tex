@@ -258,15 +258,14 @@ fac 4
   \frametitle{Tail Recursion}
 
   \begin{itemize}
-    \item if the result of the recursive call is also the result of the caller,\\
-      then the function is said to be \alert{tail recursive}
-    \item the recursive function call is the last action:\\
-      nothing left for the caller to do
+    \item \alert{tail recursive}: result of recursive call is also result of caller
+    \item recursive call is last action: nothing left for caller to do
 
     \pause
-    \medskip
+    \bigskip
     \item no need to keep the stack frame around:\\
-      reuse the frame of the caller
+      reuse frame of caller
+    \item increased performance
   \end{itemize}
 \end{frame}
 
@@ -293,7 +292,7 @@ gcd 9702 945
   \frametitle{Tail Recursion}
 
   \begin{itemize}
-    \item to rearrange a function to be tail recursive:
+    \item rearranging a function to be tail recursive:
 
     \medskip
     \item define a helper function that takes an accumulator
