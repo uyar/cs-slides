@@ -103,7 +103,8 @@
 
     \pause
     \bigskip
-    \item to solve a complicated problem
+    \item to solve a complicated problem:
+    \smallskip
     \item break it down into smaller problems
     \item piece together solutions to these smaller problems
   \end{itemize}
@@ -246,7 +247,7 @@
 
   \begin{itemize}
     \item \alert{permutation}: a linear arrangement of distinct objects
-    \item order is important
+    \item order important
   \end{itemize}
 \end{frame}
 
@@ -456,7 +457,7 @@ L & L & B & A
 
   \begin{itemize}
     \item \alert{combination}: choosing from distinct objects
-    \item order isn't important
+    \item order not important
   \end{itemize}
 \end{frame}
 
@@ -481,11 +482,12 @@ L & L & B & A
   \frametitle{Combination Example}
 
   \begin{itemize}
-    \item assume one such draw is:\\
+    \item one such draw:\\
       $AH$ (ace of hearts), $9C$ (9 of clubs), $KD$ (king of diamonds)
-    \item if we select all 3 cards at once, order doesn't matter
 
     \pause
+    \medskip
+    \item if order doesn't matter
     \item 6 permutations of $(AH,9C,KD)$ correspond to just one selection
   \end{itemize}
   \begin{equation*}
@@ -498,8 +500,7 @@ L & L & B & A
 
   \begin{itemize}
     \item $n$ distinct objects
-    \item each combination of $r$ of these objects\\
-      corresponds to $r!$ permutations of size $r$
+    \item each combination of $r$ objects: $r!$ permutations of size $r$
 
     \pause
     \medskip
@@ -519,6 +520,7 @@ L & L & B & A
       C(n,r) = \frac{n!}{r! \cdot (n-r)!}
     \end{equation*}
 
+    \pause
     \item note that:
     \begin{eqnarray*}
       C(n,0) & = 1 = & C(n,n)\\
@@ -531,16 +533,16 @@ L & L & B & A
   \frametitle{Number of Combinations Example}
 
   \begin{itemize}
-    \item Lynn and Patti decide to buy a powerball ticket
-    \item to win, one must match five numbers selected from 1 to 49
-    \item and then must also match the powerball, 1 to 42
+    \item Lynn and Patti buy a powerball ticket
+    \item match five numbers selected from 1 to 49
+    \item and then match powerball, 1 to 42
     \item how many possible tickets?
 
     \pause
     \medskip
-    \item Lynn selects five numbers from 1 to 49: $C(49,5)$ ways
-    \item Patti selects the powerball from 1 to 42: $C(42,1)$ ways
-    \item number of possible tickets:
+    \item Lynn selects five numbers from 1 to 49: $C(49,5)$
+    \item Patti selects the powerball from 1 to 42: $C(42,1)$
+    \item possible tickets:
       ${49 \choose 5}{42 \choose 1} = 80,089,128$
   \end{itemize}
 \end{frame}
@@ -549,8 +551,8 @@ L & L & B & A
   \frametitle{Number of Combinations Examples}
 
   \begin{itemize}
-    \item for a volleyball team, the gym teacher must select nine girls\\
-      from the junior and senior classes
+    \item for a volleyball team, gym teacher must select nine girls\\
+      from junior and senior classes
     \item 28 junior and 25 senior candidates
     \item how many different ways?
 
@@ -558,7 +560,7 @@ L & L & B & A
     \medskip
     \item if no restrictions: ${53 \choose 9} = 4,431,613,550$
     \pause
-    \item if two juniors and one senior are the best spikers\\
+    \item if two juniors and one senior are best spikers\\
       and must be on the team: ${50 \choose 6} = 15,890,700$
     \pause
     \item if there has to be four juniors and five seniors:
@@ -589,24 +591,10 @@ L & L & B & A
 \begin{frame}
   \frametitle{Binomial Theorem Examples}
 
-  \begin{exampleblock}{}
-    \begin{itemize}
-      \item in the expansion of $(x+y)^7$, the coefficient of $x^5 y^2$:\\
-        ${7\choose 5} = {7 \choose 2} = 21$
-    \end{itemize}
-  \end{exampleblock}
-
-  \pause
-  \begin{exampleblock}{}
-    \begin{itemize}
-      \item in the expansion of $(2a-3b)^7$, the coefficient of $a^5 b^2$:
-      \item $x=2a, y=-3b$
-      \begin{equation*}
-      {7\choose 5} x^5 y^2 = {7\choose 5} (2a)^5 (-3b)^2
-                           = {7\choose 5} (2)^5 (-3)^2 a^5 b^2 = 6048 a^5 b^2
-      \end{equation*}
-    \end{itemize}
-  \end{exampleblock}
+  \begin{itemize}
+    \item in the expansion of $(x+y)^7$, coefficient of $x^5 y^2$:\\
+      ${7\choose 5} = {7 \choose 2} = 21$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -629,15 +617,9 @@ L & L & B & A
   \frametitle{Multinomial Theorem Examples}
 
   \begin{itemize}
-    \item in the expansion of $(x+y+z)^7$, the coefficient of $x^2 y^2 z^3$:
+    \item in the expansion of $(x+y+z)^7$, coefficient of $x^2 y^2 z^3$:
     \begin{equation*}
       {7 \choose 2,2,3} = \frac{7!}{2! \cdot 2! \cdot 3!} = 210
-    \end{equation*}
-  \end{itemize}
-  \begin{itemize}
-    \item the coefficient of $x y z^5$:
-    \begin{equation*}
-      {7 \choose 1,1,5} = \frac{7!}{1! \cdot 1! \cdot 5!} = 42
     \end{equation*}
   \end{itemize}
 \end{frame}
