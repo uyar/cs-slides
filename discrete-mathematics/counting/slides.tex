@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015
+% Copyright (c) 2013-2016
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %
@@ -10,9 +10,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -25,7 +25,7 @@
 \subtitle{Counting}
 
 \author{Ayşegül Gençata Yayımlı \and H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]
 {
@@ -49,7 +49,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 A. Yayımlı, T. Uyar
+  \copyright~2013-2016 A. Yayımlı, T. Uyar
 
   \vfill
   \begin{footnotesize}
@@ -90,47 +90,48 @@
   \tableofcontents
 \end{frame}
 
-\section{Basic Principles}
+\section{Combinatorics}
 
 \subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Basic Principles}
+  \frametitle{Combinatorics}
 
   \begin{itemize}
-    \item decompose large problem into smaller ones
-    \item piece together partial solutions to arrive at the whole solution
+    \item \alert{combinatorics}: study of arrangement of objects
+    \item \alert{enumeration}: counting of objects with certain properties
 
     \pause
     \bigskip
-    \item rule of sum
-    \item rule of product
+    \item to solve a complicated problem
+    \item break it down into smaller problems
+    \item piece together solutions to these smaller problems
   \end{itemize}
 \end{frame}
 
-\subsection{Rule of Sum}
+\subsection{Basic Principles}
 
 \begin{frame}
-  \frametitle{Rule of Sum}
+  \frametitle{Sum Rule}
 
   \begin{itemize}
-    \item $TaskA$ can be performed in $m$ (distinct) ways
-    \item $TaskB$ can be performed in $n$ (distinct) ways
-    \item $TaskA$ and $TaskB$ cannot be performed simultaneously
+    \item $task_1$ can be performed in $n_1$ distinct ways
+    \item $task_2$ can be performed in $n_2$ distinct ways
+    \item $task_1$ and $task_2$ cannot be performed simultaneously
 
     \pause
     \bigskip
-    \item performing either $TaskA$ or $TaskB$ can be accomplished\\
-      in any one of $m+n$ ways
+    \item performing either $task_1$ or $task_2$ can be accomplished\\
+      in $n_1 + n_2$ ways
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Rule of Sum Example}
+  \frametitle{Sum Rule Example}
 
   \begin{itemize}
-    \item a college library has 40 textbooks on sociology,
-    \item and 50 textbooks on anthropology
+    \item a college library has 40 textbooks on sociology,\\
+      and 50 textbooks on anthropology
 
     \medskip
     \item to learn about sociology or anthropology\\
@@ -139,7 +140,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Rule of Sum Example}
+  \frametitle{Sum Rule Example}
 
   \begin{itemize}
     \item a computer science instructor has two colleagues
@@ -148,60 +149,91 @@
 
     \medskip
     \item $n$: maximum number of different books that can be borrowed
-    \item both colleagues may own copies of the same book:\\
-      $5 \leq n \leq 8$
+    \item $5 \leq n \leq 8$
+    \item both colleagues may own copies of the same book
   \end{itemize}
 \end{frame}
 
-\subsection{Rule of Product}
-
 \begin{frame}
-  \frametitle{Rule of Product}
+  \frametitle{Product Rule}
 
   \begin{itemize}
-    \item $ProcedureA$ can be broken down into $Stage1$ and $Stage2$
-    \item $m$ possible outcomes for $Stage1$
-    \item for each of these, $n$ possible outcomes for $Stage2$
+    \item a procedure can be broken down into $stage_1$ and $stage_2$
+    \item $n_1$ possible outcomes for $stage_1$
+    \item for each of these, $n_2$ possible outcomes for $stage_2$
 
     \medskip
-    \item $ProcedureA$ can be carried out in $m \cdot n$ ways
+    \item procedure can be carried out in $n_1 \cdot n_2$ ways
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Rule of Product Example}
+  \frametitle{Product Rule Example}
 
   \begin{itemize}
     \item drama club is holding tryouts for a play
     \item 6 men and 8 women auditioning for the leading roles
 
     \medskip
-    \item director can cast the leading couple in $6 \cdot 8 = 48$ ways
+    \item director can cast leading couple in $6 \cdot 8 = 48$ ways
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Rule of Product Examples}
+  \frametitle{Product Rule Example}
 
   \begin{itemize}
-    \item license plates consist of 2 letters, followed by 4 digits
+    \item license plates with 2 letters, followed by 4 digits
     \item how many possible plates?
 
     \pause
     \medskip
-    \item if no letter or digit can be repeated:\\
+    \item no letter or digit can be repeated:\\
       $26 \cdot 25 \cdot 10 \cdot 9 \cdot 8 \cdot 7 = 3,276,000$
 
     \pause
     \medskip
-    \item if repetitions are allowed for both letters and digits:\\
+    \item repetitions allowed:\\
       $26 \cdot 26 \cdot 10 \cdot 10 \cdot 10 \cdot 10 = 6,760,000$
 
     \pause
     \medskip
-    \item if repetitions are allowed for both letters and digits,\\
-      how many plates consist of only vowels and even digits?\\
+    \item repetitions allowed, only vowels and even digits:\\
       $5 \cdot 5 \cdot 5 \cdot 5 \cdot 5 \cdot 5 = 15,625$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Product Rule Example}
+
+  \begin{itemize}
+    \item a byte consists of 8 bits
+    \item a bit has two possible values: $0$ or $1$
+
+    \medskip
+    \item number of possible values for a byte:\\
+      $2 \cdot 2 \cdots 2 = 2^8 = 256$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Counting Example}
+
+  \begin{itemize}
+    \item pastry shop menu:\\
+      6 kinds of muffins, 8 kinds of sandwiches\\
+      hot coffee, hot tea, icea tea, cola, orange juice
+
+    \medskip
+    \item buy either a muffin and a hot beverage,\\
+      or a sandwich and a cold beverage
+    \item how many possible purchases?
+
+    \pause
+    \medskip
+    \item muffin and hot beverage: $6 \cdot 2 = 12$
+    \item sandwich and cold beverage: $8 \cdot 3 = 24$
+    \item total: $12 + 24 = 36$
   \end{itemize}
 \end{frame}
 
@@ -226,7 +258,7 @@
     \item 4 students are to be seated in a row for a picture:\\
       \smallskip
       $BCEF, CEFI, ABCF, \ldots$
-    \item how many such linear arrangements?
+    \item how many such arrangements?
 
     \pause
     \medskip
@@ -247,10 +279,8 @@
   \end{eqnarray*}
 \end{frame}
 
-\subsection{Number of Permutations}
-
 \begin{frame}
-  \frametitle{Number of Permutations}
+  \frametitle{Permutations}
 
   \begin{itemize}
     \item $n$ distinct objects
@@ -267,14 +297,32 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Number of Permutations Example}
+  \frametitle{Permutations Example}
 
   \begin{itemize}
-    \item number of permutations of the letters in ``BALL''
-    \item two L's are indistinguishable
+    \item if size equals number of objects: $r = n$
+    \[
+      P(n,n) = \frac{n!}{(n-n)!} = \frac{n!}{0!} = n!
+    \]
   \end{itemize}
 
   \pause
+  \begin{exampleblock}{example}
+    \begin{itemize}
+      \item number of permutations of the letters in ``COMPUTER'':\\
+        $8!$
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arrangements Example}
+
+  \begin{itemize}
+    \item number of arrangements of the letters in ``BALL''
+    \item two L's are indistinguishable
+  \end{itemize}
+
   \begin{columns}[t]
     \column{.4\textwidth}
     \begin{tabular}{c c c c}
@@ -298,27 +346,29 @@ L & L & B & A
   \end{columns}
 
   \pause
+  \medskip
   \begin{itemize}
-    \item number of permutations: $\frac{4!}{2} = 12$
+    \item number of arrangements: $\frac{4!}{2} = 12$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Number of Permutations Example}
+  \frametitle{Arrangements Example}
 
   \begin{itemize}
     \item arrangements of all letters in ``DATABASES``
 
     \pause
     \medskip
-    \item for each arrangement where the A's \textbf{are not} distinguished,\\
-      there are $3! = 6$ arrangements where the A's \textbf{are} distinguished:\\
+    \item for each arrangement where A's are \textbf{indistinguishable},\\
+      $3! = 6$ arrangements where A's are \textbf{distinguishable}:\\
       \smallskip
       $DA_{1}TA_{2}BA_{3}SES,DA_{1}TA_{3}BA_{2}SES, DA_{2}TA_{1}BA_{3}SES$,\\
       $DA_{2}TA_{3}BA_{1}SES, DA_{3}TA_{1}BA_{2}SES, DA_{3}TA_{2}BA_{1}SES$
 
     \pause
-    \item for each of these, 2 arrangements where the S's are distinguished:\\
+    \smallskip
+    \item for each of these, 2 arrangements where S's are distinguishable:\\
       \smallskip
       $DA_{1}TA_{2}BA_{3}S_{1}ES_{2},DA_{1}TA_{2}BA_{3}S_{2}ES_{1}$
 
@@ -329,7 +379,7 @@ L & L & B & A
 \end{frame}
 
 \begin{frame}
-  \frametitle{Number of Arrangements}
+  \frametitle{Generalized Rule}
 
   \begin{itemize}
     \item $n$ objects
@@ -349,7 +399,7 @@ L & L & B & A
 \end{frame}
 
 \begin{frame}
-  \frametitle{Number of Arrangements Example}
+  \frametitle{Arrangements Example}
 
   \begin{columns}[t]
     \column{.4\textwidth}
@@ -380,11 +430,11 @@ L & L & B & A
 % TODO: define circular arrangement
 
 \begin{frame}
-  \frametitle{Number of Circular Arrangements Example}
+  \frametitle{Circular Arrangements Example}
 
   \begin{itemize}
-    \item six people are seated around a round table: $A,B,C,D,E,F$
-    \item arrangements are considered to be the same\\
+    \item 6 people seated around a round table: $A,B,C,D,E,F$
+    \item arrangements considered to be the same\\
       when one can be obtained from the other by rotation:\\
       \smallskip
       $ABEFCD, DABEFC, CDABEF, FCDABE, EFCDAB, BEFCDA$
