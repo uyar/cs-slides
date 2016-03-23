@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -11,9 +11,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -26,7 +26,7 @@
 \subtitle{Relations and Functions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2016}
 
 \AtBeginSubsection[]
 {
@@ -35,8 +35,6 @@
     \tableofcontents[currentsection,currentsubsection]
   \end{frame}
 }
-
-%\beamerdefaultoverlayspecification{<+->}
 
 \pgfdeclareimage[height=1cm]{license}{../license}
 
@@ -57,7 +55,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -110,56 +108,54 @@
   \end{definition}
 
   \begin{itemize}
-    \item \alert{tuple}: an element of a relation
+    \item \alert{tuple}: element of relation
   \end{itemize}
 
   \pause
   \medskip
   \begin{itemize}
-    \item $\alpha \subseteq A \times B$: \emph{binary relation}
-    \item $a \alpha b$ is the same as $(a,b) \in \alpha$
+    \item \emph{binary} relation: $\alpha \subseteq A \times B$
+    \item $a \alpha b$ \hspace{1em} : \hspace{1em} $(a,b) \in \alpha$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Relation Example}
 
-  \begin{example}
-    $A=\{a_1,a_2,a_3,a_4\}, B=\{b_1,b_2,b_3\}$\\
-    $\alpha = \{(a_1,b_1),(a_1,b_3),(a_2,b_2),(a_2,b_3),
-                (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
+  $A=\{a_1,a_2,a_3,a_4\}, B=\{b_1,b_2,b_3\}$\\
+  $\alpha = \{(a_1,b_1),(a_1,b_3),(a_2,b_2),(a_2,b_3),
+	      (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
 
-    \pause
-    \medskip
-    \begin{columns}
-      \column{.3\textwidth}
-      \begin{center}
-        \pgfuseimage{relation}
-      \end{center}
+  \pause
+  \medskip
+  \begin{columns}
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{relation}
+    \end{center}
 
-      \column{.3\textwidth}
-      \[
-        \begin{array}{c|ccc|}
-              & b_1 & b_2 & b_3\\\hline
-          a_1 &  1  &  0  &  1\\
-          a_2 &  0  &  1  &  1\\
-          a_3 &  1  &  0  &  1\\
-          a_4 &  1  &  0  &  0\\\hline
-        \end{array}
-      \]
+    \column{.3\textwidth}
+    \[
+      \begin{array}{c|ccc|}
+	    & b_1 & b_2 & b_3\\\hline
+	a_1 &  1  &  0  &  1\\
+	a_2 &  0  &  1  &  1\\
+	a_3 &  1  &  0  &  1\\
+	a_4 &  1  &  0  &  0\\\hline
+      \end{array}
+    \]
 
-      \column{.3\textwidth}
-      \[
-        M_\alpha =
-          \begin{array}{|ccc|}
-            1 & 0 & 1\\
-            0 & 1 & 1\\
-            1 & 0 & 1\\
-            1 & 0 & 0
-          \end{array}
-      \]
-    \end{columns}
-  \end{example}
+    \column{.3\textwidth}
+    \[
+      M_\alpha =
+	\begin{array}{|ccc|}
+	  1 & 0 & 1\\
+	  0 & 1 & 1\\
+	  1 & 0 & 1\\
+	  1 & 0 & 0
+	\end{array}
+    \]
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -167,12 +163,14 @@
 
   \begin{definition}
     \alert{relation composition}:\\
-      let $\alpha \subseteq A \times B$, $\beta \subseteq B \times C$\\
+      $\alpha \subseteq A \times B$, $\beta \subseteq B \times C$
+
       $\alpha \beta = \{(a,c)~|~a \in A, c \in C,
                 \exists b \in B~[a \alpha b \wedge b \beta c]\}$
   \end{definition}
 
-  \begin{example}
+  \medskip
+  \begin{exampleblock}{example}
     \begin{columns}
       \column{.45\textwidth}
       \begin{center}
@@ -184,7 +182,7 @@
         \pgfuseimage{composite2}
       \end{center}
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -197,7 +195,7 @@
   \end{itemize}
 
   \pause
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{columns}
       \column{.28\textwidth}
       \[
@@ -233,7 +231,7 @@
           \end{array}
       \]
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -256,29 +254,6 @@
       & \Leftrightarrow & (a,d) \in \alpha (\beta \gamma)
     \end{eqnarray*}
   \end{proof}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Relation Composition Theorems}
-
-  \begin{itemize}
-    \item let $\alpha , \delta \subseteq A \times B$, and\\
-          let $\beta , \gamma \subseteq B \times C$
-
-    \medskip
-    \item $\alpha (\beta \cup \gamma) = \alpha \beta \cup \alpha \gamma$
-
-    \item $\alpha (\beta \cap \gamma)
-      \subseteq \alpha \beta \cap \alpha \gamma$
-
-    \item $(\alpha \cup \delta) \beta = \alpha \beta \cup \delta \beta$
-
-    \item $(\alpha \cap \delta) \beta
-      \subseteq \alpha \beta \cap \delta \beta$
-
-    \item $(\alpha \subseteq \delta \wedge \beta \subseteq \gamma)
-      \Rightarrow \alpha \beta \subseteq \delta \gamma$
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -322,7 +297,6 @@
     \item $(\alpha \cap \beta)^{-1} = \alpha^{-1} \cap \beta^{-1}$
     \item $\overline{\alpha}^{-1} = \overline{\alpha^{-1}}$
     \item $(\alpha - \beta)^{-1} = \alpha^{-1} - \beta^{-1}$
-    \item $\alpha \subset \beta \Rightarrow \alpha^{-1} \subset \beta^{-1}$
   \end{itemize}
 \end{frame}
 
@@ -398,15 +372,15 @@
   \frametitle{Relation Properties}
 
   \begin{itemize}
-    \item let $\alpha \subseteq A \times A$
-
-    \pause
-    \medskip
+    \item $\alpha \subseteq A \times A$
     \item $\alpha^n$: $\alpha \alpha \cdots \alpha$
+    \item \alert{identity relation}: $E = \{(a,a)~|~a \in A\}$
 
     \pause
-    \medskip
-    \item \alert{identity relation}: $E = \{(a,a)~|~a \in A\}$
+    \bigskip
+    \item reflexivity
+    \item symmetry
+    \item transitivity
   \end{itemize}
 \end{frame}
 
@@ -415,7 +389,7 @@
 
   \begin{block}{reflexive}
     $\alpha \subseteq A \times A$\\
-    $\forall a~[a \alpha a]$
+    $\forall a \in A~[a \alpha a]$
   \end{block}
 
   \pause
@@ -424,11 +398,11 @@
 
     \pause
     \item nonreflexive:\\
-      $\exists a~[\neg (a \alpha a)]$
+      $\exists a \in A~[\neg (a \alpha a)]$
 
     \pause
     \item irreflexive:\\
-      $\forall a~[\neg (a \alpha a)]$
+      $\forall a \in A~[\neg (a \alpha a)]$
   \end{itemize}
 \end{frame}
 
@@ -437,56 +411,48 @@
 
   \begin{columns}[t]
     \column{.45\textwidth}
-    \begin{example}
-      $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
-      $\mathcal{R}_1 = \{(1,1), (1,2), (2,2)\}$
+    $\mathcal{R}_1 \subseteq \{1,2\} \times \{1,2\}$\\
+    $\mathcal{R}_1 = \{(1,1), (1,2), (2,2)\}$
 
-      \medskip
-      \begin{itemize}
-        \item $\mathcal{R}_1$ is reflexive
-      \end{itemize}
-    \end{example}
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}_1$ is reflexive
+    \end{itemize}
 
     \pause
     \column{.45\textwidth}
-    \begin{example}
-      $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-      $\mathcal{R}_2 = \{(1,1), (1,2), (2,2)\}$
+    $\mathcal{R}_2 \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+    $\mathcal{R}_2 = \{(1,1), (1,2), (2,2)\}$
 
-      \medskip
-      \begin{itemize}
-        \item $\mathcal{R}_2$ is nonreflexive
-      \end{itemize}
-    \end{example}
+    \medskip
+    \begin{itemize}
+      \item $\mathcal{R}_2$ is nonreflexive
+    \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Reflexivity Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+  $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+  $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is irreflexive
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is irreflexive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Reflexivity Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
+  $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+  $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is reflexive
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is reflexive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -494,11 +460,11 @@
 
   \begin{block}{symmetric}
     $\alpha \subseteq A \times A$\\
-    $\forall a,b~[(a=b) \vee (a \alpha b \wedge b \alpha a)
-                        \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
+    $\forall a,b \in A~[(a=b) \vee (a \alpha b \wedge b \alpha a)
+                              \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
 
     \pause
-    $\forall a,b~[(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
+    $\forall a,b \in A~[(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
   \end{block}
 
   \pause
@@ -507,20 +473,24 @@
 
     \pause
     \item asymmetric:\\
-      $\exists a,b~[(a \neq b) \wedge ((a \alpha b \wedge \neg(b \alpha a))
-                               \vee (\neg (a \alpha b) \wedge b \alpha a))]$
+      $\exists a,b \in A~[(a \neq b) \wedge ((a \alpha b \wedge \neg(b \alpha a))
+                                     \vee (\neg (a \alpha b) \wedge b \alpha a))]$
+  \end{itemize}
+\end{frame}
 
-    \pause
+\begin{frame}
+  \frametitle{Antisymmetry}
+
+  \begin{itemize}
     \item antisymmetric:
-    \vspace{-12pt}
     \begin{eqnarray*}
-                      & \forall a,b~
+                      & \forall a,b \in A~
                     [(a=b) \vee (a \alpha b \rightarrow \neg(b \alpha a))]\\\pause
-      \Leftrightarrow & \forall a,b~
+      \Leftrightarrow & \forall a,b \in A~
                     [(a=b) \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
-      \Leftrightarrow & \forall a,b~
+      \Leftrightarrow & \forall a,b \in A~
                     [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
-      \Leftrightarrow & \forall a,b~
+      \Leftrightarrow & \forall a,b \in A~
                     [(a \alpha b \wedge b \alpha a) \rightarrow (a=b)]
     \end{eqnarray*}
   \end{itemize}
@@ -529,42 +499,36 @@
 \begin{frame}
   \frametitle{Symmetry Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+  $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+  $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is asymmetric
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is asymmetric
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Symmetry Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
+  $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+  $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is symmetric
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is symmetric
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Symmetry Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-    $\mathcal{R} = \{(1,1), (2,2)\}$
+  $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+  $\mathcal{R} = \{(1,1), (2,2)\}$
 
-    \begin{itemize}
-      \item $\mathcal{R}$ is symmetric and antisymmetric
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item $\mathcal{R}$ is symmetric and antisymmetric
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -572,7 +536,7 @@
 
   \begin{block}{transitive}
     $\alpha \subseteq A \times A$\\
-    $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow (a \alpha c)]$
+    $\forall a,b,c \in A~[(a \alpha b \wedge b \alpha c) \rightarrow (a \alpha c)]$
   \end{block}
 
   \pause
@@ -581,48 +545,44 @@
 
     \pause
     \item nontransitive:\\
-      $\exists a,b,c~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
+      $\exists a,b,c \in A~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
 
     \pause
     \item antitransitive:\\
-      $\forall a,b,c~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
+      $\forall a,b,c \in A~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Transitivity Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
-    $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
+  $\mathcal{R} \subseteq \{1,2,3\} \times \{1,2,3\}$\\
+  $\mathcal{R} = \{(1,2), (2,1), (2,3)\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is antitransitive
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is antitransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Transitivity Examples}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
+  $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+  $\mathcal{R} = \{(a,b)~|~ab \geq 0\}$
 
-    \medskip
-    \begin{itemize}
-      \item $\mathcal{R}$ is nontransitive
-    \end{itemize}
-  \end{example}
+  \medskip
+  \begin{itemize}
+    \item $\mathcal{R}$ is nontransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Converse Relation Properties}
 
   \begin{theorem}
-    The reflexivity, symmetry and transitivity properties\\
-    are preserved in the converse relation.
+    Reflexivity, symmetry and transitivity are preserved\\
+    in the converse relation.
   \end{theorem}
 \end{frame}
 
@@ -654,14 +614,14 @@
   \begin{block}{predecessor - successor}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $\mathcal{R} = \{(a,b)~|~a-b=1\}$
-
-    \medskip
-    \begin{itemize}
-      \item irreflexive
-      \item antisymmetric
-      \item antitransitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item irreflexive
+    \item antisymmetric
+    \item antitransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -670,14 +630,14 @@
   \begin{block}{adjacency}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $\mathcal{R} = \{(a,b)~|~|a-b|=1\}$
-
-    \medskip
-    \begin{itemize}
-      \item irreflexive
-      \item symmetric
-      \item antitransitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item irreflexive
+    \item symmetric
+    \item antitransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -686,14 +646,14 @@
   \begin{block}{strict order}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $\mathcal{R} = \{(a,b)~|~a<b\}$
-
-    \medskip
-    \begin{itemize}
-      \item irreflexive
-      \item antisymmetric
-      \item transitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item irreflexive
+    \item antisymmetric
+    \item transitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -702,14 +662,14 @@
   \begin{block}{partial order}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $\mathcal{R} = \{(a,b)~|~ a \leq b\}$
-
-    \medskip
-    \begin{itemize}
-      \item reflexive
-      \item antisymmetric
-      \item transitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item reflexive
+    \item antisymmetric
+    \item transitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -718,14 +678,14 @@
   \begin{block}{preorder}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
     $\mathcal{R} = \{(a,b)~|~|a| \leq |b|\}$
-
-    \medskip
-    \begin{itemize}
-      \item reflexive
-      \item asymmetric
-      \item transitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item reflexive
+    \item asymmetric
+    \item transitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -734,14 +694,14 @@
   \begin{block}{limited difference}
     $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}, m \in \mathbb{Z}^+$\\
     $\mathcal{R} = \{(a,b)~|~|a-b| \leq m\}$
-
-    \medskip
-    \begin{itemize}
-      \item reflexive
-      \item symmetric
-      \item nontransitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item reflexive
+    \item symmetric
+    \item nontransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -750,32 +710,33 @@
   \begin{block}{comparability}
     $\mathcal{R} \subseteq \mathbb{U} \times \mathbb{U}$\\
     $\mathcal{R} = \{(a,b)~|~(a \subseteq b) \vee (b \subseteq a)\}$
-
-    \medskip
-    \begin{itemize}
-      \item reflexive
-      \item symmetric
-      \item nontransitive
-    \end{itemize}
   \end{block}
+
+  \medskip
+  \begin{itemize}
+    \item reflexive
+    \item symmetric
+    \item nontransitive
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Special Relations}
 
-  \begin{block}{sibling}
-    \begin{itemize}
-      \item irreflexive
-      \item symmetric
-      \item transitive
-    \end{itemize}
+  \begin{itemize}
+    \item siblings?
 
-    \pause
     \medskip
-    \begin{itemize}
-      \item can a relation be symmetric, transitive and irreflexive?
-    \end{itemize}
-  \end{block}
+    \item irreflexive
+    \item symmetric
+    \item transitive
+  \end{itemize}
+
+  \pause
+  \medskip
+  \begin{itemize}
+    \item can a relation be symmetric, transitive and irreflexive?
+  \end{itemize}
 \end{frame}
 
 \subsection{Equivalence Relations}
@@ -806,117 +767,113 @@
 \begin{frame}
   \frametitle{Compatibility Relation Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.45\textwidth}
-      \begin{eqnarray*}
-        A           & = & \{a_1,a_2,a_3,a_4\}\\
-        \mathcal{R} & = & \{(a_1,a_1),(a_2,a_2),\\
-                    &   & ~~(a_3,a_3),(a_4,a_4),\\
-                    &   & ~~(a_1,a_2),(a_2,a_1),\\
-                    &   & ~~(a_2,a_4),(a_4,a_2),\\
-                    &   & ~~(a_3,a_4),(a_4,a_3)\}
-      \end{eqnarray*}
+  \begin{columns}
+    \column{.45\textwidth}
+    \begin{eqnarray*}
+      A           & = & \{a_1,a_2,a_3,a_4\}\\
+      \mathcal{R} & = & \{(a_1,a_1),(a_2,a_2),\\
+		  &   & ~~(a_3,a_3),(a_4,a_4),\\
+		  &   & ~~(a_1,a_2),(a_2,a_1),\\
+		  &   & ~~(a_2,a_4),(a_4,a_2),\\
+		  &   & ~~(a_3,a_4),(a_4,a_3)\}
+    \end{eqnarray*}
 
-      \column{.2\textwidth}
-      \begin{center}
-        \pgfuseimage{compatible1}
+    \column{.2\textwidth}
+    \begin{center}
+      \pgfuseimage{compatible1}
 
-        \bigskip
-        \pgfuseimage{compatible2}
-      \end{center}
-
-      \pause
-      \column{.3\textwidth}
-      \begin{center}
-        \[
-          \begin{array}{|cccc|}
-            1  &  1  &  0  &  0\\
-            1  &  1  &  0  &  1\\
-            0  &  0  &  1  &  1\\
-            0  &  1  &  1  &  1
-          \end{array}
-        \]
-
-        \[
-          \begin{array}{|ccc|}
-            1  &     & \\
-            0  &  0  & \\
-            0  &  1  &  1
-          \end{array}
-        \]
-      \end{center}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Compatibility Relation Example}
-
-  \begin{example}[$\alpha \alpha^{-1}$]
-    $P$: persons, $L$: languages\\
-    $P=\{p_1,p_2,p_3,p_4,p_5,p_6\}$\\
-    $L=\{l_1,l_2,l_3,l_4,l_5\}$\\
-
-    \medskip
-    $\alpha \subseteq P \times L$
+      \bigskip
+      \pgfuseimage{compatible2}
+    \end{center}
 
     \pause
-    \begin{columns}
-      \column{.45\textwidth}
+    \column{.3\textwidth}
+    \begin{center}
       \[
-        M_\alpha =
-          \begin{array}{|ccccc|}
-            1  &  1  &  0  &  0  &  0\\
-            1  &  1  &  0  &  0  &  0\\
-            0  &  0  &  1  &  0  &  1\\
-            1  &  0  &  1  &  1  &  0\\
-            0  &  0  &  0  &  1  &  0\\
-            0  &  1  &  1  &  0  &  0
-          \end{array}
+	\begin{array}{|cccc|}
+	  1  &  1  &  0  &  0\\
+	  1  &  1  &  0  &  1\\
+	  0  &  0  &  1  &  1\\
+	  0  &  1  &  1  &  1
+	\end{array}
       \]
 
-      \column{.45\textwidth}
       \[
-        M_{\alpha^{-1}} =
-          \begin{array}{|cccccc|}
-            1  &  1  &  0  &  1  &  0  &  0\\
-            1  &  1  &  0  &  0  &  0  &  1\\
-            0  &  0  &  1  &  1  &  0  &  1\\
-            0  &  0  &  0  &  1  &  1  &  0\\
-            0  &  0  &  1  &  0  &  0  &  0
-          \end{array}
+	\begin{array}{|ccc|}
+	  1  &     & \\
+	  0  &  0  & \\
+	  0  &  1  &  1
+	\end{array}
       \]
-    \end{columns}
-  \end{example}
+    \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Compatibility Relation Example}
 
-  \begin{example}[$\alpha \alpha^{-1}$]
-    $\alpha \alpha^{-1} \subseteq P \times P$
+  \begin{itemize}
+   \item $P$: persons, $L$: languages
+   \item $P=\{p_1,p_2,p_3,p_4,p_5,p_6\}$
+   \item $L=\{l_1,l_2,l_3,l_4,l_5\}$
+   \item $\alpha \subseteq P \times L$
+  \end{itemize}
 
-    \begin{columns}
-      \column{.45\textwidth}
-      \[
-        M_{\alpha \alpha^{-1}} =
-          \begin{array}{|cccccc|}
-            1  &  1  &  0  &  1  &  0  &  1\\
-            1  &  1  &  0  &  1  &  0  &  1\\
-            0  &  0  &  1  &  1  &  0  &  1\\
-            1  &  1  &  1  &  1  &  1  &  1\\
-            0  &  0  &  0  &  1  &  1  &  0\\
-            1  &  1  &  1  &  1  &  0  &  1
-          \end{array}
-      \]
+  \pause
+  \begin{columns}
+    \column{.45\textwidth}
+    \[
+      M_\alpha =
+        \begin{array}{|ccccc|}
+          1  &  1  &  0  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0\\
+          0  &  0  &  1  &  0  &  1\\
+          1  &  0  &  1  &  1  &  0\\
+          0  &  0  &  0  &  1  &  0\\
+          0  &  1  &  1  &  0  &  0
+        \end{array}
+    \]
 
-      \column{.45\textwidth}
-      \begin{center}
-        \pgfuseimage{compatible3}
-      \end{center}
-    \end{columns}
-  \end{example}
+    \column{.45\textwidth}
+    \[
+      M_{\alpha^{-1}} =
+        \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  0\\
+          1  &  1  &  0  &  0  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          0  &  0  &  1  &  0  &  0  &  0
+        \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatibility Relation Example}
+
+  \begin{itemize}
+   \item $\alpha \alpha^{-1} \subseteq P \times P$
+  \end{itemize}
+
+  \begin{columns}
+    \column{.45\textwidth}
+    \[
+      M_{\alpha \alpha^{-1}} =
+        \begin{array}{|cccccc|}
+          1  &  1  &  0  &  1  &  0  &  1\\
+          1  &  1  &  0  &  1  &  0  &  1\\
+          0  &  0  &  1  &  1  &  0  &  1\\
+          1  &  1  &  1  &  1  &  1  &  1\\
+          0  &  0  &  0  &  1  &  1  &  0\\
+          1  &  1  &  1  &  1  &  0  &  1
+        \end{array}
+    \]
+
+    \column{.45\textwidth}
+    \begin{center}
+      \pgfuseimage{compatible3}
+    \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -944,30 +901,28 @@
 \begin{frame}
   \frametitle{Compatibility Block Example}
 
-  \begin{example}[$\alpha \alpha^{-1}$]
-    \begin{columns}
-      \column{.3\textwidth}
-      \begin{center}
-        \pgfuseimage{compatible3}
-      \end{center}
+  \begin{columns}
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{compatible3}
+    \end{center}
 
-      \pause
-      \column{.65\textwidth}
-      \begin{itemize}
-        \item $C_1=\{p_4,p_6\}$
-        \item $C_2=\{p_2,p_4,p_6\}$
-        \item $C_3=\{p_1,p_2,p_4,p_6\}$ (MCB)
-      \end{itemize}
+    \pause
+    \column{.65\textwidth}
+    \begin{itemize}
+      \item $C_1=\{p_4,p_6\}$
+      \item $C_2=\{p_2,p_4,p_6\}$
+      \item $C_3=\{p_1,p_2,p_4,p_6\}$ (MCB)
+    \end{itemize}
 
-      \pause
-      \medskip
-      \begin{eqnarray*}
-        C_\gamma & = & \{\{p_1,p_2,p_4,p_6\},\\
-                 &   & ~~\{p_3,p_4,p_6\},\\
-                 &   & ~~\{p_4,p_5\}\}
-      \end{eqnarray*}
-    \end{columns}
-  \end{example}
+    \pause
+    \medskip
+    \begin{eqnarray*}
+      C_\gamma & = & \{\{p_1,p_2,p_4,p_6\},\\
+		&   & ~~\{p_3,p_4,p_6\},\\
+		&   & ~~\{p_4,p_5\}\}
+    \end{eqnarray*}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -995,17 +950,15 @@
 \begin{frame}
   \frametitle{Equivalence Relation Example}
 
-  \begin{example}
-    $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
-    $\mathcal{R} = \{(a,b)~|~\exists m \in \mathbb{Z}~[a - b = 5m]\}$
+  $\mathcal{R} \subseteq \mathbb{Z} \times \mathbb{Z}$\\
+  $\mathcal{R} = \{(a,b)~|~\exists m \in \mathbb{Z}~[a - b = 5m]\}$
 
-    \bigskip
-    \begin{itemize}
-      \item $\mathcal{R}$ partitions $\mathbb{Z}$ into 5~equivalence classes
-    \end{itemize}
+  \bigskip
+  \begin{itemize}
+    \item $\mathcal{R}$ partitions $\mathbb{Z}$ into 5~equivalence classes
+  \end{itemize}
 
 % TODO: add drawing
-  \end{example}
 \end{frame}
 
 \subsection*{References}
@@ -1024,12 +977,6 @@
         \item 7.1. \alert{Relations Revisited: Properties of Relations}
         \item 7.4. \alert{Equivalence Relations and Partitions}
       \end{itemize}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
-    \begin{itemize}
-      \item Chapter 10: Relations
     \end{itemize}
   \end{block}
 \end{frame}
@@ -1053,12 +1000,12 @@
 
     \pause
     \medskip
-    \item $y = f(x)$ is the same as $(x,y) \in f$
-    \item $y$ is the \emph{image} of $x$ under $f$
+    \item $y = f(x)$ \hspace{1em} : \hspace{1em} $(x,y) \in f$
+    \item $y$: \emph{image} of $x$ under $f$
 
     \pause
     \medskip
-    \item let $f: X \rightarrow Y$ and $X_1 \subseteq X$\\
+    \item $f: X \rightarrow Y$, $X_1 \subseteq X$\\
       \emph{subset image}: $f(X_1) = \{f(x)~|~x \in X_1\}$
  \end{itemize}
 \end{frame}
@@ -1066,38 +1013,112 @@
 \begin{frame}
   \frametitle{Subset Image Examples}
 
-  \begin{example}
-    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $f(x) = x^2$
+  $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $f(x) = x^2$
 
-    \pause
-    \bigskip
-    $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
+  \pause
+  \bigskip
+  $f(\mathbb{Z}) = \{0,1,4,9,16,\dots\}$
 
-    \medskip
-    $f(\{-2,1\}) = \{1,4\}$
-  \end{example}
+  \medskip
+  $f(\{-2,1\}) = \{1,4\}$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Function Properties}
+  \frametitle{One-to-One Functions}
 
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{one-to-one} (or \alert{injective}):\\
       $\forall x_1,x_2 \in X~[f(x_1)=f(x_2) \rightarrow x_1=x_2]$
   \end{definition}
+\end{frame}
 
-  \pause
+\begin{frame}
+  \frametitle{One-to-One Function Examples}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{itemize}
+     \item one-to-one
+    \end{itemize}
+
+    \medskip
+    $\begin{array}{l}
+      f: \mathbb{R} \rightarrow \mathbb{R}\\
+      f(x) = 3x + 7
+    \end{array}$
+
+    \pause
+    \bigskip
+    $\begin{array}{llll}
+                  & f(x_1)    & = & f(x_2)\pause\\
+      \Rightarrow & 3 x_1 + 7 & = & 3 x_2 + 7\pause\\
+      \Rightarrow & 3 x_1     & = & 3 x_2\pause\\
+      \Rightarrow & x_1       & = & x_2
+    \end{array}$
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+     \item not one-to-one
+    \end{itemize}
+
+    \medskip
+    $\begin{array}{l}
+      g: \mathbb{Z} \rightarrow \mathbb{Z}\\
+      g(x) = x^4 - x
+    \end{array}$
+
+    \pause
+    \bigskip
+    $\begin{array}{lllll}
+      g(0) & = & 0^4 - 0 & = & 0\pause\\
+      g(1) & = & 1^4 - 1 & = & 0
+    \end{array}$
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Onto Functions}
+
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{onto} (or \alert{surjective}):\\
     $\forall y \in Y~\exists x \in X~[f(x)=y]$
-
-    \begin{itemize}
-      \item $f(X)=Y$
-    \end{itemize}
   \end{definition}
 
-  \pause
+  \begin{itemize}
+    \item $f(X)=Y$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Onto Function Examples}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{itemize}
+     \item onto
+    \end{itemize}
+
+    \medskip
+    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+    $f(x) = x^3$
+
+    \pause
+    \column{.5\textwidth}
+    \begin{itemize}
+     \item not onto
+    \end{itemize}
+
+    \medskip
+    $f: \mathbb{Z} \rightarrow \mathbb{Z}$\\
+    $f(x) = 3x + 1$
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bijective Functions}
+
   \begin{definition}
     $f: X \rightarrow Y$ is \alert{bijective}:\\
     $f$ is one-to-one and onto
@@ -1105,68 +1126,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{One-to-one Function Examples}
-
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{example}
-      $\begin{array}{l}
-        f: \mathbb{R} \rightarrow \mathbb{R}\\
-        f(x) = 3x + 7
-      \end{array}$
-
-      \pause
-      \bigskip
-      $\begin{array}{llll}
-                    & f(x_1)    & = & f(x_2)\pause\\
-        \Rightarrow & 3 x_1 + 7 & = & 3 x_2 + 7\pause\\
-        \Rightarrow & 3 x_1     & = & 3 x_2\pause\\
-        \Rightarrow & x_1       & = & x_2
-      \end{array}$
-    \end{example}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Counterexample}
-      $\begin{array}{l}
-        g: \mathbb{Z} \rightarrow \mathbb{Z}\\
-        g(x) = x^4 - x
-      \end{array}$
-
-      \pause
-      \bigskip
-      $\begin{array}{lllll}
-        g(0) & = & 0^4 - 0 & = & 0\pause\\
-        g(1) & = & 1^4 - 1 & = & 0
-      \end{array}$
-    \end{block}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Onto Function Examples}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{example}
-      $f: \mathbb{R} \rightarrow \mathbb{R}$\\
-      $f(x) = x^3$
-    \end{example}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{block}{Counterexample}
-      $f: \mathbb{Z} \rightarrow \mathbb{Z}$\\
-      $f(x) = 3x + 1$
-    \end{block}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
   \frametitle{Function Composition}
 
   \begin{definition}
-    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$
+    $f: X \rightarrow Y, g: Y \rightarrow Z$
 
     \medskip
     $g \circ f: X \rightarrow Z$\\
@@ -1175,40 +1138,38 @@
 
   \pause
   \begin{itemize}
-    \item function composition is not commutative
-    \item function composition is associative:\\
-      $f \circ (g \circ h) = (f \circ g) \circ h$
+    \item not commutative
+    \item associative: $f \circ (g \circ h) = (f \circ g) \circ h$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Function Composition Examples}
+  \frametitle{Composition Commutativity Example}
 
-  \begin{example}[commutativity]
-    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $f(x) = x^2$
+  $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $f(x) = x^2$
 
-    \medskip
-    $g: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $g(x) = x + 5$
+  \medskip
+  $g: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $g(x) = x + 5$
 
-    \pause
-    \bigskip
-    $g \circ f: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $(g \circ f)(x) = x^2 + 5$
+  \pause
+  \bigskip
+  $g \circ f: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $(g \circ f)(x) = x^2 + 5$
 
-    \pause
-    \medskip
-    $f \circ g: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $(f \circ g)(x) = (x + 5)^2$
-  \end{example}
+  \pause
+  \medskip
+  $f \circ g: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $(f \circ g)(x) = (x + 5)^2$
 \end{frame}
 
 \begin{frame}
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$\\
+    $f: X \rightarrow Y, g: Y \rightarrow Z$
+
     $f$ is one-to-one $\wedge$ $g$ is one-to-one
       $\Rightarrow$ $g \circ f$ is one-to-one
   \end{theorem}
@@ -1230,7 +1191,8 @@
   \frametitle{Composite Function Theorems}
 
   \begin{theorem}
-    let $f: X \rightarrow Y \mbox{  and   } g: Y \rightarrow Z$\\
+    $f: X \rightarrow Y, g: Y \rightarrow Z$
+
     $f$ is onto $\wedge$ $g$ is onto $\Rightarrow$ $g \circ f$ is onto
   \end{theorem}
 
@@ -1271,35 +1233,33 @@
 \begin{frame}
   \frametitle{Inverse Function Examples}
 
-  \begin{example}
-    $f: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $f(x) = 2x + 5$
+  $f: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $f(x) = 2x + 5$
 
-    \pause
-    \bigskip
-    $f^{-1}: \mathbb{R} \rightarrow \mathbb{R}$\\
-    $f^{-1}(x) = \frac{x - 5}{2}$
+  \pause
+  \bigskip
+  $f^{-1}: \mathbb{R} \rightarrow \mathbb{R}$\\
+  $f^{-1}(x) = \frac{x - 5}{2}$
 
-    \pause
-    \bigskip
-    $(f^{-1} \circ f)(x) = f^{-1}(f(x))$
-    \pause
-    $ = f^{-1}(2x + 5)$
-    \pause
-    $ = \frac{(2x + 5) - 5}{2}$
-    \pause
-    $ = \frac{2x}{2} = x$
-    \medskip
+  \pause
+  \bigskip
+  $(f^{-1} \circ f)(x) = f^{-1}(f(x))$
+  \pause
+  $ = f^{-1}(2x + 5)$
+  \pause
+  $ = \frac{(2x + 5) - 5}{2}$
+  \pause
+  $ = \frac{2x}{2} = x$
+  \medskip
 
-    \pause
-    $(f \circ f^{-1})(x) = f(f^{-1}(x))$
-    \pause
-    $ = f(\frac{x - 5}{2})$
-    \pause
-    $ = 2 \frac{x - 5}{2} + 5$
-    \pause
-    $ = (x - 5) + 5 = x$
-  \end{example}
+  \pause
+  $(f \circ f^{-1})(x) = f(f^{-1}(x))$
+  \pause
+  $ = f(\frac{x - 5}{2})$
+  \pause
+  $ = 2 \frac{x - 5}{2} + 5$
+  \pause
+  $ = (x - 5) + 5 = x$
 \end{frame}
 
 \begin{frame}
@@ -1311,11 +1271,11 @@
 
   \pause
   \begin{proof}
-    let $f: X \rightarrow Y$
+    $f: X \rightarrow Y$
 
     \pause
     \medskip
-    let $g,h: Y \rightarrow X$ such that:\\
+    $g,h: Y \rightarrow X$\\
     $g \circ f = 1_X \wedge f \circ g = 1_Y$\\
     $h \circ f = 1_X \wedge f \circ h = 1_Y$
 
@@ -1404,7 +1364,7 @@
 
   \pause
   \begin{itemize}
-    \item let $f: X \rightarrow Y$\\
+    \item $f: X \rightarrow Y$\\
       $|X|>|Y| \Rightarrow f \mbox{ is not one-to-one}$
 
     \item $\exists x_1,x_2 \in X~[x_1 \neq x_2 \wedge f(x_1)=f(x_2)]$
@@ -1414,16 +1374,15 @@
 \begin{frame}
   \frametitle{Pigeonhole Principle Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item Among 367 people, at least two have the same birthday.
+  \begin{itemize}
+    \item Among 367 people, at least two have the same birthday.
 
-      \pause
-      \item In an exam where the grades are integers between 0 and 100,\\
-        how many students have to take the exam to make sure that\\
-        at least two students will have the same grade?
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item In an exam where the grades are integers between 0 and 100,\\
+      how many students have to take the exam to make sure that\\
+      at least two students will have the same grade?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1436,10 +1395,11 @@
   \end{definition}
 
   \pause
-  \begin{example}
-    Among 100 people, at least 9 ($\lceil 100 / 12 \rceil$) were born\\
+  \medskip
+  \begin{exampleblock}{example}
+    Among 100 people, at least $\lceil 100 / 12 \rceil = 9$ were born\\
     in the same month.
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -1455,22 +1415,22 @@
   \frametitle{Pigeonhole Principle Example}
 
   \begin{theorem}
-    Let $S$ be a set of positive integers smaller than or equal to 14,\\
-    with cardinality 6. The sums of the elements\\
-    in all nonempty subsets of $S$ cannot be all different.
+    $S \subseteq \mathbb{Z}^+$, $\forall a \in S~[a \leq 14]$, $|S|=6$
+
+    $T = \mathcal{P}(S) - \emptyset$
+
+    $X = \{\Sigma_A~|~A \in T\}$, $\Sigma_A:$ sum of the elements in $A$
+
+    $|X| < |T|$
   \end{theorem}
 
   \pause
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{block}{Proof Trial}
-      $A \subseteq S$\\
-      $s_A:$ sum of the elements of $A$
-
-      \pause
+    \begin{block}{Proof Attempt}
       \begin{itemize}
         \item holes:\\
-          $1 \leq s_A \leq 9 + \dots + 14 = 69$
+          $1 \leq \Sigma_A \leq 9 + \dots + 14 = 69$
         \item pigeons: $2^6 - 1 = 63$
       \end{itemize}
     \end{block}
@@ -1478,7 +1438,7 @@
     \pause
     \column{.5\textwidth}
     \begin{proof}
-      look at the subsets for which $|A| \leq 5$
+      subsets for which $|A| \leq 5$
 
       \pause
       \begin{itemize}
@@ -1499,16 +1459,14 @@
   \end{theorem}
 
   \pause
-  \begin{block}{Proof Method}
-    \begin{itemize}
-      \item we first show that
-        $\forall n~\exists ! p~
-          [n = 2^r p \wedge r \in \mathbb{N}
-            \wedge \exists t \in \mathbb Z~[p = 2t + 1]]$\\
+  \begin{itemize}
+    \item first, show that:\\
+      $\forall n~\exists ! p~
+        [n = 2^r p \wedge r \in \mathbb{N}
+          \wedge \exists t \in \mathbb Z~[p = 2t + 1]]$\\
 
-      \item then, by using this theorem we prove the main theorem
-    \end{itemize}
-  \end{block}
+    \item then, use this to prove the main theorem
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1620,66 +1578,58 @@
 \begin{frame}
   \frametitle{Recursion Examples}
 
-  \begin{example}
-    \[
-      f91(n) =
-        \begin{cases}
-          n - 10         & \mbox{if } n > 100\\
-          f91(f91(n+11)) & \mbox{if } n \leq 100
-        \end{cases}
-    \]
-  \end{example}
+  \[
+    f91(n) =
+      \begin{cases}
+        n - 10         & \mbox{if } n > 100\\
+        f91(f91(n+11)) & \mbox{if } n \leq 100
+      \end{cases}
+  \]
 
   \pause
-  \medskip
-  \begin{example}[factorial]
-    \[
-    f(n) =
+  \bigskip
+  \[
+    n! =
       \begin{cases}
         1              & \mbox{if } n = 0\\
         n \cdot f(n-1) & \mbox{if } n > 0
       \end{cases}
-    \]
-  \end{example}
+  \]
 \end{frame}
 
 \begin{frame}
-  \frametitle{Euclid Algorithm}
+  \frametitle{Greatest Common Divisor}
 
-  \begin{example}[greatest common divisor]
-    \[
+  \[
     gcd(a,b) =
       \begin{cases}
         b              & \mbox{if } b~|~a\\
         gcd(b,a~mod~b) & \mbox{if } b \nmid a
       \end{cases}
-    \]
+  \]
 
-    \pause
-    \medskip
-    \begin{eqnarray*}
-      gcd(333,84) & = & gcd(84, 333~mod~84)\\
-                  & = & gcd(84, 81)\\
-                  & = & gcd(81, 84~mod~81)\\
-                  & = & gcd(81, 3)\\
-                  & = & 3
-    \end{eqnarray*}
-  \end{example}
+  \pause
+  \medskip
+  \begin{eqnarray*}
+    gcd(333,84) & = & gcd(84, 333~mod~84)\\
+                & = & gcd(84, 81)\\
+                & = & gcd(81, 84~mod~81)\\
+                & = & gcd(81, 3)\\
+                & = & 3
+  \end{eqnarray*}
 \end{frame}
 
 \begin{frame}
   \frametitle{Fibonacci Sequence}
 
-  \begin{block}{Fibonacci sequence}
-    \[
+  \[
     F_n = fib(n) =
       \begin{cases}
         1                   & \mbox{if } n = 1\\
         1                   & \mbox{if } n = 2\\
         fib(n-2) + fib(n-1) & \mbox{if } n > 2
       \end{cases}
-    \]
-  \end{block}
+  \]
 
   \bigskip
   $\begin{array}{ccccccccc}
@@ -1721,16 +1671,14 @@
 \begin{frame}
   \frametitle{Ackermann Function}
 
-  \begin{block}{Ackermann function}
-    \[
+  \[
     ack(x,y) =
       \begin{cases}
         y+1                 & \mbox{if } x = 0\\
         ack(x-1, 1)         & \mbox{if } y = 0\\
         ack(x-1,ack(x,y-1)) & \mbox{if } x > 0 \wedge y > 0
       \end{cases}
-    \]
-  \end{block}
+  \]
 \end{frame}
 
 \subsection*{References}
@@ -1747,12 +1695,6 @@
         \item 5.5. \alert{The Pigeonhole Principle}
         \item 5.6. \alert{Function Composition and Inverse Functions}
       \end{itemize}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
-    \begin{itemize}
-      \item Chapter 11: Functions
     \end{itemize}
   \end{block}
 \end{frame}
