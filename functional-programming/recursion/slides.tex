@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Recursion}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -56,7 +56,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -259,12 +259,11 @@ fac 4
 
   \begin{itemize}
     \item \alert{tail recursive}: result of recursive call is also result of caller
-    \item recursive call is last action: nothing left for caller to do
+    \item recursive call is last action, nothing left for caller to do
 
     \pause
     \bigskip
-    \item no need to keep the stack frame around:\\
-      reuse frame of caller
+    \item no need to keep the stack frame, reuse frame of caller
     \item increased performance
   \end{itemize}
 \end{frame}
@@ -434,6 +433,70 @@ pow x y
   where
     sqr :: Integer -> Integer
     sqr n = n * n
+  \end{lstlisting}
+\end{frame}
+
+% \begin{frame}[fragile]
+%   \frametitle{List Maximum}
+% 
+% % TODO: find an example that doesn't use lists
+% 
+%   \begin{exampleblock}{maximum of a list}
+%     \begin{lstlisting}
+% maxList :: [Integer] -> Integer
+% maxList []         = error "empty list"
+% maxList [x]        = x
+% maxList (x:xs)
+%   | x > maxList xs = x
+%   | otherwise      = maxList xs
+%     \end{lstlisting}
+%   \end{exampleblock}
+% 
+%   \pause
+%   \begin{itemize}
+%     \item what if called as:\\
+%       \lstinline|maxList [30, 29 .. 1]|\\
+%       \lstinline|maxList [1 .. 30]|
+%   \end{itemize}
+% \end{frame}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{List Maximum}
+% 
+%   \begin{exampleblock}{maximum of a list}
+%     \begin{lstlisting}
+% maxList :: [Integer] -> Integer
+% maxList []      = error "empty list"
+% maxList [x]     = x
+% maxList (x:xs)
+%   | x > maxTail = x
+%   | otherwise   = maxTail
+%   where
+%     maxTail = maxList xs
+%     \end{lstlisting}
+%   \end{exampleblock}
+% \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Counting Change}
+
+  \begin{itemize}
+    \item how many different ways to change given amount of money?
+    \item into units of 1, 5, 10, 25, 50
+  \end{itemize}
+
+  \begin{lstlisting}
+countChange :: Integer -> Integer
+countChange amount = cc amount 5
+  where
+    -- fd :: Integer -> Integer
+    -- 1 ~> 1, 2 ~> 5, 3 ~> 10, 4 ~> 25, 5 ~> 50
+
+    cc :: Integer -> Integer -> Integer
+    cc a n
+      | a == 0          = 1
+      | a < 0 || n == 0 = 0
+      | otherwise       = cc a (n - 1) + cc (a - fd n) n
   \end{lstlisting}
 \end{frame}
 
