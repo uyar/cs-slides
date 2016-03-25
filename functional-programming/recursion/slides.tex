@@ -401,6 +401,8 @@ pow x y
 
 \subsection{Counting Change}
 
+\lstset{deletekeywords=next}
+
 \begin{frame}[fragile]
   \frametitle{Counting Change}
 
@@ -411,16 +413,27 @@ pow x y
 
   \begin{lstlisting}
 countChange :: Integer -> Integer
-countChange amount = cc amount 5
+countChange amount = cc amount 50
   where
-    -- fd :: Integer -> Integer
-    -- 1 ~> 1, 2 ~> 5, 3 ~> 10, 4 ~> 25, 5 ~> 50
-
     cc :: Integer -> Integer -> Integer
     cc a n
       | a == 0          = 1
       | a < 0 || n == 0 = 0
-      | otherwise       = cc a (n - 1) + cc (a - fd n) n
+      | otherwise       = cc (a - n) n + cc a (next n)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Counting Change}
+
+  \begin{lstlisting}
+    next :: Integer -> Integer
+    next n
+      | n == 50 = 25
+      | n == 25 = 10
+      | n == 10 =  5
+      | n ==  5 =  1
+      | n ==  1 =  0
   \end{lstlisting}
 \end{frame}
 
