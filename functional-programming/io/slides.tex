@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Input/Output}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -353,8 +353,10 @@ copyEmpty = do
 data Move = Rock | Paper | Scissors
             deriving Show
 
-type Match = ([Move], [Move])
--- ex: ([Rock, Rock, Paper], [Scissors, Paper, Rock])
+type Round = (Move, Move)
+
+type Match = [Round]
+-- ex: [(Rock, Scissors), (Rock, Paper), (Paper, Rock)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -367,8 +369,8 @@ type Match = ([Move], [Move])
       \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tied $\mapsto$ 0
     \end{itemize}
     \begin{lstlisting}
-outcome :: Move -> Move -> Integer
-outcome moveA moveB = case (moveA, moveB) of
+outcome :: Round -> Integer
+outcome r = case r of
     (Rock,     Scissors) ->  1
     (Scissors, Rock)     -> -1
     (Paper,    Rock)     ->  1
@@ -383,7 +385,7 @@ outcome moveA moveB = case (moveA, moveB) of
   \vspace{-12pt}
   \begin{itemize}
     \item exercise: determine the outcome of a match\\
-      \lstinline|matchOutcome [Rock, Paper] [Paper, Scissors] ~> -2|
+      \lstinline|matchOutcome [(Rock, Paper), (Paper, Scissors)] ~> -2|
   \end{itemize}
 \end{frame}
 
@@ -392,9 +394,9 @@ outcome moveA moveB = case (moveA, moveB) of
 
   \begin{exampleblock}{convert a round in the game to string}
     \begin{lstlisting}
-showRound :: (Move, Move) -> String
-showRound (moveA, moveB) = "A plays: " ++ show moveA
-    ++ ", B plays: " ++ show moveB
+showRound :: Round -> String
+showRound (mA, mB) = "A plays: " ++ show mA
+    ++ ", B plays: " ++ show mB
     \end{lstlisting}
   \end{exampleblock}
 
@@ -402,11 +404,11 @@ showRound (moveA, moveB) = "A plays: " ++ show moveA
   \vspace{-12pt}
   \begin{itemize}
     \item exercise: convert match result to string\\
-      \lstinline|showResult [Rock, Paper] [Paper, Scissors]|\\
+      \lstinline|showResult [(Rock, Paper), (Paper, Scissors)]|\\
       \lstinline|    ~> "Player B wins by 2"|
 
       \smallskip
-      \lstinline|showResult [Rock, Paper] [Paper, Rock]|\\
+      \lstinline|showResult [(Rock, Paper), (Paper, Rock)]|\\
       \lstinline|    ~> "It's a tie"|
   \end{itemize}
 \end{frame}
@@ -417,8 +419,7 @@ showRound (moveA, moveB) = "A plays: " ++ show moveA
   \frametitle{Strategies}
 
   \begin{itemize}
-    \item a strategy is a function that selects a move\\
-      based on the previous moves of the opponent:\\
+    \item strategy: selects move based on previous moves of opponent\\
       \lstinline|[Move] -> Move|
   \end{itemize}
 
@@ -435,10 +436,10 @@ scissors _ = Scissors
 \begin{frame}[fragile]
   \frametitle{Strategies}
 
-  \begin{exampleblock}{cycle through the possibilities}
+  \begin{exampleblock}{cycle through the options}
     \begin{lstlisting}[deletekeywords={cycle}]
 cycle :: [Move] -> Move
-cycle moves = case (length moves) `mod` 3 of
+cycle ms = case (length ms) `mod` 3 of
     0 -> Rock
     1 -> Paper
     2 -> Scissors
@@ -449,12 +450,12 @@ cycle moves = case (length moves) `mod` 3 of
 \begin{frame}[fragile]
   \frametitle{Strategies}
 
-  \begin{exampleblock}{play whatever the opponent played last}
+  \begin{exampleblock}{play whatever opponent played last}
     \begin{lstlisting}
--- opponent moves kept in reverse order
+-- moves kept in reverse order
 echo :: [Move] -> Move
-echo []            = Rock
-echo (latest:rest) = latest
+echo []         = Rock
+echo (latest:_) = latest
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -462,10 +463,11 @@ echo (latest:rest) = latest
 \subsection{Game Play}
 
 \begin{frame}[fragile]
-  \frametitle{Game Play}
+  \frametitle{Interactive Play}
 
   \begin{itemize}
-    \item play the game interactively
+    \item player A: computer, plays echo
+    \item player B: human
   \end{itemize}
 
   \begin{exampleblock}{convert a character into a move}
@@ -483,39 +485,39 @@ convertMove c
 \begin{frame}[fragile]
   \frametitle{Game Play}
 
-  \begin{exampleblock}{play interactively against \lstinline|echo|}
-    \begin{lstlisting}
-play :: Match -> IO ()
-play (movesA, movesB) = do
+  \begin{lstlisting}
+playRound :: Match -> IO ()
+playRound rs = do
     ch <- getChar
     putStrLn ""
     if ch == '.'
-        then putStrLn (showResult (movesA, movesB))
+        then putStrLn (showResult rs)
         else do
+            let (movesA, movesB) = unzip rs
             let moveA = echo movesB
             let moveB = convertMove ch
             putStrLn (showRound (moveA, moveB))
-            play (moveA : movesA, moveB : movesB)
+            playRound ((moveA, moveB) : rs)
 
 playInteractive :: IO ()
-playInteractive = play ([], [])
-    \end{lstlisting}
-  \end{exampleblock}
+playInteractive = play []
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Automatic Play}
 
-  \begin{exampleblock}{generate a match:
+  \begin{exampleblock}{generate match:
       \lstinline[deletekeywords={cycle}]|cycle| versus \lstinline|echo|}
     \begin{lstlisting}[deletekeywords={cycle}]
 generateMatch :: Integer -> Match
-generateMatch 0 = ([], [])
+generateMatch 0 = []
 generateMatch n = step (generateMatch (n - 1))
   where
     step :: Match -> Match
-    step (movesA, movesB) = (cycle movesB : movesA,
-                             echo  movesA : movesB)
+    step rs = (cycle movesB, echo movesA) : rs
+      where
+        (movesA, movesB) = unzip rs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
