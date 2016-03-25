@@ -95,86 +95,6 @@
   \tableofcontents
 \end{frame}
 
-\section{Functions}
-
-\subsection{Infix - Prefix}
-
-\begin{frame}[fragile]
-  \frametitle{Infix - Prefix}
-
-  \begin{itemize}
-    \item functions infix when in backquotes
-    \begin{lstlisting}
-mod n 2
-n `mod` 2
-    \end{lstlisting}
-
-    \pause
-    \medskip
-    \item operators prefix when in parentheses
-    \begin{lstlisting}
-6 * 7
-(*) 6 7
-    \end{lstlisting}
-  \end{itemize}
-\end{frame}
-
-\subsection{Guards}
-
-\begin{frame}[fragile]
-  \frametitle{Guards}
-
-  \begin{itemize}
-    \item writing conditional expressions can become complicated
-    \item \alert{guards}: predicates to check cases
-
-    \begin{lstlisting}[style=syntax]
-n :: t1 -> t2 -> ... -> tk -> t
-n x1 x2 ... xk
-  | p1        = e1
-  | p2        = e2
-    ...
-  | otherwise = e
-    \end{lstlisting}
-
-    \item function result is the expression for the first satisfied predicate
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Guard Example}
-
-  \begin{exampleblock}{maximum of three integers}
-    \begin{lstlisting}
-maxThree :: Integer -> Integer -> Integer -> Integer
-maxThree x y z
-  | x>=y && x>=z = x
-  | y>=z         = y
-  | otherwise    = z
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\subsection{Errors}
-
-\begin{frame}[fragile]
-  \frametitle{Errors}
-
-  \begin{itemize}
-    \item errors can be reported using \lstinline|error|
-    \item doesn't change the type signature
-  \end{itemize}
-
-  \begin{exampleblock}{example: reciprocal (multiplicative inverse)}
-    \begin{lstlisting}
-reciprocal :: Float -> Float
-reciprocal x
-  | x == 0    = error "division by zero"
-  | otherwise = 1.0 / x
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
 \section{Recursion}
 
 \lstset{deletekeywords={gcd}}
@@ -395,7 +315,9 @@ fib n
   \end{center}
 \end{frame}
 
-\subsection{Examples}
+\section{Examples}
+
+\subsection{Exponentiation}
 
 \begin{frame}[fragile]
   \frametitle{Exponentiation}
@@ -438,9 +360,9 @@ pow x y
 
 % \begin{frame}[fragile]
 %   \frametitle{List Maximum}
-% 
+%
 % % TODO: find an example that doesn't use lists
-% 
+%
 %   \begin{exampleblock}{maximum of a list}
 %     \begin{lstlisting}
 % maxList :: [Integer] -> Integer
@@ -451,7 +373,7 @@ pow x y
 %   | otherwise      = maxList xs
 %     \end{lstlisting}
 %   \end{exampleblock}
-% 
+%
 %   \pause
 %   \begin{itemize}
 %     \item what if called as:\\
@@ -459,10 +381,10 @@ pow x y
 %       \lstinline|maxList [1 .. 30]|
 %   \end{itemize}
 % \end{frame}
-% 
+%
 % \begin{frame}[fragile]
 %   \frametitle{List Maximum}
-% 
+%
 %   \begin{exampleblock}{maximum of a list}
 %     \begin{lstlisting}
 % maxList :: [Integer] -> Integer
@@ -476,6 +398,8 @@ pow x y
 %     \end{lstlisting}
 %   \end{exampleblock}
 % \end{frame}
+
+\subsection{Counting Change}
 
 \begin{frame}[fragile]
   \frametitle{Counting Change}
@@ -499,6 +423,8 @@ countChange amount = cc amount 5
       | otherwise       = cc a (n - 1) + cc (a - fd n) n
   \end{lstlisting}
 \end{frame}
+
+\subsection{Square Roots}
 
 \lstset{deletekeywords=sqrt}
 
