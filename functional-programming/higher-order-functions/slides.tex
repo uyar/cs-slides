@@ -893,7 +893,7 @@ iSort (x:xs) = ins x (iSort xs)
 
 -- equivalent to:
 iSort :: [Integer] -> [Integer]
-iSort (x:xs) = foldr ins [] xs
+iSort xs = foldr ins [] xs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
