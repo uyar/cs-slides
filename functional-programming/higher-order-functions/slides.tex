@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Higher-Order Functions}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -278,13 +278,13 @@ type Strategy = [Move] -> Move
 
 generateMatch :: Strategy -> Strategy -> Integer
                  -> Match
-generateMatch _  _  0 = ([], [])
-generateMatch sA sB n =
-    step (generateMatch sA sB (n - 1))
+generateMatch _  _  0 = []
+generateMatch sA sB n = step (generateMatch sA sB (n - 1))
+  where
+    step :: Match -> Match
+    step rs = (sA movesB, sB movesA) : rs
       where
-        step :: Match -> Match
-        step (movesA, movesB) = (sA movesB : movesA,
-                                 sB movesA : movesB)
+        (movesA, movesB) = unzip rs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -292,8 +292,48 @@ generateMatch sA sB n =
 \subsection{Example: Sorting}
 
 \begin{frame}[fragile]
-  \frametitle{Sorting}
+  \frametitle{Example: Sorting}
 
+  \begin{exampleblock}{insertion sort}
+    \begin{lstlisting}
+ins :: Integer -> [Integer] -> [Integer]
+ins n []          = [n]
+ins n xs@(x':xs')
+  | n <= x'       = n : xs
+  | otherwise     = x' : ins n xs'
+
+iSort :: [Integer] -> [Integer]
+iSort []     = []
+iSort (x:xs) = ins x (iSort xs)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Sorting}
+
+  \begin{exampleblock}{parameterize \lstinline|iSort| regarding comparison
+      function}
+    \begin{lstlisting}
+ins' :: (a -> a -> Bool) -> a -> [a] -> [a]
+ins' p n []          = [n]
+ins' p n xs@(x':xs')
+  | p n x'           = n : xs
+  | otherwise        = x' : ins' p n xs'
+
+iSort' :: (a -> a -> Bool) -> [a] -> [a]
+iSort' p []     = []
+iSort' p (x:xs) = ins' p x (iSort' p xs)
+
+-- iSort' (<=) [4, 5, 3]       ~> [3, 4, 5]
+-- iSort' (>)  [4, 5, 3]       ~> [5, 4, 3]
+-- iSort' (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Sorting}
 
   \begin{exampleblock}{}
     \begin{itemize}
@@ -356,28 +396,6 @@ pairs = [(3, 2), (1, 3), (2, 1)]
 # sorted(pairs)             ~> [(1, 3), (2, 1), (3, 2)]
 # sorted(pairs, key=second) ~> [(2, 1), (3, 2), (1, 3)]
 # sorted(pairs, key=value)  ~> [(1, 3), (3, 2), (2, 1)]
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorting}
-
-  \begin{exampleblock}{parameterize \lstinline|qSort| regarding comparison
-      function}
-    \begin{lstlisting}
-qSort :: (a -> a -> Bool) -> [a] -> [a]
-qSort precedes []     = []
-qSort precedes (x:xs) =
-    qSort precedes smaller ++ [x]
-        ++ qSort precedes larger
-      where
-        smaller = [a | a <- xs,      a `precedes` x]
-        larger  = [b | b <- xs, not (b `precedes` x)]
-
--- qSort (<=) [4, 5, 3]       ~> [3, 4, 5]
--- qSort (>)  [4, 5, 3]       ~> [5, 4, 3]
--- qSort (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -449,8 +467,7 @@ sorted(pairs, key=lambda p: p[0] / p[1])
 \begin{frame}[fragile]
   \frametitle{Fixed Points}
 
-  \begin{exampleblock}{find fixed point}
-    \begin{lstlisting}[deletekeywords={next}]
+  \begin{lstlisting}[deletekeywords={next}]
 fixedPoint :: (Float -> Float) -> Float -> Float
 fixedPoint f firstGuess = fpIter firstGuess
   where
@@ -463,8 +480,7 @@ fixedPoint f firstGuess = fpIter firstGuess
 
     isCloseEnough :: Float -> Float -> Bool
     isCloseEnough x y = (abs (x-y) / x) < 0.001
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -511,16 +527,12 @@ sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
   \begin{exampleblock}{all odd elements of a list}
     \begin{lstlisting}
 -- allOdds [4, 1, 3, 2] ~> [1, 3]
-allOdds :: [Integer] -> [Integer]
 
--- primitive recursive
+allOdds :: [Integer] -> [Integer]
 allOdds []     = []
 allOdds (x:xs)
   | odd x      = x : allOdds xs
   | otherwise  = allOdds xs
-
--- list comprehension
-allOdds xs = [x | x <- xs, odd x]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -534,14 +546,10 @@ allOdds xs = [x | x <- xs, odd x]
 
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={filter}]
--- primitive recursive
 filter f []     = []
 filter f (x:xs)
   | f x         = x : filter f xs
   | otherwise   = filter f xs
-
--- list comprehension
-filter f xs = [x | x <- xs, f x]
     \end{lstlisting}
   \end{exampleblock}
 
@@ -565,10 +573,7 @@ allOdds xs = filter odd xs
   \bigskip
   \begin{exampleblock}{Python}
     \begin{lstlisting}[language=Python]
-def odd(n):
-    return n%2 == 1
-
-filter(odd, [4, 1, 3, 2])
+filter(lambda x: x % 2 == 1, [4, 1, 3, 2])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -579,7 +584,7 @@ filter(odd, [4, 1, 3, 2])
   \begin{exampleblock}{how many elements in a list are above a threshold?}
     \begin{lstlisting}
 howManyAbove :: Float -> [Float] -> Int
-howManyAbove t xs = length (filter (\x -> x > t) xs)
+howManyAbove t xs = length (filter (\x -> x >= t) xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -622,14 +627,10 @@ takeWhile f (x:xs)
   \begin{exampleblock}{example: floors of all elements of a list}
     \begin{lstlisting}
 -- floorAll [5.7, 9.0, 2.3] ~> [5, 9, 2]
-floorAll :: [Float] -> [Integer]
 
--- primitive recursive
+floorAll :: [Float] -> [Integer]
 floorAll []     = []
 floorAll (x:xs) = floor x : floorAll xs
-
--- list comprehension
-floorAll xs = [floor x | x <- xs]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -643,12 +644,8 @@ floorAll xs = [floor x | x <- xs]
 
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={map}]
--- primitive recursive
 map f []     = []
 map f (x:xs) = f x : map f xs
-
--- list comprehension
-map f xs = [f x | x <- xs]
     \end{lstlisting}
   \end{exampleblock}
 
@@ -672,9 +669,9 @@ floorAll xs = map floor xs
   \bigskip
   \begin{exampleblock}{Python}
     \begin{lstlisting}[language=Python]
-import math
+from math import floor
 
-map(math.floor, [5.7, 9.0, 2.3])
+map(floor, [5.7, 9.0, 2.3])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -715,6 +712,7 @@ zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
   \begin{exampleblock}{sum all elements of a non-empty list}
     \begin{lstlisting}[deletekeywords={sum}]
 -- sum [2, 8, 5] ~> 15
+
 sum :: [Integer] -> Integer
 sum [x]    = x
 sum (x:xs) = x + sum xs
@@ -773,17 +771,17 @@ sum xs = foldr1 (+) xs
   \bigskip
   \begin{exampleblock}{Python}
     \begin{lstlisting}[language=Python, deletekeywords={reduce, sum}]
-import functools
-import operator
+from functools import reduce
+from operator import add
 
 def sum(xs):
-  return functools.reduce(operator.add, xs)
+    return reduce(add, xs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Fold with Initial Value}
+  \frametitle{Initial Value}
 
   \begin{itemize}
     \item \lstinline|foldr1| doesn't work on empty lists
@@ -832,11 +830,11 @@ sum xs = foldr (+) 0 xs
   \bigskip
   \begin{exampleblock}{Python}
     \begin{lstlisting}[language=Python, deletekeywords={reduce, sum}]
-import functools
-import operator
+from functools import reduce
+from operator import add
 
 def sum(xs):
-  return functools.reduce(operator.add, xs, 0)
+  return reduce(add, xs, 0)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -871,7 +869,7 @@ maxList xs = foldr1 max xs
     \begin{lstlisting}
 howManyAbove :: Float -> [Float] -> Integer
 howManyAbove t xs =
-    foldr (\x n -> if x > t then n + 1 else n) 0 xs
+    foldr (\x n -> if x >= t then n + 1 else n) 0 xs
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -882,10 +880,10 @@ howManyAbove t xs =
   \begin{exampleblock}{insertion sort}
     \begin{lstlisting}
 ins :: Integer -> [Integer] -> [Integer]
-ins i []      = [i]
-ins i (x:xs)
-  | i <= x    = i : x : xs
-  | otherwise = x : ins i xs
+ins n []          = [n]
+ins n xs@(x':xs')
+  | n <= x'       = n : xs
+  | otherwise     = x' : ins n xs'
 
 iSort :: [Integer] -> [Integer]
 iSort []     = []
@@ -921,7 +919,7 @@ foldl f s (x:xs) = foldl f (f s x) xs
   \pause
   \begin{itemize}
     \item what is the type of \lstinline|foldl|?\\
-      \lstinline|foldl :: (a -> b -> a) -> a -> [b] -> a|
+      \lstinline|foldl :: (b -> a -> b) -> b -> [a] -> b|
   \end{itemize}
 \end{frame}
 
@@ -934,16 +932,14 @@ foldl f s (x:xs) = foldl f (f s x) xs
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-foldr (*) 1   [1 .. 7]        ~> 5040
-foldl (*) 1   [1 .. 7]        ~> 5040
+foldr (*) 1   [3 .. 6]        ~> 360
+foldl (*) 1   [3 .. 6]        ~> 360
 
-foldr (/) 1.0 [1.0, 2.0, 3.0] ~> 1.5
-foldl (/) 1.0 [1.0, 2.0, 3.0] ~> 0.1666666
+foldr (/) 6.0 [3.0, 2.0, 4.0] ~> 1.0
+foldl (/) 6.0 [3.0, 2.0, 4.0] ~> 0.25
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
-
-\subsection{Example: Edit Distance}
 
 \begin{frame}[fragile]
   \frametitle{Edit Distance}
@@ -1045,9 +1041,9 @@ cost xs = length (filter (\x -> x /= Copy) xs)
     \begin{lstlisting}[language=Python]
 [2 * n for n in [2, 4, 7]]
 
-[even(n) for n in [2, 4, 7]]
+[n % 2 == 0 for n in [2, 4, 7]]
 
-[2 * n for n in [2, 4, 7] if even(n) and (n > 3)]
+[2 * n for n in [2, 4, 7] if n % 2 == 0 and (n > 3)]
 
 [m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
 
@@ -1073,11 +1069,18 @@ qSort (x:xs) =
         larger  = [b | b <- xs, b >  x]
     \end{lstlisting}
   \end{exampleblock}
+\end{frame}
 
-  \pause
-  \begin{itemize}
-    \item exercise: write \lstinline|concat| using list comprehension
-  \end{itemize}
+\begin{frame}[fragile]
+  \frametitle{Higher Order List Functions}
+
+  \begin{lstlisting}[deletekeywords={filter}]
+filter f xs = [x | x <- xs, f x]
+  \end{lstlisting}
+
+  \begin{lstlisting}[deletekeywords={map}]
+map f xs = [f x | x <- xs]
+  \end{lstlisting}
 \end{frame}
 
 \section*{References}
