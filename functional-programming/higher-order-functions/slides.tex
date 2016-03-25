@@ -312,7 +312,7 @@ iSort (x:xs) = ins x (iSort xs)
 \begin{frame}[fragile]
   \frametitle{Example: Sorting}
 
-  \begin{exampleblock}{parameterize \lstinline|iSort| regarding comparison
+  \begin{exampleblock}{parameterize \lstinline|iSort| regarding precedes
       function}
     \begin{lstlisting}
 ins' :: (a -> a -> Bool) -> a -> [a] -> [a]
