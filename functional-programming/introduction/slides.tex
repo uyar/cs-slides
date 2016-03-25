@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -30,7 +30,7 @@
 \subtitle{Introduction}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -58,7 +58,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -101,42 +101,38 @@
 
 \lstset{language=Python}
 
-\subsection{Programming Languages}
+\subsection{Introduction}
 
 \begin{frame}
-  \frametitle{Programming Languages}
+  \frametitle{Paradigms}
 
   \begin{itemize}
-    \item \alert{syntax}: rules for writing a ``grammatically correct'' program
-    \item how expressions, commands, declarations and other constructs\\
-      must be arranged to make a well-formed program
+    \item \alert{paradigm}: approach to programming
+    \item based on a set of principles or theory
+    \item different paradigms: different ways of thinking
 
     \pause
     \bigskip
-    \item \alert{semantics}: how the program should be ``interpreted''
-    \item how the program may be expected to behave\\
-      when executed on a computer
+    \item \alert{idioms}: patterns for using language features
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Idioms}
+  \frametitle{Paradigms}
 
-  \begin{itemize}
-    \item knowing the syntax and semantics is not enough\\
-      to master a programming language
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item \alert{imperative}: how to solve
+      \item procedural, object-oriented
+    \end{itemize}
 
-    \medskip
-    \item standard library
-    \item other libraries
-    \item tools: debugging, testing, profiling
-    \item documenting
-    \item style: code formatting, variable naming, \ldots
-
-    \pause
-    \medskip
-    \item \alert{idioms}: patterns for using language features
-  \end{itemize}
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item \alert{declarative}: what to solve
+      \item functional, logic
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -159,26 +155,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Paradigms}
-
-  \begin{itemize}
-    \item \alert{paradigm}: approach to programming
-    \item based on a set of principles or theory
-    \item different paradigms: different ways of thinking
-
-    \pause
-    \bigskip
-    \item \alert{imperative}: how to solve
-    \item procedural, object-oriented
-
-    \medskip
-    \item \alert{declarative}: what to solve
-    \item functional, logic
-  \end{itemize}
-\end{frame}
-
-\subsection{Imperative Programming}
+\subsection{Imperative}
 
 \begin{frame}
   \frametitle{Imperative Programming}
@@ -194,11 +171,15 @@
     \column{.65\textwidth}
     \begin{itemize}
       \item based on the Turing machine
-      \item a program is a sequence of instructions\\
+      \smallskip
+      \item program: sequence of instructions\\
         for a von Neumann computer
       \item contents of memory constitute \alert{state}
       \item statements update variables\\
         (\alert{mutation})
+
+      \pause
+      \smallskip
       \item assignment, control structures
       \item natural model of hardware
     \end{itemize}
@@ -259,7 +240,7 @@ def gcd(x, y):
   \end{columns}
 \end{frame}
 
-\subsection{Functional Programming}
+\subsection{Functional}
 
 \begin{frame}
   \frametitle{Functional Programming}
@@ -275,11 +256,14 @@ def gcd(x, y):
     \column{.65\textwidth}
     \begin{itemize}
       \item based on $\lambda$-calculus
-      \item a program is a function application
+      \smallskip
+      \item program: function application
       \item same inputs should produce\\
         same output (``pure'')
-      \item function also modifies context\\
-        $\rightarrow$ \alert{side effect}
+      \item function modifies context $\rightarrow$ \alert{side effect}
+
+      \pause
+      \smallskip
       \item avoid mutation
       \item higher-order functions
     \end{itemize}
@@ -444,7 +428,7 @@ def get_random(n):
   \end{itemize}
 \end{frame}
 
-\section{Basic Concepts}
+\section{Haskell}
 
 \lstset{language=Haskell}
 
@@ -529,7 +513,6 @@ minor = age < 18
 
     \pause
     \bigskip
-    \item bindings in Haskell
     \item signature: name, type
     \item definition: name, expression
     \begin{lstlisting}[style=syntax]
@@ -562,8 +545,11 @@ c = 3.14159 * d
   \frametitle{Local Definitions}
 
   \begin{itemize}
-    \item a local definition can be used only within the expression\\
-      where it is defined
+    \item local definition: used only within expression
+  \end{itemize}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
     \begin{lstlisting}[style=syntax]
 n = e
   where
@@ -575,7 +561,21 @@ n = e
 
     ...
     \end{lstlisting}
-  \end{itemize}
+
+    \column{.5\textwidth}
+    \begin{lstlisting}[style=syntax]
+let
+    n1 :: t1
+    n1 = e1
+
+    n2 :: t2
+    n2 = e2
+
+    ...
+in
+  n = e
+    \end{lstlisting}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -628,26 +628,11 @@ a = 3.14159 * r * r
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Function Parameters}
-
-  \begin{itemize}
-    \item \alert{formal parameter}: an identifier through which a function\\
-      accesses an argument
-    \item declared at function definition
-
-    \pause
-    \medskip
-    \item \alert{actual parameter}: an expression which yields an argument
-    \item defined at function application
-  \end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
   \frametitle{Function Definitions}
 
   \begin{itemize}
-    \item function definition in Haskell
+    \item function definition:
     \begin{lstlisting}[style=syntax]
 n :: t1 -> t2 -> ... -> tk -> t
 n x1 x2 ... xk = e
@@ -655,7 +640,7 @@ n x1 x2 ... xk = e
 
     \pause
     \bigskip
-    \item function application in Haskell
+    \item function application:
     \begin{lstlisting}[style=syntax]
 n e1 e2 ... ek
     \end{lstlisting}
@@ -692,6 +677,78 @@ sumOfCubes x y = cube x + cube y
     cube :: Integer -> Integer
     cube n = n * n * n
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infix - Prefix}
+
+  \begin{itemize}
+    \item functions infix when in backquotes
+    \begin{lstlisting}
+mod n 2
+n `mod` 2
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \item operators prefix when in parentheses
+    \begin{lstlisting}
+6 * 7
+(*) 6 7
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Guards}
+
+  \begin{itemize}
+    \item writing conditional expressions can become complicated
+    \item \alert{guards}: predicates to check cases
+
+    \begin{lstlisting}[style=syntax]
+n :: t1 -> t2 -> ... -> tk -> t
+n x1 x2 ... xk
+  | p1        = e1
+  | p2        = e2
+    ...
+  | otherwise = e
+    \end{lstlisting}
+
+    \item function result is the expression for the first satisfied predicate
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Guard Example}
+
+  \begin{exampleblock}{maximum of three integers}
+    \begin{lstlisting}
+maxThree :: Integer -> Integer -> Integer -> Integer
+maxThree x y z
+  | x>=y && x>=z = x
+  | y>=z         = y
+  | otherwise    = z
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Errors}
+
+  \begin{itemize}
+    \item errors can be reported using \lstinline|error|
+    \item doesn't change the type signature
+  \end{itemize}
+
+  \begin{exampleblock}{example: reciprocal (multiplicative inverse)}
+    \begin{lstlisting}
+reciprocal :: Float -> Float
+reciprocal x
+  | x == 0    = error "division by zero"
+  | otherwise = 1.0 / x
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \section*{References}
