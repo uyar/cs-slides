@@ -282,7 +282,7 @@ tail :: [a] -> [a]
   \frametitle{List Construction}
 
   \begin{itemize}
-    \item list construction operator: \lstinline|:|\\
+    \item list construction:\\
       \lstinline|item : sublist|
     \item associates to the right
   \end{itemize}
@@ -301,8 +301,8 @@ tail :: [a] -> [a]
   \frametitle{List Operators}
 
   \begin{itemize}
-    \item indexing operator: \lstinline|!!|
-    \item concatenation operator: \lstinline|++|
+    \item index: \lstinline|!!|
+    \item append: \lstinline|++|
   \end{itemize}
 
   \pause
@@ -364,7 +364,7 @@ type String = [Char]
 
 -- 'w' : "ord"       ~> "word"
 -- "word" !! 2       ~> 'r'
--- "word" ++ "smith" ~> "wordsmith" 
+-- "word" ++ "smith" ~> "wordsmith"
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -548,8 +548,6 @@ third t = case t of
   \end{exampleblock}
 \end{frame}
 
-\subsection{List Patterns}
-
 \begin{frame}[fragile]
   \frametitle{List Patterns}
 
@@ -594,8 +592,6 @@ firstPlusThird xs = case xs of
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
-
-\subsection{Algebraic Type Patterns}
 
 \begin{frame}
   \frametitle{Algebraic Type Patterns}
@@ -659,10 +655,10 @@ area s = case s of
   \end{exampleblock}
 \end{frame}
 
-\subsection{Function Patterns}
+\subsection{Parameter Patterns}
 
 \begin{frame}[fragile]
-  \frametitle{Function Patterns}
+  \frametitle{Parameter Patterns}
 
   \begin{itemize}
     \item formal parameters are patterns
@@ -681,7 +677,7 @@ n p2 = e2
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
 gcd :: Integer -> Integer -> Integer
@@ -697,7 +693,7 @@ gcd x y = gcd y (x `mod` y)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
 gcd' :: (Integer, Integer) -> Integer
@@ -713,7 +709,7 @@ gcd' (x, y) = gcd' (y, x `mod` y)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
 shift :: ((a, b), c) -> (a, (b, c))
@@ -727,7 +723,7 @@ shift ((x, y), z) = (x, (y, z))
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
 third :: (a, b, c) -> c
@@ -741,7 +737,7 @@ third (_, _, z) = z
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}[deletekeywords={length}]
 length :: [a] -> Int
@@ -757,7 +753,7 @@ length (x:xs) = 1 + length xs
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Pattern Example}
+  \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
 birthYear :: Person -> Year
@@ -770,8 +766,23 @@ birthYear (Person _ y) = y
   \end{lstlisting}
 \end{frame}
 
+\subsection{Examples}
+
 \begin{frame}[fragile]
-  \frametitle{Example: List Indexing}
+  \frametitle{Example: Quadrants}
+
+  \begin{lstlisting}
+quadrant :: Coords -> Integer
+quadrant (x, y) = case (x>=0, y>=0) of
+    (True,  True)  -> 1
+    (False, True)  -> 2
+    (False, False) -> 3
+    (True,  False) -> 4
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Indexing Lists}
 
   \begin{lstlisting}
 (!!) :: [a] -> Int -> a
@@ -794,7 +805,7 @@ birthYear (Person _ y) = y
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Example: List Concatenation}
+  \frametitle{Example: Appending Lists}
 
   \begin{lstlisting}
 (++) :: [a] -> [a] -> [a]
@@ -806,8 +817,7 @@ birthYear (Person _ y) = y
 \begin{frame}[fragile]
   \frametitle{Example: Fibonacci}
 
-  \begin{exampleblock}{efficient Fibonacci calculation}
-    \begin{lstlisting}
+  \begin{lstlisting}
 fibStep :: (Integer, Integer) -> (Integer, Integer)
 fibStep (u, v) = (v, u + v)
 
@@ -817,11 +827,307 @@ fibPair 1 = (1, 1)
 fibPair n = fibStep (fibPair (n - 1))
 
 fastFib n = fst (fibPair n)
+  \end{lstlisting}
+\end{frame}
+
+\section{Lists}
+
+\subsection{Basic Functions}
+
+\begin{frame}[fragile]
+  \frametitle{Membership Check}
+
+  \begin{itemize}
+    \item check whether an element is a member of a list\\
+      \lstinline[style=exclamfix]|elem 'r' "word" ~> True|\\
+      \lstinline[style=exclamfix]|elem 'x' "word" ~> False|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={elem}]
+elem :: Char -> [Char] -> Bool
+elem _ []     = False
+elem x (c:cs) = if x == c then True else elem x cs
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: make a list of n copies of an item\\
+      \lstinline|replicate 3 'c' ~> "ccc"|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Last Element}
+
+  \begin{itemize}
+    \item get the last element of a list\\
+      \lstinline[style=exclamfix]|last "word" ~> 'd'|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={last}]
+last :: [a] -> a
+last []     = error "empty list"
+last [x]    = x
+last (x:xs) = last xs
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: get all elements but the last of a list\\
+      \lstinline[style=exclamfix]|init "word" ~> "wor"|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Split}
+
+  \begin{itemize}
+    \item take n elements from the front of a list\\
+      \lstinline[style=exclamfix]|take 3 "Peccary" ~> "Pec"|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={take}]
+take :: Int -> [a] -> [a]
+take 0 _      = []
+take _ []     = []
+take n (x:xs) = x : take (n - 1) xs
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: drop n elements from the front of a list\\
+      \lstinline[style=exclamfix]|drop 3 "Peccary" ~> "cary"|
+
+    \item exercise: split a list at a given position\\
+      \lstinline[style=exclamfix]|splitAt 3 "Peccary" ~> ("Pec", "cary")|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Reverse}
+
+  \begin{itemize}
+    \item reverse a list\\
+      \lstinline[style=exclamfix]|reverse "word" ~> "drow"|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={reverse}]
+reverse :: [a] -> [a]
+reverse []     = []
+reverse (x:xs) = (reverse xs) ++ [x]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-% TODO: add example for using case expression over function pattern
+\begin{frame}[fragile]
+  \frametitle{Concatenate}
+
+  \begin{itemize}
+    \item convert a list of lists of items into a list of items\\
+      \lstinline|concat [[2, 3], [], [4] ~> [2, 3, 4]|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={concat}]
+concat :: [[a]] -> [a]
+concat []       = []
+concat (xs:xss) = xs ++ concat xss
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Zip}
+
+\begin{frame}[fragile]
+  \frametitle{Zip}
+
+  \begin{itemize}
+    \item convert two lists into a list of pairs\\
+      \lstinline[style=exclamfix]|zip [1, 2] "ab" ~> [(1, 'a'), (2, 'b')]|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={zip}]
+zip :: [a] -> [b] -> [(a, b)]
+zip []     []     = []
+zip (x:xs) (y:ys) = (x, y) : zip xs ys
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item not all cases are covered:\\
+      \lstinline[style=exclamfix]|zip [1, 2] "abc" ~> [(1, 'a'), (2, 'b')]|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Zip}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={zip}]
+zip :: [a] -> [b] -> [(a, b)]
+zip (x:xs) (y:ys) = (x, y) : zip xs ys
+zip _      _      = []
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: convert three lists into a list of triples\\
+      \lstinline[style=exclamfix]|zip3 [1, 2] "abc" [7, 4]|\\
+      \lstinline[style=exclamfix]|     ~> [(1, 'a', 7), (2, 'b', 4)]|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Unzip}
+
+  \begin{itemize}
+    \item convert a list of pairs into a pair of lists\\
+      \lstinline[style=exclamfix]|unzip [(1, 'a'), (2, 'b')] ~> ([1, 2], "ab")|
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}[deletekeywords={unzip}]
+unzip :: [(a, b)] -> ([a], [b])
+unzip []           = ([], [])
+unzip ((x, y):xys) = (x : xs, y : ys)
+  where
+    (xs, ys) = unzip xys
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: convert a list of triples into three lists\\
+      \lstinline[style=exclamfix]|unzip3 [(1, 'a', 7), (2, 'b', 4)]|\\
+      \lstinline[style=exclamfix]|     ~> ([1, 2], "ab", [7, 4])|
+  \end{itemize}
+\end{frame}
+
+\subsection{Examples}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Merging Lists}
+
+  \begin{exampleblock}{merge two ordered lists}
+    \begin{lstlisting}
+merge :: [Integer] -> [Integer] -> [Integer]
+merge xs     []     = xs
+merge []     ys     = ys
+merge (x:xs) (y:ys)
+  | x <= y    = x : merge xs (y : ys)
+  | otherwise = y : merge (x : xs) ys
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item reconstructing original lists not necessary: \lstinline|@|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Merging Lists}
+
+  \begin{exampleblock}{merge two ordered lists}
+    \begin{lstlisting}
+merge :: [Integer] -> [Integer] -> [Integer]
+merge xs [] = xs
+merge [] ys = ys
+merge xs@(x':xs') ys@(y':ys')
+  | x' <= y'  = x' : merge xs' ys
+  | otherwise = y' : merge xs  ys'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: check whether an integer list is in non-decreasing order
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{convert an integer to Roman numerals}
+    \begin{itemize}
+      \item adapted from the book ``Dive into Python'' by Mark Pilgrim:\\
+        \url{http://www.diveintopython.net/}
+    \end{itemize}
+
+    \medskip
+    \begin{lstlisting}
+romanNumerals =
+  [("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
+   ("C",  100), ("XC",  90), ("L",  50), ("XL",  40),
+   ("X",   10), ("IX",   9), ("V",   5), ("IV",   4),
+   ("I",    1)]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{Python}
+    \begin{lstlisting}[language=Python]
+def toRoman(n):
+    result = ""
+    for numeral, integer in romanNumerals:
+        while n >= integer:
+            result += numeral
+            n -= integer
+    return result
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+toRoman :: Integer -> String
+toRoman n = tR n romanNumerals
+  where
+    tR :: Integer -> [(String, Integer)] -> String
+    tR n []              = ""
+    tR n xs@((s, k):xs')
+      | n >= k    = s ++ tR (n - k) xs
+      | otherwise = tR n xs'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: convert a Roman numeral string into an integer
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Roman Numeral Conversion}
+
+  \begin{exampleblock}{Python}
+    \begin{lstlisting}[language=Python]
+def fromRoman(s):
+    result = 0
+    index = 0
+    for numeral, integer in romanNumerals:
+        while s[index : index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    return result
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
 \section*{References}
 
@@ -831,6 +1137,8 @@ fastFib n = fst (fibPair n)
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
       \item Chapter 5: \alert{Data types, tuples and lists}
+      \item Chapter 6: \alert{Programming with lists}
+      \item Chapter 7: \alert{Defining functions over lists}
     \end{itemize}
   \end{block}
 \end{frame}
