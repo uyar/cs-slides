@@ -1005,8 +1005,8 @@
 
     \pause
     \medskip
-    \item $f: X \rightarrow Y$, $X_1 \subseteq X$\\
-      \emph{subset image}: $f(X_1) = \{f(x)~|~x \in X_1\}$
+    \item $f: X \rightarrow Y$, $X' \subseteq X$\\
+      \emph{subset image}: $f(X') = \{f(x)~|~x \in X'\}$
  \end{itemize}
 \end{frame}
 
@@ -1178,10 +1178,10 @@
   \begin{proof}
     \[
       \begin{array}{crcl}
-                  & (g \circ f) (a_1) & = & (g \circ f) (a_2)\\\pause
-      \Rightarrow & g(f(a_1))         & = & g(f(a_2))\\\pause
-      \Rightarrow & f(a_1)            & = & f(a_2)\\\pause
-      \Rightarrow & a_1               & = & a_2
+                  & (g \circ f) (x_1) & = & (g \circ f) (x_2)\\\pause
+      \Rightarrow & g(f(x_1))         & = & g(f(x_2))\\\pause
+      \Rightarrow & f(x_1)            & = & f(x_2)\\\pause
+      \Rightarrow & x_1               & = & x_2
       \end{array}
     \]
   \end{proof}
@@ -1307,25 +1307,25 @@
   \begin{columns}[t]
     \column{.6\textwidth}
     \begin{proof}[If invertible then one-to-one.]
-      $f: A \rightarrow B$
+      $f: X \rightarrow Y$
       \begin{eqnarray*}
-        &             & f(a_1) = f(a_2)\\\pause
-        & \Rightarrow & f^{-1}(f(a_1)) = f^{-1}(f(a_2))\\\pause
-        & \Rightarrow & (f^{-1} \circ f) (a_1) = (f^{-1} \circ f) (a_2)\\\pause
-        & \Rightarrow & 1_A (a_1) = 1_A (a_2)\\\pause
-        & \Rightarrow & a_1 = a_2
+        &             & f(x_1) = f(x_2)\\\pause
+        & \Rightarrow & f^{-1}(f(x_1)) = f^{-1}(f(x_2))\\\pause
+        & \Rightarrow & (f^{-1} \circ f) (x_1) = (f^{-1} \circ f) (x_2)\\\pause
+        & \Rightarrow & 1_X (x_1) = 1_X (x_2)\\\pause
+        & \Rightarrow & x_1 = x_2
       \end{eqnarray*}
     \end{proof}
 
     \pause
     \column{.35\textwidth}
     \begin{proof}[If invertible then onto.]
-      $f: A \rightarrow B$
+      $f: X \rightarrow Y$
       \begin{eqnarray*}
-        &   & b\\\pause
-        & = & 1_B (b)\\\pause
-        & = & (f \circ f^{-1}) (b)\\\pause
-        & = & f(f^{-1} (b))
+        &   & y\\\pause
+        & = & 1_Y (y)\\\pause
+        & = & (f \circ f^{-1}) (y)\\\pause
+        & = & f(f^{-1} (y))
       \end{eqnarray*}
     \end{proof}
   \end{columns}
@@ -1335,17 +1335,17 @@
   \frametitle{Invertible Function}
 
   \begin{proof}[If bijective then invertible.]
-    $f: A \rightarrow B$
+    $f: X \rightarrow Y$
     \begin{itemize}
-      \item $f$ is onto $\Rightarrow \forall b \in B~\exists a \in A~f(a)=b$
-      \item let $g: B \rightarrow A$ be defined by $a=g(b)$
+      \item $f$ is onto $\Rightarrow \forall y \in Y~\exists x \in X~f(x)=y$
+      \item let $g: Y \rightarrow X$ be defined by $x=g(y)$
 
       \pause
       \medskip
-      \item is it possible that $g(b) = a_1 \neq a_2 = g(b)$ ?
+      \item is it possible that $g(y) = x_1 \neq x_2 = g(y)$ ?
 
       \pause
-      \item this would mean: $f(a_1) = b = f(a_2)$
+      \item this would mean: $f(x_1) = y = f(x_2)$
       \item but $f$ is one-to-one
     \end{itemize}
   \end{proof}
@@ -1406,8 +1406,9 @@
   \frametitle{Pigeonhole Principle Example}
 
   \begin{theorem}
-    In any subset of cardinality 6 of the set $S = \{1,2,3,\dots,9\}$\\
-    there are two elements which total 10.
+    $S = \{1,2,3,\dots,9\}, T \subset S, |T|=6$
+
+    $\exists s_1, s_2 \in T~[s_1+s_2=10]$
   \end{theorem}
 \end{frame}
 
@@ -1438,7 +1439,7 @@
     \pause
     \column{.5\textwidth}
     \begin{proof}
-      subsets for which $|A| \leq 5$
+      consider $T - S$
 
       \pause
       \begin{itemize}
@@ -1454,8 +1455,9 @@
   \frametitle{Pigeonhole Principle Example}
 
   \begin{theorem}
-   Among any 101 elements chosen from the set $S = \{1,2,3,\dots,200\}$\\
-   there are at least two numbers such that one divides the other.
+    $S = \{1,2,3,\dots,200\}, T \subset S, |T| = 101$
+
+    $\exists s_1,s_2 \in T~[s_2 | s_1]$
   \end{theorem}
 
   \pause
@@ -1522,28 +1524,25 @@
   \frametitle{Pigeonhole Principle Example}
 
   \begin{theorem}
-   Among any 101 elements chosen from the set $S = \{1,2,3,\dots,200\}$\\
-   there are at least two numbers such that one divides the other.
+    $S = \{1,2,3,\dots,200\}, T \subset S, |T| = 101$
+
+    $\exists s_1,s_2 \in T~[s_2 | s_1]$
   \end{theorem}
 
   \pause
   \begin{proof}
     \begin{itemize}
-      \item $T=\{t~|~t \in S, \exists i \in \mathbb{Z}~[t=2i+1]\}$, $|T|=100$
+      \item $P=\{p~|~p \in S, \exists i \in \mathbb{Z}~[p=2i+1]\}$, $|P|=100$
 
       \pause
-      \item let $f: S \rightarrow T \mbox{ and }r \in \mathbb{N}$\\
-        $s = 2^r t \rightarrow f(s) = t$
-      \begin{itemize}
-        \item if 101 elements are chosen from $S$, at least two of them\\
-          will have the same image in $T$:
-          $f(s_1)=f(s_2) \Rightarrow 2^{m_1} t = 2^{m_2} t$
+      \item $f: S \rightarrow P, r \in \mathbb{N}, s = 2^r p \rightarrow f(s) = p$
+      \item $|T|=101$ $\Rightarrow$ at least two elements have the same image in $P$:\\
+        $f(s_1)=f(s_2) \Rightarrow 2^{r_1} p = 2^{r_2} p$
 
-        \pause
-        \[
-          \frac {s_1} {s_2} = \frac {2^{m_1} t} {2^{m_2} t} = 2^{m_1 - m_2}
-        \]
-      \end{itemize}
+      \pause
+      \[
+        \frac {s_1} {s_2} = \frac {2^{r_1} p} {2^{r_2} p} = 2^{r_1 - r_2}
+      \]
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -1592,7 +1591,7 @@
     n! =
       \begin{cases}
         1              & \mbox{if } n = 0\\
-        n \cdot f(n-1) & \mbox{if } n > 0
+        n \cdot (n-1)! & \mbox{if } n > 0
       \end{cases}
   \]
 \end{frame}
