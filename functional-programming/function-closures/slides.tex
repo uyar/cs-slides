@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Function Closures}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -104,7 +104,7 @@
     \item higher-order functions can return functions as result
   \end{itemize}
 
-  \begin{example}[body surface area]
+  \begin{exampleblock}{example: body surface area}
     \begin{itemize}
       \item $h$: height ($cm$), $w$: weight ($kg$), result: area ($m^2$)
       \smallskip
@@ -114,16 +114,15 @@
       \item Boyd formula:
         $0.0333 \cdot h^{0.3} \cdot w^{0.6157 - 0.0188~log_{10}~w}$
       \smallskip
-      \item Boyd formula is more accurate in infants
+      \item Boyd formula more accurate in infants
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Returning Functions}
+  \frametitle{Returning Function Example}
 
-  \begin{exampleblock}{body surface area}
-    \begin{lstlisting}
+  \begin{lstlisting}
 duBois :: Float -> Float -> Float
 duBois h w = 0.007184 * (h ** 0.725) * (w ** 0.425)
 
@@ -136,19 +135,18 @@ bsa age = if age < 3 then boyd else duBois
 
 -- (bsa 20) 180 75 ~> 1.9424062
 -- (bsa 2)  86 13  ~> 0.58253276
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Function Closure}
 
   \begin{itemize}
-    \item a function value has two parts:
+    \item function value has two parts:
 
     \medskip
-    \item the code
-    \item the environment that was current when the function was defined
+    \item code
+    \item environment current at the time of definition
 
     \medskip
     \item function \alert{closure}
@@ -158,8 +156,7 @@ bsa age = if age < 3 then boyd else duBois
 \begin{frame}[fragile]
   \frametitle{Function Closure Example}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 stepRange :: Integer ->
                 (Integer -> Integer -> [Integer])
 stepRange step = getRange
@@ -174,8 +171,7 @@ step1 = stepRange 1
 step5 :: Integer -> Integer -> [Integer]
 step5 = stepRange 5
 -- step5 9 20 ~> [9, 14, 19]
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -201,8 +197,9 @@ step1 = step_range(1)
   \frametitle{Decorators (Python)}
 
   \begin{itemize}
-    \item a decorator takes a function as parameter\\
-      and returns a transformed version of it
+    \item decorator: takes function as parameter,\\
+      returns transformed function
+    \item \lstinline[language=Python]|@decorator|
   \end{itemize}
 
   \begin{exampleblock}{example: entry and exit messages}
@@ -278,16 +275,18 @@ def fib(n):
   \frametitle{Currying}
 
   \begin{itemize}
-    \item a function which takes two parameters can be thought of\\
-      as a function which takes one parameter\\
-      and returns a function which takes one parameter
+    \item function with two input parameters:\\
+      function with one input parameter,\\
+      returns function with one input parameter
     \item generalize for $n$ parameters: \alert{currying}
 
     \pause
     \bigskip
     \item \alert{partial application}: call with fewer paratemers,\\
-      obtain a function that expects the remaining parameters
+      obtain function that expects remaining parameters
 
+    \pause
+    \medskip
     \item in function signatures, arrows associate to the right
     \item function application associates to the left
   \end{itemize}
@@ -296,8 +295,7 @@ def fib(n):
 \begin{frame}[fragile]
   \frametitle{Currying Example}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 add :: Integer -> Integer -> Integer
 add x y = x + y
 
@@ -309,41 +307,33 @@ increment :: Integer -> Integer
 increment = add 1
 -- increment = \y -> 1 + y
 -- increment y = 1 + y
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Currying Examples}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-floorAll :: [Float] -> [Integer]
+  \begin{lstlisting}
 floorAll xs = map floor xs
 
 -- same as:
-floorAll :: [Float] -> [Integer]
 floorAll = map floor
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-allOdds :: [Integer] -> [Integer]
+  \pause
+  \medskip
+  \begin{lstlisting}
 allOdds xs = filter odd xs
 
 -- same as:
-allOdds :: [Integer] -> [Integer]
 allOdds = filter odd
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Currying Example}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 stepRange :: Integer -> Integer -> Integer ->
                  [Integer]
 stepRange step m n = [m, m + step .. n]
@@ -357,8 +347,7 @@ naturals :: Integer -> [Integer]
 naturals = stepRange 1 0
 -- naturals n = step1 0 n
 -- naturals = step1 0
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -380,17 +369,16 @@ curry f x y = f (x, y)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Currying Functions}
+  \frametitle{Curry Example}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 addT :: (Integer, Integer) -> Integer
 addT (x, y) = x + y
 
 addC = curry addT
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 
+  \pause
   \begin{itemize}
     \item exercise: convert a function that takes two parameters\\
       into an equivalent function that takes a pair:\\
@@ -426,10 +414,10 @@ infixr 9 .
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Composition Example}
+  \frametitle{Function Composition Examples}
 
   \begin{exampleblock}{test whether number is even}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords=even]
 even :: Integer -> Bool
 even = not . odd
     \end{lstlisting}
@@ -445,10 +433,10 @@ second = head . tail
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Function Composition Example}
+  \frametitle{Function Composition Examples}
 
   \begin{exampleblock}{last element of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords=last]
 last :: [a] -> a
 last = head . reverse
     \end{lstlisting}
@@ -456,7 +444,7 @@ last = head . reverse
 
   \pause
   \begin{exampleblock}{length of a list}
-    \begin{lstlisting}
+    \begin{lstlisting}[deletekeywords=length]
 length :: [a] -> Int
 length = sum . map (\_ -> 1)
     \end{lstlisting}
