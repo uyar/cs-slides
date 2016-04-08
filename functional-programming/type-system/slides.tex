@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Type System}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -95,115 +95,26 @@
 
 \section{Type System}
 
-\subsection{Static vs Dynamic Typing}
-
-\begin{frame}
-  \frametitle{Type Errors}
-
-  \begin{itemize}
-    \item prevent operations that do not make sense
-    \item check type of operands before operation
-
-    \medskip
-    \item \alert{strongly typed}:\\
-      prohibit the application of any operation to any object\\
-      that is not intended to support the operation
-  \end{itemize}
-
-  \pause
-  \begin{exampleblock}{examples}
-    \begin{itemize}
-      \item \lstinline|mod|: both operands must be integers
-      \item \lstinline|and|: operand must be a list of booleans
-    \end{itemize}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Weak Typing Example}
-
-  \begin{exampleblock}{C}
-    \begin{lstlisting}[language=C]
-void print_int(int i)
-{
-    printf("%d\n", i);
-}
-
-int main(int argc, char *argv[])
-{
-    float x = 51.2;     // char x[] = "itucs";
-    print_int(x);
-    return 0;
-}
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
+\subsection{Type Inference}
 
 \begin{frame}
   \frametitle{Type Checks}
 
   \begin{itemize}
-    \item \alert{static} typing: checks at compile-time
-    \item variables and expressions have fixed types
+    \item Haskell has \alert{strong} and \alert{static} typing
 
-    \bigskip
-    \item \alert{dynamic} typing: checks at run-time
-    \item variables and expressions do not have fixed types
-    \item values have fixed types
+    \medskip
+    \item strong: operands/parameters of incorrect types not allowed
+    \item static: types checked at compile-time
   \end{itemize}
 \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Type System Examples}
-
-  \begin{exampleblock}{static: Java}
-    \begin{lstlisting}[language=Java]
-public static boolean even(int n) {
-  return (n % 2 == 0);
-}
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{exampleblock}{dynamic: Python}
-    \begin{lstlisting}[language=Python]
-def even(n):
-  return (n % 2 == 0)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Comparison}
-
-  \begin{columns}[t]
-    \column{.35\textwidth}
-    \begin{itemize}
-      \item static typing
-      \smallskip
-      \item more efficient
-      \item more secure
-      \item less flexible
-    \end{itemize}
-
-    \column{.65\textwidth}
-    \begin{itemize}
-      \item dynamic typing
-      \smallskip
-      \item requires tags: more memory
-      \item poorer performance
-      \item greater flexibility
-    \end{itemize}
-  \end{columns}
-\end{frame}
-
-\subsection{Type Inference}
 
 \begin{frame}
   \frametitle{Type Inference}
 
   \begin{itemize}
-    \item type of entity not explicitly written
-    \item inferred by the language processor
+    \item type annotations may be omitted
+    \item types inferred by the language processor
 
     \medskip
     \item assign every binding a type such that type checking succeeds
@@ -268,7 +179,7 @@ elemChar x (c:cs) =
 
   \pause
   \begin{itemize}
-    \item a different function for every type?
+    \item different function for every type?
     \item better if we can write it as:\\
       \lstinline|a -> [a] -> Bool|
     \item provided that type \lstinline|a| supports equality check
@@ -279,10 +190,10 @@ elemChar x (c:cs) =
   \frametitle{Type Classes}
 
   \begin{itemize}
-    \item \alert{type class}: a collection of types\\
+    \item \alert{type class}: collection of types\\
       over which some functions are defined
     \item every type belonging to the class must implement its functions
-    \item members of a type class are called its \alert{instances}
+    \item member of type class: \alert{instance}
   \end{itemize}
 
   \pause
@@ -338,21 +249,16 @@ instance Eq Move where
 
   \begin{itemize}
     \item default equality check: derive from \lstinline|Eq|
-  \end{itemize}
 
-  \begin{exampleblock}{}
     \begin{lstlisting}
 data Move = Rock | Paper | Scissors
             deriving Eq
     \end{lstlisting}
-  \end{exampleblock}
+  \end{itemize}
 
   \pause
   \begin{itemize}
     \item default string conversion: derive from \lstinline|Show|
-  \end{itemize}
-
-  \begin{exampleblock}{}
     \begin{lstlisting}
 class Show a where
   show :: a -> String
@@ -360,7 +266,7 @@ class Show a where
 data Move = Rock | Paper | Scissors
             deriving (Eq, Show)
    \end{lstlisting}
-  \end{exampleblock}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -384,10 +290,10 @@ instance Show Rational where
 
   \begin{itemize}
     \item classes can contain default definitions for functions
-    \item they can be overridden by instances
+    \item defaults can be overridden by instances
   \end{itemize}
 
-  \begin{exampleblock}{}
+  \begin{exampleblock}{example: equality class}
     \begin{lstlisting}
 class Eq a where
   (==), (/=) :: a -> a -> Bool
@@ -409,7 +315,7 @@ class Eq a where
     \item type classes can depend on other type classes
   \end{itemize}
 
-  \begin{exampleblock}{ordering class}
+  \begin{exampleblock}{example: order class}
     \begin{lstlisting}
 class Eq a => Ord a where
   (<), (<=), (>), (>=) :: a -> a -> Bool
@@ -437,7 +343,7 @@ qSort (x:xs) = qSort smaller ++ [x] ++ qSort larger
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Ordering}
+  \frametitle{Order Class}
 
   \begin{lstlisting}
 data Ordering = LT | EQ | GT
@@ -459,7 +365,7 @@ class Eq a => Ord a where
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Ordering Default Definitions}
+  \frametitle{Order Default Definitions}
 
   \begin{lstlisting}
   x <= y = compare x y /= GT
@@ -548,7 +454,7 @@ instance Show Expr where
     \item precedences incorrect, try with:\\
       \lstinline|Mul (Add (Lit 2) (Lit 3)) (Lit 5)|
     \item exercise: write a correct implementation\\
-      where the string will contain the minimal number of parentheses
+      with minimal use of parentheses in string
   \end{itemize}
 \end{frame}
 
@@ -570,6 +476,11 @@ sumTree Nil            = 0
 sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
     \end{lstlisting}
   \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item different tree for every type?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -593,7 +504,7 @@ sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
 \subsection{Error Types}
 
 \begin{frame}[fragile]
-  \frametitle{The Maybe Type}
+  \frametitle{Maybe Type}
 
   \begin{itemize}
     \item returning an error value
@@ -627,7 +538,7 @@ maxList xs = Just (foldl1 max xs)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{The Maybe Type}
+  \frametitle{Maybe Type Handling}
 
   \begin{itemize}
     \item transmitting an error through a function
@@ -646,7 +557,7 @@ mapMaybe g (Just x) = Just (g x)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{The Maybe Type}
+  \frametitle{Maybe Type Handling}
 
   \begin{itemize}
     \item trapping an error
@@ -665,7 +576,7 @@ maybe n f (Just x) = f x
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{The Either Type}
+  \frametitle{Either Type}
 
   \begin{itemize}
     \item one of two types
@@ -687,7 +598,7 @@ isFalse _          = False
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Either Example}
+  \frametitle{Either Type Handling}
 
   \begin{lstlisting}
 either :: (a -> c) -> (b -> c) -> Either a b -> c
@@ -700,7 +611,7 @@ either f g (Right y) = g y
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Either Example}
+  \frametitle{Either Type Handling}
 
   \begin{lstlisting}
 join f g (Left  x) = Left  (f x)
