@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -11,9 +11,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -26,7 +26,7 @@
 \subtitle{Trees}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2016}
 
 \AtBeginSubsection[]
 {
@@ -36,24 +36,21 @@
   \end{frame}
 }
 
-%\beamerdefaultoverlayspecification{<+->}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
-\pgfdeclareimage[width=2cm]{license}{../license}
-
-\pgfdeclareimage{tree}{tree}
-\pgfdeclareimage{cycle}{cycle}
-\pgfdeclareimage{nodecount}{nodecount}
+\pgfdeclareimage[height=3.5cm]{tree}{tree}
+\pgfdeclareimage[height=4cm]{nodecount}{nodecount}
 \pgfdeclareimage[height=5cm]{rooted}{rooted}
-\pgfdeclareimage[height=4cm]{book}{book}
-\pgfdeclareimage{dictionary}{dictionary}
-\pgfdeclareimage{expr1a}{expr1a}
-\pgfdeclareimage{expr1b}{expr1b}
-\pgfdeclareimage{expr2a}{expr2a}
-\pgfdeclareimage{expr2b}{expr2b}
-\pgfdeclareimage{expr3}{expr3}
-\pgfdeclareimage{expr}{expr}
-\pgfdeclareimage{scale1}{scale1}
-\pgfdeclareimage{scale2}{scale2}
+\pgfdeclareimage[width=6.5cm]{book}{book}
+\pgfdeclareimage[width=6.5cm]{dictionary}{dictionary}
+\pgfdeclareimage[height=2cm]{expr1a}{expr1a}
+\pgfdeclareimage[height=2cm]{expr1b}{expr1b}
+\pgfdeclareimage[height=3cm]{expr2a}{expr2a}
+\pgfdeclareimage[height=3cm]{expr2b}{expr2b}
+\pgfdeclareimage[height=4cm]{expr3}{expr3}
+\pgfdeclareimage[height=6cm]{expr}{expr}
+\pgfdeclareimage[width=10cm]{scale1}{scale1}
+\pgfdeclareimage[width=10cm]{scale2}{scale2}
 \pgfdeclareimage[height=4cm]{spanning}{spanning}
 \pgfdeclareimage[height=4cm]{kruskal1}{kruskal1}
 \pgfdeclareimage[height=4cm]{kruskal2}{kruskal2}
@@ -78,7 +75,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -127,48 +124,39 @@
   \frametitle{Tree}
 
   \begin{definition}
-    \alert{tree}: a connected graph that contains no cycle
+    \alert{tree}: connected graph with no cycle
   \end{definition}
 
-  \begin{itemize}
-    \item \emph{forest}: a graph where the connected components are trees
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Examples}
-
-  \begin{example}
+  \begin{exampleblock}{examples}
     \begin{center}
       \pgfuseimage{tree}
     \end{center}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    In a tree, there is one and only one path\\
-    between any two distinct nodes.
-  \end{theorem}
-
-  \begin{itemize}
-    \item there is at least one path because the tree is connected
-    \item if there were more than one path, they would form a cycle
-    \medskip
     \begin{center}
-      \pgfuseimage{cycle}
+      $T$ is a tree ($T$ is connected and contains no cycle).\\
+      $\Leftrightarrow$\\
+      There is one and only one path\\
+        between any two distinct nodes in $T$.\\
+      $\Leftrightarrow$\\
+      $T$ is connected, but if any edge is removed\\
+        it will no longer be connected.\\
+      $\Leftrightarrow$\\
+      $T$ contains no cycle, but if an edge is added\\
+        between any pair of nodes one and only one cycle will be formed.
     \end{center}
-  \end{itemize}
+  \end{theorem}
 \end{frame}
 
 \begin{frame}
   \frametitle{Tree Theorems}
 
   \begin{theorem}
-    let $T=(V,E)$ be a tree:
-
     \[|E| = |V| - 1\]
   \end{theorem}
 
@@ -210,7 +198,7 @@
       \pause
       \column{.55\textwidth}
       \begin{itemize}
-        \item let's remove the edge $(y,z)$:\\
+        \item remove edge $(y,z)$:\\
           $T_1=(V_1,E_1)$, $T_2=(V_2,E_2)$
       \end{itemize}
       \pause
@@ -228,6 +216,20 @@
   \frametitle{Tree Theorems}
 
   \begin{theorem}
+    \begin{center}
+      $T$ is a tree ($T$ is connected and contains no cycle).\\
+      $\Leftrightarrow$\\
+      $T$ is connected and $|E| = |V| - 1$.\\
+      $\Leftrightarrow$\\
+      $T$ contains no cycle and $|E| = |V| - 1$.
+    \end{center}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tree Theorems}
+
+  \begin{theorem}
     In a tree, there are at least two nodes with degree 1.
   \end{theorem}
 
@@ -237,7 +239,7 @@
       \item $2 |E| = \sum_{v \in V} d_v$
 
       \pause
-      \item assume that there is only 1 node with degree 1:\\
+      \item assume: only 1 node with degree 1:\\
         \pause
         $\Rightarrow 2 |E| \geq 2 (|V| - 1) + 1$\\
         \pause
@@ -250,48 +252,14 @@
   \end{proof}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    \begin{center}
-      $T$ is a tree ($T$ is connected and contains no cycle).\\
-      $\Leftrightarrow$\\
-      There is one and only one path\\
-        between any two distinct nodes in $T$.\\
-      $\Leftrightarrow$\\
-      $T$ is connected, but if any edge is removed\\
-        it will no longer be connected.\\
-      $\Leftrightarrow$\\
-      $T$ contains no cycle, but if an edge is added\\
-        between any pair of nodes one and only one cycle will be formed.
-    \end{center}
-  \end{theorem}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tree Theorems}
-
-  \begin{theorem}
-    \begin{center}
-      $T$ is a tree ($T$ is connected and contains no cycle).\\
-      $\Leftrightarrow$\\
-      $T$ is connected and $|E| = |V| - 1$.\\
-      $\Leftrightarrow$\\
-      $T$ contains no cycle and $|E| = |V| - 1$.
-    \end{center}
-  \end{theorem}
-\end{frame}
-
 \subsection{Rooted Trees}
 
 \begin{frame}
   \frametitle{Rooted Tree}
 
   \begin{itemize}
-    \item a hierarchy is defined between nodes
-    \item hierarchy creates a natural direction on edges:\\
-      in and out degrees
+    \item hierarchy between nodes
+    \item creates implicit direction on edges: in and out degrees
 
     \pause
     \medskip
@@ -304,132 +272,125 @@
 \begin{frame}
   \frametitle{Node Level}
 
-  \begin{definition}
-    \alert{level} of a node: distance from the root
-  \end{definition}
-
   \begin{itemize}
-    \item \emph{parent}: adjacent node in the next upper level (only 1 such node)
-    \item \emph{child}: adjacent node in the next lower level
-    \item \emph{sibling}: node which has the same parent
+    \item \alert{level} of node: distance from root
+
+    \medskip
+    \item \emph{parent}: adjacent node closer to root (only 1 such node)
+    \item \emph{child}: adjacent nodes further from root
+    \item \emph{sibling}: nodes with same parent
+
+    \medskip
+    \item \alert{depth} of tree: maximum level in tree
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Rooted Tree Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{rooted}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{rooted}
+    \end{center}
 
-      \column{.58\textwidth}
-      \begin{itemize}
-        \item root: $r$
-        \item leaves: $x ~ y ~ z ~ u ~ v$
-        \item internal nodes: $r ~ p ~ n ~ t ~ s ~ q ~ w$
-        \item parent of $y$: $w$\\
-          children of $w$: $y$ and $z$\\
-	\item $y$ and $z$ are siblings
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.58\textwidth}
+    \begin{itemize}
+      \item root: $r$
+      \item leaves: $x ~ y ~ z ~ u ~ v$
+      \item internal nodes: $r ~ p ~ n ~ t ~ s ~ q ~ w$
+      \item parent of $y$: $w$\\
+        children of $w$: $y$ and $z$\\
+      \item $y$ and $z$ are siblings
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Rooted Tree Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.65\textwidth}
-      \begin{center}
-        \pgfuseimage{book}
-      \end{center}
+  \begin{columns}
+    \column{.65\textwidth}
+    \begin{center}
+      \pgfuseimage{book}
+    \end{center}
 
-      \column{.33\textwidth}
-      Book
+    \column{.33\textwidth}
+    Book
+    \begin{itemize}
+      \item C1
       \begin{itemize}
-        \item C1
-        \begin{itemize}
-          \item S1.1
-          \item S1.2
-        \end{itemize}
-        \item C2
-        \item C3
-        \begin{itemize}
-          \item S3.1
-          \item S3.2
-          \begin{itemize}
-            \item S3.2.1
-            \item S3.2.2
-          \end{itemize}
-          \item S3.3
-        \end{itemize}
+        \item S1.1
+        \item S1.2
       \end{itemize}
-    \end{columns}
-  \end{example}
+      \item C2
+      \item C3
+      \begin{itemize}
+        \item S3.1
+        \item S3.2
+        \begin{itemize}
+          \item S3.2.1
+          \item S3.2.2
+        \end{itemize}
+        \item S3.3
+      \end{itemize}
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Ordered Rooted Tree}
 
   \begin{itemize}
-    \item sibling nodes are ordered from left to right
+    \item siblings ordered from left to right
 
     \medskip
     \item \alert{universal address system}
-    \begin{itemize}
-      \item assign the address $0$ to the root
-      \item assign the positive integers $1,2,3,\ldots$ to the nodes at level 1,\\
-        from left to right
-      \item let $v$ be an internal node with address $a$,\\
-        assign the addresses $a.1,a.2,a.3,\ldots$ to the children of $v$\\
-        from left to right
-    \end{itemize}
+    \smallskip
+    \item root: $0$
+    \item children of root: $1,2,3,\ldots$
+    \item $v$: internal node with address $a$\\
+      children of $v$: $a.1,a.2,a.3,\ldots$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Lexicographic Order}
 
-  \begin{definition}
-    Let $b$ and $c$ be two addresses.
+  \begin{itemize}
+    \item address $A$ comes before address $B$ if one of:
 
-    $b$ comes before $c$ if one of the following holds:
-    \begin{enumerate}
-      \item $b=a_1 a_2 \ldots a_m x_1 \ldots$\\
-        $c=a_1 a_2 \ldots a_m x_2 \ldots$\\
-        $x_1$ comes before $x_2$
-      \pause
-      \item $b=a_1 a_2 \ldots a_m$\\
-        $c=a_1 a_2 \ldots a_m a_{m+1} \ldots$
-    \end{enumerate}
-  \end{definition}
+    \medskip
+    \item $A=x_1 x_2 \ldots x_i x_j \ldots$\\
+      $B=x_1 x_2 \ldots x_i x_k \ldots$\\
+      $x_j$ comes before $x_k$
+
+    \pause
+    \smallskip
+    \item $A=x_1 x_2 \ldots x_i$\\
+      $B=x_1 x_2 \ldots x_i x_k \ldots$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Lexicographic Order Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.57\textwidth}
-      \begin{center}
-        \pgfuseimage{dictionary}
-      \end{center}
+  \begin{columns}
+    \column{.57\textwidth}
+    \begin{center}
+      \pgfuseimage{dictionary}
+    \end{center}
 
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item 0 - 1 - 1.1 - 1.2\\
-          - 1.2.1 - 1.2.2 - 1.2.3\\
-          - 1.2.3.1 - 1.2.3.2\\
-          - 1.3 - 1.4 - 2\\
-          - 2.1 - 2.2 - 2.2.1\\
-          - 3 - 3.1 - 3.2
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.4\textwidth}
+    \begin{itemize}
+      \item 0 - 1 - 1.1 - 1.2\\
+        - 1.2.1 - 1.2.2 - 1.2.3\\
+        - 1.2.3.1 - 1.2.3.2\\
+        - 1.3 - 1.4 - 2\\
+        - 2.1 - 2.2 - 2.2.1\\
+        - 3 - 3.1 - 3.2
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \subsection{Binary Trees}
@@ -437,14 +398,14 @@
 \begin{frame}
   \frametitle{Binary Trees}
 
-  \begin{definition}
-    $T=(V,E)$ is a \alert{binary tree}:\\
-    $\forall v \in V~{d_v}^o \in \{0,1,2\}$
-  \end{definition}
+  \begin{itemize}
+    \item $T=(V,E)$ is a \alert{binary tree}:\\
+      $\forall v \in V~[{d_v}^o \in \{0,1,2\}]$
+  \end{itemize}
 
   \begin{itemize}
     \item $T=(V,E)$ is a \emph{complete} binary tree:\\
-      $\forall v \in V~{d_v}^o \in \{0,2\}$
+      $\forall v \in V~[{d_v}^o \in \{0,2\}]$
   \end{itemize}
 
 \end{frame}
@@ -453,77 +414,83 @@
   \frametitle{Expression Tree}
 
   \begin{itemize}
-    \item a binary operation can be represented as a binary tree
-    \begin{itemize}
-      \item operator as the root, operands as the children
-    \end{itemize}
+    \item binary operations can be represented as binary trees
+    \item root: operator, children: operands
 
     \medskip
-    \item every mathematical expression can be represented as a tree
-    \begin{itemize}
-      \item operators at internal nodes, variables and values at the leaves
-    \end{itemize}
+    \item mathematical expression can be represented as trees
+    \item internal nodes: operators, leaves: variables and values
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Expression Tree Examples}
 
+  \vspace{-24pt}
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[$7-a$]
-      \begin{center}
-        \pgfuseimage{expr1a}
-      \end{center}
-    \end{example}
+    \begin{center}
+      \[ 7-a \]
+
+      \medskip
+      \pgfuseimage{expr1a}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[$a+b$]
-      \begin{center}
-        \pgfuseimage{expr1b}
-      \end{center}
-    \end{example}
+    \begin{center}
+      \[ a+b \]
+
+      \medskip
+      \pgfuseimage{expr1b}
+    \end{center}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Expression Tree Examples}
 
+  \vspace{-24pt}
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[$(7-a)/5$]
-      \begin{center}
-        \pgfuseimage{expr2a}
-      \end{center}
-    \end{example}
+    \begin{center}
+      \[ \frac{7-a}{5} \]
+
+      \medskip
+      \pgfuseimage{expr2a}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[$(a+b) \uparrow 3$]
-      \begin{center}
-        \pgfuseimage{expr2b}
-      \end{center}
-    \end{example}
+    \begin{center}
+      \[ (a+b)^3 \]
+
+      \medskip
+      \pgfuseimage{expr2b}
+    \end{center}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Expression Tree Examples}
 
-  \begin{example}[$((7-a)/5)*((a+b) \uparrow 3)$]
-    \begin{center}
-      \pgfuseimage{expr3}
-    \end{center}
-  \end{example}
+  \vspace{-24pt}
+  \begin{center}
+    \[ \frac{7-a}{5} \cdot (a+b)^3 \]
+
+    \medskip
+    \pgfuseimage{expr3}
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Expression Tree Examples}
 
-  \begin{example}[$t+(u*v)/(w+x-y \uparrow z)$]
-    \begin{center}
-      \pgfuseimage{expr}
-    \end{center}
-  \end{example}
+  \begin{columns}
+    \column{.5\textwidth}
+    \[ t + \frac{u*v}{w+x-y^z} \]
+
+    \column{.5\textwidth}
+    \pgfuseimage{expr}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -533,65 +500,58 @@
     \item \alert{inorder} traversal:\\
       traverse left subtree, visit root, traverse right subtree
 
+    \pause
     \medskip
     \item \alert{preorder} traversal:\\
       visit root, traverse left subtree, traverse right subtree
 
+    \pause
     \medskip
-    \item \alert{postorder} traversal:\\
+    \item \alert{postorder} traversal (reverse Polish notation):\\
       traverse left subtree, traverse right subtree, visit root
-    \begin{itemize}
-      \item \emph{reverse Polish notation}
-    \end{itemize}
   \end{enumerate}
 \end{frame}
 
 \begin{frame}
   \frametitle{Inorder Traversal Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{expr}
+    \end{center}
 
-      \column{.6\textwidth}
-      $t ~ + ~ u ~ * ~ v ~ / ~ w ~ + ~ x ~ - ~ y ~ \uparrow ~ z$
-    \end{columns}
-  \end{example}
+    \column{.6\textwidth}
+    $t ~ + ~ u ~ * ~ v ~ / ~ w ~ + ~ x ~ - ~ y ~ \uparrow ~ z$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Preorder Traversal Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{expr}
+    \end{center}
 
-      \column{.6\textwidth}
-      $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
-    \end{columns}
-  \end{example}
+    \column{.6\textwidth}
+    $+ ~ t ~ / ~ * ~ u ~ v ~ + ~ w ~ - ~ x ~ \uparrow ~ y ~ z$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Postorder Traversal Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{expr}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{expr}
+    \end{center}
 
-      \column{.6\textwidth}
-      $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
-    \end{columns}
-  \end{example}
+    \column{.6\textwidth}
+    $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -606,44 +566,41 @@
 \begin{frame}
   \frametitle{Postorder Evaluation Example}
 
-  \begin{example}[$t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$]
-    $4 ~ 2 ~ 3 ~ * ~ 1 ~ 9 ~ 2 ~ 3 ~ \uparrow ~ - ~ + ~ / ~ +$
+  $t ~ u ~ v ~ * ~ w ~ x ~ y ~ z ~ \uparrow ~ - ~ + ~ / ~ +$
 
-    \pause
-    \medskip
-    \[
-      \begin{array}{ccccccc}
-  4 & \pause 2 & \pause 3 & \pause * &          &          &                \\
-  4 &        6 & \pause 1 & \pause 9 & \pause 2 & \pause 3 & \pause \uparrow\\
-  4 &        6 &        1 &        9 &        8 & \pause - &                \\
-  4 &        6 &        1 &        1 & \pause + &          &                \\
-  4 &        6 &        2 & \pause / &          &          &                \\
-  4 &        3 & \pause + &          &          &          &                \\
-  7 &          &          &          &          &          &                \\
-      \end{array}
-    \]
-  \end{example}
+  $4 ~ 2 ~ 3 ~ * ~ 1 ~ 9 ~ 2 ~ 3 ~ \uparrow ~ - ~ + ~ / ~ +$
+
+  \pause
+  \medskip
+  \[
+    \begin{array}{ccccccc}
+4 & \pause 2 & \pause 3 & \pause * &          &          &                \\
+4 &        6 & \pause 1 & \pause 9 & \pause 2 & \pause 3 & \pause \uparrow\\
+4 &        6 &        1 &        9 &        8 & \pause - &                \\
+4 &        6 &        1 &        1 & \pause + &          &                \\
+4 &        6 &        2 & \pause / &          &          &                \\
+4 &        3 & \pause + &          &          &          &                \\
+7 &          &          &          &          &          &                \\
+    \end{array}
+  \]
 \end{frame}
 
 \begin{frame}
   \frametitle{Regular Trees}
 
-  \begin{definition}
-    $T=(V,E)$ is an \alert{m-ary tree}: $\forall v \in V~{d_v}^o \leq m$
-  \end{definition}
-
   \begin{itemize}
+    \item $T=(V,E)$ is an \alert{m-ary tree}:\\
+      $\forall v \in V~[{d_v}^o \leq m]$
     \item $T=(V,E)$ is a complete m-ary tree:\\
-      $\forall v \in V~{d_v}^o \in \{0,m\}$
+      $\forall v \in V~[{d_v}^o \in \{0,m\}]$
   \end{itemize}
-
 \end{frame}
 
 \begin{frame}
   \frametitle{Regular Tree Theorem}
 
   \begin{theorem}
-    Let $T=(V,E)$ be a complete $m$-ary tree.
+    $T=(V,E)$: complete $m$-ary tree
 
     \begin{itemize}
       \item $n$: number of nodes
@@ -651,7 +608,6 @@
       \item $i$: number of internal nodes
     \end{itemize}
 
-    Then:
     \pause
     \begin{itemize}
       \item $n = m \cdot i + 1$
@@ -671,35 +627,31 @@
 \begin{frame}
   \frametitle{Regular Tree Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item how many matches are played in a tennis tournament\\
-        with 27 players?
+  \begin{itemize}
+    \item how many matches are played in a tennis tournament\\
+      with 27 players?
 
-      \pause
-      \bigskip
-      \item every player is a leaf: $l = 27$
-      \item every match is an internal node: $m = 2$
-      \item number of matches: $i = \frac{l - 1}{m - 1} = \frac{27 - 1}{2 - 1} = 26$
-    \end{itemize}
-  \end{example}
+    \pause
+    \bigskip
+    \item every player is a leaf: $l = 27$
+    \item every match is an internal node: $m = 2$
+    \item number of matches: $i = \frac{l - 1}{m - 1} = \frac{27 - 1}{2 - 1} = 26$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Regular Tree Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item how many extension cords with 4 outlets are required\\
-        to connect 25 computers to a wall socket?
+  \begin{itemize}
+    \item how many extension cords with 4 outlets are required\\
+      to connect 25 computers to a wall socket?
 
-      \pause
-      \bigskip
-      \item every computer is a leaf: $l = 25$
-      \item every extension cord is an internal node: $m = 4$
-      \item number of cords: $i = \frac{l - 1}{m - 1} = \frac{25 - 1}{4 - 1} = 8$
-    \end{itemize}
-  \end{example}
+    \pause
+    \bigskip
+    \item every computer is a leaf: $l = 25$
+    \item every extension cord is an internal node: $m = 4$
+    \item number of cords: $i = \frac{l - 1}{m - 1} = \frac{25 - 1}{4 - 1} = 8$
+  \end{itemize}
 \end{frame}
 
 \subsection{Decision Trees}
@@ -709,32 +661,29 @@
 \begin{frame}
   \frametitle{Decision Trees}
 
-  \begin{example}
-    \begin{itemize}
-      \item one of 8 coins is counterfeit (it's heavier)
-      \item find the counterfeit coin using a beam balance
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item one of 8 coins is counterfeit (heavier)
+    \item find counterfeit coin using a beam balance
+
+    \medskip
+    \item depth of tree: number of weighings
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Decision Trees}
 
-  \begin{example}[in 3 weighings]
-    \begin{center}
-      \pgfuseimage{scale1}
-    \end{center}
-  \end{example}
+  \begin{center}
+    \pgfuseimage{scale1}
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Decision Trees}
 
-  \begin{example}[in 2 weighings]
-    \begin{center}
-      \pgfuseimage{scale2}
-    \end{center}
-  \end{example}
+  \begin{center}
+    \pgfuseimage{scale2}
+  \end{center}
 \end{frame}
 
 % TODO: give the decision tree for tic-tac-toe and/or nim
@@ -747,414 +696,347 @@
   \frametitle{Spanning Tree}
 
   \begin{itemize}
-    \item $T$ is a \alert{spanning tree} of $G$:\\
-      $T$ is a subgraph of $G$ such that $T$ is a tree and\\
-      contains all the nodes of $G$
-  \end{itemize}
+    \item $T=(V',E')$ is a \alert{spanning tree} of $G(V,E)$:\\
+      $T$ is a subgraph of $G$\\
+      $T$ is a tree\\
+      $V'=V$
 
-  \begin{definition}
-    $MST$ is a \alert{minimum spanning tree} of $G$:\\
-    $MST$ is a spanning tree of $G$ such that the total weight\\
-    of the edges in $MST$ is minimal
-  \end{definition}
+    \medskip
+    \item \alert{minimum spanning tree}:\\
+      total weight of edges in $E'$ is minimal
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm}
 
-  \begin{block}{Kruskal's algorithm}
-    \begin{enumerate}
-      \item $i \leftarrow 1$, $e_1 \in E$, $wt(e_1)$ is minimal
-
-      \pause
-      \item for $1 \leq i \leq n-2$:\\
-        the selected edges are $e_1,e_2,\dots,e_i$\\
-        select a new edge $e_{i+1}$ from the remaining edges such that:
-      \begin{itemize}
-        \item $wt(e_{i+1})$ is minimal
-        \item $e_1,e_2,\dots,e_i,e_{i+1}$ contains no cycle
-      \end{itemize}
-
-      \pause
-      \item $i \leftarrow i+1$
-      \begin{itemize}
-        \item $i=n-1$ $\Rightarrow$ the subgraph $G$ containing the edges\\
-         $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
-        \item $i<n-1$ $\Rightarrow$ go to step 2
-      \end{itemize}
-    \end{enumerate}
-  \end{block}
+  \begin{enumerate}
+    \item $G'=(V',E'), V'=\emptyset, E'=\emptyset$
+    \item select $e=(v_1,v_2) \in E-E'$ such that:\\
+      $E' \cup \{e\}$ contains no cycle, and $wt(e)$ is minimal
+    \item $E'=E \cup \{e\}, V'=V' \cup \{v_1,v_2\}$
+    \item if $|E'|=|V|-1$: result is $G'$
+    \item go to step 2
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[initialization]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{spanning}
+    \end{center}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item minimum weight: $1$\\
+        $(e,g)$
 
       \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $i \leftarrow 1$
-        \item minimum weight: $1$\\
-          $(e,g)$
-
-        \pause
-        \item $T = \{ (e,g) \}$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item $E' = \{ (e,g) \}$
+      \item $|E'|=1$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$1 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal1}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal1}
+    \end{center}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item minimum weight: $2$\\
+        $(d,e), (d,f), (f,g)$
 
       \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(d,e), (d,f), (f,g)$
-
-        \pause
-        \item $T = \{ (e,g), (d,f) \}$
-        \item $i \leftarrow 2$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item $E' = \{ (e,g), (d,f) \}$
+      \item $|E'| = 2$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$2 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal2}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal2}
+    \end{center}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item minimum weight: $2$\\
+        $(d,e), (f,g)$
 
       \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(d,e), (f,g)$
-
-        \pause
-        \item $T = \{ (e,g), (d,f), (d,e) \}$
-        \item $i \leftarrow 3$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item $E' = \{ (e,g), (d,f), (d,e) \}$
+      \item $|E'| = 3$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$3 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal3}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal3}
+    \end{center}
+
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item minimum weight: $2$\\
+        $(f,g)$ forms a cycle
 
       \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item minimum weight: $2$\\
-          $(f,g)$ forms a cycle
+      \item minimum weight: $3$\\
+        $(c,e), (c,g), (d,g)$\\
+        $(d,g)$ forms a cycle
 
-        \pause
-        \item minimum weight: $3$\\
-          $(c,e), (c,g), (d,g)$\\
-          $(d,g)$ forms a cycle
-
-        \pause
-        \item $T = \{ (e,g), (d,f), (d,e), (c,e) \}$
-        \item $i \leftarrow 4$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \pause
+      \item $E' = \{ (e,g), (d,f), (d,e), (c,e) \}$
+      \item $|E'| = 4$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$4 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal4}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal4}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(e,g), (d,f), (d,e),$\\
-          $~~(c,e), (b,e)$\\
-          $\}$
-        \item $i \leftarrow 5$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{$\\
+        $~~(e,g), (d,f), (d,e),$\\
+        $~~(c,e), (b,e)$\\
+        $\}$
+      \item $|E'| = 5$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$5 < 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal5}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal5}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(e,g), (d,f), (d,e),$\\
-          $~~(c,e), (b,e), (a,b)$\\
-          $\}$
-        \item $i \leftarrow 6$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{$\\
+        $~~(e,g), (d,f), (d,e),$\\
+        $~~(c,e), (b,e), (a,b)$\\
+        $\}$
+      \item $|E'| = 6$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kruskal's Algorithm Example}
 
-  \begin{example}[$6 \nless 6$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{kruskal}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{kruskal}
+    \end{center}
 
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item total weight: $17$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item total weight: $17$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm}
 
-  \begin{block}{Prim's algorithm}
-    \begin{enumerate}
-      \item $i \leftarrow 1$, $v_1 \in V$, $P=\{v_1\}$, $N=V-\{v_1\}$,
-        $T=\emptyset$
-
-      \pause
-      \item for $1 \leq i \leq n-1$:\\
-        $P=\{v_1,v_2,\dots,v_i\}$, $T=\{e_1,e_2,\dots,e_{i-1}\}$, $N=V-P$\\
-        select a node $v_{i+1} \in N$ such that for a node $x \in P$\\
-        $e=(x,v_{i+1}) \notin T$, $wt(e)$ is minimal\\
-        $P \leftarrow P+\{v_{i+1}\}$, $N \leftarrow N-\{v_{i+1}\}$,
-        $T \leftarrow T+\{e\}$
-
-      \pause
-      \item $i \leftarrow i+1$
-      \begin{itemize}
-        \item $i=n$ $\Rightarrow$: the subgraph $G$ containing the edges\\
-          $e_1,e_2,\dots,e_{n-1}$ is a minimum spanning tree
-        \item $i<n$ $\Rightarrow$ go to step 2
-
-      \end{itemize}
-    \end{enumerate}
-  \end{block}
+  \begin{enumerate}
+    \item $T'=(V',E'), E'=\emptyset, v_0 \in V, V'=\{v_0\}$
+    \item select $v \in V-V'$ such that for a node $x \in V'$\\
+      $e=(x,v), E' \cup \{e\}$ contains no cycle, and $wt(e)$ is minimal
+    \item $E'=E \cup \{e\}, V'=V' \cup \{x\}$
+    \item if $|V'|=|V|$: result is $T'$
+    \item go to step 2
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[initialization]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{spanning}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $i \leftarrow 1$
-        \item $P = \{ a \}$
-        \item $N = \{ b, c, d, e, f, g \}$
-        \item $T = \emptyset$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \emptyset$
+      \item $V' = \{ a \}$
+      \item $|V'| = 1$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$1 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{spanning}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{spanning}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b) \}$
-        \item $P = \{ a, b \}$
-        \item $N = \{ c, d, e, f, g \}$
-        \item $i \leftarrow 2$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{ (a,b) \}$
+      \item $V' = \{ a, b \}$
+      \item $|V'| = 2$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$2 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim1}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim1}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e) \}$
-        \item $P = \{ a, b, e \}$
-        \item $N = \{ c, d, f, g \}$
-        \item $i \leftarrow 3$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{ (a,b), (b,e) \}$
+      \item $V' = \{ a, b, e \}$
+      \item $|V'| = 3$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$3 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim2}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim2}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e), (e,g) \}$
-        \item $P = \{ a, b, e, g \}$
-        \item $N = \{ c, d, f \}$
-        \item $i \leftarrow 4$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{ (a,b), (b,e), (e,g) \}$
+      \item $V' = \{ a, b, e, g \}$
+      \item $|V'| = 4$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$4 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim3}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim3}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{ (a,b), (b,e), (e,g), (d,e) \}$
-        \item $P = \{ a, b, e, g, d \}$
-        \item $N = \{ c, f \}$
-        \item $i \leftarrow 5$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{ (a,b), (b,e), (e,g), (d,e) \}$
+      \item $V' = \{ a, b, e, g, d \}$
+      \item $|V'| = 5$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$5 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim4}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim4}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(a,b), (b,e), (e,g),$\\
-          $~~(d,e), (f,g)$\\
-          $\}$
-        \item $P = \{ a, b, e, g, d, f \}$
-        \item $N = \{ c \}$
-        \item $i \leftarrow 6$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{$\\
+        $~~(a,b), (b,e), (e,g),$\\
+        $~~(d,e), (f,g)$\\
+        $\}$
+      \item $V' = \{ a, b, e, g, d, f \}$
+      \item $|V'| = 6$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$6 < 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim5}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim5}
+    \end{center}
 
-      \pause
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item $T = \{$\\
-          $~~(a,b), (b,e), (e,g),$\\
-          $~~(d,e), (f,g), (c,g)$\\
-          $\}$
-        \item $P = \{ a, b, e, g, d, f, c \}$
-        \item $N = \emptyset$
-        \item $i \leftarrow 7$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \pause
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $E' = \{$\\
+        $~~(a,b), (b,e), (e,g),$\\
+        $~~(d,e), (f,g), (c,g)$\\
+        $\}$
+      \item $V' = \{ a, b, e, g, d, f, c \}$
+      \item $|V'| = 7$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Prim's Algorithm Example}
 
-  \begin{example}[$7 \nless 7$]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{prim}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{prim}
+    \end{center}
 
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item total weight: $17$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item total weight: $17$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \subsection*{References}
