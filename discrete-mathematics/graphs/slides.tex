@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -11,9 +11,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -26,7 +26,7 @@
 \subtitle{Graphs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2016}
 
 \AtBeginSubsection[]
 {
@@ -36,9 +36,7 @@
   \end{frame}
 }
 
-%\beamerdefaultoverlayspecification{<+->}
-
-\pgfdeclareimage[width=2cm]{license}{../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \pgfdeclareimage[width=6cm]{plain}{plain}
 \pgfdeclareimage[width=4cm]{directed}{directed}
@@ -49,21 +47,18 @@
 \pgfdeclareimage[height=3.5cm]{petersen1}{petersen1}
 \pgfdeclareimage[height=3.5cm]{petersen2}{petersen2}
 \pgfdeclareimage[height=4cm]{homeomorphict}{homeomorphict}
-\pgfdeclareimage[height=4.5cm]{regular}{regular}
+\pgfdeclareimage[height=3cm]{regular}{regular}
 \pgfdeclareimage[width=4cm]{k4}{k4}
 \pgfdeclareimage[width=4cm]{k5}{k5}
+\pgfdeclareimage[height=2cm]{bipartite}{bipartite}
 \pgfdeclareimage[width=4cm]{k23}{k23}
 \pgfdeclareimage[width=4cm]{k33}{k33}
 \pgfdeclareimage[width=6cm]{disconnected}{disconnected}
 \pgfdeclareimage[width=5cm]{distance}{distance}
 \pgfdeclareimage[width=5cm]{cutpoint}{cutpoint}
-\pgfdeclareimage[width=4cm]{weak}{weak}
-\pgfdeclareimage[width=4cm]{unilateral}{unilateral}
-\pgfdeclareimage[width=4cm]{strong}{strong}
-\pgfdeclareimage[width=5cm]{warshall}{warshall}
-\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
-\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
-\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
+\pgfdeclareimage[width=3cm]{weak}{weak}
+\pgfdeclareimage[width=3cm]{unilateral}{unilateral}
+\pgfdeclareimage[width=3cm]{strong}{strong}
 \pgfdeclareimage{konigsberg}{konigsberg}
 \pgfdeclareimage[width=3cm]{envelope}{envelope}
 \pgfdeclareimage{konigsgraph}{konigsgraph}
@@ -82,6 +77,10 @@
 \pgfdeclareimage{dodecahedron}{dodecahedron}
 \pgfdeclareimage{planardodeca}{planardodeca}
 \pgfdeclareimage{icosahedron}{icosahedron}
+\pgfdeclareimage[width=5cm]{warshall}{warshall}
+\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
+\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
+\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
 \pgfdeclareimage[width=4cm]{fivesubstances}{fivesubstances}
 \pgfdeclareimage[height=4cm]{coloring1}{coloring1}
 \pgfdeclareimage[height=4cm]{coloring2}{coloring2}
@@ -104,7 +103,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -163,44 +162,39 @@
 
   \pause
   \begin{itemize}
-    \item if $e=(v_1,v_2) \in E$:
-    \begin{itemize}
-      \item $v_1$ and $v_2$ are \emph{endnodes} of $e$
-      \item $e$ is \emph{incident} to $v_1$ and $v_2$
-      \item $v_1$ and $v_2$ are \emph{adjacent}
-    \end{itemize}
-
-    \item node with no incident edge: \emph{isolated node}
+    \item $e=(v_1,v_2) \in E$:
+    \smallskip
+    \item $v_1$ and $v_2$ are \emph{endnodes} of $e$
+    \item $e$ is \emph{incident} to $v_1$ and $v_2$
+    \item $v_1$ and $v_2$ are \emph{adjacent}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Graph Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{plain}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{plain}
+    \end{center}
 
-      \column{.4\textwidth}
-      $\begin{array}{lcl}
-        V & = & \{a,b,c,d,e,f\}\\
-        E & = & \{(a,b),(a,c),\\
-          &   & ~(a,d),(a,e),\\
-          &   & ~(a,f),(b,c),\\
-          &   & ~(d,e),(e,f)\}
-      \end{array}$
-    \end{columns}
-  \end{example}
+    \column{.4\textwidth}
+    $\begin{array}{lcl}
+      V & = & \{a,b,c,d,e,f\}\\
+      E & = & \{(a,b),(a,c),\\
+        &   & ~(a,d),(a,e),\\
+        &   & ~(a,f),(b,c),\\
+        &   & ~(d,e),(e,f)\}
+    \end{array}$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Directed Graphs}
 
   \begin{definition}
-    \alert{directed graph} (or \emph{digraph}): $D=(V,A)$
+    \alert{directed graph} (\emph{digraph}): $D=(V,A)$
 
     \begin{itemize}
       \item $V$: node set
@@ -209,43 +203,47 @@
   \end{definition}
 
   \begin{itemize}
-    \item if $a=(v_1,v_2) \in A$:
-    \begin{itemize}
-      \item $v_1$: \emph{origin} node of $a$
-      \item $v_2$: \emph{terminating} node of $a$
-    \end{itemize}
+    \item $a=(v_1,v_2) \in A$:
+    \smallskip
+    \item $v_1$: \emph{origin} node of $a$
+    \item $v_2$: \emph{terminating} node of $a$
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Directed Graph Example}
 
-  \begin{example}
-    \begin{center}
-      \pgfuseimage{directed}
-    \end{center}
-  \end{example}
+  \begin{center}
+    \pgfuseimage{directed}
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Weighted Graphs}
 
   \begin{itemize}
-    \item in a weighted graph, labels are assigned to edges:\\
-      weight, length, cost, delay, probability, $\ldots$
+    \item weighted graph: labels assigned to edges
+
+    \medskip
+    \item weight
+    \item length, distance
+    \item cost, delay
+    \item probability
+    \item $\ldots$
   \end{itemize}
+
+%   TODO: add example for weighted graph
 \end{frame}
 
 \begin{frame}
   \frametitle{Multigraphs}
 
   \begin{itemize}
-    \item \alert{parallel edges}: edges between the same pair of nodes
-    \item \alert{loop}: an edge starting and ending in the same node
+    \item \alert{parallel edges}: edges between same node pair
+    \item \alert{loop}: edge starting and ending in same node
 
-    \pause
     \bigskip
-    \item \alert{plain} graph: a graph without any loops or parallel edges
+    \item \alert{plain} graph: no loops, no parallel edges
     \item \alert{multigraph}: a graph which is not plain
   \end{itemize}
 \end{frame}
@@ -253,65 +251,39 @@
 \begin{frame}
   \frametitle{Multigraph Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{multi}
-      \end{center}
+  \begin{columns}
+    \column{.55\textwidth}
+    \begin{center}
+      \pgfuseimage{multi}
+    \end{center}
 
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item parallel edges:\\
-          $(a,b)$
-        \item loop:\\
-          $(e,e)$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item parallel edges: $(a,b)$
+      \item loop: $(e,e)$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Subgraph}
 
   \begin{definition}
-    $G'=(V',E')$ is a \alert{subgraph} of $G=(V,E)$:
-
-    \begin{itemize}
-      \item $V' \subseteq V$, and
-      \item $E' \subseteq E$, and
-      \item $\forall (v_1,v_2) \in E'~v_1,v_2 \in V'$
-    \end{itemize}
+    $G'=(V',E')$ is a \alert{subgraph} of $G=(V,E)$:\\
+      $V' \subseteq V \wedge~ E' \subseteq E \wedge~
+      \forall (v_1,v_2) \in E'~[v_1,v_2 \in V']$
   \end{definition}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Representation}
+  \frametitle{Incidence Matrix}
 
   \begin{itemize}
-    \item incidence matrix
-    \begin{itemize}
-      \item rows represent nodes, columns represent edges
-      \item cell: 1 if the edge is incident to the node, 0 otherwise
-    \end{itemize}
-
-    \medskip
-    \item adjacency matrix
-    \begin{itemize}
-      \item rows and columns represent nodes
-      \item cell: 1 if the nodes are adjacent, 0 otherwise
-      \item in a multigraph, the cells can represent\\
-        the number of edges between the nodes
-      \item in a weighted graph, the cells can represent\\
-        the labels assigned to the edges
-    \end{itemize}
+    \item rows: nodes, columns: edges
+    \item 1 if edge incident on node, 0 otherwise
   \end{itemize}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Incidence Matrix Example}
-
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{columns}
       \column{.38\textwidth}
       \begin{center}
@@ -330,13 +302,18 @@
         \end{array}
       \]
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Adjacency Matrix Example}
+  \frametitle{Adjacency Matrix}
 
-  \begin{example}
+  \begin{itemize}
+    \item rows: nodes, columns: nodes
+    \item 1 if nodes are adjacent, 0 otherwise
+  \end{itemize}
+
+  \begin{exampleblock}{example}
     \begin{columns}
       \column{.38\textwidth}
       \begin{center}
@@ -355,13 +332,17 @@
         \end{array}
       \]
     \end{columns}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Adjacency Matrix Example}
+  \frametitle{Adjacency Matrix}
 
-  \begin{example}
+  \begin{itemize}
+    \item multigraph: number of edges between nodes
+  \end{itemize}
+
+  \begin{exampleblock}{example}
     \begin{columns}
     \column{.5\textwidth}
     \begin{center}
@@ -379,19 +360,29 @@
         \end{array}
       \]
     \end{columns}
-  \end{example}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adjacency Matrix}
+
+  \begin{itemize}
+    \item weighted graph: weight of edge
+  \end{itemize}
+
+%   TODO: add example for weighted graph adjacency matrix
 \end{frame}
 
 \begin{frame}
   \frametitle{Degree}
 
-  \begin{definition}
-    \alert{degree}: number of edges incident to the node
-  \end{definition}
+  \begin{itemize}
+    \item \alert{degree} of node: number of incident edges
+  \end{itemize}
 
   \pause
   \begin{theorem}
-    let $d_i$ be the degree of node $v_i$:
+    $d_i$: degree of $v_i$
 
     \[ |E| = \frac{\sum_i d_i}{2} \]
   \end{theorem}
@@ -400,66 +391,57 @@
 \begin{frame}
   \frametitle{Degree Example}
 
-  \begin{example}[plain graph]
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{plain}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{plain}
+    \end{center}
 
-      \column{.4\textwidth}
-      $\begin{array}{ccc}
-      d_a & = & 5\\
-      d_b & = & 2\\
-      d_c & = & 2\\
-      d_d & = & 2\\
-      d_e & = & 3\\
-      d_f & = & 2\\
-      \medskip
-      Total & = & 16\\
-      \medskip
-      |E| & = & 8
-      \end{array}$
-    \end{columns}
-  \end{example}
+    \column{.4\textwidth}
+    $\begin{array}{rcr}
+    d_a & = & 5\\
+    d_b & = & 2\\
+    d_c & = & 2\\
+    d_d & = & 2\\
+    d_e & = & 3\\
+    d_f & = & 2\\\hline
+        &   & 16\\
+    \medskip
+    |E| & = & 8
+    \end{array}$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Degree Example}
+  \frametitle{Multigraph Degree Example}
 
-  \begin{example}[multigraph]
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{multi}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{multi}
+    \end{center}
 
-      \column{.4\textwidth}
-      $\begin{array}{ccc}
-      d_a & = & 6\\
-      d_b & = & 3\\
-      d_c & = & 2\\
-      d_d & = & 2\\
-      d_e & = & 5\\
-      d_f & = & 2\\
-      \medskip
-      Total & = & 20\\
-      \medskip
-      |E| & = & 10
-      \end{array}$
-    \end{columns}
-  \end{example}
+    \column{.4\textwidth}
+    $\begin{array}{rcr}
+    d_a & = & 6\\
+    d_b & = & 3\\
+    d_c & = & 2\\
+    d_d & = & 2\\
+    d_e & = & 5\\
+    d_f & = & 2\\\hline
+        &   & 20\\
+    \medskip
+    |E| & = & 10
+    \end{array}$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Degree in Directed Graphs}
 
   \begin{itemize}
-    \item two types of degree
-    \begin{itemize}
-      \item \emph{in-degree}: ${d_v}^i$
-      \item \emph{out-degree}: ${d_v}^o$
-    \end{itemize}
+    \item \emph{in-degree}: ${d_v}^i$
+    \item \emph{out-degree}: ${d_v}^o$
 
     \pause
     \medskip
@@ -495,7 +477,7 @@ $2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + t_5 + \dots + 2t_3 + 4t_5 + \dots$
 $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
       \pause
-      \item since the left-hand side is even, the right-hand side is also even
+      \item left-hand side even $\Rightarrow$ right-hand side even
     \end{itemize}
   \end{proof}
 \end{frame}
@@ -504,11 +486,9 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Isomorphism}
 
   \begin{definition}
-    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{isomorphic}:
-    \begin{itemize}
-      \item $\exists f: V \rightarrow V^\star~(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star$
-      \item $f$ is bijective
-    \end{itemize}
+    $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{isomorphic}:\\
+      $\exists f: V \rightarrow V^\star~[(u,v) \in E \Rightarrow (f(u),f(v)) \in E^\star] \wedge
+      f$ is bijective
   \end{definition}
 
   \pause
@@ -520,52 +500,48 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Isomorphism Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphicf}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{isomorphicf}
+    \end{center}
 
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphict}
-      \end{center}
-    \end{columns}
+    \column{.6\textwidth}
+    \begin{center}
+      \pgfuseimage{isomorphict}
+    \end{center}
+  \end{columns}
 
-    \pause
-    \bigskip
-    \begin{itemize}
-      \item $f = (a \mapsto d, b \mapsto e, c \mapsto b, d \mapsto c,
-        e \mapsto a)$
-    \end{itemize}
-  \end{example}
+  \pause
+  \bigskip
+  \begin{itemize}
+    \item $f = (a \mapsto d, b \mapsto e, c \mapsto b, d \mapsto c,
+      e \mapsto a)$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Isomorphism Example}
+  \frametitle{Petersen Graph}
 
-  \begin{example}[Petersen graph]
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen1}
-      \end{center}
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{petersen1}
+    \end{center}
 
-      \column{.6\textwidth}
-      \begin{center}
-        \pgfuseimage{petersen2}
-      \end{center}
-    \end{columns}
+    \column{.6\textwidth}
+    \begin{center}
+      \pgfuseimage{petersen2}
+    \end{center}
+  \end{columns}
 
-    \bigskip
-    \begin{itemize}
-      \item $f = (a \mapsto q, b \mapsto v, c \mapsto u, d \mapsto y,
-          e \mapsto r,$\\
-        $~~~~~~~f \mapsto w, g \mapsto x, h \mapsto t, i \mapsto z,
-          j \mapsto s)$
-    \end{itemize}
-  \end{example}
+  \bigskip
+  \begin{itemize}
+    \item $f = (a \mapsto q, b \mapsto v, c \mapsto u, d \mapsto y,
+        e \mapsto r,$\\
+      $~~~~~~~f \mapsto w, g \mapsto x, h \mapsto t, i \mapsto z,
+        j \mapsto s)$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -574,8 +550,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{definition}
     $G=(V,E)$ and $G^\star=(V^\star,E^\star)$ are \alert{homeomorphic}:
     \begin{itemize}
-      \item $G$ and $G^\star$ are isomorphic except that\\
-        some edges in $E^\star$ are divided with additional nodes
+      \item $G$ and $G^\star$ isomorphic, except that\\
+      \item some edges in $E^\star$ are divided with additional nodes
     \end{itemize}
   \end{definition}
 \end{frame}
@@ -583,93 +559,84 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Homeomorphism Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{isomorphict}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{isomorphict}
+    \end{center}
 
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{homeomorphict}
-      \end{center}
-    \end{columns}
-  \end{example}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{homeomorphict}
+    \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Regular Graphs}
 
-  \begin{definition}
-    \alert{regular} graph: all nodes have the same degree
+  \begin{itemize}
+    \item \alert{regular} graph: all nodes have the same degree
+    \item $n$-regular: all nodes have degree $n$
+  \end{itemize}
 
-    \begin{itemize}
-      \item $n$-regular: all nodes have degree $n$
-    \end{itemize}
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regular Graph Examples}
-
-  \begin{example}
+  \begin{exampleblock}{examples}
     \begin{center}
       \pgfuseimage{regular}
     \end{center}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
   \frametitle{Completely Connected Graphs}
 
-  \begin{definition}
-    $G=(V,E)$ is \alert{completely connected}:
-    \begin{itemize}
-      \item $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
-    \end{itemize}
-  \end{definition}
-
-  \pause
   \begin{itemize}
-    \item there is an edge between every pair of nodes
-    \item $K_n$: the completely connected graph with $n$ nodes
+    \item $G=(V,E)$ is \alert{completely connected}:\\
+      $\forall v_1,v_2 \in V~(v_1,v_2) \in E$
+    \item every pair of nodes are adjacent
+
+    \medskip
+    \item $K_n$: completely connected graph with $n$ nodes
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Completely Connected Graph Examples}
 
-  \begin{columns}
+  \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[$K_4$]
-      \begin{center}
-        \pgfuseimage{k4}
-      \end{center}
-    \end{example}
+    \begin{center}
+      $K_4$
+
+      \bigskip
+      \pgfuseimage{k4}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[$K_5$]
-      \begin{center}
-        \pgfuseimage{k5}
-      \end{center}
-    \end{example}
+    \begin{center}
+      $K_5$
+
+      \bigskip
+      \pgfuseimage{k5}
+    \end{center}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bipartite Graphs}
 
-  \begin{definition}
-    $G=(V,E)$ is \alert{bipartite}:
-    \begin{itemize}
-      \item $\forall (v_1,v_2) \in E~v_1 \in V_1 \wedge v_2 \in V_2$
-      \item $V_1 \cup V_2 = V$, $V_1 \cap V_2 = \emptyset$
-    \end{itemize}
-  \end{definition}
-
-  \pause
   \begin{itemize}
+    \item $G=(V,E)$ is \alert{bipartite}:
+      $V_1 \cup V_2 = V$, $V_1 \cap V_2 = \emptyset$\\
+      $\forall (v_1,v_2) \in E~[v_1 \in V_1 \wedge v_2 \in V_2$]
+
+  \begin{exampleblock}{example}
+    \begin{center}
+      \pgfuseimage{bipartite}
+    \end{center}
+  \end{exampleblock}
+
+    \medskip
     \item \emph{complete bipartite}:
       $\forall v_1 \in V_1~\forall v_2 \in V_2~(v_1,v_2) \in E$
     \item $K_{m,n}$: $|V_1|=m$, $|V_2|=n$
@@ -681,28 +648,30 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{example}[$K_{2,3}$]
-      \begin{center}
-        \pgfuseimage{k23}
-      \end{center}
-    \end{example}
+    \begin{center}
+      $K_{2,3}$
+
+      \bigskip
+      \pgfuseimage{k23}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[$K_{3,3}$]
-      \begin{center}
-        \pgfuseimage{k33}
-      \end{center}
-    \end{example}
+    \begin{center}
+      $K_{3,3}$
+
+      \bigskip
+      \pgfuseimage{k33}
+    \end{center}
   \end{columns}
 \end{frame}
 
-\subsection{Connectivity}
+\subsection{Walks}
 
 \begin{frame}
   \frametitle{Walk}
 
-  \begin{definition}
-    \alert{walk}: a sequence of nodes and edges\\
+  \begin{itemize}
+    \item \alert{walk}: sequence of nodes and edges\\
       from a starting node ($v_0$) to an ending node ($v_n$)
 
     \[
@@ -711,120 +680,101 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \]
 
     where $e_i=(v_{i-1},v_i)$
-  \end{definition}
 
-  \pause
-  \begin{itemize}
-    \item no need to write the edges
+    \item no need to write the edges if not weighted
 
+    \pause
     \medskip
-    \item \alert{length}: number of edges in the walk
-    \item if $v_0 \neq v_n$ \alert{open}, if $v_0 = v_n$ \alert{closed}
+    \item \alert{length}: number of edges
+    \item $v_0 = v_n$: \alert{closed}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Walk Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{plain}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{plain}
+    \end{center}
 
-      \column{.4\textwidth}
-      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
-      $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f \xrightarrow{(f,a)} a$\\
-      $~~\xrightarrow{(a,b)} b$
+    \column{.4\textwidth}
+    $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
+    $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f \xrightarrow{(f,a)} a$\\
+    $~~\xrightarrow{(a,b)} b$
 
-      \medskip
-      $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e$\\
-      $~~\rightarrow f \rightarrow a \rightarrow b$
+    \medskip
+    $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e$\\
+    $~~\rightarrow f \rightarrow a \rightarrow b$
 
-      \bigskip
-      length: 7
-    \end{columns}
-  \end{example}
+    \bigskip
+    length: 7
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Trail}
 
-  \begin{definition}
-    \alert{trail}: a walk where edges are not repeated
-  \end{definition}
-
   \begin{itemize}
+    \item \alert{trail}: edges not repeated
     \item \alert{circuit}: closed trail
-    \item \alert{spanning} trail: a trail that covers all the edges in the
-      graph
+    \item \alert{spanning} trail: covers all edges
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Trail Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{plain}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{plain}
+    \end{center}
 
-      \column{.4\textwidth}
-      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,e)} e$\\
-      $~~\xrightarrow{(e,d)} d \xrightarrow{(d,a)} a \xrightarrow{(a,f)} f$
+    \column{.4\textwidth}
+    $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,e)} e$\\
+    $~~\xrightarrow{(e,d)} d \xrightarrow{(d,a)} a \xrightarrow{(a,f)} f$
 
-      \medskip
-      $c \rightarrow a \rightarrow e \rightarrow d \rightarrow a
-         \rightarrow f$
-    \end{columns}
-  \end{example}
+    \medskip
+    $c \rightarrow a \rightarrow e \rightarrow d \rightarrow a
+        \rightarrow f$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Path}
 
-  \begin{definition}
-    \alert{path}: a walk where nodes are not repeated
-  \end{definition}
-
   \begin{itemize}
+    \item \alert{path}: nodes not repeated
     \item \alert{cycle}: closed path
-    \item \alert{spanning} path: a path that visits all the nodes in the graph
+    \item \alert{spanning} path: visits all nodes
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Path Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{plain}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{plain}
+    \end{center}
 
-      \column{.4\textwidth}
-      $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
-      $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f$
+    \column{.4\textwidth}
+    $c \xrightarrow{(c,b)} b \xrightarrow{(b,a)} a \xrightarrow{(a,d)} d$\\
+    $~~\xrightarrow{(d,e)} e \xrightarrow{(e,f)} f$
 
-      \medskip
-      $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e \rightarrow f$
-    \end{columns}
-  \end{example}
+    \medskip
+    $c \rightarrow b \rightarrow a \rightarrow d \rightarrow e \rightarrow f$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Connectivity}
-
-  \begin{definition}
-    \alert{connected} graph:\\
-    there is a path between every pair of nodes
-  \end{definition}
+  \frametitle{Connected Graphs}
 
   \begin{itemize}
+    \item \alert{connected}: a path between every pair of nodes
     \item a disconnected graph can be divided\\
       into connected components
   \end{itemize}
@@ -833,70 +783,60 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Connected Components Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.54\textwidth}
-      \begin{center}
-        \pgfuseimage{disconnected}
-      \end{center}
+  \begin{columns}
+    \column{.54\textwidth}
+    \begin{center}
+      \pgfuseimage{disconnected}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item graph is disconnected:\\
-          no path between $a$ and $c$
-        \item connected components:\\
-          $a,d,e$\\
-          $b,c$\\
-          $f$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item disconnected:\\
+        no path between $a$ and $c$
+      \item connected components:\\
+        $a,d,e$\\
+        $b,c$\\
+        $f$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Distance}
 
-  \begin{definition}
-    \alert{distance} between nodes $v_i$ and $v_j$:\\
-    the length of the shortest path between $v_i$ and $v_j$
-  \end{definition}
-
   \begin{itemize}
-    \item \alert{diameter}: the largest distance in the graph
+    \item \alert{distance} between $v_i$ and $v_j$:\\
+      length of shortest path between $v_i$ and $v_j$
+    \item \alert{diameter} of graph: largest distance in graph
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Distance Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.48\textwidth}
-      \begin{center}
-        \pgfuseimage{distance}
-      \end{center}
+  \begin{columns}
+    \column{.48\textwidth}
+    \begin{center}
+      \pgfuseimage{distance}
+    \end{center}
 
-      \column{.52\textwidth}
-      \begin{itemize}
-        \item distance between $a$ and $e$: 2\\
-        \item diameter: 3
-      \end{itemize}
-    \end{columns}
-  \end{example}
+    \column{.52\textwidth}
+    \begin{itemize}
+      \item distance between $a$ and $e$: 2\\
+      \item diameter: 3
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Cut-Points}
 
-    \begin{itemize}
-      \item the graph \alert{$G - v$} is obtained by deleting the node $v$\\
-        and all its incident edges from the graph $G$
-    \end{itemize}
+  \begin{itemize}
+    \item \alert{$G - v$}: delete $v$ and all its incident edges from $G$
 
-  \begin{definition}
-    $v$ is a \alert{cut-point} for $G$:\\
+    \item $v$ is a \alert{cut-point} for $G$:\\
       $G$ is connected but $G - v$ is not
-  \end{definition}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -904,18 +844,20 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{block}{$G$}
-      \begin{center}
-        \pgfuseimage{distance}
-      \end{center}
-    \end{block}
+    \begin{center}
+      $G$
+
+      \bigskip
+      \pgfuseimage{distance}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{block}{$G - d$}
-      \begin{center}
-        \pgfuseimage{cutpoint}
-      \end{center}
-    \end{block}
+    \begin{center}
+      $G-d$
+
+      \bigskip
+      \pgfuseimage{cutpoint}
+    \end{center}
   \end{columns}
 \end{frame}
 
@@ -923,228 +865,43 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Directed Walks}
 
   \begin{itemize}
-    \item same as in undirected graphs
-    \item ignoring the directions on the arcs:\\
+    \item ignoring directions on arcs:
       \emph{semi-walk}, \emph{semi-trail}, \emph{semi-path}
+
+    \bigskip
+    \item if between every pair of nodes there is:
+    \smallskip
+    \item a semi-path: \alert{weakly} connected
+    \item a path from one to the other: \alert{unilaterally} connected
+    \item a path: \alert{strongly} connected
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Weakly Connected Graph}
+  \frametitle{Directed Graph Examples}
 
   \begin{columns}
-    \column{.5\textwidth}
-    \begin{definition}
-      \alert{weakly} connected:\\
-      there is a semi-path\\
-      between every pair of nodes
-    \end{definition}
-
-    \column{.5\textwidth}
-    \begin{example}
+    \column{.3\textwidth}
+    \begin{exampleblock}{weakly}
       \begin{center}
         \pgfuseimage{weak}
       \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
+    \end{exampleblock}
 
-\begin{frame}
-  \frametitle{Unilaterally Connected Graph}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{definition}
-      \alert{unilaterally} connected:\\
-      for every pair of nodes, there is\\
-      a path from one to the other
-    \end{definition}
-
-    \column{.5\textwidth}
-    \begin{example}
+    \column{.3\textwidth}
+    \begin{exampleblock}{unilaterally}
       \begin{center}
         \pgfuseimage{unilateral}
       \end{center}
-    \end{example}
-  \end{columns}
-\end{frame}
+    \end{exampleblock}
 
-\begin{frame}
-  \frametitle{Strongly Connected Graph}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{definition}
-      \alert{strongly} connected:\\
-      there is a path in both directions\\
-      between every pair of nodes
-    \end{definition}
-
-    \column{.5\textwidth}
-    \begin{example}
+    \column{.3\textwidth}
+    \begin{exampleblock}{strongly}
       \begin{center}
         \pgfuseimage{strong}
       \end{center}
-    \end{example}
+    \end{exampleblock}
   \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Connectivity Matrix}
-
-  \begin{itemize}
-    \item let $A$ be the adjacency matrix of an undirected graph $G=(V,E)$
-    \item $A^k_{ij}$: number of walks of length $k$
-      between nodes $i$ and $j$
-
-    \item the distance between two nodes is at most $|V|-1$
-
-    \pause
-    \medskip
-    \item connectivity matrix:\\
-      $C = A^1 + A^2 + A^3 + \dots + A^{|V|-1}$
-    \item if all elements of $C$ are non-zero, then $G$ is connected
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm}
-
-  \begin{itemize}
-    \item it is easier to find whether there is a walk between two nodes\\
-      rather than finding the number of walks
-
-    \pause
-    \medskip
-    \item for each node:
-    \begin{itemize}
-      \item from all nodes which can reach the chosen node\\
-        (the rows that contain 1 in the chosen column)
-
-      \item to the nodes which can be reached from the chosen node\\
-        (the columns that contain 1 in the chosen row)
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{warshall}
-      \end{center}
-
-      \column{.5\textwidth}
-      \[
-        \begin{array}{c|cccc}
-              & a & b & c & d\\\hline
-            a & 0 & \alert{1} & 0 & 0\\
-            b & 0 & 1 & 0 & 0\\
-            c & 0 & 0 & 0 & 1\\
-            d & \alert{1} & 0 & 1 & 0
-        \end{array}
-      \]
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{warshall1}
-      \end{center}
-
-      \column{.5\textwidth}
-      \[
-        \begin{array}{c|cccc}
-              & a & b & c & d\\\hline
-            a & 0 & \alert{1} & 0 & 0\\
-            b & 0 & 1 & 0 & 0\\
-            c & 0 & 0 & 0 & 1\\
-            d & 1 & \alert{1} & 1 & 0
-        \end{array}
-      \]
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{warshall1}
-      \end{center}
-
-      \column{.5\textwidth}
-      \[
-        \begin{array}{c|cccc}
-              & a & b & c & d\\\hline
-            a & 0 & 1 & 0 & 0\\
-            b & 0 & 1 & 0 & 0\\
-            c & 0 & 0 & 0 & \alert{1}\\
-            d & 1 & 1 & \alert{1} & 0
-        \end{array}
-      \]
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{warshall2}
-      \end{center}
-
-      \column{.5\textwidth}
-      \[
-        \begin{array}{c|cccc}
-              & a & b & c & d\\\hline
-            a & 0 & 1 & 0 & 0\\
-            b & 0 & 1 & 0 & 0\\
-            c & 0 & 0 & 0 & \alert{1}\\
-            d & \alert{1} & \alert{1} & \alert{1} & \alert{1}
-        \end{array}
-      \]
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{warshall3}
-      \end{center}
-
-      \column{.5\textwidth}
-      \[
-        \begin{array}{c|cccc}
-              & a & b & c & d\\\hline
-            a & 0 & 1 & 0 & 0\\
-            b & 0 & 1 & 0 & 0\\
-            c & 1 & 1 & 1 & 1\\
-            d & 1 & 1 & 1 & 1
-        \end{array}
-      \]
-    \end{columns}
-  \end{example}
 \end{frame}
 
 \subsection{Traversable Graphs}
@@ -1173,43 +930,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Traversable Graphs}
 
-  \begin{definition}
-    $G$ is \alert{traversable}: $G$ contains a spanning trail
-  \end{definition}
-
   \begin{itemize}
+    \item $G$ is \alert{traversable}: $G$ contains a spanning trail
+
+    \medskip
     \item a node with an odd degree must be either the starting node\\
       or the ending node of the trail
     \item all nodes except the starting node and the ending node\\
       must have even degrees
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Traversable Graph Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{envelope}
-      \end{center}
-
-      \column{.6\textwidth}
-      \begin{itemize}
-        \item degrees of $a$, $b$ and $c$ are even
-        \item degrees of $d$ and $e$ are odd
-
-        \pause
-        \medskip
-        \item a spanning trail can be formed\\
-          starting from node $d$ and\\
-          ending at node $e$ (or vice versa):\\
-          $d \rightarrow b \rightarrow a \rightarrow c \rightarrow e$
-          $~~\rightarrow d \rightarrow c \rightarrow b \rightarrow e$
-      \end{itemize}
-    \end{columns}
-  \end{example}
 \end{frame}
 
 \begin{frame}
@@ -1220,16 +949,38 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{center}
 
   \begin{itemize}
-    \item all node have odd degrees: not traversable
+    \item all nodes have odd degrees: not traversable
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Traversable Graph Example}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{envelope}
+    \end{center}
+
+    \column{.6\textwidth}
+    \begin{itemize}
+      \item $a,b,c$: even
+      \item $d,e$: odd
+
+      \medskip
+      \item start from $d$, end at $e$:\\
+        $d \rightarrow b \rightarrow a \rightarrow c \rightarrow e$
+        $~~\rightarrow d \rightarrow c \rightarrow b \rightarrow e$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Euler Graphs}
 
-  \begin{definition}
-    \alert{Euler graph}: a graph that contains a closed spanning trail
-  \end{definition}
+  \begin{itemize}
+    \item \alert{Euler graph}: contains closed spanning trail
+  \end{itemize}
 
   \begin{itemize}
     \item $G$ is an Euler graph $\Leftrightarrow$
@@ -1242,27 +993,29 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{example}[Euler graph]
-      \begin{center}
-        \pgfuseimage{euler}
-      \end{center}
-    \end{example}
+    \begin{center}
+      Euler
+
+      \bigskip
+      \pgfuseimage{euler}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[not an Euler graph]
-      \begin{center}
-        \pgfuseimage{hamilton}
-      \end{center}
-    \end{example}
+    \begin{center}
+      not Euler
+
+      \bigskip
+      \pgfuseimage{hamilton}
+    \end{center}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hamilton Graphs}
 
-  \begin{definition}
-    \alert{Hamilton graph}: a graph that contains a closed spanning path
-  \end{definition}
+  \begin{itemize}
+    \item \alert{Hamilton graph}: contains a closed spanning path
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1270,18 +1023,20 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{example}[Hamilton graph]
-      \begin{center}
-        \pgfuseimage{hamilton}
-      \end{center}
-    \end{example}
+    \begin{center}
+      Hamilton
+
+      \bigskip
+      \pgfuseimage{hamilton}
+    \end{center}
 
     \column{.5\textwidth}
-    \begin{example}[not a Hamilton graph]
-      \begin{center}
-        \pgfuseimage{euler}
-      \end{center}
-    \end{example}
+    \begin{center}
+      not Hamilton
+
+      \bigskip
+      \pgfuseimage{euler}
+    \end{center}
   \end{columns}
 \end{frame}
 
@@ -1303,33 +1058,30 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Planar Graph Example}
 
-  \begin{example}[$K_4$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{k4}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{k4}
+    \end{center}
 
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{k4planar}
-      \end{center}
-    \end{columns}
-  \end{example}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{k4planar}
+    \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Regions}
 
   \begin{itemize}
-    \item a map divides the plane into \alert{regions}
-    \item degree of a region:\\
-      length of the closed trail that surrounds the region
+    \item map divides plane into \alert{regions}
+    \item degree of region: length of closed trail that surrounds region
   \end{itemize}
 
   \pause
   \begin{theorem}
-    let $d_{r_i}$ be the degree of region $r_i$:
+    $d_{r_i}$: degree of region $r_i$
 
     \[ |E| = \frac{\sum_i d_{r_i}}{2} \]
   \end{theorem}
@@ -1338,33 +1090,32 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Region Example}
 
-  \begin{example}
-    \begin{columns}
-      \column{.58\textwidth}
-      \begin{center}
-        \pgfuseimage{region}
-      \end{center}
+  \begin{columns}
+    \column{.58\textwidth}
+    \begin{center}
+      \pgfuseimage{region}
+    \end{center}
 
-      \column{.4\textwidth}
-      $d_{r_1} = 3$ (abda)\\
-      $d_{r_2} = 3$ (bcdb)\\
-      $d_{r_3} = 5$ (cdefec)\\
-      $d_{r_4} = 4$ (abcea)\\
-      $d_{r_5} = 3$ (adea)
-
+    \column{.4\textwidth}
+    $\begin{array}{rcr}
+      d_{r_1} & = & 3\\
+      d_{r_2} & = & 3\\
+      d_{r_3} & = & 5\\
+      d_{r_4} & = & 4\\
+      d_{r_5} & = & 3\\\hline
+              & = & 18\\
       \medskip
-      $\sum_r d_r = 18$\\
-      $|E| = 9$
-    \end{columns}
-  \end{example}
+      |E|     & = & 9
+    \end{array}$
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Euler's Formula}
 
   \begin{theorem}[Euler's Formula]
-    let $G=(V,E)$ be a planar, connected graph, and\\
-    let $R$ be the set of regions in a map of $G$:
+    $G=(V,E)$: planar, connected graph\\
+    $R$: set of regions in a map of $G$
 
     \[|V| - |E| + |R| = 2\]
   \end{theorem}
@@ -1373,15 +1124,13 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Euler's Formula Example}
 
-  \begin{example}
-    \begin{center}
-      \pgfuseimage{region}
-    \end{center}
+  \begin{center}
+    \pgfuseimage{region}
+  \end{center}
 
-    \begin{itemize}
-     \item $|V| = 6$, $|E| = 9$, $|R| = 5$
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item $|V| = 6$, $|E| = 9$, $|R| = 5$
+  \end{itemize}
 \end{frame}
 %
 % \begin{frame}
@@ -1449,7 +1198,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
+    $G=(V,E)$: connected, planar graph where $|V| \geq 3$
+
     $|E| \leq 3 |V| - 6$
   \end{theorem}
 
@@ -1459,7 +1209,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \item sum of region degrees: $2 |E|$
 
       \pause
-      \item degree of a region is at least $3$\\
+      \item degree of a region $\geq 3$\\
         \pause
         $\Rightarrow 2 |E| \geq 3 |R|$
         \pause
@@ -1483,14 +1233,15 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Planar Graph Theorems}
 
   \begin{theorem}
-    let $G=(V,E)$ be a connected, planar graph where $|V| \geq 3$:\\
-    $\exists v \in V~d_v \leq 5$
+    $G=(V,E)$: connected, planar graph where $|V| \geq 3$:
+
+    $\exists v \in V~[d_v \leq 5]$
   \end{theorem}
 
   \pause
   \begin{proof}
     \begin{itemize}
-      \item let $\forall v \in V~d_v \geq 6$\\
+      \item assume: $\forall v \in V~[d_v \geq 6]$\\
         \pause
         $\Rightarrow 2 |E| \geq 6 |V|$\\
         \pause
@@ -1558,7 +1309,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
         \item if planar then $|R| = 5$
 
         \pause
-        \item degree of a region is at least $4$\\
+        \item degree of a region $\geq 4$\\
           $\Rightarrow \sum_{r \in R} d_r \geq 20$
 
         \pause
@@ -1588,36 +1339,41 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
   \begin{itemize}
     \item \emph{regular polyhedron}: a 3-dimensional solid\\
-      where the faces are identical regular polygons
+      where faces are identical regular polygons
 
-    \pause
-    \item the projection of a regular polyhedron onto the plane\\
-      is a planar graph
-    \begin{itemize}
-      \item every corner is a node
-      \item every side is an edge
-      \item every face is a region
-    \end{itemize}
+    \bigskip
+    \item projection of a regular polyhedron onto the plane:\\
+      a planar graph
+    \smallskip
+    \item corners: nodes
+    \item sides: edges
+    \item faces: regions
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Platonic Solids}
+  \frametitle{Platonic Solid Example}
 
-  \begin{example}[cube]
+  \begin{columns}
+    \column{.7\textwidth}
     \begin{center}
       \pgfuseimage{hexahedron}
     \end{center}
-  \end{example}
+
+    \column{.3\textwidth}
+    \begin{center}
+      \pgfuseimage{planarhexa}
+    \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Platonic Solids}
 
   \begin{itemize}
-    \item $v$: number of corners (nodes)
-    \item $e$: number of sides (edges)
-    \item $r$: number of faces (regions)
+    \item $|V|$: number of corners (nodes)
+    \item $|E|$: number of sides (edges)
+    \item $|R|$: number of faces (regions)
     \item $n$: number of faces meeting at a corner (node degree)
     \item $m$: number of sides of a face (region degree)
   \end{itemize}
@@ -1625,8 +1381,8 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \pause
   \begin{itemize}
     \item $m,n \geq 3$
-    \item $2e = n \cdot v$
-    \item $2e = m \cdot r$
+    \item $2|E| = n \cdot |V|$
+    \item $2|E| = m \cdot |R|$
   \end{itemize}
 \end{frame}
 
@@ -1636,26 +1392,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \begin{itemize}
       \item from Euler's formula:
       \[
-        2 = v - e + r = \frac{2e}{n} - e + \frac{2e}{m}
-        = e \Big( \frac{2m-mn+2n}{mn} \Big) > 0
+        2 = |V| - |E| + |R| = \frac{2|E|}{n} - |E| + \frac{2|E|}{m}
+        = |E| \Big( \frac{2m-mn+2n}{mn} \Big) > 0
       \]
 
       \pause
-      \item $e,m,n > 0$:
+      \item $|E|,m,n > 0$:
       \begin{eqnarray*}
         2m - mn + 2n > 0 \Rightarrow mn - 2m -2n < 0 \\\pause
         \Rightarrow mn - 2m - 2n + 4 < 4 \pause \Rightarrow (m - 2)(n - 2) < 4
       \end{eqnarray*}
 
       \pause
-      \item the values that satisfy this inequation:
-      \begin{enumerate}
-        \item $m=3, n=3$
-        \item $m=4, n=3$
-        \item $m=3, n=4$
-        \item $m=5, n=3$
-        \item $m=3, n=5$
-      \end{enumerate}
+      \item only 5 solutions
     \end{itemize}
 \end{frame}
 
@@ -1747,126 +1496,175 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
 \section{Graph Problems}
 
+\subsection{Connectivity}
+
+\begin{frame}
+  \frametitle{Connectivity Matrix}
+
+  \begin{itemize}
+    \item $A$: adjacency matrix of $G=(V,E)$
+    \item $A^k_{ij}$: number of walks of length $k$ between $v_i$ and $v_j$
+
+    \medskip
+    \item maximum distance between two nodes: $|V|-1$
+
+    \pause
+    \medskip
+    \item connectivity matrix:\\
+      $C = A^1 + A^2 + A^3 + \dots + A^{|V|-1}$
+    \item connected: all elements of $C$ are non-zero
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm}
+
+  \begin{itemize}
+    \item very expensive to compute the connectivity matrix
+    \item easier to find whether there is a walk between two nodes\\
+      rather than finding the number of walks
+
+    \pause
+    \bigskip
+    \item for each node:
+    \smallskip
+    \item from all nodes which can reach the current node\\
+      (rows that contain 1 in current column)
+
+    \item to all nodes which can be reached from the current node\\
+      (columns that contain 1 in current row)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & \alert{1} & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & 1\\
+          d & \alert{1} & 0 & 1 & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & \alert{1} & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & 1\\
+          d & 1 & \alert{1} & 1 & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & \alert{1}\\
+          d & 1 & 1 & \alert{1} & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall2}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & \alert{1}\\
+          d & \alert{1} & \alert{1} & \alert{1} & \alert{1}
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall3}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 1 & 1 & 1 & 1\\
+          d & 1 & 1 & 1 & 1
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
 \subsection{Graph Coloring}
 
 \begin{frame}
   \frametitle{Graph Coloring}
 
-  \begin{definition}
-    \alert{proper coloring} of $G=(V,E)$: $f: V \rightarrow C$\\
-      where $C$ is a set of colors
-    \begin{itemize}
-      \item $\forall (v_i,v_j) \in E~f(v_i) \neq f(v_j)$
-      \item minimizing $|C|$
-    \end{itemize}
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring Example}
-
-  \begin{example}
-    \begin{itemize}
-      \item a company produces chemical compounds
-      \item some compounds cannot be stored together
-      \item such compounds must be placed in separate storage areas
-
-      \pause
-      \medskip
-      \item store the compounds using the least number of storage areas
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring}
-
-  \begin{example}
-    \begin{itemize}
-      \item every compound is a node
-      \item two compounds that cannot be stored together are adjacent
-    \end{itemize}
-
-    \begin{center}
-      \pgfuseimage{fivesubstances}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring Example}
-
-  \begin{example}
-    \begin{center}
-      \pgfuseimage{coloring1}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring2}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring3}
-      \end{center}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring4}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring5}
-      \end{center}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Graph Coloring Example}
-
-  \begin{example}
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring6}
-      \end{center}
-
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{coloring7}
-      \end{center}
-    \end{columns}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Chromatic Number}
-
-  \begin{definition}
-    \alert{chromatic number} of $G$: $\chi (G)$\\
-    minimum number of colors needed to color G
-  \end{definition}
-
   \begin{itemize}
+    \item $G=(V,E)$, $C$: set of colors
+    \item \alert{proper coloring} of $G$: find an $f: V \rightarrow C$,
+      such that\\
+      $\forall (v_i,v_j) \in E~[f(v_i) \neq f(v_j)]$
+
+    \pause
+    \medskip
+    \item \alert{chromatic number} of $G$: $\chi (G)$\\
+      minimum $|C|$
      \item finding $\chi (G)$ is a very difficult problem
+
+     \pause
+     \smallskip
      \item $\chi (K_n) = n$
   \end{itemize}
 \end{frame}
@@ -1874,46 +1672,148 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Chromatic Number Example}
 
-  \begin{example}[Herschel graph]
-    \begin{center}
-      \pgfuseimage{herschel}
-    \end{center}
+  \begin{center}
+    \pgfuseimage{herschel}
+  \end{center}
 
-    \begin{itemize}
-      \item chromatic number: 2
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item Herschel graph: $\chi (G)=2$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Solution}
+
+  \begin{itemize}
+    \item pick a node and assign a color
+    \item assign same color to all nodes with no conflict
+    \item pick an uncolored node and assign a second color
+    \item assign same color to all uncolored nodes with no conflict
+    \item pick an uncolored node and assign a third color
+    \item \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Heuristic Solutions}
+
+  \begin{itemize}
+    \item \alert{heuristic} solution: based on intuition
+    \item \alert{greedy} solution: doesn't look ahead
+    \item doesn't produce optimal results
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Graph Coloring Example}
 
-  \begin{example}[Sudoku]
-    \begin{columns}[t]
-      \column{.4\textwidth}
-      \begin{center}
-        \pgfuseimage{sudoku}
-      \end{center}
+  \begin{itemize}
+    \item a company produces chemical compounds
+    \item some compounds cannot be stored together
+    \item such compounds must be placed in separate storage areas
 
-      \column{.55\textwidth}
-      \begin{itemize}
-        \item every cell is a node
-        \item cells of the same row\\
-          are adjacent
-        \item cells of the same column\\
-          are adjacent
-        \item cells of the same $3 \times 3$ block\\
-          are adjacent
-        \item every number is a color
-      \end{itemize}
+    \pause
+    \medskip
+    \item store compounds using minimum number of storage areas
+  \end{itemize}
+\end{frame}
 
-      \pause
-      \begin{itemize}
-        \item problem: properly color a graph\\
-          that is partially colored
-      \end{itemize}
-    \end{columns}
-  \end{example}
+\begin{frame}
+  \frametitle{Graph Coloring Example}
+
+  \begin{itemize}
+    \item every compound is a node
+    \item two compounds that cannot be stored together are adjacent
+  \end{itemize}
+
+  \begin{center}
+    \pgfuseimage{fivesubstances}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Example}
+
+  \begin{center}
+    \pgfuseimage{coloring1}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring2}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring3}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring4}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring5}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring6}
+    \end{center}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{coloring7}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Example: Sudoku}
+
+  \begin{columns}[t]
+    \column{.4\textwidth}
+    \begin{center}
+      \pgfuseimage{sudoku}
+    \end{center}
+
+    \column{.55\textwidth}
+    \begin{itemize}
+      \item every cell is a node
+      \item cells of the same row\\
+        are adjacent
+      \item cells of the same column\\
+        are adjacent
+      \item cells of the same $3 \times 3$ block\\
+        are adjacent
+      \item every number is a color
+    \end{itemize}
+
+    \pause
+    \begin{itemize}
+      \item problem: properly color a graph\\
+        that is partially colored
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -1935,7 +1835,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \frametitle{Shortest Path}
 
   \begin{itemize}
-    \item finding the shortest paths from a starting node\\
+    \item finding shortest paths from a starting node\\
       to all other nodes:
       Dijkstra's algorithm
   \end{itemize}
@@ -1944,47 +1844,44 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[initialization]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item starting node: $c$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item starting node: $c$
+    \end{itemize}
 
-      \begin{table}
-        \begin{tabular}{r|l}
-          a & $(\infty,-)$ \\\hline
-          b & $(\infty,-)$ \\\hline
-          c & $(0,-)$      \\\hline
-          f & $(\infty,-)$ \\\hline
-          g & $(\infty,-)$ \\\hline
-          h & $(\infty,-)$
-        \end{tabular}
-      \end{table}
-    \end{columns}
-  \end{example}
+    \begin{table}
+      \begin{tabular}{r|l}
+        a & $(\infty,-)$ \\\hline
+        b & $(\infty,-)$ \\\hline
+        c & $(0,-)$      \\\hline
+        f & $(\infty,-)$ \\\hline
+        g & $(\infty,-)$ \\\hline
+        h & $(\infty,-)$
+      \end{tabular}
+    \end{table}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[from node $c$ - base distance=$0$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item $c \rightarrow f: 6, 6 < \infty$
-        \item $c \rightarrow h: 11, 11 < \infty$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item from $c$: base distance=$0$
+      \item $c \rightarrow f: 6, 6 < \infty$
+      \item $c \rightarrow h: 11, 11 < \infty$
 
       \pause
       \begin{table}
@@ -1999,29 +1896,26 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{table}
 
       \pause
-      \begin{itemize}
-        \item closest node: $f$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item closest node: $f$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[from node $f$ - base distance=$6$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item $f \rightarrow a: 6+11, 17 < \infty$
-        \item $f \rightarrow g: 6+9, 15 < \infty$
-        \item $f \rightarrow h: 6+4, 10 < 11$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item from $f$: base distance=$6$
+      \item $f \rightarrow a: 6+11, 17 < \infty$
+      \item $f \rightarrow g: 6+9, 15 < \infty$
+      \item $f \rightarrow h: 6+4, 10 < 11$
 
       \pause
       \begin{table}
@@ -2036,28 +1930,25 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{table}
 
       \pause
-      \begin{itemize}
-        \item closest node: $h$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item closest node: $h$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[from node $h$ - base distance=$10$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item $h \rightarrow a: 10+11, 21 \nless 17$
-        \item $h \rightarrow g: 10+4, 14 < 15$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item from $h$: base distance=$10$
+      \item $h \rightarrow a: 10+11, 21 \nless 17$
+      \item $h \rightarrow g: 10+4, 14 < 15$
 
       \pause
       \begin{table}
@@ -2072,27 +1963,24 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{table}
 
       \pause
-      \begin{itemize}
-        \item closest node: $g$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item closest node: $g$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[from node $g$ - base distance=$14$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item $g \rightarrow a: 14+17, 31 \nless 17$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item from $g$: base distance=$14$
+      \item $g \rightarrow a: 14+17, 31 \nless 17$
 
       \pause
       \begin{table}
@@ -2107,27 +1995,24 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{table}
 
       \pause
-      \begin{itemize}
-        \item closest node: $a$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item closest node: $a$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Dijkstra's Algorithm Example}
 
-  \begin{example}[from node $a$ - base distance=$17$]
-    \begin{columns}
-      \column{.5\textwidth}
-      \begin{center}
-        \pgfuseimage{dijkstra}
-      \end{center}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{dijkstra}
+    \end{center}
 
-      \column{.45\textwidth}
-      \begin{itemize}
-        \item $a \rightarrow b: 17+5, 22 < \infty$
-      \end{itemize}
+    \column{.45\textwidth}
+    \begin{itemize}
+      \item from $a$: base distance=$17$
+      \item $a \rightarrow b: 17+5, 22 < \infty$
 
       \pause
       \begin{table}
@@ -2142,12 +2027,38 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \end{table}
 
       \pause
-      \begin{itemize}
-        \item last node: $b$
-      \end{itemize}
-    \end{columns}
-  \end{example}
+      \item last node: $b$
+    \end{itemize}
+  \end{columns}
 \end{frame}
+
+\subsection{TSP}
+
+\begin{frame}
+  \frametitle{Traveling Salesperson Problem}
+
+  \begin{itemize}
+    \item start from a home town
+    \item visit every city exactly once
+    \item return to the home town
+    \item minimum total distance
+
+    \pause
+    \medskip
+    \item find Hamiltonian cycle
+    \item very difficult problem
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{TSP Solution}
+
+  \begin{itemize}
+    \item heuristic: nearest-neighbor
+  \end{itemize}
+\end{frame}
+
+% TODO: add example for TSP
 
 \subsection{Searching Graphs}
 
@@ -2170,20 +2081,23 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \item $v \leftarrow v_1, T=\emptyset$, $D=\{v_1\}$
 
     \pause
+    \smallskip
     \item find smallest $i$ in $2 \leq i \leq |V|$
       such that $(v,v_i) \in E$ and $v_i \notin D$
-      \begin{itemize}
-        \item if no such $i$ exists: go to step 3
-        \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
-          $v \leftarrow v_i$,\\
-          go to step 2
-      \end{itemize}
+    \begin{itemize}
+      \item if no such $i$: go to step 3
+      \item if found: $T=T \cup \{(v,v_i)\}$, $D=D \cup \{v_i\}$,
+        $v \leftarrow v_i$,\\
+        go to step 2
+    \end{itemize}
 
     \pause
-    \item if $v=v_1$ then the result is $T$
+    \smallskip
+    \item if $v=v_1$: result is $T$
 
     \pause
-    \item if $v \neq v_1$ then $v \leftarrow backtrack(v)$, go to step 2
+    \smallskip
+    \item if $v \neq v_1$: $v \leftarrow backtrack(v)$, go to step 2
   \end{enumerate}
 \end{frame}
 
@@ -2196,9 +2110,12 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
     \item $T=\emptyset$, $D=\{v_1\}$, $Q=(v_1)$
 
     \pause
-    \item if $Q$ is empty: the result is $T$
+    \smallskip
+    \item if $Q$ empty: result is $T$
+
+    \smallskip
     \item if $Q$ not empty: $v \leftarrow front(Q)$, $Q \leftarrow Q - v$\\
-      for $2 \leq i \leq |V|$ check the edges $(v,v_i) \in E$:
+      for $2 \leq i \leq |V|$ check edges $(v,v_i) \in E$:
     \begin{itemize}
       \item if $v_i \notin D$ : $Q = Q + v_i$, $T = T \cup \{(v,v_i)\}$,
         $D=D \cup \{v_i\}$
@@ -2207,9 +2124,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{enumerate}
 \end{frame}
 
-% TODO: add example for depth-first search
-
-% TODO: traveling salesman problem
+% TODO: add example for breadth-first search
 
 \section*{References}
 
