@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Functional Data Structures}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -44,6 +44,10 @@
 
 \pgfdeclareimage[height=1cm]{license}{../license}
 
+\pgfdeclareimage[width=10cm]{append1}{append1}
+\pgfdeclareimage[width=10cm]{append2}{append2}
+\pgfdeclareimage[width=10cm]{append}{append}
+
 \begin{document}
 
 \begin{frame}
@@ -54,7 +58,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -98,16 +102,74 @@
 \subsection{Immutability}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Appending Lists}
 
-  \begin{exampleblock}{update an element in a list}
-    \begin{lstlisting}
-update :: [a] -> Int -> a -> [a]
-update []     _ _ = error "empty list"
-update (_:xs) 0 y = y : xs
-update (x:xs) n y = x : update xs (n - 1) y
+  \begin{itemize}
+    \item append a list at the end another list, and get a third list
+  \end{itemize}
+
+  \begin{center}
+    \pgfuseimage{append1}
+  \end{center}
+
+  \begin{exampleblock}{example: C}
+    \begin{lstlisting}[language=C]
+xs->last->next = ys->head;
+zs->head = xs->head;
+zs->last = ys->last;
     \end{lstlisting}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Appending Lists}
+
+  \begin{center}
+    \pgfuseimage{append2}
+  \end{center}
+
+  \begin{itemize}
+    \item very fast
+    \item destroys both \lstinline|xs| and \lstinline|ys|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Appending Lists}
+
+  \begin{lstlisting}
+(++) :: [a] -> [a] -> [a]
+[]     ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+  \end{lstlisting}
+
+  \begin{center}
+    \pgfuseimage{append}
+  \end{center}
+
+  \begin{itemize}
+    \item copy some parts, share some parts
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Updating Lists}
+
+  \begin{itemize}
+    \item update an element in a list:\\
+      \lstinline|update [0,1,2,3,4] 2 7 ~> [0,1,7,3,4]|
+  \end{itemize}
+
+  \begin{lstlisting}
+update :: [a] -> Int -> a -> [a]
+update []     _ _ = error "index out of bounds"
+update (_:xs) 0 y = y : xs
+update (x:xs) n y = x : update xs (n - 1) y
+  \end{lstlisting}
+
+  \begin{itemize}
+    \item exercise: draw data structures for above example values
+  \end{itemize}
 \end{frame}
 
 \subsection{Abstract Data Types}
@@ -116,9 +178,42 @@ update (x:xs) n y = x : update xs (n - 1) y
   \frametitle{Abstract Data Types}
 
   \begin{itemize}
-    \item \alert{abstract data type}:\\
-      private representation equipped with public operations
+    \item \alert{abstract data type}:
+    \smallskip
+    \item hidden representation
+    \item public operations
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Natural Numbers}
+
+  \begin{lstlisting}
+module Nat (
+  Nat,
+  add,         -- Nat -> Nat -> Nat
+  sub          -- Nat -> Nat -> Nat
+) where
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Natural Numbers}
+
+  \begin{lstlisting}
+data Nat = Zero | Succ Nat
+           deriving Show
+
+add :: Nat -> Nat -> Nat
+add n        Zero = n
+add Zero     n    = n
+add (Succ m) n    = Succ (add m n)
+
+sub :: Nat -> Nat -> Nat
+sub n         Zero      = n
+sub Zero      _         = error "subtract from zero"
+sub (Succ n1) (Succ n2) = sub n1 n2
+  \end{lstlisting}
 \end{frame}
 
 \section{Example: Sets}
@@ -126,10 +221,9 @@ update (x:xs) n y = x : update xs (n - 1) y
 \subsection{Interface}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set Interface}
 
-  \begin{exampleblock}{set module interface}
-    \begin{lstlisting}[deletekeywords={union}]
+  \begin{lstlisting}[deletekeywords={union}]
 module Set (
   Set,
   empty,       -- Set a
@@ -140,14 +234,13 @@ module Set (
   card,        -- Set a -> Int
   mapSet       -- Ord b => (a -> b) -> Set a -> Set b
 ) where
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
-\subsection{Ordered List}
+\subsection{List Representation}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{List Representation}
 
   \begin{itemize}
     \item using an ordered list of elements without repetition
@@ -162,102 +255,92 @@ data Set a = OrderedList [a]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Empty Set}
 
-  \begin{exampleblock}{create an empty set}
-    \begin{lstlisting}
+  \begin{lstlisting}
 empty :: Set a
 empty = OrderedList []
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Adding Elements}
 
-  \begin{exampleblock}{add an element to a set}
-    \begin{lstlisting}[deletekeywords={insert}]
+  \begin{lstlisting}[deletekeywords={insert}]
 add :: Ord a => Set a -> a -> Set a
 add (OrderedList xs) x = OrderedList (insert xs x)
 
 insert :: Ord a => [a] -> a -> [a]
 insert []          y = [y]
 insert xs@(x':xs') y
-  | y < x'    = y  : xs
-  | y > x'    = x' : insert xs' y
-  | otherwise = xs
-    \end{lstlisting}
-  \end{exampleblock}
+  | y < x'           = y  : xs
+  | y > x'           = x' : insert xs' y
+  | otherwise        = xs
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set from List}
 
-  \begin{exampleblock}{create a set from a list}
-    \begin{lstlisting}
+  \begin{lstlisting}
 makeSet :: Ord a => [a] -> Set a
 makeSet = foldl add empty
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Membership Check}
 
-  \begin{exampleblock}{check whether an element is a member of a set}
-    \begin{lstlisting}
+  \begin{lstlisting}
 contains :: Ord a => Set a -> a -> Bool
 contains (OrderedList xs) = search xs
 
 search :: Ord a => [a] -> a -> Bool
 search []     _ = False
 search (x:xs) y
-  | y == x    = True
-  | y <  x    = False
-  | otherwise = search xs y
-    \end{lstlisting}
-  \end{exampleblock}
+  | y == x      = True
+  | y <  x      = False
+  | otherwise   = search xs y
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set Union}
 
-  \begin{exampleblock}{take the union of two sets}
-    \begin{lstlisting}[deletekeywords={union}]
+  \begin{lstlisting}[deletekeywords={union}]
 union :: Ord a => Set a -> Set a -> Set a
-union (OrderedList [])     ys = ys
-union (OrderedList (x:xs)) ys =
-    ((OrderedList xs) `union` ys) `add` x
-    \end{lstlisting}
-  \end{exampleblock}
+union s1     (OrderedList []) = s1
+union (OrderedList [])     s2 = s2
+union (OrderedList (x:xs)) s2 =
+    ((OrderedList xs) `union` s2) `add` x
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set Cardinality}
 
-  \begin{exampleblock}{apply a function to every element of a set}
-    \begin{lstlisting}
-mapSet :: Ord b => (a -> b) -> Set a -> Set b
-mapSet f (OrderedList xs) = makeSet (map f xs)
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sets}
-
-  \begin{exampleblock}{get the number of elements in a set}
-    \begin{lstlisting}
+  \begin{lstlisting}
 card :: Set a -> Int
-card (OrderedList xs) = length xs
-    \end{lstlisting}
-  \end{exampleblock}
+card = length . makeList
+
+makeList :: Set a -> [a]
+makeList (OrderedList xs) = xs
+  \end{lstlisting}
 \end{frame}
 
-\subsection{Ordered Binary Tree}
+\begin{frame}[fragile]
+  \frametitle{Function Mapping}
+
+  \begin{lstlisting}
+mapSet :: Ord b => (a -> b) -> Set a -> Set b
+mapSet f = makeSet . map f . makeList
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Tree Representation}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Tree Representation}
 
   \begin{itemize}
     \item using an ordered binary tree of elements without repetition
@@ -272,96 +355,88 @@ data Set a = Nil | Node a (Set a) (Set a)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Empty Set}
 
-  \begin{exampleblock}{create an empty set}
-    \begin{lstlisting}
+  \begin{lstlisting}
 empty :: Set a
 empty = Nil
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Adding Elements}
 
-  \begin{exampleblock}{add an element to a set}
-    \begin{lstlisting}
+  \begin{lstlisting}[deletekeywords={insert}]
 add :: Ord a => Set a -> a -> Set a
-add Nil                    y = Node y Nil Nil
-add xs@(Node x left right) y
+add Nil     y = Node y Nil Nil
+add s@(Node x left right) y
   | y < x     = Node x (add left y) right
-  | y > x     = Node x left         (add right y)
-  | otherwise = xs
-    \end{lstlisting}
-  \end{exampleblock}
+  | y > x     = Node x left (add right y)
+  | otherwise = s
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set from List}
 
-  \begin{exampleblock}{create a set from a list}
-    \begin{lstlisting}
+  \begin{lstlisting}
 makeSet :: Ord a => [a] -> Set a
 makeSet = foldl add empty
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Membership Check}
 
-  \begin{exampleblock}{check whether an element is a member of a set}
-    \begin{lstlisting}
-contains :: Ord a => Set a -> a -> Bool
-contains Nil                 _ = False
+  \begin{lstlisting}
+contains :: Ord a => Set a -> a -> Bool
+contains Nil _ = False
 contains (Node x left right) y
-  | y < x     = contains left x
-  | y > x     = contains right x
-  | otherwise = True
-    \end{lstlisting}
-  \end{exampleblock}
+  | y < x      = contains left x
+  | y > x      = contains right x
+  | otherwise  = True
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set Union}
 
-  \begin{exampleblock}{take the union of two sets}
-    \begin{lstlisting}[deletekeywords={union}]
-union :: Ord a => Set a -> Set a -> Set a
-union Nil ys  = ys
-union xs  Nil = xs
-union xs@(Node x left right) ys =
-    ((left `union` right) `union` ys) `add` x
-    \end{lstlisting}
-  \end{exampleblock}
+  \begin{lstlisting}[deletekeywords={union}]
+union :: Ord a => Set a -> Set a -> Set a
+union s1  Nil = s1
+union Nil s2  = s2
+union (Node x left right) s2 =
+    ((left `union` right) `union` s2) `add` x
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Sets}
+  \frametitle{Set Cardinality}
 
-  \begin{exampleblock}{apply a function to every element of a set}
-    \begin{lstlisting}
-collapse :: Set a -> [a]
-collapse Nil                 = []
-collapse (Node x left right) =
-    collapse left ++ [x] ++ collapse right
-
-mapSet :: Ord b => (a -> b) -> Set a -> Set b
-mapSet f = makeSet . map f . collapse
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sets}
-
-  \begin{exampleblock}{get the number of elements in a set}
-    \begin{lstlisting}
+  \begin{lstlisting}
 card :: Set a -> Int
-card = length . collapse
-    \end{lstlisting}
-  \end{exampleblock}
+card = length . makeList
+
+makeList :: Set a -> [a]
+makeList Nil                 = []
+makeList (Node x left right) =
+    makeList left ++ [x] ++ makeList right
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Mapping}
+
+  \begin{lstlisting}
+mapSet :: Ord b => (a -> b) -> Set a -> Set b
+mapSet f = makeSet . map f . makeList
+  \end{lstlisting}
+
+  \pause
+  \bigskip
+  \begin{itemize}
+    \item would the resulting tree be balanced?
+  \end{itemize}
 \end{frame}
 
 \section*{References}
