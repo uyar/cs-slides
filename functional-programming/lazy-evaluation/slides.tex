@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2015 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Lazy Evaluation}
 
 \author{H. Turgut Uyar}
-\date{2013-2015}
+\date{2013-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2015 H. Turgut Uyar
+  \copyright~2013-2016 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -101,101 +101,116 @@
   \frametitle{Expression Evaluation}
 
   \begin{itemize}
-    \item take the operator with the highest precedence
+    \item reduce an expression to a value
+    \item substitution model
+
+    \pause
+    \bigskip
+    \item take operator with lowest precedence
     \item evaluate its operands (note the recursion)
-    \item apply the operator to the operands
+    \item apply operator to operands
+    \item substitute expression with value
 
     \medskip
-    \item a name is evaluated by replacing it with its definition
+    \item evaluating a name: substitute it with its definition
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Expression Evaluation Example}
 
-  \begin{exampleblock}{}
-    \lstinline|-- r = 2.4|
-    \medskip
+  \lstinline|(3.14159 * r) * r|
 
-    \lstinline|(3.14159 * r) * r|
+  \medskip
+  \lstinline|-- r = 2.4|
 
-    \pause
-    \medskip
-    \lstinline|(3.14159 * 2.4) * r|
+  \pause
+  \bigskip
+  \lstinline|(3.14159 * 2.4) * r|
 
-    \pause
-    \medskip
-    \lstinline|7.539815999999999 * 2.4|
+  \pause
+  \medskip
+  \lstinline|7.539815999999999 * r|
 
-    \pause
-    \medskip
-    \lstinline|18.095558399999998|
-  \end{exampleblock}
+  \pause
+  \medskip
+  \lstinline|7.539815999999999 * 2.4|
+
+  \pause
+  \medskip
+  \lstinline|18.095558399999998|
 \end{frame}
 
 \begin{frame}
   \frametitle{Function Evaluation}
 
   \begin{itemize}
-    \item evaluate all function arguments (left to right)
-    \item replace the function application\\
-      with the right-hand side of its definition
-    \item replace the formal parameters of the function\\
-      with the actual parameters
+    \item evaluate all actual parameters (left to right)
 
-    \pause
-    \bigskip
-    \item substitution model
-    \item reduces an expression to a value
+    \medskip
+    \item substitute function application with its definition
+    \item substitute formal parameters with actual parameters
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Function Evaluation Example}
+
+  \begin{lstlisting}
+sqr :: Integer -> Integer
+sqr x = x * x
+
+sumOfSquares :: Integer -> Integer -> Integer
+sumOfSquares x y = sqr x + sqr y
+
+-- x = 3, y = 2 + 2
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}
   \frametitle{Function Evaluation Example}
 
-  \begin{exampleblock}{}
-    \lstinline|sum_of_squares(3, 2 + 2)|
+  \lstinline|sumOfSquares 3 (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|sum_of_squares(3, 4)|
+  \pause
+  \medskip
+  \lstinline|sumOfSquares 3 4|
 
-    \pause
-    \medskip
-    \lstinline|square(3) + square(4)|
+  \pause
+  \medskip
+  \lstinline|sqr 3 + sqr 4|
 
-    \pause
-    \medskip
-    \lstinline|3 * 3 + square(4)|
+  \pause
+  \medskip
+  \lstinline|(3 * 3) + sqr 4 |
 
-    \pause
-    \medskip
-    \lstinline|9 + square(4)|
+  \pause
+  \medskip
+  \lstinline|9 + sqr 4|
 
-    \pause
-    \medskip
-    \lstinline|9 + 4 * 4|
+  \pause
+  \medskip
+  \lstinline|9 + (4 * 4)|
 
-    \pause
-    \medskip
-    \lstinline|9 + 16|
+  \pause
+  \medskip
+  \lstinline|9 + 16|
 
-    \pause
-    \medskip
-    \lstinline|25|
-  \end{exampleblock}
+  \pause
+  \medskip
+  \lstinline|25|
 \end{frame}
 
 \begin{frame}
   \frametitle{Evaluation Strategies}
 
   \begin{itemize}
-    \item \alert{strict}: first evaluate arguments, then apply function\\
+    \item \alert{strict}: evaluate parameters, apply function
       (``call by value'')
 
     \pause
     \medskip
-    \item \alert{normal order}: evaluate arguments when their values are needed\\
+    \item \alert{normal order}: evaluate parameters when needed
       (``call by name'')
 
     \pause
@@ -213,61 +228,93 @@
 \begin{frame}
   \frametitle{Normal Order Evaluation Example}
 
-  \begin{exampleblock}{}
-    \lstinline|sum_of_squares(3, 2 + 2)|
+  \lstinline|sumOfSquares 3 (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|square(3) + square(2 + 2)|
+  \pause
+  \medskip
+  \lstinline|sqr 3 + sqr (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|3 * 3 + square(2 + 2)|
+  \pause
+  \medskip
+  \lstinline|(3 * 3) + sqr (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|9 + square(2 + 2)|
+  \pause
+  \medskip
+  \lstinline|9 + sqr (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|9 + (2 + 2) * (2 + 2)|
+  \pause
+  \medskip
+  \lstinline|9 + (2 + 2) * (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|9 + 4 * (2 + 2)|
+  \pause
+  \medskip
+  \lstinline|9 + 4 * (2 + 2)|
 
-    \pause
-    \medskip
-    \lstinline|9 + 4 * 4|
+  \pause
+  \medskip
+  \lstinline|9 + 4 * 4|
 
-    \pause
-    \medskip
-    \lstinline|9 + 16|
+  \pause
+  \medskip
+  \lstinline|9 + 16|
 
-    \pause
-    \medskip
-    \lstinline|25|
-  \end{exampleblock}
+  \pause
+  \medskip
+  \lstinline|25|
 \end{frame}
 
 \begin{frame}
   \frametitle{Lazy Evaluation}
 
   \begin{itemize}
-    \item strict evaluation evaluates arguments only once
-    \item but it might evaluate arguments which are not needed
+    \item strict evaluation evaluates parameters only once
+    \item but it might evaluate parameters which are not needed
 
     \medskip
-    \item normal order evaluation does not evaluate arguments\\
+    \item normal order evaluation doesn't evaluate parameters\\
       which are not needed
     \item but it might evaluate others more than once
 
     \pause
     \medskip
-    \item \alert{lazy evaluation}: evaluate an argument once\\
-      when its value is \emph{first} needed
+    \item \alert{lazy evaluation}: evaluate parameter once when
+      \emph{first} needed
     \item \alert{memoization}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lazy Evaluation Example}
+
+  \lstinline|sumOfSquares 3 (2 + 2)|
+
+  \pause
+  \medskip
+  \lstinline|sqr 3 + sqr (2 + 2)|
+
+  \pause
+  \medskip
+  \lstinline|(3 * 3) + sqr (2 + 2)|
+
+  \pause
+  \medskip
+  \lstinline|9 + sqr (2 + 2)|
+
+  \pause
+  \medskip
+  \lstinline|9 + (2 + 2) * (2 + 2)|
+
+  \pause
+  \medskip
+  \lstinline|9 + 4|\pause~~\lstinline|* 4|
+
+  \pause
+  \medskip
+  \lstinline|9 + 16|
+
+  \pause
+  \medskip
+  \lstinline|25|
 \end{frame}
 
 \begin{frame}[fragile]
@@ -311,7 +358,7 @@ first x y = x
 
   \begin{itemize}
     \item \alert{short-circuit evaluation}:\\
-      evaluation stops as soon as the result is determined
+      evaluation stops as soon as result is determined
   \end{itemize}
 
   \pause
@@ -350,15 +397,13 @@ while ((index < items.length) && (items[index] != key))
 \begin{frame}[fragile]
   \frametitle{Short-Circuit Evaluation Examples}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}[deletekeywords={and,not,or}]
+  \begin{lstlisting}[deletekeywords={and,not,or}]
 and :: Bool -> Bool -> Bool
 and x y = if x then y else False
 
 or :: Bool -> Bool -> Bool
 or x y = if x then True else y
-    \end{lstlisting}
-  \end{exampleblock}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Space Complexity}
@@ -393,8 +438,7 @@ facIter acc n = facIter (acc * n) (n - 1)
 
   \begin{itemize}
     \item tail-recursive
-    \item lazy evaluation: doesn't compute the multiplication\\
-      until the last moment
+    \item lazy evaluation: doesn't multiply until the last moment
   \end{itemize}
 \end{frame}
 
@@ -461,7 +505,7 @@ facIter acc 0 = acc
 facIter acc n = facIter (acc * n) (n - 1)
 
 fac :: Integer -> Integer
-fac n = (strict facIter 1) n
+fac = (strict facIter) 1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -474,7 +518,8 @@ fac n = (strict facIter 1) n
   \frametitle{Infinite Lists}
 
   \begin{itemize}
-    \item lazy evaluation makes it possible to define infinite data structures
+    \item lazy evaluation makes it possible to work with\\
+      infinite data structures
     \item create a list with infinite copies of the same element:\\
       \lstinline|repeat 42 ~> [42, 42, 42, ...]|
   \end{itemize}
@@ -499,8 +544,7 @@ addFirstTwo (x1:x2:_) = x1 + x2
 \begin{frame}[fragile]
   \frametitle{Infinite Ranges}
 
-  \begin{exampleblock}{}
-    \begin{lstlisting}
+  \begin{lstlisting}
 from :: Integer -> [Integer]
 from n = n : from (n + 1)
 
@@ -508,6 +552,16 @@ from n = n : from (n + 1)
 
 -- OR: [5 ..]
 -- addFirstTwo [7 ..] ~> 15
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Infinite List Example}
+
+  \begin{exampleblock}{Fibonacci sequence}
+    \begin{lstlisting}
+fibs :: [Integer]
+fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -545,18 +599,55 @@ elemOrd n (x:xs)
   \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Infinite List Example}
+\subsection{Generators}
 
-  \begin{exampleblock}{Fibonacci sequence}
+\lstset{language=Python, morekeywords={yield}}
+
+\begin{frame}[fragile]
+  \frametitle{Generators}
+
+  \begin{itemize}
+    \item Python uses generators for computing values when needed
+    \item \lstinline|yield| instead of \lstinline|return|
+  \end{itemize}
+
+  \begin{exampleblock}{example}
     \begin{lstlisting}
-fibs :: [Integer]
-fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+def repeat(n):
+    while True:
+        yield n
+
+
+answers = repeat(42)
+for x in answers:
+    print(x)    # 42, 42, 42, ...
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
-\subsection{Generators}
+\begin{frame}[fragile]
+  \frametitle{Generators}
+
+  \begin{itemize}
+    \item next call continues from where previous call left off
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+def from_(n):
+    while True:
+        yield n
+        n += 1
+
+
+from5 = from_(5)
+for x in from5:
+    print(x)    # 5, 6, 7, ...
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\lstset{language=Haskell}
 
 \subsection{Folding}
 
