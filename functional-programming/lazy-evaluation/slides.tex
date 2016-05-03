@@ -562,6 +562,8 @@ from n = n : from (n + 1)
     \begin{lstlisting}
 fibs :: [Integer]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+
+-- take 5 fibs ~> [1, 1, 2, 3, 5]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -643,6 +645,24 @@ def from_(n):
 from5 = from_(5)
 for x in from5:
     print(x)    # 5, 6, 7, ...
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Generator Example}
+
+  \begin{exampleblock}{Fibonacci sequence}
+    \begin{lstlisting}
+def fibs():
+    yield 1
+    yield 1
+    back2, back1 = 1, 1
+    while True:
+        num = back2 + back1
+        yield num
+        back1 = back2
+        back2 = num
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
