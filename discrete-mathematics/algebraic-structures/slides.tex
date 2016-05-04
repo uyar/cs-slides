@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2014
+% Copyright (c) 2001-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -11,9 +11,9 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -23,10 +23,10 @@
 }
 
 \title{Discrete Mathematics}
-\subtitle{Trees}
+\subtitle{Algebraic Structures}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2014}
+\date{2001-2016}
 
 \AtBeginSubsection[]
 {
@@ -36,9 +36,7 @@
   \end{frame}
 }
 
-%\beamerdefaultoverlayspecification{<+->}
-
-\pgfdeclareimage[width=2cm]{license}{../license}
+\pgfdeclareimage[height=1cm]{license}{../license}
 
 \pgfdeclareimage{hasse2418}{hasse2418}
 \pgfdeclareimage{enumeration}{enumeration}
@@ -57,7 +55,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2014 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -131,12 +129,12 @@
     \medskip
     \item \alert{closed}: $T \subseteq S$
   \end{itemize}
-  \begin{example}
+  \begin{exampleblock}{example}
     \begin{itemize}
       \item subtraction is closed on $\mathbb{Z}$
       \item subtraction is not closed on $\mathbb{Z^+}$
     \end{itemize}
-  \end{example}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -147,56 +145,55 @@
     \begin{definition}
       \alert{identity}: $1$\\
       $x \circ 1 = 1 \circ x = x$
-
-      \begin{itemize}
-        \item left identity: $1_l \circ x = x$
-        \item right identity: $x \circ 1_r = x$
-      \end{itemize}
     \end{definition}
+
+    \begin{itemize}
+      \item left identity: $1_l \circ x = x$
+      \item right identity: $x \circ 1_r = x$
+    \end{itemize}
 
     \pause
     \column{.5\textwidth}
     \begin{definition}
       \alert{zero}: $0$\\
       $x \circ 0 = 0 \circ x = 0$
-
-      \begin{itemize}
-        \item left zero: $0_l \circ x = 0$
-        \item right zero: $x \circ 0_r = 0$
-      \end{itemize}
     \end{definition}
+
+    \begin{itemize}
+      \item left zero: $0_l \circ x = 0$
+      \item right zero: $x \circ 0_r = 0$
+    \end{itemize}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Examples of Constants}
 
-  \begin{example}
+  \begin{itemize}
+    \item identity for $<\mathbb{N}, max>$ is $0$
+    \item zero for $<\mathbb{N}, min>$ is $0$
+    \item zero for $<\mathbb{Z}^+, min>$ is $1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples of Constants}
+
+  \begin{columns}
+    \column{.4\textwidth}
+    \begin{tabular}{c||c|c|c}
+      $\circ$ & a & b & c\\\hline\hline
+            a & a & b & b\\\hline
+            b & a & b & c\\\hline
+            c & a & b & a
+    \end{tabular}
+
+    \column{.5\textwidth}
     \begin{itemize}
-      \item identity for $<\mathbb{N}, max>$ is $0$
-      \item zero for $<\mathbb{N}, min>$ is $0$
-      \item zero for $<\mathbb{Z}^+, min>$ is $1$
+      \item $b$ is a left identity
+      \item $a$ and $b$ are right zeros
     \end{itemize}
-  \end{example}
-
-  \pause
-  \begin{example}
-    \begin{columns}
-      \column{.4\textwidth}
-      \begin{tabular}{c||c|c|c}
-        $\circ$ & a & b & c\\\hline\hline
-              a & a & b & b\\\hline
-              b & a & b & c\\\hline
-              c & a & b & a
-      \end{tabular}
-
-      \column{.5\textwidth}
-      \begin{itemize}
-        \item $b$ is a left identity
-        \item $a$ and $b$ are right zeros
-      \end{itemize}
-    \end{columns}
-  \end{example}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -205,10 +202,7 @@
   \begin{columns}
   \column{.5\textwidth}
     \begin{theorem}
-      let $1_l$ be a left identity, and\\
-      let $1_r$ be a right identity
-
-      \[ 1_l = 1_r \]
+      \[ \exists 1_l \wedge \exists 1_r \Rightarrow 1_l = 1_r \]
     \end{theorem}
 
     \pause
@@ -219,10 +213,7 @@
     \pause
     \column{.5\textwidth}
     \begin{theorem}
-      let $0_l$ be a left zero, and\\
-      let $0_r$ be a right zero
-
-      \[ 0_l = 0_r \]
+      \[ \exists 0_l \wedge \exists 0_r \Rightarrow 0_l = 0_r \]
     \end{theorem}
 
     \pause
@@ -235,18 +226,16 @@
 \begin{frame}
   \frametitle{Inverse}
 
-  \begin{definition}
-    $y$ is an \alert{inverse} of $x$:\\
-    $x \circ y = y \circ x = 1$
-  \end{definition}
-
-  \pause
   \begin{itemize}
-    \item if $x \circ y = 1$:
-    \begin{itemize}
-      \item $x$ is a \emph{left inverse} of $y$
-      \item $y$ is a \emph{right inverse} of $x$
-    \end{itemize}
+    \item $x \circ y = 1$:\\
+      $x$ is a \emph{left inverse} of $y$\\
+      $y$ is a \emph{right inverse} of $x$
+
+    \pause
+    \medskip
+    \item $x \circ y = y \circ x = 1$:\\
+      $x$ is an \alert{inverse} of $y$\\
+      $y$ is an inverse of $x$\\
   \end{itemize}
 \end{frame}
 
@@ -254,7 +243,7 @@
   \frametitle{Inverse}
 
   \begin{theorem}
-    let $\circ$ be an associative operation
+    $\circ$ associative
 
     \[ w \circ x = x \circ y = 1 \Rightarrow w = y \]
   \end{theorem}
@@ -276,75 +265,59 @@
 \begin{frame}
   \frametitle{Algebraic Families}
 
-  \begin{definition}
-    \alert{algebraic family}: an algebraic structure and some axioms
-  \end{definition}
-
   \begin{itemize}
-    \item examples of axioms:
-    \begin{itemize}
-      \item commutativity of a binary operation
-      \item associativity of a binary operation
-      \item existence of inverse elements
-      \item $\ldots$
-    \end{itemize}
+    \item \alert{algebraic family}: structure and axioms
+    \item axioms: associativity, commutativity, inverses, \ldots
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Algebraic Family Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item axioms:
-      \begin{itemize}
-        \item $x \circ y = y \circ x$
-        \item $(x \circ y) \circ z = x \circ (y \circ z)$
-        \item $x \circ 1 = x$
-      \end{itemize}
+  \begin{itemize}
+    \item axioms:
+    \smallskip
+    \item $x \circ y = y \circ x$
+    \item $(x \circ y) \circ z = x \circ (y \circ z)$
+    \item $x \circ 1 = x$
 
-      \pause
-      \item structures for which these axioms hold:
-      \begin{itemize}
-       \item $<\mathbb{Z},+,0>$
-       \item $<\mathbb{Z},\cdot,1>$
-       \item $<\mathcal{P}(S),\cup,\emptyset>$
-      \end{itemize}
-    \end{itemize}
-  \end{example}
+    \pause
+    \medskip
+    \item structures for which these axioms hold:
+    \smallskip
+    \item $<\mathbb{Z},+,0>$
+    \item $<\mathbb{Z},\cdot,1>$
+    \item $<\mathcal{P}(S),\cup,\emptyset>$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Subalgebra}
 
-  \begin{definition}
-    let $A = <S,\circ,\Delta,k>$, and\\
-    let $A' = <S',\circ',\Delta',k'>$
+  \begin{itemize}
+    \item $A = <S,\circ,\Delta,k>$\\
+      $A' = <S',\circ',\Delta',k'>$
 
     \medskip
-    $A'$ is a \alert{subalgebra} of $A$:
+    \item $A'$ is a \alert{subalgebra} of $A$:
 
     \pause
     \medskip
-    \begin{itemize}
-      \item $S' \subseteq S$
-      \item $k' = k$
-      \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
-      \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
-    \end{itemize}
-  \end{definition}
+    \item $S' \subseteq S$
+    \item $k' = k$
+    \item $\forall a,b \in S'~a \circ' b = a \circ b \in S'$
+    \item $\forall a \in S'~\Delta' a = \Delta a \in S'$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Subalgebra Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item $<\mathbb{Z}^+,+,0>$ is a subalgebra of $<\mathbb{Z},+,0>$
-      \pause
-      \item $<\mathbb{N},-,0>$ is not a subalgebra of $<\mathbb{Z},-,0>$
-    \end{itemize}
-  \end{example}
+  \begin{itemize}
+    \item $<\mathbb{Z}^+,+,0>$ is a subalgebra of $<\mathbb{Z},+,0>$
+    \pause
+    \item $<\mathbb{N},-,0>$ is not a subalgebra of $<\mathbb{Z},-,0>$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -359,16 +332,15 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Semigroup Examples}
+  \frametitle{Semigroup Example}
 
-  \begin{example}
-    $<\Sigma^+,\&>$
+  \begin{itemize}
+    \item $<\Sigma^+,\&>$
 
-    \begin{itemize}
-      \item $\Sigma$: alphabet, $\Sigma^+$: strings of length at least 1
-      \item $\&$: string concatenation
-    \end{itemize}
-  \end{example}
+    \medskip
+    \item $\Sigma$: alphabet, $\Sigma^+$: strings of length at least 1
+    \item $\&$: string concatenation
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -385,17 +357,16 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Monoid Examples}
+  \frametitle{Monoid Example}
 
-  \begin{example}
-    $<\Sigma^*,\&,\epsilon>$
+  \begin{itemize}
+    \item $<\Sigma^*,\&,\epsilon>$
 
-    \begin{itemize}
-      \item $\Sigma$: alphabet, $\Sigma^*$: strings of any length
-      \item $\&$: string concatenation
-      \item $\epsilon$: empty string
-    \end{itemize}
-  \end{example}
+    \medskip
+    \item $\Sigma$: alphabet, $\Sigma^*$: strings of any length
+    \item $\&$: string concatenation
+    \item $\epsilon$: empty string
+  \end{itemize}
 \end{frame}
 
 \subsection{Groups}
@@ -422,58 +393,54 @@
 \begin{frame}
   \frametitle{Group Examples}
 
-  \begin{example}
-    \begin{itemize}
-      \item $<\mathbb{Z},+,0>$ is a group
-
-      \pause
-      \medskip
-      \item $<\mathbb{Q},\cdot,1>$ is not a group
-      \item $<\mathbb{Q}-\{0\},\cdot,1>$ is a group
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Group Example}
-
-  \begin{example}
-    let $a \circ b = a + b + ab$\\
-    is $<\mathbb{Z}, \circ>$ a group?
+  \begin{itemize}
+    \item $<\mathbb{Z},+,0>$ is a group
 
     \pause
-    \begin{itemize}
-      \item is $\circ$ associative?
-        \[ \begin{array}{rcl}
-          (a \circ b) \circ c & = & (a + b + ab) + c + (a + b + ab) \cdot c\\\pause
-                              & = & a + b + ab + c + ac + bc + abc\\\pause
-                              & = & a + b + c + bc + ab + ac + abc\\\pause
-                              & = & a + (b + c + bc) + a \cdot (b + c + bc)\\\pause
-                              & = & a \circ (b \circ c)
-        \end{array} \]
-     \end{itemize}
- \end{example}
+    \medskip
+    \item $<\mathbb{Q},\cdot,1>$ is not a group
+    \item $<\mathbb{Q}-\{0\},\cdot,1>$ is a group
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Group Example}
 
-  \begin{example}
-    \begin{itemize}
-      \item is there an identity element?
-        \[ a \circ 0 = a + 0 + a \cdot 0 = a \]
+  \begin{itemize}
+    \item $a \circ b = a + b + ab$\\
+    \item is $<\mathbb{Z}, \circ>$ a group?
 
-      \pause
-      \item does every element have an inverse?
-        \[ \begin{array}{crcl}
-                      & a \circ a^{-1} & = & 0\\\pause
-          \Rightarrow & a + a^{-1} + a \cdot a^{-1} & = & 0\\\pause
-          \Rightarrow & a + a^{-1} \cdot (1 + a) & = & 0\\\pause
-          \Rightarrow & a^{-1} & = & -\frac{a}{1 + a}\\\pause
-        \end{array} \]\\
-        -1 doesn't have an inverse, not a group
-     \end{itemize}
- \end{example}
+    \pause
+    \medskip
+    \item is $\circ$ associative?
+
+    \[ \begin{array}{rcl}
+         (a \circ b) \circ c & = & (a + b + ab) + c + (a + b + ab) \cdot c\\\pause
+                             & = & a + b + ab + c + ac + bc + abc\\\pause
+                             & = & a + b + c + bc + ab + ac + abc\\\pause
+                             & = & a + (b + c + bc) + a \cdot (b + c + bc)\\\pause
+                             & = & a \circ (b \circ c)
+       \end{array} \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Group Example}
+
+  \begin{itemize}
+    \item is there an identity element?
+      \[ a \circ 0 = a + 0 + a \cdot 0 = a \]
+
+    \pause
+    \item does every element have an inverse?
+      \[ \begin{array}{crcl}
+                    & a \circ a^{-1} & = & 0\\\pause
+        \Rightarrow & a + a^{-1} + a \cdot a^{-1} & = & 0\\\pause
+        \Rightarrow & a + a^{-1} \cdot (1 + a) & = & 0\\\pause
+        \Rightarrow & a^{-1} & = & -\frac{a}{1 + a}\\\pause
+      \end{array} \]\\
+      -1 doesn't have an inverse, not a group
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -483,8 +450,7 @@
     \item permutation: a bijective function on a set
 
     \medskip
-    \item representation:\\
-    let $A = \{a_1, a_2, \dots, a_n\}$
+    \item $A = \{a_1, a_2, \dots, a_n\}$
     \[\left(
       \begin{array}{cccc}
          a_1   &  a_2   & \dots &  a_n\\
@@ -492,7 +458,6 @@
       \end{array}
     \right)\]
 
-    \pause
     \medskip
     \item permutation composition: $\diamond$
   \end{itemize}
@@ -501,83 +466,87 @@
 \begin{frame}
   \frametitle{Permutation Example}
 
-  \begin{example}
-    $A = \{1,2,3\}$
+  \begin{itemize}
+    \item $A = \{1,2,3\}$
+  \end{itemize}
 
-    \medskip
-    $\begin{array}{cc}
-      p_1 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          1 & 2 & 3
-        \end{array}
-      \right) &
-      p_2 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          1 & 3 & 2
-        \end{array}
-      \right)\medskip\\
-      p_3 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          2 & 1 & 3
-        \end{array}
-      \right) &
-      p_4 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          2 & 3 & 1
-        \end{array}
-      \right)\medskip\\
-      p_5 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          3 & 1 & 2
-        \end{array}
-      \right) &
-      p_6 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          3 & 2 & 1
-        \end{array}
-      \right)
-    \end{array}$
-  \end{example}
+  \medskip
+  \begin{center}
+  $\begin{array}{cc}
+    p_1 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        1 & 2 & 3
+      \end{array}
+    \right) &
+    p_2 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        1 & 3 & 2
+      \end{array}
+    \right)\medskip\\
+    p_3 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        2 & 1 & 3
+      \end{array}
+    \right) &
+    p_4 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        2 & 3 & 1
+      \end{array}
+    \right)\medskip\\
+    p_5 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        3 & 1 & 2
+      \end{array}
+    \right) &
+    p_6 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        3 & 2 & 1
+      \end{array}
+    \right)
+  \end{array}$
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Permutation Composition Example}
 
-  \begin{example}
-    $A = \{1,2,3\}$
+  \begin{itemize}
+    \item $A = \{1,2,3\}$
+  \end{itemize}
 
-    \medskip
-    $\begin{array}{cc}
-      p_3 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          2 & 1 & 3
-        \end{array}
-      \right) &
-      p_5 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          3 & 1 & 2
-        \end{array}
-      \right)
-    \end{array}$
+  \medskip
+  \begin{center}
+  $\begin{array}{cc}
+    p_3 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        2 & 1 & 3
+      \end{array}
+    \right) &
+    p_5 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        3 & 1 & 2
+      \end{array}
+    \right)
+  \end{array}$
 
-    \medskip
-    $\begin{array}{c}
-      p_3 \diamond p_5 = \left(
-        \begin{array}{ccc}
-          1 & 2 & 3\\
-          1 & 3 & 2
-        \end{array}
-      \right)
-    \end{array}$
-  \end{example}
+  \medskip
+  $\begin{array}{c}
+    p_3 \diamond p_5 = \left(
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        1 & 3 & 2
+      \end{array}
+    \right)
+  \end{array}$
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -585,7 +554,7 @@
 
   \begin{itemize}
     \item permutation composition is associative
-    \item identity permutasyon: $1_A$
+    \item identity permutation: $1_A$
     \[\left(
       \begin{array}{cccc}
          a_1 & a_2 & \dots & a_n\\
@@ -595,88 +564,87 @@
 
     \pause
     \medskip
-    \item let $Perm(A)$ be the set of all permutations of the elements\\
-      of the set $A$:\\
-      $<Perm(A), \diamond, 1_A>$ is a group
+    \item $Perm(A)$: set of all permutations of the elements of $A$
+    \item $<Perm(A), \diamond, 1_A>$ is a group
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Group Example: Permutation}
 
-  \begin{example}[permutations on $\{1,2,3,4\}$]
-    $\begin{array}{c|cccccccccccccccccccccccc}
-        A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
-          & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
-        1 &   1    &   1    &   1    &   1    &   1    &  1
-          &   2    &   2    &   2    &   2    &   2    &  2\\
-        2 &   2    &   2    &   3    &   3    &   4    &  4
-          &   1    &   1    &   3    &   3    &   4    &  4\\
-        3 &   3    &   4    &   2    &   4    &   2    &  3
-          &   3    &   4    &   1    &   4    &   1    &  3\\
-        4 &   4    &   3    &   4    &   2    &   3    &  2
-          &   4    &   3    &   4    &   1    &   3    &  1\\\\
-          & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
-          & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
-        1 &   3    &   3    &   3    &   3    &   3    &  3
-          &   4    &   4    &   4    &   4    &   4    &  4\\
-        2 &   1    &   1    &   2    &   2    &   4    &  4
-          &   1    &   1    &   2    &   2    &   3    &  3\\
-        3 &   2    &   4    &   1    &   4    &   1    &  2
-          &   2    &   3    &   1    &   3    &   1    &  2\\
-        4 &   4    &   2    &   4    &   1    &   2    &  1
-          &   3    &   2    &   3    &   1    &   2    &  1
-      \end{array}$
-  \end{example}
+  \begin{itemize}
+   \item $A=\{1,2,3,4\}$
+  \end{itemize}
+
+  \medskip
+  $\begin{array}{c|cccccccccccccccccccccccc}
+      A & 1_{A}  & p_{1}  & p_{2}  & p_{3}  & p_{4}  & p_{5}
+        & p_{6}  & p_{7}  & p_{8}  & p_{9}  & p_{10} & p_{11}\\\hline
+      1 &   1    &   1    &   1    &   1    &   1    &  1
+        &   2    &   2    &   2    &   2    &   2    &  2\\
+      2 &   2    &   2    &   3    &   3    &   4    &  4
+        &   1    &   1    &   3    &   3    &   4    &  4\\
+      3 &   3    &   4    &   2    &   4    &   2    &  3
+        &   3    &   4    &   1    &   4    &   1    &  3\\
+      4 &   4    &   3    &   4    &   2    &   3    &  2
+        &   4    &   3    &   4    &   1    &   3    &  1\\\\
+        & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}
+        & p_{18} & p_{19} & p_{20} & p_{21} & p_{22} & p_{23}\\\hline
+      1 &   3    &   3    &   3    &   3    &   3    &  3
+        &   4    &   4    &   4    &   4    &   4    &  4\\
+      2 &   1    &   1    &   2    &   2    &   4    &  4
+        &   1    &   1    &   2    &   2    &   3    &  3\\
+      3 &   2    &   4    &   1    &   4    &   1    &  2
+        &   2    &   3    &   1    &   3    &   1    &  2\\
+      4 &   4    &   2    &   4    &   1    &   2    &  1
+        &   3    &   2    &   3    &   1    &   2    &  1
+  \end{array}$
 \end{frame}
 
 \begin{frame}
   \frametitle{Group Example: Permutation}
 
-  \begin{example}
-    \begin{itemize}
-      \item $p_8 \diamond p_{12}=p_{12} \diamond p_8=1_A$:\\
-        $p_{12} = p_8^{-1}$, $p_8 = p_{12}^{-1}$
-      \item $p_{14} \diamond p_{14}=1_A$:\\
-        $p_{14} = p_{14}^{-1}$
-
-      \pause
-      \bigskip
-      \item $G_1=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ is a group
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Group Example: Permutation}
-
-  \begin{example}
-    \begin{itemize}
-      \item let $G_2=<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$
-    \end{itemize}
-
-    \[
-      \begin{array}{c||c|c|c|c|c|c}
-        \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
-        1_{A}    & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline
-        p_{2}    & p_{2}  & 1_{A}  & p_{8}  & p_{6}  & p_{14} & p_{12}\\\hline
-        p_{6}    & p_{6}  & p_{12} & 1_{A}  & p_{14} & p_{2}  & p_{8}\\\hline
-        p_{8}    & p_{8}  & p_{14} & p_{2}  & p_{12} & 1_{A}  & p_{6}\\\hline
-        p_{12}   & p_{12} & p_{6}  & p_{14} & 1_{A}  & p_{8}  & p_{2}\\\hline
-        p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
-      \end{array}
-    \]
+  \begin{itemize}
+    \item $p_8 \diamond p_{12}=p_{12} \diamond p_8=1_A$:\\
+      $p_{12} = p_8^{-1}$, $p_8 = p_{12}^{-1}$
+    \medskip
+    \item $p_{14} \diamond p_{14}=1_A$:\\
+      $p_{14} = p_{14}^{-1}$
 
     \pause
     \bigskip
-    \begin{itemize}
-      \item $G_2$ is a subgroup of $G_1$
-    \end{itemize}
-  \end{example}
+    \item $G=<\{1_A,p_1,\dots,p_{23}\},\diamond,1_A>$ is a group
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Left and Right Cancellation}
+  \frametitle{Group Example: Permutation}
+
+  \begin{itemize}
+    \item $G'=<\{1_A,p_2,p_6,p_8,p_{12},p_{14}\},\diamond,1_A>$
+  \end{itemize}
+
+  \[
+    \begin{array}{c||c|c|c|c|c|c}
+      \diamond & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline\hline
+      1_{A}    & 1_{A}  & p_{2}  & p_{6}  & p_{8}  & p_{12} & p_{14}\\\hline
+      p_{2}    & p_{2}  & 1_{A}  & p_{8}  & p_{6}  & p_{14} & p_{12}\\\hline
+      p_{6}    & p_{6}  & p_{12} & 1_{A}  & p_{14} & p_{2}  & p_{8}\\\hline
+      p_{8}    & p_{8}  & p_{14} & p_{2}  & p_{12} & 1_{A}  & p_{6}\\\hline
+      p_{12}   & p_{12} & p_{6}  & p_{14} & 1_{A}  & p_{8}  & p_{2}\\\hline
+      p_{14}   & p_{14} & p_{8}  & p_{12} & p_{2}  & p_{6}  & 1_{A}
+    \end{array}
+  \]
+
+  \pause
+  \bigskip
+  \begin{itemize}
+    \item $G'$ is a subgroup of $G$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cancellation in Groups}
 
   \begin{theorem}
     $a \circ c = b \circ c \Rightarrow a = b$
