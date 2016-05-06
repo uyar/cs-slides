@@ -426,7 +426,7 @@ fac n = n * fac (n - 1)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Space Complexity}
+  \frametitle{Space Complexity Example}
 
   \begin{exampleblock}{}
     \begin{lstlisting}
@@ -440,6 +440,18 @@ facIter acc n = facIter (acc * n) (n - 1)
     \item tail-recursive
     \item lazy evaluation: doesn't multiply until the last moment
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Space Complexity Example}
+
+  \begin{lstlisting}
+facIter 1 n
+~> facIter (1*n) (n-1)
+~> facIter ((1*n)*(n-1)) (n-2)
+~> facIter (((1*n)*(n-1))*(n-2)) (n-3)
+~> ...
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -500,12 +512,12 @@ strict f x = seq x (f x)
     \pause
     \medskip
     \begin{lstlisting}
-facIter :: Integer -> Integer -> Integer
-facIter acc 0 = acc
-facIter acc n = facIter (acc * n) (n - 1)
-
 fac :: Integer -> Integer
-fac = (strict facIter) 1
+fac n = facIter 1 n
+  where
+    facIter :: Integer -> Integer -> Integer
+    facIter acc 0  = acc
+    facIter acc n' = strict facIter (acc * n') (n' - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -660,7 +672,7 @@ for x in from5:
 def fibs():
     yield 1
     yield 1
-    back2, back1 = 1, 1
+    back1, back2 = 1, 1
     while True:
         num = back2 + back1
         yield num
@@ -681,10 +693,10 @@ def fibs():
 foldr :: (a -> b -> b) -> b -> [a] -> b
 foldr f s []     = s
 foldr f s (x:xs) = f x (foldr f s xs)
-    \end{lstlisting}
+  \end{lstlisting}
 
-    \begin{lstlisting}
-foldl :: (a -> b -> a) -> a -> [b] -> a
+  \begin{lstlisting}
+foldl :: (b -> a -> b) -> b -> [a] -> b
 foldl f s []     = s
 foldl f s (x:xs) = foldl f (f s x) xs
   \end{lstlisting}
@@ -700,24 +712,108 @@ foldl f s (x:xs) = foldl f (f s x) xs
   \frametitle{Folding Example}
 
   \begin{lstlisting}
-foldr (&&) False (repeat False)
--- False
+foldl (*) 1 [1 .. n]
+~> foldl (*) (1*1) [2 .. n]
+~> foldl (*) ((1*1)*2) [3 .. n]
+~> foldl (*) (((1*1)*2)*4) [4 .. n]
+~> ...
   \end{lstlisting}
+\end{frame}
 
-  \pause
-  \begin{lstlisting}
-foldl (&&) False (repeat False)
--- doesn't terminate
-  \end{lstlisting}
+\begin{frame}[fragile]
+  \frametitle{Folding}
 
-  \pause
-  \medskip
   \begin{itemize}
-    \item if f is lazy on its second argument, prefer \lstinline|foldr|
+    \item \lstinline|foldl'|: strict \lstinline|foldl|
+  \end{itemize}
+
+  \begin{lstlisting}
+foldl' :: (b -> a -> b) -> b -> [a] -> b
+foldl' f s []     = s
+foldl' f s (x:xs) = strict (foldl' f) (f s x) xs
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Example}
+
+  \begin{lstlisting}
+foldl' (*) 1 [1 .. n]
+~> foldl' (*) 1 [2 .. n]
+~> foldl' (*) 2 [3 .. n]
+~> foldl' (*) 6 [4 .. n]
+~> ...
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Example}
+
+  \begin{lstlisting}
+foldl (&&) True (repeat False)
+~> foldl (&&) True [False, False, False, ...]
+~> foldl (&&) ((&&) True False) [False, False, ...]
+~> foldl (&&) False [False, False, ...]
+~> foldl (&&) ((&&) False False) [False, ...]
+~> foldl (&&) False [False, ...]
+~> ...
+-- never terminates
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Example}
+
+  \begin{lstlisting}
+foldr (&&) True (repeat False)
+~> foldr (&&) True [False, False, False, ...]
+~> (&&) False (foldr (&&) True [False, False, ...])
+~> False
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Example}
+
+  \begin{lstlisting}
+foldr ((:).(+2)) [] [1 .. n]
+~> ((:).(+2)) 1 (foldr ((:).(+2)) [] [2 .. n])
+~> (1+2) : (foldr ((:).(+2)) [] [2 .. n])
+~> 3 : (foldr ((:).(+2)) [] [2 .. n])
+~> 3 : ((:).(+2)) 2 (foldr ((:).(+2)) [] [3 .. n])
+~> 3 : 4 : (foldr ((:).(+2)) [] [3 .. n])
+~> ...
+  \end{lstlisting}
+
+  \begin{itemize}
+    \item space complexity: $O(1)$
   \end{itemize}
 \end{frame}
 
-% TODO: foldl'
+\begin{frame}[fragile]
+  \frametitle{Folding Example}
+
+  \begin{lstlisting}
+foldr (*) 1 [1 .. n]
+~> (*) 1 (foldr (*) 1 [2 .. n])
+~> (*) 1 ((*) 2 (foldr (*) 1 [3 .. n]))
+~> (*) 1 ((*) 2 ((*) 3 (foldr (*) 1 [4 .. n]))
+~> ...
+  \end{lstlisting}
+
+  \begin{itemize}
+    \item space complexity: $O(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Folding Strategies}
+
+  \begin{itemize}
+    \item if f is lazy on its second argument, prefer \lstinline|foldr|
+    \item if the whole list will be traversed, prefer \lstinline|foldl'|
+  \end{itemize}
+\end{frame}
 
 \section*{References}
 
