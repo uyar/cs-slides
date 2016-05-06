@@ -209,10 +209,9 @@ read "3.14" :: Float ~> 3.14
 
     \medskip
     \begin{lstlisting}
-do
-    action1
-    action2
-    ...
+do action1
+   action2
+   ...
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -223,11 +222,10 @@ do
   \begin{exampleblock}{print a string 4 times}
     \begin{lstlisting}
 put4times :: String -> IO ()
-put4times str = do
-    putStrLn str
-    putStrLn str
-    putStrLn str
-    putStrLn str
+put4times str = do putStrLn str
+                   putStrLn str
+                   putStrLn str
+                   putStrLn str
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -243,9 +241,8 @@ put4times str = do
   \begin{exampleblock}{example: reverse and print the line read from the input}
     \begin{lstlisting}
 reverseLine :: IO ()
-reverseLine = do
-    line <- getLine
-    putStrLn (reverse line)
+reverseLine = do line <- getLine
+                 putStrLn (reverse line)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -261,13 +258,12 @@ reverseLine = do
   \begin{exampleblock}{example: reverse two lines}
     \begin{lstlisting}
 reverse2lines :: IO ()
-reverse2lines = do
-    line1 <- getLine
-    line2 <- getLine
-    let rev1 = reverse line1
-    let rev2 = reverse line2
-    putStrLn rev2
-    putStrLn rev1
+reverse2lines = do line1 <- getLine
+                   line2 <- getLine
+                   let rev1 = reverse line1
+                   let rev2 = reverse line2
+                   putStrLn rev2
+                   putStrLn rev1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -282,9 +278,8 @@ reverse2lines = do
   \begin{exampleblock}{example: read an integer from the input}
     \begin{lstlisting}
 getInteger :: IO Integer
-getInteger = do
-    line <- getLine
-    return (read line :: Integer)
+getInteger = do line <- getLine
+                return (read line :: Integer)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -295,10 +290,9 @@ getInteger = do
   \begin{exampleblock}{copy input to output indefinitely}
     \begin{lstlisting}
 copy :: IO ()
-copy = do
-    line <- getLine
-    putStrLn line
-    copy
+copy = do line <- getLine
+          putStrLn line
+          copy
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -309,13 +303,11 @@ copy = do
   \begin{exampleblock}{copy input to output a number of times}
     \begin{lstlisting}
 copyN :: Integer -> IO ()
-copyN n =
-    if n <= 0
-        then return ()
-        else do
-            line <- getLine
-            putStrLn line
-            copyN (n - 1)
+copyN n = if n <= 0
+             then return ()
+             else do line <- getLine
+                     putStrLn line
+                     copyN (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -325,14 +317,12 @@ copyN n =
 
   \begin{exampleblock}{copy until input line is empty}
     \begin{lstlisting}
-copyEmpty :: IO ()
-copyEmpty = do
-    line <- getLine
-    if line == ""
-        then return ()
-        else do
-            putStrLn line
-            copyEmpty
+copyUntilEmpty :: IO ()
+copyUntilEmpty = do line <- getLine
+                    if line == ""
+                       then return ()
+                       else do putStrLn line
+                               copyUntilEmpty
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -492,12 +482,11 @@ playRound rs = do
     putStrLn ""
     if ch == '.'
         then putStrLn (showResult rs)
-        else do
-            let (movesA, movesB) = unzip rs
-            let moveA = echo movesB
-            let moveB = convertMove ch
-            putStrLn (showRound (moveA, moveB))
-            playRound ((moveA, moveB) : rs)
+        else do let (movesA, movesB) = unzip rs
+                let moveA = echo movesB
+                let moveB = convertMove ch
+                putStrLn (showRound (moveA, moveB))
+                playRound ((moveA, moveB) : rs)
 
 playInteractive :: IO ()
 playInteractive = play []
