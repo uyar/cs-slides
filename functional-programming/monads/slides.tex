@@ -1,0 +1,390 @@
+% Copyright (c) 2015-2016 H. Turgut Uyar <uyar@itu.edu.tr>
+%
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+\documentclass[dvipsnames]{beamer}
+
+\usepackage[scaled=0.95]{cabin}
+\usepackage[scaled=0.88]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+        keywordstyle=\color{blue},
+        showstringspaces=false}
+\lstdefinestyle{syntax}{frame=single}
+\lstset{language=Haskell,morekeywords={Applicative,fmap,pure}}
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \useinnertheme{rounded}
+  \usecolortheme{seahorse}
+  \setbeamercovered{transparent}
+}
+
+\title{Functional Programming}
+\subtitle{Monads}
+
+\author{H. Turgut Uyar}
+\date{2015-2016}
+
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>
+    \frametitle{Topics}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\theoremstyle{plain}
+
+\pgfdeclareimage[height=1cm]{license}{../license}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{License}
+
+  \pgfuseimage{license}\hfill
+  \copyright~2015-2016 H. Turgut Uyar
+
+  \vfill
+  \begin{footnotesize}
+    You are free to:
+    \begin{itemize}
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
+    \end{itemize}
+
+    Under the following terms:
+    \begin{itemize}
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
+
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
+
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
+    \end{itemize}
+
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{footnotesize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Topics}
+  \tableofcontents
+\end{frame}
+
+\section{Functors}
+
+\subsection{Function Composition}
+
+\begin{frame}[fragile]
+  \frametitle{Function Composition}
+
+  \begin{itemize}
+    \item composing functions
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+-- show :: a -> [Char]
+-- length :: [a] -> Int
+
+strLength :: Show a => a -> Int
+strLength = length . show
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{IO Function Composition}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+-- getLine :: IO [Char]
+-- length :: [a] -> Int
+
+strLengthIO = length . getLine
+-- type error
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{IO Function Composition}
+
+  \begin{itemize}
+    \item function to compose with IO
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+-- fmapIO length getLine
+
+fmapIO f p = do x <- p
+                return (f x)
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item what is the type of \lstinline|fmapIO|?\\
+        \lstinline|fmapIO :: ([a] -> Int) -> IO [Char] -> IO Int|
+      \pause
+      \smallskip
+      \item more general:\\
+        \lstinline|fmapIO :: (a -> b) -> IO a -> IO b|
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functor Type Class}
+
+  \begin{itemize}
+    \item pattern: get value out, apply function, wrap result
+    \item \alert{functor}
+    \item \lstinline|fmap| function or \lstinline|<$>| operator
+  \end{itemize}
+
+  \begin{lstlisting}
+class Functor f where
+  fmap :: (a -> b) -> f a -> f b
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functor Example}
+
+  \begin{lstlisting}
+data Box a = Box a
+             deriving Show
+
+instance Functor Box where
+  fmap f (Box x) = Box (f x)
+
+-- (+3) (Box 2)         ~> type error
+-- fmap (+3) (Box 2)    ~> Box 5
+-- (+3) <$> Box 2       ~> Box 5
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functor Example}
+
+  \begin{lstlisting}
+data Maybe a = Nothing | Just a
+               deriving Show
+
+instance Functor Maybe where
+  fmap f Nothing  = Nothing
+  fmap f (Just x) = Just (f x)
+
+-- (+3) <$> Just 2      ~> Just 5
+-- (+3) <$> Nothing     ~> Nothing
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Functor Laws}
+
+  \begin{itemize}
+    \item \lstinline|fmap id == id|
+
+    \medskip
+    \item \lstinline|fmap (f . g) == fmap f . fmap g|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Functor Law Examples}
+
+  \begin{itemize}
+    \item \lstinline|fmap id (Box x)|\pause\\
+      \lstinline|== Box (id x)|\pause\\
+      \lstinline|== Box x|\pause\\
+      \lstinline|== id (Box x)|
+
+    \pause
+    \bigskip
+    \item \lstinline|fmap (f . g) (Box x)|\pause\\
+      \lstinline|== Box ((f . g) x)|\pause\\
+      \lstinline|== Box (f (g x))|
+    \item \lstinline|(fmap f . fmap g) (Box x)|\pause\\
+      \lstinline|== (fmap f) (fmap g (Box x)|\pause\\
+      \lstinline|== (fmap f) (Box (g x))|\pause\\
+      \lstinline|== Box (f (g x))|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lists as Functors}
+
+  \begin{itemize}
+    \item \lstinline|fmap :: (a -> b) -> f a -> f b|
+    \item replace \lstinline|f| with \lstinline|[]|:\\
+      \lstinline|fmap :: (a -> b) -> [a] -> [b]|
+  \end{itemize}
+
+  \pause
+  \begin{lstlisting}
+instance Functor [] where
+  fmap = map
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions as Functors}
+
+  \begin{itemize}
+    \item \lstinline|fmap :: (a -> b) -> f a -> f b|
+    \item replace \lstinline|f| with \lstinline|(->) r|:\\
+      \lstinline|fmap :: (a -> b) -> ((->) r) a -> ((->) r) b|
+    \item same as:\\
+      \lstinline|fmap :: (a -> b) -> (r -> a) -> (r -> b)|
+  \end{itemize}
+
+  \pause
+  \begin{lstlisting}
+instance Functor ((->) r) where
+  fmap = (.)
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Applicative Functors}
+
+\begin{frame}[fragile]
+  \frametitle{Applicative Functors}
+
+  \begin{itemize}
+    \item pattern: get function out, get value out, apply function,\\
+      wrap result
+    \item \alert{applicative functor}
+    \item \lstinline|<*>| operator
+    \item \lstinline|pure| function
+  \end{itemize}
+
+  \begin{lstlisting}
+class Functor f => Applicative f where
+  (<*>) :: f (a -> b) -> f a -> f b
+  pure :: a -> f a
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Applicative Functor Example}
+
+  \begin{lstlisting}
+instance Applicative Box where
+  (Box f) <*> (Box x) = Box (f x)
+
+  pure x = Box x
+
+-- Box (+3) <$> Box 2   ~> type error
+-- Box (+3) <*> Box 2   ~> Box 5
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Applicative Functor Example}
+
+  \begin{lstlisting}
+instance Applicative Maybe where
+  Nothing <*> _ = Nothing
+  Just f  <*> v = fmap f v
+
+  pure x = Just x
+
+-- Just (+3) <*> Just 2 ~> Just 5
+-- Nothing   <*> Just 2 ~> Nothing
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Applicative Functor Example}
+
+  \begin{itemize}
+    \item how to add two \lstinline|Maybe| values?
+  \end{itemize}
+
+  \pause
+  \medskip
+  \begin{lstlisting}
+addMaybe :: Num a => Maybe a -> Maybe a -> Maybe a
+addMaybe (Just x1) (Just x2) = Just (x1 + x2)
+addMaybe _        _          = Nothing
+  \end{lstlisting}
+
+  \pause
+  \begin{lstlisting}
+-- OR:
+addMaybe v1 v2 = (+) <$> v1 <*> v2
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Applicative Functor Laws}
+
+  \begin{itemize}
+    \item identity:\\
+      \lstinline|pure id <*> v == v|
+
+    \medskip
+    \item composition:\\
+      \lstinline|pure (.) <*> u <*> v <*> w == u <*> (v <*> w)|
+
+    \medskip
+    \item homomorphism:\\
+      \lstinline|pure f <*> pure x == pure (f x)|
+
+    \medskip
+    \item interchange:\\
+      \lstinline|u <*> pure y == pure ($ y) <*> u|
+
+    \pause
+    \medskip
+    \item as a consequence:\\
+      \lstinline|f <$> x == pure f <*> x|
+  \end{itemize}
+\end{frame}
+
+\section{Monads}
+
+\subsection{Introduction}
+
+\section*{References}
+
+\begin{frame}
+  \frametitle{References}
+
+  \begin{block}{Required Reading: Thompson}
+    \begin{itemize}
+      \item Chapter 17: \alert{Lazy programming}
+      \item Chapter 20: Time and space behaviour
+      \begin{itemize}
+        \item 20.5: \alert{Folding revisited}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
