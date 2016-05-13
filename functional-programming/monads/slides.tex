@@ -93,48 +93,40 @@
   \tableofcontents
 \end{frame}
 
-\section{Functors}
+\section{Introduction}
 
-\subsection{Function Composition}
+\subsection{Functors}
 
 \begin{frame}[fragile]
   \frametitle{Function Composition}
 
-  \begin{itemize}
-    \item composing functions
-  \end{itemize}
-
   \begin{exampleblock}{example}
     \begin{lstlisting}
--- show :: a -> [Char]
+-- show :: a -> String
+--         a -> [Char]
 -- length :: [a] -> Int
 
-strLength :: Show a => a -> Int
-strLength = length . show
+-- length . show $ 42   ~> 2
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{IO Function Composition}
+  \frametitle{Composition with IO}
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
--- getLine :: IO [Char]
+-- getLine :: IO String
+--            IO [Char]
 -- length :: [a] -> Int
 
-strLengthIO = length . getLine
--- type error
+-- length . getLine     ~> type error
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{IO Function Composition}
-
-  \begin{itemize}
-    \item function to compose with IO
-  \end{itemize}
+  \frametitle{Composition with IO}
 
   \begin{exampleblock}{}
     \begin{lstlisting}
@@ -158,27 +150,40 @@ fmapIO f p = do x <- p
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Functor Type Class}
+  \frametitle{Type Examples}
+
+  \begin{lstlisting}
+data Box a = Box a
+             deriving Show
+
+
+data Maybe a = Nothing | Just a
+               deriving Show
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functor Class}
 
   \begin{itemize}
-    \item pattern: get value out, apply function, wrap result
+    \item extract value, apply function, wrap result
     \item \alert{functor}
-    \item \lstinline|fmap| function or \lstinline|<$>| operator
   \end{itemize}
 
   \begin{lstlisting}
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
   \end{lstlisting}
+
+  \begin{itemize}
+    \item infix \lstinline|fmap|: \lstinline|<$>|
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Functor Example}
 
   \begin{lstlisting}
-data Box a = Box a
-             deriving Show
-
 instance Functor Box where
   fmap f (Box x) = Box (f x)
 
@@ -192,9 +197,6 @@ instance Functor Box where
   \frametitle{Functor Example}
 
   \begin{lstlisting}
-data Maybe a = Nothing | Just a
-               deriving Show
-
 instance Functor Maybe where
   fmap f Nothing  = Nothing
   fmap f (Just x) = Just (f x)
@@ -229,6 +231,7 @@ instance Functor Maybe where
     \item \lstinline|fmap (f . g) (Box x)|\pause\\
       \lstinline|== Box ((f . g) x)|\pause\\
       \lstinline|== Box (f (g x))|
+    \pause
     \item \lstinline|(fmap f . fmap g) (Box x)|\pause\\
       \lstinline|== (fmap f) (fmap g (Box x)|\pause\\
       \lstinline|== (fmap f) (Box (g x))|\pause\\
@@ -276,11 +279,8 @@ instance Functor ((->) r) where
   \frametitle{Applicative Functors}
 
   \begin{itemize}
-    \item pattern: get function out, get value out, apply function,\\
-      wrap result
+    \item extract function, extract value, apply, wrap result
     \item \alert{applicative functor}
-    \item \lstinline|<*>| operator
-    \item \lstinline|pure| function
   \end{itemize}
 
   \begin{lstlisting}
@@ -367,9 +367,158 @@ addMaybe v1 v2 = (+) <$> v1 <*> v2
   \end{itemize}
 \end{frame}
 
-\section{Monads}
+\subsection{Monads}
 
-\subsection{Introduction}
+\begin{frame}[fragile]
+  \frametitle{Composing with IO}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+-- getLine :: IO String
+-- readFile :: String -> IO String
+
+-- readFile . getLine   ~> type error
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{IO Sequencing}
+
+  \begin{itemize}
+    \item sequence I/O operations
+  \end{itemize}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+-- bindIO getLine readFile
+
+bindIO p q = do x <- p
+                q x
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \begin{itemize}
+      \item what is the type of \lstinline|bindIO|?\\
+        \lstinline|bindIO :: IO String -> (String -> IO String)|\\
+        \lstinline|                           -> IO String|
+      \pause
+      \smallskip
+      \item more general:\\
+        \lstinline|bindIO :: IO a -> (a -> IO b) -> IO b|
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monads}
+
+  \begin{itemize}
+    \item pattern: extract value, apply function
+    \item \alert{monad}
+  \end{itemize}
+
+  \begin{lstlisting}
+class Monad m where
+  (>>=) :: m a -> (a -> m b) -> m b
+  return :: a -> m a
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{IO Monad}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+-- getLine :: IO String
+-- readFile :: String -> IO String
+
+readFileInteractive :: IO String
+readFileInteractive = getLine >>= readFile
+
+
+-- putStrLn :: String -> IO ()
+
+catFileInteractive :: IO ()
+catFileInteractive = getLine >>= readFile >>= putStrLn
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monads}
+
+  \begin{itemize}
+    \item syntactic sugar for monads: \lstinline|do|
+  \end{itemize}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+catUserFile' = do filename <- getLine
+                  content <- readFile filename
+                  putStrLn content
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monad Example}
+
+  \begin{lstlisting}
+userAge = getLine >>=
+    (\l -> putStrLn $ show $ 2016 - (read l :: Int))
+
+
+-- OR:
+userAge = do line <- getLine
+             let age = 2016 - (read line :: Int)
+             putStrLn $ show age
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monad Example}
+
+  \begin{lstlisting}
+instance Monad Box where
+  Box x >>= f = f x
+
+  return x = Box x
+
+-- Box 18 >>= (\x -> Box (x `div` 2))      ~> Box 9
+-- Box 18 >>= (\x -> return (x `div` 2))   ~> Box 9
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monad Example}
+
+  \begin{lstlisting}
+instance Monad Maybe where
+  Nothing >>= f = Nothing
+  Just x  >>= f = f x
+
+  return x = Just x
+
+-- Just 18 >>= (\x -> return (x `div` 2))   ~> Just 9
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Monad Example}
+
+  \begin{lstlisting}
+half :: Monad m => Integer -> m Integer
+half x = return (x `div` 2)
+
+-- Box 18 >>= half              ~> Box 9
+-- Just 18 >>= half             ~> Just 9
+
+-- Just 18 >>= half >>= half    ~> Just 4
+-- half <=< half $ Just 18      ~> Just 4
+  \end{lstlisting}
+\end{frame}
 
 \section*{References}
 
@@ -378,11 +527,7 @@ addMaybe v1 v2 = (+) <$> v1 <*> v2
 
   \begin{block}{Required Reading: Thompson}
     \begin{itemize}
-      \item Chapter 17: \alert{Lazy programming}
-      \item Chapter 20: Time and space behaviour
-      \begin{itemize}
-        \item 20.5: \alert{Folding revisited}
-      \end{itemize}
+      \item Chapter 18: \alert{Monads}
     \end{itemize}
   \end{block}
 \end{frame}
