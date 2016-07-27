@@ -2,8 +2,8 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
    xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+   xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -152,9 +152,9 @@
      inkscape:window-x="0"
      inkscape:window-height="1017"
      inkscape:window-width="1920"
-     inkscape:cy="113.20968"
-     inkscape:cx="68.285731"
-     inkscape:zoom="3.5067673"
+     inkscape:cy="113.10999"
+     inkscape:cx="173.47935"
+     inkscape:zoom="3.5098579"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -187,7 +187,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -207,9 +207,9 @@
      id="path2259"
      inkscape:connector-curvature="0" />
   <g
-     id="g5314">
+     id="g4330">
     <g
-       id="g5309">
+       id="g4325">
       <rect
          style="opacity:1;fill:#00f200;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.86562079;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect5570"
@@ -221,15 +221,15 @@
          ry="17.281219" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="70.214821"
-         y="93.306213"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="54.693584"
+         y="94.199768"
          id="text7822"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan7824"
-           x="70.214821"
-           y="93.306213">Veri Tabanı Yönetim Sistemi</tspan></text>
+           x="54.693584"
+           y="94.199768">Veri Tabanı Yönetim Sistemi</tspan></text>
     </g>
     <text
        xml:space="preserve"
