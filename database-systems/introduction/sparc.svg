@@ -3860,7 +3860,7 @@
      inkscape:window-height="1017"
      inkscape:window-width="1920"
      inkscape:cy="113.20968"
-     inkscape:cx="169.21959"
+     inkscape:cx="105.3431"
      inkscape:zoom="3.5067673"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -3894,7 +3894,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3914,43 +3914,41 @@
      id="path2259"
      inkscape:connector-curvature="0" />
   <g
-     id="g6342"
-     transform="translate(-420.16319,-231.30183)">
+     id="g4836">
     <g
-       transform="translate(450.63023,231.10246)"
-       id="g4884">
+       id="g4831">
       <rect
          style="opacity:1;fill:#00f200;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.86562079;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect5570"
          width="171.75739"
          height="28.214367"
-         x="0.43281022"
-         y="76.717735"
+         x="30.899851"
+         y="76.518364"
          rx="8.528718"
          ry="17.281219" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.5px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="33.696148"
-         y="92.893272"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="46.624737"
+         y="93.210999"
          id="text7822"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan7824"
-           x="33.696148"
-           y="92.893272">Database Management System</tspan></text>
+           x="46.624737"
+           y="93.210999">Database Management System</tspan></text>
     </g>
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Italic';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="683.40277"
-       y="324.62476"
+       x="263.23959"
+       y="93.322929"
        id="text1893"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan1895"
-         x="683.40277"
-         y="324.62476">Conceptual Level</tspan></text>
+         x="263.23959"
+         y="93.322929">Conceptual Level</tspan></text>
   </g>
   <g
      id="g6350"
