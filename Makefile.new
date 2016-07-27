@@ -1,22 +1,28 @@
-all: slides.pdf
+LATEX2PDF     = pdflatex
+SVG2PDF       = inkscape
+SVG2PDF_FLAGS = --export-area-drawing --export-text-to-path
+
+slides: slides.pdf
+
 handout: slides.handout.pdf
+
 print: slides.print.pdf
 
-images:
-	for f in *.svg; do b=$${f%.svg}; make $$b.eps; done || true
+%.pdf: %.svg
+	$(SVG2PDF) $(SVG2PDF_FLAGS) -f $< -A $@
 
-%.eps: %.svg
-	inkscape --export-eps=$@ --export-text-to-path $< 2> /dev/null && epstopdf $@
+PDFs := $(foreach dir, ., $(patsubst %.svg,%.pdf,$(wildcard ./$(dir)/*.svg)))
 
-%.pdf: %.tex
-	make images
-	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then pdflatex $<; fi
-	pdflatex $<
+images: $(PDFs)
+
+slides.pdf: slides.tex images
+	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then $(LATEX2PDF) $<; fi
+	$(LATEX2PDF) $<
 
 %.handout.pdf: %.handout.tex
 	make images
-	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then pdflatex $<; fi
-	pdflatex $<
+	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then $(LATEX2PDF) $<; fi
+	$(LATEX2PDF) $<
 
 %.handout.tex: %.tex
 	sed "s/\\documentclass\[dvipsnames\]{beamer}/\documentclass[dvipsnames,handout]{beamer}/" $< \
@@ -35,4 +41,4 @@ zip: slides.pdf slides.print.pdf
 clean:
 	rm -f *~ *.bak *.backup *.log *.toc *.aux *.nav *.out *.snm *.vrb
 	rm -f *.handout.*
-	rm -f *~ *.dvi *.ps *.pdf *.eps
+	rm -f *~ *.dvi *.ps *.pdf
