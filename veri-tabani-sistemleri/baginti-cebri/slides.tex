@@ -1,23 +1,20 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 \usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
@@ -32,7 +29,8 @@
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
                 START, TO, TYPE, VACUUM}
 }
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -45,24 +43,18 @@
 \subtitle{Bağıntı Cebri}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
-    \frametitle{Konular}
+    \frametitle{Topics}
     \tableofcontents[currentsection,currentsubsection]
   \end{frame}
 }
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \begin{document}
 
@@ -74,37 +66,44 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2016 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Konular}
+  \frametitle{Topics}
   \tableofcontents
 \end{frame}
 
@@ -117,12 +116,10 @@
 \begin{frame}
   \frametitle{Kapalılık}
 
-  \begin{tanim}
-    \alert{kapalılık}: bütün işlemlerin girdileri de çıktıları da bağıntı
-  \end{tanim}
-
-  \pause
   \begin{itemize}
+    \item \alert{kapalılık}: bütün işlemlerin girdileri de çıktıları da bağıntı
+
+    \medskip  
     \item bir işlemin çıktısı diğer bir işlemin girdisi olabilir
     \item içiçe işlemler yapılabilir
   \end{itemize}
@@ -131,13 +128,12 @@
 \begin{frame}
   \frametitle{Örnek Bağıntılar}
 
-  \begin{ornek}[MOVIE]
-    \begin{tiny}
-    \begin{table}
-      %\caption{MOVIE}
-      \begin{tabular}{|r|l|r|r|r|r|}\hline
+  \begin{tiny}
+  \begin{table}
+    \caption{MOVIE}
+    \begin{tabular}{|r|l|r|r|r|r|}\hline
 \underline{MOVIE\#} & TITLE           & YEAR & SCORE & VOTES & DIRECTOR\#\\[2pt]\hline\hline
-   6 & Usual Suspects                 & 1995 &   8.7 & 35027 &        639\\\hline
+   6 & The Usual Suspects             & 1995 &   8.7 & 35027 &        639\\\hline
   70 & Being John Malkovich           & 1999 &   8.3 & 13809 &       1485\\\hline
  107 & Batman \& Robin                & 1997 &   3.5 & 10577 &        105\\\hline
  110 & Sleepy Hollow                  & 1999 &   7.5 & 10514 &        148\\\hline
@@ -157,19 +153,17 @@
     \end{tabular}
   \end{table}
   \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Örnek Bağıntılar}
 
-  \begin{ornek}[PERSON]
-    \begin{columns}[b]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{PERSON}
-        \begin{tabular}{|r|l|}\hline
+  \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{PERSON}
+      \begin{tabular}{|r|l|}\hline
 \underline{PERSON\#} & NAME\\[2pt]\hline\hline
    9 & Arnold Schwarzenegger\\\hline
   26 & Johnny Depp          \\\hline
@@ -187,14 +181,14 @@
  302 & Benicio Del Toro     \\\hline
  308 & Gabriel Byrne        \\\hline
  350 & Jennifer Jason Leigh \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|l|}\hline
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|l|}\hline
  364 & John Waters          \\\hline
  406 & Patricia Arquette    \\\hline
  503 & John Malkovich       \\\hline
@@ -210,23 +204,21 @@
 2557 & Rupert Wainwright    \\\hline
 2861 & Stephen Norrington   \\\hline
 3578 & Traci Lords          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
   \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Örnek Bağıntılar}
 
-  \begin{ornek}[CASTING]
-    \begin{columns}[b]
-      \column{.3\textwidth}
-      \begin{tiny}
-      \begin{table}
-        %\caption{CASTING}
-        \begin{tabular}{|r|r|r|}\hline
+   \begin{columns}[b]
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{CASTING}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIE\#} & \underline{ACTOR\#} & ORD\\[2pt]\hline\hline
       6 &     308 &   2\\\hline
       6 &     302 &   3\\\hline
@@ -242,19 +234,19 @@
     151 &     243 &   2\\\hline
     151 &     793 &   3\\\hline
     213 &     745 &   6\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|r|}\hline
     213 &    3578 &   8\\\hline
     228 &      26 &   1\\\hline
     228 &     406 &   4\\\hline
     251 &       9 &   1\\\hline
     251 &     308 &   2\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.5\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|r|r|}\hline
     251 &     745 &  10\\\hline
     281 &     243 &   7\\\hline
     281 &     503 &   2\\\hline
@@ -262,14 +254,6 @@
     373 &     187 &   6\\\hline
     373 &     282 &   8\\\hline
     373 &     302 &   2\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|r|r|}\hline
     432 &     308 &   2\\\hline
     432 &     406 &   1\\\hline
     433 &     350 &   1\\\hline
@@ -282,11 +266,10 @@
    1539 &      26 &   1\\\hline
    1539 &    1641 &   5\\\hline
    1539 &    3578 &   7\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \subsection{Seçme}
@@ -294,19 +277,13 @@
 \begin{frame}[fragile]
   \frametitle{Seçme}
 
-  \begin{tanim}
-    \alert{seçme}: bir koşula uyan çokluları seçme
-  \end{tanim}
-
-  \pause
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item \alert{seçme}: bir koşula uyan çokluları seçme
     \begin{lstlisting}
 relation WHERE condition
     \end{lstlisting}
-  \end{block}
-
-  \pause
-  \begin{itemize}
+    
+  \medskip
     \item çıktı başlığı = girdi başlığı
   \end{itemize}
 \end{frame}
@@ -314,16 +291,14 @@ relation WHERE condition
 \begin{frame}[fragile]
   \frametitle{Seçme Örnekleri - 1}
 
-  \begin{ornek}
     \begin{itemize}
       \item 10000'den fazla oy almış filmler (\texttt{S1})
+
+      \begin{lstlisting}
+MOVIE WHERE (VOTES > 10000)
+      \end{lstlisting}
     \end{itemize}
 
-    \begin{lstlisting}
-MOVIE WHERE (VOTES > 10000)
-    \end{lstlisting}
-
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -338,24 +313,21 @@ MOVIE WHERE (VOTES > 10000)
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Seçme Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item 1992'den önce çekilmiş, puanı 7.5'in üzerinde olan filmler
-        (\texttt{S2})
-    \end{itemize}
+        (\texttt{S2})   
 
-    \begin{lstlisting}
+      \begin{lstlisting}
 MOVIE WHERE ((YEAR < YEAR(1992))
          AND (SCORE > SCORE(7.5)))
-    \end{lstlisting}
+      \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -367,42 +339,32 @@ MOVIE WHERE ((YEAR < YEAR(1992))
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm}
 
-  \begin{tanim}
-    \alert{izdüşüm}: bir nitelik kümesini seçme
-  \end{tanim}
-
-  \pause
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item \alert{izdüşüm}: bir nitelik kümesini seçme
     \begin{lstlisting}
 relation { attribute_name [, ...] }
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item çıktı başlığı = nitelik listesi
+    \medskip
+     \item çıktı başlığı = nitelik listesi
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 1}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmlerin başlıkları (\texttt{P1})
-    \end{itemize}
-
     \begin{lstlisting}
 MOVIE { TITLE }
     \end{lstlisting}
+    \end {itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{columns}[b]
       \column{.5\textwidth}
@@ -440,22 +402,18 @@ Cry-Baby                      \\\hline
       \end{table}
       \end{tiny}
     \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmlerin başlıkları ve yılları (\texttt{P2})
-    \end{itemize}
-
     \begin{lstlisting}
 MOVIE { TITLE, YEAR }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{columns}[b]
       \column{.5\textwidth}
@@ -493,22 +451,18 @@ eXistenZ                       & 1999\\\hline
       \end{table}
       \end{tiny}
     \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 3}
 
-  \begin{ornek}[bütün filmlerin yılları]
     \begin{itemize}
       \item bütün filmlerin yılları (\texttt{P3})
-    \end{itemize}
-
     \begin{lstlisting}
 MOVIE { YEAR }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -527,44 +481,37 @@ MOVIE { YEAR }
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{İzdüşüm Örnekleri - 4}
 
-  \begin{ornek}
     \begin{itemize}
-      \item 5000'den fazla oy almış, puanı 7.0'ın üzerinde olan filmlerin\\
-        başlıkları (\texttt{P4})
+      \item 5000'den fazla oy almış\\
+      ve puanı 7.0'ın üzerinde olan filmlerin başlıkları (\texttt{P4})
     \end{itemize}
 
     \pause
     \begin{enumerate}
-      \item 5000'den fazla oy almış, puanı 7.0'ın üzerinde olan filmler\\
-        (\texttt{P4A})
-
-      \pause
+      \item 5000'den fazla oy almış\\
+      ve puanı 7.0'ın üzerinde olan filmler (\texttt{P4A})
       \item \texttt{P4A}'daki başlıklar (\texttt{P4})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 4}
 
-  \begin{ornek}
     \begin{itemize}
-      \item 5000'den fazla oy almış, puanı 7.0'ın üzerinde olan filmler\\
-        (\texttt{P4A})
-    \end{itemize}
+      \item 5000'den fazla oy almış\\
+      ve puanı 7.0'ın üzerinde olan filmler (\texttt{P4A})
 
     \begin{lstlisting}
 MOVIE WHERE ((VOTES > 5000)
          AND (SCORE > SCORE(7.0)))
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -581,22 +528,19 @@ MOVIE WHERE ((VOTES > 5000)
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 4}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{P4A}'daki başlıklar (\texttt{P4})
-    \end{itemize}
 
     \begin{lstlisting}
 P4A { TITLE }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -613,17 +557,15 @@ Usual Suspects      \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{İzdüşüm Örnekleri - 4}
 
-  \begin{ornek}
     \begin{itemize}
-      \item 5000'den fazla oy almış, puanı 7.0'ın üzerinde olan filmlerin\\
-        başlıkları (\texttt{P4})
-    \end{itemize}
+      \item 5000'den fazla oy almış\\
+      ve puanı 7.0'ın üzerinde olan filmlerin başlıkları (\texttt{P4})
+   
 
     \begin{lstlisting}
 ( MOVIE
@@ -631,7 +573,7 @@ Usual Suspects      \\\hline
        AND (SCORE > SCORE(7.0))) )
   { TITLE }
     \end{lstlisting}
-  \end{ornek}
+    \end{itemize}
 \end{frame}
 
 \subsection{Katma}
@@ -639,33 +581,28 @@ Usual Suspects      \\\hline
 \begin{frame}[fragile]
   \frametitle{Katma}
 
-  \begin{tanim}
-    \alert{katma}: iki bağıntının çoklularını, bir ya da birden fazla niteliğin\\
-      ortak değerleri üzerinden eşleştirme
-  \end{tanim}
-
   \begin{itemize}
-    \item iki bağıntının Kartezyen çarpımından,\\
-      verilen nitelikler için aynı değeri taşıyan çokluları seçme
-    \item eşleşen nitelikler çıktıda tekrarlanmaz
-
+    \item \alert{katma}: iki bağıntının çoklularını, bir ya da birden fazla niteliğin\\
+      ortak değerleri üzerinden eşleştirme
+      \begin{lstlisting}
+relation1 JOIN relation2
+    \end{lstlisting}
+    
     \pause
+    \medskip
     \item \alert{doğal katma}: aynı isimli niteliklerin ortak değerleri\\
-      üzerinden eşleştirme
+      üzerinden eşleştirme    
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma}
 
-  \begin{block}{Komut}
-    \begin{lstlisting}
-relation1 JOIN relation2
-    \end{lstlisting}
-  \end{block}
-
-  \pause
   \begin{itemize}
+    \item iki bağıntının Kartezyen çarpımından,\\
+      verilen nitelikler için aynı değeri taşıyan çokluları seçme
+    \item eşleşen nitelikler çıktıda tekrarlanmaz
+    \medskip
     \item çıktı başlığı = relation1 başlığı $\cup$ relation2 başlığı
   \end{itemize}
 \end{frame}
@@ -673,7 +610,6 @@ relation1 JOIN relation2
 \begin{frame}
   \frametitle{Katma Örnekleri - 1}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmlerin başlıkları ve yönetmenlerinin isimleri (\texttt{J1})
     \end{itemize}
@@ -682,27 +618,23 @@ relation1 JOIN relation2
     \begin{enumerate}
       \item bütün filmler ve yönetmenleri (\texttt{J1A})
 
-      \pause
       \item \texttt{J1A}'daki film başlıkları ve yönetmen isimleri
          (\texttt{J1})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 1}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmler ve yönetmenleri (\texttt{J1A})
-    \end{itemize}
 
     \begin{lstlisting}
 MOVIE JOIN
   (PERSON RENAME (PERSON# AS DIRECTOR#))
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -719,23 +651,20 @@ MOVIE JOIN
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 1}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{J1A}'daki film başlıkları ve yönetmen isimleri
          (\texttt{J1})
-    \end{itemize}
 
     \begin{lstlisting}
 J1A { TITLE, NAME }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -752,13 +681,11 @@ eXistenZ             & David Cronenberg\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Katma Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmlerin başlıkları, oyuncularının isimleri ve sıraları
         (\texttt{J2})
@@ -767,30 +694,23 @@ eXistenZ             & David Cronenberg\\\hline
     \pause
     \begin{enumerate}
       \item bütün filmler ve oyunculuk verileri (\texttt{J2A})
-
-      \pause
       \item \texttt{J2A}'daki bütün verilerin kişilerle eşlenmesi (\texttt{J2B})
-
-      \pause
       \item \texttt{J2B}'deki film başlıkları, oyuncu isimleri ve sıraları
 	(\texttt{J2})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item bütün filmler ve oyunculuk verileri (\texttt{J2A})
-    \end{itemize}
 
     \begin{lstlisting}
 MOVIE JOIN CASTING
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -808,22 +728,20 @@ MOVIE JOIN CASTING
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{J2A}'daki bütün verilerin kişilerle eşlenmesi (\texttt{J2B})
-    \end{itemize}
 
     \begin{lstlisting}
-J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
+J2A JOIN
+  (PERSON RENAME { PERSON# AS ACTOR# })
     \end{lstlisting}
+     \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -841,23 +759,20 @@ J2A JOIN (PERSON RENAME (PERSON# AS ACTOR#))
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 2}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{J2B}'deki film başlıkları, oyuncu isimleri ve sıraları
         (\texttt{J2})
-    \end{itemize}
 
     \begin{lstlisting}
 J2B { TITLE, NAME, ORD }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -875,13 +790,11 @@ Cry-Baby             & Traci Lords      &   7\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}
     \begin{itemize}
       \item Johnny Depp'in filmlerindeki oyuncuların isimleri (\texttt{J3})
     \end{itemize}
@@ -889,32 +802,26 @@ Cry-Baby             & Traci Lords      &   7\\\hline
     \pause
     \begin{enumerate}
       \item Johnny Depp'in filmlerinin kimlikleri (\texttt{J3A})
-
-      \pause
       \item  \texttt{J3A}'daki filmlerde oynamış oyuncuların kimlikleri
         (\texttt{J3B})
-
-      \pause
       \item \texttt{J3B}'deki oyuncuların isimleri (\texttt{J3})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}
     \begin{itemize}
       \item Johnny Depp'in filmlerinin kimlikleri (\texttt{J3A})
-    \end{itemize}
+
 
     \begin{lstlisting}
 (((PERSON RENAME (PERSON# AS ACTOR#))
     JOIN CASTING)
   WHERE (NAME = 'Johnny Depp')) { MOVIE# }
   \end{lstlisting}
+   \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -929,23 +836,20 @@ Cry-Baby             & Traci Lords      &   7\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}
     \begin{itemize}
       \item  \texttt{J3A}'daki filmlerde oynamış oyuncuların kimlikleri
         (\texttt{J3B})
-    \end{itemize}
 
     \begin{lstlisting}
 (J3A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -963,23 +867,20 @@ Cry-Baby             & Traci Lords      &   7\\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Örnekleri - 3}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{J3B}'deki oyuncuların isimleri (\texttt{J3})
-    \end{itemize}
 
     \begin{lstlisting}
 ((J3B RENAME (ACTOR# AS PERSON#))
     JOIN PERSON) { NAME }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -997,48 +898,26 @@ Traci Lords      \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
-% 
-% \begin{frame}
-%   \frametitle{Katma}
-% 
-%   \begin{itemize}
-%     \item bağıntıların başlıkları ayrıksa ne olur?
-%     \item bağıntıların başlıkları aynıysa ne olur?
-%   \end{itemize}
-% 
-%   \pause
-%   \begin{ornek}
-%     \begin{itemize}
-%       \item "\lstinline!P3 JOIN P4!" işleminin sonucu nedir?
-%       \item "\lstinline!S1 JOIN P4A!" işleminin sonucu nedir?
-%     \end{itemize}
-%   \end{ornek}
-% \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Bölme}
-
-  \begin{tanim}
-    \alert{bölme}: birinci bağıntıdaki çoklular arasından\\
+   
+   \begin{itemize}
+    \item \alert{bölme}: birinci bağıntıdaki çoklular arasından\\
       ikinci bağıntıdaki bütün çoklularla\\
       bir ara bağıntıda eşleşenleri seçme
-  \end{tanim}
 
-  \pause
-  \begin{block}{Komut}
     \begin{lstlisting}
 relation1 DIVIDEBY relation2
   PER (relation3)
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item Johnny Depp ile Christina Ricci'nin birlikte oynadıkları\\
         filmlerin başlıkları (\texttt{V1})
@@ -1047,25 +926,18 @@ relation1 DIVIDEBY relation2
     \pause
     \begin{enumerate}
       \item Johnny Depp ve Christina Ricci'nin kimlikleri (\texttt{V1A})
-
-      \pause
       \item \texttt{V1A}'daki oyuncuların birlikte oynadıkları filmlerin
         kimlikleri\\
         (\texttt{V1B})
-
-      \pause
       \item \texttt{V1B}'deki filmlerin başlıkları (\texttt{V1})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
-
-  \begin{ornek}
+ 
     \begin{itemize}
       \item Johnny Depp ve Christina Ricci'nin kimlikleri (\texttt{V1A})
-    \end{itemize}
 
     \begin{lstlisting}
 (PERSON
@@ -1073,8 +945,8 @@ relation1 DIVIDEBY relation2
         OR (NAME = "Christina Ricci")))
   { PERSON# }
     \end{lstlisting}
+   \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1086,26 +958,23 @@ relation1 DIVIDEBY relation2
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{V1A}'daki oyuncuların birlikte oynadıkları filmlerin
         kimlikleri\\
         (\texttt{V1B})
-    \end{itemize}
 
     \begin{lstlisting}
 (MOVIE { MOVIE# })
     DIVIDEBY (V1A RENAME (PERSON# AS ACTOR#))
       PER (CASTING { MOVIE#, ACTOR# })
     \end{lstlisting}
+   \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1117,22 +986,19 @@ relation1 DIVIDEBY relation2
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Bölme Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{V1B}'deki filmlerin başlıkları (\texttt{V1})
-    \end{itemize}
 
     \begin{lstlisting}
 (V1B JOIN MOVIE) { TITLE }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1144,49 +1010,43 @@ Sleepy Hollow                 \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
-% 
-% \begin{frame}[fragile]
-%   \frametitle{Bölme Örneği}
-% 
-%   \begin{ornek}[bölme - çarpma ilişkisi]
-%     \lstinline!V1B JOIN V1A! $\subseteq$ \lstinline!CASTING { MOVIE#, ACTOR# }!
-% 
-%     \pause
-%     \begin{tiny}
-%     \begin{table}
-%       \caption{$V1B \times V1A$}
-%       \begin{tabular}{|r|r|}\hline
-% \underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
-%                 110 &                  26\\\hline
-%                 110 &                 187\\\hline
-%                 373 &                  26\\\hline
-%                 373 &                 187\\\hline
-%       \end{tabular}
-%     \end{table}
-%     \end{tiny}
-%   \end{ornek}
-% \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Bölme Örneği}
+
+  \begin{itemize}
+    \item çarpma - bölme ilişkisi:\\
+      \lstinline!V1B JOIN V1A! $\subseteq$
+      \lstinline!CASTING { MOVIE#, ACTOR# }!
+  \end{itemize}
+
+  \begin{tiny}
+  \begin{table}
+    \begin{tabular}{|r|r|}\hline
+\underline{MOVIE\#} & \underline{ACTOR\#}\\[2pt]\hline\hline
+                110 &                  26\\\hline
+                110 &                 187\\\hline
+                373 &                  26\\\hline
+                373 &                 187\\\hline
+    \end{tabular}
+  \end{table}
+  \end{tiny}
+\end{frame}
+ 
 \subsection{Küme İşlemleri}
 
 \begin{frame}[fragile]
   \frametitle{Kesişim}
 
-  \begin{tanim}
-    \alert{kesişim}: iki bağıntıda da bulunan çokluları seçme
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{kesişim}: iki bağıntıda da bulunan çokluları seçme
 
-  \pause
-  \begin{block}{Komut}
     \begin{lstlisting}
 relation1 INTERSECT relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+  \medskip
     \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
@@ -1194,7 +1054,6 @@ relation1 INTERSECT relation2
 \begin{frame}
   \frametitle{Kesişim Örneği}
 
-  \begin{example}
     \begin{itemize}
       \item oyunculuk yapmış bütün yönetmenlerin isimleri (\texttt{I1})
     \end{itemize}
@@ -1202,20 +1061,15 @@ relation1 INTERSECT relation2
     \pause
     \begin{enumerate}
       \item oyunculuk yapmış bütün yönetmenlerin kimlikleri (\texttt{I1A})
-
-      \pause
       \item \texttt{I1A}'daki bütün kişilerin isimleri (\texttt{I1})
     \end{enumerate}
-  \end{example}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kesişim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item oyunculuk yapmış bütün yönetmenlerin kimlikleri (\texttt{I1A})
-    \end{itemize}
 
     \begin{lstlisting}
 (MOVIE { DIRECTOR# }
@@ -1224,8 +1078,8 @@ relation1 INTERSECT relation2
 (CASTING { ACTOR# }
       RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1236,22 +1090,19 @@ relation1 INTERSECT relation2
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kesişim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{I1A}'daki bütün kişilerin isimleri (\texttt{I1})
-    \end{itemize}
 
     \begin{lstlisting}
 (I1A JOIN PERSON) { NAME }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1262,25 +1113,20 @@ Spike Jonze     \\\hline
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Birleşim}
 
-  \begin{tanim}
-    \alert{birleşim}: iki bağıntıdan en az birinde bulunan çokluları seçme
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{birleşim}: iki bağıntıdan en az birinde bulunan çokluları seçme
 
-  \pause
-  \begin{block}{Komut}
     \begin{lstlisting}
 relation1 UNION relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \medskip
+  
     \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
@@ -1288,7 +1134,6 @@ relation1 UNION relation2
 \begin{frame}
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item 1997'den sonra çekilen filmlerin yönetmenlerinin\\
         ve oyuncularının isimleri (\texttt{U1})
@@ -1299,34 +1144,28 @@ relation1 UNION relation2
       \item 1997'den sonra çekilen filmlerin kimlikleri\\
         ve yönetmen kimlikleri (\texttt{U1A})
 
-      \pause
       \item \texttt{U1A}'daki filmlerin bütün oyuncularının kimlikleri (\texttt{U1B})
 
-      \pause
       \item \texttt{U1A} ile \texttt{U1B}'den en az birinde bulunan yönetmen\\
         ve oyuncuların kimlikleri (\texttt{U1C})
 
-      \pause
       \item \texttt{U1C}'deki bütün kişilerin isimleri (\texttt{U1})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item 1997'den sonra çekilen filmlerin kimlikleri\\
         ve yönetmen kimlikleri (\texttt{U1A})
-    \end{itemize}
 
     \begin{lstlisting}
 (MOVIE WHERE (YEAR > YEAR(1997)))
   { MOVIE#, DIRECTOR# }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{tiny}
     \begin{table}
@@ -1344,22 +1183,19 @@ relation1 UNION relation2
       \end{tabular}
     \end{table}
     \end{tiny}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{U1A}'daki filmlerin bütün oyuncularının kimlikleri (\texttt{U1B})
-    \end{itemize}
 
     \begin{lstlisting}
 (U1A JOIN CASTING) { ACTOR# }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{columns}[b]
       \column{.5\textwidth}
@@ -1394,32 +1230,30 @@ relation1 UNION relation2
       \end{table}
       \end{tiny}
     \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{U1A} ile \texttt{U1B}'den en az birinde bulunan yönetmen\\
         ve oyuncuların kimlikleri (\texttt{U1C})
-    \end{itemize}
+    
 
     \begin{lstlisting}
 (U1A { DIRECTOR# }
       RENAME (DIRECTOR# AS PERSON#))
 UNION (U1B RENAME (ACTOR# AS PERSON#))
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
     \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{U1C}
-        \begin{tabular}{|r|}\hline
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{U1C}
+      \begin{tabular}{|r|}\hline
 \underline{PERSON\#}\\[2pt]\hline\hline
                   9\\\hline
                  26\\\hline
@@ -1427,72 +1261,61 @@ UNION (U1B RENAME (ACTOR# AS PERSON#))
                  97\\\hline
                 103\\\hline
                 138\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                 148\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|}\hline
                 187\\\hline
                 282\\\hline
                 302\\\hline
                 308\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                 350\\\hline
                 406\\\hline
                 503\\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|r|}\hline
                 745\\\hline
                 793\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.1\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|r|}\hline
                1070\\\hline
                1485\\\hline
                2557\\\hline
                2861\\\hline
                3578\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Birleşim Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{U1C}'deki bütün kişilerin isimleri (\texttt{U1})
-    \end{itemize}
 
     \begin{lstlisting}
 (U1C JOIN PERSON) { NAME }
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{U1}
-        \begin{tabular}{|l|}\hline
+   \begin{columns}[b]
+    \column{.3\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \caption{U1}
+      \begin{tabular}{|l|}\hline
 \underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 Benicio Del Toro     \\\hline
@@ -1500,69 +1323,56 @@ Cameron Diaz         \\\hline
 Christina Ricci      \\\hline
 David Cronenberg     \\\hline
 David O. Russell     \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.15\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Gabriel Byrne        \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|}\hline
 George Clooney       \\\hline
 Jennifer Jason Leigh \\\hline
 John Malkovich       \\\hline
 Johnny Depp          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.15\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Jude Law             \\\hline
 Patricia Arquette    \\\hline
 Peter Hyams          \\\hline
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+
+    \column{.2\textwidth}
+    \begin{tiny}
+    \begin{table}
+      \begin{tabular}{|l|}\hline
 Rupert Wainwright    \\\hline
 Spike Jonze          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Stephen Norrington   \\\hline
 Terry Gilliam        \\\hline
 Tim Burton           \\\hline
 Traci Lords          \\\hline
 Udo Kier             \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+      \end{tabular}
+    \end{table}
+    \end{tiny}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Fark}
 
-  \begin{tanim}
-    \alert{fark}: birinci bağıntıda bulunan ama ikincide bulunmayan\\
+  \begin{itemize}
+    \item \alert{fark}: birinci bağıntıda bulunan ama ikincide bulunmayan\\
       çokluları seçme
-  \end{tanim}
 
-  \pause
-  \begin{block}{Komut}
     \begin{lstlisting}
 relation1 MINUS relation2
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+  \medskip
+  
     \item çıktı başlığı = relation1 başlığı = relation2 başlığı
   \end{itemize}
 \end{frame}
@@ -1570,7 +1380,6 @@ relation1 MINUS relation2
 \begin{frame}
   \frametitle{Fark Örneği}
 
-  \begin{ornek}[]
     \begin{itemize}
       \item Johnny Depp'in filmlerinde oynamamış oyuncuların isimleri\\
         (\texttt{D1})
@@ -1580,57 +1389,40 @@ relation1 MINUS relation2
     \begin{enumerate}
       \item Johnny Depp'in filmlerinde oynamış oyuncuların kimlikleri\\
         (\texttt{J3B})
-
-      \pause
       \item \texttt{J3B}'de olmayan bütün oyuncuların isimleri (\texttt{D1})
     \end{enumerate}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Fark Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item \texttt{J3B}'de olmayan bütün oyuncuların isimleri (\texttt{D1})
-    \end{itemize}
 
     \begin{lstlisting}
 (((CASTING { ACTOR# } MINUS J3B)
       RENAME (ACTOR# AS PERSON#))
   JOIN PERSON) {NAME}
     \end{lstlisting}
+    \end{itemize}
 
-    \pause
     \vspace{-10pt}
-    \begin{columns}[b]
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{D1}
-        \begin{tabular}{|l|}\hline
+\begin{tiny}
+  \begin{table}
+    \caption{D1}
+    \begin{tabular}{|l|}\hline
 \underline{NAME}     \\[2pt]\hline\hline
 Arnold Schwarzenegger\\\hline
 George Clooney       \\\hline
 Jennifer Jason Leigh \\\hline
 John Malkovich       \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-
-      \column{.2\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \begin{tabular}{|l|}\hline
 Jude Law             \\\hline
 Spike Jonze          \\\hline
 Udo Kier             \\\hline
 Uma Thurman          \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 \end{frame}
 
 \subsection*{Kaynaklar}
@@ -1657,17 +1449,18 @@ Uma Thurman          \\\hline
 \subsection{Giriş}
 
 \begin{frame}[fragile]
-  \frametitle{Basit Sorgulama}
-
-  \begin{block}{Komut}
+  \frametitle{Sütun Seçme}
+  
+  \begin{itemize}
+    \item tablodan sütunları seçme:
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] column_name [, ...]
   FROM table_name
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+    \pause
+    \medskip
+    
     \item tekrarlı satırlara izin var
     \begin{itemize}
         \item \lstinline!ALL!: tekrarlı satırlar korunsun (varsayılan)
@@ -1680,73 +1473,83 @@ SELECT [ ALL | DISTINCT ] column_name [, ...]
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[bütün filmlerin bütün verileri]
+  
+  \begin{itemize}
+  \item bütün filmlerin bütün verileri
     \begin{lstlisting}
 SELECT * FROM MOVIE
     \end{lstlisting}
-  \end{ornek}
 
   \pause
-  \begin{ornek}[bütün filmlerin başlıkları ve yılları]
+  \item bütün filmlerin başlıkları ve yılları
     \begin{lstlisting}
 SELECT TITLE, YR FROM MOVIE
     \end{lstlisting}
-  \end{ornek}
 
   \pause
-  \begin{ornek}[hangi yıllarda film çekildiği]
+  \item hangi yıllarda film çekildiği
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sonuçların Sıralanması}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item sonuç tablosundaki satırların sıralanması
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ] column_name [, ...]
   FROM table_name
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item sıralama düzeni:
-    \begin{itemize}
-      \item \lstinline!ASC!: artan sırada (varsayılan)
-      \item \lstinline!DESC!: azalan sırada
-    \end{itemize}
+
+    \medskip
+    \item \lstinline!ASC!: artan sırada (varsayılan)
+    \item \lstinline!DESC!: azalan sırada
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[hangi yıllarda film çekildiği, yıla göre artan sırada]
+  \begin{itemize}
+  \item hangi yıllarda film çekildiği, yıla göre artan sırada
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
   ORDER BY YR
     \end{lstlisting}
-  \end{ornek}
 
   \pause
-  \begin{ornek}[hangi yıllarda film çekildiği, yıla göre azalan sırada]
+  \item hangi yıllarda film çekildiği, yıla göre azalan sırada
     \begin{lstlisting}
 SELECT DISTINCT YR FROM MOVIE
   ORDER BY YR DESC
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item bütün filmlerin bütün verileri, yıla göre azalan\\
+      başlıklara göre artan sırada
+    \begin{lstlisting}
+SELECT * FROM MOVIE
+  ORDER BY YR DESC, TITLE ASC
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Deyimler}
 
-  \begin{block}{Komut}
+   \begin{itemize}
+     \item sütunlar üzerinde deyimlerin değerlendirilmesi
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1754,11 +1557,9 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
-    \item oluşan sütuna yeni isim verilebilir
+  \medskip
+    \item oluşan sütuna yeni isim verilebilir: \lstinline!AS!
     \item sıralamada sütunun ismi ya da numarası kullanılabilir
   \end{itemize}
 \end{frame}
@@ -1766,18 +1567,20 @@ SELECT [ ALL | DISTINCT ]
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[bütün filmlerin başlıkları ve toplam puanları]
+  \begin{itemize}
+    \item bütün filmlerin başlıkları ve toplam puanları
     \begin{lstlisting}
 SELECT TITLE, SCORE * VOTES
   FROM MOVIE
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[bütün filmlerin başlıkları ve toplam puanları,\\
+  \begin{itemize}
+    \item bütün filmlerin başlıkları ve toplam puanları,\\
                 toplam puana göre azalan sırada]
     \begin{lstlisting}
 SELECT TITLE, SCORE * VOTES AS POINTS
@@ -1791,13 +1594,14 @@ SELECT TITLE, SCORE * VOTES
   FROM MOVIE
   ORDER BY 2 DESC
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Satır Seçme}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item tablodan satır seçme
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1806,22 +1610,28 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item "Citizen Kane" başlıklı filmlerin yılları
+    \begin{lstlisting}
+SELECT YR FROM MOVIE
+  WHERE (TITLE = 'Citizen Kane')
+    \end{lstlisting}
+
 
   \pause
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item karşılaştırma işlemleri:\\
-        \lstinline!= < > <= >= <>!
-    \end{itemize}
-
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item bağlaçlar:\\
-        \lstinline!NOT AND OR!
-    \end{itemize}
-  \end{columns}
+  \item puanı 3'den küçük ve 10'dan fazla oy almış filmlerin\\
+                başlıkları
+    \begin{lstlisting}
+SELECT TITLE FROM MOVIE
+  WHERE ((SCORE < 3) AND (VOTES > 10))
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1834,77 +1644,58 @@ column_name IS { NULL | NOT NULL }
     \end{lstlisting}
 
     \pause
+    \medskip
     \item küme üyeliği:\\
     \begin{lstlisting}
 column_name IN (value_set)
     \end{lstlisting}
 
     \pause
+    \medskip
     \item katar karşılaştırması
     \begin{lstlisting}
 column_name LIKE pattern
     \end{lstlisting}
-    \begin{itemize}
-      \item desende \lstinline!%! işareti herhangi bir simge grubu yerine geçer
-    \end{itemize}
+    \item desende \lstinline!%! işareti herhangi bir simge grubu yerine geçer
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Citizen Kane" başlıklı filmlerin yılları]
-    \begin{lstlisting}
-SELECT YR FROM MOVIE
-  WHERE (TITLE = 'Citizen Kane')
-    \end{lstlisting}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[puanı 3'den küçük ve 10'dan fazla oy almış filmlerin\\
-                başlıkları]
-    \begin{lstlisting}
-SELECT TITLE FROM MOVIE
-  WHERE ((SCORE < 3) AND (VOTES > 10))
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[yılı belli olmayan filmlerin başlıkları]
+  \begin{itemize}
+    \item yılı belli olmayan filmlerin başlıkları
     \begin{lstlisting}
 SELECT TITLE FROM MOVIE
   WHERE (YR IS NULL)
     \end{lstlisting}
-  \end{ornek}
 
   \pause
-  \begin{ornek}[1967, 1954 ve 1988 yıllarında çekilmiş filmlerin\\
-                başlıkları ve yılları]
+  \item 1967, 1954 ve 1988 yıllarında çekilmiş filmlerin başlıkları ve yılları
     \begin{lstlisting}
 SELECT TITLE, YR FROM MOVIE
   WHERE (YR IN (1967, 1954, 1988))
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Police Academy" filmlerinin başlıkları ve puanları]
+  \begin{itemize}
+    \item "Police Academy" filmlerinin başlıkları ve puanları
     \begin{lstlisting}
 SELECT TITLE, SCORE FROM MOVIE
   WHERE (TITLE LIKE 'Police Academy%')
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Gruplama}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+  \item seçilen satırları gruplama
     \begin{lstlisting}
 SELECT [ ALL | DISTINCT ]
   { expression [ AS column_name ] } [, ...]
@@ -1915,12 +1706,10 @@ SELECT [ ALL | DISTINCT ]
   [ ORDER BY { column_name [ ASC | DESC ] }
       [, ...] ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{itemize}
+  \medskip
     \item seçilen satırlar gruplanabilir
-    \item gruplar içinden seçim yapılabilir
+    \item gruplar içinden seçim yapılabilir: \lstinline!HAVING!
   \end{itemize}
 \end{frame}
 
@@ -1952,64 +1741,61 @@ SELECT [ ALL | DISTINCT ]
 
   \begin{itemize}
     \item her grup için tek bir değer oluşmalı
-    \begin{itemize}
-      \item gruplayan sütunun değeri
-      \item biriktirme fonksiyonu sonucu
-    \end{itemize}
+    \item gruplayan sütunun değeri
+    \item biriktirme fonksiyonu sonucu
 
     \pause
-    \item biriktirme fonksiyonları:\\
-      \lstinline!COUNT SUM AVG MAX MIN!
-    \begin{itemize}
-      \item parametre olarak sütun adı verilir
-      \item boş değerler hesaba katılmaz
-    \end{itemize}
+    \medskip
+    \item biriktirme fonksiyonları: \lstinline!COUNT SUM AVG MAX MIN!
+    \item parametre olarak sütun adı verilir
+    \item boş değerler hesaba katılmaz
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[puanı 8.5'den büyük filmlerin hangi yıllarda,\\
-                kaçar tane çekildiği]
+  \begin{itemize}
+    \item puanı 8.5'den büyük filmlerin hangi yıllarda,\\
+                kaçar tane çekildiği
     \begin{lstlisting}
 SELECT YR, COUNT(*) FROM MOVIE
   WHERE (SCORE > 8.5)
   GROUP BY YR
     \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[her yılın en beğenilen filminin puanı,\\
-                yıllara göre artan sırada]
+    
+    \pause
+    \item her yılın en beğenilen filminin puanı,\\
+      yıllara göre artan sırada
     \begin{lstlisting}
 SELECT YR, MAX(SCORE) FROM MOVIE
   GROUP BY YR
   ORDER BY YR
-    \end{lstlisting}
-  \end{ornek}
+    \end{lstlisting}   
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[kullanılan toplam oy sayısı]
+  \begin{itemize}
+    \item kullanılan toplam oy sayısı
     \begin{lstlisting}
 SELECT SUM(VOTES) FROM MOVIE
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[40'dan fazla kişinin oy kullandığı\\
+  \begin{itemize}
+    \item 40'dan fazla kişinin oy kullandığı\\
                 en az 25 filmin olduğu yıllardaki\\
                 filmlerin puanlarının ortalamaları,\\
-                yıllara göre artan sırada]
+                yıllara göre artan sırada
+
+\medskip
 \lstinline!SELECT! \uncover<5->{\lstinline!YR, AVG(SCORE)!\\}
 ~~~~\lstinline!FROM MOVIE!\\
 \pause
@@ -2020,7 +1806,7 @@ SELECT SUM(VOTES) FROM MOVIE
 ~~~~\lstinline!HAVING (COUNT(ID) >= 25)!\\
 \pause\pause
 ~~~~\lstinline!ORDER BY YR!
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \subsection{Katma}
@@ -2030,17 +1816,16 @@ SELECT SUM(VOTES) FROM MOVIE
 
   \begin{itemize}
     \item katma işlemi \lstinline!WHERE! koşulları yardımıyla yapılabilir
-    \begin{itemize}
-      \item tablo listesinde katılacak tablolar belirtilir
-      \item eş isimli sütunlar için noktalı gösterilim kullanılır
-    \end{itemize}
+    \item tablo listesinde katılacak tablolar belirtilir
+    \item eş isimli sütunlar için noktalı gösterilim kullanılır
 
     \pause
-    \item işleniş sırası:
+    \medskip
+    \item işleniş sırası (kavramsal):
     \begin{itemize}
       \item tabloların Kartezyen çarpımı alınır
       \item \lstinline!WHERE! koşulunu sağlayan satırlar seçilir
-      \item ...
+      \item \ldots
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -2048,20 +1833,22 @@ SELECT SUM(VOTES) FROM MOVIE
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Star Wars" başlıklı filmlerin yönetmenlerinin isimleri]
+  \begin{itemize}
+    \item "Star Wars" başlıklı filmlerin yönetmenlerinin isimleri
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON
   WHERE ((DIRECTORID = PERSON.ID)
      AND (TITLE = 'Star Wars'))
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Alien" başlıklı filmlerde oynayan oyuncuların isimleri]
+  \begin{itemize}
+    \item "Alien" başlıklı filmlerde oynayan oyuncuların isimleri
      \begin{lstlisting}
 SELECT NAME
   FROM MOVIE, PERSON, CASTING
@@ -2069,14 +1856,15 @@ SELECT NAME
      AND (MOVIEID = MOVIE.ID)
      AND (ACTORID = PERSON.ID))
       \end{lstlisting}
-    \end{ornek}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Harrison Ford" isimli oyuncuların oynadığı\\
-                filmlerin başlıkları]
+  \begin{itemize}
+    \item "Harrison Ford" isimli oyuncuların oynadığı\\
+                filmlerin başlıkları
     \begin{lstlisting}
 SELECT TITLE
   FROM MOVIE, PERSON, CASTING
@@ -2084,30 +1872,15 @@ SELECT TITLE
      AND (MOVIEID = MOVIE.ID)
      AND (ACTORID = PERSON.ID))
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Harrison Ford" isimli oyuncuların oynadığı\\
-                ama başrol oynamadığı filmlerin başlıkları]
-    \begin{lstlisting}
-SELECT TITLE
-  FROM MOVIE, PERSON, CASTING
-  WHERE ((NAME = 'Harrison Ford')
-     AND (MOVIEID = MOVIE.ID)
-     AND (ACTORID = PERSON.ID)
-     AND (ORD > 1))
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[1962 yılında çekilmiş filmlerin başlıkları\\
-                ve başrol oyuncularının isimleri]
+  \begin{itemize}
+    \item 1962 yılında çekilmiş filmlerin başlıkları\\
+                ve başrol oyuncularının isimleri
     \begin{lstlisting}
 SELECT TITLE, NAME
   FROM MOVIE, PERSON, CASTING
@@ -2116,7 +1889,44 @@ SELECT TITLE, NAME
      AND (ACTORID = PERSON.ID)
      AND (ORD = 1))
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item John Travolta'nın hangi yıl kaç filmde oynadığı
+    
+    \medskip
+\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
+~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
+\pause
+~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
+~~~~~~~~~\lstinline!AND (MOVIEID = MOVIE.ID)!\\
+~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID))!\\
+\pause
+~~~~\lstinline!GROUP BY YR!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sorgulama Örnekleri}
+\begin{itemize}
+    \item 1978 yılında çekilmiş filmlerin başlıkları ve oyuncu sayıları,\\
+      oyuncu sayısına göre azalan sırada
+
+    \medskip
+\lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
+~~~~\lstinline!FROM MOVIE, CASTING!\\
+\pause
+~~~~\lstinline!WHERE ((YR = 1978)!\\
+~~~~~~~~~\lstinline!AND (MOVIE.ID = CASTING.MOVIEID))!\\
+\pause
+~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
+\pause\pause
+~~~~\lstinline!ORDER BY 2 DESC!
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -2124,102 +1934,113 @@ SELECT TITLE, NAME
 
   \begin{itemize}
     \item katma işlemi bir tablo deyimi olarak yazılabilir:
-    \begin{itemize}
-      \item çarpma
-      \item koşul belirterek
-      \item eş isimli sütunlar üzerinden
-      \item doğal katma
-      \item dış katma
-    \end{itemize}
-  \end{itemize}
-
-  \begin{block}{Komut}
     \begin{lstlisting}
 SELECT ...
   FROM table_expression [ AS table_name ]
   WHERE selection_condition
   ...
     \end{lstlisting}
-  \end{block}
+    \medskip
+    \item çarpma
+    \item koşul belirterek
+    \item eş isimli sütunlar üzerinden
+    \item doğal katma
+    \item dış katma
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Deyimleri}
 
-  \begin{block}{çarpma}
-    \begin{lstlisting}
-table1_name CROSS JOIN table2_name
+  \begin{itemize}
+    \item çarpma
+   \begin{lstlisting}
+SELECT ...
+  FROM table1_name CROSS JOIN table2_name
+  ...
     \end{lstlisting}
-  \end{block}
 
   \pause
-  \begin{block}{koşul belirterek}
+  \medskip
+  \item koşul belirterek katma
     \begin{lstlisting}
-table1_name JOIN table2_name
-  ON condition
+SELECT ...
+  FROM table1_name JOIN table2_name
+         ON condition
+  ...
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Star Wars" başlıklı filmlerin yönetmenlerinin isimleri]
+  \begin{itemize}
+  \item "Star Wars" başlıklı filmlerin yönetmenlerinin isimleri
+   \begin{lstlisting}
+SELECT NAME
+  FROM MOVIE, PERSON
+  WHERE ((DIRECTORID = PERSON.ID)
+     AND (TITLE = 'Star Wars'))
+    \end{lstlisting}
+
+    \pause
     \begin{lstlisting}
 SELECT NAME
   FROM MOVIE JOIN PERSON
           ON (DIRECTORID = PERSON.ID)
   WHERE (TITLE = 'Star Wars')
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Katma Deyimleri}
 
-  \begin{block}{eş isimli sütunlar üzerinden}
-    \begin{lstlisting}
-table1_name JOIN table2_name
-  USING (column_name [, ...])
-    \end{lstlisting}
-  \end{block}
-
   \begin{itemize}
-    \item tekrarlı sütunlar bir kere alınır
-  \end{itemize}
-
-  \pause
-  \begin{block}{doğal katma}
+    \item eş isimli sütunlar üzerinden
     \begin{lstlisting}
-table1_name NATURAL JOIN table2_name
+SELECT ...
+  FROM table1_name JOIN table2_name
+         USING (column_name [, ...])
+  ...
     \end{lstlisting}
-  \end{block}
+    \item tekrarlı sütunlar bir kere alınır
+    
+    \pause
+    \medskip
+    \item doğal katma
+    \begin{lstlisting}
+SELECT ...
+  FROM table1_name NATURAL JOIN table2_name
+  ...
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Dış Katma}
 
   \begin{itemize}
-    \item "iç" katmada, diğer tablonun hiçbir satırıyla eşleşmeyen\\
-      satırlar sonuç kümesine girmez
-
-    \item dış katmada, eşleşmeyen her satır için\\
-      diğer tablodan gelen sütunların boş olduğu bir satır eklenir
-  \end{itemize}
-
-  \pause
-  \begin{block}{Komut}
+    \item iç katma: eşleşmeyen satırlar dahil edilmez
+    
+    \medskip
+    \item \alert{dış katma}: eşleşmeyen satırlar dahil edilir
+    \item diğer tablodan gelen sütunlar boş
     \begin{lstlisting}
-table1_name [ LEFT | RIGHT | FULL ]
-       [ OUTER ] JOIN table2_name
+SELECT ...
+  FROM table1_name [ LEFT | RIGHT | FULL ]
+         [ OUTER ] JOIN table2_name
+  ...
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Dış Katma Örnekleri}
 
-  \begin{ornek}[soldan dış katma]
+  \begin{itemize}
+    \item soldan dış katma
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2262,13 +2083,14 @@ NUM & NAME & NUM & VALUE\\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Dış Katma Örnekleri}
 
-  \begin{ornek}[sağdan dış katma]
+  \begin{itemize}
+    \item sağdan dış katma
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2311,13 +2133,14 @@ NUM & NAME & NUM & VALUE\\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Dış Katma Örnekleri}
 
-  \begin{ornek}[çift taraflı dış katma]
+  \begin{itemize}
+    \item çift taraflı dış katma
     \begin{columns}[t]
       \column{.5\textwidth}
       \begin{tiny}
@@ -2361,20 +2184,21 @@ NUM & NAME & NUM & VALUE\\\hline\hline
       \end{table}
       \end{tiny}
     \end{center}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[hiçbir oyuncusu bilinmeyen filmlerin başlıkları]
+  \begin{itemize}
+    \item hiçbir oyuncusu bilinmeyen filmlerin başlıkları
     \begin{lstlisting}
 SELECT TITLE
   FROM MOVIE LEFT JOIN CASTING
          ON (MOVIEID = MOVIE.ID)
   WHERE (ACTORID IS NULL)
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -2389,13 +2213,16 @@ SELECT TITLE
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[aynı sayıda oy almış filmlerin başlıkları]
+  \begin{itemize}
+    \item aynı sayıda oy almış filmlerin başlıkları
+    
+    \medskip
     \lstinline!SELECT M1.TITLE, M2.TITLE!\\
     \lstinline!  FROM MOVIE AS M1, MOVIE AS M2!\\
     \lstinline!  WHERE (M1.VOTES = M2.VOTES)!\\
     \pause
     \lstinline!     AND (M1.ID < M2.ID)!
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \subsection{Altsorgular}
@@ -2403,31 +2230,28 @@ SELECT TITLE
 \begin{frame}[fragile]
   \frametitle{Altsorgular}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item altsorgu sonuçlarının koşul deyiminde kullanılması
     \begin{lstlisting}
 SELECT ...
   WHERE expression operator
       [ ALL | ANY ] (subquery)
   ...
     \end{lstlisting}
-  \end{block}
 
-  \begin{itemize}
-    \item altsorgu sonuçlarının koşul deyiminde kullanılması
-    \pause
-    \begin{itemize}
-      \item altsorgu sonucunun satır ve sütun sayıları uygun olmalı
-      \item \lstinline!ALL!: altsorgudan gelen bütün değerler için
-      \item \lstinline!ANY!: altsorgudan gelen en az bir değer için
-    \end{itemize}
+    \item altsorgu sonucunun satır ve sütun sayıları uygun olmalı
+    \item \lstinline!ALL!: altsorgudan gelen bütün değerler için
+    \item \lstinline!ANY!: altsorgudan gelen en az bir değer için
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}["Star Wars" filminden daha yuksek puanlı filmlerin\\
-                başlıkları ve puanları, puana göre azalan sırada]
+  \begin{itemize}
+    \item "Star Wars" filminden daha yüksek puanlı filmlerin\\
+                başlıkları ve puanları, puana göre azalan sırada
+    \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE, SCORE FROM MOVIE!\\
 ~~~~\lstinline!WHERE (!
@@ -2444,38 +2268,17 @@ SELECT ...
 \uncover<3->{
 \lstinline!) ORDER BY SCORE DESC!
 }
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[bütün "Police Academy" filmlerinin toplam oyundan\\
-                daha fazla oy almış filmlerin başlıkları]
-\uncover<3->{
-\lstinline!SELECT TITLE FROM MOVIE!\\
-~~~~\lstinline!WHERE (!
-}
-\uncover<2->{
-\lstinline!VOTES >!\\
-~~~~~~~~\lstinline!(!
-}
-\lstinline!SELECT SUM(VOTES) FROM MOVIE!\\
-~~~~~~~~~~~~~~\lstinline!WHERE (TITLE LIKE 'Police Academy%')!
-\uncover<2->{
-\lstinline!)!\\
-}
-\uncover<3->{
-\lstinline!)!
-}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[bütün "Police Academy" filmlerinin puanlarından\\
-                daha düşük puana sahip filmlerin başlıkları]
+  \begin{itemize}
+    \item bütün "Police Academy" filmlerinin puanlarından\\
+                daha düşük puana sahip filmlerin başlıkları
+                
+    \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE FROM MOVIE!\\
 ~~~~\lstinline!WHERE (!
@@ -2492,14 +2295,17 @@ SELECT ...
 \uncover<3->{
 \lstinline!)!
 }
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[1930 yılından önce çekilmiş herhangi bir filmin aldığından\\
-                daha az oy almış filmlerin başlıkları]
+  \begin{itemize}
+    \item 1930 yılından önce çekilmiş herhangi bir filmin aldığından\\
+                daha az oy almış filmlerin başlıkları
+    
+    \medskip
 \uncover<3->{
 \lstinline!SELECT TITLE FROM MOVIE!\\
 ~~~~\lstinline!WHERE ((YR >= 1930) AND (!
@@ -2516,7 +2322,50 @@ SELECT ...
 \uncover<3->{
 \lstinline!))!
 }
-  \end{ornek}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item Johnny Depp ile oynamış oyuncuların isimleri
+     \medskip
+\uncover<2->{
+\lstinline!SELECT NAME FROM PERSON, CASTING!\\
+~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
+~~~~~~~~~\lstinline!AND (MOVIEID IN (!\\
+}
+~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
+~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Johnny Depp'))!\\
+\uncover<2->{
+\lstinline!) ))!
+}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item en az 10 başrol oynamış oyuncuların isimleri
+    \medskip
+\uncover<4->{
+\lstinline!SELECT NAME FROM PERSON!\\
+~~~~\lstinline!WHERE (ID IN (!\\
+}
+~~~~~~~~~~~~\lstinline!SELECT ACTORID FROM CASTING!\\
+~~~~~~~~~~~~~~~~\lstinline!WHERE (ORD = 1)!\\
+\pause
+~~~~~~~~~~~~~~~~\lstinline!GROUP BY ACTORID!\\
+\pause
+~~~~~~~~~~~~~~~~\lstinline!HAVING (COUNT(MOVIEID) >= 10)!\\
+\uncover<4->{
+\lstinline!) )!
+}
+  \end{itemize}
 \end{frame}
 
 \subsection{Küme İşlemleri}
@@ -2527,14 +2376,12 @@ SELECT ...
   \begin{itemize}
     \item iki altsorgu sonucu üzerinde işlem
 
-    \item bağıntı modelinin temel küme işlemleri:
-    \begin{itemize}
-      \item kesişim: \lstinline!INTERSECT!
-      \item birleşim: \lstinline!UNION!
-      \item fark: \lstinline!EXCEPT!
-    \end{itemize}
+    \medskip
+    \item kesişim: \lstinline!INTERSECT!
+    \item birleşim: \lstinline!UNION!
+    \item fark: \lstinline!EXCEPT!
 
-    \pause
+    \medskip
     \item sonuç tablolarında tekrarlı satırlar bulunmaz
   \end{itemize}
 \end{frame}
@@ -2542,7 +2389,9 @@ SELECT ...
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[hem yönetmenlik hem de oyunculuk yapmış olanların sayısı]
+  \begin{itemize}
+    \item hem yönetmenlik hem de oyunculuk yapmış olanların sayısı
+    \medskip
 \uncover<3->{
 \lstinline!SELECT COUNT(*) FROM (!\\
 }
@@ -2562,39 +2411,17 @@ SELECT ...
 \uncover<3->{
 \lstinline!) AS DIRECTOR_ACTOR!
 }
-  \end{ornek}
+  \end{itemize}
 \end{frame}
+
 
 \begin{frame}[fragile]
   \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[oyunculuk yapmamış yönetmenlerin sayısı]
-\uncover<3->{
-\lstinline!SELECT COUNT(*) FROM (!\\
-}
-\uncover<2->{
-~~~~\lstinline!(!
-}
-\lstinline!SELECT DISTINCT DIRECTORID FROM MOVIE!
-\uncover<2->{
-\lstinline!)!\\
-~~~~\lstinline!EXCEPT!\\
-~~~~\lstinline!(!
-}
-\lstinline!SELECT DISTINCT ACTORID FROM CASTING!
-\uncover<2->{
-\lstinline!)!\\
-}
-\uncover<3->{
-\lstinline!) AS DIRECTOR_ONLY!
-}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgulama Örnekleri}
-
-  \begin{ornek}[1930'dan önce çekilmiş filmlerde çalışan kişilerin sayısı]
+  \begin{itemize}
+    \item 1930'dan önce çekilmiş filmlerde çalışan kişilerin sayısı
+    
+    \medskip
 \uncover<3->{
 \lstinline!SELECT COUNT(*) FROM (!\\
 }
@@ -2618,144 +2445,58 @@ SELECT ...
 \uncover<3->{
 \lstinline!) AS OLD_MOVIE_PERSON_IDS!
 }
-  \end{ornek}
-\end{frame}
-
-\subsection*{Ek Örnekler}
-
-\begin{frame}
-  \frametitle{Ek Örnekler}
-
-  \begin{itemize}
-    \item John Travolta'nın hangi yıl kaç filmde oynadığı
-    \item 1978 yılında çekilmiş filmlerin başlıkları ve oyuncu sayıları,\\
-      oyuncu sayısına göre azalan sırada
-    \item Johnny Depp ile oynamış oyuncuların isimleri
-    \item Uma Thurman'ın oynadığı filmlerin başlıkları\\
-      ve başrol oyuncularının isimleri
-    \item en az 10 başrol oynamış oyuncuların isimleri
   \end{itemize}
 \end{frame}
 
-\mode
-<beamer>
-
 \begin{frame}[fragile]
-  \frametitle{Ek Sorgulama Örnekleri}
+  \frametitle{Sorgulama Örnekleri}
 
-  \begin{ornek}[John Travolta'nın hangi yıl kaç filmde oynadığı]
-\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
-~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
-\pause
-~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
-~~~~~~~~~\lstinline!AND (MOVIEID = MOVIE.ID)!\\
-~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID))!\\
-\pause
-~~~~\lstinline!GROUP BY YR!
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Ek Sorgulama Örnekleri}
-
-  \begin{ornek}[1978 yılında çekilmiş filmlerin başlıkları ve oyuncu sayıları,\\
-                oyuncu sayısına göre azalan sırada]
-\lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
-~~~~\lstinline!FROM MOVIE, CASTING!\\
-\pause
-~~~~\lstinline!WHERE ((YR = 1978)!\\
-~~~~~~~~~\lstinline!AND (MOVIE.ID = CASTING.MOVIEID))!\\
-\pause
-~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
-\pause\pause
-~~~~\lstinline!ORDER BY 2 DESC!
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Ek Sorgulama Örnekleri}
-
-  \begin{ornek}[Johnny Depp ile oynamış oyuncuların isimleri]
+  \begin{itemize}
+    \item oyunculuk yapmamış yönetmenlerin sayısı
+    \medskip
+\uncover<3->{
+\lstinline!SELECT COUNT(*) FROM (!\\
+}
 \uncover<2->{
-\lstinline!SELECT NAME FROM PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~\lstinline!AND  (MOVIEID IN (!\\
+~~~~\lstinline!(!
 }
-~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Johnny Depp'))!\\
+\lstinline!SELECT DISTINCT DIRECTORID FROM MOVIE!
 \uncover<2->{
-\lstinline!) ))!
+\lstinline!)!\\
+~~~~\lstinline!EXCEPT!\\
+~~~~\lstinline!(!
 }
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Ek Sorgulama Örnekleri}
-
-  \begin{ornek}[Uma Thurman'ın oynadığı filmlerin başlıkları\\
-                ve başrol oyuncularının isimleri]
+\lstinline!SELECT DISTINCT ACTORID FROM CASTING!
 \uncover<2->{
-\lstinline!SELECT TITLE, NAME FROM MOVIE, PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((MOVIEID = MOVIE.ID)!\\
-~~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID)!\\
-~~~~~~~~~~\lstinline!AND (ORD = 1)!\\
-~~~~~~~~~~\lstinline!AND (MOVIEID IN! (\\
+\lstinline!)!\\
 }
-~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Uma Thurman'))!\\
-\uncover<2->{
-\lstinline!) ))!
+\uncover<3->{
+\lstinline!) AS DIRECTOR_ONLY!
 }
-  \end{ornek}
+  \end{itemize}
 \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Ek Sorgulama Örnekleri}
-
-  \begin{ornek}[en az 10 başrol oynamış oyuncuların isimleri]
-\uncover<4->{
-\lstinline!SELECT NAME FROM PERSON!\\
-~~~~\lstinline!WHERE (ID IN (!\\
-}
-~~~~~~~~~~~~\lstinline!SELECT ACTORID FROM CASTING!\\
-~~~~~~~~~~~~~~~~\lstinline!WHERE (ORD = 1)!\\
-\pause
-~~~~~~~~~~~~~~~~\lstinline!GROUP BY ACTORID!\\
-\pause
-~~~~~~~~~~~~~~~~\lstinline!HAVING (COUNT(MOVIEID) >= 10)!\\
-\uncover<4->{
-\lstinline!) )!
-}
-  \end{ornek}
-\end{frame}
-
-\mode
-<all>
 
 \subsection*{Kaynaklar}
 
 \begin{frame}
   \frametitle{Kaynaklar}
-
+  
   \begin{block}{Okunacak: Date}
     \begin{itemize}
       \item Chapter 8: Relational Calculus
       \begin{itemize}
         \item 8.6. \alert{SQL Facilities}
       \end{itemize}
+
       \item Appendix B: \alert{SQL Expressions}
       \item Chapter 19: Missing Information
     \end{itemize}
   \end{block}
-
+  
   \begin{block}{Yardımcı Kaynak}
     \begin{itemize}
       \item A Gentle Introduction to SQL:\\
-	\url{http://sqlzoo.net/}
+        \url{http://sqlzoo.net/}
     \end{itemize}
   \end{block}
 \end{frame}
