@@ -2110,11 +2110,11 @@ ALTER TABLE table_name
   \frametitle{Kısıtlama Ekleme Örneği}
   
   \begin{itemize}
-    \item \texttt{YR} değerleri 1888'den küçük olamasın
+    \item \texttt{YR} değerleri 1887'den küçük olamasın
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ADD CONSTRAINT MINIMUM_YEAR
-    CHECK (YR >= 1888)
+    CHECK (YR >= 1887)
     \end{lstlisting}
   \end{itemize}
 
