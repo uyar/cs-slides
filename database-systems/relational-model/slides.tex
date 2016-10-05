@@ -1839,11 +1839,11 @@ ALTER TABLE table_name
   \frametitle{Constraint Addition Example}
 
   \begin{itemize}
-    \item \texttt{YR} values can not be less than 1888
+    \item \texttt{YR} values can not be less than 1887
     \begin{lstlisting}
 ALTER TABLE MOVIE
   ADD CONSTRAINT MINIMUM_YEAR
-    CHECK (YR >= 1888)
+    CHECK (YR >= 1887)
     \end{lstlisting}
   \end{itemize}
 
