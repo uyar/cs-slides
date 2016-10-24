@@ -1581,7 +1581,7 @@ SELECT TITLE, SCORE * VOTES
 
   \begin{itemize}
     \item bütün filmlerin başlıkları ve toplam puanları,\\
-                toplam puana göre azalan sırada]
+                toplam puana göre azalan sırada
     \begin{lstlisting}
 SELECT TITLE, SCORE * VOTES AS POINTS
   FROM MOVIE
@@ -1823,7 +1823,7 @@ SELECT SUM(VOTES) FROM MOVIE
     \medskip
     \item işleniş sırası (kavramsal):
     \begin{itemize}
-      \item tabloların Kartezyen çarpımı alınır
+      \item tabloların kartezyen çarpımı alınır
       \item \lstinline!WHERE! koşulunu sağlayan satırlar seçilir
       \item \ldots
     \end{itemize}
