@@ -1,45 +1,32 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
-\usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
+% \usepackage[turkish]{babel}
+\setbeamersize{text margin left=2em, text margin right=2em}
 
 \usepackage{listings}
-\lstdefinelanguage{ExtendedPHP}[]{PHP}{
-  morekeywords={odbc_exec}
+\lstdefinelanguage{Python3}[]{Python}{
+  morekeywords={as, with}, deletekeywords={filter,format}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
                 MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
                 START, TO, TYPE, VACUUM}
 }
-\lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
-  morekeywords={AFTER, BEFORE, DO, EACH, FOR, FUNCTION, INSTEAD, LANGUAGE,
-                OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
-                WITH}
-}
-\lstdefinelanguage{EmbeddedSQL}[]{FullSQL}{
-  morekeywords={BEGIN, CLOSE, CONTINUE, CURSOR, DECLARE, FETCH, FOR, DO, END,
-                EXEC, FOUND, GOTO, INCLUDE, INTO, OPEN, SECTION, SQL, SQLERROR,
-                SQLWARNING, STATEMENT, STOP, WHENEVER, sqlca, sqlcode}
-}
-\lstset{basicstyle=\ttfamily, keywordstyle=\color{blue}, showstringspaces=false}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -52,7 +39,7 @@
 \subtitle{Uygulama Geliştirme}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -61,17 +48,11 @@
   \end{frame}
 }
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
-\pgfdeclareimage[height=6cm]{esql}{esql}
+\pgfdeclareimage[width=11cm]{xkcd}{xkcd}
 
 \begin{document}
 
@@ -83,33 +64,40 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2016 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -117,9 +105,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Uygulama Geliştirme}
+\lstset{language=Python3}
 
-\lstset{language=C}
+\section{Veri Tabanı Arayüzleri}
 
 \subsection{Giriş}
 
@@ -127,1120 +115,1011 @@
   \frametitle{Giriş}
 
   \begin{itemize}
-    \item veri tabanı dili ile genel amaçlı bir programlama dilinin\\
-      birlikte kullanımı
-    \item uygulamanın yazıldığı genel amaçlı dil: \alert{taban dil}
+    \item uygulama kodunda veri işlemleri nasıl yapılacak?
 
-    \pause
     \bigskip
-    \item SQL ile taban dil arasında uyumsuzluk:
-    \begin{itemize}
-      \item SQL işlemleri kümeler üzerinde
-      \item genel amaçlı dillerde yineleme yapıları
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+    \item veri tabanı sunucusuna bağlan
+    \item sunucu, veri tabanı, kullanıcı adı, parola
 
-\begin{frame}
-  \frametitle{Program Yapısı}
-
-  \begin{itemize}
-    \item bağlantı kur
-    \begin{itemize}
-      \item sunucu, veri tabanı, kullanıcı adı, parola
-    \end{itemize}
-
-    \pause
     \medskip
-    \item gerektikçe komut çalıştır:
-    \begin{itemize}
-      \item güncelleme işlemleri işlemden etkilenen satır sayısını döndürür
-      \item sorgulama işlemleri sonuç kümeleri döndürür\\
-        $\rightarrow$ döngüyle satır satır gez
-    \end{itemize}
+    \item işlemleri yürüt
+    \item sonuçları uyarla
 
-    \pause
     \medskip
     \item bağlantıyı kopar
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Uygulama Geliştirme Yöntemleri}
+  \frametitle{Amaçlar}
 
   \begin{itemize}
-    \item uygulama programı arayüzü (API)
-    \item gömülü SQL
-    \item ODBC
-    \item dil standart arayüzleri
-  \end{itemize}
-\end{frame}
+    \item kod belirli bir ürüne bağlı olmamalı
+    \item başka bir ürüne kolayca taşınabilmeli
 
-\begin{frame}
-  \frametitle{Uygulama Programı Arayüzü}
-
-  \begin{itemize}
-    \item SQL sunucusunun kitaplık fonksiyonlarını çağırarak
+    \medskip
+    \item soyutlama katmanları performans problemlerine yol açıyor
+    \item örneğin ODBC standart ama yavaş
 
     \pause
     \bigskip
-    \item avantajı: hızlı
-    \item dezavantajı: sunucudan sunucuya değişiyor
+    \item sürücüler dil standart arayüzlerine uyarak gerçeklenir
+    \item Java: JDBC, Python: DBAPI
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Uygulama Programı Arayüzü Örneği}
-
-  \begin{ornek}[PostgreSQL - C]
-    \begin{lstlisting}
-#include <libpq-fe.h>
-
-int main(int argc, char *argv[])
-{
-    /* connect */
-    /* execute query */
-    /* disconnect */
-}
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Uygulama Programı Arayüzü Örneği}
-
-  \begin{ornek}[veri tabanı bağlantısı]
-    \begin{lstlisting}
-/* PGconn *conn; */
-
-conn = PQconnectdb("host=localhost dbname=imdb"
-                " user=itucs password=itucs");
-if (PQstatus(conn) == CONNECTION_BAD) {
-    fprintf(stderr, "Connection failed.\n");
-    exit(1);
-}
-/* execute query */
-PQfinish(conn);
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Uygulama Programı Arayüzü Örneği}
-
-  \begin{ornek}[sorgunun işlenişi]
-    \begin{lstlisting}
-/* PGresult *result; */
-
-sprintf(query, "SELECT TITLE, SCORE"
-        " FROM MOVIE WHERE (YR = %d)", year);
-result = PQexec(conn, query);
-if (PQresultStatus(result) != PGRES_TUPLES_OK) {
-    fprintf(stderr, "Query failed.\n");
-    PQclear(result);
-    PQfinish(conn);
-    exit(1);
-}
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Uygulama Programı Arayüzü Örneği}
-
-  \begin{ornek}[sonuç kümesinin işlenişi]
-    \begin{lstlisting}
-for (i = 0; i < PQntuples(result); i++) {
-    title = PQgetvalue(result, i, 0);
-    score = PQgetvalue(result, i, 1);
-    ...
-}
-
-PQclear(result);
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\lstset{language=EmbeddedSQL}
-
-\subsection{Gömülü SQL}
-
-\begin{frame}
-  \frametitle{Gömülü SQL}
+  \frametitle{Python DBAPI}
 
   \begin{itemize}
-    \item aşamalar:
-    \begin{enumerate}
-      \item taban dil içinde SQL komutları işaretlenir: \lstinline!EXEC SQL!
-      \item gömülü SQL önişleyicisi:\\
-        gömülü SQL komutları $\rightarrow$ uygulama programı arayüzü çağrıları
-      \item taban dil derleyicisi
-    \end{enumerate}
+    \item sürücüyü yükle
+    \item başka sürücülere kolay uyarlamak için adını değiştir
+  \end{itemize}
 
-    \pause
-    \bigskip
-    \item avantajları: hızlı, standart
-    \item dezavantajları: kullanışsız, farklı diller için desteği yok
+  \begin{exampleblock}{örnek}
+    \begin{lstlisting}
+import psycopg2 as dbapi2
+# import sqlite3 as dbapi2
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bağlantı}
+
+  \begin{itemize}
+    \item bağlantı bilgileri: kullanıcı adı, parola, sunucu, veri tabanı
+
+    \medskip
+    \item veri kaynağı adı (DSN):\\
+      \texttt{user=.. password=.. host=.. port=.. dbname=..}
+    \item tekdüzen kaynak tanımlayıcısı (URI):\\
+      \texttt{protocol://user:password@host:port/dbname}
+  \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{örnekler}
+    \begin{lstlisting}
+user='vagrant' password='vagrant' host='localhost'
+    port=5432 dbname='itucsdb'
+
+postgres://vagrant:vagrant@localhost:5432/itucsdb
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bağlantı Örneği}
+
+  \begin{lstlisting}
+dsn = """user='vagrant' password='vagrant'
+         host='localhost' port=5432 dbname='itucsdb'"""
+connection = dbapi2.connect(dsn)
+
+# database operations
+
+connection.close()
+  \end{lstlisting}
+\end{frame}
+
+\subsection{İşlemler}
+
+\begin{frame}
+  \frametitle{Güncelleme İşlemleri}
+
+  \begin{itemize}
+    \item güncelleme işlemleri için (insert, delete, update, create, \ldots)
 
     \bigskip
-    \hyperlink{odbc}{\beamergotobutton{Gömülü SQL bölümünü atla}}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Gömülü SQL}
-
-  \begin{center}
-    \pgfuseimage{esql}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Gömülü SQL Standardı}
-
-  \begin{itemize}
-    \item taban dil ile değişken paylaşımı
-    \item hata denetimi
-    \item sorgu sonuçlarının uyarlanması
+    \item bağlantı için bir imleç tanımla
+    \item sorguları çalıştır
+    \item bekleyen değişikliklerı işle
+    \item imleci kapat
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Değişken Paylaşımı}
+  \frametitle{Güncelleme Örneği}
 
-  \begin{block}{Yazım}
-    \begin{lstlisting}
-EXEC SQL BEGIN DECLARE SECTION;
-shared variables
-EXEC SQL END DECLARE SECTION;
-    \end{lstlisting}
-  \end{block}
+  \begin{lstlisting}
+connection = dbapi2.connect(dsn)
+cursor = connection.cursor()
+statement = """CREATE TABLE PERSON (
+    ID SERIAL PRIMARY KEY,
+    NAME VARCHAR(40) UNIQUE NOT NULL
+)"""
+cursor.execute(statement)
+connection.commit()
+cursor.close()
+connection.close()
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sorgulama İşlemleri}
 
   \begin{itemize}
-    \item SQL komutlarında taban dil değişkenlerinin önüne '\lstinline!:!'
+    \item sorgulama işlemleri için (select)
+
+    \bigskip
+    \item bağlantı için bir imleç tanımla
+    \item sorguları çalıştır
+    \item imleçle döngü içinde satırlar üzerinde dolaş (her satır bir çoklu)
+    \item imleci kapat
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Sorgulama Örneği}
+
+  \begin{lstlisting}
+connection = dbapi2.connect(dsn)
+cursor = connection.cursor()
+statement = """SELECT TITLE, SCORE FROM MOVIE
+                WHERE (YR = 1999)"""
+cursor.execute(statement)
+for row in cursor:
+    title, score = row
+    print('{}: {}'.format(title, score))
+cursor.close()
+connection.close()
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örneği}
+
+  \begin{itemize}
+    \item çoklu ataması ile daha basit işlem
+  \end{itemize}
+
+  \begin{lstlisting}
+for row in cursor:
+    title, score = row
+    print('{}: {}'.format(title, score))
+  \end{lstlisting}
+
+  \begin{lstlisting}
+for title, score in cursor:
+    print('{}: {}'.format(title, score))
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{itemize}
+    \item filmler ve yönetmenleri
+  \end{itemize}
+
+  \begin{lstlisting}
+statement = """SELECT TITLE, NAME
+                 FROM MOVIE JOIN PERSON
+                   ON (MOVIE.DIRECTORID = PERSON.ID)"""
+cursor.execute(statement)
+for title, name in cursor:
+    print('{}: {}'.format(title, name))
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Hata Denetimi}
+
+\begin{frame}
   \frametitle{Hata Denetimi}
 
-  \begin{block}{Hata İşleme}
-    \begin{lstlisting}
-EXEC SQL WHENEVER
-  { SQLERROR | SQLWARNING | NOT FOUND }
-  { STOP | CONTINUE | DO command | GOTO label }
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Sorgu Sonuçlarının Uyarlanması}
-
-  \begin{block}{İmleçler}
-    \begin{lstlisting}
-EXEC SQL DECLARE cursor_name CURSOR FOR
-    SELECT ...;
-EXEC SQL OPEN cursor_name;
-EXEC SQL FETCH IN cursor_name INTO variables;
-EXEC SQL CLOSE cursor_name;
-    \end{lstlisting}
-  \end{block}
-
-  \pause
   \begin{itemize}
-    \item tanımlama işleminde sorgu çalıştırılmaz
-    \item açma işlemiyle sorgu çalıştırılır
-    \begin{itemize}
-      \item imleç sonuç kümesinin ilk satırına konumlandırılır
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+    \item veri tabanı işlemleri ile ilgili hatalar
 
-\begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneği}
-
-  \begin{ornek}[veri tabanına bağlanma]
-    \begin{lstlisting}[language=C]
-EXEC SQL BEGIN DECLARE SECTION;
-int year;
-char *title = NULL, *score = NULL;
-EXEC SQL END DECLARE SECTION;
-
-EXEC SQL CONNECT TO imdb
-    USER itucs IDENTIFIED BY itucs;
-
-/* process query */
-
-EXEC SQL DISCONNECT;
-    \end{lstlisting}
- \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneği}
-
-  \begin{ornek}[sorgunun işlenmesi]
-    \begin{lstlisting}[language=C]
-scanf("%d", &year);
-EXEC SQL DECLARE c_query CURSOR FOR
-    SELECT TITLE, SCORE FROM MOVIE
-      WHERE (YR = :year);
-EXEC SQL OPEN c_query;
-
-/* execute query */
-
-EXEC SQL CLOSE c_query;
-EXEC SQL COMMIT;
-    \end{lstlisting}
- \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Gömülü SQL Örneği}
-
-  \begin{ornek}[sorgunun çalıştırılması]
-    \begin{lstlisting}[language=C]
-EXEC SQL WHENEVER NOT FOUND DO break;
-while (1) {
-    EXEC SQL FETCH c_query INTO :title, :score;
-    ...
-}
-    \end{lstlisting}
- \end{ornek}
-\end{frame}
-
-\lstset{language=ExtendedPHP}
-
-\subsection{ODBC}
-
-\begin{frame}[label=odbc]
-  \frametitle{ODBC}
-
-  \begin{itemize}
-    \item \alert{ODBC}: Open DataBase Connectivity\\
-      uygulama ile sunucu arasında bir servis katmanı
-
-    \pause
-    \bigskip
-    \item avantajları: standart
-    \item dezavantajları: yavaş
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{ODBC Mimarisi}
-
-  \begin{itemize}
-    \item uygulama
-
-    \pause
-    \item sürücü yöneticisi
-    \begin{itemize}
-      \item ODBC sürücülerini kaydeder
-      \item uygulamadan gelen ODBC isteklerini ilgili sürücüye aktarır
-    \end{itemize}
-
-    \pause
-    \item sürücü
-    \begin{itemize}
-      \item istekleri veri kaynağına uygun şekilde iletir
-    \end{itemize}
-
-    \pause
-    \item veri kaynağı
-    \begin{itemize}
-      \item sürücüden gelen komutları işler
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{ODBC Örneği}
-
-  \begin{ornek}[PHP]
-    \begin{lstlisting}
-$conn = odbc_connect("imdb", "itucs", "itucs");
-$query = "SELECT TITLE, SCORE FROM MOVIE"
-       . " WHERE (YR = " . $year . ")";
-$result = odbc_exec($conn, $query);
-
-/* process the result set */
-
-odbc_close($conn);
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{ODBC Örneği}
-
-  \begin{ornek}[sonuç kümesinin işlenmesi]
-    \begin{lstlisting}
-echo "<table>\n";
-while (odbc_fetch_row($result)) {
-    $title = odbc_result($result, "title");
-    $score = odbc_result($result, "score");
-    echo "<tr>\n";
-    echo "  <td>$title</td>\n";
-    echo "  <td>$score</td>\n";
-    echo "</tr>\n";
-}
-echo "</table>\n";
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\lstset{language=Java}
-
-\subsection{JDBC}
-
-\begin{frame}
-  \frametitle{JDBC}
-
-  \begin{itemize}
-    \item \alert{JDBC}: Java DataBase Connectivity
-
-    \pause
-    \item ODBC ile aynı mimari kavramları
-    \begin{itemize}
-      \item değişik sürücü tipleri
-    \end{itemize}
-
-    \pause
-    \item bağlantı için JDBC URL adresi
-    \begin{itemize}
-      \item \lstinline!jdbc:<altprotokol>:<parametreler>!
-    \end{itemize}
-
-    \pause
-    \item Java ile SQL veri tiplerinin eşleştirilmesi
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{JDBC Sürücüleri}
-
-  \begin{enumerate}
-    \item \emph{Tip I}: köprüler
-    \begin{itemize}
-      \item başka sistemlerin çağrılarına dönüştür (örneğin ODBC)
-    \end{itemize}
-
-    \pause
-    \item \emph{Tip II}: Java olmayan bir sürücüyle doğrudan çeviri
-    \begin{itemize}
-      \item veri kaynağının uygulama arayüzüne çevir (örneğin C++)
-    \end{itemize}
-
-    \pause
-    \item \emph{Tip III}: ağ köprüleri
-    \begin{itemize}
-      \item veri kaynağının uygulama arayüzüne çevirmesi için\\
-	orta katman yazılımına bağlan
-    \end{itemize}
-
-    \pause
-    \item \emph{Tip IV}: Java sürücüsüyle doğrudan çeviri
-    \begin{itemize}
-      \item VTYS ile Java soketleri üzerinden iletişim kur
-    \end{itemize}
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}
-  \frametitle{JDBC Akışı}
-
-  \begin{itemize}
-    \item bir bağlantı nesnesi al
-    \begin{itemize}
-      \item statik: \lstinline!DriverManager.getConnection()!
-	$\rightarrow$ \lstinline!Connection!
-    \end{itemize}
-
-    \pause
-    \item bağlantı üzerinde bir komut nesnesi yarat
-    \begin{itemize}
-      \item \lstinline!Connection.createStatement()!
-	 $\rightarrow$ \lstinline!Statement!
-    \end{itemize}
-
-    \pause
-    \item sorguyu çalıştır
-    \begin{itemize}
-      \item okuma: \lstinline!Statement.executeQuery(query)!
-	$\rightarrow$ \lstinline!ResultSet!
-      \item ekleme, güncelleme, silme: \lstinline!Statement.executeUpdate(query)!
-    \end{itemize}
-
-    \pause
-    \item sonuçları işle
-
-    \pause
-    \item işi biten kaynakları kapat\\
-      (sonuç kümesi, komut, bağlantı)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Sonuçların İşlenmesi}
-
-  \begin{itemize}
-    \item \lstinline!ResultSet! bir yineleyici
-    \begin{itemize}
-      \item başta satır olup olmadığı: \lstinline!ResultSet.hasNext()!
-      \item sıradaki satıra geç: \lstinline!ResultSet.next()!
-    \end{itemize}
-
-    \pause
     \medskip
-    \item satırdaki veriyi uygun tiplere dönüştürerek değişkenlere aktar
-    \begin{itemize}
-      \item sütunun adıyla: \lstinline!ResultSet.getXXX(name)!
-      \item sütunun sıra numarasıyla: \lstinline!ResultSet.getXXX(order)!
-    \end{itemize}
+    \item hata durumunda işlemi geri al (\lstinline!except!)
+    \item açık bütün kaynakları kapat (\lstinline!finally!)
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Şablon}
+
+  \begin{lstlisting}
+try:
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    cursor.execute(statement)
+    connection.commit()
+    cursor.close()
+except dbapi2.DatabaseError:
+    if connection:
+        connection.rollback()
+finally:
+    if connection:
+        connection.close()
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bağlantı Bağlam Yöneticileri}
+
+  \begin{itemize}
+    \item bazı sürücülerde bağlantılar bağlam yöneticileridir: \lstinline!with!
+    \item automatic commit (try), rollback (except), close (finally)
+
+    \medskip
+    \item şablon:
+    \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    cursor = connection.cursor()
+    cursor.execute(statement)
+    cursor.close()
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bağlantı Bağlam Yöneticisi Örneği}
+
+  \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    cursor = connection.cursor()
+    statement = """CREATE TABLE MOVIE (
+        ID SERIAL PRIMARY KEY,
+        TITLE VARCHAR(80),
+        YR NUMERIC(4),
+        SCORE FLOAT,
+        VOTES INTEGER DEFAULT 0,
+        DIRECTORID INTEGER REFERENCES PERSON (ID)
+    )"""
+    cursor.execute(statement)
+    cursor.close()
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{İmleç Bağlam Yöneticileri}
+
+  \begin{itemize}
+    \item bazı sürücülerde imleçler de bağlam yöneticileridir
+    \item otomatik kapama
+
+    \medskip
+    \item template:
+    \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    with connection.cursor() as cursor:
+        cursor.execute(statement)
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{İmleç Bağlam Yöneticisi Örneği}
+
+  \begin{lstlisting}
+with dbapi2.connect(dsn) as connection:
+    with connection.cursor() as cursor:
+        statement = """CREATE TABLE CASTING (
+            MOVIEID INTEGER REFERENCES MOVIE (ID),
+            ACTORID INTEGER REFERENCES PERSON (ID),
+            ORD INTEGER,
+            PRIMARY KEY (MOVIEID, ACTORID)
+        )"""
+        cursor.execute(statement)
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Komutlar}
+
+\begin{frame}[fragile]
+  \frametitle{Komutlar}
+
+  \begin{itemize}
+    \item komutları katar formatlama ile oluşturmak güvenli değil
+    \item dış kaynaklardan yapılan girdilere asla güvenme
+    \item \alert{SQL enjeksiyonu} saldırıları
+  \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{kötü örnek}
+    \begin{lstlisting}
+name = input('What is your name? ')
+statement = """INSERT INTO Students (Name)
+                 VALUES ('%s')""" % name
+cursor.execute(statement)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQL Enjeksiyonu Örneği}
+
+  \begin{center}
+    \pgfuseimage{xkcd}
+  \end{center}
+
+  \vspace{-6pt}
+  \lstinline[language=FullSQL]!INSERT INTO Students (Name)!\\
+  \lstinline[language=FullSQL]!   VALUES ('!\alert{\lstinline!Robert'); DROP TABLE Students;-- !}
+  \lstinline[language=FullSQL]!')!
+
+  \lstinline[language=FullSQL]!INSERT INTO Students (Name)!\\
+  \lstinline[language=FullSQL]!   VALUES ('Robert'); DROP TABLE Students;-- !
+  \lstinline[language=FullSQL]!')!
+
+  \begin{tiny}
+    \url{http://xkcd.com/327/}
+  \end{tiny}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Yer Tutucular}
+
+  \begin{itemize}
+    \item değerler için yer tutucular
+    \item farklı sürücülerin farklı biçimde:
+      \lstinline!%s!, \lstinline!?!, \ldots
+    \item gerçek parametreler çoklu veya sözlük ile sağlanır
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Yer Tutucu Örnekleri}
+
+  \begin{itemize}
+    \item çoklu kullanarak:
+    \begin{lstlisting}
+statement = """INSERT INTO MOVIE (TITLE, YR)
+                 VALUES (%s, %s)"""
+cursor.execute(statement, (title, year))
+    \end{lstlisting}
+
+    \pause
+    \item sözlük kullanarak:
+    \begin{lstlisting}
+statement = """INSERT INTO MOVIE (TITLE, YR)
+                 VALUES (%(title)s, %(year)s)"""
+cursor.execute(statement, {'year': year,
+                           'title': title})
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sonuçların Alınması}
+
+  \begin{itemize}
+    \item imleçle döngü içinde dolaşmak yerine sonuçların alınması:\\
+      \lstinline!.fetchall()!\\
+      \lstinline!.fetchone()!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sonuç Alma Örneği}
+
+  \begin{itemize}
+    \item yönetmenler ve yönettikleri filmler
+  \end{itemize}
+
+  \begin{lstlisting}
+statement = """SELECT ID, NAME FROM PERSON"""
+cursor.execute(statement)
+people = cursor.fetchall()
+for person_id, name in people:
+    statement = """SELECT TITLE FROM MOVIE
+                    WHERE (DIRECTORID = %s)"""
+    cursor.execute(statement, (person_id,))
+    directed = cursor.fetchall()
+    print('{}:'.format(name))
+    for (title,) in directed:
+        print('  {}'.format(title))
+  \end{lstlisting}
+\end{frame}
+
+\subsection*{Kaynaklar}
+
 \begin{frame}
-  \frametitle{Veri Tipi Dönüşümleri}
+  \frametitle{Referanslar}
+
+  \begin{block}{Yardımcı Kaynak}
+    \begin{itemize}
+      \item Python Database API Specification v2.0:\\
+        \url{https://www.python.org/dev/peps/pep-0249/}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Nesne/Bağıntı Eşleştirmesi}
+
+\subsection{Giriş}
+
+\begin{frame}
+  \frametitle{Problem}
+
+  \begin{itemize}
+    \item veri modeli ile yazılım modeli arasında uyumsuzluk
+
+    \medskip
+    \item veri tabanı bağıntılar şeklinde: bağıntı, çoklu, dış anahtar, \ldots
+    \item yazılım nesneye dayalı: nesne, yöntem, \ldots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Model Farkı Örneği}
+
+  \begin{itemize}
+    \item filme oyuncu ekleme: SQL tanımları
+  \end{itemize}
+
+  \begin{lstlisting}[language=FullSQL]
+CREATE TABLE MOVIE (ID INTEGER PRIMARY KEY,
+    TITLE VARCHAR(80) NOT NULL)
+
+CREATE TABLE PERSON (ID INTEGER PRIMARY KEY,
+    NAME VARCHAR(40) NOT NULL)
+
+CREATE TABLE CASTING (
+    MOVIEID INTEGER REFERENCES MOVIE (ID),
+    ACTORID INTEGER REFERENCES PERSON (ID),
+    PRIMARY KEY (MOVIEID, ACTORID)
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Model Farkı Örneği}
+
+  \begin{itemize}
+    \item filme oyuncu ekleme: SQL işlemleri
+  \end{itemize}
+
+  \begin{lstlisting}[language=FullSQL]
+INSERT INTO MOVIE (ID, TITLE)
+  VALUES (110, 'Sleepy Hollow')
+
+INSERT INTO PERSON (ID, NAME)
+  VALUES (26, 'Johnny Depp')
+
+INSERT INTO CASTING (MOVIEID, ACTORID)
+  VALUES (110, 26)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Model Farkı Örneği}
+
+  \begin{itemize}
+    \item filme oyuncu ekleme: Python tanımları
+  \end{itemize}
+
+  \begin{lstlisting}
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+class Movie:
+    def __init__(self, title):
+        self.title = title
+        self.cast = []
+
+    def add_actor(self, person):
+        self.cast.append(person)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Model Farkı Örneği}
+
+  \begin{itemize}
+    \item filme oyuncu ekleme: Python işlemleri
+  \end{itemize}
+
+  \begin{lstlisting}
+movie = Movie('Sleepy Hollow')
+actor = Person('Johnny Depp')
+movie.add_actor(actor)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nesne/Bağıntı Dönüşümü}
+
+  \begin{itemize}
+    \item yazılım bileşenleri veri tabanı bileşenleriyle eşleştirilir
+    \item nesne arayüzünü SQL komutlarına çeviriyor
+  \end{itemize}
 
   \begin{table}
     \begin{tabular}{|l|l|l|}\hline
-SQL tipi  & Java sınıfı        & ResultSet metodu\\\hline\hline
-BIT       & Boolean            & getBoolean()    \\\hline
-CHAR      & String             & getString()     \\\hline
-VARCHAR   & String             & getString()     \\\hline
-DOUBLE    & Double             & getDouble()     \\\hline
-FLOAT     & Float              & getDouble()     \\\hline
-INTEGER   & Integer            & getInt()        \\\hline
-REAL      & Double             & getFloat()      \\\hline
-DATE      & java.sql.Date      & getDate()       \\\hline
-TIME      & java.sql.Time      & getTime()       \\\hline
-TIMESTAMP & java.sql.TimeStamp & getTimestamp()  \\\hline
-    \end{tabular}
-  \end{table}
+model     & SQL    & software\\[2pt]\hline\hline
+relation  & table  & class\\\hline
+tuple     & row    & object (instance)\\\hline
+attribute & column & attribute\\\hline
+      \end{tabular}
+    \end{table}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{JDBC Örneği}
-
-  \begin{ornek}[veri tabanı sürücüsünün yüklenmesi]
-    \begin{lstlisting}
-try {
-  Class.forName("org.postgresql.Driver");
-} catch (ClassNotFoundException e) {
-  // PostgreSQL driver not installed
-}
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{JDBC Örneği}
-
-  \begin{ornek}[veri tabanına bağlantı]
-    \begin{lstlisting}
-try {
-  Connection conn = DriverManager.getConnection(
-    "jdbc:postgresql:imdb", "itucs", "itucs"
-  );
-} catch (SQLException e) {
-  // connection error
-}
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{JDBC Örneği}
-
-  \begin{ornek}[ekleme]
-    \begin{lstlisting}
-String query = "INSERT INTO MOVIE (TITLE, YR)"
-    + " VALUES ('Casablanca', 1942)";
-Statement stmt = conn.createStatement();
-stmt.executeUpdate(query);
-stmt.close();
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
+\subsection{SQLAlchemy}
 
 \begin{frame}
-  \frametitle{Hazır Komutlar}
+  \frametitle{SQLAlchemy}
 
   \begin{itemize}
-    \item hazır komutlar parametre değerleri değiştirilerek\\
-      yeniden kullanılabilir
+    %\item abstraction over SQL expressions
+    \item nesne-bağıntı dönüştürücü
 
-    \pause
     \medskip
-    \item yaratma:\\
-      \lstinline!Connection.prepareStatement(query)!
-      $\rightarrow$ \lstinline!PreparedStatement!
-    \item sorguda parametreler için yer tutucu: '\lstinline!?!'
-    \begin{itemize}
-      \item çalıştırmadan önce değerleri ayarlanmalı:\\
-        \lstinline!PreparedStatement.setXXX(order, value)!
-    \end{itemize}
-
-    \pause
-    \medskip
-    \item çalıştırma: \lstinline!PreparedStatement.executeQuery()!\\
-      ya da \lstinline!PreparedStatement.executeUpdate()!
+    \item bir Python sınıfı
+    \item SQL tablo tanımı
+    \item dönüştürücü sınıfı tabloya dönüştürür
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Hazır Komut Örneği}
+  \frametitle{Bağlantı Örneği}
 
-  \begin{ornek}[ekleme - hazır komutla]
-    \begin{lstlisting}
-String query = "INSERT INTO MOVIE (TITLE, YR)"
-    + " VALUES (?, ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
-for (Movie movie : getMovies()) {
-    stmt.setString(1, movie.getTitle());
-    stmt.setInt(2, movie.getYear());
-    stmt.executeUpdate();
-}
-stmt.close();
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
+  \begin{lstlisting}
+from sqlalchemy import create_engine
 
-\begin{frame}[fragile]
-  \frametitle{Sonuç Kümesi Örneği}
-
-  \begin{ornek}[bir yıldaki film başlıklarını listeleme]
-    \begin{lstlisting}
-String query = String.format(
-  "SELECT TITLE FROM MOVIE WHERE (YR = %d)",
-  year);
-Statement stmt = conn.createStatement();
-ResultSet results = stmt.executeQuery(query);
-while (results.next()) {
-    String title = results.getString("TITLE");
-    System.out.println("Title: " + title),
-}
-results.close();
-stmt.close();
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{JDBC Örneği}
-
-  \begin{ornek}[silme]
-    \begin{lstlisting}
-String query = "DELETE FROM MOVIE" +
-    " WHERE (ID = ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
-stmt.setInt(1, movie.getId());
-stmt.executeUpdate();
-stmt.close();
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{JDBC Örneği}
-
-  \begin{ornek}[güncelleme]
-    \begin{lstlisting}
-String query = "UPDATE MOVIE SET YR = ?" +
-    " WHERE (ID = ?)";
-PreparedStatement stmt =
-    conn.prepareStatement(query);
-stmt.setInt(1, movie.getYear());
-stmt.setInt(2, movie.getId());
-stmt.executeUpdate();
-stmt.close();
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kaynakları Kapama}
-
-  \begin{itemize}
-    \item sonuç kümesi, komut gibi kaynakların\\
-      \lstinline!try - catch - finally! bloklarının\\
-      \lstinline!finally! kısmında kapatılması önerilir
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Kaynakları Kapatma Örneği}
-
-  \begin{block}{}
-    \begin{lstlisting}
-Statement stmt = conn.createStatement();
-ResultSet results = null;
-try {
-    results = stmt.executeQuery(query);
-    ...
-} catch (SQLException e) {
-    ...
-} finally {
-    results.close();
-    stmt.close();
-}
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Otomatik Kimlik Değerleri}
-
-  \begin{itemize}
-    \item otomatik üretilen kimlik değerleri sorulmak isteniyorsa,\\
-      komutu yaratırken\\
-      \lstinline!RETURN_GENERATED_KEYS! bayrağı kullanılır
-    \item komutu çalıştırdıktan sonra:\\
-      \lstinline!Statement.getGeneratedKeys()! $\rightarrow$
-      \lstinline!ResultSet!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Otomatik Kimlik Değerleri Örneği}
-
-  \begin{block}{}
-    \begin{lstlisting}
-String query = "INSERT INTO ... ";
-PreparedStatement stmt =
-    connection.prepareStatement(query,
-        Statement.RETURN_GENERATED_KEYS);
-stmt.executeUpdate();
-
-ResultSet ids = stmt.getGeneratedKeys();
-// assuming there is one and only one result
-ids.next();
-int id = ids.getInt(1);
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Toplu Komut Çalıştırma}
-
-  \begin{itemize}
-    \item komutları biriktirerek topluca çalıştırmak hız kazandırabilir
-
-    \pause
-    \medskip
-    \item bağlantı "auto commit" kipinden çıkarılır
-    \item biriktirme: \lstinline!Statement.addBatch(query)!
-    \item birikenleri çalıştırma: \lstinline!Statement.executeBatch()!
-    \item yazmayı sonlandırma: \lstinline!Connection.commit()!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Toplu Komut Çalıştırma Örneği}
-
-  \begin{block}{}
-    \begin{lstlisting}
-stmt = conn.createStatement( ... );
-conn.setAutoCommit(false);
-int queryCount = 0;
-int batchSize = 100;
-for ( ... ) {
-    stmt.addBatch(query);
-    queryCount++;
-    if (queryCount % batchSize == 0) {
-        stmt.executeBatch();
-        conn.commit();
-    }
-}
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Önceden Okuma Miktarı}
-
-  \begin{itemize}
-    \item JDBC sürücüleri sorgudaki satırları önceden okur
-    \item başarımı artırır ama bellek harcamasını da artırır
-
-    \pause
-    \medskip
-    \item küçük bir önceden okuma miktarı bellek harcamasını azaltır:\\
-      \lstinline!Statement.setFetchSize(count)!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Önceden Okuma Miktarı Örneği}
-
-  \begin{block}{}
-    \begin{lstlisting}
-stmt.setFetchSize(1);
-
-// MySQL
-stmt.setFetchSize(Integer.MIN_VALUE)
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\lstset{language=ExtendedSQL}
-
-\section{SQL}
-
-\subsection{Kayıtlı Yordamlar}
-
-\begin{frame}
-  \frametitle{Kayıtlı Yordamlar}
-
-  \begin{itemize}
-    \item uygulamanın bazı işlevleri\\
-      veri tabanı sunucusunda gerçeklenebilir
-    \begin{itemize}
-      \item diller: SQL, PL/SQL, C, ...
-    \end{itemize}
-
-    \pause
-    \bigskip
-    \item \alert{tavsiye edilmez}
-    \begin{itemize}
-      \item taşınabilir değil
-      \item ölçeklenebilir değil
-      \item veri tabanı sunucuları iş mantığına göre optimize edilmiyor
-    \end{itemize}
-    $\rightarrow$ iş mantığı uygulama sunucusunda gerçeklenmeli
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fonksiyon Yaratma}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-CREATE FUNCTION
-  function_name([parameter_type [, ...]])
-  RETURNS return_type
-  AS function_body
-  LANGUAGE language_name
-    \end{lstlisting}
-  \end{block}
-
-  \begin{itemize}
-    \item birinci parametre \$1, ikinci parametre \$2, ...
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{SQL Fonksiyonu Örneği}
-
-  \begin{ornek}[yeni puan hesaplanması]
-    \$1: eski puan, \$2: eski oy sayısı, \$3: yeni oy
-    \begin{lstlisting}
-CREATE FUNCTION NEW_SCORE(float, int, int)
-  RETURNS float
-  AS 'SELECT ($1*$2+$3) / ($2+1);'
-  LANGUAGE 'sql'
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Tetikler}
-
-  \begin{tanim}
-    \alert{tetik}: belirli olaylarda kendiliğinden etkinleştirilen fonksiyon
-  \end{tanim}
-
-  \begin{itemize}
-    \item bütünlüğü sağlamaya yardımcı olabilir
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Tetik Yaratma}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-CREATE TRIGGER trigger_name
-  { BEFORE | AFTER } { event [ OR ... ] }
-  ON table_name
-  [ FOR [ EACH ] { ROW | STATEMENT } ]
-  EXECUTE PROCEDURE function_name(...)
-    \end{lstlisting}
-  \end{block}
-
-  \begin{itemize}
-    \item PL/pgSQL:
-    \begin{itemize}
-      \item \lstinline!old!: çoklunun işlemden önceki değeri
-      \item \lstinline!new!: çoklunun işlemden sonraki değeri
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Tetik Örneği}
-
-  \begin{ornek}[SCORE * VOTES değeri POINTS sütununda tutulsun]
-    \begin{lstlisting}
-CREATE FUNCTION UPDATE_MOVIE_POINTS()
-  RETURNS opaque
-  AS 'BEGIN
-      new.POINTS = new.SCORE * new.VOTES;
-      RETURN new;
-      END;'
-  LANGUAGE 'plpgsql'
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Tetik Örneği}
-
-  \begin{ornek}[POINTS sütunu güncellemelerde kendiliğinden hesaplansın]
-    \begin{lstlisting}
-CREATE TRIGGER UPDATE_MOVIE
-  BEFORE INSERT OR UPDATE ON MOVIE
-  FOR EACH ROW
-  EXECUTE PROCEDURE UPDATE_MOVIE_POINTS()
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\subsection{Görüntüler}
-
-\begin{frame}
-  \frametitle{Görüntüler}
-
-  \begin{itemize}
-    \item türetilmiş tabloyu taban tablo gibi göstermek
-
-    \pause
-    \item veri tabanı yapısındaki değişikliklerden\\
-      kullanıcıların ve uygulama programlarının etkilenmemesi
-%       \begin{itemize}
-%         \item normalizasyon ile bölünen tablonun var olan uygulamalara eskisi
-%           gibi gösterilmesi
-%       \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Görüntü Yaratma}
-
-  \begin{block}{Komut}
-    \begin{lstlisting}
-CREATE VIEW view_name AS
-  SELECT ...
-    \end{lstlisting}
-  \end{block}
-
-  \begin{itemize}
-    \item görüntü üzerindeki her işlemde\\
-      \lstinline!SELECT! komutu yeniden çalıştırılır
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Görüntü Örneği}
-
-  \begin{ornek}
-    \begin{lstlisting}
-CREATE VIEW NEW_MOVIE AS
-  SELECT ID, TITLE, YR FROM MOVIE
-    WHERE (YR > 1995)
-
-SELECT * FROM NEW_MOVIE
-    \end{lstlisting}
-  \end{ornek}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Görüntüde Güncelleme}
-
-  \begin{itemize}
-    \item güncellemeler taban tablolarda yapılmalı
-    \begin{itemize}
-      \item kural belirtilmeli
-    \end{itemize}
-  \end{itemize}
+uri = 'postgres://vagrant:vagrant@localhost:5432/itucsdb'
+engine = create_engine(uri, echo=True)
+  \end{lstlisting}
 
   \pause
-  \begin{block}{Kural Yaratma}
-    \begin{lstlisting}
-CREATE RULE rule_name AS
-  ON event TO view_name
-  [ WHERE condition ]
-  DO [ INSTEAD ] sql_statement
-    \end{lstlisting}
-  \end{block}
+  \medskip
+  \begin{lstlisting}
+from sqlalchemy import MetaData
+
+metadata = MetaData()
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Görüntü Kuralı Örneği}
+  \frametitle{Sınıf Örneği}
 
-  \begin{ornek}
-    \begin{lstlisting}
-UPDATE NEW_MOVIE SET TITLE = '..'
-  WHERE (ID = 1)
-    \end{lstlisting}
-
-    \pause
-    \begin{lstlisting}
-CREATE RULE UPDATE_TITLE AS
-  ON UPDATE TO NEW_MOVIES
-  DO INSTEAD
-    UPDATE MOVIE SET TITLE = new.TITLE
-      WHERE (ID = old.ID)
-    \end{lstlisting}
-  \end{ornek}
+  \begin{lstlisting}
+class Movie:
+    def __init__(self, title, year=None,
+                 score=None, votes=None):
+        self.title = title
+        self.yr = year
+        self.score = score
+        self.votes = votes
+  \end{lstlisting}
 \end{frame}
 
-\subsection{İzinler}
+\begin{frame}[fragile]
+  \frametitle{Tablo Örneği}
+
+  \begin{lstlisting}
+from sqlalchemy import Column, Table
+from sqlalchemy import Float, Integer, String
+
+movie_table = Table(
+    'Movie', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('title', String(80), nullable=False),
+    Column('yr', Integer),
+    Column('score', Float)
+    Column('votes', Integer)
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dönüştürücü Örneği}
+
+  \begin{lstlisting}
+from sqlalchemy.orm import mapper
+
+mapper(Movie, movie_table)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tablo Yaratma}
+
+  \begin{lstlisting}
+metadata.create_all(bind=engine)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+CREATE TABLE "Movie" (
+    id SERIAL NOT NULL,
+    title VARCHAR(80) NOT NULL,
+    yr INTEGER,
+    score FLOAT,
+    votes INTEGER,
+    PRIMARY KEY (id)
+)
+  \end{lstlisting}
+\end{frame}
 
 \begin{frame}
-  \frametitle{İzinler}
+  \frametitle{Oturumlar}
 
   \begin{itemize}
-    \item \alert{özne}: kullanıcı, kullanıcı grubu
-    \item \alert{nesne}: tablo, sütun, görüntü, veri tabanı, ...
-
-    \pause
-    \item nesnenin sahibi olan özne\\
-      diğer öznelerin erişim yetkilerini belirler
+    \item veri işlemleri oturumlar içinde yürütülür
+    \item sonlandırma veya geri alma ile sonlandırılır
+    \item oturumlar değişikliğe uğrayan veya yeni nesneleri izler
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{SQL İzinleri}
+  \frametitle{Oturum Örneği}
 
-  \begin{block}{İzin Verme}
-    \begin{lstlisting}
-GRANT permission_name [, ...]
-  ON object_name TO subject_name
-  [ WITH GRANT OPTION ]
-    \end{lstlisting}
-  \end{block}
+  \begin{lstlisting}
+from sqlalchemy.orm import sessionmaker
 
-  \pause
-  \begin{block}{İzin Kaldırma}
-    \begin{lstlisting}
-REVOKE permission_name
-  ON object_name FROM subject_name
-    \end{lstlisting}
-  \end{block}
+Session = sessionmaker(bind=engine)
+session = Session()
+  \end{lstlisting}
+\end{frame}
+
+%\begin{frame}[fragile]
+%  \frametitle{Oturum Örneği: Ekleme}
+%
+%  \begin{lstlisting}
+%movie = Movie('Casablanca', year=1942)
+%session.add(movie)
+%session.commit()
+%  \end{lstlisting}
+%  \hrule
+%
+%  \begin{lstlisting}[language=FullSQL]
+%INSERT INTO "Movie" (title, yr, score, votes)
+%  VALUES (%(title)s, %(yr)s, %(score)s, %(votes)s)
+%  RETURNING "Movie".id
+%  \end{lstlisting}
+%
+%  \begin{lstlisting}
+%{'yr': 1942, 'title': 'Casablanca', 'score': None,
+% 'votes': None}
+%
+%# otomatik üretilen id niteliğinin 1 olduğu varsayılmıştır
+%  \end{lstlisting}
+%
+%\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Oturum Örneği: Güncelleme}
+
+  \begin{lstlisting}
+movie.votes = 23283
+session.commit()
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+UPDATE "Movie" SET votes=%(votes)s
+ WHERE "Movie".id = %(Movie_id)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'Movie_id': 1, 'votes': 23283}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{İzin Örnekleri}
+  \frametitle{Oturum Örneği: Silme}
 
-  \begin{ornek}[tablo için izin verme]
-    \begin{lstlisting}
-GRANT SELECT, INSERT, UPDATE ON MOVIE
-  TO 'itucs'
-    \end{lstlisting}
-  \end{ornek}
+  \begin{lstlisting}
+session.delete(movie)
+session.commit()
+  \end{lstlisting}
+  \hrule
 
-  \pause
-  \begin{ornek}[tablo için izin kaldırma]
-    \begin{lstlisting}
-REVOKE INSERT ON MOVIE
-  FROM 'itucs'
-    \end{lstlisting}
-  \end{ornek}
+  \begin{lstlisting}[language=FullSQL]
+DELETE FROM "Movie"
+ WHERE "Movie".id = %(id)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'id': 1}
+  \end{lstlisting}
 \end{frame}
 
-\subsection{İpuçları}
+\subsection{Sorgulamalar}
 
 \begin{frame}[fragile]
-  \frametitle{Dizinler}
+  \frametitle{Sorgulama Örnekleri}
+
+  \begin{lstlisting}
+session.query(Movie)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
+       "Movie".votes AS "Movie_votes"
+  FROM "Movie"
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sorgulama Örnekleri: Sütunları Seçme}
+
+  \begin{lstlisting}
+session.query(Movie.title, Movie.score)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".title AS "Movie_title",
+       "Movie".score AS "Movie_score"
+  FROM "Movie"
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQLAlchemy Örneği: Sıralama}
+
+  \begin{lstlisting}
+session.query(Movie).order_by(Movie.yr)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
+       "Movie".votes AS "Movie_votes"
+  FROM "Movie"
+  ORDER BY "Movie".yr
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQLAlchemy Örneği: Satırları Seçme}
+
+  \begin{lstlisting}
+session.query(Movie).filter_by(yr=1999)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
+       "Movie".votes AS "Movie_votes"
+  FROM "Movie"
+ WHERE "Movie".yr = %(yr_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'yr_1': 1999}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SQLAlchemy Örneği: Yüklemle Satırları Seçme}
+
+  \begin{lstlisting}
+session.query(Movie).filter(Movie.yr < 1999)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       "Movie".yr AS "Movie_yr",
+       "Movie".score AS "Movie_score",
+       "Movie".votes AS "Movie_votes"
+  FROM "Movie"
+ WHERE "Movie".yr < %(yr_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'yr_1': 1999}
+  \end{lstlisting}
+\end{frame}
+
+\subsection{Dış Anahtarlar}
+
+\begin{frame}
+  \frametitle{Dış Anahtarlar}
 
   \begin{itemize}
-    \item bazı işlemler sıralama gerektirir:\\
-      \lstinline!ORDER BY, DISTINCT, GROUP BY, UNION, ...!
-
-    \pause
-    \item dizinler aramaları hızlandırır
-    \begin{itemize}
-      \item ekleme ve güncellemeleri yavaşlatır
-    \end{itemize}
+    \item tablo tanımlarına dış anahtar sütunlarını ekle
+    \item dönüştürücüye ``relationship'' özelliği ekle
+    \item özellik ismi başvuran tablodaki nitelik ismi
+    \item ``backref'' parametresi başvurulan tablodaki nitelik ismi
   \end{itemize}
-
-  \pause
-  \begin{block}{Komut}
-    \begin{lstlisting}
-CREATE [ UNIQUE ] INDEX index_name
-  ON table_name(column_name [, ...])
-    \end{lstlisting}
-  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarımı}
+  \frametitle{Dış Anahtar Örneği}
+
+  \begin{lstlisting}
+class Person:
+    def __init__(self, name):
+        self.name = name
+  \end{lstlisting}
+
+  \begin{lstlisting}
+person_table = Table(
+    'Person', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String(40), nullable=False,
+           unique=True)
+)
+  \end{lstlisting}
+
+  \begin{lstlisting}
+mapper(Person, person_table)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dış Anahtar Örneği}
+
+  \begin{lstlisting}
+from sqlalchemy import ForeignKey
+
+movie_table = Table(
+    'Movie', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('title', String(80)),
+    Column('yr', Integer),
+    Column('score', Float),
+    Column('votes', Integer),
+    Column('directorid', Integer, ForeignKey('Person.id'))
+)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dış Anahtar Örneği}
+
+  \begin{lstlisting}
+from sqlalchemy.orm import relationship
+
+mapper(Movie, movie_table,
+       properties={
+           'director':
+               relationship(Person,
+                            backref='directed')
+       })
+  \end{lstlisting}
+\end{frame}
+
+%\begin{frame}[fragile]
+%  \frametitle{Dış Anahtar Örneği}
+%
+%  \begin{lstlisting}
+%movie = session.query(Movie) \
+%               .filter_by(title='Ed Wood').first()
+%  \end{lstlisting}
+%  \hrule
+%
+%  \begin{lstlisting}[language=FullSQL]
+%SELECT "Movie".id AS "Movie_id",
+%       "Movie".title AS "Movie_title",
+%       ...
+%       "Movie".directorid AS "Movie_directorid"
+%  FROM "Movie"
+% WHERE "Movie".title = %(title_1)s
+%  \end{lstlisting}
+%
+%  \begin{lstlisting}
+%{'title_1': 'Ed Wood'}
+%
+%# sorgulamadan dönen directorid niteliğinin 8 olduğu varsayılmıştır
+%  \end{lstlisting}
+%\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dış Anahtar Örneği}
+
+  \begin{lstlisting}
+person = movie.director
+print(person.name)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Person".id AS "Person_id",
+       "Person".name AS "Person_name"
+  FROM "Person"
+ WHERE "Person".id = %(param_1)s
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'param_1': 8}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Backref Örneği}
+
+  \begin{lstlisting}
+for movie in person.directed:
+    print(movie.title)
+  \end{lstlisting}
+  \hrule
+
+  \begin{lstlisting}[language=FullSQL]
+SELECT "Movie".id AS "Movie_id",
+       "Movie".title AS "Movie_title",
+       ...
+       "Movie".directorid AS "Movie_directorid"
+  FROM "Movie"
+ WHERE %(param_1)s = "Movie".directorid
+  \end{lstlisting}
+
+  \begin{lstlisting}
+{'param_1': 8}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dış Anahtar Örneği}
 
   \begin{itemize}
-    \item satırları tek tek eklemek ya da silmek yerine\\
-      ürüne özel toplu veri aktarımı komutları kullanılmalı
-
-    \item tab ile ayrılmış değer dosyaları ile okuma-yazma
+    \item ikinci bir tablo kullanarak
   \end{itemize}
+
+  \begin{lstlisting}
+casting_table = Table(
+    'Casting', metadata,
+    Column('movieid', Integer, ForeignKey('Movie.id'),
+           primary_key=True),
+    Column('actorid', Integer, ForeignKey('Person.id'),
+           primary_key=True),
+    Column('ord', Integer)
+)
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarımı}
+  \frametitle{Dış Anahtar Örneği}
 
-  \begin{block}{PostgreSQL}
-    \begin{lstlisting}
-COPY table_name (column_name [, ...])
-  TO 'output_file_path'
-
-COPY table_name (column_name [, ...])
-  FROM 'input_file_path'
-    \end{lstlisting}
-  \end{block}
+  \begin{lstlisting}
+mapper(Movie, movie_table,
+       properties={
+           'director':
+               relationship(Person,
+                            backref='directed'),
+           'cast':
+               relationship(Person,
+                            backref='acted',
+                            secondary=casting_table)
+       })
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Toplu Veri Aktarımı}
+  \frametitle{Dış Anahtar Örneği}
 
-  \begin{block}{MySQL}
-    \begin{lstlisting}
-SELECT column_name [, ...] FROM table_name
-  INTO OUTFILE 'output_file_path'
+  \begin{lstlisting}
+for movie in session.query(Movie):
+    print('{}:'.format(movie.title))
+    for person in movie.cast:
+        print('  {}'.format(person.name))
+  \end{lstlisting}
 
-LOAD DATA INFILE 'input_file_path'
-  INTO TABLE table_name (column_name [, ...])
-    \end{lstlisting}
-  \end{block}
+  \pause
+  \begin{lstlisting}
+for person in session.query(Person):
+    print('{}:'.format(person.name))
+    for movie in person.acted:
+        print('  {}'.format(movie.title))
+  \end{lstlisting}
 \end{frame}
 
-\section*{Kaynaklar}
+\subsection*{Kaynaklar}
 
 \begin{frame}
   \frametitle{Kaynaklar}
 
-  \begin{block}{Okunacak: Date}
+  \begin{block}{Yardımcı Kaynak}
     \begin{itemize}
-      \item Chapter 4: An Introduction to SQL
-      \begin{itemize}
-        \item 4.6. Embedded SQL
-      \end{itemize}
-
-      \item Chapter 9: Integrity
-      \begin{itemize}
-        \item 9.11. \alert{Triggers (a Digression)}
-      \end{itemize}
-
-      \item Chapter 10: \alert{Views}
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Yardımcı Kaynak: Ramakrishnan, Gehrke}
-    \begin{itemize}
-      \item Chapter 6: Database Application Development
+      \item SQLAlchemy Documentation:\\
+        \url{http://docs.sqlalchemy.org/}
     \end{itemize}
   \end{block}
 \end{frame}
