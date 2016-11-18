@@ -40,5 +40,6 @@ zip: slides.pdf slides.print.pdf
 
 clean:
 	rm -f *~ *.bak *.backup *.log *.toc *.aux *.nav *.out *.snm *.vrb
+	rm -f *.synctex.gz
 	rm -f *.handout.*
 	rm -f *~ *.dvi *.ps *.pdf
