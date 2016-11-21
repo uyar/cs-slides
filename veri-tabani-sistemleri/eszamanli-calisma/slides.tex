@@ -1,23 +1,20 @@
-% Copyright (c) 2002-2012
+% Copyright (c) 2002-2016
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
-% These notes are licensed using the
-% "Creative Commons Attribution-NonCommercial-ShareAlike License".
-% You are free to copy, distribute and transmit the work, and to adapt the work
-% as long as you attribute the authors, do not use it for commercial purposes,
-% and any derivative work is under the same or a similar license.
-%
-% Read the full legal code at:
-% http://creativecommons.org/licenses/by-nc-sa/3.0/
+% This work is licensed under a "Creative Commons
+% Attribution-NonCommercial-ShareAlike 4.0 International License".
+% For more information, please visit:
+% https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 \usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
 
 \usepackage{listings}
@@ -45,7 +42,7 @@
 \subtitle{Eşzamanlı Çalışma}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,15 +51,9 @@
   \end{frame}
 }
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
 \theoremstyle{plain}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage[height=4.5cm]{duzeltme}{duzeltme}
 \pgfdeclareimage{bekleme}{bekleme}
@@ -75,41 +66,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{License}
+ \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2016 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
-\end{frame}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
 
-\begin{frame}
-  \frametitle{Konular}
-  \tableofcontents
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \section{Hareket Yönetimi}
@@ -121,27 +114,23 @@
 
   \begin{itemize}
     \item birden fazla işlemin topluca yapılması gerekebilir
-    \begin{itemize}
-      \item bir işlemin yapılıp diğerlerinin yapılmaması tutarsızlık yaratabilir
-    \end{itemize}
+    \item bir işlemin yapılıp diğerlerinin yapılmaması tutarsızlık yaratabilir
+    \item \alert{hareket}: bir işin mantıksal bir birimi
 
     \pause
+    \medskip
     \item birden fazla işlemin topluca yapılması garanti edilemez
-    \begin{itemize}
-      \item en azından değişikliklerden önceki duruma dönülebilmeli
-    \end{itemize}
+    \item en azından değişikliklerden önceki duruma dönülebilmeli
   \end{itemize}
-
-  \pause
-  \begin{tanim}
-    \alert{hareket}: bir işin mantıksal bir birimi
-  \end{tanim}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Hareket Örneği}
 
-  \begin{ornek}[bir banka hesabından diğerine para aktarma]
+  \begin{itemize}
+    \item bir banka hesabından diğerine para aktarma
+
+    \medskip
     \begin{lstlisting}
 UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
   WHERE ACCOUNTID = 123
@@ -149,69 +138,56 @@ UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
 UPDATE ACCOUNTS SET BALANCE = BALANCE + 100
   WHERE ACCOUNTID = 456
     \end{lstlisting}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hareket Özellikleri}
 
   \begin{itemize}
-    \item bölünmezlik
-    \begin{itemize}
-      \item ya tam yapılır, ya hiç yapılmaz
-    \end{itemize}
+    \item bölünmezlik: ya tam yapılır, ya hiç yapılmaz
 
     \pause
-    \item tutarlılık
-    \begin{itemize}
-      \item bir tutarlı durumdan diğer bir tutarlı duruma geçiş
-    \end{itemize}
+    \medskip
+    \item tutarlılık: bir tutarlı durumdan diğer bir tutarlı duruma geçiş
 
     \pause
-    \item yalıtım
-    \begin{itemize}
-      \item sona ermemiş bir hareketin işlemlerinin diğer hareketleri\\
+    \medskip
+    \item yalıtım: sona ermemiş bir hareketin işlemlerinin diğer hareketleri\\
         etkileyip etkilemediği
-    \end{itemize}
 
     \pause
-    \item kalıcılık
-    \begin{itemize}
-      \item bir hareket sonlandırıldıktan sonra sistem çökse de\\
+    \medskip
+    \item kalıcılık: bir hareket sonlandırıldıktan sonra sistem çökse de\\
         verilerin zarar görmemesi
-    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Hareket İşlemleri}
+  \frametitle{SQL Hareketleri}
 
-  \begin{block}{başlatma}
+  \begin{itemize}
+    \item başlatma
     \begin{lstlisting}
 BEGIN [ WORK | TRANSACTION ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{block}{sonlandırma}
+    \item sonlandırma
     \begin{lstlisting}
 COMMIT [ WORK | TRANSACTION ]
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{block}{vazgeçme}
+    \item vazgeçme
     \begin{lstlisting}
 ROLLBACK [ WORK | TRANSACTION ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Hareket Örneği}
 
-  \begin{ornek}
-    \begin{lstlisting}
+  \begin{lstlisting}
   BEGIN TRANSACTION
   ON ERROR GOTO UNDO
   UPDATE ACCOUNTS SET BALANCE = BALANCE - 100
@@ -223,8 +199,7 @@ ROLLBACK [ WORK | TRANSACTION ]
 
 UNDO:
   ROLLBACK
-    \end{lstlisting}
-  \end{ornek}
+  \end{lstlisting}
 \end{frame}
 
 \subsection{Sistemin Düzeltilmesi}
@@ -234,16 +209,12 @@ UNDO:
 
   \begin{itemize}
     \item bir hareket sürerken sistemin çöktüğünü düşünün
-    \begin{itemize}
-      \item bellek tamponlarındaki veriler diske yazılmamış durumda
-    \end{itemize}
+    \item bellek tamponlarındaki veriler diske yazılmamış durumda
 
     \pause
+    \medskip
     \item kalıcılık nasıl sağlanacak?
-    \begin{itemize}
-      \item veri, sistemde başka yerde yazılı verilerden türetilebilmeli
-      \item iç düzeyde
-    \end{itemize}
+    \item veri, sistemde başka yerde yazılı verilerden türetilebilmeli
   \end{itemize}
 \end{frame}
 
@@ -271,7 +242,6 @@ UNDO:
   \begin{itemize}
     \item belli aralıklarla günlükte \alert{denetim noktaları} oluşturulur
 
-    \pause
     \medskip
     \item bellek tamponlarındaki veriler fiziksel ortama yazılır
     \item denetim noktası günlüğe not edilir
@@ -285,30 +255,24 @@ UNDO:
   \begin{itemize}
     \item aksaklıktan sonra hangi hareketler geri alınacak,\\
       hangileri sonlandırılacak?
-    \begin{itemize}
-      \item iki liste oluştur: \emph{geri alınacaklar} (G),
+    \item iki liste oluştur: \emph{geri alınacaklar} (G),
         \emph{yinelenecekler} (Y)
-    \end{itemize}
 
     \pause
+    \medskip
     \item $t_C$: günlükte kayıtlı son denetim noktası
-    \begin{itemize}
-      \item $t_C$ anında etkin olan hareketleri G'ye ekle
-    \end{itemize}
+    \item $t_C$ anında etkin olan hareketleri G'ye ekle
 
-    \pause
+    \medskip
     \item $t_C$'den başlayarak kayıtları ileri doğru tara
-    \begin{itemize}
-      \item başlayan bir hareketle karşılaşırsan G'ye ekle
-      \item biten bir hareketle karşılaşırsan Y'ye geçir
-    \end{itemize}
+    \item başlayan bir hareketle karşılaşırsan G'ye ekle
+    \item biten bir hareketle karşılaşırsan Y'ye geçir
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Düzeltme Örneği}
 
-  \begin{ornek}
     \begin{columns}[t]
       \column{.4\textwidth}
       \begin{center}
@@ -319,31 +283,30 @@ UNDO:
       \column{.5\textwidth}
       \begin{itemize}
         \item $t_C$:\\
-          $G=\{T_2$,$T_3\}$
-          $Y=\emptyset$
+          $G=[T_2,T_3]$
+          $Y=[]$
 
         \pause
         \item $T_4$ başladı:\\
-          $G=\{T_2,T_3,T_4\}$
-          $Y=\emptyset$
+          $G=[T_2,T_3,T_4]$
+          $Y=[]$
 
         \pause
         \item $T_2$ bitti:\\
-          $G=\{T_3,T_4\}$
-          $Y=\{T_2\}$
+          $G=[T_3,T_4]$
+          $Y=[T_2]$
 
         \pause
         \item $T_5$ başladı:\\
-          $G=\{T_3,T_4,T_5\}$
-          $Y=\{T_2\}$
+          $G=[T_3,T_4,T_5]$
+          $Y=[T_2]$
 
         \pause
         \item $T_4$ bitti:\\
-          $G=\{T_3,T_5\}$
-          $Y=\{T_2,T_4\}$
+          $G=[T_3,T_5]$
+          $Y=[T_2,T_4]$
       \end{itemize}
     \end{columns}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
@@ -351,15 +314,11 @@ UNDO:
 
   \begin{itemize}
     \item kayıtları günlük sonundan geriye doğru tara
-    \begin{itemize}
-      \item G'deki hareketlerin yaptıkları değişiklikleri geri al
-    \end{itemize}
+    \item G'deki hareketlerin yaptıkları değişiklikleri geri al
 
-    \pause
+    \medskip
     \item kayıtları ileriye doğru tara
-    \begin{itemize}
-      \item Y'deki hareketlerin yaptıkları değişiklikleri yinele
-    \end{itemize}
+    \item Y'deki hareketlerin yaptıkları değişiklikleri yinele
   \end{itemize}
 \end{frame}
 
@@ -370,19 +329,15 @@ UNDO:
 
   \begin{itemize}
     \item farklı kaynak yöneticileri var
-    \begin{itemize}
-      \item geri alma - sonlandırma sistemleri ayrı
-    \end{itemize}
+    \item geri alma - sonlandırma sistemleri ayrı
 
-    \pause
+    \medskip
     \item etkilenecek veriler farklı kaynak yöneticilerinde
-    \begin{itemize}
-      \item ya hepsinde birden sonlandırılacak\\
+    \item ya hepsinde birden sonlandırılacak\\
         ya da hepsinde birden geri alınacak
-    \end{itemize}
 
-    \pause
-    \item \alert{eşgüdüm sağlayıcı}
+    \medskip
+    \item eşgüdüm sağlayıcı
   \end{itemize}
 \end{frame}
 
@@ -390,21 +345,21 @@ UNDO:
   \frametitle{Protokol}
 
   \begin{itemize}
-    \item eşgüdüm sağlayıcı, bütün katılımcılara hareketle ilgili\\
-      bütün verilerin kayıtlarını kalıcı ortama yazmalarını söyler
+    \item eşgüdüm sağlayıcı $\rightarrow$ katılımcılar: \\
+      hareketle ilgili bütün verilerin kayıtlarını kalıcı ortama yaz
 
     \pause
-    \item eşgüdüm sağlayıcı, bütün katılımcılardan\\
-      hareketi başlatmalarını ve sonucu kendisine bildirmelerini ister
-    \begin{itemize}
-      \item bütün katılımcılardan "başarılı" yanıtı alırsa\\
-        hareketin sonlandırılmasına karar verir
-      \item bir tane bile "başarısız" yanıtı gelirse\\
-        hareketin geri alınmasına karar verir
-    \end{itemize}
-
+    \item eşgüdüm sağlayıcı $\rightarrow$ katılımcılar: \\
+      hareketi başlat ve sonucu bildir
+    
     \pause
-    \item eşgüdüm sağlayıcı, bütün katılımcılara kararı bildirir
+    \medskip
+    \item bütün katılımcılar başarılı: başarı
+    \item diğer durumda: başarısız    
+    
+    \medskip    
+    \item başarı ise: eşgüdüm sağlayıcı $\rightarrow$ katılımcılar: sonlandır
+    \item  başarısız ise: eşgüdüm sağlayıcı $\rightarrow$ katılımcılar: vazgeç
   \end{itemize}
 \end{frame}
 
@@ -440,28 +395,26 @@ UNDO:
 \begin{frame}[fragile]
   \frametitle{Yitirilen Güncelleme}
 
-  \begin{ornek}
-    \begin{table}
-      \begin{tabular}{ll}
-Hareket A  & Hareket B \\\hline
-...        & ...       \\\pause
-RETRIEVE p & ...       \\\pause
-...        & ...       \\
-...        & RETRIEVE p\\\pause
-...        & ...       \\
-UPDATE p   & ...       \\\pause
-...        & ...       \\
-...        & UPDATE p  \\
-...        & ...
-      \end{tabular}
-    \end{table}
-  \end{ornek}
+  \begin{table}
+    \begin{tabular}{ll}
+Hareket A     & Hareket B    \\\hline
+...           & ...          \\\pause
+RETRIEVE p    & ...          \\\pause
+...           & ...          \\
+...           & RETRIEVE p   \\\pause
+...           & ...          \\
+UPDATE p      & ...          \\\pause
+...           & ...          \\
+...           & UPDATE p     \\
+...           & ...
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kesinleşmemiş Veriye Bağımlılık}
 
-  \begin{ornek}
+
     \begin{table}
       \begin{tabular}{ll}
 Hareket A  & Hareket B\\\hline
@@ -474,13 +427,14 @@ RETRIEVE p & ...      \\\pause
 ...        &
       \end{tabular}
     \end{table}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tutarsız Çözümleme}
 
-  \begin{ornek}[hesap toplamı: acc1=40, acc2=50, acc3=30]
+  \begin{itemize}
+    \item hesap toplamı: acc1=40, acc2=50, acc3=30
+    \smallskip
     \begin{table}
       \begin{tabular}{ll}
 Hareket A             & Hareket B                        \\\hline
@@ -496,76 +450,65 @@ RETRIEVE acc3 ($110$) &                                  \\
 ...                   &
       \end{tabular}
     \end{table}
-  \end{ornek}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Çakışmalar}
+  \frametitle{Conflicts}
 
   \begin{itemize}
-    \item A okuyor, B okuyor
-    \begin{itemize}
-      \item sorun yok
-    \end{itemize}
-
-    \pause
-    \item A okuyor, B yazıyor
-    \begin{itemize}
-      \item yinelenemez okuma (tutarsız çözümleme)
-    \end{itemize}
-
-    \pause
-    \item A yazıyor, B okuyor
-    \begin{itemize}
-      \item kirli okuma (kesinleşmemiş veriye bağımlılık)
-    \end{itemize}
-
-    \pause
-    \item A yazıyor, B yazıyor
-    \begin{itemize}
-      \item kirli yazma (yitirilen güncelleme)
-    \end{itemize}
+    \item A okuyor, B okuyor: sorun yok
+    \item A okuyor, B yazıyor: yinelenemez okuma (tutarsız çözümleme)
+    \item A yazıyor, B okuyor: kirli okuma (kesinleşmemiş veriye bağımlılık)
+    \item A yazıyor, B yazıyor: kirli yazma (yitirilen güncelleme)
   \end{itemize}
 \end{frame}
+
 
 \subsection{Kilitleme}
 
 \begin{frame}
-  \frametitle{Kilitleme}
+  \frametitle{Locking}
 
   \begin{itemize}
     \item hareketler üzerinde işlem yapacakları çokluları kilitlesinler
-    \begin{itemize}
-      \item okuma kilidi (S)
-      \item yazma kilidi (X)
-    \end{itemize}
 
-    \item işleri bitince kilitleri bıraksınlar
+    \medskip
+    \item \alert{okuma} kilidi (S)
+    \item \alert{yazma} kilidi (X)
   \end{itemize}
 \end{frame}
 
+%\begin{frame}
+%  \frametitle{Kilitleme}
+%
+%  \begin{itemize}
+%    \item hareketler üzerinde işlem yapacakları çokluları kilitlesinler
+%    \begin{itemize}
+%      \item okuma kilidi (S)
+%      \item yazma kilidi (X)
+%    \end{itemize}
+%
+%    \item işleri bitince kilitleri bıraksınlar
+%  \end{itemize}
+%\end{frame}
+%
 \begin{frame}
   \frametitle{Kilit İstekleri}
 
-  \begin{block}{kilit tipi uyumluluk matrisi}
     \begin{table}
+      \caption{kilit tipi uyumluluk matrisi}
       \begin{tabular}{|c||c|c|c|}\hline
   & X & S & -\\\hline\hline
 X & H & H & E\\\hline
 S & H & E & E\\\hline
       \end{tabular}
     \end{table}
-  \end{block}
-
+    
+     \medskip
   \begin{itemize}
-    \item yazma kilidi varsa başka hareketlerin her türlü isteği reddedilir
-
-    \pause
-    \item okuma kilidi varsa:
-    \begin{itemize}
-      \item başka hareketlerin yazma kilidi istekleri reddedilir
-      \item başka hareketlerin okuma kilidi istekleri kabul edilir
-    \end{itemize}
+    \item okuma kildi varsa: sadece okuma kilidi istekleri kabul edilir
+    \item yazma kilidi varsa: bütün kilit istekleri reddedilir
   \end{itemize}
 \end{frame}
 
@@ -574,23 +517,20 @@ S & H & E & E\\\hline
 
   \begin{itemize}
     \item hareket, yapmak istediği işleme göre kilit isteğinde bulunur
-    \begin{itemize}
-      \item okuma kilidi varsa yazma kilidine çevrilmesi
-    \end{itemize}
+    \item okuma kilidi varsa yazma kilidine çevrilmesi
 
-    \pause
+    \medskip
     \item istek yerine getirilemiyorsa beklemeye başlar
-    \begin{itemize}
-      \item diğer hareket kilidi bırakınca devam eder
-      \item \alert{sonsuz bekleme}
-    \end{itemize}
+    \item diğer hareket kilidi bırakınca devam eder
+    
+    \medskip
+    \item \alert{sonsuz bekleme}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Yitirilen Güncelleme}
 
-  \begin{ornek}
     \begin{table}
       \begin{tabular}{ll}
 Hareket A       & Hareket B      \\\hline
@@ -605,13 +545,11 @@ bekle           & UPDATE p (X-)  \\
 bekle           & bekle
       \end{tabular}
     \end{table}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kesinleşmemiş Veriye Bağımlılık}
 
-  \begin{ornek}
     \begin{table}
       \begin{tabular}{ll}
 Hareket A       & Hareket B    \\\hline
@@ -625,13 +563,11 @@ RETRIEVE p (S+) &              \\
 ...             &
       \end{tabular}
     \end{table}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tutarsız Çözümleme}
 
-  \begin{ornek}[hesap toplamı: acc1=40, acc2=50, acc3=30]
     \begin{table}
       \begin{tabular}{ll}
 Hareket A            & Hareket B       \\\hline
@@ -646,26 +582,20 @@ RETRIEVE acc3 (S-)   & bekle           \\
 bekle                & bekle
       \end{tabular}
     \end{table}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Ölümcül Kilitlenme}
 
-  \begin{tanim}
-    \alert{ölümcül kilitlenme}:\\
-      hareketlerin birbirlerinin kilitleri bırakmalarını beklemesi
-  \end{tanim}
-
-  \pause
-  \begin{itemize}
-    \item neredeyse her zaman iki hareket arasında
-    \item yapılabilecekler:
     \begin{itemize}
-      \item farketmek ve çözmek
-      \item önlemek
+    \item \alert{ölümcül kilitlenme}: hareketlerin birbirlerinin kilitleri\\ 
+       bırakmalarını beklemesi
+    \item neredeyse her zaman iki hareket arasında
+  
+    \medskip
+    \item farketmek ve çözmek
+    \item önlemek
     \end{itemize}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -673,21 +603,20 @@ bekle                & bekle
 
   \begin{columns}[t]
     \column{.5\textwidth}
-    \begin{ornek}
+    \begin{exampleblock}{örnek}
       \begin{center}
         \pgfuseimage{bekleme}
       \end{center}
-    \end{ornek}
+    \end{exampleblock}
 
     \column{.5\textwidth}
     \begin{itemize}
       \item bekleme grafı
-
-      \pause
       \item bir \alert{kurban} seç ve öldür
     \end{itemize}
   \end{columns}
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Ölümcül Kilitlenmenin Önlenmesi}
@@ -698,35 +627,35 @@ bekle                & bekle
     \pause
     \item A hareketinin kilit isteği\\
       B hareketinin tuttuğu bir kilitle çelişiyorsa:
-    \begin{itemize}
+      
+    \medskip  
       \item \alert{bekle-öl}: A, B'den yaşlıysa bekler, gençse ölür\\
         A geri alınıp yeniden başlatılır
 
       \item \alert{yarala-bekle}: A, B'den gençse bekler, yaşlıysa B'yi
         yaralar\\
         B geri alınıp yeniden başlatılır
-    \end{itemize}
 
-    \pause
-    \item yeniden başlatılan hareketin zaman mührü değiştirilmez
+      \pause
+      \medskip
+      \item yeniden başlatılan hareketin zaman mührü değiştirilmez
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Kilit Komutları}
 
-  \begin{block}{okuma kilidi}
+  \begin{itemize}
+    \item okuma kilidi
     \begin{lstlisting}
 SELECT query FOR SHARE
     \end{lstlisting}
-  \end{block}
 
-  \pause
-  \begin{block}{yazma kilidi}
+    \item yazma kilidi
     \begin{lstlisting}
 SELECT query FOR UPDATE
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \subsection{Yalıtım Düzeyleri}
@@ -759,7 +688,7 @@ SELECT query FOR UPDATE
   \end{itemize}
 
   \pause
-  \begin{ornek}
+  \begin{exampleblock}{örnek}
     \begin{itemize}
       \item $x = 10$
       \item A hareketi: $x = x + 1$
@@ -770,7 +699,7 @@ SELECT query FOR UPDATE
       \item önce A, sonra B: $x = 22$
       \item önce B, sonra A: $x = 21$
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}  
 \end{frame}
 
 \begin{frame}
@@ -780,18 +709,16 @@ SELECT query FOR UPDATE
     \item \alert{iki aşamalı kilitleme}:\\
       herhangi bir kilit bırakıldıktan sonra\\
       yeni kilit isteğinde bulunulmaz
-    \begin{itemize}
       \item genişleme aşaması: alınan kilit sayısı artıyor
       \item daralma aşaması: alınan kilit sayısı azalıyor
-    \end{itemize}
 
-    \pause
-    \item \alert{iki aşamalı sıkı kilitleme}:\\
-      bütün kilitler hareketin sonunda bırakılır
+      \medskip
+      \item \alert{iki aşamalı sıkı kilitleme}:\\
+        bütün kilitler hareketin sonunda bırakılır
 
-    \pause
-    \medskip
-    \item \emph{Bütün hareketler iki aşamalı kilitleme protokolüne uyarsa\\
+      \pause
+      \medskip
+      \item \emph{Bütün hareketler iki aşamalı kilitleme protokolüne uyarsa\\
       bütün eşzamanlı çalıştırmalar serileştirilebilir.}
   \end{itemize}
 \end{frame}
@@ -800,10 +727,10 @@ SELECT query FOR UPDATE
   \frametitle{Sonlandırılanları Okuyabilme}
 
   \begin{itemize}
-    \item yalnızca yazma kilitleri hareket sonuna kadar tutulur
+    \item read commited: yalnızca yazma kilitleri hareket sonuna\\ 
+      kadar tutulur
   \end{itemize}
 
-  \begin{ornek}
     \begin{table}
       \begin{tabular}{ll}
 Hareket A       & Hareket B    \\\hline
@@ -817,41 +744,42 @@ kilidi bırak    & ...          \\\pause
 RETRIEVE p (S+) &
       \end{tabular}
     \end{table}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hayaletler}
 
-  \begin{tanim}
-    \alert{hayalet}: sorgu yeniden çalıştırıldığında yeni çoklular ortaya
-      çıkıyor
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{hayalet}: sorgu yeniden çalıştırıldığında yeni çoklular ortaya çıkıyor
+  \end{itemize}
 
   \pause
-  \begin{ornek}
+  \begin{exampleblock}{örnek}
     \begin{itemize}
       \item A hareketi bir müşterinin hesaplarının ortalamasını hesaplıyor:\\
+        \smallskip
         $\frac{100 + 100 + 100}{3}=100$
 
       \pause
-      \item B hareketi aynı müşteriye $200$ birimlik yeni bir hesap yaratıyor
+      \item B hareketi aynı müşteriye ($200$) birimlik yeni bir hesap yaratıyor
       \item A hareketi hesabı yeniden yapıyor:\\
+        \smallskip
         $\frac{100 + 100 + 100 + 200}{4}=125$
     \end{itemize}
-  \end{ornek}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Yalıtım Düzeyi Belirleme}
+  \frametitle{Yalıtım Düzeyleri}
 
-  \begin{block}{Komut}
+  \begin{itemize}
+    \item bir yalıtım düzeyi belirleme
     \begin{lstlisting}
 SET TRANSACTION ISOLATION LEVEL
   [ SERIALIZABLE | REPEATABLE READ |
     READ COMMITTED | READ UNCOMMITTED ]
     \end{lstlisting}
-  \end{block}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -876,13 +804,14 @@ SERIALIZABLE     & H     & H           & H      \\\hline
 
   \begin{itemize}
     \item kilitleme çoklu değil bağıntı değişkeni biriminde yapılabilir
-    \begin{itemize}
-      \item hatta veri tabanı biriminde
-    \end{itemize}
+    \item hatta veri tabanı biriminde
 
+    \medskip
+    \item birim: kilitlenen birim    
     \item birim genişledikçe eşzamanlılık azalır
 
     \pause
+    \medskip
     \item çoklular üzerinde alınmış kilitlerin bulunması zor\\
       $\rightarrow$ önce bağıntı değişkeni düzeyinde \alert{niyet kilitleri}
       alınsın
@@ -896,19 +825,15 @@ SERIALIZABLE     & H     & H           & H      \\\hline
     \item Parçayı Okuma (IS):\\
       hareket bazı çokluları okumaya niyetleniyor
 
-    \pause
     \item Parçaya Yazma (IX):\\
       IS + hareket bazı çoklulara yazmaya niyetleniyor
 
-    \pause
     \item Bütünü Okuma (S):\\
       bağıntıda eşzamanlı okuyucular olabilir ama yazıcılar olmamalı
 
-    \pause
     \item Bütünü Okuma + Parçaya Yazma (SIX):\\
       S + IX
 
-    \pause
     \item Bütüne Yazma (X):\\
       bağıntıda hiçbir eşzamanlı çalışma olmamalı
   \end{itemize}
@@ -917,8 +842,8 @@ SERIALIZABLE     & H     & H           & H      \\\hline
 \begin{frame}
   \frametitle{Kilit İstekleri}
 
-  \begin{block}{kilit uyumluluk matrisi}
     \begin{table}
+    \caption{kilit uyumluluk matrisi}
       \begin{tabular}{|c||c|c|c|c|c|c|}\hline
     & X & SIX & IX & S & IS & -\\\hline\hline
   X & H &  H  & H  & H & H  & E\\\hline
@@ -928,7 +853,6 @@ SIX & H &  H  & H  & H & E  & E\\\hline
  IS & H &  E  & E  & E & E  & E\\\hline
       \end{tabular}
     \end{table}
-  \end{block}
 \end{frame}
 
 \begin{frame}
@@ -940,7 +864,6 @@ SIX & H &  H  & H  & H & E  & E\\\hline
       \pgfuseimage{oncelik}
     \end{center}
 
-    \pause
     \column{.6\textwidth}
     \begin{itemize}
       \item çoklu üzerinde okuma kilidi için\\
@@ -954,14 +877,13 @@ SIX & H &  H  & H  & H & E  & E\\\hline
 \begin{frame}[fragile]
   \frametitle{Kilitleme Komutları}
 
-  \begin{block}{Komut}
+    \begin{itemize}
+      \item bir tabloyu kilitleme    
     \begin{lstlisting}
 LOCK [ TABLE ] table_name
      [ IN lock_mode MODE ]
     \end{lstlisting}
 
-    \pause
-    \begin{itemize}
       \item kilit kipleri:
       \begin{itemize}
         \item \lstinline!ACCESS SHARE!
@@ -974,8 +896,6 @@ LOCK [ TABLE ] table_name
         \item \lstinline!ACCESS EXCLUSIVE!
       \end{itemize}
     \end{itemize}
-
-  \end{block}
 \end{frame}
 
 \subsection*{Kaynaklar}
