@@ -14,11 +14,28 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
+\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[turkish]{babel}
-\setbeamertemplate{navigation symbols}{}
+%\usepackage[turkish]{babel}
+%\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=2em, text margin right=2em}
 \usepackage[labelformat=empty, aboveskip=1pt, belowskip=1pt]{caption}
+
+\usepackage{listings}
+
+\lstdefinelanguage{FullSQL}[]{SQL}{
+  morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
+                MINVALUE, NO_ACTION, OBJECT, REFERENCES, RENAME, SEQUENCE,
+                START, TO, TYPE, VACUUM}
+}
+\lstdefinelanguage{ExtendedSQL}[]{FullSQL}{
+  morekeywords={AFTER, BEFORE, DO, EACH, FOR, FUNCTION, INSTEAD, LANGUAGE,
+                OPTION, PROCEDURE, RETURNS, ROW, RULE, SNAPSHOT, STATEMENT,
+                WITH}
+}
+\lstset{basicstyle=\ttfamily, keywordstyle=\color{ForestGreen},
+        showstringspaces=false}
 
 \mode<presentation>
 {
@@ -31,7 +48,7 @@
 \subtitle{Veri Tabanı Tasarımı}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2012}
+\date{2002-2016}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -40,16 +57,10 @@
   \end{frame}
 }
 
-\theoremstyle{definition}
-\newtheorem{tanim}[theorem]{Tanım}
-
-\theoremstyle{example}
-\newtheorem{ornek}[theorem]{Örnek}
-
-\theoremstyle{plain}
+\theoremstyle{theorem}
 \newtheorem{teorem}[theorem]{Teorem}
 
-\pgfdeclareimage[width=2cm]{license}{../../license}
+\pgfdeclareimage[width=2cm]{license}{../license}
 
 \pgfdeclareimage{norm1}{norm1}
 \pgfdeclareimage{norm2}{norm2}
@@ -67,37 +78,44 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright 2002-2012 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2016 T. Uyar, Ş. Öğüdücü
 
   \vfill
-  \begin{tiny}
-    You are free:
+  \begin{footnotesize}
+    You are free to:
     \begin{itemize}
-      \item to Share -- to copy, distribute and transmit the work
-      \item to Remix -- to adapt the work
+      \itemsep0em
+      \item Share -- copy and redistribute the material in any medium or format
+      \item Adapt -- remix, transform, and build upon the material
     \end{itemize}
 
-    Under the following conditions:
+    Under the following terms:
     \begin{itemize}
-      \item Attribution -- You must attribute the work in the manner specified by
-        the author or licensor (but not in any way that suggests that they
-        endorse you or your use of the work).
+      \itemsep0em
+      \item Attribution -- You must give appropriate credit, provide a link to
+        the license, and indicate if changes were made.
 
-      \item Noncommercial -- You may not use this work for commercial purposes.
+      \item NonCommercial -- You may not use the material for commercial
+        purposes.
 
-      \item Share Alike -- If you alter, transform, or build upon this work, you
-        may distribute the resulting work only under the same or similar license
-        to this one.
+      \item ShareAlike -- If you remix, transform, or build upon the material,
+        you must distribute your contributions under the same license as the
+        original.
     \end{itemize}
-  \end{tiny}
+  \end{footnotesize}
 
-  \vfill
-  Legal code (the full license):\\
-  \url{http://creativecommons.org/licenses/by-nc-sa/3.0/}
+  \begin{small}
+    For more information:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+
+    \smallskip
+    Read the full license:\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
+  \end{small}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Konular}
+  \frametitle{Topics}
   \tableofcontents
 \end{frame}
 
@@ -108,77 +126,56 @@
 \begin{frame}
   \frametitle{İşlevsel Bağımlılık}
 
-  \begin{tanim}
     \begin{itemize}
       \item $Z$: $R$ bağıntısının bütün nitelikleri kümesi
       \item $A,B \subseteq Z$
-
-      \pause
       \item \alert{$A$, $B$'yi işlevsel olarak belirliyor}: $A \rightarrow B$\\
         her $A$ değerine karşılık tek bir $B$ değeri olabilir
-    \end{itemize}
-  \end{tanim}
 
-  \pause
-  \begin{itemize}
-    \item her işlevsel bağımlılık bir bütünlük kısıtlaması
+      \medskip
+      \item her işlevsel bağımlılık bir bütünlük kısıtlaması
   \end{itemize}
 \end{frame}
 
 \begin{frame}
+\label{example_db_1}
   \frametitle{Örnek Bağıntı}
-
-  \begin{ornek}
-    \begin{tiny}
-    \begin{table}
-      \caption{R}
-      \begin{tabular}{|r|l|c|c|r|l|r|}\hline
+  
+  \begin{tiny}
+  \begin{table}
+    \caption{R}
+    \begin{tabular}{|r|l|c|c|r|l|r|}\hline
 \underline{MOVIEID} & TITLE    & COU & LANG & \underline{ACTORID} & NAME & ORD\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
+      6 & The Usual Suspects   & UK  &  EN  &     308 & Gabriel Byrne    &   2\\\hline
     228 & Ed Wood              & US  &  EN  &      26 & Johnny Depp      &   1\\\hline
      70 & Being John Malkovich & US  &  EN  &     282 & Cameron Diaz     &   2\\\hline
    1512 & Suspiria             & IT  &  IT  &     745 & Udo Kier         &   9\\\hline
      70 & Being John Malkovich & US  &  EN  &     503 & John Malkovich   &  14\\\hline
-      \end{tabular}
-    \end{table}
-    \end{tiny}
+    \end{tabular}
+  \end{table}
+  \end{tiny}
 
-    \pause
-    \begin{itemize}
-      \item varsayım: film hangi ülkede çekildiyse o ülkenin dilinde
-    \end{itemize}
-  \end{ornek}
+  \pause
+  \begin{itemize}
+    \item varsayım: film hangi ülkede çekildiyse o ülkenin dilinde
+  \end{itemize}
 \end{frame}
+
 
 \begin{frame}
   \frametitle{İşlevsel Bağımlılık Örnekleri}
+  
+  \begin{itemize}
+    \item MOVIEID $\rightarrow$ TITLE
+    \item MOVIEID $\rightarrow$ \{TITLE, COUNTRY, LANGUAGE\}
+    \item ACTORID $\rightarrow$ NAME
+    \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
 
-  \begin{ornek}
-    \begin{itemize}
-      \item MOVIEID $\rightarrow$ COUNTRY
-
-      \pause
-      \item ACTORID $\rightarrow$ NAME
-
-      \pause
-      \item MOVIEID $\rightarrow$ \{TITLE, COUNTRY, LANGUAGE\}
-
-      \pause
-      \item \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
-
-      \pause
-      \item \{MOVIEID, ACTORID\} $\rightarrow$ MOVIEID
-
-      \pause
-      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
-
-      \pause
-      \item \{MOVIEID, ACTORID\} $\rightarrow$ \{COUNTRY, ORD\}
-
-      \pause
-      \item COUNTRY $\rightarrow$ LANGUAGE
-    \end{itemize}
-  \end{ornek}
+    \pause
+    \medskip
+    \item gereksiz: MOVIEID $\rightarrow$ MOVIEID
+    \item tekrarlı: \{MOVIEID, ACTORID\} $\rightarrow$ COUNTRY
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -186,12 +183,14 @@
 
   \begin{itemize}
     \item $S$: bağıntının bütün işlevsel bağımlılıkları kümesi
+    \item $T \subseteq S$
 
-    \item $T \subseteq S$, öyle ki
-    \begin{itemize}
-      \item $T$ olabildiğince az eleman içerir
-      \item $S$'deki her işlevsel bağımlılık $T$'dekilerden türetilebilir
-    \end{itemize}
+    \medskip
+    \item $T$ işlevsel bağımlılıkların indirgenemez bir kümesidir:
+
+    \smallskip
+    \item $T$ olabildiğince az eleman içerir
+    \item $S$'deki her işlevsel bağımlılık $T$'dekilerden türetilebilir
 
     \pause
     \medskip
@@ -199,28 +198,26 @@
   \end{itemize}
 \end{frame}
 
+
 \begin{frame}
+  \label{example_db_1}
   \frametitle{İndirgenemez Küme Örneği}
 
-  \begin{ornek}
     \begin{itemize}
-      \item MOVIEID $\rightarrow$ TITLE
-      \item MOVIEID $\rightarrow$ COUNTRY
-      \item COUNTRY $\rightarrow$ LANGUAGE
-      \item ACTORID $\rightarrow$ NAME
-      \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
-    \end{itemize}
-  \end{ornek}
+       \item MOVIEID $\rightarrow$ TITLE
+       \item MOVIEID $\rightarrow$ COUNTRY
+       \item COUNTRY $\rightarrow$ LANGUAGE
+       \item ACTORID $\rightarrow$ NAME
+       \item \{MOVIEID, ACTORID\} $\rightarrow$ ORD
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bağımlılık Çizeneği}
 
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{norm1}
-    \end{center}
-  \end{ornek}
+  \begin{center}
+    \pgfuseimage{norm1}
+  \end{center}
 \end{frame}
 
 \subsection{Normal Formlar}
@@ -229,31 +226,34 @@
   \frametitle{Normal Formlar}
 
   \begin{itemize}
+    \item normal form: bağıntıların sağlamak zorunda oldukları koşullar 
+    
+    \medskip
     \item 1NF, 2NF, 3NF, BCNF, 4NF, 5NF
-
     \item her form bir önceki formun kapsamını daraltır
-    \begin{itemize}
-      \item bütün 2NF bağıntılar aynı zamanda 1NF
-      \item bütün 3NF bağıntılar aynı zamanda 2NF, ...
-    \end{itemize}
-
+    \item veri tabanının normal formu = en geniş kapsamlı bağıntının normal formu 
+    
     \pause
     \medskip
     \item 1NF: nitelik değerleri bölünmezdir
+    
+    \pause
+    \medskip
+    \item tanımlar için basitleştirici varsayım:\\
+      \alert{BİR TABLONUN BİRİNCİL ANAHTARI DA OLAN\\
+          SADECE BİR ANAHTAR ADAYI VARDIR.}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Normalizasyon}
 
-  \begin{tanim}
-    \alert{normalizasyon}:\\
+  \begin{itemize}
+    \item \alert{normalizasyon}:\\
       bir formdan daha dar kapsamlı bir sonraki forma geçiş
 
-    \begin{itemize}
       \item formlar arası geçişler kayıpsız olmalı
     \end{itemize}
-  \end{tanim}
 
   \pause
   \begin{teorem}[Heath Kuramı]
@@ -261,7 +261,7 @@
       \item $Z$: $R$ bağıntısının bütün nitelikleri kümesi
       \item $A,B,C \subseteq Z$
 
-      \pause
+      \medskip
       \item $A \rightarrow B$ ise $R$ bağıntısı $\{A,B\}$ ile $\{A,C\}$
         bağıntılarının\\
         birleştirilmesiyle elde edilebilir
@@ -272,325 +272,297 @@
 \begin{frame}
   \frametitle{Kayıpsız Geçiş Örneği}
 
-  \begin{ornek}
-    \begin{columns}[c]
-      \column{.57\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R1}
-        \begin{tabular}{|r|l|c|c|}\hline
+\begin{columns}[c]
+    \column{.65\textwidth}
+    \vspace{-12pt}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R1}
+      \vspace{-6pt}
+      \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \vspace{-0.7cm}
-      \begin{tiny}
-      \begin{table}
-        \caption{R2}
-        \begin{tabular}{|r|r|l|r|}\hline
+    \vspace{-12pt}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R2}
+      \begin{tabular}{|r|r|l|r|}\hline
 MOVIEID & ACTORID & NAME           & ORD\\\hline\hline
       6 &     308 & Gabriel Byrne  &   2\\\hline
     228 &      26 & Johnny Depp    &   1\\\hline
      70 &     282 & Cameron Diaz   &   2\\\hline
    1512 &     745 & Udo Kier       &   9\\\hline
      70 &     503 & John Malkovich &  14\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \pause
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item R $=$ R1 JOIN R2
-      \end{itemize}
-    \end{columns}
-  \end{ornek}
+    \column{.35\textwidth}
+    \begin{itemize}
+      \item $R = R1 ~join~ R2$
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Kayıplı Geçiş Örneği}
 
-  \begin{ornek}
-    \begin{columns}[c]
-      \column{.57\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R1}
-        \begin{tabular}{|r|l|c|c|}\hline
+   \begin{columns}[c]
+    \column{.62\textwidth}
+    \vspace{-12pt}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R1}
+      \vspace{-6pt}
+      \begin{tabular}{|r|l|c|c|}\hline
 MOVIEID & TITLE                & COU & LANG\\\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \vspace{-0.7cm}
-      \begin{tiny}
-      \begin{table}
-        \caption{R2}
-        \begin{tabular}{|c|r|l|r|}\hline
+    \vspace{-12pt}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R2}
+      \begin{tabular}{|c|r|l|r|}\hline
 COU & ACTORID & NAME           & ORD\\\hline\hline
 UK  &     308 & Gabriel Byrne  &   2\\\hline
 US  &      26 & Johnny Depp    &   1\\\hline
 US  &     282 & Cameron Diaz   &   2\\\hline
 IT  &     745 & Udo Kier       &   9\\\hline
 US  &     503 & John Malkovich &  14\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+
+    \column{.38\textwidth}
+    \begin{itemize}
+      \item $R \neq R1 ~join~ R2$
 
       \pause
-      \column{.4\textwidth}
-      \begin{itemize}
-        \item R $\neq$ R1 JOIN R2
-
-        \pause
-        \item \tiny{\{MOVIEID, ACTORID\} $\rightarrow$ ORD}
-      \end{itemize}
-    \end{columns}
-  \end{ornek}
+      \item \footnotesize{\{MOVIEID, ACTORID\} \\ $\rightarrow$ ORD}
+    \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Aykırılıklar}
 
   \begin{itemize}
-    \item \emph{ekleme}
-    \begin{itemize}
-      \item bilinen bir verinin kısıtlamalar nedeniyle tutulamaması
-    \end{itemize}
+    \item \emph{ekleme}: bilinen bir verinin kısıtlamalar nedeniyle tutulamaması
 
-    \pause
-    \item \emph{silme}
-    \begin{itemize}
-        \item bir veri silinmek istendiğinde başka bir verinin de yitirilmesi
-    \end{itemize}
+    \medskip
+    \item \emph{silme}: bir veri silinmek istendiğinde başka bir verinin de yitirilmesi
 
-    \pause
-    \item \emph{güncelleme}
-    \begin{itemize}
-      \item bir veriyi güncellemek için birden fazla çokluda değişiklik\\
-        gerekmesi
-    \end{itemize}
+    \medskip
+    \item \emph{güncelleme}: bir veriyi güncellemek için birden fazla çokluda\\ 
+       değişiklik gerekmesi
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Aykırılık Örnekleri}
+     
+   \hyperlink{exampl}{\beamergotobutton{example database}} 
 
-  \begin{ornek}
     \begin{itemize}
       \item "Gattaca" filminin ülkesinin US olduğu biliniyor\\
 	ama filmde oynayan bir oyuncu olmadıkça eklenemiyor
 
       \pause
+      \medskip
       \item Gabriel Byrne'in "Usual Suspects" filminde oynadığı silinirse\\
         filmin ülkesinin UK olduğu da siliniyor
 
       \pause
+      \medskip
       \item "Being John Malkovich" filminin ülkesinin güncellenmesi\\
         iki çokluda değişiklik gerektiriyor
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{2. Normal Form}
 
-  \begin{tanim}
-    \alert{2NF}: anahtar olmayan her nitelik birincil anahtara bağımlı
-  \end{tanim}
+  \begin{itemize}
+    \item \alert{2NF}: anahtar olmayan her nitelik birincil anahtara bağımlı
+    
+    \pause
+    \medskip
+    
+    \item 1NF'ye uyan bir $R$ bağıntısında:
+    \item $R(A,B,C,D)$, birincil anahtar: $\{A,B\}$ ve
+    \item $A \rightarrow D$
 
-  \begin{block}{1NF'den 2NF'ye geçiş}
-    \begin{itemize}
-      \item 1NF'ye uyan bir $R$ bağıntısında:
-      \begin{itemize}
-        \item $R(A,B,C,D)$, birincil anahtar: $\{A,B\}$
-        \item $A \rightarrow D$
-      \end{itemize}
-
-      \pause
-      \item 2NF olması için:
-      \begin{itemize}
-        \item $R1(A,D)$, birincil anahtar: $A$
-        \item $R2(A,B,C)$, birincil anahtar: $\{A,B\}$\\
-          $A$, $R1$'e başvuran dış anahtar
-      \end{itemize}
+    \medskip  
+    \item 2NF olması için:
+    \item $R1(A,D)$, birincil anahtar: $A$ ve \\
+      $R2(A,B,C)$, birincil anahtar: $\{A,B\}$\\
+      $A$, $R1$'e başvuran dış anahtar
     \end{itemize}
-  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{1NF-2NF Geçişi Örneği}
 
-  \begin{ornek}
     \begin{itemize}
-      \item anahtar olmayan niteliklerden ORD dışındakiler\\
-	birincil anahtara bağımlı değil
-
-      \pause
-      \begin{itemize}
-        \item $A$: MOVIEID
-        \item $B$: ACTORID
-        \item $C$: \{NAME, ORD\}
-        \item $D$: \{TITLE, COUNTRY, LANGUAGE\}
-      \end{itemize}
+      \item anahtar olmayan niteliklerden sadece ORD birincil anahtara bağımlı
+  
+      \item $A$: \{MOVIEID\}\\
+        $B$: \{ACTORID\}\\
+        $C$: \{NAME, ORD\}\\
+        $D$: \{TITLE, COUNTRY, LANGUAGE\}
+         
+       \pause
+       \medskip
+       
+       \item R1(MOVIEID, TITLE, COUNTRY, LANGUAGE)\\
+          birincil anahtar: MOVIEID
+        
+        \item R2(MOVIEID, ACTORID, NAME, ORD)\\
+          birincil anahtar: \{MOVIEID, ACTORID\}\\
+          MOVIEID, R1'e başvuran dış anahtar
     \end{itemize}
-  \end{ornek}
 \end{frame}
+
 
 \begin{frame}
   \frametitle{1NF-2NF Geçişi Örneği}
 
-  \begin{ornek}
-    \begin{itemize}
-      \item R1(MOVIEID, TITLE, COUNTRY, LANGUAGE)\\
-        birincil anahtar: MOVIEID
-
-      \pause
-      \item R2(MOVIEID, ACTORID, NAME, ORD)\\
-        birincil anahtar: \{MOVIEID, ACTORID\}\\
-        MOVIEID, R1'e başvuran dış anahtar
-    \end{itemize}
- \end{ornek}
-\end{frame}
-
-\begin{frame}
-  \frametitle{1NF-2NF Geçişi Örneği}
-
-  \begin{ornek}
     \begin{itemize}
       \item R2 hala 2NF değil: ACTORID $\rightarrow$ NAME
-
-      \pause
-      \begin{itemize}
-        \item $A$: ACTORID
-        \item $B$: MOVIEID
-        \item $C$: ORD
-        \item $D$: NAME
-      \end{itemize}
-    \end{itemize}
+      \item $A$: \{ACTORID\}\\
+        $B$: \{MOVIEID\}\\
+        $C$: \{ORD\}\\
+        $D$: \{NAME\}
 
     \pause
-    \begin{itemize}
+    \medskip
+
       \item R3(ACTORID, NAME)\\
         birincil anahtar: ACTORID
 
-      \pause
+
       \item R4(MOVIEID, ACTORID, ORD)\\
         birincil anahtar: \{MOVIEID, ACTORID\}\\
         ACTORID, R3'e başvuran dış anahtar
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
+\label{example_db_2}
   \frametitle{2NF Bağıntı Örnekleri}
 
-  \begin{ornek}
-    \begin{center}
-      \begin{tiny}
-      \begin{table}
-        \caption{R1}
-        \begin{tabular}{|r|l|c|c|}\hline
+\vspace{-12pt}
+  \begin{center}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R1}
+      \begin{tabular}{|r|l|c|c|}\hline
 \underline{MOVIEID} & TITLE    & COU & LANG\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK  &  EN \\\hline
+      6 & The Usual Suspects   & UK  &  EN \\\hline
     228 & Ed Wood              & US  &  EN \\\hline
      70 & Being John Malkovich & US  &  EN \\\hline
    1512 & Suspiria             & IT  &  IT \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{center}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{center}
 
-    \vspace{-0.7cm}
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R3}
-        \begin{tabular}{|r|l|}\hline
+  \vspace{-12pt}
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R3}
+      \begin{tabular}{|r|l|}\hline
 \underline{ACTORID} & NAME\\[2pt]\hline\hline
-      308 & Gabriel Byrne \\\hline
-       26 & Johnny Depp   \\\hline
-      282 & Cameron Diaz  \\\hline
-      745 & Udo Kier      \\\hline
-      503 & John Malkovich\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+     308 & Gabriel Byrne \\\hline
+      26 & Johnny Depp   \\\hline
+     282 & Cameron Diaz  \\\hline
+     745 & Udo Kier      \\\hline
+     503 & John Malkovich\\\hline
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R4}
-        \begin{tabular}{|r|r|r|}\hline
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R4}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
    6 & 308 &  2\\\hline
  228 &  26 &  1\\\hline
   70 & 282 &  2\\\hline
 1512 & 745 &  9\\\hline
   70 & 503 & 14\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bağımlılık Çizeneği Örneği}
 
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{norm2}
-    \end{center}
-  \end{ornek}
+  \begin{center}
+    \pgfuseimage{norm2}
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{2NF Düzelen Aykırılıklar}
+  
+  \hyperlink{example_db_2}{\beamergotobutton{example database}}
 
-  \begin{ornek}
     \begin{itemize}
       \item "Gattaca" filminin ülkesinin US olduğu biliniyorsa\\
 	bu bilgi R1 bağıntısına eklenebilir
 
       \pause
+      \medskip
       \item Gabriel Byrne'in "Usual Suspects" filminde oynadığı silinse de\\
         filmin ülkesinin UK olduğu bilgisi R1 bağıntısında kalır
 
       \pause
+      \medskip
       \item "Being John Malkovich" filminin ülkesini güncellemek için\\
         R1 bağıntısında tek çokluda değişiklik yapmak yeterli
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{2NF Düzelmeyen Aykırılıklar}
+  
+  \hyperlink{example_db_2}{\beamergotobutton{example database}}
 
-  \begin{ornek}
     \begin{itemize}
       \item Brezilya'da çekilen filmlerin Portekizce olduğu biliniyor\\
 	ama Brezilya'da çekilen bir film olmadıkça eklenemiyor
 
       \pause
+      \medskip
       \item "Suspiria" filmi silinirse İtalya'da çekilen filmlerin\\
         İtalyanca olduğu da siliniyor
 
       \pause
+      \medskip
       \item Amerika'da çekilen filmlerin dilinin güncellenmesi\\
         iki çokluda değişiklik gerektiriyor
     \end{itemize}
-  \end{ornek}
+
 \end{frame}
 
 \subsection{3. Normal Form}
@@ -598,166 +570,149 @@ US  &     503 & John Malkovich &  14\\\hline
 \begin{frame}
   \frametitle{3. Normal Form}
 
-  \begin{tanim}
-    \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dışında\\
+  \begin{itemize}
+    \item \alert{3NF}: anahtar olmayan nitelikler birincil anahtar dışında\\
       niteliklere bağımlı değil
-  \end{tanim}
+
 
   \pause
-  \begin{block}{2NF'den 3NF'ye geçiş}
-    \begin{itemize}
+  \medskip
       \item 2NF'ye uyan bir $R$ bağıntısında:
-      \begin{itemize}
-        \item $R(A,B,C,D)$, birincil anahtar: $A$
-        \item $C \rightarrow D$
-      \end{itemize}
+      \item $R(A,B,C,D)$, birincil anahtar: $A$ ve \\
+        $C \rightarrow D$
 
-      \pause
-      \item 3NF olması için:
-      \begin{itemize}
-        \item $R1(C,D)$, birincil anahtar: $C$
-        \item $R2(A,B,C)$, birincil anahtar: $A$\\
+      \medskip
+      \item 2NF'den 3NF'ye geçiş için:
+        \item $R1(C,D)$, birincil anahtar: $C$\\
+          $R2(A,B,C)$, birincil anahtar: $A$\\
           $C$, $R1$'e başvuran dış anahtar
-      \end{itemize}
     \end{itemize}
- \end{block}
+
 \end{frame}
 
 \begin{frame}
   \frametitle{2NF-3NF Geçişi Örneği}
 
-  \begin{ornek}
     \begin{itemize}
       \item R1: COUNTRY $\rightarrow$ LANGUAGE
-
-      \pause
-      \begin{itemize}
-        \item $A$: MOVIEID
-        \item $B$: TITLE
-        \item $C$: COUNTRY
-        \item $D$: LANGUAGE
-      \end{itemize}
-    \end{itemize}
+      \item $A$: \{MOVIEID\}\\
+      $B$: \{TITLE\}\\
+      $C$: \{COUNTRY\}\\
+      $D$: \{LANGUAGE\}
 
     \pause
-    \begin{itemize}
+    \medskip
       \item R5(COUNTRY, LANGUAGE)\\
         birincil anahtar: COUNTRY
 
-      \pause
       \item R6(MOVIEID, TITLE, COUNTRY)\\
         birincil anahtar: MOVIEID\\
         COUNTRY, R5'e başvuran dış anahtar
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
+\label{example_db_3}
   \frametitle{3NF Bağıntı Örnekleri}
 
-  \begin{ornek}
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R6}
-        \begin{tabular}{|r|l|c|}\hline
+  \vspace{-24pt}
+  \begin{columns}[t]
+    \column{.6\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R6}
+      \begin{tabular}{|r|l|c|}\hline
 \underline{MOVIEID} & TITLE    & COU\\[2pt]\hline\hline
-      6 & Usual Suspects       & UK \\\hline
+      6 & The Usual Suspects   & UK \\\hline
     228 & Ed Wood              & US \\\hline
      70 & Being John Malkovich & US \\\hline
    1512 & Suspiria             & IT \\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R5}
-        \begin{tabular}{|c|c|}\hline
+    \column{.4\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R5}
+      \begin{tabular}{|c|c|}\hline
 \underline{COU} & LANG\\[2pt]\hline\hline
 UK & EN\\\hline
 US & EN\\\hline
 IT & IT\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
 
-    \vspace{-0.7cm}
-    \begin{columns}[t]
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R3}
-        \begin{tabular}{|r|l|}\hline
+  \vspace{-24pt}
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R3}
+      \begin{tabular}{|r|l|}\hline
 \underline{ACTORID} & NAME\\[2pt]\hline\hline
       308 & Gabriel Byrne \\\hline
        26 & Johnny Depp   \\\hline
       282 & Cameron Diaz  \\\hline
       745 & Udo Kier      \\\hline
       503 & John Malkovich\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
 
-      \column{.5\textwidth}
-      \begin{tiny}
-      \begin{table}
-        \caption{R4}
-        \begin{tabular}{|r|r|r|}\hline
+    \column{.5\textwidth}
+    \begin{footnotesize}
+    \begin{table}
+      \caption{R4}
+      \begin{tabular}{|r|r|r|}\hline
 \underline{MOVIEID} & \underline{ACTORID} & ORD\\[2pt]\hline\hline
    6 & 308 &  2\\\hline
  228 &  26 &  1\\\hline
   70 & 282 &  2\\\hline
 1512 & 745 &  9\\\hline
   70 & 503 & 14\\\hline
-        \end{tabular}
-      \end{table}
-      \end{tiny}
-    \end{columns}
-  \end{ornek}
+      \end{tabular}
+    \end{table}
+    \end{footnotesize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Bağımlılık Çizeneği Örneği}
 
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{norm3}
-    \end{center}
-  \end{ornek}
- \end{frame}
+  \begin{center}
+    \pgfuseimage{norm3}
+  \end{center}
+\end{frame}
 
 \begin{frame}
   \frametitle{3NF Düzelen Aykırılıklar}
+  
+  \hyperlink{example_db_3}{\beamergotobutton{örnek veri tabanı}}
 
-  \begin{ornek}
     \begin{itemize}
       \item Brezilya'da çekilen filmlerin Portekizce olduğu biliniyorsa\\
 	R5 bağıntısına eklenebilir
 
       \pause
+      \medskip
       \item "Suspiria" filmi silinse de İtalya'da çekilen filmlerin\\
 	İtalyanca olduğu R5 bağıntısında kalır
 
       \pause
+      \medskip
       \item Amerika'da çekilen filmlerin dilini güncellemek için\\
 	R5 bağıntısında tek çokluda değişiklik yapmak yeterli
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Boyce-Codd Normal Formu}
 
-  \begin{tanim}
-    \alert{BCNF}: bütün işlevsel bağımlılıklar anahtar adaylarına
-  \end{tanim}
-
-  \pause
   \begin{itemize}
+    \item \alert{BCNF}: bütün işlevsel bağımlılıklar anahtar adaylarına
     \item anahtarı oluşturan nitelikler arasındaki bağımlılıklar\\
       dikkate alınmalı
   \end{itemize}
@@ -765,23 +720,107 @@ IT & IT\\\hline
 
 \begin{frame}
   \frametitle{BCNF Örneği}
+  \hyperlink{example_db_1}{\beamergotobutton{örnek veri tabanı}}
 
-  \begin{ornek}[filmlerin başlık nitelikleri eşsiz]
-    \begin{itemize}
-      \item anahtar adayları:
-      \begin{itemize}
-        \item \{MOVIEID, ACTORID\}
-        \item \{TITLE, ACTORID\}
-      \end{itemize}
+     \begin{itemize}  
+       \item filmlerin başlık nitelikleri eşsiz
+       \item anahtar adayları:
+          \{MOVIEID, ACTORID\}
+          \{TITLE, ACTORID\}
+ 
 
       \pause
+      \medskip
       \item aykırı işlevsel bağımlılıklar:
-      \begin{itemize}
-        \item MOVIEID $\rightarrow$ TITLE
-        \item TITLE $\rightarrow$ MOVIEID
-      \end{itemize}
+ 
+         MOVIEID $\rightarrow$ TITLE
+         TITLE $\rightarrow$ MOVIEID
     \end{itemize}
-  \end{ornek}
+\end{frame}
+
+\subsection{Görüntüler}
+
+\lstset{language=ExtendedSQL}
+
+\begin{frame}[fragile]
+  \frametitle{Görüntüler}
+
+  \begin{itemize}
+    \item türetilmiş tabloyu taban tablo gibi göstermek: \alert{görüntü}
+    \item veri tabanı yapısındaki değişikliklerden\\
+      kullanıcıların ve uygulama programlarının etkilenmemesi
+
+    \pause
+    \bigskip
+    \item görüntü yaratma:
+    \begin{lstlisting}
+CREATE VIEW view_name AS
+  SELECT ...
+    \end{lstlisting}
+
+    \medskip
+    \item görüntü üzerindeki her işlemde\\
+      \lstinline!SELECT! komutu yeniden çalıştırılır
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Görüntü Örneği}
+
+  \begin{itemize}
+    \item filmlerin kimlik bilgileri, başlıkları ve yılları
+
+    \medskip
+    \begin{lstlisting}
+CREATE VIEW NEW_MOVIE AS
+  SELECT ID, TITLE, YR FROM MOVIE
+    WHERE (YR > 1995)
+
+SELECT * FROM NEW_MOVIE
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Görüntüde Güncelleme}
+
+  \begin{itemize}
+    \item güncellemeler taban tablolarda yapılmalı
+    \item kural belirtilmeli
+
+    \pause
+    \bigskip
+    \item kural yaratma:
+    \begin{lstlisting}
+CREATE RULE rule_name AS
+  ON event TO view_name
+  [ WHERE condition ]
+  DO [ INSTEAD ] sql_statement
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Görüntü Kuralı Örneği}
+
+  \begin{itemize}
+    \item film başlığının değişmesi 
+    \begin{lstlisting}
+UPDATE NEW_MOVIE SET TITLE = ...
+  WHERE (ID = ...)
+    \end{lstlisting}
+
+    \pause
+    \medskip
+    \item taban tablonun güncellenmesi için kural
+    \begin{lstlisting}
+CREATE RULE UPDATE_TITLE AS
+  ON UPDATE TO NEW_MOVIE
+  DO INSTEAD
+    UPDATE MOVIE SET TITLE = new.TITLE
+      WHERE (ID = old.ID)
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \subsection*{Kaynaklar}
@@ -793,6 +832,7 @@ IT & IT\\\hline
     \begin{itemize}
       \item Chapter 11: \alert{Functional Dependencies}
       \item Chapter 12: \alert{Further Normalization I: 1NF, 2NF, 3NF, BCNF}
+       \item Chapter 10: \alert{Views}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -805,48 +845,33 @@ IT & IT\\\hline
   \frametitle{Varlık/İlişki Modeli}
 
   \begin{itemize}
-    \item modelleme yaklaşımı
-    \begin{itemize}
-      \item Chen 1976
-    \end{itemize}
+    \item modelleme yaklaşımı (Chen 1976)
 
-    \pause
-    \item bileşenleri
-    \begin{itemize}
+    \medskip
       \item varlıklar
       \item özellikler
       \item ilişkiler
-    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Varlıklar}
 
-  \begin{tanim}
-    \alert{varlık}: aynı özellikleri taşıyan "şeyler" kümesi
+  \begin{itemize}
+    \item \alert{varlık}: aynı özellikleri taşıyan "şeyler" kümesi
+    \item küme elemanları varlık tipinin birer \emph{örneği}
 
-    \pause
-    \begin{itemize}
-      \item küme elemanları varlık tipinin birer \emph{örneği}
+    \medskip
+    \item \emph{güçlü}: tek başına var olabilir
+    \item \emph{zayıf}: varlığı başka bir varlığa bağlı
     \end{itemize}
-
-    \pause
-    \begin{itemize}
-      \item \emph{güçlü}: tek başına var olabilir
-      \item \emph{zayıf}: varlığı başka bir varlığa bağlı
-    \end{itemize}
-  \end{tanim}
 \end{frame}
 
 \begin{frame}
   \frametitle{Varlık Örnekleri}
 
-  \begin{ornek}
     \begin{itemize}
       \item varlık: film, kişi
-
-      \pause
       \item kişi örneği: Johnny Depp
 
       \pause
@@ -854,30 +879,27 @@ IT & IT\\\hline
       \item güçlü varlık: kişi
       \item zayıf varlık: film
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{Özellikler}
 
-  \begin{tanim}
-    \alert{özellik}: varlıkları ya da ilişkileri betimleyen veriler
+  \begin{itemize}
+    \item \alert{özellik}: varlıkları ya da ilişkileri betimleyen veriler
 
-    \pause
-    \begin{itemize}
-      \item basit - bileşke
-      \item anahtar
-      \item tekli - çoklu değerli
-      \item boş
-      \item taban - türetilmiş
-    \end{itemize}
-  \end{tanim}
+    \medskip
+    \item basit / bileşke
+    \item anahtar
+    \item tekli / çoklu değerli
+    \item boş
+    \item taban / türetilmiş
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Özellik Örnekleri}
 
-  \begin{ornek}
     \begin{itemize}
       \item özellik: başlık, ülke, dil
 
@@ -891,106 +913,82 @@ IT & IT\\\hline
       \item taban: doğum tarihi
       \item türetilmiş: yaş
     \end{itemize}
-  \end{ornek}
 \end{frame}
 
 \begin{frame}
   \frametitle{İlişkiler}
 
-  \begin{tanim}
-    \alert{ilişki}: varlıklar arasındaki bağlantılar
+  \begin{itemize}
+    \item \alert{ilişki}: varlıklar arasındaki bağlantılar
 
-    \pause
-    \begin{itemize}
+    \medskip
+
       \item \emph{katılımcı}: ilişkideki varlıklar
       \item \emph{derece}: katılımcı sayısı
-      \item \emph{total} - \emph{kısmi}: bütün örnekler ilişkiye
-        katılıyor - katılmıyor
+      \item \emph{total} / \emph{kısmi}: bütün örnekler ilişkiye
+        katılıyor / katılmıyor
     \end{itemize}
-  \end{tanim}
 \end{frame}
 
 \begin{frame}
   \frametitle{İlişki Türleri}
-
+  
   \begin{itemize}
-    \item \emph{bire bir}
-    \item \emph{bire çok}
-    \item \emph{çoka çok}
+    \item \alert{bire bir}
+    \item örneğin ülkeler ile şehirler arasındaki başkentlik ilişkisi
+
+    \pause
+    \medskip
+    \item \alert{bire çok}
+    \item örneğin çalışanlar ile projeler arasındaki yöneticilik ilişkisi
+
+    \pause
+    \medskip
+    \item \alert{çoka çok}
+    \item örneğin öğrenciler ile dersler arasında kayıt ilişkisi
   \end{itemize}
+
 \end{frame}
 
-\begin{frame}
-  \frametitle{İlişki Örnekleri}
 
-  \begin{ornek}[bire bir]
-    \begin{itemize}
-      \item ülkeler ile şehirler arasındaki başkentlik ilişkisi
-    \end{itemize}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[bire çok]
-    \begin{itemize}
-      \item çalışanlar ile projeler arasındaki yöneticilik ilişkisi
-    \end{itemize}
-  \end{ornek}
-
-  \pause
-  \begin{ornek}[çoka çok]
-    \begin{itemize}
-      \item öğrenciler ile dersler arasındaki kayıt ilişkisi
-    \end{itemize}
-  \end{ornek}
-\end{frame}
 
 \subsection{V/İ Çizenekleri}
 
 \begin{frame}
   \frametitle{Varlık/İlişki Çizenekleri}
-
+  
   \begin{itemize}
     \item varlık: dikdörtgen
-    \begin{itemize}
-      \item zayıf: çift çizgi
-    \end{itemize}
+    \item zayıf: çift çizgi
 
     \pause
+    \medskip
     \item özellik: elips
-    \begin{itemize}
-      \item türetilmiş: kesikli çizgi
-      \item çoklu değerli: çift çizgi
-      \item bileşke: alt-elipsler
-    \end{itemize}
+    \item bileşke: alt-elipsler
 
     \pause
+    \medskip
     \item ilişki: eşkenar dörtgen
-    \begin{itemize}
-      \item zayıf-güçlü arasında: çift çizgi
-      \item total: bağlantı çift çizgi
-      \item ilişkinin türüne göre 1 ya da n
-    \end{itemize}
+    \item zayıf-güçlü arasında: çift çizgi
+    \item total: bağlantı çift çizgi
+    \item ilişkinin türüne göre 1 ya da n
  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Varlık/İlişki Çizeneği Örneği}
 
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{imdb1}
-    \end{center}
-  \end{ornek}
+  \begin{center}
+    \pgfuseimage{imdb1}
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Varlık/İlişki Çizeneği Örneği}
 
-  \begin{ornek}
-    \begin{center}
-      \pgfuseimage{imdb2}
-    \end{center}
-  \end{ornek}
+  \begin{center}
+    \pgfuseimage{imdb2}
+  \end{center}
 \end{frame}
 
 \begin{frame}
