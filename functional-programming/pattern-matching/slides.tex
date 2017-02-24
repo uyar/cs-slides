@@ -104,7 +104,7 @@
   \frametitle{Tuples}
 
   \begin{itemize}
-    \item \alert{tuple}: a combination of a fixed number of values
+    \item \alert{tuple}: a collection of a fixed number of values
     \item different but fixed types
 
     \smallskip
@@ -155,12 +155,19 @@ gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
 
+-- gcd   9702  945
+    \end{lstlisting}
+
+    \medskip
+    \hline
+    \medskip
+
+    \begin{lstlisting}
 gcd' :: (Integer, Integer) -> Integer
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
 
--- gcd   9702  945
 -- gcd' (9702, 945)
     \end{lstlisting}
   \end{exampleblock}
@@ -210,9 +217,9 @@ p1 = (2.4, 1.8, -4.6)
 p2 :: [Float]
 p2 = [2.4, 1.8, -4.6]
 
--- any degree polynomial, few terms
+-- any degree polynomial, sparse terms
 p3 :: [(Float, Integer)]
-p3 = [(1.8, 9558), (-4.6, 3)]
+p3 = [(72.3, 9558), (-4.6, 3)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -235,7 +242,7 @@ type Term = (Float, Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
-p4 = [(1.8, 9558), (-4.6, 3)]
+p4 = [(72.3, 9558), (-4.6, 3)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -246,6 +253,7 @@ p4 = [(1.8, 9558), (-4.6, 3)]
   \begin{itemize}
     \item a list consists of a first item (\alert{head})\\
       followed by a list of the remaining items (\alert{tail})
+    \item note the recursion in the definition
 
     \medskip
     \item check if empty: \lstinline|null|
@@ -298,26 +306,6 @@ tail :: [a] -> [a]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{List Operators}
-
-  \begin{itemize}
-    \item index: \lstinline|!!|
-    \item append: \lstinline|++|
-  \end{itemize}
-
-  \pause
-  \begin{exampleblock}{examples}
-    \begin{lstlisting}
--- [1, 2, 3] !! 0       ~> 1
--- [1, 2, 3] !! 2       ~> 3
--- [1, 2, 3] !! 3       ~> error
-
--- [1, 2, 3] ++ [4, 5]  ~> [1, 2, 3, 4, 5]
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
   \frametitle{List Size}
 
   \begin{exampleblock}{number of elements in a list}
@@ -363,29 +351,7 @@ type String = [Char]
 -- null ""           ~> True
 
 -- 'w' : "ord"       ~> "word"
--- "word" !! 2       ~> 'r'
--- "word" ++ "smith" ~> "wordsmith"
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Ranges}
-
-  \begin{itemize}
-    \item \lstinline|[n .. m]|: range with increment 1
-    \item \lstinline|[n, p .. m]|: range with increment \texttt{p - n}
-  \end{itemize}
-
-  \begin{exampleblock}{examples}
-    \begin{lstlisting}
-[2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
-[3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
-['a' .. 'm']      ~> "abcdefghijklm"
-
-[7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
-[0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
-['a', 'c' .. 'n'] ~> "acegikm"
+-- length "word"     ~> 4
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -771,6 +737,10 @@ birthYear (Person _ y) = y
 \begin{frame}[fragile]
   \frametitle{Example: Quadrants}
 
+  \begin{itemize}
+    \item when to use \lstinline|case|?
+  \end{itemize}
+
   \begin{lstlisting}
 quadrant :: Coords -> Integer
 quadrant (x, y) = case (x>=0, y>=0) of
@@ -778,39 +748,6 @@ quadrant (x, y) = case (x>=0, y>=0) of
     (False, True)  -> 2
     (False, False) -> 3
     (True,  False) -> 4
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example: Indexing Lists}
-
-  \begin{lstlisting}
-(!!) :: [a] -> Int -> a
-(!!) []     _ = error "no such element"
-(!!) (x:xs) 0 = x
-(!!) (x:xs) n = (!!) xs (n - 1)
-  \end{lstlisting}
-
-  \pause
-  \begin{itemize}
-    \item use the infix operator notation:
-  \end{itemize}
-
-  \begin{lstlisting}
-(!!) :: [a] -> Int -> a
-[]     !! _ = error "no such element"
-(x:xs) !! 0 = x
-(x:xs) !! n = xs !! (n - 1)
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example: Appending Lists}
-
-  \begin{lstlisting}
-(++) :: [a] -> [a] -> [a]
-[]     ++ ys = ys
-(x:xs) ++ ys = x : (xs ++ ys)
   \end{lstlisting}
 \end{frame}
 
@@ -833,6 +770,80 @@ fastFib n = fst (fibPair n)
 \section{Lists}
 
 \subsection{Basic Functions}
+
+\begin{frame}[fragile]
+  \frametitle{List Operators}
+  
+  \begin{itemize}
+    \item index: \lstinline|!!|
+    \item append: \lstinline|++|
+  \end{itemize}
+  
+  \pause
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+    -- [1, 2, 3] !! 0       ~> 1
+    -- [1, 2, 3] !! 2       ~> 3
+    -- [1, 2, 3] !! 3       ~> error
+    
+    -- [1, 2, 3] ++ [4, 5]  ~> [1, 2, 3, 4, 5]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Indexing Lists}
+  
+  \begin{lstlisting}
+  (!!) :: [a] -> Int -> a
+  (!!) []     _ = error "no such element"
+  (!!) (x:xs) 0 = x
+  (!!) (x:xs) n = (!!) xs (n - 1)
+  \end{lstlisting}
+  
+  \pause
+  \begin{itemize}
+    \item use the infix operator notation:
+  \end{itemize}
+  
+  \begin{lstlisting}
+  (!!) :: [a] -> Int -> a
+  []     !! _ = error "no such element"
+  (x:xs) !! 0 = x
+  (x:xs) !! n = xs !! (n - 1)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Appending Lists}
+  
+  \begin{lstlisting}
+  (++) :: [a] -> [a] -> [a]
+  []     ++ ys = ys
+  (x:xs) ++ ys = x : (xs ++ ys)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ranges}
+  
+  \begin{itemize}
+    \item \lstinline|[n .. m]|: range with increment 1
+    \item \lstinline|[n, p .. m]|: range with increment \texttt{p - n}
+  \end{itemize}
+  
+  \begin{exampleblock}{examples}
+    \begin{lstlisting}
+    [2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
+    [3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
+    ['a' .. 'm']      ~> "abcdefghijklm"
+    
+    [7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
+    [0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
+    ['a', 'c' .. 'n'] ~> "acegikm"
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Membership Check}
