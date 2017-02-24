@@ -155,11 +155,11 @@ gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
 
--- gcd   9702  945
+-- gcd 9702 945
     \end{lstlisting}
 
     \medskip
-    \hline
+    \hrulefill
     \medskip
 
     \begin{lstlisting}
@@ -190,15 +190,15 @@ simplify f = (n `div` g, d `div` g)
 
 \begin{frame}[fragile]
   \frametitle{Type Synonyms}
-  
+
   \begin{itemize}
     \item type synonym: giving an existing type a new name
     \smallskip
     \begin{lstlisting}
-type NewName = OldName
+type NewName = ExistingType
     \end{lstlisting}
   \end{itemize}
-  
+
   \pause
   \begin{exampleblock}{example}
     \begin{lstlisting}
@@ -212,7 +212,7 @@ t = (2.4, 2)
 
 \begin{frame}[fragile]
   \frametitle{Example: Type Synonyms}
-  
+
   \begin{lstlisting}
 type Fraction = (Integer, Integer)
 
@@ -232,7 +232,7 @@ x = (21, 14)
 
 \begin{frame}[fragile]
   \frametitle{Example: Type Synonyms}
-  
+
   \begin{lstlisting}
 type DayInYear = (Integer, Integer)
 
@@ -274,7 +274,7 @@ p2 :: [Float]
 p2 = [2.4, 1.8, -4.6]
 
 -- any degree polynomial, sparse terms
-p3 :: [(Float, Integer)]
+p3 :: [(Float, Integer)] -- OR: p3 :: [Term]
 p3 = [(72.3, 9558), (-4.6, 3)]
     \end{lstlisting}
   \end{exampleblock}
@@ -325,7 +325,7 @@ tail :: [a] -> [a]
   \begin{itemize}
     \item list construction:\\
       \lstinline|item : sublist|
-    \item associates to the right
+    \item associates from the right
   \end{itemize}
 
   \pause
@@ -592,6 +592,38 @@ firstPlusThird xs = case xs of
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{List Pattern Examples}
+
+  \begin{exampleblock}{check whether a list is in nondecreasing order}
+    \begin{lstlisting}
+nondecreasing :: [Integer] -> Bool
+nondecreasing xs = case xs of
+  []       -> True
+  [_]      -> True
+  x1:x2:xs -> x1 <= x2 && nondecreasing (x2 : xs)
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{itemize}
+    \item reconstructing not necessary: \lstinline|@|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{List Pattern Examples}
+
+  \begin{exampleblock}{check whether list is in nondecreasing order}
+    \begin{lstlisting}
+nondecreasing :: [Integer] -> Bool
+nondecreasing xs = case xs of
+  []           -> True
+  [_]          -> True
+  x1:xs@(x2:_) -> x1 <= x2 && nondecreasing xs
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \begin{frame}
   \frametitle{Algebraic Type Patterns}
 
@@ -770,10 +802,6 @@ birthYear (Person _ y) = y
 \begin{frame}[fragile]
   \frametitle{Example: Quadrants}
 
-  \begin{itemize}
-    \item when to use \lstinline|case|?
-  \end{itemize}
-
   \begin{lstlisting}
 quadrant :: Coords -> Integer
 quadrant (x, y) = case (x>=0, y>=0) of
@@ -806,74 +834,74 @@ fastFib n = fst (fibPair n)
 
 \begin{frame}[fragile]
   \frametitle{List Operators}
-  
+
   \begin{itemize}
     \item index: \lstinline|!!|
     \item append: \lstinline|++|
   \end{itemize}
-  
+
   \pause
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-    -- [1, 2, 3] !! 0       ~> 1
-    -- [1, 2, 3] !! 2       ~> 3
-    -- [1, 2, 3] !! 3       ~> error
-    
-    -- [1, 2, 3] ++ [4, 5]  ~> [1, 2, 3, 4, 5]
+-- [1, 2, 3] !! 0       ~> 1
+-- [1, 2, 3] !! 2       ~> 3
+-- [1, 2, 3] !! 3       ~> error
+
+-- [1, 2, 3] ++ [4, 5]  ~> [1, 2, 3, 4, 5]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Indexing Lists}
-  
+
   \begin{lstlisting}
-  (!!) :: [a] -> Int -> a
-  (!!) []     _ = error "no such element"
-  (!!) (x:xs) 0 = x
-  (!!) (x:xs) n = (!!) xs (n - 1)
+(!!) :: [a] -> Int -> a
+(!!) []     _ = error "no such element"
+(!!) (x:xs) 0 = x
+(!!) (x:xs) n = (!!) xs (n - 1)
   \end{lstlisting}
-  
+
   \pause
   \begin{itemize}
     \item use the infix operator notation:
   \end{itemize}
-  
+
   \begin{lstlisting}
-  (!!) :: [a] -> Int -> a
-  []     !! _ = error "no such element"
-  (x:xs) !! 0 = x
-  (x:xs) !! n = xs !! (n - 1)
+(!!) :: [a] -> Int -> a
+[]     !! _ = error "no such element"
+(x:xs) !! 0 = x
+(x:xs) !! n = xs !! (n - 1)
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Example: Appending Lists}
-  
+
   \begin{lstlisting}
-  (++) :: [a] -> [a] -> [a]
-  []     ++ ys = ys
-  (x:xs) ++ ys = x : (xs ++ ys)
+(++) :: [a] -> [a] -> [a]
+[]     ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Ranges}
-  
+
   \begin{itemize}
     \item \lstinline|[n .. m]|: range with increment 1
     \item \lstinline|[n, p .. m]|: range with increment \texttt{p - n}
   \end{itemize}
-  
+
   \begin{exampleblock}{examples}
     \begin{lstlisting}
-    [2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
-    [3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
-    ['a' .. 'm']      ~> "abcdefghijklm"
-    
-    [7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
-    [0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
-    ['a', 'c' .. 'n'] ~> "acegikm"
+[2 .. 7]          ~> [2, 3, 4, 5, 6, 7]
+[3.1 .. 7.0]      ~> [3.1, 4.1, 5.1, 6.1, 7.1]
+['a' .. 'm']      ~> "abcdefghijklm"
+
+[7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
+[0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
+['a', 'c' .. 'n'] ~> "acegikm"
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -1072,10 +1100,6 @@ merge (x:xs) (y:ys)
   | otherwise = y : merge (x : xs) ys
     \end{lstlisting}
   \end{exampleblock}
-
-  \begin{itemize}
-    \item reconstructing original lists not necessary: \lstinline|@|
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1091,11 +1115,6 @@ merge xs@(x':xs') ys@(y':ys')
   | otherwise = y' : merge xs  ys'
     \end{lstlisting}
   \end{exampleblock}
-
-  \pause
-  \begin{itemize}
-    \item exercise: check whether an integer list is in non-decreasing order
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
