@@ -797,6 +797,43 @@ birthYear (Person _ y) = y
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Record Types}
+
+  \begin{itemize}
+    \item give names to fields
+    \item automatically creates functions to extract components
+
+    \medskip
+    \begin{lstlisting}[style=syntax]
+data T = C1 { n11 :: t11,
+              n12 :: t12,
+              ...,
+              n1m :: t1m }
+       | ...
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Record Examples}
+
+  \begin{exampleblock}{example}
+    \begin{lstlisting}
+data PersonR = PersonR { fullname :: String,
+                         born :: Integer }
+               deriving Show
+
+church :: PersonR
+church = PersonR "Alonzo Church" 1903
+church = PersonR { born=1903, fullname="Alonzo Church" }
+
+-- fullname church ~> "Alonzo Church"
+-- born church     ~> 1903
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \subsection{Examples}
 
 \begin{frame}[fragile]
@@ -830,7 +867,7 @@ fastFib n = fst (fibPair n)
 
 \section{Lists}
 
-\subsection{Basic Functions}
+\subsection{List Expressions}
 
 \begin{frame}[fragile]
   \frametitle{List Operators}
@@ -905,6 +942,8 @@ fastFib n = fst (fibPair n)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
+
+\subsection{Standard Functions}
 
 \begin{frame}[fragile]
   \frametitle{Membership Check}
@@ -1014,8 +1053,6 @@ concat (xs:xss) = xs ++ concat xss
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
-
-\subsection{Zip}
 
 \begin{frame}[fragile]
   \frametitle{Zip}
