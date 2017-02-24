@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2017 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -32,7 +32,7 @@
 \subtitle{Pattern Matching}
 
 \author{H. Turgut Uyar}
-\date{2013-2016}
+\date{2013-2017}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -55,7 +55,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2016 H. Turgut Uyar
+  \copyright~2013-2017 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -210,9 +210,9 @@ p1 = (2.4, 1.8, -4.6)
 p2 :: [Float]
 p2 = [2.4, 1.8, -4.6]
 
--- any degree polynomial, coefficients unordered
+-- any degree polynomial, few terms
 p3 :: [(Float, Integer)]
-p3 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
+p3 = [(1.8, 9558), (-4.6, 3)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -224,7 +224,7 @@ p3 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
     \item type synonym: giving an existing type a new name
     \smallskip
     \begin{lstlisting}
-type newName = oldName
+type NewName = OldName
     \end{lstlisting}
   \end{itemize}
 
@@ -235,7 +235,7 @@ type Term = (Float, Integer)
 type Polynomial = [Term]
 
 p4 :: Polynomial
-p4 = [(1.8, 1), (-4.6, 0), (2.4, 2)]
+p4 = [(1.8, 9558), (-4.6, 3)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
