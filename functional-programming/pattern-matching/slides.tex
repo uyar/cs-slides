@@ -263,19 +263,24 @@ n = [e1, e2, ..., en]
 \begin{frame}[fragile]
   \frametitle{List Example}
 
-  \begin{exampleblock}{representing a polynomial: $2.4x^2 + 1.8x - 4.6$}
+  \begin{exampleblock}{second degree polynomial: $2.4x^2 + 1.8x - 4.6$}
     \begin{lstlisting}
--- second degree polynomial
 p1 :: (Float, Float, Float)
-p1 = (2.4, 1.8, -4.6)
+p1 = (-4.6, 1.8, 2.4)
+    \end{lstlisting}
+  \end{exampleblock}
 
--- any degree polynomial, coefficients ordered
+  \begin{exampleblock}{any degree polynomial: $3.4x^3 - 7.1x + 0.5$}
+    \begin{lstlisting}
 p2 :: [Float]
-p2 = [2.4, 1.8, -4.6]
+p2 = [0.5, -7.1, 0.0, 3.4]
+    \end{lstlisting}
+  \end{exampleblock}
 
--- any degree polynomial, sparse terms
-p3 :: [(Float, Integer)] -- OR: p3 :: [Term]
-p3 = [(72.3, 9558), (-4.6, 3)]
+  \begin{exampleblock}{sparse terms: $72.3x^{9558} - 5.0x^3$}
+    \begin{lstlisting}
+p3 :: [Term]
+p3 = [(-5.0, 3), (72.3, 9558)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
