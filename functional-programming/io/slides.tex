@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2017 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Input/Output}
 
 \author{H. Turgut Uyar}
-\date{2013-2016}
+\date{2013-2017}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2016 H. Turgut Uyar
+  \copyright~2013-2017 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -343,10 +343,10 @@ copyUntilEmpty = do line <- getLine
 data Move = Rock | Paper | Scissors
             deriving Show
 
-type Round = (Move, Move)
+type Match = ([Move], [Move])
 
-type Match = [Round]
--- ex: [(Rock, Scissors), (Rock, Paper), (Paper, Rock)]
+-- moves in reverse order
+-- ex: ([Rock, Rock, Paper], [Scissors, Paper, Rock])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -356,11 +356,11 @@ type Match = [Round]
 
   \begin{exampleblock}{outcome of one round}
     \begin{itemize}
-      \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tied $\mapsto$ 0
+      \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tie $\mapsto$ 0
     \end{itemize}
     \begin{lstlisting}
-outcome :: Round -> Integer
-outcome r = case r of
+outcome :: Move -> Move -> Integer
+outcome mA mB = case (mA, mB) of
     (Rock,     Scissors) ->  1
     (Scissors, Rock)     -> -1
     (Paper,    Rock)     ->  1
@@ -375,7 +375,7 @@ outcome r = case r of
   \vspace{-12pt}
   \begin{itemize}
     \item exercise: determine the outcome of a match\\
-      \lstinline|matchOutcome [(Rock, Paper), (Paper, Scissors)] ~> -2|
+      \lstinline|matchOutcome ([Rock, Paper], [Paper, Scissors]) ~> -2|
   \end{itemize}
 \end{frame}
 
@@ -384,8 +384,8 @@ outcome r = case r of
 
   \begin{exampleblock}{convert a round in the game to string}
     \begin{lstlisting}
-showRound :: Round -> String
-showRound (mA, mB) = "A plays: " ++ show mA
+showRound :: Move -> Move -> String
+showRound mA mB = "A plays: " ++ show mA
     ++ ", B plays: " ++ show mB
     \end{lstlisting}
   \end{exampleblock}
@@ -394,11 +394,11 @@ showRound (mA, mB) = "A plays: " ++ show mA
   \vspace{-12pt}
   \begin{itemize}
     \item exercise: convert match result to string\\
-      \lstinline|showResult [(Rock, Paper), (Paper, Scissors)]|\\
+      \lstinline|showResult ([Rock, Paper], [Paper, Scissors])|\\
       \lstinline|    ~> "Player B wins by 2"|
 
       \smallskip
-      \lstinline|showResult [(Rock, Paper), (Paper, Rock)]|\\
+      \lstinline|showResult ([Rock, Paper], [Paper, Rock])|\\
       \lstinline|    ~> "It's a tie"|
   \end{itemize}
 \end{frame}
@@ -442,7 +442,6 @@ cycle ms = case (length ms) `mod` 3 of
 
   \begin{exampleblock}{play whatever opponent played last}
     \begin{lstlisting}
--- moves kept in reverse order
 echo :: [Move] -> Move
 echo []         = Rock
 echo (latest:_) = latest
@@ -456,8 +455,8 @@ echo (latest:_) = latest
   \frametitle{Interactive Play}
 
   \begin{itemize}
-    \item player A: computer, plays echo
-    \item player B: human
+    \item player A: human
+    \item player B: computer, plays echo
   \end{itemize}
 
   \begin{exampleblock}{convert a character into a move}
@@ -477,19 +476,18 @@ convertMove c
 
   \begin{lstlisting}
 playRound :: Match -> IO ()
-playRound rs = do
+playRound match@(movesA, movesB) = do
     ch <- getChar
     putStrLn ""
     if ch == '.'
-        then putStrLn (showResult rs)
-        else do let (movesA, movesB) = unzip rs
-                let moveA = echo movesB
-                let moveB = convertMove ch
-                putStrLn (showRound (moveA, moveB))
-                playRound ((moveA, moveB) : rs)
+       then putStrLn (showResult match)
+       else do let moveA = convertMove ch
+               let moveB = echo movesA
+               putStrLn (showRound moveA moveB)
+               playRound (moveA : movesA, moveB : movesB)
 
 playInteractive :: IO ()
-playInteractive = play []
+playInteractive = playRound ([], [])
   \end{lstlisting}
 \end{frame}
 
@@ -500,13 +498,12 @@ playInteractive = play []
       \lstinline[deletekeywords={cycle}]|cycle| versus \lstinline|echo|}
     \begin{lstlisting}[deletekeywords={cycle}]
 generateMatch :: Integer -> Match
-generateMatch 0 = []
+generateMatch 0 = ([], [])
 generateMatch n = step (generateMatch (n - 1))
   where
     step :: Match -> Match
-    step rs = (cycle movesB, echo movesA) : rs
-      where
-        (movesA, movesB) = unzip rs
+    step (movesA, movesB) =
+        (cycle movesB : movesA, echo movesA : movesB)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
