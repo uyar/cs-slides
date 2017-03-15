@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2016
+% Copyright (c) 2001-2017
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -28,7 +28,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2016}
+\date{2001-2017}
 
 \AtBeginSubsection[]
 {
@@ -52,7 +52,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2017 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -1219,7 +1219,7 @@
 \begin{frame}
   \frametitle{Modus Tollens}
 
-  \begin{block}{Modus Tollens (MT)}
+  \begin{block}{Modus Tollens (ImpER)}
     \[
     \frac
       {
@@ -1269,7 +1269,7 @@
     \begin{eqnarray*}
       1. & p \rightarrow q           & A\\
       \pause
-      2. & \neg q \rightarrow \neg p & EQ: 1\\
+      2. & \neg q \rightarrow \neg p & EQV: 1\\
       \pause
       3. & \neg q                    & A\\
       \pause
@@ -1408,21 +1408,21 @@
     \pause
     \column{.65\textwidth}
     \begin{eqnarray*}
-      1. & p                         & PA\\
+      1. & p               & PA\\
       \pause
-      2. & p \rightarrow q           & A\\
+      2. & p \rightarrow q & A\\
       \pause
-      3. & q                         & ImpE:2,1\\
+      3. & q               & ImpE:2,1\\
       \pause
-      4. & \neg q                    & A\\
+      4. & \neg q          & A\\
       \pause
-      5. & q \rightarrow F           & EQ:4\\
+      5. & q \rightarrow F & EQV:4\\
       \pause
-      6. & F                         & ImpE:5,3\\
+      6. & F               & ImpE:5,3\\
       \pause
-      7. & p \rightarrow F           & ImpI:1,6\\
+      7. & p \rightarrow F & ImpI:1,6\\
       \pause
-      8. & \neg p                    & EQ:7\\
+      8. & \neg p          & EQV:7\\
     \end{eqnarray*}
   \end{columns}
 \end{frame}
@@ -1454,7 +1454,7 @@
 \begin{frame}
   \frametitle{Disjunctive Syllogism}
 
-  \begin{block}{Disjunctive Syllogism (DS)}
+  \begin{block}{Disjunctive Syllogism (DisSyl)}
     \[
     \frac
       {
@@ -1523,7 +1523,7 @@
       \pause
       2.   & \neg p          & A\\
       \pause
-      3.   & p \rightarrow F & EQ:2\\
+      3.   & p \rightarrow F & EQV:2\\
       \pause
       4a1. & p               & PA\\
       \pause
@@ -1545,7 +1545,7 @@
 
   \begin{columns}
     \column{.5\textwidth}
-    \begin{block}{Hypothetical Syllogism (HS)}
+    \begin{block}{Hypothetical Syllogism (HypSyl)}
       \[
       \frac
         {
@@ -1624,11 +1624,11 @@
       \pause
       2. & q \rightarrow r & A\\
       \pause
-      3. & p \rightarrow r & HS:1,2\\
+      3. & p \rightarrow r & HypSyl:1,2\\
       \pause
       4. & r \rightarrow s & A\\
       \pause
-      5. & p \rightarrow s & HS:3,4\\
+      5. & p \rightarrow s & HypSyl:3,4\\
       \pause
       6. & p               & A\\
       \pause
@@ -1637,51 +1637,51 @@
   \end{columns}
 \end{frame}
 
-% \begin{frame}
-%   \frametitle{Dilemma}
-%
-%   \begin{columns}[t]
-%     \column{.5\textwidth}
-%     \begin{block}{Constructive Dilemma}
-%       \[
-%       \frac
-%         {
-%           \begin{array}{c}
-%             p \rightarrow q\\
-%             r \rightarrow s\\
-%             p \vee r
-%           \end{array}}
-%         {
-%           \therefore q \vee s
-%         }
-%       \]
-%     \end{block}
-%
-%     \pause
-%     \column{.5\textwidth}
-%     \begin{block}{Destructive Dilemma}
-%       \[
-%       \frac
-%         {
-%           \begin{array}{c}
-%             p \rightarrow q\\
-%             r \rightarrow s\\
-%             \neg q \vee \neg s
-%           \end{array}
-%           }
-%           {
-%             \therefore \neg p \vee \neg r
-%           }
-%       \]
-%     \end{block}
-%   \end{columns}
-% \end{frame}
+\begin{frame}
+  \frametitle{Constructive Dilemma}
+
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \begin{block}{Constructive Dilemma}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            r \rightarrow s\\
+            p \vee r
+          \end{array}}
+        {
+          \therefore q \vee s
+        }
+      \]
+    \end{block}
+
+    \pause
+    \column{.5\textwidth}
+    \begin{block}{Destructive Dilemma}
+      \[
+      \frac
+        {
+          \begin{array}{c}
+            p \rightarrow q\\
+            r \rightarrow s\\
+            \neg q \vee \neg s
+          \end{array}
+          }
+          {
+            \therefore \neg p \vee \neg r
+          }
+      \]
+    \end{block}
+  \end{columns}
+\end{frame}
 
 \begin{frame}
   \frametitle{Inference Examples}
 
   \begin{columns}[t]
-    \column{.25\textwidth}
+    \column{.2\textwidth}
     \[
     \frac
       {
@@ -1699,29 +1699,29 @@
     \]
 
     \pause
-    \column{.3\textwidth}
+    \column{.4\textwidth}
     \begin{eqnarray*}
       1. & \neg u          & A\\
       \pause
       2. & u \vee \neg x   & A\\
       \pause
-      3. & \neg x          & DS:2,1\\
+      3. & \neg x          & DisSyl:2,1\\
       \pause
       4. & x \vee \neg s   & A\\
       \pause
-      5. & \neg s          & DS:4,3\\
+      5. & \neg s          & DisSyl:4,3\\
     \end{eqnarray*}
 
     \pause
-    \column{.45\textwidth}
+    \column{.4\textwidth}
     \begin{eqnarray*}
       6. & r \rightarrow s & A\\
       \pause
-      7. & \neg r          & MT:6,5\\
+      7. & \neg r          & ImpER:6,5\\
       \pause
       8. & p \rightarrow r & A\\
       \pause
-      9. & \neg p          & MT:8,7\\
+      9. & \neg p          & ImpER:8,7\\
     \end{eqnarray*}
   \end{columns}
 \end{frame}
@@ -1745,17 +1745,17 @@
 
   \pause
   \begin{columns}[t]
-    \column{.3\textwidth}
+    \column{.35\textwidth}
     \begin{eqnarray*}
       1. & \neg x                                        & A\\
       \pause
       2. & r \rightarrow x                               & A\\
       \pause
-      3. & \neg r                                        & MT:2,1\\
+      3. & \neg r                                        & ImpER:2,1\\
       \pause
       4. & \neg r \vee \neg s                            & OrI:3\\
       \pause
-      5. & \neg (r \wedge s)                             & DM:4
+      5. & \neg (r \wedge s)                             & EQV:4
     \end{eqnarray*}
 
     \pause
@@ -1763,9 +1763,9 @@
     \begin{eqnarray*}
       6. & (\neg p \vee \neg q) \rightarrow (r \wedge s) & A\\
       \pause
-      7. & \neg (\neg p \vee \neg q)                     & MT:6,5\\
+      7. & \neg (\neg p \vee \neg q)                     & ImpER:6,5\\
       \pause
-      8. & p \wedge q                                    & DM:7\\
+      8. & p \wedge q                                    & EQV:7\\
       \pause
       9. & p                                             & AndE:8
     \end{eqnarray*}
@@ -1800,21 +1800,23 @@
       \pause
       2. & q \rightarrow \neg p     & A\\
       \pause
-      3. & \neg q                   & MT:2,1\\
+      3. & \neg q                   & ImpER:2,1\\
       \pause
-      4. & s                        & A\\
+      4. & q \rightarrow F          & EQV: 3\\
       \pause
-      5. & s \rightarrow \neg r     & A\\
+      5. & s                        & A\\
       \pause
-      6. & \neg r                   & ImpE:5,4\\
+      6. & s \rightarrow \neg r     & A\\
       \pause
-      7. & p \rightarrow (q \vee r) & A\\
+      7. & \neg r                   & ImpE:6,5\\
       \pause
-      8. & q \vee r                 & ImpE:7,1\\
+      8. & p \rightarrow (q \vee r) & A\\
       \pause
-      9. & q                        & DS:8,6\\
+      9. & q \vee r                 & ImpE:8,1\\
       \pause
-      10. & q \wedge \neg q : F     & AndI:9,3
+      10. & q                       & DisSyl:9,7\\
+      \pause
+      11. & F                       & ImpE:4,10
     \end{eqnarray*}
   \end{columns}
 \end{frame}
@@ -1860,23 +1862,23 @@
     \pause
     \column{.65\textwidth}
     \begin{eqnarray*}
-      1. & s \wedge \neg q                & A\\
+      1. & s \wedge \neg q               & A\\
       \pause
-      2. & s                              & AndE:1\\
+      2. & s                             & AndE:1\\
       \pause
-      3. & s \rightarrow \neg p           & A\\
+      3. & s \rightarrow \neg p          & A\\
       \pause
-      4. & \neg p                         & ImpE:3,2\\
+      4. & \neg p                        & ImpE:3,2\\
       \pause
-      5. & \neg q                         & AndE:1\\
+      5. & \neg q                        & AndE:1\\
       \pause
-      6. & \neg p \wedge \neg q           & AndI:4,5\\
+      6. & \neg p \wedge \neg q          & AndI:4,5\\
       \pause
-      7. & \neg (p \vee q)                & DM:6\\
+      7. & \neg (p \vee q)               & EQV:6\\
       \pause
-      8. & (p \vee q) \rightarrow \neg r  & A\\
+      8. & (p \vee q) \rightarrow \neg r & A\\
       \pause
-      9. & ?                              & 7,8
+      9. & ?                             & 7,8
     \end{eqnarray*}
   \end{columns}
 \end{frame}
