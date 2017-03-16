@@ -1,4 +1,4 @@
-% Copyright (c) 2004-2016 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2004-2017 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -24,7 +24,7 @@
 \subtitle{Privacy}
 
 \author{H. Turgut Uyar}
-\date{2004-2016}
+\date{2004-2017}
 
 \AtBeginSubsection[]
 {
@@ -38,30 +38,29 @@
 
 \pgfdeclareimage[width=2cm]{license}{../license}
 
-\pgfdeclareimage[width=5.8cm]{schmidt1}{schmidt1}
-\pgfdeclareimage[width=5.8cm]{zuckerberg}{zuckerberg}
-\pgfdeclareimage[width=6.5cm]{pennsylvania}{pennsylvania}
-\pgfdeclareimage[width=5.8cm]{iphone}{iphone}
-\pgfdeclareimage[width=7.5cm]{rfid-immigrants}{rfid-immigrants}
-\pgfdeclareimage[height=6.5cm]{nsa-google}{nsa-google}
-\pgfdeclareimage[height=6.5cm]{nsa-prism}{nsa-prism}
+\pgfdeclareimage[width=8cm]{schmidt1}{schmidt1}
+\pgfdeclareimage[width=6.5cm]{zuckerberg}{zuckerberg}
 \pgfdeclareimage[width=6cm]{schneier}{schneier}
-\pgfdeclareimage[width=7cm]{schmidt2}{schmidt2}
-\pgfdeclareimage[width=7.2cm]{burglars}{burglars}
+\pgfdeclareimage[width=6.5cm]{pennsylvania}{pennsylvania}
+\pgfdeclareimage[width=6cm]{iphone}{iphone}
+\pgfdeclareimage[width=6cm]{rfid-immigrants}{rfid-immigrants}
+\pgfdeclareimage[height=6.5cm]{nsa-google}{nsa-google}
+\pgfdeclareimage[height=6cm]{nsa-prism}{nsa-prism}
+\pgfdeclareimage[width=5.8cm]{schmidt2}{schmidt2}
+\pgfdeclareimage[width=6.2cm]{burglars}{burglars}
 \pgfdeclareimage[width=5.3cm]{street-view}{street-view}
-\pgfdeclareimage[width=6.5cm]{oz}{oz}
+\pgfdeclareimage[width=6.2cm]{oz}{oz}
 \pgfdeclareimage[width=6.8cm]{zuckerberg-photos}{zuckerberg-photos}
-\pgfdeclareimage[width=7.5cm]{apple-celeb}{apple-celeb}
 \pgfdeclareimage[width=6.5cm]{playstation}{playstation}
+\pgfdeclareimage[width=5.8cm]{ashley-madison}{ashley-madison}
 \pgfdeclareimage[height=6.5cm]{redhack}{redhack}
-\pgfdeclareimage[width=7.5cm]{aol}{aol}
-\pgfdeclareimage[height=6.5cm]{brown}{brown}
-\pgfdeclareimage[width=6.8cm]{italy}{italy}
+\pgfdeclareimage[width=8cm]{aol}{aol}
+\pgfdeclareimage[width=6.5cm]{mernis}{mernis}
 \pgfdeclareimage[width=5.8cm]{bork}{bork}
-\pgfdeclareimage[width=6.2cm]{schaeffer}{schaeffer}
+\pgfdeclareimage[width=6cm]{schaeffer}{schaeffer}
 \pgfdeclareimage[width=6.5cm]{toysmart}{toysmart}
 \pgfdeclareimage[width=6.5cm]{myspace}{myspace}
-\pgfdeclareimage[width=6.2cm]{abacus}{abacus}
+\pgfdeclareimage[width=4cm]{abacus}{abacus}
 \pgfdeclareimage[width=6.2cm]{reddit}{reddit}
 \pgfdeclareimage[width=5cm]{flights}{flights}
 \pgfdeclareimage[width=6cm]{facebook-evolution}{facebook-evolution}
@@ -79,7 +78,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2004-2016 H. Turgut Uyar
+  \copyright~2004-2017 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -146,33 +145,30 @@
 \begin{frame}
   \frametitle{Nothing to Hide?}
 
-  \begin{columns}
-    \column{.46\textwidth}
+  \begin{center}
     \pgfuseimage{schmidt1}
+  \end{center}
 
-    \column{.54\textwidth}
-    \begin{itemize}
-      \item Eric Schmidt (Google - 2009):\\
-        \smallskip
-        ``If you have something that\\
-          you don't want anyone to know,\\
-          maybe you shouldn't be doing it\\
-          in the first place.''
-    \end{itemize}
-  \end{columns}
+  \begin{itemize}
+    \item Eric Schmidt (Google - 2009):\\
+    \smallskip
+    ``If you have something that you don't want anyone to know,\\
+    maybe you shouldn't be doing it in the first place.''
+  \end{itemize}
 
   \medskip
-  \tiny{\url{http://www.pcworld.com/article/184446/googles_schmidt_roasted_for_privacy_comments.html}}\\
+  \tiny{\url{https://www.eff.org/deeplinks/2009/12/google-ceo-eric-schmidt-dismisses-privacy}}\\
+  \tiny{\url{https://wiki.dandascalescu.com/summaries/why_privacy_matters_even_if_you_have_nothing_to_hide}}\\
 \end{frame}
 
 \begin{frame}
   \frametitle{Social Norm?}
 
   \begin{columns}
-    \column{.46\textwidth}
+    \column{.55\textwidth}
     \pgfuseimage{zuckerberg}
 
-    \column{.54\textwidth}
+    \column{.45\textwidth}
     \begin{itemize}
       \item Mark Zuckerberg\\
         (Facebook - 2010):\\
@@ -185,9 +181,32 @@
   \medskip
   \tiny{\url{http://www.telegraph.co.uk/technology/facebook/6966628/Facebooks-Mark-Zuckerberg-says-privacy-is-no-longer-a-social-norm.html}}\\
   \smallskip
-  \tiny{\url{http://www.theregister.co.uk/2007/12/03/zuckerberg_files/}}\\
+  \tiny{\url{https://www.theregister.co.uk/2007/12/03/zuckerberg_files/}}\\
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Social Networks}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \pgfuseimage{schneier}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item Bruce Schneier (2010):\\
+      \smallskip
+      ``Don't make the mistake of thinking you're Facebook's customer,
+      you're not\\
+      -- you're the product.\\
+      \smallskip
+      Its customers are the advertisers.''
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{https://www.theregister.co.uk/2010/10/12/schneier_rsa_keynote_facebook/}}\\
+\end{frame}
 
 \begin{frame}
   \frametitle{Privacy Value}
@@ -244,27 +263,26 @@
   \frametitle{Surveillance Example}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.52\textwidth}
     \pgfuseimage{iphone}
 
-    \column{.5\textwidth}
+    \column{.48\textwidth}
     \begin{itemize}
-      \item Apple devices secretly\\
-        report their location (2011)
+      \item Apple devices secretly record\\
+        and report location (2011)
     \end{itemize}
   \end{columns}
 
   \medskip
   \tiny{\url{http://edition.cnn.com/2011/TECH/mobile/04/20/iphone.tracking/index.html?hpt=T1}}\\
-  \smallskip
-  \tiny{\url{http://news.cnet.com/8301-31921_3-20057329-281.html}}\\
+  \tiny{\url{https://www.cnet.com/news/microsoft-collects-locations-of-windows-phone-users/}}\\
 \end{frame}
 
 \begin{frame}
   \frametitle{RFID}
 
   \begin{columns}
-    \column{.3\textwidth}
+    \column{.45\textwidth}
     \begin{itemize}
       \item inventory
       \item livestock
@@ -277,7 +295,7 @@
       \item immigrants
     \end{itemize}
 
-    \column{.7\textwidth}
+    \column{.55\textwidth}
     \pgfuseimage{rfid-immigrants}
   \end{columns}
 
@@ -320,8 +338,8 @@
 
     \column{.5\textwidth}
     \begin{itemize}
-      \item NSA uses Google's\\
-        cookies for tracking (2013)
+      \item NSA uses Google's cookies\\
+        to track targets (2013)
     \end{itemize}
   \end{columns}
 
@@ -333,19 +351,18 @@
   \frametitle{Surveillance Example}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \pgfuseimage{nsa-prism}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
-      \item NSA Prism program\\
-        collects massive amount of\\
+      \item NSA collects massive amount of\\
         communication data (2013)
     \end{itemize}
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theguardian.com/world/2013/jun/06/us-tech-giants-nsa-data}}\\
+  \tiny{\url{https://www.theguardian.com/world/2013/jun/06/us-tech-giants-nsa-data}}\\
 \end{frame}
 
 \section{Data Protection}
@@ -367,29 +384,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Social Networks}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \pgfuseimage{schneier}
-
-    \column{.5\textwidth}
-    \begin{itemize}
-      \item Bruce Schneier (2010):\\
-        \smallskip
-        ``Don't make the mistake of thinking you're Facebook's customer,
-        you're not\\
-        -- you're the product.\\
-        \smallskip
-        Its customers are the advertisers.''
-    \end{itemize}
-  \end{columns}
-
-  \medskip
-  \tiny{\url{http://www.information-age.com/channels/security-and-continuity/news/1290603/facebook-is-deliberately-killing-privacy-says-schneier.thtml}}\\
-\end{frame}
-
-\begin{frame}
   \frametitle{New Problems?}
 
   \begin{itemize}
@@ -404,27 +398,28 @@
   \frametitle{Persistence of Data}
 
   \begin{columns}
-    \column{.55\textwidth}
+    \column{.47\textwidth}
     \pgfuseimage{schmidt2}
 
-    \column{.45\textwidth}
+    \column{.53\textwidth}
     \begin{itemize}
       \item Eric Schmidt (2010):\\
         \smallskip
-        ``Many young people\\
-        will have to change\\
-        their names\\
+        ``Many young people will have to\\
+        change their names\\
         on reaching adulthood.''
+
+        \medskip
+        ``I don't believe society\\
+        understands what happens\\
+        when everything is available,\\
+        knowable and recorded\\
+        by everyone all the time.''
     \end{itemize}
   \end{columns}
 
-  \pause
   \medskip
-  ``I don't believe society understands what happens when everything is
-    available, knowable and recorded by everyone all the time.''
-
-  \medskip
-  \tiny{\url{http://www.wsj.com/articles/SB10001424052748704901104575423294099527212}}\\
+  \tiny{\url{http://www.telegraph.co.uk/technology/google/7951269/Young-will-have-to-change-names-to-escape-cyber-past-warns-Googles-Eric-Schmidt.html}}\\
 \end{frame}
 
 \begin{frame}
@@ -460,17 +455,20 @@
 \begin{frame}
   \frametitle{Social Network Data}
 
-  \begin{itemize}
-    \item burglars choose which houses to rob\\
-      by checking Facebook status reports (2010)
-  \end{itemize}
-
-  \begin{center}
+  \begin{columns}
+    \column{.5\textwidth}
     \pgfuseimage{burglars}
-  \end{center}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+    \item burglars choose\\
+      which houses to rob\\
+      by checking Facebook (2010)
+    \end{itemize}
+  \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theregister.co.uk/2010/09/13/social_network_burglary_gang/}}\\
+  \tiny{\url{https://www.theregister.co.uk/2010/09/13/social_network_burglary_gang/}}\\
 \end{frame}
 
 \begin{frame}
@@ -520,7 +518,7 @@
   \end{columns}
 
   \medskip
-  \tiny{\url{http://news.cnet.com/8301-31921_3-20082777-281/street-view-cars-grabbed-locations-of-phones-pcs/}}\\
+  \tiny{\url{https://www.cnet.com/news/street-view-cars-grabbed-locations-of-phones-pcs/}}\\
 \end{frame}
 
 \begin{frame}
@@ -553,7 +551,7 @@
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theregister.co.uk/2006/08/28/oz_id_database_misused/}}\\
+  \tiny{\url{https://www.theregister.co.uk/2006/08/28/oz_id_database_misused/}}\\
 \end{frame}
 
 \subsection{Securing Data}
@@ -563,7 +561,7 @@
 
   \begin{itemize}
     \item data can be exposed
-    \item security holes, errors, carelessness
+    \item security holes, errors, carelessness, leaks
 
     \bigskip
     \item data collectors must ensure security
@@ -579,27 +577,16 @@
 
     \column{.45\textwidth}
     \begin{itemize}
-      \item private photos leaked\\
+      \item private photos stolen\\
         from Facebook (2011)
+    \item celebrity photos stolen\\
+      from Apple iCloud (2014)
     \end{itemize}
   \end{columns}
 
   \medskip
   \tiny{\url{http://www.telegraph.co.uk/technology/facebook/8938725/Facebook-privacy-flaw-exposes-Mark-Zuckerberg-photos.html}}\\
-\end{frame}
-
-\begin{frame}
-  \frametitle{Data Theft Example}
-
-  \begin{itemize}
-    \item celebrity photos stolen from Apple iCloud (2014)
-  \end{itemize}
-
-  \begin{center}
-    \pgfuseimage{apple-celeb}
-  \end{center}
-
-  \medskip
+  \smallskip
   \tiny{\url{http://www.nbcnews.com/tech/security/fbi-apple-probing-alleged-nude-photo-hack-jennifer-lawrence-others-n193386}}\\
 \end{frame}
 
@@ -626,14 +613,31 @@
   \frametitle{Data Theft Example}
 
   \begin{columns}
+    \column{.5\textwidth}
+    \pgfuseimage{ashley-madison}
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item member data stolen from\\
+        extramarital affair site (2015)
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \tiny{\url{http://www.zdnet.com/article/ashley-madison-hack-a-savage-wake-up-call-which-is-only-the-beginning/}}\\
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Theft Example}
+
+  \begin{columns}
     \column{.47\textwidth}
     \pgfuseimage{redhack}
 
     \column{.53\textwidth}
     \begin{itemize}
       \item personal data and criminal tips\\
-        stolen from police computers\\
-        (2012)
+        stolen from police (2012)
     \end{itemize}
   \end{columns}
 
@@ -642,63 +646,35 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Data Loss Example}
-
-  \begin{columns}
-    \column{.4\textwidth}
-    \pgfuseimage{brown}
-
-    \column{.6\textwidth}
-    \begin{itemize}
-      \item Revenue \& Customs loses a CD\\
-        containing child benefit records\\
-        of 25 million citizens (2007)
-    \end{itemize}
-  \end{columns}
-
-  \medskip
-  \tiny{\url{http://www.guardian.co.uk/politics/2007/nov/21/economy.uk}}\\
-  \smallskip
-  \tiny{\url{http://news.bbc.co.uk/2/hi/entertainment/7174760.stm}}\\
-\end{frame}
-
-\begin{frame}
   \frametitle{Data Exposure Example}
 
-  \begin{columns}
-    \column{.6\textwidth}
+  \begin{center}
     \pgfuseimage{aol}
+  \end{center}
 
-    \column{.4\textwidth}
-    \begin{itemize}
-      \item AOL publishes\\
-        search records\\
-        of thousands of users\\
-        (2006)
-    \end{itemize}
-  \end{columns}
+  \begin{itemize}
+    \item AOL publishes search records of thousands of users (2006)
+  \end{itemize}
 
   \medskip
-  \tiny{\url{http://news.cnet.com/AOLs-disturbing-glimpse-into-users-lives/2100-1030_3-6103098.html}}\\
+  \tiny{\url{https://www.cnet.com/news/aols-disturbing-glimpse-into-users-lives/}}\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example: Italy tax records}
+  \frametitle{Data Leak Example}
 
   \begin{columns}
     \column{.55\textwidth}
-    \pgfuseimage{italy}
+    \pgfuseimage{mernis}
 
     \column{.45\textwidth}
     \begin{itemize}
-      \item Revenue Service publishes\\
-        tax details of all citizens\\
-        (2008)
+      \item most of Turkey citizen data leaked (2016)
     \end{itemize}
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theregister.co.uk/2008/05/01/italy_publishes_tax_details/}}\\
+  \tiny{\url{http://www.bbc.com/news/technology-35978216}}\\
 \end{frame}
 
 \subsection{Transferring Data}
@@ -734,31 +710,30 @@
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.theatlanticwire.com/technology/2011/07/why-robert-bork-indirectly-kept-netflix-facebook/40408/}}\\
+  \tiny{\url{https://www.theatlantic.com/technology/archive/2011/07/why-robert-bork-indirectly-kept-netflix-facebook/337291/}}\\
 \end{frame}
 
 \begin{frame}
   \frametitle{Data Transfer Example}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.48\textwidth}
     \pgfuseimage{schaeffer}
 
-    \column{.5\textwidth}
+    \column{.52\textwidth}
     \begin{itemize}
       \item movie actress murdered\\
-        in front of her house
+        at her house
       \item Dept. of Motor Vehicles sells\\
-        driving license data (1989)
+        driver's license data (1989)
 
       \medskip
-      \item \emph{Driver's Privacy\\
-        Protection Act}
+      \item \emph{Driver's Privacy Protection Act}
     \end{itemize}
   \end{columns}
 
   \medskip
-  \tiny{\url{http://investigation.discovery.com/investigation/hollywood-crimes/schaeffer/rebecca-schaeffer.html}}\\
+  \tiny{\url{http://www.history.com/this-day-in-history/sitcom-actress-murdered-death-prompts-anti-stalking-legislation}}\\
 \end{frame}
 
 \begin{frame}
@@ -781,7 +756,7 @@
   \end{columns}
 
   \medskip
-  \tiny{\url{http://www.wired.com/politics/law/news/2001/01/41102}}\\
+  \tiny{\url{https://www.ftc.gov/news-events/press-releases/2000/07/ftc-announces-settlement-bankrupt-website-toysmartcom-regarding}}\\
 \end{frame}
 
 \begin{frame}
@@ -801,17 +776,17 @@
   \end{columns}
 
   \medskip
-  \tiny{\url{https://www.readwriteweb.com/archives/myspace_bulk_data.php}}\\
+  \tiny{\url{http://www.pcworld.com/article/191716/myspace_selling_user_data.html}}\\
 \end{frame}
 
 \begin{frame}
   \frametitle{Data Merge Example}
 
   \begin{columns}
-    \column{.5\textwidth}
+    \column{.45\textwidth}
     \pgfuseimage{abacus}
 
-    \column{.5\textwidth}
+    \column{.55\textwidth}
     \begin{itemize}
       \item DoubleClick: advertising
       \item Abacus: customer habits
@@ -821,15 +796,14 @@
 
       \pause
       \medskip
-      \item Google buys DoubleClick\\
-        (2008)
+      \item Google buys DoubleClick (2008)
     \end{itemize}
   \end{columns}
 
   \medskip
-  \tiny{\url{http://news.cnet.com/news/0-1005-200-1562746.html}}\\
+  \tiny{\url{https://www.gsb.stanford.edu/faculty-research/case-studies/doubleclick-internet-privacy}}\\
   \smallskip
-  \tiny{\url{http://www.businessweek.com/magazine/content/11_12/b4220038620504.htm}}\\
+  \tiny{\url{https://www.engadget.com/2016/10/21/googles-redefined-privacy-policy-lets-ads-follow-you-everywhere/}}\\
 \end{frame}
 
 \section{Measures}
