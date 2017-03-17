@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2016 H. Turgut Uyar <uyar@itu.edu.tr>
+% Copyright (c) 2013-2017 H. Turgut Uyar <uyar@itu.edu.tr>
 %
 % This work is licensed under a "Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License".
@@ -31,7 +31,7 @@
 \subtitle{Higher-Order Functions}
 
 \author{H. Turgut Uyar}
-\date{2013-2016}
+\date{2013-2017}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2016 H. Turgut Uyar
+  \copyright~2013-2017 H. Turgut Uyar
 
   \vfill
   \begin{footnotesize}
@@ -197,12 +197,17 @@ sumFac a b = sumF fac a b
 
   \begin{exampleblock}{}
     \begin{itemize}
-      \item what is the type of \lstinline|sumF|?
-
+      \item what is the type of \lstinline|f|?
       \smallskip
       \begin{lstlisting}
-sumF :: (Integer -> Integer) -> Integer -> Integer
-        -> Integer
+Integer -> Integer
+      \end{lstlisting}
+
+      \pause
+      \item what is the type of \lstinline|sumF|?
+      \smallskip
+      \begin{lstlisting}
+(Integer -> Integer) -> Integer -> Integer -> Integer
       \end{lstlisting}
     \end{itemize}
   \end{exampleblock}
@@ -314,6 +319,29 @@ iSort (x:xs) = ins x (iSort xs)
   \begin{exampleblock}{parameterize \lstinline|iSort| regarding precedes
       function}
     \begin{lstlisting}
+ins' :: (Integer -> Integer -> Bool)
+          -> Integer -> [Integer] -> [Integer]
+ins' p n []          = [n]
+ins' p n xs@(x':xs')
+  | p n x'           = n : xs
+  | otherwise        = x' : ins' p n xs'
+
+iSort' :: (Integer -> Integer -> Bool)
+            -> [Integer] -> [Integer]
+iSort' p []     = []
+iSort' p (x:xs) = ins' p x (iSort' p xs)
+
+-- iSort' (<=) [4, 5, 3]       ~> [3, 4, 5]
+-- iSort' (>)  [4, 5, 3]       ~> [5, 4, 3]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example: Sorting}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
 ins' :: (a -> a -> Bool) -> a -> [a] -> [a]
 ins' p n []          = [n]
 ins' p n xs@(x':xs')
@@ -325,7 +353,6 @@ iSort' p []     = []
 iSort' p (x:xs) = ins' p x (iSort' p xs)
 
 -- iSort' (<=) [4, 5, 3]       ~> [3, 4, 5]
--- iSort' (>)  [4, 5, 3]       ~> [5, 4, 3]
 -- iSort' (<=) ["b", "a", "c"] ~> ["a", "b", "c"]
     \end{lstlisting}
   \end{exampleblock}
@@ -358,15 +385,13 @@ qsort(items, 3, sizeof(rational), compare_rationals);
     \begin{lstlisting}[language=C]
 int compare_rationals(const void *r1, const void *r2)
 {
-    int num1 = ((rational *) r1)->num;
-    int denom1 = ((rational *) r1)->denom;
-    int num2 = ((rational *) r2)->num;
-    int denom2 = ((rational *) r2)->denom;
+    const rational *x = r1, *y = r2;
+    int diff = x->num * y->denom - y->num * x->denom;
 
-    if (num1*denom2 > num2*denom1)
-        return 1;
-    else if (num1*denom2 < num2*denom1)
+    if (diff < 0)
         return -1;
+    else if (diff > 0)
+        return 1;
     else
         return 0;
 }
@@ -390,11 +415,11 @@ def second(p):
 def value(p):
     return p[0] / p[1]
 
-pairs = [(3, 2), (1, 3), (2, 1)]
+items = [(3, 2), (1, 3), (2, 1)]
 
-# sorted(pairs)             ~> [(1, 3), (2, 1), (3, 2)]
-# sorted(pairs, key=second) ~> [(2, 1), (3, 2), (1, 3)]
-# sorted(pairs, key=value)  ~> [(1, 3), (3, 2), (2, 1)]
+# sorted(items)             ~> [(1, 3), (2, 1), (3, 2)]
+# sorted(items, key=second) ~> [(2, 1), (3, 2), (1, 3)]
+# sorted(items, key=value)  ~> [(1, 3), (3, 2), (2, 1)]
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -442,7 +467,7 @@ def sum_sqr(a, b):
     \pause
     \bigskip
     \begin{lstlisting}[language=Python]
-sorted(pairs, key=lambda p: p[0] / p[1])
+sorted(items, key=lambda p: p[0] / p[1])
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -468,17 +493,17 @@ sorted(pairs, key=lambda p: p[0] / p[1])
 
   \begin{lstlisting}[deletekeywords={next}]
 fixedPoint :: (Float -> Float) -> Float -> Float
-fixedPoint f firstGuess = fpIter firstGuess
+fixedPoint f x0 = fpIter x0
   where
     fpIter :: Float -> Float
-    fpIter guess
-      | isCloseEnough guess next = next
-      | otherwise                = fpIter next
+    fpIter x
+      | isCloseEnough x x' = x'
+      | otherwise          = fpIter x'
       where
-        next = f guess
+        x' = f x
 
-    isCloseEnough :: Float -> Float -> Bool
-    isCloseEnough x y = (abs (x-y) / x) < 0.001
+isCloseEnough :: Float -> Float -> Bool
+isCloseEnough x x' = (abs (x' - x) / x) < 0.001
   \end{lstlisting}
 \end{frame}
 
@@ -499,9 +524,15 @@ sqrt x = fixedPoint (\y -> x / y) 1.0
   \end{exampleblock}
 
   \pause
-  \vspace{-6pt}
   \begin{itemize}
-    \item doesn't converge (try with $x=2$)
+    \item doesn't converge (try with $x=2.0$)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Square Roots}
+
+  \begin{itemize}
     \item average successive values (average damping)
   \end{itemize}
 
@@ -510,6 +541,12 @@ sqrt x = fixedPoint (\y -> x / y) 1.0
 sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
     \end{lstlisting}
   \end{exampleblock}
+
+  \pause
+  \begin{itemize}
+    \item exercise: implement average damping as a higher order function\\
+      and use it in sqrt implementation
+  \end{itemize}
 \end{frame}
 
 \section{List Functions}
