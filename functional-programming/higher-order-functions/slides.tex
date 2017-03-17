@@ -278,13 +278,12 @@ type Strategy = [Move] -> Move
 
 generateMatch :: Strategy -> Strategy -> Integer
                  -> Match
-generateMatch _  _  0 = []
+generateMatch _  _  0 = ([], [])
 generateMatch sA sB n = step (generateMatch sA sB (n - 1))
   where
     step :: Match -> Match
-    step rs = (sA movesB, sB movesA) : rs
-      where
-        (movesA, movesB) = unzip rs
+    step (movesA, movesB) = (sA movesB : movesA,
+                             sB movesA : movesB)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
