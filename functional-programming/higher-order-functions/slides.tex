@@ -787,9 +787,9 @@ foldr1 f (x:xs) = f x (foldr1 f xs)
   \begin{block}{}
     \begin{lstlisting}
 foldr1 f [e1, e2, ..., ej, ek]
-    = e1 `f` (e2 `f` (... (ej `f` ek)...)
-    = e1 `f` (foldr1 f [e2, ..., ej, ek])
     = f e1 (foldr1 f [e2, ..., ej, ek])
+    = e1 `f` (foldr1 f [e2, ..., ej, ek])
+    = e1 `f` (e2 `f` (... (ej `f` ek)...)
     \end{lstlisting}
   \end{block}
 \end{frame}
@@ -817,26 +817,13 @@ def sum(xs):
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Initial Value}
+  \frametitle{Fold with Initial Value}
 
   \begin{itemize}
     \item \lstinline|foldr1| doesn't work on empty lists
     \item add a parameter as initial value for empty list:
       \lstinline|foldr|
   \end{itemize}
-
-  \begin{block}{}
-    \begin{lstlisting}
-foldr f s [e1, e2, ..., ej, ek]
-    = e1 `f` (e2 `f` (... (ej `f` (ek `f` s))...)
-    = e1 `f` (foldr f s [e2, ..., ej, ek])
-    = f e1 (foldr f s [e2, ..., ej, ek])
-    \end{lstlisting}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fold with Initial Value}
 
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={foldr}]
@@ -848,9 +835,22 @@ foldr f s (x:xs) = f x (foldr f s xs)
     \medskip
     \begin{itemize}
       \item what is the type of \lstinline|foldr|?\\
-        \lstinline|foldr :: (a -> b -> b) -> b -> [a] -> b|
+      \lstinline|foldr :: (a -> b -> b) -> b -> [a] -> b|
     \end{itemize}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fold with Initial Value Expansion}
+
+  \begin{block}{}
+    \begin{lstlisting}
+foldr f s [e1, e2, ..., ej, ek]
+    = f e1 (foldr f s [e2, ..., ej, ek])
+    = e1 `f` (foldr f s [e2, ..., ej, ek])
+    = e1 `f` (e2 `f` (... (ej `f` (ek `f` s))...)
+    \end{lstlisting}
+  \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -983,7 +983,8 @@ foldl (/) 6.0 [3.0, 2.0, 4.0] ~> 0.25
   \begin{exampleblock}{transform a source string into a destination string}
     \begin{itemize}
       \item operations: copy, insert, delete, change
-      \item use the minimum number of operations
+      \item costs: copy 0, all others 1
+      \item find path with minimum cost
     \end{itemize}
 
     \begin{lstlisting}
@@ -1079,7 +1080,7 @@ cost xs = length (filter (\x -> x /= Copy) xs)
 
 [n % 2 == 0 for n in [2, 4, 7]]
 
-[2 * n for n in [2, 4, 7] if n % 2 == 0 and (n > 3)]
+[2 * n for n in [2, 4, 7] if (n % 2 == 0) and (n > 3)]
 
 [m + n for (m, n) in [(2, 3), (2, 1), (7, 8)]]
 
@@ -1117,6 +1118,32 @@ filter f xs = [x | x <- xs, f x]
   \begin{lstlisting}[deletekeywords={map}]
 map f xs = [f x | x <- xs]
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python Comprehensions}
+
+  \begin{itemize}
+    \item list comprehension: \lstinline[language=Python]|[x for ...]|
+    \begin{lstlisting}[language=Python]
+[x * x for x in [2, 4, 7, -2]]
+~> [4, 16, 49, 4]
+    \end{lstlisting}
+
+    \medskip
+    \item set comprehension: \lstinline[language=Python]|{x for ...}|
+    \begin{lstlisting}[language=Python]
+{x * x for x in [2, 4, 7, -2]}
+~> {4, 16, 49}
+    \end{lstlisting}
+
+    \medskip
+    \item dictionary comprehension: \lstinline[language=Python]|{k: v for ...}|
+    \begin{lstlisting}[language=Python]
+{s: len(s) for s in ['haskell', 'python', 'foo']}
+~> {'haskell': 7, 'python': 6, 'foo': 3}
+    \end{lstlisting}
+  \end{itemize}
 \end{frame}
 
 \section*{References}
