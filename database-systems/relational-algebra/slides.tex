@@ -2290,16 +2290,17 @@ SELECT ...
 
     \medskip
 \uncover<2->{
-\lstinline!SELECT PERSON.NAME FROM PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((CASTING.ACTORID = PERSON.ID)!\\
-~~~~~~~~~\lstinline!AND (CASTING.MOVIEID IN (!\\
+\lstinline!SELECT PERSON.NAME!\\
+~~~\lstinline!FROM PERSON JOIN CASTING!\\
+~~~~~~\lstinline!ON (CASTING.ACTORID = PERSON.ID)!\\
+~~~~\lstinline!WHERE (CASTING.MOVIEID IN (!\\
 }
 ~~~~~~~~~~~~~~~~~\lstinline!SELECT CASTING.MOVIEID!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((CASTING.ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (PERSON.NAME = 'Johnny Depp'))!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON JOIN CASTING!\\
+~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!ON (CASTING.ACTORID = PERSON.ID)!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE (PERSON.NAME = 'Johnny Depp'))!\\
 \uncover<2->{
-\lstinline!) ))!
+\lstinline!) )!
 }
   \end{itemize}
 \end{frame}
