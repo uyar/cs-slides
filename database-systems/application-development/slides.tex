@@ -1,4 +1,4 @@
-% Copyright (c) 2002-2015
+% Copyright (c) 2002-2017
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Şule Gündüz Öğüdücü <sgunduz@itu.edu.tr>
 %
@@ -17,7 +17,7 @@
 
 \usepackage{listings}
 \lstdefinelanguage{Python3}[]{Python}{
-  morekeywords={as, with}, deletekeywords={filter,format}
+  morekeywords={as, with}, deletekeywords={filter}
 }
 \lstdefinelanguage{FullSQL}[]{SQL}{
   morekeywords={BINARY, BOOLEAN, CYCLE, FINAL, INCREMENT, IS, LARGE, MAXVALUE,
@@ -38,7 +38,7 @@
 \subtitle{Application Development}
 
 \author{H. Turgut Uyar \and Şule Öğüdücü}
-\date{2002-2015}
+\date{2002-2017}
 
 \AtBeginSubsection[]{
   \begin{frame}<beamer>
@@ -63,7 +63,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2002-2015 T. Uyar, Ş. Öğüdücü
+  \copyright~2002-2017 T. Uyar, Ş. Öğüdücü
 
   \vfill
   \begin{footnotesize}
@@ -259,7 +259,7 @@ statement = """SELECT TITLE, SCORE FROM MOVIE
 cursor.execute(statement)
 for row in cursor:
     title, score = row
-    print('{}: {}'.format(title, score))
+    print('%(tt)s: %(sc)s' % {'tt': title, 'sc': score})
 cursor.close()
 connection.close()
   \end{lstlisting}
@@ -275,12 +275,12 @@ connection.close()
   \begin{lstlisting}
 for row in cursor:
     title, score = row
-    print('{}: {}'.format(title, score))
+    print('%(tt)s: %(sc)s' % {'tt': title, 'sc': score})
   \end{lstlisting}
 
   \begin{lstlisting}
 for title, score in cursor:
-    print('{}: {}'.format(title, score))
+    print('%(tt)s: %(sc)s' % {'tt': title, 'sc': score})
   \end{lstlisting}
 \end{frame}
 
@@ -297,7 +297,7 @@ statement = """SELECT TITLE, NAME
                    ON (MOVIE.DIRECTORID = PERSON.ID)"""
 cursor.execute(statement)
 for title, name in cursor:
-    print('{}: {}'.format(title, name))
+    print('%(tt)s: %(nm)s' % {'tt': title, 'nm': name})
   \end{lstlisting}
 \end{frame}
 
@@ -320,17 +320,14 @@ for title, name in cursor:
 
   \begin{lstlisting}
 try:
-    connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
     cursor.execute(statement)
     connection.commit()
     cursor.close()
 except dbapi2.DatabaseError:
-    if connection:
-        connection.rollback()
+    connection.rollback()
 finally:
-    if connection:
-        connection.close()
+    connection.close()
   \end{lstlisting}
 \end{frame}
 
@@ -473,9 +470,8 @@ cursor.execute(statement, (title, year))
     \item using dictionaries:
     \begin{lstlisting}
 statement = """INSERT INTO MOVIE (TITLE, YR)
-                 VALUES (%(title)s, %(year)s)"""
-cursor.execute(statement, {'year': year,
-                           'title': title})
+                 VALUES (%(title)s, %(yr)s)"""
+cursor.execute(statement, {'yr': year, 'title': title})
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -506,9 +502,9 @@ for person_id, name in people:
                     WHERE (DIRECTORID = %s)"""
     cursor.execute(statement, (person_id,))
     directed = cursor.fetchall()
-    print('{}:'.format(name))
+    print('%(nm)s:' % {'nm': name}))
     for (title,) in directed:
-        print('  {}'.format(title))
+        print('  %(tt)s' % {'tt': title})
   \end{lstlisting}
 \end{frame}
 
@@ -1095,17 +1091,17 @@ mapper(Movie, movie_table,
 
   \begin{lstlisting}
 for movie in session.query(Movie):
-    print('{}:'.format(movie.title))
+    print('%(tt)s' % {'tt': movie.title})
     for person in movie.cast:
-        print('  {}'.format(person.name))
+        print('  %(nm)s:' % {'nm': person.name})
   \end{lstlisting}
 
   \pause
   \begin{lstlisting}
 for person in session.query(Person):
-    print('{}:'.format(person.name))
+    print('%(nm)s:' % {'nm': person.name})
     for movie in person.acted:
-        print('  {}'.format(movie.title))
+        print('  %(tt)s' % {'tt': movie.title})
   \end{lstlisting}
 \end{frame}
 
