@@ -1792,10 +1792,10 @@ SELECT SUM(VOTES) FROM MOVIE
   \begin{itemize}
     \item name of the director of ``Star Wars''
     \begin{lstlisting}
-SELECT NAME
+SELECT PERSON.NAME
   FROM MOVIE, PERSON
-  WHERE ((DIRECTORID = PERSON.ID)
-     AND (TITLE = 'Star Wars'))
+  WHERE ((MOVIE.DIRECTORID = PERSON.ID)
+     AND (MOVIE.TITLE = 'Star Wars'))
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -1806,11 +1806,11 @@ SELECT NAME
   \begin{itemize}
     \item names of the actors in ``Alien''
      \begin{lstlisting}
-SELECT NAME
+SELECT PERSON.NAME
   FROM MOVIE, PERSON, CASTING
-  WHERE ((TITLE = 'Alien')
-     AND (MOVIEID = MOVIE.ID)
-     AND (ACTORID = PERSON.ID))
+  WHERE ((MOVIE.TITLE = 'Alien')
+     AND (CASTING.MOVIEID = MOVIE.ID)
+     AND (CASTING.ACTORID = PERSON.ID))
       \end{lstlisting}
     \end{itemize}
 \end{frame}
@@ -1821,11 +1821,11 @@ SELECT NAME
   \begin{itemize}
     \item titles of Harrison Ford's movies
     \begin{lstlisting}
-SELECT TITLE
+SELECT MOVIE.TITLE
   FROM MOVIE, PERSON, CASTING
-  WHERE ((NAME = 'Harrison Ford')
-     AND (MOVIEID = MOVIE.ID)
-     AND (ACTORID = PERSON.ID))
+  WHERE ((PERSON.NAME = 'Harrison Ford')
+     AND (CASTING.MOVIEID = MOVIE.ID)
+     AND (CASTING.ACTORID = PERSON.ID))
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -1836,12 +1836,12 @@ SELECT TITLE
   \begin{itemize}
     \item titles and names of the lead actors of the movies in 1962
     \begin{lstlisting}
-SELECT TITLE, NAME
+SELECT MOVIE.TITLE, PERSON.NAME
   FROM MOVIE, PERSON, CASTING
-  WHERE ((YR = 1962)
-     AND (MOVIEID = MOVIE.ID)
-     AND (ACTORID = PERSON.ID)
-     AND (ORD = 1))
+  WHERE ((MOVIE.YR = 1962)
+     AND (CASTING.MOVIEID = MOVIE.ID)
+     AND (CASTING.ACTORID = PERSON.ID)
+     AND (CASTING.ORD = 1))
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -1853,14 +1853,14 @@ SELECT TITLE, NAME
     \item number of movies John Travolta acted in every year
 
     \medskip
-\lstinline!SELECT! \uncover<4->{\lstinline!YR, COUNT(MOVIEID)!\\}
+\lstinline!SELECT! \uncover<4->{\lstinline!MOVIE.YR, COUNT(MOVIEID)!\\}
 ~~~~\lstinline!FROM MOVIE, PERSON, CASTING!\\
 \pause
-~~~~\lstinline!WHERE ((NAME = 'John Travolta')!\\
-~~~~~~~~~\lstinline!AND (MOVIEID = MOVIE.ID)!\\
-~~~~~~~~~\lstinline!AND (ACTORID = PERSON.ID))!\\
+~~~~\lstinline!WHERE ((PERSON.NAME = 'John Travolta')!\\
+~~~~~~~~~\lstinline!AND (CASTING.MOVIEID = MOVIE.ID)!\\
+~~~~~~~~~\lstinline!AND (CASTING.ACTORID = PERSON.ID))!\\
 \pause
-~~~~\lstinline!GROUP BY YR!
+~~~~\lstinline!GROUP BY MOVIE.YR!
   \end{itemize}
 \end{frame}
 
@@ -1872,13 +1872,13 @@ SELECT TITLE, NAME
       in descending order of actor counts
 
     \medskip
-\lstinline!SELECT! \uncover<4->{\lstinline!TITLE, COUNT(ACTORID)!}\\
+\lstinline!SELECT! \uncover<4->{\lstinline!MOVIE.TITLE, COUNT(CASTING.ACTORID)!}\\
 ~~~~\lstinline!FROM MOVIE, CASTING!\\
 \pause
-~~~~\lstinline!WHERE ((YR = 1978)!\\
+~~~~\lstinline!WHERE ((MOVIE.YR = 1978)!\\
 ~~~~~~~~~\lstinline!AND (MOVIE.ID = CASTING.MOVIEID))!\\
 \pause
-~~~~\lstinline!GROUP BY MOVIEID, TITLE!\\
+~~~~\lstinline!GROUP BY MOVIE.MOVIEID, MOVIE.TITLE!\\
 \pause\pause
 ~~~~\lstinline!ORDER BY 2 DESC!
   \end{itemize}
@@ -1934,18 +1934,18 @@ SELECT ...
   \begin{itemize}
     \item name of the director of ``Star Wars''
     \begin{lstlisting}
-SELECT NAME
+SELECT PERSON.NAME
   FROM MOVIE, PERSON
-  WHERE ((DIRECTORID = PERSON.ID)
-     AND (TITLE = 'Star Wars'))
+  WHERE ((MOVIE.DIRECTORID = PERSON.ID)
+     AND (MOVIE.TITLE = 'Star Wars'))
     \end{lstlisting}
 
     \pause
     \begin{lstlisting}
-SELECT NAME
+SELECT PERSON.NAME
   FROM MOVIE JOIN PERSON
-          ON (DIRECTORID = PERSON.ID)
-  WHERE (TITLE = 'Star Wars')
+          ON (MOVIE.DIRECTORID = PERSON.ID)
+  WHERE (MOVIE.TITLE = 'Star Wars')
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -2149,10 +2149,10 @@ NUM & NAME & NUM & VALUE \\\hline\hline
   \begin{itemize}
     \item titles of movies with no known actors
     \begin{lstlisting}
-SELECT TITLE
+SELECT MOVIE.TITLE
   FROM MOVIE LEFT JOIN CASTING
-         ON (MOVIEID = MOVIE.ID)
-  WHERE (ACTORID IS NULL)
+         ON (CASTING.MOVIEID = MOVIE.ID)
+  WHERE (CASTING.ACTORID IS NULL)
     \end{lstlisting}
   \end{itemize}
 \end{frame}
@@ -2290,14 +2290,14 @@ SELECT ...
 
     \medskip
 \uncover<2->{
-\lstinline!SELECT NAME FROM PERSON, CASTING!\\
-~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~\lstinline!AND (MOVIEID IN (!\\
+\lstinline!SELECT PERSON.NAME FROM PERSON, CASTING!\\
+~~~~\lstinline!WHERE ((CASTING.ACTORID = PERSON.ID)!\\
+~~~~~~~~~\lstinline!AND (CASTING.MOVIEID IN (!\\
 }
-~~~~~~~~~~~~~~~~~\lstinline!SELECT MOVIEID!\\
+~~~~~~~~~~~~~~~~~\lstinline!SELECT CASTING.MOVIEID!\\
 ~~~~~~~~~~~~~~~~~~~~~\lstinline!FROM PERSON, CASTING!\\
-~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((ACTORID = PERSON.ID)!\\
-~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (NAME = 'Johnny Depp'))!\\
+~~~~~~~~~~~~~~~~~~~~~\lstinline!WHERE ((CASTING.ACTORID = PERSON.ID)!\\
+~~~~~~~~~~~~~~~~~~~~~~~~~~\lstinline!AND (PERSON.NAME = 'Johnny Depp'))!\\
 \uncover<2->{
 \lstinline!) ))!
 }
