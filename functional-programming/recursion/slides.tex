@@ -375,6 +375,29 @@ fib n = fibIter 1 1 n
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Combinations}
+
+  \begin{exampleblock}{counting combinations}
+    \[
+      C(m, n) =
+        \begin{cases}
+          1                       & \mbox{if } n = 1\\
+          1                       & \mbox{if } n = m\\
+          C(m-1, n-1) + C(m-1, n) & \mbox{if } otherwise
+        \end{cases}
+    \]
+
+    \begin{lstlisting}
+comb :: Integer -> Integer -> Integer
+comb m n
+  | n == 1    = 1
+  | n == m    = 1
+  | otherwise = comb (m - 1) (n - 1) + comb (m - 1) n
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 % \begin{frame}[fragile]
 %   \frametitle{List Maximum}
 %
