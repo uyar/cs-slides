@@ -308,11 +308,27 @@ fib n
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Stack Frame Example}
+  \frametitle{Tree Recursion Example}
 
   \begin{center}
     \pgfuseimage{fib}
   \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tail Recursive Fibonacci}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+fib n = fibIter 1 1 n
+  where
+    fibIter :: Integer -> Integer -> Integer -> Integer
+    fibIter f1 f2 n
+      | n == 1    = f1
+      | n == 2    = f2
+      | otherwise = fibIter f2 (f1 + f2) (n - 1)
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \section{Examples}
