@@ -839,10 +839,12 @@ church = PersonR { born=1903, fullname="Alonzo Church" }
   \end{exampleblock}
 \end{frame}
 
-\subsection{Examples}
-
 \begin{frame}[fragile]
   \frametitle{Example: Quadrants}
+
+  \begin{itemize}
+    \item when to use a \lstinline|case|?
+  \end{itemize}
 
   \begin{lstlisting}
 quadrant :: Coords -> Integer
@@ -853,22 +855,22 @@ quadrant (x, y) = case (x>=0, y>=0) of
     (True,  False) -> 4
   \end{lstlisting}
 \end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Example: Fibonacci}
-
-  \begin{lstlisting}
-fibStep :: (Integer, Integer) -> (Integer, Integer)
-fibStep (u, v) = (v, u + v)
-
--- fibPair n ~> (fib n, fib (n + 1))
-fibPair :: Integer -> (Integer, Integer)
-fibPair 1 = (1, 1)
-fibPair n = fibStep (fibPair (n - 1))
-
-fastFib n = fst (fibPair n)
-  \end{lstlisting}
-\end{frame}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Example: Fibonacci}
+% 
+%   \begin{lstlisting}
+% fibStep :: (Integer, Integer) -> (Integer, Integer)
+% fibStep (u, v) = (v, u + v)
+% 
+% -- fibPair n ~> (fib n, fib (n + 1))
+% fibPair :: Integer -> (Integer, Integer)
+% fibPair 1 = (1, 1)
+% fibPair n = fibStep (fibPair (n - 1))
+% 
+% fastFib n = fst (fibPair n)
+%   \end{lstlisting}
+% \end{frame}
 
 \section{Lists}
 
