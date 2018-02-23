@@ -99,7 +99,7 @@
 
 \lstset{deletekeywords={gcd}}
 
-\subsection{Primitive Recursion}
+\subsection{Basics}
 
 \begin{frame}[fragile]
   \frametitle{Recursion Examples}
@@ -282,6 +282,50 @@ fac n
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Exponentiation}
+
+  \begin{lstlisting}
+pow :: Integer -> Integer -> Integer
+pow x y
+  | y == 0    = 1
+  | otherwise = x * pow x (y - 1)
+  \end{lstlisting}
+
+  \pause
+  \begin{itemize}
+    \item exercise: write a tail recursive version
+  \end{itemize}
+
+  \pause
+  \begin{itemize}
+    \item to get faster, use the following definition:
+  \end{itemize}
+  \[
+    x^y =
+      \begin{cases}
+        1               & \mbox{if y = 0}\\
+        {(x^{y/2})}^2   & \mbox{if y is even}\\
+        x \cdot x^{y-1} & \mbox{if y is odd}
+      \end{cases}
+  \]
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Fast Exponentiation}
+
+  \begin{lstlisting}
+pow :: Integer -> Integer -> Integer
+pow x y
+  | y == 0    = 1
+  | even y    = sqr (pow x (y `div` 2))
+  | otherwise = x * pow x (y - 1)
+  where
+    sqr :: Integer -> Integer
+    sqr n = n * n
+  \end{lstlisting}
+\end{frame}
+
 \subsection{Tree Recursion}
 
 \begin{frame}[fragile]
@@ -331,54 +375,6 @@ fib n = fibIter 1 1 n
   \end{exampleblock}
 \end{frame}
 
-\section{Examples}
-
-\subsection{Exponentiation}
-
-\begin{frame}[fragile]
-  \frametitle{Exponentiation}
-
-  \begin{lstlisting}
-pow :: Integer -> Integer -> Integer
-pow x y
-  | y == 0    = 1
-  | otherwise = x * pow x (y - 1)
-  \end{lstlisting}
-
-  \pause
-  \begin{itemize}
-    \item exercise: write a tail recursive version
-  \end{itemize}
-
-  \pause
-  \begin{itemize}
-    \item to get faster, use the following definition:
-  \end{itemize}
-  \[
-    x^y =
-      \begin{cases}
-        1               & \mbox{if y = 0}\\
-        {(x^{y/2})}^2   & \mbox{if y is even}\\
-        x \cdot x^{y-1} & \mbox{if y is odd}
-      \end{cases}
-  \]
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Fast Exponentiation}
-
-  \begin{lstlisting}
-pow :: Integer -> Integer -> Integer
-pow x y
-  | y == 0    = 1
-  | even y    = sqr (pow x (y `div` 2))
-  | otherwise = x * pow x (y - 1)
-  where
-    sqr :: Integer -> Integer
-    sqr n = n * n
-  \end{lstlisting}
-\end{frame}
-
 % \begin{frame}[fragile]
 %   \frametitle{List Maximum}
 %
@@ -419,46 +415,46 @@ pow x y
 %     \end{lstlisting}
 %   \end{exampleblock}
 % \end{frame}
+% 
+% \subsection{Counting Change}
+% 
+% \lstset{deletekeywords=next}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Counting Change}
+% 
+%   \begin{itemize}
+%     \item how many different ways to change given amount of money?
+%     \item into units of 1, 5, 10, 25, 50
+%   \end{itemize}
+% 
+%   \begin{lstlisting}
+% countChange :: Integer -> Integer
+% countChange amount = cc amount 50
+%   where
+%     cc :: Integer -> Integer -> Integer
+%     cc a n
+%       | a == 0          = 1
+%       | a < 0 || n == 0 = 0
+%       | otherwise       = cc (a - n) n + cc a (next n)
+%   \end{lstlisting}
+% \end{frame}
+% 
+% \begin{frame}[fragile]
+%   \frametitle{Counting Change}
+% 
+%   \begin{lstlisting}
+%     next :: Integer -> Integer
+%     next n
+%       | n == 50 = 25
+%       | n == 25 = 10
+%       | n == 10 =  5
+%       | n ==  5 =  1
+%       | n ==  1 =  0
+%   \end{lstlisting}
+% \end{frame}
 
-\subsection{Counting Change}
-
-\lstset{deletekeywords=next}
-
-\begin{frame}[fragile]
-  \frametitle{Counting Change}
-
-  \begin{itemize}
-    \item how many different ways to change given amount of money?
-    \item into units of 1, 5, 10, 25, 50
-  \end{itemize}
-
-  \begin{lstlisting}
-countChange :: Integer -> Integer
-countChange amount = cc amount 50
-  where
-    cc :: Integer -> Integer -> Integer
-    cc a n
-      | a == 0          = 1
-      | a < 0 || n == 0 = 0
-      | otherwise       = cc (a - n) n + cc a (next n)
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Counting Change}
-
-  \begin{lstlisting}
-    next :: Integer -> Integer
-    next n
-      | n == 50 = 25
-      | n == 25 = 10
-      | n == 10 =  5
-      | n ==  5 =  1
-      | n ==  1 =  0
-  \end{lstlisting}
-\end{frame}
-
-\subsection{Square Roots}
+\section{Example: Square Roots}
 
 \lstset{deletekeywords=sqrt}
 
