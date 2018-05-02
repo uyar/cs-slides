@@ -904,7 +904,7 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \end{columns}
 \end{frame}
 
-\subsection{Traversable Graphs}
+\subsection{Connectivity}
 
 \begin{frame}
   \frametitle{Bridges of Königsberg}
@@ -1037,6 +1037,154 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \bigskip
       \pgfuseimage{euler}
     \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Connectivity Matrix}
+
+  \begin{itemize}
+    \item $A$: adjacency matrix of $G=(V,E)$
+    \item $A^k_{ij}$: number of walks of length $k$ between $v_i$ and $v_j$
+
+    \medskip
+    \item maximum distance between two nodes: $|V|-1$
+
+    \pause
+    \medskip
+    \item connectivity matrix:\\
+      $C = A^1 + A^2 + A^3 + \dots + A^{|V|-1}$
+    \item connected: all elements of $C$ are non-zero
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm}
+
+  \begin{itemize}
+    \item very expensive to compute the connectivity matrix
+    \item easier to find whether there is a walk between two nodes\\
+      rather than finding the number of walks
+
+    \pause
+    \bigskip
+    \item for each node:
+    \smallskip
+    \item from all nodes which can reach the current node\\
+      (rows that contain 1 in current column)
+
+    \item to all nodes which can be reached from the current node\\
+      (columns that contain 1 in current row)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & \alert{1} & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & 1\\
+          d & \alert{1} & 0 & 1 & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & \alert{1} & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & 1\\
+          d & 1 & \alert{1} & 1 & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall1}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & \alert{1}\\
+          d & 1 & 1 & \alert{1} & 0
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall2}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 0 & 0 & 0 & \alert{1}\\
+          d & \alert{1} & \alert{1} & \alert{1} & \alert{1}
+      \end{array}
+    \]
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Warshall's Algorithm Example}
+
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{center}
+      \pgfuseimage{warshall3}
+    \end{center}
+
+    \column{.5\textwidth}
+    \[
+      \begin{array}{c|cccc}
+            & a & b & c & d\\\hline
+          a & 0 & 1 & 0 & 0\\
+          b & 0 & 1 & 0 & 0\\
+          c & 1 & 1 & 1 & 1\\
+          d & 1 & 1 & 1 & 1
+      \end{array}
+    \]
   \end{columns}
 \end{frame}
 
@@ -1496,156 +1644,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 
 \section{Graph Problems}
 
-\subsection{Connectivity}
-
-\begin{frame}
-  \frametitle{Connectivity Matrix}
-
-  \begin{itemize}
-    \item $A$: adjacency matrix of $G=(V,E)$
-    \item $A^k_{ij}$: number of walks of length $k$ between $v_i$ and $v_j$
-
-    \medskip
-    \item maximum distance between two nodes: $|V|-1$
-
-    \pause
-    \medskip
-    \item connectivity matrix:\\
-      $C = A^1 + A^2 + A^3 + \dots + A^{|V|-1}$
-    \item connected: all elements of $C$ are non-zero
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm}
-
-  \begin{itemize}
-    \item very expensive to compute the connectivity matrix
-    \item easier to find whether there is a walk between two nodes\\
-      rather than finding the number of walks
-
-    \pause
-    \bigskip
-    \item for each node:
-    \smallskip
-    \item from all nodes which can reach the current node\\
-      (rows that contain 1 in current column)
-
-    \item to all nodes which can be reached from the current node\\
-      (columns that contain 1 in current row)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{center}
-      \pgfuseimage{warshall}
-    \end{center}
-
-    \column{.5\textwidth}
-    \[
-      \begin{array}{c|cccc}
-            & a & b & c & d\\\hline
-          a & 0 & \alert{1} & 0 & 0\\
-          b & 0 & 1 & 0 & 0\\
-          c & 0 & 0 & 0 & 1\\
-          d & \alert{1} & 0 & 1 & 0
-      \end{array}
-    \]
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{center}
-      \pgfuseimage{warshall1}
-    \end{center}
-
-    \column{.5\textwidth}
-    \[
-      \begin{array}{c|cccc}
-            & a & b & c & d\\\hline
-          a & 0 & \alert{1} & 0 & 0\\
-          b & 0 & 1 & 0 & 0\\
-          c & 0 & 0 & 0 & 1\\
-          d & 1 & \alert{1} & 1 & 0
-      \end{array}
-    \]
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{center}
-      \pgfuseimage{warshall1}
-    \end{center}
-
-    \column{.5\textwidth}
-    \[
-      \begin{array}{c|cccc}
-            & a & b & c & d\\\hline
-          a & 0 & 1 & 0 & 0\\
-          b & 0 & 1 & 0 & 0\\
-          c & 0 & 0 & 0 & \alert{1}\\
-          d & 1 & 1 & \alert{1} & 0
-      \end{array}
-    \]
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{center}
-      \pgfuseimage{warshall2}
-    \end{center}
-
-    \column{.5\textwidth}
-    \[
-      \begin{array}{c|cccc}
-            & a & b & c & d\\\hline
-          a & 0 & 1 & 0 & 0\\
-          b & 0 & 1 & 0 & 0\\
-          c & 0 & 0 & 0 & \alert{1}\\
-          d & \alert{1} & \alert{1} & \alert{1} & \alert{1}
-      \end{array}
-    \]
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Warshall's Algorithm Example}
-
-  \begin{columns}
-    \column{.5\textwidth}
-    \begin{center}
-      \pgfuseimage{warshall3}
-    \end{center}
-
-    \column{.5\textwidth}
-    \[
-      \begin{array}{c|cccc}
-            & a & b & c & d\\\hline
-          a & 0 & 1 & 0 & 0\\
-          b & 0 & 1 & 0 & 0\\
-          c & 1 & 1 & 1 & 1\\
-          d & 1 & 1 & 1 & 1
-      \end{array}
-    \]
-  \end{columns}
-\end{frame}
-
 \subsection{Graph Coloring}
 
 \begin{frame}
@@ -1682,29 +1680,6 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Graph Coloring Solution}
-
-  \begin{itemize}
-    \item pick a node and assign a color
-    \item assign same color to all nodes with no conflict
-    \item pick an uncolored node and assign a second color
-    \item assign same color to all uncolored nodes with no conflict
-    \item pick an uncolored node and assign a third color
-    \item \ldots
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Heuristic Solutions}
-
-  \begin{itemize}
-    \item \alert{heuristic} solution: based on intuition
-    \item \alert{greedy} solution: doesn't look ahead
-    \item doesn't produce optimal results
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Graph Coloring Example}
 
   \begin{itemize}
@@ -1729,6 +1704,19 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
   \begin{center}
     \pgfuseimage{fivesubstances}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graph Coloring Solution}
+
+  \begin{itemize}
+    \item pick a node and assign a color
+    \item assign same color to all nodes with no conflict
+    \item pick an uncolored node and assign a second color
+    \item assign same color to all uncolored nodes with no conflict
+    \item pick an uncolored node and assign a third color
+    \item \ldots
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -1785,6 +1773,18 @@ $2|E| - 2t_2 - 4t_4 - \dots - 2t_3 - 4t_5 - \dots = t_1 + t_3 + t_5 + \dots$
       \pgfuseimage{coloring7}
     \end{center}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Heuristic Solutions}
+
+  \begin{itemize}
+    \item \alert{heuristic} solution: based on intuition
+
+    \medskip
+    \item \alert{greedy} solution: doesn't look ahead
+    \item doesn't produce optimal results
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
