@@ -11,7 +11,6 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
-\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamersize{text margin left=2em, text margin right=2em}
@@ -397,10 +396,6 @@
     \item $E \subseteq \alpha$
 
     \pause
-    \item nonreflexive:\\
-      $\exists a \in A~[\neg (a \alpha a)]$
-
-    \pause
     \item irreflexive:\\
       $\forall a \in A~[\neg (a \alpha a)]$
   \end{itemize}
@@ -426,7 +421,8 @@
 
     \medskip
     \begin{itemize}
-      \item $\mathcal{R}_2$ is nonreflexive
+      \item $\mathcal{R}_2$ is not reflexive
+      \item also not irreflexive
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -460,11 +456,7 @@
 
   \begin{block}{symmetric}
     $\alpha \subseteq A \times A$\\
-    $\forall a,b \in A~[(a=b) \vee (a \alpha b \wedge b \alpha a)
-                              \vee (\neg(a \alpha b) \wedge \neg(b \alpha a))]$
-
-    \pause
-    $\forall a,b \in A~[(a=b) \vee (a \alpha b \leftrightarrow b \alpha a)]$
+    $\forall a,b \in A~[a \alpha b \leftrightarrow b \alpha a]$
   \end{block}
 
   \pause
@@ -472,27 +464,8 @@
     \item $\alpha^{-1} = \alpha$
 
     \pause
-    \item asymmetric:\\
-      $\exists a,b \in A~[(a \neq b) \wedge ((a \alpha b \wedge \neg(b \alpha a))
-                                     \vee (\neg (a \alpha b) \wedge b \alpha a))]$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Antisymmetry}
-
-  \begin{itemize}
-    \item antisymmetric:
-    \begin{eqnarray*}
-                      & \forall a,b \in A~
-                    [(a=b) \vee (a \alpha b \rightarrow \neg(b \alpha a))]\\\pause
-      \Leftrightarrow & \forall a,b \in A~
-                    [(a=b) \vee \neg(a \alpha b) \vee \neg(b \alpha a)]\\\pause
-      \Leftrightarrow & \forall a,b \in A~
-                    [\neg(a \alpha b \wedge b \alpha a) \vee (a=b)]\\\pause
-      \Leftrightarrow & \forall a,b \in A~
-                    [(a \alpha b \wedge b \alpha a) \rightarrow (a=b)]
-    \end{eqnarray*}
+    \item antisymmetric:\\
+      $\forall a,b \in A~[a \alpha b \wedge b \alpha a \rightarrow a=b]$
   \end{itemize}
 \end{frame}
 
@@ -504,7 +477,8 @@
 
   \medskip
   \begin{itemize}
-    \item $\mathcal{R}$ is asymmetric
+    \item $\mathcal{R}$ is not symmetric
+    \item also not antisymmetric
   \end{itemize}
 \end{frame}
 
@@ -536,7 +510,7 @@
 
   \begin{block}{transitive}
     $\alpha \subseteq A \times A$\\
-    $\forall a,b,c \in A~[(a \alpha b \wedge b \alpha c) \rightarrow (a \alpha c)]$
+    $\forall a,b,c \in A~[a \alpha b \wedge b \alpha c \rightarrow a \alpha c]$
   \end{block}
 
   \pause
@@ -544,12 +518,8 @@
     \item $\alpha^2 \subseteq \alpha$
 
     \pause
-    \item nontransitive:\\
-      $\exists a,b,c \in A~[(a \alpha b \wedge b \alpha c) \wedge \neg (a \alpha c)]$
-
-    \pause
     \item antitransitive:\\
-      $\forall a,b,c \in A~[(a \alpha b \wedge b \alpha c) \rightarrow \neg (a \alpha c)]$
+      $\forall a,b,c \in A~[a \alpha b \wedge b \alpha c \rightarrow \neg (a \alpha c)]$
   \end{itemize}
 \end{frame}
 
@@ -573,7 +543,8 @@
 
   \medskip
   \begin{itemize}
-    \item $\mathcal{R}$ is nontransitive
+    \item $\mathcal{R}$ is not transitive
+    \item also not antitransitive
   \end{itemize}
 \end{frame}
 
@@ -581,7 +552,7 @@
   \frametitle{Converse Relation Properties}
 
   \begin{theorem}
-    Reflexivity, symmetry and transitivity are preserved\\
+    Reflexivity, symmetry, and transitivity are preserved\\
     in the converse relation.
   \end{theorem}
 \end{frame}
@@ -683,7 +654,6 @@
   \medskip
   \begin{itemize}
     \item reflexive
-    \item asymmetric
     \item transitive
   \end{itemize}
 \end{frame}
@@ -700,7 +670,6 @@
   \begin{itemize}
     \item reflexive
     \item symmetric
-    \item nontransitive
   \end{itemize}
 \end{frame}
 
@@ -716,7 +685,6 @@
   \begin{itemize}
     \item reflexive
     \item symmetric
-    \item nontransitive
   \end{itemize}
 \end{frame}
 
@@ -735,7 +703,7 @@
   \pause
   \medskip
   \begin{itemize}
-    \item can a relation be symmetric, transitive and irreflexive?
+    \item can a relation be symmetric and transitive, but irreflexive?
   \end{itemize}
 \end{frame}
 
