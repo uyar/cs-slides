@@ -11,7 +11,6 @@
 \documentclass[dvipsnames]{beamer}
 
 \usepackage{ae}
-\usepackage[scaled=0.88]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \setbeamersize{text margin left=2em, text margin right=2em}
@@ -64,6 +63,10 @@
 \pgfdeclareimage{konigsgraph}{konigsgraph}
 \pgfdeclareimage[width=3.5cm]{euler}{euler}
 \pgfdeclareimage[width=3.5cm]{hamilton}{hamilton}
+\pgfdeclareimage[width=5cm]{warshall}{warshall}
+\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
+\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
+\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
 \pgfdeclareimage[width=4.5cm]{k4planar}{k4planar}
 \pgfdeclareimage[width=6cm]{region}{region}
 \pgfdeclareimage[width=3cm]{eulerproof1}{eulerproof1}
@@ -77,10 +80,6 @@
 \pgfdeclareimage{dodecahedron}{dodecahedron}
 \pgfdeclareimage{planardodeca}{planardodeca}
 \pgfdeclareimage{icosahedron}{icosahedron}
-\pgfdeclareimage[width=5cm]{warshall}{warshall}
-\pgfdeclareimage[width=5cm]{warshall1}{warshall1}
-\pgfdeclareimage[width=5cm]{warshall2}{warshall2}
-\pgfdeclareimage[width=5cm]{warshall3}{warshall3}
 \pgfdeclareimage[width=4cm]{fivesubstances}{fivesubstances}
 \pgfdeclareimage[height=4cm]{coloring1}{coloring1}
 \pgfdeclareimage[height=4cm]{coloring2}{coloring2}
@@ -231,9 +230,9 @@
     \item probability
     \item $\ldots$
   \end{itemize}
-
-%   TODO: add example for weighted graph
 \end{frame}
+
+% TODO: add example for weighted graph
 
 \begin{frame}
   \frametitle{Multigraphs}
@@ -369,9 +368,9 @@
   \begin{itemize}
     \item weighted graph: weight of edge
   \end{itemize}
-
-%   TODO: add example for weighted graph adjacency matrix
 \end{frame}
+
+% TODO: add example for weighted graph adjacency matrix
 
 \begin{frame}
   \frametitle{Degree}
@@ -382,9 +381,9 @@
 
   \pause
   \begin{theorem}
-    $d_i$: degree of $v_i$
+    $d_v$: degree of node $v$
 
-    \[ |E| = \frac{\sum_i d_i}{2} \]
+    \[ |E| = \frac{\sum_{v \in V} d_v}{2} \]
   \end{theorem}
 \end{frame}
 
@@ -468,7 +467,7 @@
       \item $t_i$: number of nodes of degree $i$
 
       \pause
-$2|E| = \sum_i d_i = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
+$2|E| = \sum_{v \in V} d_v = 1t_1 + 2t_2 + 3t_3 + 4t_4 + 5t_5 + \dots$
 
 \pause
 $2|E| - 2t_2 - 4t_4 - \dots = t_1 + t_3 + t_5 + \dots + 2t_3 + 4t_5 + \dots$
