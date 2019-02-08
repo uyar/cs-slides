@@ -651,7 +651,7 @@ n e1 e2 ... ek
   \frametitle{Function Examples}
 
   \begin{lstlisting}
-sqr :: Integer -> Integer
+sqr :: Int -> Int
 sqr x = x * x
 
 -- sqr 21      ~> 441
@@ -659,7 +659,7 @@ sqr x = x * x
 -- sqr -2      ~> error
 -- sqr (-2)    ~> 4
 
-sumOfSquares :: Integer -> Integer -> Integer
+sumOfSquares :: Int -> Int -> Int
 sumOfSquares x y = sqr x + sqr y
 
 -- sumOfSquares 3 4       ~> 25
@@ -671,10 +671,10 @@ sumOfSquares x y = sqr x + sqr y
   \frametitle{Function Example}
 
   \begin{lstlisting}
-sumOfCubes :: Integer -> Integer -> Integer
+sumOfCubes :: Int -> Int -> Int
 sumOfCubes x y = cube x + cube y
   where
-    cube :: Integer -> Integer
+    cube :: Int -> Int
     cube n = n * n * n
   \end{lstlisting}
 \end{frame}
@@ -724,7 +724,7 @@ n x1 x2 ... xk
 
   \begin{exampleblock}{maximum of three integers}
     \begin{lstlisting}
-maxThree :: Integer -> Integer -> Integer -> Integer
+maxThree :: Int -> Int -> Int -> Int
 maxThree x y z
   | x>=y && x>=z = x
   | y>=z         = y
