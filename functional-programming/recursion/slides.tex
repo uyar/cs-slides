@@ -106,7 +106,7 @@
 
   \begin{exampleblock}{greatest common divisor}
     \begin{lstlisting}
-gcd :: Integer -> Integer -> Integer
+gcd :: Int -> Int -> Int
 gcd x y = if y == 0 then x else gcd y (x `mod` y)
     \end{lstlisting}
   \end{exampleblock}
@@ -114,7 +114,7 @@ gcd x y = if y == 0 then x else gcd y (x `mod` y)
   \pause
   \begin{exampleblock}{factorial}
     \begin{lstlisting}
-fac :: Integer -> Integer
+fac :: Int -> Int
 fac n
   | n <  0    = error "negative parameter"
   | n == 0    = 1
@@ -225,13 +225,13 @@ gcd 9702 945
 
   \begin{exampleblock}{tail recursive factorial}
     \begin{lstlisting}
-facIter :: Integer -> Integer -> Integer
+facIter :: Int -> Int -> Int
 facIter acc n
   | n <  0    = error "negative parameter"
   | n == 0    = acc
   | otherwise = facIter (acc * n) (n - 1)
 
-fac :: Integer -> Integer
+fac :: Int -> Int
 fac n = facIter 1 n
     \end{lstlisting}
   \end{exampleblock}
@@ -270,12 +270,12 @@ fac 4
   \end{itemize}
 
   \begin{lstlisting}
-fac :: Integer -> Integer
+fac :: Int -> Int
 fac n
   | n < 0     = error "negative parameter"
   | otherwise = facIter 1 n
       where
-        facIter :: Integer -> Integer -> Integer
+        facIter :: Int -> Int -> Int
         facIter acc n'
           | n' == 0   = acc
           | otherwise = facIter (acc * n') (n' - 1)
@@ -286,7 +286,7 @@ fac n
   \frametitle{Exponentiation}
 
   \begin{lstlisting}
-pow :: Integer -> Integer -> Integer
+pow :: Int -> Int -> Int
 pow x y
   | y == 0    = 1
   | otherwise = x * pow x (y - 1)
@@ -315,13 +315,13 @@ pow x y
   \frametitle{Fast Exponentiation}
 
   \begin{lstlisting}
-pow :: Integer -> Integer -> Integer
+pow :: Int -> Int -> Int
 pow x y
   | y == 0    = 1
   | even y    = sqr (pow x (y `div` 2))
   | otherwise = x * pow x (y - 1)
   where
-    sqr :: Integer -> Integer
+    sqr :: Int -> Int
     sqr n = n * n
   \end{lstlisting}
 \end{frame}
@@ -342,7 +342,7 @@ pow x y
     \]
 
     \begin{lstlisting}
-fib :: Integer -> Integer
+fib :: Int -> Int
 fib n
   | n == 1    = 1
   | n == 2    = 1
@@ -366,7 +366,7 @@ fib n
     \begin{lstlisting}
 fib n = fibIter 1 1 n
   where
-    fibIter :: Integer -> Integer -> Integer -> Integer
+    fibIter :: Int -> Int -> Int -> Int
     fibIter f1 f2 n
       | n == 1    = f1
       | n == 2    = f2
@@ -389,7 +389,7 @@ fib n = fibIter 1 1 n
     \]
 
     \begin{lstlisting}
-comb :: Integer -> Integer -> Integer
+comb :: Int -> Int -> Int
 comb m n
   | n == 1    = 1
   | n == m    = 1
@@ -405,7 +405,7 @@ comb m n
 %
 %   \begin{exampleblock}{maximum of a list}
 %     \begin{lstlisting}
-% maxList :: [Integer] -> Integer
+% maxList :: [Int] -> Int
 % maxList []         = error "empty list"
 % maxList [x]        = x
 % maxList (x:xs)
@@ -427,7 +427,7 @@ comb m n
 %
 %   \begin{exampleblock}{maximum of a list}
 %     \begin{lstlisting}
-% maxList :: [Integer] -> Integer
+% maxList :: [Int] -> Int
 % maxList []      = error "empty list"
 % maxList [x]     = x
 % maxList (x:xs)
@@ -455,10 +455,10 @@ comb m n
 %   \end{itemize}
 % 
 %   \begin{lstlisting}
-% countChange :: Integer -> Integer
+% countChange :: Int -> Int
 % countChange amount = cc amount 50
 %   where
-%     cc :: Integer -> Integer -> Integer
+%     cc :: Int -> Int -> Int
 %     cc a n
 %       | a == 0          = 1
 %       | a < 0 || n == 0 = 0
@@ -470,7 +470,7 @@ comb m n
 %   \frametitle{Counting Change}
 % 
 %   \begin{lstlisting}
-%     next :: Integer -> Integer
+%     next :: Int -> Int
 %     next n
 %       | n == 50 = 25
 %       | n == 25 = 10
@@ -547,7 +547,7 @@ sqrt x = newton 1.0 x
     newton :: Float -> Float -> Float
     newton guess x'
       | isGoodEnough guess x' = guess
-      | otherwise             = newton (improve guess x') x'
+      | otherwise      = newton (improve guess x') x'
 
     isGoodEnough :: Float -> Float -> Bool
     isGoodEnough guess x' =
