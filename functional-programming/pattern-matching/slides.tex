@@ -124,7 +124,7 @@ n = (e1, e2, ..., en)
 
   \begin{exampleblock}{representing a term in a polynomial: $2.4x^2$}
     \begin{lstlisting}
-t :: (Float, Integer)
+t :: (Float, Int)
 t = (2.4, 2)
 
 -- fst t ~> 2.4
@@ -150,7 +150,7 @@ t = (2.4, 2)
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-gcd :: Integer -> Integer -> Integer
+gcd :: Int -> Int -> Int
 gcd x y
   | y == 0    = x
   | otherwise = gcd y (x `mod` y)
@@ -163,7 +163,7 @@ gcd x y
     \medskip
 
     \begin{lstlisting}
-gcd' :: (Integer, Integer) -> Integer
+gcd' :: (Int, Int) -> Int
 gcd' a
   | snd a == 0 = fst a
   | otherwise  = gcd' (snd a, (fst a) `mod` (snd a))
@@ -178,7 +178,7 @@ gcd' a
 
   \begin{exampleblock}{simplifying a fraction}
     \begin{lstlisting}
-simplify :: (Integer, Integer) -> (Integer, Integer)
+simplify :: (Int, Int) -> (Int, Int)
 simplify f = (n `div` g, d `div` g)
   where
     n = fst f
@@ -202,7 +202,7 @@ type NewName = ExistingType
   \pause
   \begin{exampleblock}{example}
     \begin{lstlisting}
-type Term = (Float, Integer)
+type Term = (Float, Int)
 
 t :: Term
 t = (2.4, 2)
@@ -214,7 +214,7 @@ t = (2.4, 2)
   \frametitle{Example: Type Synonyms}
 
   \begin{lstlisting}
-type Fraction = (Integer, Integer)
+type Fraction = (Int, Int)
 
 simplify :: Fraction -> Fraction
 simplify f = (n `div` g, d `div` g)
@@ -234,7 +234,7 @@ x = (21, 14)
   \frametitle{Example: Type Synonyms}
 
   \begin{lstlisting}
-type DayInYear = (Integer, Integer)
+type DayInYear = (Int, Int)
 
 dec4 :: DayInYear
 dec4 = (4, 12)
@@ -361,7 +361,7 @@ length xs
 
   \begin{exampleblock}{sum of first two elements}
     \begin{lstlisting}
-firstPlusSecond :: [Integer] -> Integer
+firstPlusSecond :: [Int] -> Int
 firstPlusSecond xs
   | null xs        = 0
   | null (tail xs) = head xs
@@ -417,7 +417,7 @@ data T = C1 t11 t12 ... t1m
 
   \begin{exampleblock}{simple product type}
     \begin{lstlisting}
-data Person = Person String Integer
+data Person = Person String Int
               deriving Show
 
 church :: Person
@@ -489,7 +489,7 @@ case expr of
 
   \begin{exampleblock}{literal value pattern}
     \begin{lstlisting}
-gcd :: Integer -> Integer -> Integer
+gcd :: Int -> Int -> Int
 gcd x y = case y of
     0 -> x
     _ -> gcd y (x `mod` y)
@@ -502,7 +502,7 @@ gcd x y = case y of
 
   \begin{exampleblock}{tuple pattern}
     \begin{lstlisting}
-gcd' :: (Integer, Integer) -> Integer
+gcd' :: (Int, Int) -> Int
 gcd' a = case a of
     (x, 0) -> x
     (x, y) -> gcd' (y, x `mod` y)
@@ -587,7 +587,7 @@ length xs = case xs of
 
   \begin{exampleblock}{sum of the first and third elements}
     \begin{lstlisting}
-firstPlusThird :: [Integer] -> Integer
+firstPlusThird :: [Int] -> Int
 firstPlusThird xs = case xs of
     []        -> 0
     [x1]      -> x1
@@ -602,7 +602,7 @@ firstPlusThird xs = case xs of
 
   \begin{exampleblock}{check whether a list is in nondecreasing order}
     \begin{lstlisting}
-nondecreasing :: [Integer] -> Bool
+nondecreasing :: [Int] -> Bool
 nondecreasing xs = case xs of
   []       -> True
   [_]      -> True
@@ -620,7 +620,7 @@ nondecreasing xs = case xs of
 
   \begin{exampleblock}{check whether list is in nondecreasing order}
     \begin{lstlisting}
-nondecreasing :: [Integer] -> Bool
+nondecreasing :: [Int] -> Bool
 nondecreasing xs = case xs of
   []           -> True
   [_]          -> True
@@ -643,7 +643,7 @@ nondecreasing xs = case xs of
 
   \begin{exampleblock}{get component out of product type}
     \begin{lstlisting}
-birthYear :: Person -> Integer
+birthYear :: Person -> Int
 birthYear p = case p of
     Person _ y -> y
 
@@ -658,7 +658,7 @@ birthYear p = case p of
 
   \begin{exampleblock}{number of days in a month}
     \begin{lstlisting}
-daysInMonth :: Month -> Integer -> Integer
+daysInMonth :: Month -> Int -> Int
 daysInMonth m y = case m of
     Apr -> 30
     Jun -> 30
@@ -716,13 +716,13 @@ n p2 = e2
   \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
-gcd :: Integer -> Integer -> Integer
+gcd :: Int -> Int -> Int
 gcd x y = case y of
     0 -> x
     _ -> gcd y (x `mod` y)
 
 -- OR:
-gcd :: Integer -> Integer -> Integer
+gcd :: Int -> Int -> Int
 gcd x 0 = x
 gcd x y = gcd y (x `mod` y)
   \end{lstlisting}
@@ -732,13 +732,13 @@ gcd x y = gcd y (x `mod` y)
   \frametitle{Parameter Pattern Example}
 
   \begin{lstlisting}
-gcd' :: (Integer, Integer) -> Integer
+gcd' :: (Int, Int) -> Int
 gcd' a = case a of
     (x, 0) -> x
     (x, y) -> gcd' (y, x `mod` y)
 
 -- OR:
-gcd' :: (Integer, Integer) -> Integer
+gcd' :: (Int, Int) -> Int
 gcd' (x, 0) = x
 gcd' (x, y) = gcd' (y, x `mod` y)
   \end{lstlisting}
@@ -826,7 +826,7 @@ data T = C1 { n11 :: t11,
   \begin{exampleblock}{example}
     \begin{lstlisting}
 data PersonR = PersonR { fullname :: String,
-                         born :: Integer }
+                         born :: Int }
                deriving Show
 
 church :: PersonR
@@ -847,7 +847,7 @@ church = PersonR { born=1903, fullname="Alonzo Church" }
   \end{itemize}
 
   \begin{lstlisting}
-quadrant :: Coords -> Integer
+quadrant :: Coords -> Int
 quadrant (x, y) = case (x>=0, y>=0) of
     (True,  True)  -> 1
     (False, True)  -> 2
@@ -860,11 +860,11 @@ quadrant (x, y) = case (x>=0, y>=0) of
 %   \frametitle{Example: Fibonacci}
 % 
 %   \begin{lstlisting}
-% fibStep :: (Integer, Integer) -> (Integer, Integer)
+% fibStep :: (Int, Int) -> (Int, Int)
 % fibStep (u, v) = (v, u + v)
 % 
 % -- fibPair n ~> (fib n, fib (n + 1))
-% fibPair :: Integer -> (Integer, Integer)
+% fibPair :: Int -> (Int, Int)
 % fibPair 1 = (1, 1)
 % fibPair n = fibStep (fibPair (n - 1))
 % 
@@ -1136,7 +1136,7 @@ unzip ((x, y):xys) = (x : xs, y : ys)
 
   \begin{exampleblock}{merge two ordered lists}
     \begin{lstlisting}
-merge :: [Integer] -> [Integer] -> [Integer]
+merge :: [Int] -> [Int] -> [Int]
 merge xs     []     = xs
 merge []     ys     = ys
 merge (x:xs) (y:ys)
@@ -1151,7 +1151,7 @@ merge (x:xs) (y:ys)
 
   \begin{exampleblock}{merge two ordered lists}
     \begin{lstlisting}
-merge :: [Integer] -> [Integer] -> [Integer]
+merge :: [Int] -> [Int] -> [Int]
 merge xs [] = xs
 merge [] ys = ys
 merge xs@(x':xs') ys@(y':ys')
@@ -1202,10 +1202,10 @@ def toRoman(n):
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-toRoman :: Integer -> String
+toRoman :: Int -> String
 toRoman n = tR n romanNumerals
   where
-    tR :: Integer -> [(String, Integer)] -> String
+    tR :: Int -> [(String, Int)] -> String
     tR n []              = ""
     tR n xs@((s, k):xs')
       | n >= k    = s ++ tR (n - k) xs
