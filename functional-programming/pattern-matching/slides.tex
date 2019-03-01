@@ -604,9 +604,9 @@ firstPlusThird xs = case xs of
     \begin{lstlisting}
 nondecreasing :: [Int] -> Bool
 nondecreasing xs = case xs of
-  []       -> True
-  [_]      -> True
-  x1:x2:xs -> x1 <= x2 && nondecreasing (x2 : xs)
+  []        -> True
+  [_]       -> True
+  x1:x2:xs' -> x1 <= x2 && nondecreasing (x2 : xs')
     \end{lstlisting}
   \end{exampleblock}
 
@@ -622,9 +622,9 @@ nondecreasing xs = case xs of
     \begin{lstlisting}
 nondecreasing :: [Int] -> Bool
 nondecreasing xs = case xs of
-  []           -> True
-  [_]          -> True
-  x1:xs@(x2:_) -> x1 <= x2 && nondecreasing xs
+  []            -> True
+  [_]           -> True
+  x1:xs'@(x2:_) -> x1 <= x2 && nondecreasing xs'
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -1152,8 +1152,8 @@ merge (x:xs) (y:ys)
   \begin{exampleblock}{merge two ordered lists}
     \begin{lstlisting}
 merge :: [Int] -> [Int] -> [Int]
-merge xs [] = xs
-merge [] ys = ys
+merge xs          []          = xs
+merge []          ys          = ys
 merge xs@(x':xs') ys@(y':ys')
   | x' <= y'  = x' : merge xs' ys
   | otherwise = y' : merge xs  ys'
