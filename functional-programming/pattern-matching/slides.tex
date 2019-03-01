@@ -825,9 +825,10 @@ data T = C1 { n11 :: t11,
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-data PersonR = PersonR { fullname :: String,
-                         born :: Int }
-               deriving Show
+data PersonR = PersonR
+    { fullname :: String
+    , born :: Int
+    } deriving Show
 
 church :: PersonR
 church = PersonR "Alonzo Church" 1903
@@ -944,7 +945,7 @@ quadrant (x, y) = case (x>=0, y>=0) of
 ['a' .. 'm']      ~> "abcdefghijklm"
 
 [7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
-[0.0, 0.3 .. 1.0] ~> [0.0, 0.3, 0.6, 0.8999999999999999]
+[0.0, 0.4 .. 1.0] ~> [0.0, 0.4, 0.9]
 ['a', 'c' .. 'n'] ~> "acegikm"
     \end{lstlisting}
   \end{exampleblock}
