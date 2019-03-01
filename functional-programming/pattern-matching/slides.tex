@@ -945,7 +945,7 @@ quadrant (x, y) = case (x>=0, y>=0) of
 ['a' .. 'm']      ~> "abcdefghijklm"
 
 [7, 6 .. 3]       ~> [7, 6, 5, 4, 3]
-[0.0, 0.4 .. 1.0] ~> [0.0, 0.4, 0.9]
+[0.0, 0.4 .. 1.0] ~> [0.0, 0.4, 0.8]
 ['a', 'c' .. 'n'] ~> "acegikm"
     \end{lstlisting}
   \end{exampleblock}
@@ -1050,7 +1050,7 @@ reverse (x:xs) = (reverse xs) ++ [x]
 
   \begin{itemize}
     \item convert a list of lists of items into a list of items\\
-      \lstinline|concat [[2, 3], [], [4] ~> [2, 3, 4]|
+      \lstinline|concat [[2, 3], [], [4]] ~> [2, 3, 4]|
   \end{itemize}
 
   \begin{exampleblock}{}
