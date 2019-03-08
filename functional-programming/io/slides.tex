@@ -106,7 +106,7 @@
     \bigskip
     \item how about a function that reads in a value of the desired type\\
       from the input?\\
-      \lstinline|inputInt :: Integer|
+      \lstinline|inputInt :: Int|
 
     \pause
     \medskip
@@ -115,7 +115,7 @@
 
     \medskip
     \item any function might be affected:\\
-      \lstinline|foo :: Integer -> Integer|\\
+      \lstinline|foo :: Int -> Int|\\
       \lstinline|foo n = inputInt + n|\\
   \end{itemize}
 \end{frame}
@@ -129,9 +129,9 @@
 
     \medskip
     \item instead of:\\
-      \lstinline|inputInt :: Integer|
+      \lstinline|inputInt :: Int|
     \item we have:\\
-      \lstinline|inputInt :: IO Integer|
+      \lstinline|inputInt :: IO Int|
 
     \pause
     \medskip
@@ -189,7 +189,7 @@ main = putStrLn "Hello, world!"
 show 42   ~> "42"
 show 3.14 ~> "3.14"
 
-read "42" :: Integer ~> 42
+read "42" :: Int     ~> 42
 read "42" :: Float   ~> 42.0
 
 read "3.14" :: Float ~> 3.14
@@ -222,10 +222,11 @@ do action1
   \begin{exampleblock}{print a string 4 times}
     \begin{lstlisting}
 put4times :: String -> IO ()
-put4times str = do putStrLn str
-                   putStrLn str
-                   putStrLn str
-                   putStrLn str
+put4times str = do
+    putStrLn str
+    putStrLn str
+    putStrLn str
+    putStrLn str
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -241,8 +242,9 @@ put4times str = do putStrLn str
   \begin{exampleblock}{example: reverse and print the line read from the input}
     \begin{lstlisting}
 reverseLine :: IO ()
-reverseLine = do line <- getLine
-                 putStrLn (reverse line)
+reverseLine = do
+    line <- getLine
+    putStrLn (reverse line)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -258,12 +260,13 @@ reverseLine = do line <- getLine
   \begin{exampleblock}{example: reverse two lines}
     \begin{lstlisting}
 reverse2lines :: IO ()
-reverse2lines = do line1 <- getLine
-                   line2 <- getLine
-                   let rev1 = reverse line1
-                   let rev2 = reverse line2
-                   putStrLn rev2
-                   putStrLn rev1
+reverse2lines = do
+    line1 <- getLine
+    line2 <- getLine
+    let rev1 = reverse line1
+    let rev2 = reverse line2
+    putStrLn rev2
+    putStrLn rev1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -277,9 +280,10 @@ reverse2lines = do line1 <- getLine
 
   \begin{exampleblock}{example: read an integer from the input}
     \begin{lstlisting}
-getInteger :: IO Integer
-getInteger = do line <- getLine
-                return (read line :: Integer)
+getInt :: IO Int
+getInt = do
+    line <- getLine
+    return (read line :: Int)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -290,9 +294,10 @@ getInteger = do line <- getLine
   \begin{exampleblock}{copy input to output indefinitely}
     \begin{lstlisting}
 copy :: IO ()
-copy = do line <- getLine
-          putStrLn line
-          copy
+copy = do
+    line <- getLine
+    putStrLn line
+    copy
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -302,12 +307,13 @@ copy = do line <- getLine
 
   \begin{exampleblock}{copy input to output a number of times}
     \begin{lstlisting}
-copyN :: Integer -> IO ()
+copyN :: Int -> IO ()
 copyN n = if n <= 0
              then return ()
-             else do line <- getLine
-                     putStrLn line
-                     copyN (n - 1)
+             else do
+                 line <- getLine
+                 putStrLn line
+                 copyN (n - 1)
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -318,11 +324,13 @@ copyN n = if n <= 0
   \begin{exampleblock}{copy until input line is empty}
     \begin{lstlisting}
 copyUntilEmpty :: IO ()
-copyUntilEmpty = do line <- getLine
-                    if line == ""
-                       then return ()
-                       else do putStrLn line
-                               copyUntilEmpty
+copyUntilEmpty = do
+    line <- getLine
+    if line == ""
+       then return ()
+       else do
+           putStrLn line
+           copyUntilEmpty
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -359,7 +367,7 @@ type Match = ([Move], [Move])
       \item A wins $\mapsto$ 1, B wins $\mapsto$ -1, tie $\mapsto$ 0
     \end{itemize}
     \begin{lstlisting}
-outcome :: Move -> Move -> Integer
+outcome :: Move -> Move -> Int
 outcome mA mB = case (mA, mB) of
     (Rock,     Scissors) ->  1
     (Scissors, Rock)     -> -1
@@ -481,10 +489,11 @@ playRound match@(movesA, movesB) = do
     putStrLn ""
     if ch == '.'
        then putStrLn (showResult match)
-       else do let moveA = convertMove ch
-               let moveB = echo movesA
-               putStrLn (showRound moveA moveB)
-               playRound (moveA : movesA, moveB : movesB)
+       else do
+          let moveA = convertMove ch
+          let moveB = echo movesA
+          putStrLn (showRound moveA moveB)
+          playRound (moveA : movesA, moveB : movesB)
 
 playInteractive :: IO ()
 playInteractive = playRound ([], [])
@@ -497,7 +506,7 @@ playInteractive = playRound ([], [])
   \begin{exampleblock}{generate match:
       \lstinline[deletekeywords={cycle}]|cycle| versus \lstinline|echo|}
     \begin{lstlisting}[deletekeywords={cycle}]
-generateMatch :: Integer -> Match
+generateMatch :: Int -> Match
 generateMatch 0 = ([], [])
 generateMatch n = step (generateMatch (n - 1))
   where
