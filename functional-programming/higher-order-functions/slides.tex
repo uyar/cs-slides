@@ -138,8 +138,8 @@
 
   \begin{exampleblock}{sum up the squares in a range}
     \begin{lstlisting}
--- sqr :: Integer -> Integer
-sumSqr :: Integer -> Integer -> Integer
+-- sqr :: Int -> Int
+sumSqr :: Int -> Int -> Int
 sumSqr a b
   | a > b     = 0
   | otherwise = sqr a + sumSqr (a + 1) b
@@ -149,8 +149,8 @@ sumSqr a b
   \pause
   \begin{exampleblock}{sum up the factorials in a range}
     \begin{lstlisting}
--- fac :: Integer -> Integer
-sumFac :: Integer -> Integer -> Integer
+-- fac :: Int -> Int
+sumFac :: Int -> Int -> Int
 sumFac a b
   | a > b     = 0
   | otherwise = fac a + sumFac (a + 1) b
@@ -200,14 +200,14 @@ sumFac a b = sumF fac a b
       \item what is the type of \lstinline|f|?
       \smallskip
       \begin{lstlisting}
-Integer -> Integer
+Int -> Int
       \end{lstlisting}
 
       \pause
       \item what is the type of \lstinline|sumF|?
       \smallskip
       \begin{lstlisting}
-(Integer -> Integer) -> Integer -> Integer -> Integer
+(Int -> Int) -> Int -> Int -> Int
       \end{lstlisting}
     \end{itemize}
   \end{exampleblock}
@@ -281,7 +281,7 @@ int sum_sqr(int a, int b)
     \begin{lstlisting}
 type Strategy = [Move] -> Move
 
-generateMatch :: Strategy -> Strategy -> Integer
+generateMatch :: Strategy -> Strategy -> Int
                  -> Match
 generateMatch _  _  0 = ([], [])
 generateMatch sA sB n = step (generateMatch sA sB (n - 1))
@@ -300,13 +300,13 @@ generateMatch sA sB n = step (generateMatch sA sB (n - 1))
 
   \begin{exampleblock}{insertion sort}
     \begin{lstlisting}
-ins :: Integer -> [Integer] -> [Integer]
+ins :: Int -> [Int] -> [Int]
 ins n []          = [n]
 ins n xs@(x':xs')
   | n <= x'       = n : xs
   | otherwise     = x' : ins n xs'
 
-iSort :: [Integer] -> [Integer]
+iSort :: [Int] -> [Int]
 iSort []     = []
 iSort (x:xs) = ins x (iSort xs)
     \end{lstlisting}
@@ -319,15 +319,15 @@ iSort (x:xs) = ins x (iSort xs)
   \begin{exampleblock}{parameterize \lstinline|iSort| regarding precedes
       function}
     \begin{lstlisting}
-ins' :: (Integer -> Integer -> Bool)
-          -> Integer -> [Integer] -> [Integer]
+ins' :: (Int -> Int -> Bool)
+          -> Int -> [Int] -> [Int]
 ins' p n []          = [n]
 ins' p n xs@(x':xs')
   | p n x'           = n : xs
   | otherwise        = x' : ins' p n xs'
 
-iSort' :: (Integer -> Integer -> Bool)
-            -> [Integer] -> [Integer]
+iSort' :: (Int -> Int -> Bool)
+            -> [Int] -> [Int]
 iSort' p []     = []
 iSort' p (x:xs) = ins' p x (iSort' p xs)
 
@@ -442,7 +442,7 @@ items = [(3, 2), (1, 3), (2, 1)]
   \medskip
   \begin{exampleblock}{example}
     \begin{lstlisting}
-sumSqr :: Integer -> Integer -> Integer
+sumSqr :: Int -> Int -> Int
 sumSqr a b = sumF (\x -> x * x) a b
     \end{lstlisting}
   \end{exampleblock}
@@ -564,7 +564,7 @@ sqrt x = fixedPoint (\y -> (y + x/y) / 2.0) 1.0
     \begin{lstlisting}
 -- allOdds [4, 1, 3, 2] ~> [1, 3]
 
-allOdds :: [Integer] -> [Integer]
+allOdds :: [Int] -> [Int]
 allOdds []     = []
 allOdds (x:xs)
   | odd x      = x : allOdds xs
@@ -601,7 +601,7 @@ filter f (x:xs)
 
   \begin{exampleblock}{all odd elements of a list}
     \begin{lstlisting}
-allOdds :: [Integer] -> [Integer]
+allOdds :: [Int] -> [Int]
 allOdds xs = filter odd xs
     \end{lstlisting}
   \end{exampleblock}
@@ -664,7 +664,7 @@ takeWhile f (x:xs)
     \begin{lstlisting}
 -- floorAll [5.7, 9.0, 2.3] ~> [5, 9, 2]
 
-floorAll :: [Float] -> [Integer]
+floorAll :: [Float] -> [Int]
 floorAll []     = []
 floorAll (x:xs) = floor x : floorAll xs
     \end{lstlisting}
@@ -697,7 +697,7 @@ map f (x:xs) = f x : map f xs
 
   \begin{exampleblock}{floors of all elements of a list}
     \begin{lstlisting}
-floorAll :: [Float] -> [Integer]
+floorAll :: [Float] -> [Int]
 floorAll xs = map floor xs
     \end{lstlisting}
   \end{exampleblock}
@@ -749,7 +749,7 @@ zipWith f xs ys = map (\(x, y) -> f x y) (zip xs ys)
     \begin{lstlisting}[deletekeywords={sum}]
 -- sum [2, 8, 5] ~> 15
 
-sum :: [Integer] -> Integer
+sum :: [Int] -> Int
 sum [x]    = x
 sum (x:xs) = x + sum xs
     \end{lstlisting}
@@ -799,7 +799,7 @@ foldr1 f [e1, e2, ..., ej, ek]
 
   \begin{exampleblock}{sum all elements of a list}
     \begin{lstlisting}[deletekeywords={sum}]
-sum :: [Integer] -> Integer
+sum :: [Int] -> Int
 sum xs = foldr1 (+) xs
     \end{lstlisting}
   \end{exampleblock}
@@ -858,7 +858,7 @@ foldr f s [e1, e2, ..., ej, ek]
 
   \begin{exampleblock}{sum all elements of a list}
     \begin{lstlisting}[deletekeywords={sum}]
-sum :: [Integer] -> Integer
+sum :: [Int] -> Int
 sum xs = foldr (+) 0 xs
     \end{lstlisting}
   \end{exampleblock}
@@ -880,10 +880,10 @@ def sum(xs):
 
   \begin{exampleblock}{}
     \begin{lstlisting}[deletekeywords={and, concat, product}]
-product :: [Integer] -> Integer
+product :: [Int] -> Int
 product xs = foldr (*) 1 xs
 
-fac :: [Integer] -> Integer
+fac :: [Int] -> Int
 fac n = foldr (*) 1 [1 .. n]
 
 and :: [Bool] -> Bool
@@ -892,7 +892,7 @@ and xs = foldr (&&) True xs
 concat :: [[a]] -> [a]
 concat xs = foldr (++) [] xs
 
-maxList :: [Integer] -> Integer
+maxList :: [Int] -> Int
 maxList xs = foldr1 max xs
     \end{lstlisting}
   \end{exampleblock}
@@ -903,7 +903,7 @@ maxList xs = foldr1 max xs
 
   \begin{exampleblock}{how many elements in a list are above a threshold?}
     \begin{lstlisting}
-howManyAbove :: Float -> [Float] -> Integer
+howManyAbove :: Float -> [Float] -> Int
 howManyAbove t xs =
     foldr (\x n -> if x >= t then n + 1 else n) 0 xs
     \end{lstlisting}
@@ -915,18 +915,18 @@ howManyAbove t xs =
 
   \begin{exampleblock}{insertion sort}
     \begin{lstlisting}
-ins :: Integer -> [Integer] -> [Integer]
+ins :: Int -> [Int] -> [Int]
 ins n []          = [n]
 ins n xs@(x':xs')
   | n <= x'       = n : xs
   | otherwise     = x' : ins n xs'
 
-iSort :: [Integer] -> [Integer]
+iSort :: [Int] -> [Int]
 iSort []     = []
 iSort (x:xs) = ins x (iSort xs)
 
 -- equivalent to:
-iSort :: [Integer] -> [Integer]
+iSort :: [Int] -> [Int]
 iSort xs = foldr ins [] xs
     \end{lstlisting}
   \end{exampleblock}
@@ -1097,7 +1097,7 @@ cost xs = length (filter (\x -> x /= Copy) xs)
 
   \begin{exampleblock}{quick sort}
     \begin{lstlisting}
-qSort :: [Integer] -> [Integer]
+qSort :: [Int] -> [Int]
 qSort []     = []
 qSort (x:xs) =
     qSort smaller ++ [x] ++ qSort larger
