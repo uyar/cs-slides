@@ -130,7 +130,7 @@ boyd :: Float -> Float -> Float
 boyd h w = 0.0333 * (h ** 0.3)
          * (w ** (0.6157 - 0.0188 * (logBase 10 w)))
 
-bsa :: Integer -> (Float -> Float -> Float)
+bsa :: Int -> (Float -> Float -> Float)
 bsa age = if age < 3 then boyd else duBois
 
 -- (bsa 20) 180 75 ~> 1.9424062
@@ -157,18 +157,17 @@ bsa age = if age < 3 then boyd else duBois
   \frametitle{Function Closure Example}
 
   \begin{lstlisting}
-stepRange :: Integer ->
-                (Integer -> Integer -> [Integer])
+stepRange :: Int -> (Int -> Int -> [Int])
 stepRange step = getRange
   where
-    getRange :: Integer -> Integer -> [Integer]
+    getRange :: Int -> Int -> [Int]
     getRange m n = [m, m + step .. n]
 
-step1 :: Integer -> Integer -> [Integer]
+step1 :: Int -> Int -> [Int]
 step1 = stepRange 1
 -- step1 3 7 ~> [3, 4, 5, 6, 7]
 
-step5 :: Integer -> Integer -> [Integer]
+step5 :: Int -> Int -> [Int]
 step5 = stepRange 5
 -- step5 9 20 ~> [9, 14, 19]
   \end{lstlisting}
@@ -296,14 +295,14 @@ def fib(n):
   \frametitle{Currying Example}
 
   \begin{lstlisting}
-add :: Integer -> Integer -> Integer
+add :: Int -> Int -> Int
 add x y = x + y
 
 -- same as:
-add :: Integer -> (Integer -> Integer)
+add :: Int -> (Int -> Int)
 add x = \y -> x + y
 
-increment :: Integer -> Integer
+increment :: Int -> Int
 increment = add 1
 -- increment = \y -> 1 + y
 -- increment y = 1 + y
@@ -334,15 +333,14 @@ allOdds = filter odd
   \frametitle{Currying Example}
 
   \begin{lstlisting}
-stepRange :: Integer -> Integer -> Integer ->
-                 [Integer]
+stepRange :: Int -> Int -> Int -> [Int]
 stepRange step m n = [m, m + step .. n]
 
-step1 :: Integer -> Integer -> [Integer]
+step1 :: Int -> Int -> [Int]
 -- step1 m n = stepRange 1 m n
 step1 = stepRange 1
 
-naturals :: Integer -> [Integer]
+naturals :: Int -> [Int]
 -- naturals n = stepRange 1 0 n
 naturals = stepRange 1 0
 -- naturals n = step1 0 n
@@ -372,7 +370,7 @@ curry f x y = f (x, y)
   \frametitle{Curry Example}
 
   \begin{lstlisting}
-addT :: (Integer, Integer) -> Integer
+addT :: (Int, Int) -> Int
 addT (x, y) = x + y
 
 addC = curry addT
@@ -418,7 +416,7 @@ infixr 9 .
 
   \begin{exampleblock}{test whether number is even}
     \begin{lstlisting}[deletekeywords=even]
-even :: Integer -> Bool
+even :: Int -> Bool
 even = not . odd
     \end{lstlisting}
   \end{exampleblock}
