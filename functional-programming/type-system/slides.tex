@@ -203,7 +203,7 @@ class Eq a where
   (==) :: a -> a -> Bool
     \end{lstlisting}
     \begin{itemize}
-      \item \lstinline|Bool|, \lstinline|Char|, \lstinline|Integer|, \lstinline|Float|
+      \item \lstinline|Bool|, \lstinline|Char|, \lstinline|Int|, \lstinline|Float|
         are instances of \lstinline|Eq|
       \item tuples and lists are also instances of \lstinline|Eq|
     \end{itemize}
@@ -274,7 +274,7 @@ data Move = Rock | Paper | Scissors
 
   \begin{exampleblock}{rational numbers}
     \begin{lstlisting}
-data Rational = Fraction Integer Integer
+data Rational = Fraction Int Int
 
 instance Eq Rational where
   Fraction n1 d1 == Fraction n2 d2 = n1 * d2 == n2 * d1
@@ -415,7 +415,7 @@ class (Eq a, Show a) => Num a where
 
   \begin{exampleblock}{example: expressions}
     \begin{lstlisting}
-data Expr = Lit Integer |
+data Expr = Lit Int |
             Add Expr Expr |
             Mul Expr Expr
     \end{lstlisting}
@@ -427,7 +427,7 @@ data Expr = Lit Integer |
 
   \begin{exampleblock}{example: evaluating an expression}
     \begin{lstlisting}
-eval :: Expr -> Integer
+eval :: Expr -> Int
 eval e = case e of
     Lit n     -> n
     Add e1 e2 -> (eval e1) + (eval e2)
@@ -465,13 +465,13 @@ instance Show Expr where
 
   \begin{exampleblock}{example: integer binary tree}
     \begin{lstlisting}
-data BinTree = Nil | Node Integer BinTree BinTree
+data BinTree = Nil | Node Int BinTree BinTree
 
 depth :: BinTree -> Int
 depth Nil            = 0
 depth (Node _ t1 t2) = 1 + max (depth t1) (depth t2)
 
-sumTree :: BinTree -> Integer
+sumTree :: BinTree -> Int
 sumTree Nil            = 0
 sumTree (Node n t1 t2) = n + sumTree t1 + sumTree t2
     \end{lstlisting}
@@ -517,7 +517,7 @@ data Maybe a = Nothing | Just a
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-errDiv :: Integer -> Integer -> Maybe Integer
+errDiv :: Int -> Int -> Maybe Int
 errDiv m n
   | n == 0    = Nothing
   | otherwise = Just (m `div` n)
@@ -589,7 +589,7 @@ data Either a b = Left a | Right b
 
   \begin{exampleblock}{example}
     \begin{lstlisting}
-isFalse :: Either Integer [a] -> Bool
+isFalse :: Either Int [a] -> Bool
 isFalse (Left  0)  = True
 isFalse (Right []) = True
 isFalse _          = False
