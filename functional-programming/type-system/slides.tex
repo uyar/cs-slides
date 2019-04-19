@@ -415,9 +415,9 @@ class (Eq a, Show a) => Num a where
 
   \begin{exampleblock}{example: expressions}
     \begin{lstlisting}
-data Expr = Lit Int |
-            Add Expr Expr |
-            Mul Expr Expr
+data Expr = Lit Int
+          | Add Expr Expr
+          | Mul Expr Expr
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
