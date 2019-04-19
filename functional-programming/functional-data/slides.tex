@@ -431,12 +431,6 @@ makeList (Node x left right) =
 mapSet :: Ord b => (a -> b) -> Set a -> Set b
 mapSet f = makeSet . map f . makeList
   \end{lstlisting}
-
-  \pause
-  \bigskip
-  \begin{itemize}
-    \item would the resulting tree be balanced?
-  \end{itemize}
 \end{frame}
 
 \section*{References}
