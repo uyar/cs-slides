@@ -157,10 +157,10 @@
   \frametitle{Function Evaluation Example}
 
   \begin{lstlisting}
-sqr :: Integer -> Integer
+sqr :: Int -> Int
 sqr x = x * x
 
-sumOfSquares :: Integer -> Integer -> Integer
+sumOfSquares :: Int -> Int -> Int
 sumOfSquares x y = sqr x + sqr y
 
 -- x = 3, y = 2 + 2
@@ -343,7 +343,7 @@ def first(x, y):
 
   \begin{exampleblock}{Haskell}
     \begin{lstlisting}
-first :: Integer -> Integer -> Integer
+first :: Int -> Int -> Int
 first x y = x
 
 -- first 1 (1 `div` 0) ~> 1
@@ -413,7 +413,7 @@ or x y = if x then True else y
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-fac :: Integer -> Integer
+fac :: Int -> Int
 fac 0 = 1
 fac n = n * fac (n - 1)
     \end{lstlisting}
@@ -430,7 +430,7 @@ fac n = n * fac (n - 1)
 
   \begin{exampleblock}{}
     \begin{lstlisting}
-facIter :: Integer -> Integer -> Integer
+facIter :: Int -> Int -> Int
 facIter acc 0 = acc
 facIter acc n = facIter (acc * n) (n - 1)
     \end{lstlisting}
@@ -488,7 +488,7 @@ seq x y
     \pause
     \medskip
     \begin{lstlisting}
-facIter :: Integer -> Integer -> Integer
+facIter :: Int -> Int -> Int
 facIter acc 0 = acc
 facIter acc n = seq acc (facIter (acc * n) (n - 1))
     \end{lstlisting}
@@ -512,10 +512,10 @@ strict f x = seq x (f x)
     \pause
     \medskip
     \begin{lstlisting}
-fac :: Integer -> Integer
+fac :: Int -> Int
 fac n = facIter 1 n
   where
-    facIter :: Integer -> Integer -> Integer
+    facIter :: Int -> Int -> Int
     facIter acc 0  = acc
     facIter acc n' = strict facIter (acc * n') (n' - 1)
     \end{lstlisting}
@@ -557,7 +557,7 @@ addFirstTwo (x1:x2:_) = x1 + x2
   \frametitle{Infinite Ranges}
 
   \begin{lstlisting}
-from :: Integer -> [Integer]
+from :: Int -> [Int]
 from n = n : from (n + 1)
 
 -- from 5 -> [5, 6, 7, 8, ...]
@@ -572,7 +572,7 @@ from n = n : from (n + 1)
 
   \begin{exampleblock}{Fibonacci sequence}
     \begin{lstlisting}
-fibs :: [Integer]
+fibs :: [Int]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 
 -- take 5 fibs ~> [1, 1, 2, 3, 5]
@@ -588,12 +588,12 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 
   \begin{exampleblock}{sieve of Eratosthenes}
     \begin{lstlisting}
-sieve :: [Integer] -> [Integer]
+sieve :: [Int] -> [Int]
 sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
 
 -- sieve [2 ..] -> [2, 3, 5, 7, 11, ...]
 
-primes :: [Integer]
+primes :: [Int]
 primes = sieve [2 ..]
     \end{lstlisting}
   \end{exampleblock}
@@ -604,7 +604,7 @@ primes = sieve [2 ..]
 
   \begin{exampleblock}{prime number test}
     \begin{lstlisting}
-isPrime :: Integer -> Bool
+isPrime :: Int -> Bool
 isPrime n = elemOrd n primes
 
 elemOrd :: Ord a => a -> [a] -> Bool
