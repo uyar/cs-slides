@@ -9,7 +9,7 @@ handout: slides.handout.pdf
 print: slides.print.pdf
 
 %.pdf: %.svg
-	$(SVG2PDF) $(SVG2PDF_FLAGS) -f $< -A $@
+	$(SVG2PDF) $(SVG2PDF_FLAGS) $< -o $@
 
 PDFs := $(foreach dir, ., $(patsubst %.svg,%.pdf,$(wildcard ./$(dir)/*.svg)))
 
