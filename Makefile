@@ -15,7 +15,7 @@ PDFs := $(foreach dir, ., $(patsubst %.svg,%.pdf,$(wildcard ./$(dir)/*.svg)))
 
 images: $(PDFs)
 
-slides.pdf: slides.tex images
+slides.pdf: slides.tex images ../license.pdf
 	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then $(LATEX2PDF) $<; fi
 	$(LATEX2PDF) $<
 
@@ -44,3 +44,4 @@ clean:
 	rm -f *.synctex.gz
 	rm -f *.handout.*
 	rm -f *~ *.dvi *.ps *.pdf
+	rm -f ../license.pdf
