@@ -1,4 +1,4 @@
-% Copyright (c) 2013-2016
+% Copyright (c) 2013-2023
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %
@@ -25,7 +25,7 @@
 \subtitle{Counting}
 
 \author{Ayşegül Gençata Yayımlı \and H. Turgut Uyar}
-\date{2013-2016}
+\date{2013-2023}
 
 \AtBeginSubsection[]
 {
@@ -49,7 +49,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2013-2016 A. Yayımlı, T. Uyar
+  \copyright~2013-2023 A. Yayımlı, T. Uyar
 
   \vfill
   \begin{footnotesize}
@@ -78,10 +78,6 @@
   \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
-
-    \smallskip
-    Read the full license:\\
-    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
 
@@ -98,19 +94,20 @@
   \frametitle{Combinatorics}
 
   \begin{itemize}
-    \item \alert{combinatorics}: study of arrangement of objects
-    \item \alert{enumeration}: counting of objects with certain properties
+    \item \alert{combinatorics}: study of arrangements of objects
+    \item enumeration: counting of objects with certain properties
 
     \pause
     \bigskip
-    \item to solve a complicated problem:
-    \smallskip
-    \item break it down into smaller problems
-    \item piece together solutions to these smaller problems
+    \item solve a complicated problem:
+    \begin{itemize}
+      \item break it down into smaller problems
+      \item piece together solutions to these smaller problems
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
-\subsection{Basic Principles}
+\subsection{Sum Rule}
 
 \begin{frame}
   \frametitle{Sum Rule}
@@ -122,8 +119,8 @@
 
     \pause
     \bigskip
-    \item performing either $task_1$ or $task_2$ can be accomplished\\
-      in $n_1 + n_2$ ways
+    \item perform either $task_1$ or $task_2$:\\
+      $n_1 + n_2$ ways
   \end{itemize}
 \end{frame}
 
@@ -131,12 +128,11 @@
   \frametitle{Sum Rule Example}
 
   \begin{itemize}
-    \item a college library has 40 textbooks on sociology,\\
-      and 50 textbooks on anthropology
+    \item 40 books on sociology and 50 books on anthropology
 
     \medskip
-    \item to learn about sociology or anthropology\\
-      a student can choose from $40 + 50 = 90$ textbooks
+    \item learn about sociology or anthropology:\\
+      choose from $40 + 50 = 90$ books
   \end{itemize}
 \end{frame}
 
@@ -144,27 +140,28 @@
   \frametitle{Sum Rule Example}
 
   \begin{itemize}
-    \item a computer science instructor has two colleagues
-    \item one colleague has 3 textbooks on ``Introduction to Programming''
-    \item the other colleague has 5 textbooks on the same subject
+    \item one friend has 3 books on ``Discrete Mathematics''
+    \item another friend has 5
 
     \medskip
     \item $n$: maximum number of different books that can be borrowed
     \item $5 \leq n \leq 8$
-    \item both colleagues may own copies of the same book
   \end{itemize}
 \end{frame}
+
+\subsection{Product Rule}
 
 \begin{frame}
   \frametitle{Product Rule}
 
   \begin{itemize}
-    \item a procedure can be broken down into $stage_1$ and $stage_2$
-    \item $n_1$ possible outcomes for $stage_1$
-    \item for each of these, $n_2$ possible outcomes for $stage_2$
+    \item a procedure that can be broken down into two stages
+    \item $n_1$ possible outcomes for the first stage
+    \item for each outcome, $n_2$ possible outcomes for the second stage
 
     \medskip
-    \item procedure can be carried out in $n_1 \cdot n_2$ ways
+    \item procedure can be carried out in\\
+      $n_1 \cdot n_2$ ways
   \end{itemize}
 \end{frame}
 
@@ -238,16 +235,16 @@
   \end{itemize}
 \end{frame}
 
-\section{Permutations}
+\section{Permutations and Combinations}
 
-\subsection{Introduction}
+\subsection{Permutations}
 
 \begin{frame}
   \frametitle{Permutation}
 
   \begin{itemize}
     \item \alert{permutation}: a linear arrangement of distinct objects
-    \item order important
+    \item order is significant
   \end{itemize}
 \end{frame}
 
@@ -256,14 +253,14 @@
 
   \begin{itemize}
     \item a class has 10 students: $A, B, C, \ldots, I, J$
-    \item 4 students are to be seated in a row for a picture:\\
+    \item 4 students to be seated in a row:\\
       \smallskip
       $BCEF, CEFI, ABCF, \ldots$
     \item how many such arrangements?
 
     \pause
     \medskip
-    \item filling of a position: a stage of the counting procedure\\
+    \item filling of a position: a stage\\
       $10 \cdot 9 \cdot 8 \cdot 7 = 5,040$
   \end{itemize}
 \end{frame}
@@ -426,12 +423,8 @@ L & L & B & A
   \end{itemize}
 \end{frame}
 
-\subsection{Circular Arrangements}
-
-% TODO: define circular arrangement
-
 \begin{frame}
-  \frametitle{Circular Arrangements Example}
+  \frametitle{Circular Arrangements}
 
   \begin{itemize}
     \item 6 people seated around a round table: $A,B,C,D,E,F$
@@ -448,16 +441,14 @@ L & L & B & A
   \end{itemize}
 \end{frame}
 
-\section{Combinations}
-
-\subsection{Introduction}
+\subsection{Combinations}
 
 \begin{frame}
   \frametitle{Combination}
 
   \begin{itemize}
     \item \alert{combination}: choosing from distinct objects
-    \item order not important
+    \item order is not significant
   \end{itemize}
 \end{frame}
 
@@ -468,6 +459,8 @@ L & L & B & A
     \item a deck of 52 playing cards
     \item 4 suits: clubs, diamonds, hearts, spades
     \item 13 ranks in each suit: Ace, 2, 3, \ldots, 10, Jack, Queen, King
+
+    \medskip
     \item draw 3 cards in succession, without replacement
     \item how many possible draws?
   \end{itemize}
@@ -485,11 +478,13 @@ L & L & B & A
     \item one such draw:\\
       $AH$ (ace of hearts), $9C$ (9 of clubs), $KD$ (king of diamonds)
 
-    \pause
     \medskip
-    \item if order doesn't matter
-    \item 6 permutations of $(AH,9C,KD)$ correspond to just one selection
+    \item if order insignificant:\\
+      6 permutations correspond to one selection
   \end{itemize}
+
+  \pause
+  \medskip
   \begin{equation*}
     \frac{52!}{3! \cdot 49!} = 22,100
   \end{equation*}
@@ -624,10 +619,10 @@ L & L & B & A
   \end{itemize}
 \end{frame}
 
-\subsection{With Repetition}
+\subsection{Combinations with Repetition}
 
 \begin{frame}
-  \frametitle{Combinations with Repetition Example}
+  \frametitle{Combinations with Repetition}
 
   \begin{itemize}
     \item 7 students visit a restaurant
@@ -638,7 +633,7 @@ L & L & B & A
 \end{frame}
 
 \begin{frame}
-  \frametitle{Combinations with Repetition Example}
+  \frametitle{Combinations with Repetition}
 
   \begin{table}
     \texttt{
@@ -730,7 +725,7 @@ f f f f f f f & | | | x x x x x x x\\\hline
 
 \begin{frame}
   \frametitle{References}
-  \begin{block}{Required Reading: Grimaldi}
+  \begin{block}{Required reading: Grimaldi}
     \begin{itemize}
       \item Chapter 1: Fundamental Principles of Counting
       \begin{itemize}
