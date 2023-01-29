@@ -20,7 +20,7 @@ slides.pdf: slides.tex images ../license.pdf
 	$(LATEX2PDF) $<
 
 %.handout.pdf: %.handout.tex
-	make images
+	# make images
 	f=$<; b=$${f%.tex}; if [ ! -f $$b.toc ]; then $(LATEX2PDF) $<; fi
 	$(LATEX2PDF) $<
 
@@ -30,7 +30,7 @@ slides.pdf: slides.tex images ../license.pdf
 		| grep -v usecolortheme > $@
 
 %.print.pdf: %.handout.pdf
-	pdfnup --nup 2x2 --landscape --paper a4paper \
+	pdfjam --nup 2x2 --landscape --paper a4paper \
 		--frame true --scale 0.91 \
 		--offset "0.1cm 0.1cm" --delta "0.3cm 0.3cm" --outfile $@ $<
 
