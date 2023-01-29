@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2015
+% Copyright (c) 2001-2023
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -26,7 +26,7 @@
 \subtitle{Predicates and Proofs}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2015}
+\date{2001-2023}
 
 \AtBeginSubsection[]
 {
@@ -54,7 +54,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2015 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2023 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -83,10 +83,6 @@
   \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
-
-    \smallskip
-    Read the full license:\\
-    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
 
@@ -103,18 +99,17 @@
   \frametitle{Predicates}
 
   \begin{definition}
-    \alert{predicate} (or \alert{open statement}): a declarative sentence which
+    \alert{predicate}: declarative sentence which
     \begin{itemize}
       \item contains one or more variables, and
       \item is not a proposition, but
-      \item becomes a proposition when the variables in it are replaced\\
-        by certain allowable choices
+      \item becomes a proposition when variables are replaced\\
+        by allowable choices
     \end{itemize}
   \end{definition}
 
   \begin{itemize}
     \item set of allowable choices: \alert{universe of discourse} ($\mathcal{U}$)
-
   \end{itemize}
 \end{frame}
 
@@ -371,7 +366,7 @@
 
 \section{Proofs}
 
-\subsection{Basic Methods}
+\subsection{Introduction}
 
 \begin{frame}
   \frametitle{Method of Exhaustion}
@@ -398,17 +393,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Basic Rules}
+  \frametitle{Universal Specification}
 
   \begin{block}{Universal Specification (US)}
     $\forall x~p(x) \Rightarrow p(a)$
-  \end{block}
-
-  \pause
-  \bigskip
-  \begin{block}{Universal Generalization (UG)}
-    $p(a)$ for an \alert{arbitrarily chosen} $a$
-      $\Rightarrow$ $\forall x~p(x)$
   \end{block}
 \end{frame}
 
@@ -464,6 +452,15 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Universal Generalization}
+
+  \begin{block}{Universal Generalization (UG)}
+    $p(a)$ for an \alert{arbitrarily chosen} $a$
+      $\Rightarrow$ $\forall x~p(x)$
+  \end{block}
+\end{frame}
+
+\begin{frame}
   \frametitle{Universal Generalization Example}
 
   \begin{columns}
@@ -495,7 +492,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Trivial Proofs}
+  \frametitle{Vacuous Proof}
 
   \begin{block}{vacuous proof}
     \begin{tabular}{ll}
@@ -503,8 +500,24 @@
       show:     & $\forall x~\neg p(x)$
     \end{tabular}
   \end{block}
+\end{frame}
 
-  \bigskip
+\begin{frame}
+  \frametitle{Vacuous Proof Example}
+
+  \begin{theorem}
+    $\forall x \in \mathbb{N}~[x < 0 \rightarrow \sqrt{x} < 0]$
+  \end{theorem}
+
+  \pause
+  \begin{proof}
+    $\forall x \in \mathbb{N}~[x \nless 0]$
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Trivial Proof}
+
   \begin{block}{trivial proof}
     \begin{tabular}{ll}
       to prove: & $\forall x~[p(x) \rightarrow q(x)]$\\
@@ -514,33 +527,19 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Trivial Proof Examples}
+  \frametitle{Trivial Proof Example}
 
-  \begin{columns}[t]
-    \column{.5\textwidth}
-    \begin{theorem}
-      $\forall x \in \mathbb{N}~[x < 0 \rightarrow \sqrt{x} < 0]$
-    \end{theorem}
+  \begin{theorem}
+    $\forall x \in \mathbb{R}~[x \geq 0 \rightarrow x^2 \geq 0]$
+  \end{theorem}
 
-    \pause
-    \begin{proof}
-      $\forall x \in \mathbb{N}~[x \nless 0]$
-    \end{proof}
-
-    \pause
-    \column{.5\textwidth}
-    \begin{theorem}
-      $\forall x \in \mathbb{R}~[x \geq 0 \rightarrow x^2 \geq 0]$
-    \end{theorem}
-
-    \pause
-    \begin{proof}
-      $\forall x \in \mathbb{R}~[x^2 \geq 0]$
-    \end{proof}
-  \end{columns}
+  \pause
+  \begin{proof}
+    $\forall x \in \mathbb{R}~[x^2 \geq 0]$
+  \end{proof}
 \end{frame}
-%
-% \subsection{Direct Proof}
+
+\subsection{Direct Proof}
 
 \begin{frame}
   \frametitle{Direct Proof}
@@ -576,7 +575,7 @@
   \end{proof}
 \end{frame}
 
-\subsection{Indirect Proof}
+%\subsection{Indirect Proof}
 
 \begin{frame}
   \frametitle{Indirect Proof}
@@ -1062,7 +1061,7 @@
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required Reading: Grimaldi}
+  \begin{block}{Required reading: Grimaldi}
     \begin{itemize}
       \item Chapter 2: Fundamentals of Logic
       \begin{itemize}
