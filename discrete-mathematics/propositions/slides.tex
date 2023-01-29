@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2017
+% Copyright (c) 2001-2023
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -28,7 +28,7 @@
 \subtitle{Propositions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2017}
+\date{2001-2023}
 
 \AtBeginSubsection[]
 {
@@ -52,7 +52,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2017 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2023 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -81,10 +81,6 @@
   \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
-
-    \smallskip
-    Read the full license:\\
-    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
 
@@ -101,18 +97,14 @@
   \frametitle{Proposition}
 
   \begin{definition}
-    \alert{proposition} (or \alert{statement}):\\
-      a declarative sentence that is either true or false
+    \alert{proposition}: declarative sentence that is either true or false
   \end{definition}
 
-  \pause
   \begin{itemize}
-    \item \alert{law of the excluded middle}:\\
+    \item law of the excluded middle:\\
       a proposition cannot be partially true or partially false
-  \end{itemize}
 
-  \begin{itemize}
-    \item \alert{law of contradiction}:\\
+    \item law of contradiction:\\
       a proposition cannot be both true and false
   \end{itemize}
 \end{frame}
@@ -163,19 +155,18 @@
 \subsection{Logical Operators}
 
 \begin{frame}
-  \frametitle{Compound Propositions}
+  \frametitle{Logical Operators}
 
   \begin{itemize}
-    \item compound propositions are obtained by applying
+    \item compound propositions obtained by applying
       \alert{logical operators}
   \end{itemize}
 
   \pause
   \bigskip
   \begin{itemize}
-    \item \alert{truth table}:\\
-      a table that lists the truth value of the compound proposition\\
-      for all possible values of its variables
+    \item \alert{truth table}: a table that lists truth values\\
+      for all possible values of variables
   \end{itemize}
 \end{frame}
 
@@ -316,13 +307,15 @@
     \begin{itemize}
       \item also called \alert{conditional}
       \item if $p$ then $q$
-      \smallskip
-      \item $p$ is sufficient for $q$
-      \item $q$ is necessary for $p$
 
       \medskip
       \item $p$: \alert{hypothesis}
       \item $q$: \alert{conclusion}
+
+      %\pause
+      %\medskip
+      %\item $p$ is sufficient for $q$
+      %\item $q$ is necessary for $p$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -414,8 +407,8 @@
     \column{.6\textwidth}
     \begin{itemize}
       \item $p$ if and only if $q$
-      \smallskip
-      \item $p$ is necessary and sufficient for $q$
+      %\smallskip
+      %\item $p$ is necessary and sufficient for $q$
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -448,20 +441,21 @@
 \begin{frame}
   \frametitle{Well-Formed Formula}
 
-  syntax
   \begin{itemize}
-    \item which rules will be used to form compound propositions?
-    \item a formula that obeys these rules: \alert{well-formed formula} (WFF)
-  \end{itemize}
+    \item syntax
+    \begin{itemize}
+      \item rules to form compound propositions
+      \item formula that obeys rules: \alert{well-formed formula} (WFF)
+    \end{itemize}
 
-  \pause
-  \bigskip
-  semantics
-  \begin{itemize}
-    \item \emph{interpretation}: calculating the value of a
-      compound proposition\\
-      by assigning values to its variables
-    \item truth table: all interpretations of a proposition
+    \pause
+    \bigskip
+    \item semantics
+    \begin{itemize}
+      \item \emph{interpretation}: calculating value of compound proposition\\
+        by assigning values to variables
+      \item truth table: all interpretations
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -701,11 +695,10 @@
   \frametitle{Metalanguage}
 
   \begin{itemize}
-    \item \alert{target language}: the language being worked on
+    \item \alert{target language}: language being worked on
 
-    \pause
     \medskip
-    \item \alert{metalanguage}: the language used when talking\\
+    \item \alert{metalanguage}: language used when talking\\
       \emph{about} the properties of the target language
   \end{itemize}
 \end{frame}
@@ -714,16 +707,21 @@
   \frametitle{Metalanguage Examples}
 
   \begin{itemize}
-    \item a native Turkish speaker learning English
-    \item target language: English
-    \item metalanguage: Turkish
+    \item native Turkish speaker learning English:
+    \begin{itemize}
+      \item target language: English
+      \item metalanguage: Turkish
+    \end{itemize}
   \end{itemize}
 
-  \pause
+  \pause{}
+  \medskip
   \begin{itemize}
-    \item a student learning programming
-    \item target language: C, Python, Java, \ldots
-    \item metalanguage: English, Turkish, \ldots
+    \item student learning programming
+    \begin{itemize}
+      \item target language: C, Python, Java, \ldots
+      \item metalanguage: English, Turkish, \ldots
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -736,7 +734,7 @@
 
     \pause
     \bigskip
-    \item these are concepts of the metalanguage
+    \item \emph{concepts of the metalanguage}
   \end{itemize}
 \end{frame}
 
@@ -911,19 +909,22 @@
   \end{itemize}
 
   \pause
+  \bigskip
   \begin{theorem}[Gödel's Theorem]
     Any logical system that is powerful enough to express arithmetic\\
     must be either inconsistent or incomplete.
   \end{theorem}
 
-  \pause
-  \medskip
-  \begin{itemize}
-    \item liar's paradox: ``This statement is false.''
-  \end{itemize}
+  %\pause
+  %\medskip
+  %\begin{itemize}
+    %\item liar's paradox: ``This statement is false.''
+  %\end{itemize}
 \end{frame}
 
-\subsection{Laws of Logic}
+\section{Propositional Calculus}
+
+\subsection{Approaches}
 
 \begin{frame}
   \frametitle{Propositional Calculus}
@@ -944,6 +945,8 @@
       substitute logically equivalent formulas for one another
   \end{enumerate}
 \end{frame}
+
+\subsection{Laws of Logic}
 
 \begin{frame}
   \frametitle{Laws of Logic}
@@ -1054,9 +1057,7 @@
   \end{exampleblock}
 \end{frame}
 
-\section{Rules of Inference}
-
-\subsection{Introduction}
+\subsection{Rules of Inference}
 
 \begin{frame}
   \frametitle{Inference}
@@ -1091,8 +1092,6 @@
     \end{columns}
   \end{block}
 \end{frame}
-
-\subsection{Basic Rules}
 
 \begin{frame}
   \frametitle{Trivial Rules}
@@ -1183,8 +1182,6 @@
     \end{block}
   \end{columns}
 \end{frame}
-
-\subsection{Modus Ponens}
 
 \begin{frame}
   \frametitle{Modus Ponens}
@@ -1356,8 +1353,6 @@
     \end{itemize}
   \end{exampleblock}
 \end{frame}
-
-\subsection{Provisional Assumptions}
 
 \begin{frame}
   \frametitle{Implication Introduction}
@@ -1577,65 +1572,65 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Hypotetical Syllogism Example}
+%\begin{frame}
+  %\frametitle{Hypotetical Syllogism Example}
 
-  Spock to Lieutenant Decker:
-  \begin{quote}
-    It would be a suicide to attack the enemy ship now.\\
-    Someone who attempts suicide is not psychologically fit\\
-    to command the Enterprise.\\
-    Therefore, I am obliged to relieve you from duty.
-  \end{quote}
+  %Spock to Lieutenant Decker:
+  %\begin{quote}
+    %It would be a suicide to attack the enemy ship now.\\
+    %Someone who attempts suicide is not psychologically fit\\
+    %to command the Enterprise.\\
+    %Therefore, I am obliged to relieve you from duty.
+  %\end{quote}
 
-  \pause
-  \begin{itemize}
-    \item $p$: Decker attacks the enemy ship.
-    \item $q$: Decker attempts suicide.
-    \item $r$: Decker is not psychologically fit to command the Enterprise.
-    \item $s$: Spock relieves Decker from duty.
-  \end{itemize}
-\end{frame}
+  %\pause
+  %\begin{itemize}
+    %\item $p$: Decker attacks the enemy ship.
+    %\item $q$: Decker attempts suicide.
+    %\item $r$: Decker is not psychologically fit to command the Enterprise.
+    %\item $s$: Spock relieves Decker from duty.
+  %\end{itemize}
+%\end{frame}
 
-\begin{frame}
-  \frametitle{Hypotetical Syllogism Example}
+%\begin{frame}
+  %\frametitle{Hypotetical Syllogism Example}
 
-  \begin{columns}
-    \column{.3\textwidth}
-    \[
-    \frac
-      {
-        \begin{array}{c}
-          p\\
-          p \rightarrow q\\
-          q \rightarrow r\\
-          r \rightarrow s
-        \end{array}
-      }
-      {
-        \therefore s
-      }
-    \]
+  %\begin{columns}
+    %\column{.3\textwidth}
+    %\[
+    %\frac
+      %{
+        %\begin{array}{c}
+          %p\\
+          %p \rightarrow q\\
+          %q \rightarrow r\\
+          %r \rightarrow s
+        %\end{array}
+      %}
+      %{
+        %\therefore s
+      %}
+    %\]
 
-    \pause
-    \column{.65\textwidth}
-    \begin{eqnarray*}
-      1. & p \rightarrow q & A\\
-      \pause
-      2. & q \rightarrow r & A\\
-      \pause
-      3. & p \rightarrow r & HypSyl:1,2\\
-      \pause
-      4. & r \rightarrow s & A\\
-      \pause
-      5. & p \rightarrow s & HypSyl:3,4\\
-      \pause
-      6. & p               & A\\
-      \pause
-      7. & s               & ImpE:5,6
-    \end{eqnarray*}
-  \end{columns}
-\end{frame}
+    %\pause
+    %\column{.65\textwidth}
+    %\begin{eqnarray*}
+      %1. & p \rightarrow q & A\\
+      %\pause
+      %2. & q \rightarrow r & A\\
+      %\pause
+      %3. & p \rightarrow r & HypSyl:1,2\\
+      %\pause
+      %4. & r \rightarrow s & A\\
+      %\pause
+      %5. & p \rightarrow s & HypSyl:3,4\\
+      %\pause
+      %6. & p               & A\\
+      %\pause
+      %7. & s               & ImpE:5,6
+    %\end{eqnarray*}
+  %\end{columns}
+%\end{frame}
 
 \begin{frame}
   \frametitle{Constructive Dilemma}
@@ -1888,7 +1883,7 @@
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required Reading: Grimaldi}
+  \begin{block}{Required reading: Grimaldi}
     \begin{itemize}
       \item Chapter 2: Fundamentals of Logic
       \begin{itemize}
@@ -1899,7 +1894,7 @@
     \end{itemize}
   \end{block}
 
-  \begin{block}{Supplementary Reading: O'Donnell, Hall, Page}
+  \begin{block}{Supplementary reading: O'Donnell, Hall, Page}
     \begin{itemize}
       \item Chapter 6: Propositional Logic
     \end{itemize}
