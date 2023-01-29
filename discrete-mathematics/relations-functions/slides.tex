@@ -1,4 +1,4 @@
-% Copyright (c) 2001-2016
+% Copyright (c) 2001-2023
 %       H. Turgut Uyar <uyar@itu.edu.tr>
 %       Ayşegül Gençata Yayımlı <gencata@itu.edu.tr>
 %       Emre Harmancı <harmanci@itu.edu.tr>
@@ -13,6 +13,7 @@
 \usepackage{ae}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{blkarray}
 \setbeamersize{text margin left=2em, text margin right=2em}
 
 \mode<presentation>
@@ -25,7 +26,7 @@
 \subtitle{Relations and Functions}
 
 \author{H. Turgut Uyar \and Ayşegül Gençata Yayımlı \and Emre Harmancı}
-\date{2001-2016}
+\date{2001-2023}
 
 \AtBeginSubsection[]
 {
@@ -54,7 +55,7 @@
   \frametitle{License}
 
   \pgfuseimage{license}\hfill
-  \copyright~2001-2016 T. Uyar, A. Yayımlı, E. Harmancı
+  \copyright~2001-2023 T. Uyar, A. Yayımlı, E. Harmancı
 
   \vfill
   \begin{footnotesize}
@@ -83,10 +84,6 @@
   \begin{small}
     For more information:\\
     \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
-
-    \smallskip
-    Read the full license:\\
-    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}
   \end{small}
 \end{frame}
 
@@ -123,36 +120,28 @@
 
   $A=\{a_1,a_2,a_3,a_4\}, B=\{b_1,b_2,b_3\}$\\
   $\alpha = \{(a_1,b_1),(a_1,b_3),(a_2,b_2),(a_2,b_3),
-	      (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
+              (a_3,b_1),(a_3,b_3),(a_4,b_1)\}$
 
   \pause
   \medskip
   \begin{columns}
-    \column{.3\textwidth}
+    \column{.5\textwidth}
     \begin{center}
       \pgfuseimage{relation}
     \end{center}
 
-    \column{.3\textwidth}
-    \[
-      \begin{array}{c|ccc|}
-	    & b_1 & b_2 & b_3\\\hline
-	a_1 &  1  &  0  &  1\\
-	a_2 &  0  &  1  &  1\\
-	a_3 &  1  &  0  &  1\\
-	a_4 &  1  &  0  &  0\\\hline
-      \end{array}
-    \]
-
-    \column{.3\textwidth}
+    \column{.5\textwidth}
     \[
       M_\alpha =
-	\begin{array}{|ccc|}
-	  1 & 0 & 1\\
-	  0 & 1 & 1\\
-	  1 & 0 & 1\\
-	  1 & 0 & 0
-	\end{array}
+      \begin{blockarray}{cccc}
+              & b_1 & b_2 & b_3\\
+        \begin{block}{c[ccc]}
+          a_1 &  1  &  0  &  1\\
+          a_2 &  0  &  1  &  1\\
+          a_3 &  1  &  0  &  1\\
+          a_4 &  1  &  0  &  0\\
+        \end{block}
+      \end{blockarray}
     \]
   \end{columns}
 \end{frame}
@@ -188,7 +177,7 @@
   \frametitle{Relation Composition}
 
   \begin{itemize}
-    \item $M_{\alpha \beta} = M_{\alpha} \times M_{\beta}$
+    \item $M_{\alpha \beta} = M_{\alpha} \cdot M_{\beta}$
     \item using logical operations:\\
       $1:T~~~~0:F~~~~\cdot:\wedge~~~~+:\vee$
   \end{itemize}
@@ -196,38 +185,44 @@
   \pause
   \begin{exampleblock}{example}
     \begin{columns}
-      \column{.28\textwidth}
+      \column{.25\textwidth}
       \[
         M_\alpha =
-          \begin{array}{|ccc|}
-            1 & 0 & 0\\
-            0 & 0 & 1\\
-            0 & 1 & 1\\
-            0 & 1 & 0\\
-            1 & 0 & 1
-         \end{array}
+          \left[
+            \begin{array}{ccc}
+              1 & 0 & 0\\
+              0 & 0 & 1\\
+              0 & 1 & 1\\
+              0 & 1 & 0\\
+              1 & 0 & 1
+           \end{array}
+         \right]
       \]
 
-      \column{.28\textwidth}
+      \column{.33\textwidth}
       \[
         M_\beta =
-          \begin{array}{|cccc|}
-            1 & 1 & 0 & 0\\
-            0 & 0 & 1 & 1\\
-            0 & 1 & 1 & 0
-          \end{array}
+          \left[
+            \begin{array}{cccc}
+              1 & 1 & 0 & 0\\
+              0 & 0 & 1 & 1\\
+              0 & 1 & 1 & 0\\
+            \end{array}
+          \right]
       \]
 
-      \column{.37\textwidth}
+      \column{.35\textwidth}
       \[
         M_{\alpha \beta} =
-          \begin{array}{|cccc|}
-            1 & 1 & 0 & 0\\
-            0 & 1 & 1 & 0\\
-            0 & 1 & 1 & 1\\
-            0 & 0 & 1 & 1\\
-            1 & 1 & 1 & 0
-          \end{array}
+          \left[
+            \begin{array}{cccc}
+              1 & 1 & 0 & 0\\
+              0 & 1 & 1 & 0\\
+              0 & 1 & 1 & 1\\
+              0 & 0 & 1 & 1\\
+              1 & 1 & 1 & 0\\
+            \end{array}
+          \right]
       \]
     \end{columns}
   \end{exampleblock}
@@ -372,14 +367,13 @@
 
   \begin{itemize}
     \item $\alpha \subseteq A \times A$
-    \item $\alpha^n$: $\alpha \alpha \cdots \alpha$
-    \item \alert{identity relation}: $E = \{(a,a)~|~a \in A\}$
 
-    \pause
-    \bigskip
-    \item reflexivity
-    \item symmetry
-    \item transitivity
+    \medskip
+    \item $\alpha^2$: $\alpha \alpha$
+    \item $\alpha^n$: $\alpha \alpha \cdots \alpha$
+
+    \medskip
+    \item \alert{identity relation}: $E = \{(a,a)~|~a \in A\}$
   \end{itemize}
 \end{frame}
 
@@ -725,95 +719,122 @@
     \item when drawing, lines instead of arrows
     \item matrix representation as a triangle matrix
   \end{itemize}
-
-  \pause
-  \begin{itemize}
-    \item $\alpha \alpha^{-1}$ is a compatibility relation
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Compatibility Relation Example}
 
   \begin{columns}
-    \column{.45\textwidth}
+    \column{.5\textwidth}
     \begin{eqnarray*}
       A           & = & \{a_1,a_2,a_3,a_4\}\\
       \mathcal{R} & = & \{(a_1,a_1),(a_2,a_2),\\
-		  &   & ~~(a_3,a_3),(a_4,a_4),\\
-		  &   & ~~(a_1,a_2),(a_2,a_1),\\
-		  &   & ~~(a_2,a_4),(a_4,a_2),\\
-		  &   & ~~(a_3,a_4),(a_4,a_3)\}
+                  &   & ~~(a_3,a_3),(a_4,a_4),\\
+                  &   & ~~(a_1,a_2),(a_2,a_1),\\
+                  &   & ~~(a_2,a_4),(a_4,a_2),\\
+                  &   & ~~(a_3,a_4),(a_4,a_3)\}\\
     \end{eqnarray*}
 
-    \column{.2\textwidth}
+    \column{.5\textwidth}
     \begin{center}
       \pgfuseimage{compatible1}
 
       \bigskip
       \pgfuseimage{compatible2}
     \end{center}
-
-    \pause
-    \column{.3\textwidth}
-    \begin{center}
-      \[
-	\begin{array}{|cccc|}
-	  1  &  1  &  0  &  0\\
-	  1  &  1  &  0  &  1\\
-	  0  &  0  &  1  &  1\\
-	  0  &  1  &  1  &  1
-	\end{array}
-      \]
-
-      \[
-	\begin{array}{|ccc|}
-	  1  &     & \\
-	  0  &  0  & \\
-	  0  &  1  &  1
-	\end{array}
-      \]
-    \end{center}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Compatibility Relation Example}
 
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{eqnarray*}
+      A           & = & \{a_1,a_2,a_3,a_4\}\\
+      \mathcal{R} & = & \{(a_1,a_1),(a_2,a_2),\\
+                  &   & ~~(a_3,a_3),(a_4,a_4),\\
+                  &   & ~~(a_1,a_2),(a_2,a_1),\\
+                  &   & ~~(a_2,a_4),(a_4,a_2),\\
+                  &   & ~~(a_3,a_4),(a_4,a_3)\}\\
+    \end{eqnarray*}
+
+    \column{.5\textwidth}
+    \begin{center}
+      \[
+        \begin{blockarray}{ccccc}
+                & a_1 & a_2 & a_3 & a_4\\
+          \begin{block}{c[cccc]}
+            a_1 &  1  &  1  &  0  &  0\\
+            a_2 &  1  &  1  &  0  &  1\\
+            a_3 &  0  &  0  &  1  &  1\\
+            a_4 &  0  &  1  &  1  &  1\\
+          \end{block}
+        \end{blockarray}
+      \]
+
+      \[
+        \begin{blockarray}{cccc}
+                & a_1 & a_2 & a_3\\
+          \begin{block}{c[ccc]}
+            a_2 &  1  &     & \\
+            a_3 &  0  &  0  & \\
+            a_4 &  0  &  1  &  1\\
+          \end{block}
+        \end{blockarray}
+      \]
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Compatibility Relations}
+
   \begin{itemize}
-   \item $P$: persons, $L$: languages
-   \item $P=\{p_1,p_2,p_3,p_4,p_5,p_6\}$
-   \item $L=\{l_1,l_2,l_3,l_4,l_5\}$
-   \item $\alpha \subseteq P \times L$
+    \item $\alpha \alpha^{-1}$ is a compatibility relation
   \end{itemize}
 
-  \pause
-  \begin{columns}
-    \column{.45\textwidth}
-    \[
-      M_\alpha =
-        \begin{array}{|ccccc|}
-          1  &  1  &  0  &  0  &  0\\
-          1  &  1  &  0  &  0  &  0\\
-          0  &  0  &  1  &  0  &  1\\
-          1  &  0  &  1  &  1  &  0\\
-          0  &  0  &  0  &  1  &  0\\
-          0  &  1  &  1  &  0  &  0
-        \end{array}
-    \]
+  \begin{exampleblock}{example}
+    \begin{itemize}
+     \item $P$: persons, $L$: languages
+     \item $P=\{p_1,p_2,p_3,p_4,p_5,p_6\}$
+     \item $L=\{l_1,l_2,l_3,l_4,l_5\}$
+     \item $\alpha \subseteq P \times L$
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
 
-    \column{.45\textwidth}
-    \[
-      M_{\alpha^{-1}} =
-        \begin{array}{|cccccc|}
-          1  &  1  &  0  &  1  &  0  &  0\\
-          1  &  1  &  0  &  0  &  0  &  1\\
-          0  &  0  &  1  &  1  &  0  &  1\\
-          0  &  0  &  0  &  1  &  1  &  0\\
-          0  &  0  &  1  &  0  &  0  &  0
-        \end{array}
-    \]
-  \end{columns}
+\begin{frame}
+  \frametitle{Compatibility Relation Example}
+
+  \[
+    M_\alpha =
+      \begin{blockarray}{cccccc}
+              & l_1 & l_2 & l_3 & l_4 & l_5\\
+        \begin{block}{c[ccccc]}
+          p_1 &  1  &  1  &  0  &  0  &  0\\
+          p_2 &  1  &  1  &  0  &  0  &  0\\
+          p_3 &  0  &  0  &  1  &  0  &  1\\
+          p_4 &  1  &  0  &  1  &  1  &  0\\
+          p_5 &  0  &  0  &  0  &  1  &  0\\
+          p_6 &  0  &  1  &  1  &  0  &  0\\
+        \end{block}
+      \end{blockarray}
+  \]
+
+  \[
+    M_{\alpha^{-1}} =
+      \begin{blockarray}{ccccccc}
+              & p_1 & p_2 & p_3 & p_4 & p_5 & p_6\\
+        \begin{block}{c[cccccc]}
+          l_1 &  1  &  1  &  0  &  1  &  0  &  0\\
+          l_2 &  1  &  1  &  0  &  0  &  0  &  1\\
+          l_3 &  0  &  0  &  1  &  1  &  0  &  1\\
+          l_4 &  0  &  0  &  0  &  1  &  1  &  0\\
+          l_5 &  0  &  0  &  1  &  0  &  0  &  0\\
+        \end{block}
+      \end{blockarray}
+  \]
 \end{frame}
 
 \begin{frame}
@@ -824,20 +845,23 @@
   \end{itemize}
 
   \begin{columns}
-    \column{.45\textwidth}
+    \column{.6\textwidth}
     \[
       M_{\alpha \alpha^{-1}} =
-        \begin{array}{|cccccc|}
-          1  &  1  &  0  &  1  &  0  &  1\\
-          1  &  1  &  0  &  1  &  0  &  1\\
-          0  &  0  &  1  &  1  &  0  &  1\\
-          1  &  1  &  1  &  1  &  1  &  1\\
-          0  &  0  &  0  &  1  &  1  &  0\\
-          1  &  1  &  1  &  1  &  0  &  1
-        \end{array}
+        \begin{blockarray}{ccccccc}
+                & p_1 & p_2 & p_3 & p_4 & p_5 & p_6\\
+          \begin{block}{c[cccccc]}
+            p_1 &  1  &  1  &  0  &  1  &  0  &  1\\
+            p_2 &  1  &  1  &  0  &  1  &  0  &  1\\
+            p_3 &  0  &  0  &  1  &  1  &  0  &  1\\
+            p_4 &  1  &  1  &  1  &  1  &  1  &  1\\
+            p_5 &  0  &  0  &  0  &  1  &  1  &  0\\
+            p_6 &  1  &  1  &  1  &  1  &  0  &  1\\
+          \end{block}
+       \end{blockarray}
     \]
 
-    \column{.45\textwidth}
+    \column{.35\textwidth}
     \begin{center}
       \pgfuseimage{compatible3}
     \end{center}
@@ -964,7 +988,7 @@
 
   \medskip
   \begin{itemize}
-    \item $X$: \alert{domain}, $Y$: \alert{codomain} (or \emph{range})
+    \item $X$: \alert{domain}, $Y$: \alert{codomain}
 
     \pause
     \medskip
@@ -990,6 +1014,15 @@
 
   \medskip
   $f(\{-2,1\}) = \{1,4\}$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Range}
+
+  \begin{definition}
+    $f: X \rightarrow Y$\\
+    \alert{range}: $f(X)$
+  \end{definition}
 \end{frame}
 
 \begin{frame}
@@ -1505,7 +1538,7 @@
       \pause
       \item $f: S \rightarrow P, r \in \mathbb{N}, s = 2^r p \rightarrow f(s) = p$
       \item $|T|=101$ $\Rightarrow$ at least two elements have the same image in $P$:\\
-        $f(s_1)=f(s_2) \Rightarrow 2^{r_1} p = 2^{r_2} p$
+        $f(s_1)=f(s_2) \Rightarrow s_1 = 2^{r_1} p, s_2 = 2^{r_2} p$
 
       \pause
       \[
@@ -1653,7 +1686,7 @@
 \begin{frame}
   \frametitle{References}
 
-  \begin{block}{Required Reading: Grimaldi}
+  \begin{block}{Required reading: Grimaldi}
     \begin{itemize}
       \item Chapter 5: Relations and Functions
       \begin{itemize}
